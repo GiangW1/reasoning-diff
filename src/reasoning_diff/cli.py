@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import json
 import math
+import re
 from dataclasses import fields
 from pathlib import Path
 
@@ -208,11 +209,16 @@ def _write_stage(
 
 def _default_edit(task: Task) -> tuple[str, str]:
     facts = [p for p in task.premises if p.kind != "placeholder"]
-    zero = next((p for p in facts if p.value in {"0", "0.0"}), None)
+    editable = [
+        p
+        for p in facts
+        if p.value and re.search(rf"(?<![\d.]){re.escape(p.value.replace(',', ''))}(?![\d.])", p.text.replace(',', ''))
+    ]
+    zero = next((p for p in editable if p.value in {"0", "0.0"}), None)
     if zero is not None:
         return zero.premise_id, "2"
-    if facts:
-        return facts[-1].premise_id, "2"
+    if editable:
+        return editable[-1].premise_id, "2"
     raise ValueError("no editable non-placeholder premise")
 
 
@@ -710,6 +716,7 @@ def cmd_collect(args: argparse.Namespace) -> int:
     out.mkdir(parents=True, exist_ok=True)
     features = out / "features.npz"
     frozen_runtime = {}
+    skipped_no_event = []
     if eval_mode == "scientific" and backend not in {"tiny", "frozen"}:
         raise ValueError("scientific collect refuses offline_prefix_ids as H")
     if backend in {"tiny", "frozen"}:
@@ -755,7 +762,8 @@ def cmd_collect(args: argparse.Namespace) -> int:
                 prompt_text=(trace.metadata or {}).get("prompt_text"),
             )
             if eval_mode == "scientific" and (packed.get("h_position") != "pre_step" or packed["H"].shape[0] == 0):
-                raise ValueError("scientific collect requires step-boundary events")
+                skipped_no_event.append(trace.id)
+                continue
             h_blocks.append(packed["H"])
             for premise, vector in zip(owner.premises, packed["E"]):
                 embed_blocks.append(np.asarray(vector, dtype=float))
@@ -847,6 +855,8 @@ def cmd_collect(args: argparse.Namespace) -> int:
             "post_step": select_prefix_index(traces[0].offsets, event.start, "post_step", target_end=event.end),
         }
     shard_rows[0]["metadata"] = {**traces[0].metadata, "feature": feat, "weight_source": source, "hidden_layer": layer}
+    if eval_mode == "scientific" and not h_blocks:
+        raise ValueError("scientific collect found no step-boundary events")
     _write_stage(
         out,
         "traces",
@@ -854,7 +864,14 @@ def cmd_collect(args: argparse.Namespace) -> int:
         extra_files=extra,
         counts={"traces": len(shard_rows), "success": 1, "failure": 0},
         in_dir=src,
-        config={**collect_cfg, "weight_source": source, "hidden_layer": layer, **frozen_runtime},
+        config={
+            **collect_cfg,
+            "weight_source": source,
+            "hidden_layer": layer,
+            "skipped_no_event_traces": skipped_no_event,
+            "n_skipped_no_event_traces": len(skipped_no_event),
+            **frozen_runtime,
+        },
     )
     return 0
 
@@ -925,7 +942,9 @@ def cmd_fit(args: argparse.Namespace) -> int:
     persisted = _persisted_splits(src, labels_dir)
     if persisted:
         scientific = getattr(args, "eval_mode", "fixture") == "scientific"
-        require_persisted_roles(persisted, args.split, "probe fit", scientific=scientific, allow_mixed=scientific)
+        if scientific and args.split in {row.get("role") for row in persisted}:
+            persisted = [row for row in persisted if row.get("role") == args.split]
+        require_persisted_roles(persisted, args.split, "probe fit", scientific=scientific, allow_mixed=False)
     arrays = read_npz(src / "features.npz")
     h = arrays.get("H", arrays[next(iter(arrays))])
     e = arrays.get("E", h)
@@ -1226,7 +1245,9 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
                 config=cal_cfg,
             )
             return 0
-        require_persisted_roles(persisted, args.split, "calibration", scientific=scientific, allow_mixed=scientific)
+        if scientific:
+            persisted = [row for row in persisted if row.get("role") == args.split]
+        require_persisted_roles(persisted, args.split, "calibration", scientific=scientific, allow_mixed=False)
     outputs = []
     status = "probe_weights_or_features_missing"
     if src and (src / "probes.jsonl").exists() and feat_dir and (feat_dir / "features.npz").exists():

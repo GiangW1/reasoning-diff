@@ -208,7 +208,7 @@ def intervene_tiny(kind: str, prompt_ids: list[int], layer: int = 1, donor: np.n
     basis = orthonormal_basis(base_vec.shape[-1], 1, rng)
 
     def transform(t):
-        vec = t.detach().cpu().numpy().reshape(-1)
+        vec = t.detach().float().cpu().numpy().reshape(-1)
         swapped = apply_swap(vec, donor_vec, basis)
         return torch.as_tensor(swapped, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -262,7 +262,7 @@ def intervene_hidden_decode(
         basis = fitted_basis
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             swapped = apply_swap(vec, donor_vec, basis)
             return torch.as_tensor(swapped, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -270,7 +270,7 @@ def intervene_hidden_decode(
         proj = np.asarray(projector, dtype=float)
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             out = vec @ proj if proj.ndim == 2 and vec.shape[-1] == proj.shape[0] else vec
             return torch.as_tensor(out, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -278,7 +278,7 @@ def intervene_hidden_decode(
         step = np.asarray(delta, dtype=float)
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             return torch.as_tensor(vec + step, dtype=t.dtype, device=t.device).view_as(t)
 
     elif mode == "replace":

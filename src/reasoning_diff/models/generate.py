@@ -118,9 +118,18 @@ def task_prompt(task) -> str:
         if getattr(premise, "kind", None) in {"sentence", "paragraph"} and premise.text:
             title = getattr(premise, "document_id", None) or ""
             docs.append(f"{title}: {premise.text}" if title else premise.text)
-    if docs:
-        return "\n".join(docs) + "\n\n" + task.question
-    return task.question
+    prompt = "\n".join(docs) + "\n\n" + task.question if docs else task.question
+    mod = getattr(getattr(task, "answer_spec", None), "mod", None)
+    if getattr(task, "source_kind", None) == "official" and mod:
+        prompt += (
+            f"\n\nUse these iGSM rules: compute every arithmetic operation modulo {mod}; "
+            "a requested aggregate category is the sum of its listed named subcategories; "
+            "use only the givens needed for the query and ignore irrelevant equations. "
+            "Give a concise derivation without restarting. Write every quantity used as an "
+            "assignment with its exact full name from the question, then end with exactly "
+            "one final answer in the form \\boxed{number}."
+        )
+    return prompt
 
 
 def generate_frozen_trace(
@@ -266,6 +275,7 @@ def generate_task_trace(
     model_name: str | None = None,
     packed: dict | None = None,
     device: str | None = None,
+    enable_thinking: bool = True,
 ):
     if backend == "frozen":
         if not model_name and packed is None and model is None:
@@ -282,6 +292,7 @@ def generate_task_trace(
             top_k=top_k,
             top_p=top_p,
             device=device,
+            enable_thinking=enable_thinking,
         )
     from ..events import answers_equal, extract_answer, parse_events
     from ..schema import Cost, Trace

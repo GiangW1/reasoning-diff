@@ -119,9 +119,10 @@ def load_frozen(name: str, local_files_only: bool | None = None, device: str | N
     # Manual decoding and hooks do not need Transformers' output capture.
     # Disable the legacy Qwen3 decorator path that can reject valid forwards
     # with a misleading kwargs error.
+    config = getattr(model, "config", None)
     for flag in ("output_hidden_states", "output_attentions"):
-        if hasattr(model.config, flag):
-            setattr(model.config, flag, False)
+        if config is not None and hasattr(config, flag):
+            setattr(config, flag, False)
     for parameter in model.parameters():
         parameter.requires_grad_(False)
     return {

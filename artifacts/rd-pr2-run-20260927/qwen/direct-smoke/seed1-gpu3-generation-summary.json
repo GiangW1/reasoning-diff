@@ -1,0 +1,10 @@
+{
+  "task_id": "igsm-official-0000-op5",
+  "answer": null,
+  "correct": null,
+  "events": 4,
+  "generated_tokens": 4096,
+  "stop_reason": "max_new",
+  "parse_status": "ok",
+  "elapsed_seconds": 81.14494979800656
+}

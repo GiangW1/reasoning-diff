@@ -1,0 +1,9 @@
+{
+  "answer": "22",
+  "correct": false,
+  "events": 0,
+  "generated_tokens": 1606,
+  "stop_reason": "eos",
+  "parse_status": "parse_failed",
+  "elapsed_seconds": 32.66452848701738
+}

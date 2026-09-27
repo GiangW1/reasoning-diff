@@ -6,7 +6,7 @@ import torch
 
 from reasoning_diff.cli import build_parser, main
 from reasoning_diff.io import read_json, read_jsonl
-from reasoning_diff.models.adapters import card, infer_device, infer_dtype, load_frozen, think_ids_from_tokenizer
+from reasoning_diff.models.adapters import _model_source, card, infer_device, infer_dtype, load_frozen, think_ids_from_tokenizer
 from reasoning_diff.models.collect import _hidden_at_layer, intervene_hidden_decode
 from reasoning_diff.models.generate import decode_loop, generate_frozen_trace, generate_task_trace
 from reasoning_diff.models.tiny import build_tiny
@@ -119,6 +119,19 @@ def test_load_frozen_places_eval_and_dtype(monkeypatch):
     assert not packed["model"].training
 
 
+def test_model_source_uses_only_verified_local_snapshot(tmp_path, monkeypatch):
+    root = tmp_path / "models"
+    local = root / "Qwen3-8B"
+    local.mkdir(parents=True)
+    (local / "config.json").write_text("{}", encoding="utf-8")
+    monkeypatch.setenv("RD_MODEL_ROOT", str(root))
+    info = card("qwen3-8b")
+    assert _model_source("qwen3-8b", info) == str(local)
+
+    (local / "config.json").unlink()
+    assert _model_source("qwen3-8b", info) == info["id"]
+
+
 def test_decode_loop_keeps_prompt_then_appends():
     model = build_tiny("qwen2")
     prompt = torch.tensor([[1, 2, 3]], dtype=torch.long)
@@ -130,7 +143,7 @@ def test_decode_loop_keeps_prompt_then_appends():
 
 
 def test_hidden_capture_does_not_request_transformers_output_flags():
-    model = build_tiny("qwen2")
+    model = build_tiny("qwen3")
 
     class Spy(torch.nn.Module):
         def __init__(self, inner):

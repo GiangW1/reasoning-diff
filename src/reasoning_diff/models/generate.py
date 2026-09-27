@@ -303,8 +303,10 @@ def generate_task_trace(
     token_ids = decoded["token_ids"]
     target = getattr(task, "target", None) or (task.nodes[-1].id if task.nodes else None)
     assigned = ""
+    decoded_token_count = len(decoded.get("generated_ids") or [])
     if target:
         token_ids, assigned = append_target_assignment(model, token_ids, target, g)
+    assignment_token_count = max(0, len(token_ids) - len(decoded.get("token_ids") or []))
     elapsed = time.perf_counter() - started
     full_text = prompt + gen_text + assigned
     offsets = [[i, i + 1] for i in range(len(full_text))]
@@ -355,8 +357,10 @@ def generate_task_trace(
             "prompt_len": len(prompt_ids),
             "weight_seed": weight_seed,
             "sampling": decoded.get("sampling"),
-            "generated_tokens": len(decoded.get("generated_ids") or []),
-            "stop_reason": decoded.get("stop_reason"),
+            "generated_tokens": decoded_token_count + assignment_token_count,
+            "model_generated_tokens": decoded_token_count,
+            "constrained_target_tokens": assignment_token_count,
+            "stop_reason": "constrained_target" if assigned else decoded.get("stop_reason"),
             "prompt_text": prompt,
             "parse_status": parse_status,
             "target_assignment": assigned,

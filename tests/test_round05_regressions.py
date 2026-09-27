@@ -64,7 +64,38 @@ def test_scientific_prepare_rejects_missing_answers(tmp_path, t1_tiny_path, monk
         return trace
 
     monkeypatch.setattr(generate, "generate_task_trace", missing_answer)
-    with pytest.raises(ValueError, match="missing parsed answer"):
+    with pytest.raises(ValueError, match="missing_answer"):
+        main(
+            [
+                "prepare",
+                "--fixture",
+                str(t1_tiny_path),
+                "--out-dir",
+                str(tmp_path / "prep"),
+                "--eval-mode",
+                "scientific",
+                "--split-fractions",
+                *FRAC,
+            ]
+        )
+
+
+def test_scientific_prepare_checks_later_traces(tmp_path, t1_tiny_path, monkeypatch):
+    import reasoning_diff.models.generate as generate
+
+    original = generate.generate_task_trace
+    calls = 0
+
+    def missing_later(*args, **kwargs):
+        nonlocal calls
+        calls += 1
+        trace = original(*args, **kwargs)
+        if calls == 4:
+            trace.answer = None
+        return trace
+
+    monkeypatch.setattr(generate, "generate_task_trace", missing_later)
+    with pytest.raises(ValueError, match="missing_answer"):
         main(
             [
                 "prepare",

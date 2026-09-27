@@ -454,10 +454,6 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         seed1_trace = generate_task_trace(task, seed=1, run_id="trace-t0p", **gen_kw)
         edit_trace = generate_task_trace(edit.task, seed=0, run_id="trace-edit", **gen_kw)
         traces = [base_trace, seed1_trace, edit_trace]
-        if any(not t.events or t.metadata.get("parse_status") == "parse_failed" for t in traces):
-            raise ValueError("scientific prepare: parse_failed (no events)")
-        if any(t.answer is None for t in traces):
-            raise ValueError("scientific prepare: missing parsed answer")
         pair = _try_source_value_pair(task, premise_id, new_literal or "2")
         if pair:
             src_trace = generate_task_trace(pair["same_value_diff_source"].task, seed=0, run_id="trace-source", **gen_kw)
@@ -568,6 +564,27 @@ def cmd_prepare(args: argparse.Namespace) -> int:
                 "task_id": extra_task.task_id,
             }
         )
+    if eval_mode == "scientific":
+        invalid = [
+            trace
+            for trace in traces
+            if not trace.events
+            or trace.metadata.get("parse_status") == "parse_failed"
+            or trace.answer is None
+        ]
+        if invalid:
+            missing_answer = [trace.id for trace in invalid if trace.answer is None]
+            missing_events = [
+                trace.id
+                for trace in invalid
+                if not trace.events or trace.metadata.get("parse_status") == "parse_failed"
+            ]
+            details = []
+            if missing_events:
+                details.append("parse_failed=" + ",".join(missing_events))
+            if missing_answer:
+                details.append("missing_answer=" + ",".join(missing_answer))
+            raise ValueError("scientific prepare: invalid traces (" + "; ".join(details) + ")")
     sham_protocol = (
         {"name": "no_edit_matched", "opportunities": args.sham_opportunities}
         if getattr(args, "sham_opportunities", 0)

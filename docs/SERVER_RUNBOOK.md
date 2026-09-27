@@ -38,6 +38,17 @@ python -m reasoning_diff collect --fixture tests/fixtures/t1_tiny.json --in-dir 
 
 Replace fixtures with official snapshots after they are frozen. Do not download weights on the laptop.
 
+For an official scientific run, pass the server commit explicitly and keep all trace failures:
+
+```text
+python -m reasoning_diff prepare ... --eval-mode scientific --code-revision "$RD_GIT_REVISION"
+```
+
+The prepare stage writes `trace_quality.json` and continues after per-trace parse, answer, or
+truncation failures. Add `--require-valid-traces` only for a strict pilot gate; do not use it for
+the full scan because it discards the failure distribution needed for analysis. `--disable-thinking`
+is recorded in the run spec when a Qwen3 non-thinking comparison is run.
+
 Optional matched no-edit noise: add `--sham-opportunities 1` to `prepare`.
 
 Resume a completed stage with `--resume` if `manifest.json` already exists and `run_spec.config` matches (prepare uses the resolved edit; later stages use `command=collect|label|fit|…`). A failed resume writes `failure.json` and must not replace a successful manifest.
@@ -48,4 +59,7 @@ Default HumanEval scoring is `executor_unavailable`. Optional local child-proces
 
 ## Expected artifacts
 
-Each stage writes `run_spec.json`, `manifest.json` (content hashes), and stage jsonl/npz. `analyze` writes `report.json` and includes it in the manifest. Gate 0–2 stay `unregistered` until a protocol is frozen. Week-8 `scientific_conclusion` stays null until real measurements exist.
+Each stage writes `run_spec.json`, `manifest.json` (content hashes), and stage jsonl/npz. `prepare`
+also writes `trace_quality.json`; `analyze` writes `report.json` and includes it in the manifest.
+Gate 0–2 stay `unregistered` until a protocol is frozen. Week-8 `scientific_conclusion` stays null
+until real measurements exist.

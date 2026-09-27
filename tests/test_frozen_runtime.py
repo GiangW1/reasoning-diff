@@ -197,6 +197,25 @@ def test_intervene_hidden_decode_accepts_injected_model():
     assert "baseline_generated_ids" in out
 
 
+def test_event_aligned_intervention_records_prefix_boundary():
+    import numpy as np
+
+    model = build_tiny("qwen2")
+    out = intervene_hidden_decode(
+        "qwen2",
+        [1, 2, 3],
+        1,
+        donor=np.ones(32),
+        model=model,
+        max_new=1,
+        event_aligned=True,
+        target_prefix_len=3,
+    )
+    assert out["timing"] == "pre_step"
+    assert out["hook_token_position"] == 2
+    assert out["hook_sequence_length"] == 3
+
+
 def test_execute_repair_frozen_prefills_current_prefix():
     packed = _packed()
     out = execute_repair_frozen("task_oracle", ["q"], [1, 2, 3, 4], "q = 1", packed=packed, max_new=2)

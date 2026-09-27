@@ -118,9 +118,18 @@ def task_prompt(task) -> str:
         if getattr(premise, "kind", None) in {"sentence", "paragraph"} and premise.text:
             title = getattr(premise, "document_id", None) or ""
             docs.append(f"{title}: {premise.text}" if title else premise.text)
-    if docs:
-        return "\n".join(docs) + "\n\n" + task.question
-    return task.question
+    prompt = "\n".join(docs) + "\n\n" + task.question if docs else task.question
+    mod = getattr(getattr(task, "answer_spec", None), "mod", None)
+    if getattr(task, "source_kind", None) == "official" and mod:
+        prompt += (
+            f"\n\nUse these iGSM rules: compute every arithmetic operation modulo {mod}; "
+            "a requested aggregate category is the sum of its listed named subcategories; "
+            "use only the givens needed for the query and ignore irrelevant equations. "
+            "Give a concise derivation without restarting. Write every quantity used as an "
+            "assignment with its exact full name from the question, then end with exactly "
+            "one final answer in the form \\boxed{number}."
+        )
+    return prompt
 
 
 def generate_frozen_trace(
@@ -236,6 +245,7 @@ def generate_frozen_trace(
             "generated_tokens": len(generated_ids),
             "stop_reason": decoded.get("stop_reason"),
             "sampling": decoded.get("sampling"),
+            "enable_thinking": enable_thinking,
             "prompt_text": prompt,
             "parse_status": "ok" if events else "parse_failed",
             "parse_region": "generated",
@@ -266,6 +276,8 @@ def generate_task_trace(
     model_name: str | None = None,
     packed: dict | None = None,
     device: str | None = None,
+    allow_forced_target: bool = True,
+    enable_thinking: bool = True,
 ):
     if backend == "frozen":
         if not model_name and packed is None and model is None:
@@ -282,6 +294,7 @@ def generate_task_trace(
             top_k=top_k,
             top_p=top_p,
             device=device,
+            enable_thinking=enable_thinking,
         )
     from ..events import answers_equal, extract_answer, parse_events
     from ..schema import Cost, Trace
@@ -304,7 +317,7 @@ def generate_task_trace(
     target = getattr(task, "target", None) or (task.nodes[-1].id if task.nodes else None)
     assigned = ""
     decoded_token_count = len(decoded.get("generated_ids") or [])
-    if target:
+    if target and allow_forced_target:
         token_ids, assigned = append_target_assignment(model, token_ids, target, g)
     assignment_token_count = max(0, len(token_ids) - len(decoded.get("token_ids") or []))
     elapsed = time.perf_counter() - started
@@ -361,6 +374,7 @@ def generate_task_trace(
             "model_generated_tokens": decoded_token_count,
             "constrained_target_tokens": assignment_token_count,
             "stop_reason": "constrained_target" if assigned else decoded.get("stop_reason"),
+            "allow_forced_target": allow_forced_target,
             "prompt_text": prompt,
             "parse_status": parse_status,
             "target_assignment": assigned,

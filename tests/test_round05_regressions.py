@@ -53,7 +53,7 @@ def test_scientific_prepare_emits_parseable_events(tmp_path, t1_tiny_path):
     assert any(row.get("kind") == "source_value_pair" for row in edits)
 
 
-def test_scientific_prepare_rejects_missing_answers(tmp_path, t1_tiny_path, monkeypatch):
+def test_scientific_prepare_preserves_missing_answers(tmp_path, t1_tiny_path, monkeypatch):
     import reasoning_diff.models.generate as generate
 
     original = generate.generate_task_trace
@@ -64,20 +64,24 @@ def test_scientific_prepare_rejects_missing_answers(tmp_path, t1_tiny_path, monk
         return trace
 
     monkeypatch.setattr(generate, "generate_task_trace", missing_answer)
-    with pytest.raises(ValueError, match="missing_answer"):
-        main(
-            [
-                "prepare",
-                "--fixture",
-                str(t1_tiny_path),
-                "--out-dir",
-                str(tmp_path / "prep"),
-                "--eval-mode",
-                "scientific",
-                "--split-fractions",
-                *FRAC,
-            ]
-        )
+    out = tmp_path / "prep"
+    assert main(
+        [
+            "prepare",
+            "--fixture",
+            str(t1_tiny_path),
+            "--out-dir",
+            str(out),
+            "--eval-mode",
+            "scientific",
+            "--split-fractions",
+            *FRAC,
+        ]
+    ) == 0
+    quality = read_json(out / "trace_quality.json")
+    assert quality["status"] == "partial"
+    assert quality["counts"]["missing_answer"] >= 1
+    assert any(row["trace_id"] for row in quality["failures"])
 
 
 def test_scientific_prepare_checks_later_traces(tmp_path, t1_tiny_path, monkeypatch):
@@ -95,7 +99,37 @@ def test_scientific_prepare_checks_later_traces(tmp_path, t1_tiny_path, monkeypa
         return trace
 
     monkeypatch.setattr(generate, "generate_task_trace", missing_later)
-    with pytest.raises(ValueError, match="missing_answer"):
+    out = tmp_path / "prep"
+    assert main(
+        [
+            "prepare",
+            "--fixture",
+            str(t1_tiny_path),
+            "--out-dir",
+            str(out),
+            "--eval-mode",
+            "scientific",
+            "--split-fractions",
+            *FRAC,
+        ]
+    ) == 0
+    quality = read_json(out / "trace_quality.json")
+    assert quality["status"] == "partial"
+    assert any(item["trace_id"] == "trace-edit" for item in quality["failures"])
+
+
+def test_scientific_prepare_can_require_complete_traces(tmp_path, t1_tiny_path, monkeypatch):
+    import reasoning_diff.models.generate as generate
+
+    original = generate.generate_task_trace
+
+    def missing_answer(*args, **kwargs):
+        trace = original(*args, **kwargs)
+        trace.answer = None
+        return trace
+
+    monkeypatch.setattr(generate, "generate_task_trace", missing_answer)
+    with pytest.raises(ValueError, match="invalid traces"):
         main(
             [
                 "prepare",
@@ -107,6 +141,7 @@ def test_scientific_prepare_checks_later_traces(tmp_path, t1_tiny_path, monkeypa
                 "scientific",
                 "--split-fractions",
                 *FRAC,
+                "--require-valid-traces",
             ]
         )
 

@@ -242,6 +242,7 @@ def intervene_hidden_decode(
     mode: str = "pi_z_swap",
     projector: np.ndarray | None = None,
     delta: np.ndarray | None = None,
+    target_prefix_len: int | None = None,
     model=None,
 ) -> dict:
     if model is None:
@@ -292,6 +293,11 @@ def intervene_hidden_decode(
 
     g = torch.Generator(device=model_device(model)).manual_seed(seed)
     prompt = as_input_ids(prompt_ids, model)
+    if event_aligned:
+        if target_prefix_len is None:
+            raise ValueError("event-aligned intervention requires target_prefix_len")
+        if int(target_prefix_len) != int(prompt.shape[1]):
+            raise ValueError("target_prefix_len must match the supplied prefix")
     with resid_post_hook(model, layer, transform, once=True) as record:
         decoded = decode_loop(model, prompt, g, max_new=max_new, temperature=temperature, top_k=top_k, top_p=top_p)
     g2 = torch.Generator(device=model_device(model)).manual_seed(seed)
@@ -304,6 +310,8 @@ def intervene_hidden_decode(
         "transform": mode,
         "timing": "pre_step" if event_aligned else "hook_on_prompt",
         "hook_fired": record.touched,
+        "hook_token_position": record.token_position,
+        "hook_sequence_length": record.sequence_length,
         "layer": layer,
     }
 

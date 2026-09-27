@@ -55,7 +55,7 @@ def _observation_from_dict(data: dict) -> Observation:
 
 
 _STAGE_ARTIFACTS = {
-    "prepare": ("tasks.jsonl", "traces.jsonl", "observations.jsonl", "labels.jsonl", "splits.jsonl", "run_spec.json"),
+    "prepare": ("tasks.jsonl", "traces.jsonl", "observations.jsonl", "labels.jsonl", "splits.jsonl", "trace_quality.json", "run_spec.json"),
     "collect": ("features.npz", "traces.jsonl", "run_spec.json"),
     "label": ("labels.jsonl", "run_spec.json"),
     "fit": ("probes.jsonl", "run_spec.json"),
@@ -160,6 +160,55 @@ def _synthetic_trace(task, text: str, trace_id: str, seed: int) -> Trace:
         run_id=trace_id,
         record_id=trace_id,
     )
+
+
+def _trace_quality(traces: list[Trace]) -> dict:
+    """Summarize generated trace quality without dropping failures."""
+    counts = {
+        "total": len(traces),
+        "valid": 0,
+        "missing_answer": 0,
+        "missing_events": 0,
+        "parse_failed": 0,
+        "truncated": 0,
+        "forced_target": 0,
+        "correct": 0,
+    }
+    failures = []
+    for trace in traces:
+        metadata = trace.metadata or {}
+        has_events = bool(trace.events) and metadata.get("parse_status") != "parse_failed"
+        has_answer = trace.answer is not None
+        if has_events and has_answer:
+            counts["valid"] += 1
+        else:
+            if not has_events:
+                counts["missing_events"] += 1
+            if metadata.get("parse_status") == "parse_failed":
+                counts["parse_failed"] += 1
+            if not has_answer:
+                counts["missing_answer"] += 1
+            failures.append(
+                {
+                    "trace_id": trace.id,
+                    "task_id": trace.task_id,
+                    "parse_status": metadata.get("parse_status"),
+                    "stop_reason": metadata.get("stop_reason"),
+                    "answer_present": has_answer,
+                    "event_count": len(trace.events),
+                }
+            )
+        if metadata.get("stop_reason") == "max_new":
+            counts["truncated"] += 1
+        if metadata.get("forced_target"):
+            counts["forced_target"] += 1
+        if trace.correct is True:
+            counts["correct"] += 1
+    return {
+        "status": "complete" if not failures else "partial",
+        "counts": counts,
+        "failures": failures,
+    }
 
 
 def _write_stage(
@@ -422,6 +471,12 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         "temperature": getattr(args, "temperature", 1.0),
         "top_k": getattr(args, "top_k", 0),
         "top_p": getattr(args, "top_p", 1.0),
+        "enable_thinking": not getattr(args, "disable_thinking", False),
+        "code_revision": getattr(args, "code_revision", None),
+        "require_valid_traces": bool(getattr(args, "require_valid_traces", False)),
+        # Official scientific runs must use only model-produced assignments.
+        # Fixture/tiny runs retain the synthetic target only for interface smoke.
+        "allow_forced_target": eval_mode != "scientific" or task.source_kind != "official",
         "n_tasks": len(tasks),
     }
     input_hashes = {Path(args.fixture).name: file_digest(args.fixture)}
@@ -441,6 +496,8 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         "temperature": getattr(args, "temperature", 1.0),
         "top_k": getattr(args, "top_k", 0),
         "top_p": getattr(args, "top_p", 1.0),
+        "allow_forced_target": config["allow_forced_target"],
+        "enable_thinking": config["enable_thinking"],
         "device": getattr(args, "device", None),
     }
     if eval_mode == "scientific":
@@ -463,8 +520,7 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         pair = _try_source_value_pair(task, premise_id, new_literal or "2")
         if pair:
             src_trace = generate_task_trace(pair["same_value_diff_source"].task, seed=0, run_id="trace-source", **gen_kw)
-            if src_trace.events and src_trace.metadata.get("parse_status") != "parse_failed":
-                traces.append(src_trace)
+            traces.append(src_trace)
         observations = _observations(task, base_trace, edit_trace, edit, "stream:0", "prepare")
         for extra in _allowed_edits(task):
             extra_trace = generate_task_trace(extra.task, seed=0, run_id=f"trace-{extra.id}", **gen_kw)
@@ -570,27 +626,10 @@ def cmd_prepare(args: argparse.Namespace) -> int:
                 "task_id": extra_task.task_id,
             }
         )
-    if eval_mode == "scientific":
-        invalid = [
-            trace
-            for trace in traces
-            if not trace.events
-            or trace.metadata.get("parse_status") == "parse_failed"
-            or trace.answer is None
-        ]
-        if invalid:
-            missing_answer = [trace.id for trace in invalid if trace.answer is None]
-            missing_events = [
-                trace.id
-                for trace in invalid
-                if not trace.events or trace.metadata.get("parse_status") == "parse_failed"
-            ]
-            details = []
-            if missing_events:
-                details.append("parse_failed=" + ",".join(missing_events))
-            if missing_answer:
-                details.append("missing_answer=" + ",".join(missing_answer))
-            raise ValueError("scientific prepare: invalid traces (" + "; ".join(details) + ")")
+    trace_quality = _trace_quality(traces)
+    if config["require_valid_traces"] and trace_quality["failures"]:
+        failed = ",".join(item["trace_id"] for item in trace_quality["failures"])
+        raise ValueError("scientific prepare: invalid traces (" + failed + ")")
     sham_protocol = (
         {"name": "no_edit_matched", "opportunities": args.sham_opportunities}
         if getattr(args, "sham_opportunities", 0)
@@ -647,12 +686,15 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         [lab.to_dict() for lab in labels]
         + [{"densities": densities, "to_csp": to_csp, "note": "event-mean densities; sham hits are not mapped onto real premises"}],
     )
+    write_json(out / "trace_quality.json", trace_quality)
     write_run_spec(
         out,
         {
             "input_hashes": {Path(args.fixture).name: file_digest(args.fixture)},
             "source_kinds": {Path(args.fixture).name: task.source_kind},
-            "config": {**config, "n_traces": len(traces)},
+            "config": {**config, "n_traces": len(traces), "trace_quality_status": trace_quality["status"]},
+            "code_revision": config["code_revision"],
+            "trace_quality": trace_quality,
             "rng": {"split_seed": args.split_seed, "generation_stream": "stream:0"},
         },
     )
@@ -669,10 +711,12 @@ def cmd_prepare(args: argparse.Namespace) -> int:
                 "traces.jsonl",
                 "observations.jsonl",
                 "labels.jsonl",
+                "trace_quality.json",
                 "run_spec.json",
             )
         ],
-        {"tasks": len(task_rows), "edits": len(edit_rows), "traces": len(traces), "observations": len(observations), "success": 1, "failure": 0},
+        {"tasks": len(task_rows), "edits": len(edit_rows), "traces": len(traces), "observations": len(observations), "success": 1, "failure": 0, "trace_failures": len(trace_quality["failures"])},
+        extra={"trace_quality": trace_quality},
     )
     return 0
 
@@ -1582,6 +1626,7 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                 decode_kw = {
                     "weight_seed": weight_seed,
                     "event_aligned": aligned,
+                    "target_prefix_len": len(ids) if aligned else None,
                     "seed": sample_seed,
                     "model": runtime_model,
                     "max_new": _resolved_max_new(args, 4, 32),
@@ -1596,7 +1641,16 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                     mode="pi_z_swap",
                     **decode_kw,
                 )
-                hook_meta.update({"hook_once": hooked["hook"], "transform": hooked["transform"], "hook_timing": hooked.get("timing"), "token_changed": hooked["followed_donor"]})
+                hook_meta.update(
+                    {
+                        "hook_once": hooked["hook"],
+                        "transform": hooked["transform"],
+                        "hook_timing": hooked.get("timing"),
+                        "hook_token_position": hooked.get("hook_token_position"),
+                        "hook_sequence_length": hooked.get("hook_sequence_length"),
+                        "token_changed": hooked["followed_donor"],
+                    }
+                )
 
                 def _decode_text(decoded) -> str:
                     ids_out = decoded.get("generated_ids") or []
@@ -1948,6 +2002,9 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--temperature", type=float, default=1.0)
     prepare.add_argument("--top-k", type=int, default=0)
     prepare.add_argument("--top-p", type=float, default=1.0)
+    prepare.add_argument("--disable-thinking", action="store_true")
+    prepare.add_argument("--code-revision")
+    prepare.add_argument("--require-valid-traces", action="store_true")
     prepare.set_defaults(func=cmd_prepare)
 
     def stage(name, extra=None):

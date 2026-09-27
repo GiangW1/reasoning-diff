@@ -88,7 +88,7 @@ def append_target_assignment(model, token_ids: list[int], target: str, generator
     extra, _ = encode_text(line, vocab_size)
     ids = list(token_ids) + extra
     digit_map = _digit_token_ids(vocab_size)
-    tokens = torch.tensor([ids], dtype=torch.long)
+    tokens = torch.tensor([ids], dtype=torch.long, device=model_device(model))
     produced_digits = []
     with torch.inference_mode():
         out = model(input_ids=tokens, use_cache=True)
@@ -168,7 +168,7 @@ def generate_frozen_trace(
     limit = info.get("context_limit")
     if limit and len(prompt_ids) > int(limit):
         raise ValueError(f"frozen prompt {len(prompt_ids)} exceeds context {limit}")
-    g = torch.Generator().manual_seed(seed)
+    g = torch.Generator(device=model_device(model)).manual_seed(seed)
     started = time.perf_counter()
     decoded = decode_loop(
         model,
@@ -290,8 +290,8 @@ def generate_task_trace(
     if model is None:
         torch.manual_seed(weight_seed)
         model = build_tiny(kind)
-    g = torch.Generator().manual_seed(seed)
-    ids = torch.tensor([prompt_ids], dtype=torch.long)
+    g = torch.Generator(device=model_device(model)).manual_seed(seed)
+    ids = torch.tensor([prompt_ids], dtype=torch.long, device=model_device(model))
     started = time.perf_counter()
     decoded = decode_loop(model, ids, g, max_new=max_new, temperature=temperature, top_k=top_k, top_p=top_p)
     gen_text = decode_ids(decoded["generated_ids"])
@@ -365,5 +365,7 @@ def apply_model_template(tokenizer, messages: list[dict], model_kind: str, enabl
     if model_kind == "qwen3":
         kwargs["enable_thinking"] = enable_thinking
     ids = tokenizer.apply_chat_template(messages, **kwargs)
+    if hasattr(ids, "get") and "input_ids" in ids:
+        ids = ids["input_ids"]
     prompt_len = int(ids.shape[-1]) if hasattr(ids, "shape") else len(ids)
     return {"input_ids": ids, "model_kind": model_kind, "enable_thinking": enable_thinking, "prompt_len": prompt_len}

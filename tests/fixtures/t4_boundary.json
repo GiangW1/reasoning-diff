@@ -1,0 +1,6 @@
+[
+  {"id": "t4-miss", "family_id": "t4-a", "status": "insufficient_information", "question": "What is x if only y is known?"},
+  {"id": "t4-con", "family_id": "t4-a", "status": "inconsistent_constraints", "question": "x>2 and x<1, find x."},
+  {"id": "t4-none", "family_id": "t4-b", "status": "no_solution", "question": "Solve x+1=x."},
+  {"id": "t4-strat", "family_id": "t4-c", "status": "strategy_change", "question": "Switch from algebra to brute force."}
+]

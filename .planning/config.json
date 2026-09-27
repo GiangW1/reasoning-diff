@@ -1,0 +1,25 @@
+{
+  "mode": "yolo",
+  "granularity": "standard",
+  "parallelization": false,
+  "commit_docs": true,
+  "model_profile": "inherit",
+  "runtime": "codex",
+  "resolve_model_ids": "omit",
+  "workflow": {
+    "research": true,
+    "plan_check": true,
+    "verifier": true,
+    "compact_content": false,
+    "auto_advance": true,
+    "_auto_chain_active": true,
+    "code_review": true
+  },
+  "plan_review": {
+    "source_grounding": true
+  },
+  "ship": {
+    "pr_body_sections": []
+  },
+  "response_language": "zh-CN"
+}

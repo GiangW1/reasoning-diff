@@ -1,0 +1,80 @@
+{
+  "source_hash": "1f5f379835bba8431e1857c7d184ba4fc136bf1896a15b3193a5609819c7bcdb",
+  "source_files": 61,
+  "resume_changed_seed": {
+    "original_seed": 8,
+    "new_seed": 0,
+    "expected_new_role": "probe_train",
+    "unchanged_manifest": true,
+    "persisted_split": [
+      {
+        "base_group_id": "fix-t1-001",
+        "fractions": [
+          0.4,
+          0.15,
+          0.1,
+          0.1,
+          0.1,
+          0.15
+        ],
+        "role": "test",
+        "source": "self_authored_arithmetic"
+      }
+    ]
+  },
+  "test_data_fitted_and_calibrated": {
+    "actual_split": [
+      {
+        "base_group_id": "fix-t1-001",
+        "fractions": [
+          0.4,
+          0.15,
+          0.1,
+          0.1,
+          0.1,
+          0.15
+        ],
+        "role": "test",
+        "source": "self_authored_arithmetic"
+      }
+    ],
+    "fit_returncode": 0,
+    "calibrate_returncode": 0,
+    "calibration": [
+      {
+        "alpha": 0.4,
+        "infinity": true,
+        "k": 2,
+        "n": 1,
+        "n_problems": 1,
+        "nonconformity": "one_minus_p",
+        "q": null,
+        "scores": [
+          0.005023388252051175
+        ],
+        "status": "infinity",
+        "unit": "problem"
+      }
+    ]
+  },
+  "initial_failure": "FileNotFoundError",
+  "resume_failed_fit": {
+    "returncode": 0,
+    "manifest": {
+      "array_shapes": {},
+      "digest": "4a1fe142bd0ef32a8ee1ef728f704fbc887ccb10db1d031f2dbb1971a2666fdb",
+      "failure_count": 1,
+      "file_hashes": {
+        "failure.json": "1e2fdf22e51ea95add5f6a3d60f5c39756a610e470f898ee45d2f5f32eee0457"
+      },
+      "record_counts": {
+        "failure": 1,
+        "success": 0
+      },
+      "schema_version": 1,
+      "success_count": 0,
+      "upstream_manifest_ids": []
+    },
+    "probes_exist": false
+  }
+}

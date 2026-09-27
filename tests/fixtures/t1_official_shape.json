@@ -1,0 +1,22 @@
+{
+  "native_id": "igsm-op5-001",
+  "family_id": "igsm-op5-001",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "9",
+  "target": "q",
+  "question": "The number of red apples is 3. The number of boxes is 3. How many apples are stored?",
+  "lookup": {"q": 99},
+  "G": {"nodes": ["structure_only"], "edges": []},
+  "template": {
+    "nodes": [
+      {"kind": "shared_rng", "id": [-1, 0, 0, 0]},
+      {"kind": "premise", "param": "a", "literal": 3, "span": [0, 30]},
+      {"kind": "premise", "param": "b", "literal": 3, "span": [31, 56]},
+      {"kind": "compute", "param": "q", "parents": ["a", "b"], "expression": "a * b", "value": 9}
+    ],
+    "edges": [["a", "q"], ["b", "q"]]
+  }
+}

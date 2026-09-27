@@ -1,0 +1,31 @@
+{
+  "task_id": "fix-t1-001",
+  "base_group_id": "fix-t1-001",
+  "variant_id": "base",
+  "tier": "T1",
+  "source": "self_authored_arithmetic",
+  "source_kind": "fixture",
+  "upstream_id": null,
+  "upstream_split": null,
+  "question": "p1 = 4. p2 = 0. What is q = p1 * p2?",
+  "answer_spec": {"value": "0", "kind": "numeric", "mod": null, "aliases": [], "status": null},
+  "graph_status": "complete",
+  "graph_kind": "arithmetic_dag",
+  "target": "q",
+  "graph_ref": "fixture:t1-tiny",
+  "edit_ref": null,
+  "premises": [
+    {"premise_id": "p1", "text": "p1 = 4", "start": 0, "end": 6, "value": "4", "kind": "fact"},
+    {"premise_id": "p2", "text": "p2 = 0", "start": 8, "end": 14, "value": "0", "kind": "fact"}
+  ],
+  "nodes": [
+    {
+      "id": "q",
+      "parents": ["p1", "p2"],
+      "value": "0",
+      "aliases": ["q"],
+      "expression": "p1 * p2",
+      "scope": "global"
+    }
+  ]
+}

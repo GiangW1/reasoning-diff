@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reasoning-diff"
+version = "0.1.0"
+description = "Auditable premise-dependency experiments on reasoning models"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+models = ["torch>=2.2", "transformers>=4.44"]
+
+[project.scripts]
+reasoning-diff = "reasoning_diff.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "integration: local tiny randomly initialized model tests, no downloaded weights",
+]

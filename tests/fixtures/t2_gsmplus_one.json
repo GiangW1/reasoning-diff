@@ -1,0 +1,10 @@
+{
+  "id": "gsmplus-1",
+  "original_id": "gsm8k-12",
+  "question": "Ada has 4 apples and buys 3 more. How many apples?",
+  "solution": "4+3=7",
+  "answer": "7",
+  "perturbation_type": "numerical substitution",
+  "seed_question": "Ada has 4 apples and buys 3 more. How many apples?",
+  "seed_answer": "7"
+}

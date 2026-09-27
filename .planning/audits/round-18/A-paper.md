@@ -1,0 +1,278 @@
+# Round-18 Channel A — Paper consistency
+
+- **Agent:** Cursor Grok 4.6 (independent channel A subagent). No parent-assigned reviewer id.
+- **Time:** 2026-09-21 (Asia/Shanghai).
+- **Scope:** Paper + protocol + Goal §5 + REQUIREMENTS + all `src/reasoning_diff/**/*.py`. Production code, tests, and `pyproject.toml` were not modified. Other round-18 A–F reports were not read. Prior-round A–F files were not used as evidence of this tree. `.planning/audits/ISSUES.md` was treated as author claims only, not as closed.
+- **Declared freeze:** `.planning/audits/round-18/VERSION.md`
+- **Declared hash:** `3d0f1c1025d501509a88023df5f14fe32392c38f28657fed2cb906bdb7c0952f` (61 files)
+- **Recomputed hash:** `3d0f1c1025d501509a88023df5f14fe32392c38f28657fed2cb906bdb7c0952f` (61 files)
+- **Hash verdict:** **HASH_MATCH**
+- **Paper file:** `Reasoning-Diff-修订方案-v3 (1).md`
+- **Paper SHA-256:** `F3C0EC087B5BF4E503DB35F4D234C727DF3CE66F933E80781C69A0CC312EA57C` (match; 517 lines)
+
+## 1. Hash reproduction
+
+Ran VERSION.md script exactly (POSIX relpath + NUL + bytes over `src/reasoning_diff/**/*.py` + `tests/**/*.py` + `pyproject.toml`, exclude `__pycache__`):
+
+```
+n_files 61
+hash 3d0f1c1025d501509a88023df5f14fe32392c38f28657fed2cb906bdb7c0952f
+```
+
+git_head in VERSION.md (`46a6e26…`) was not used as the freeze identity. Working tree is dirty; the content hash is the freeze. Author notes that r15 bound `401e509b…` drifted and that r17 `3d0a0764…` is stale are versioning remarks only, not evidence about this tree.
+
+## 2. File coverage
+
+Read in full: paper (517 lines), `docs/EXPERIMENT_PROTOCOL.md`, `docs/CURSOR_GOAL_PROMPT.md` §5 (and surrounding sections as context), `.planning/REQUIREMENTS.md`, every production `.py` under `src/reasoning_diff/`. Sampled `.planning/PAPER_TRACEABILITY.md` executable rows against live symbols. Tests were executed, not accepted as paper-correct. Fixtures and `.planning/audits/round-18/_a_scratch/` were used only as repro inputs.
+
+| path | lines | digest | what was read |
+|---|---|---|---|
+| `Reasoning-Diff-修订方案-v3 (1).md` | 517 | `F3C0EC087B5BF4E503DB35F4D234C727DF3CE66F933E80781C69A0CC312EA57C` | full paper |
+| `docs/EXPERIMENT_PROTOCOL.md` | 86 | `83a9142dba4f7fcd337a70ef8cd1a847ed7eb7ff110f2d77f466387ab491391d` | full protocol |
+| `docs/CURSOR_GOAL_PROMPT.md` | 166 | `b9e0a8ea3fc87bf00f1949bd8201407e097ef3e25660173275ba11e42a39eb7e` | §5 required; rest for context |
+| `.planning/REQUIREMENTS.md` | 76 | `39cf907c0b66b9b26ae7355e394848cfa1ff41ce5166310e1dc0a9307f9ac498` | full; author status only |
+| `src/reasoning_diff/__init__.py` | 5 | `26d1e3039417f58db2279eb40d144c57bbd25f5bcddb74a8edcd0d995dcde9fb` | full |
+| `src/reasoning_diff/__main__.py` | 4 | `307299fda7b77d22c64cb51430ec75e5f59d78e9c948786afb3b2544fe45e4b7` | full |
+| `src/reasoning_diff/analysis.py` | 337 | `e4368b0a386da63bfca95a567c25b05fdddf9b08a6a3253bc84f4462ba86b7af` | full; P1/P2/P3, week8, cone, retrieval |
+| `src/reasoning_diff/artifacts.py` | 85 | `524657027e9b402f61fe173b8de9b0cdb70dd348c525f7de6cf4bd37c05a2332` | full |
+| `src/reasoning_diff/baselines.py` | 125 | `3d7ec3ba60f894b4af55bb1b18afaf023d503279c778d21fd3344ebe41ffc5fc` | full; four-tier verbalizer |
+| `src/reasoning_diff/cli.py` | 1260 | `9431b7768fda6a3c3c577f811b747f57f79f57b111dfe89c12281d1d23f95bb5` | full; prepare/collect/fit/intervene, pair copy, E-order |
+| `src/reasoning_diff/edits.py` | 365 | `1e5b97d63a62ab78a43ee9db33594a2cc1de3add5ad25aac81007b05af3efb91` | full; `apply_alt_source_same_value` vs `apply_rename_edit` |
+| `src/reasoning_diff/events.py` | 274 | `290a4fd676ac0814c3c99b3a55a1f3499055517d0be2751061c850caee39c8f3` | full |
+| `src/reasoning_diff/executor.py` | 109 | `481d6ed597c93e78ebeecbc63977c6b5a866b41d5ae6048e0e6541604a4d84a4` | full |
+| `src/reasoning_diff/graphs.py` | 46 | `1c755e6f8d22e277405b706e249302680e7a761caa949b1a8bc7200d673f4583` | full |
+| `src/reasoning_diff/interventions.py` | 115 | `0ffdbb8805be7649fc68f56c58a4915ae4d67666e7a068a59b9cabce68d2f9f2` | full |
+| `src/reasoning_diff/io.py` | 133 | `1a03b2f8d865bdd37dffc0097e0433ddf87a51d4e3adb3164458a63f448bd7b5` | full |
+| `src/reasoning_diff/measure.py` | 405 | `985b9d9328e4111f2b841f00e442fdf02623c1279dc16761edec5ce1305605a5` | full; labels, S/M, sham, TO/CSP |
+| `src/reasoning_diff/models/__init__.py` | 1 | `0b7dd6c4dd8520655339529f3599b04f17709bd921a6014de8668ff2d63ba3a8` | full |
+| `src/reasoning_diff/models/adapters.py` | 42 | `c1992624026a1bf015dc6f308d60acb8e3d9a9264f7c951b005ab10e773a0a7a` | full |
+| `src/reasoning_diff/models/collect.py` | 261 | `83658cd8ba879f20162137fd9bd6469034103df19f1aedbdb63bad7299248c38` | full; H/E, three positions |
+| `src/reasoning_diff/models/features.py` | 39 | `0a9f0b8beb0185aef07a80e80025c4f6d100685f3cb866ed98b25a4c153863e0` | full |
+| `src/reasoning_diff/models/generate.py` | 200 | `6e6040394ac641c7f19b37c77716b59f75f56fe1f5fb061a2cbdb877c20d9173` | full; teacher-force |
+| `src/reasoning_diff/models/tiny.py` | 120 | `c75d0f53257666128facbfd1f2ab292edc3a99f9840e617bcce35d59d74c537f` | full |
+| `src/reasoning_diff/models/tokenize.py` | 31 | `b0cc8974af1010facf05f2fe835e1e3a7b0119c5e655f81b02769fb0a678d332` | full |
+| `src/reasoning_diff/probes/__init__.py` | 3 | `3065196db28e929c617e0f13488fceeba839acabe10d4f8b6bde9edab7cf39f5` | full |
+| `src/reasoning_diff/probes/bilinear.py` | 101 | `b34ea3e5a1e2e1ec88b2720f239e162baf6d66ab9116e437b990f8b31a08b3a9` | full |
+| `src/reasoning_diff/probes/boundary.py` | 44 | `ce3b549be7d671ff3e0d2513b038e144492f5d43f2e6c1f840cd857297659034` | full |
+| `src/reasoning_diff/probes/calibrate.py` | 45 | `e8b3ed3459bb22c51db94b57009399d3491626b161ce2f8a8a5e2fc2134fb334` | full |
+| `src/reasoning_diff/repair.py` | 232 | `f76ff9998b9a6b1716c0136239fb8ca6cd4e15c17b18a1debaeff6483cf6409b` | full |
+| `src/reasoning_diff/rng.py` | 53 | `2098c2c72a852eaa1e5d3a71b74edd68c180469e9c9e9366ec0737af3e736908` | full |
+| `src/reasoning_diff/schema.py` | 385 | `57c69c6f58cc9a4504a56cefc66c9ade4e6366fb310e6ddedf9418e087eb53a7` | full |
+| `src/reasoning_diff/scoring.py` | 30 | `8a7a3c0777240122c0b39a00b2cc6b019d4fe8af4905240881689332ae99ee99` | full |
+| `src/reasoning_diff/splits.py` | 184 | `40ab4021d4dccc6e9a03ab30c00ccef361290c9e8b3fbc60e0deffdc3e3180c3` | full |
+| `src/reasoning_diff/tasks/__init__.py` | 1 | `4df493e2a536a4c3b40143968112166fd82913675037093c6b95e0676268b754` | full |
+| `src/reasoning_diff/tasks/catalog.py` | 45 | `bcc83ec636ad207b32f80be9096f26ee6fbfd9173246706c11bacb49d5c295d5` | full |
+| `src/reasoning_diff/tasks/t1_config.py` | 21 | `e1e7f8232dfa603d9e904a65a2bd23f04df20570f190feb1c26d47fb6fa5cf94` | full |
+| `src/reasoning_diff/tasks/t1_fixture.py` | 20 | `01b6748804316fb3cee0e92aafa9c5979a14c0c5d6752f165c95e9c847f08b41` | full |
+| `src/reasoning_diff/tasks/t1_official.py` | 92 | `5c1432f7369690318eef0f7530151b162b061949486311eb86c27ec5b17a0e1b` | full |
+| `src/reasoning_diff/tasks/t2_gsm_plus.py` | 84 | `493108ae857b7b6ff5980677ebfb6c66a315ebd4a35693eaf474d529e57a0153` | full |
+| `src/reasoning_diff/tasks/t2_gsm_symbolic.py` | 85 | `c588d60fafb303542786f4125c5892d9a9c16efdf50d0c7ac8cc12d04ec35276` | full |
+| `src/reasoning_diff/tasks/t2_noop.py` | 100 | `850f779c81d561494d95368fcfbb313bb0fad9e1832ea36ef69c14f9ae8f3eed` | full |
+| `src/reasoning_diff/tasks/t3_hotpot.py` | 104 | `f6769cd49dd623fb2837a1cc080bcea90cedfde274246117d16976f49afdf7fe` | full |
+| `src/reasoning_diff/tasks/t3_humaneval.py` | 78 | `f39cff590b21adc712f5bafeb68ed1a6ff9c7960aa59c103ec7fa4001a8561b1` | full |
+| `src/reasoning_diff/tasks/t3_musique.py` | 110 | `b3f79e2c466a28c0523b36e2771750696f3362d191cdb797a9b49ba805a51895` | full |
+| `src/reasoning_diff/tasks/t4_boundary.py` | 51 | `e4b34f3697825f886da1fd049c324cdd9b3ac60033357eed1622fd373f893de2` | full |
+| `src/reasoning_diff/transfer.py` | 86 | `5549f84bd1bd624037b0f365a00fbe963190c5f5b910c8a05f70349e256c95c2` | full |
+
+Per-file SHA-256 values are from a direct `hashlib.sha256(path.read_bytes())` pass over this freeze tree.
+
+Fixtures inspected (not in the freeze hash): `tests/fixtures/t1_tiny.json` (`source_kind=fixture`).
+
+**PAPER_TRACEABILITY sample (executable rows vs symbols).** Sampled rows were checked against this tree, not accepted as closed:
+
+| row | claimed symbol | this tree |
+|---|---|---|
+| TR-0033 / TR-0121 | `probes/{bilinear,boundary,calibrate}` | `BilinearProbe`, `BoundaryMLP`, `conformal_threshold` present |
+| TR-0056 | `interventions.py:intervention_report` | present; relative-to-controls only |
+| TR-0073 | `events.py:surface_mentions` | present; stored separately from value labels |
+| TR-0082 | `models/features.py:select_prefix_index` | present; three positions |
+| TR-0089 | `measure.py:cone_bundle` | present |
+| TR-0173 / TR-0341 | `baselines.py:verbalizer` + `cli:fit` | library function exists; **scientific** `fit` writes `refused_not_section8` (see hunt 7) |
+| TR-0337 | `analysis.py:week8_decision` | present; gates stay `unregistered` |
+
+REQUIREMENTS checkboxes marked `implemented_*` remain author claims.
+
+## 3. Checks run
+
+| check | command / method | result | paper-correct? |
+|---|---|---|---|
+| Freeze hash | VERSION.md Python | 61 files, `3d0f1c10…`, HASH_MATCH | n/a |
+| Paper SHA | SHA-256 of paper bytes | `F3C0EC08…` match | n/a |
+| Unit/regression | `python -m pytest -q --tb=line` | **162 passed**, 24.20s, exit 0 | **No.** Green ≠ paper-correct. |
+| Hunt 1 source pair vs rename | `make_source_value_pair` + `apply_alt_source_same_value` + `apply_rename_edit` on `t1_tiny` | keep `p2`, add `src_b=0`, parents `{p1,src_b}`; rename **drops** `p2` | **not the named rename-as-source defect** |
+| Hunt 2 unknown → M | `build_labels` + `event_density_sets`; live scientific labels | `behavior_unknown=True`, `M=[]`, `rho_M_raw=None` | **not reproduced** |
+| Hunt 3 sham row | direct + live `sham:q` | `null_reason=noise_set_missing`; excess null | **not reproduced** |
+| Hunt 4 noise_ref=0, no sham | constructed real-premise labels | `event_density_sets` → missing, not empty evaluated N | **not reproduced** on the live helper path |
+| Hunt 5 ancestor WRONG-TASK | isolated feat/labs; WRONG-TASK in ancestor `col/` | `_find_tasks_jsonl` None | **not reproduced** |
+| Hunt 6 sibling prep + named dirs | `_load_source_value_pair`; collect `stage_b` | no sibling walk; `stage_b/edits.jsonl` copied; donor `same_value_diff_source` | **not reproduced** |
+| Hunt 7 scientific fit §8 | `fit --eval-mode scientific` on `stage_b` | verbalizer/attention `refused_not_section8` | **not reproduced** |
+| Scientific prepare | `prepare --eval-mode scientific --fixture t1_tiny.json --sham-opportunities 1 --split-fractions 0.40 0.15 0.10 0.10 0.10 0.15 --weight-seed 0` → `stage_a` | exit 0; 7 traces; all `constrained_target` | honest teacher-force; not MODEL-01 |
+| Scientific collect | `collect --eval-mode scientific --backend tiny` → `stage_b` | H `(7,32)`, E `(2,32)`, three position arrays, `edits.jsonl` copied | finite H; independently named dir still carries pair meta |
+| Scientific fit | `fit --eval-mode scientific --split probe_train` → `stage_c` | task head loss finite; behavior `no_known_labels`; §8 refused | not paper CoT / not §8 scores |
+| Scientific intervene | `intervene --eval-mode scientific` on `stage_b` → `stage_d` | `donor_kind=same_value_diff_source`, rows `[0,3]` | preference holds without `prep`/`col` names |
+| Analyze | `analyze --in-dir stage_a` → `stage_e` | `p1=p2=p3=null`; gates `unregistered`; `scientific_conclusion=None` | honest |
+| `p1_incremental` no held-out | two-class, `held_out=None` | `status=requires_held_out` | honest; not fake P1 |
+
+Not run (out of this machine / not required for the named hunts): real HF weights, official iGSM 500, GPU intervene/repair, server collect, full Plus persist two-process lock.
+
+## 4. Paper-paragraph coverage (omissions vs swaps)
+
+Empty “looks implemented” is not a pass. Below is the paper map. Background, related-work, schedule, and untested numeric forecasts are not code requirements.
+
+| paper locus | requirement | this tree | status |
+|---|---|---|---|
+| §2.2 / §4.1 | Natural generate + identity align; fixture ≠ official | Fixture loader refuses `official`. Scientific generate is tiny + teacher-force `\nq = `, labeled `constrained_target`, `parse_region=generated`. | **non-defect** if not claimed as MODEL-01 / §4.1. See ND-01. |
+| §2.3 | $R^{val}$ vs $R^{surf}$; structure separate | `surface_mentions` stored; structure via align `removed/merged` | present as schema; T1 scientific only emits target `q` |
+| §2.4 / §6 / Goal §5.10 | Source–value decoupling: keep $a$, add $b=a$, graph reads $b$ not $a$ (XOR) | `apply_alt_source_same_value` keeps `p2`, adds `src_b`, retargets $q$; rename drops `p2` | **named hunt 1 not reproduced** |
+| §2.4 IE / swap | $H'=H_b+\Pi_Z(H_d-H_b)$; C-rand / C-layer | `apply_swap`, `c_rand_delta`, `c_layer_delta` exist | tools present; tiny intervene without `--dev-layer-scores` leaves C-layer null (honest) |
+| §2.5 Prop 1–2, cone | over-approx protocol; conformal ceil((N+1)(1-α)) | `dirty_cone`, `conformal_threshold`, `joint_edit_counterexample` | formulas present; not evaluated on real traces |
+| §2.6 / §3 | $S=B\setminus T$, $M=T\setminus B$; unknown ≠ negative; noise matched or null | unknown/unscanned → `behavior_unknown`, `rho_M_raw=null`; sham rows → `noise_set_missing` | **hunts 2–4 not reproduced** |
+| §3 TO/CSP | LCS TO; matched CSP; empty denom N/A | `preservation_to_csp`, `lcs_overlap` | present |
+| §4.2 bilinear / MLP-256 | $h^\top UV^\top e+b$, $r=64$, $\lambda_{FN}=10$; Hidden=256 | `BilinearProbe`, `BoundaryMLP` | form present; CLI boundary fit is all-ones / no negatives (stub; ND-07) |
+| §5 Fig. 2 three positions | pre-step / pre-value / post-step | collect writes `H_pre_step`, `H_pre_value`, `H_post_step` | present on tiny |
+| §7 T1–T4 | official iGSM + GSM-Symbolic/Plus + Hotpot/MuSiQue/HumanEval + T4 | adapters exist; graphs unknown/partial where required; no official Plus-id list | DATA-02 loaders present; **pending_server** for real dumps |
+| §7 T2-noop | front/mid/back × surface; not official NoOp | `make_noop_pair`, `official_noop_release=False` | present |
+| §8 / Goal §5.14 | Gate 0–2 unregistered ≠ pass | `week8_decision` → `unregistered`; `scientific_conclusion=None` | **non-defect** ND-02 |
+| §8 eval-mode | no cone gate / verifier fallback | `RepairRecord` raises if gated | present |
+| Goal §5.8 / §2.5 | P1 held-out length+op vs +ρ; no fake P1 | no `p1_table` → `p1 is None`; no held-out → `requires_held_out` | **non-defect** ND-03 |
+| Goal §5.5 / DATA-03 | Plus test-only; family co-group | persist JSON + RAM still in `splits.py` | **not re-run** this freeze; see ND-04 |
+| MODEL-01 | frozen Qwen3 / R1-Distill HF | cards + `load_frozen`; local path is random tiny | **pending_server**; tiny ≠ MODEL-01 (ND-01) |
+| §8 verbalizer four tiers | real model self-report | scientific `fit` refuses; fixture-mode still echoes prefix | **hunt 7 not reproduced** on scientific; see ND-07 |
+| Leftover first-seen E | E = task.premises, not labels.jsonl order | `_e_premise_ids` starts from `task.premises`, then **appends** leftover non-sham label ids | live scientific E is 2 premise rows. **non-defect residue** ND-05 |
+| Ancestor tasks.jsonl | must not bind E from parent `col/` WRONG-TASK | `_find_tasks_jsonl` only inspects given stage dirs | **hunt 5 not reproduced** |
+| Pair metadata | collect must carry pair so independently named dirs still pair | collect copies `edits.jsonl`; `_load_source_value_pair` reads only `in-dir/edits.jsonl` | **hunt 6 not reproduced** |
+
+## 5. Named hunts (independent)
+
+### 5.1 Teacher-force `\nq=` vs §4.1 CoT
+
+Scientific prepare on `t1_tiny.json` (`weight_seed=0`) produced 7 traces: `trace-base`, `trace-t0p`, `trace-edit`, `trace-source`, two extra value-edit traces, `trace-sham`. Every one has `parse_status=constrained_target`, `parse_region=generated`, `weight_source=random_init`. Events are a single generated-region assignment (`q = 82` or `q = 53`) after teacher-forced `\nq = ` (`generate.append_target_assignment`, docstring: “Not gold values.”). `run_spec.source_kinds` is `{t1_tiny.json: fixture}`.
+
+This is **honest `constrained_target`**. It is **not** MODEL-01 and **not** paper §4.1 natural CoT. Do not require inventing natural CoT. Do not allow anyone to file this path as §4.1 / C1 evidence.
+
+### 5.2 Fixture as official
+
+`load_t1_fixture` requires `source_kind=fixture`. `Task.validate` rejects `official` + `self_authored_arithmetic`. Scientific prepare recorded `source_kind=fixture`. **Not a swap.**
+
+### 5.3 Gate unregistered as pass
+
+`analyze` on `stage_a`: all three gates `decision=unregistered`, `scientific_conclusion=None`, `skip_p2_p3=true`, week8 `status=not_evaluated`. Direct `p1_incremental` with two classes and no held-out → `requires_held_out`. **Not a pass. No fake P1.**
+
+### 5.4 Hunt 1 — `same_value_diff_source` vs rename (XOR)
+
+Direct `make_source_value_pair(task, "p2", "2")` and `apply_alt_source_same_value(task, "p2")` on `t1_tiny`:
+
+| | base | `same_value_diff_source` | `apply_rename_edit({p2: src_b})` |
+|---|---|---|---|
+| premises | `p1=4`, `p2=0` | `p1=4`, `p2=0`, `src_b=0` | `p1=4`, `src_b=0` |
+| q parents | `[p1, p2]` | `[p1, src_b]` | `[p1, src_b]` |
+| expression | `p1 * p2` | `p1 * src_b` | `p1 * src_b` |
+| answer | `0` | `0` | `0` |
+| $R_{\mathrm{task}}(q)$ | `{p1,p2}` | `{p1,src_b}` | `{p1,src_b}` |
+
+Guards in `apply_alt_source_same_value` (219–275): keep original leaf $a$, add equal-value $b$=`src_b`, require $b$ in parents and $a$ **not** in parents. Runtime: `keep_a=True`, `added_b=True`, `b_equals_a=True`, `reads_b_not_a=True`, `xor_a_in_R_and_parents=True`. Rename **drops** `p2` (`same_premise_set_as_rename=False`). Parents/expression of the target coincide with a rename of the same leaf, but the graphs are not the same object: $a$ and $b$ coexist only on the source pair.
+
+`same_source_diff_value` is a real value edit (`p2: 0→2`, $q=8$). Scientific `edits.jsonl` writes that pair and `trace_ids.same_value_diff_source = trace-source`.
+
+Paper §6 (ll. 304–307) / §2.4: target computation reads $a$ vs $b$, first $a=b$. This tree now keeps $a$, adds $b$, and retargets. **Named hunt 1 is not a confirmed rename-as-source defect on this freeze.**
+
+### 5.5 Hunt 2 — unknown / unscanned must not become $M$
+
+`build_labels`: non-exhaustive `no_change` → `behavior=None`, `behavior_known=False`. `event_density_sets` sets `behavior_unknown` if no known behavior on the event or if $T\nsubseteq$ known. `dependency_densities` then forces $M=\emptyset$ and `rho_M_raw=None`.
+
+Direct non-exhaustive `no_change` on `{p1,p2}`: event row `M=[]`, `rho_M_raw=null`, `behavior_unknown=true`. Scientific prepare: labels `p1`/`p2` have `behavior_label=None`, `behavior_known=False`; densities `rho_M_raw=null`, `M=[]`, `behavior_unknown=true`. Fit behavior head: `no_known_labels`. **Hunt 2 not reproduced.**
+
+### 5.6 Hunt 3 — any `sham:` row → `noise_set` missing
+
+`event_density_sets`: any `sham:` label row or sham hit → `noise_set=None`, `noise_evaluated=False` → `dependency_densities` reason `noise_set_missing`, all excess null.
+
+Direct sham **no-change** (`noise_ref=0.0` on `sham:q`): excess null, `noise_set_missing`. Live scientific sham **changed** `82` vs `53`; `sham:q` `noise_ref=1.0`; excess still null; `null_reason=noise_set_missing`. Real premises keep `noise_ref=None`. **Hunt 3 not reproduced.**
+
+### 5.7 Hunt 4 — real premises `noise_ref=0`, no `sham:`, must not book empty evaluated $N$
+
+Constructed labels: `p1`/`p2` `noise_ref=0.0`, no sham rows. `event_density_sets` → `noise_set` missing (not `[]` + `noise_evaluated=True`). Excess null.
+
+The public helper `dependency_densities(..., noise_set=[], noise_evaluated=True)` still writes `rho_M_noise=1.0`, `rho_M_excess=0.0` with $M=\{p1,p2\}$. That path is not used by prepare/label/`event_density_sets` for this case. Named hunt is the live/event-set path. **Hunt 4 not reproduced.** Residue: do not call the helper with evaluated empty $N$ (ND-06).
+
+### 5.8 Hunt 5 — `_find_tasks_jsonl` must not walk ancestor extras
+
+Source only opens `tasks.jsonl` inside the directories it was given. No `parent` / `rglob` / `..`.
+
+Independent layout: WRONG-TASK planted in ancestor `col/tasks.jsonl`; isolated `deep/feat` and `deep/labs` have **no** `tasks.jsonl`. `_find_tasks_jsonl(feat, labs)` is `None`. `_e_premise_ids` on the real fixture is `['p1','p2']` then leftover ids if present (`['p1','p2','leftover']`). The ancestor file was not consulted. **Hunt 5 not reproduced.** Residue ND-05.
+
+### 5.9 Hunt 6 — `_load_source_value_pair` must not walk sibling `prep`/`prepare`
+
+Source:
+
+```python
+path = Path(src) / "edits.jsonl"
+```
+
+No sibling-name walk. Trap: collect dir `stage_x` with **no** `edits.jsonl`, siblings `prep/` and `prepare/` holding a fake `source_value_pair` (`FAKE-BASE` / `FAKE-SRC`). `_load_source_value_pair(stage_x)` → `None`. Direct load of the sibling `prep/` finds the fake only when that directory itself is the `src`.
+
+`cmd_collect` copies `in-dir/edits.jsonl` into the collect dir (521–524). Independently named `stage_a` → `stage_b` (not `prep`/`prepare`/`col`): `stage_b/edits.jsonl` exists; `_load_source_value_pair(stage_b)` returns `trace_ids.same_value_diff_source=trace-source`. `_pair_source_value` / intervene report `donor_kind=same_value_diff_source`, `donor_rows=[0,3]` (`trace-base` / `trace-source`). **Hunt 6 not reproduced.**
+
+### 5.10 Hunt 7 — scientific fit must not invent §8 verbalizer/attention scores
+
+`stage_c/probes.jsonl` (scientific):
+
+- task head: finite loss, rank 32
+- behavior: `no_known_labels`
+- `verbalizer`: `status=refused_not_section8`, reason `no dependency-label verbalizer on this prefix`
+- `attention_mean` / `attention_rollout` / `attention_threshold`: `refused_not_section8`, `no attention maps`
+
+Do not write Fig. 5 / §8 from this run. **Hunt 7 not reproduced.** Boundary MLP still trains all-ones on event rows (ND-07); that is not a §8 verbalizer/attention score.
+
+## 6. Findings
+
+### Named hunts 1–7
+
+| ID | Severity | Status | Evidence |
+|---|---|---|---|
+| Hunt 1 / A13-01-class rename-as-source | — | **not reproduced** | Keep `p2`, add `src_b=0`, $q$ reads `src_b` not `p2`. Rename drops `p2`. |
+| Hunt 2 / unknown as $M$ | — | **not reproduced** | Unknown → `behavior_unknown`, $M=\emptyset$, `rho_M_raw=None` (direct + live). |
+| Hunt 3 / sham books $N$ | — | **not reproduced** | Any `sham:` row → `noise_set_missing`. Live sham hit still excess-null. |
+| Hunt 4 / noise_ref=0 empty $N$ | — | **not reproduced** on `event_density_sets` | Real-premise `noise_ref=0` with no sham → missing, not evaluated empty $N$. See ND-06. |
+| Hunt 5 / ancestor WRONG-TASK | — | **not reproduced** | `_find_tasks_jsonl` does not walk parents. Isolated feat/labs find nothing. |
+| Hunt 6 / sibling `prep` pair | — | **not reproduced** | Loader reads only `in-dir/edits.jsonl`. Collect copies the file. `stage_b` still pairs `same_value_diff_source`. |
+| Hunt 7 / invented §8 scores | — | **not reproduced** | Scientific fit refuses verbalizer and attention. |
+
+No confirmed in-scope paper defect on this freeze.
+
+### Non-defects and doubts
+
+**ND-01 (non-defect).** Teacher-forced `\nq=` is labeled `constrained_target`. Not §4.1, not MODEL-01. Tiny random weights. REQUIREMENTS’ `MODEL-01 implemented_local_tiny` is an author claim, not a paper result.
+
+**ND-02 (non-defect).** Gate 0–2 stay `unregistered`. No pass/fail.
+
+**ND-03 (non-defect).** P1 is not inferred from labels. Held-out is required.
+
+**ND-04 (not re-verified this freeze).** `splits.py` still persists Plus family keys to `.planning/research/.cache/gsm_test_only_families.json`. No official Plus-id list is shipped under `src/`. Isolated Symbolic with no Plus remains `probe_train` by that design. This channel did not re-run the two-process lock sequence.
+
+**ND-05 (non-defect residue).** `_e_premise_ids` still appends leftover label ids. Live scientific E follows `task.premises` (2 columns). Not a first-seen column swap on the path that has `tasks.jsonl`.
+
+**ND-06 (non-defect residue).** `dependency_densities(..., noise_set=[], noise_evaluated=True)` still deducts empty $N$ (`rho_M_noise=1.0`). Prepare/label/`event_density_sets` do not take that branch for sham rows or for real-premise `noise_ref=0` without sham.
+
+**ND-07 (non-defect residue).** Scientific `fit` still writes `boundary_mlp` with all-ones labels (`event-rows-only_no_negatives`). That is not a §8 verbalizer/attention score. Do not write Fig. 2 boundary F1 from that blob.
+
+**pending_server.** Official iGSM 500 / real GSM-Plus+Symbolic dumps / frozen Qwen3-8B and R1-Distill-Qwen-7B / GPU swap-ablate-rescue / real P1–P3. Missing **code** is not hiding in this list: adapters, tiny hooks, and CLI stages exist. Missing **weights/data** are external.
+
+## 7. Scientific pipeline snapshot (`t1_tiny`, weight_seed=0, dirs `stage_a`/`stage_b`/`stage_c`/`stage_d`)
+
+- Traces: `trace-base`, `trace-t0p`, `trace-edit`, `trace-source`, two extra value edits, `trace-sham`.
+- Split: `fix-t1-001` → `probe_train` (hash of this fixture family; not official).
+- Events: one generated-region `q = ##` each; `parse_status=constrained_target`; assignment `\nq = 82` or `\nq = 53`.
+- H: finite `(7,32)`; E finite `(2,32)`; `H_pre_step` / `H_pre_value` / `H_post_step` present.
+- Sham: `sham:q`, changed `82` vs `53`; `noise_ref=1.0`; excess null.
+- Densities: `rho_S_raw=null` (empty $P\setminus T$), `rho_M_raw=null`, excess null, `behavior_unknown=true`.
+- Fit: task head trained; behavior head `no_known_labels`; §8 baselines refused.
+- Analyze: `p1=p2=p3=null`, gates unregistered.
+- Intervene (`stage_b`, not named `prep`/`col`): `donor_kind=same_value_diff_source`, donor rows `[0,3]`.
+
+## 8. Verdict
+
+**PASS**
+
+Hash matches. Named hunts 1–7 did **not** reproduce as paper defects on this freeze: the source pair keeps $a$ and adds equal-value $b$ (XOR, not a rename); unknown is not booked as $M$; sham and `noise_ref=0` do not evaluate empty $N$; ancestor `tasks.jsonl` is not walked; independently named collect dirs still carry pair metadata; scientific fit refuses §8 verbalizer/attention. Teacher-force, fixture marking, unregistered gates, and refused fake P1 are not defects. Pytest 162 passed is not paper-correct.
+
+This channel does **not** declare the Goal complete. A single-channel PASS does not start `consecutive_pass_count` by itself.

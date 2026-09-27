@@ -1,0 +1,32 @@
+{
+  "records": [
+    {
+      "id": "msq-9",
+      "question": "Where was the author of Book born?",
+      "answer": "Paris",
+      "answer_aliases": ["Paris, France"],
+      "answerable": true,
+      "paragraphs": [
+        {"idx": 0, "title": "Book", "paragraph_text": "Book was written by Colette.", "is_supporting": true},
+        {"idx": 1, "title": "Colette", "paragraph_text": "Colette was born in Paris.", "is_supporting": true}
+      ],
+      "question_decomposition": [
+        {"id": 1, "question": "Who wrote Book?", "answer": "Colette", "paragraph_support_idx": 0},
+        {"id": 2, "question": "Where was #1 born?", "answer": "Paris", "paragraph_support_idx": 1}
+      ]
+    },
+    {
+      "id": "msq-9",
+      "question": "Where was the author of Book born?",
+      "answer": null,
+      "answer_aliases": [],
+      "answerable": false,
+      "paragraphs": [
+        {"idx": 0, "title": "Book", "paragraph_text": "Book was written by Colette.", "is_supporting": true}
+      ],
+      "question_decomposition": [
+        {"id": 1, "question": "Who wrote Book?", "answer": "Colette", "paragraph_support_idx": 0}
+      ]
+    }
+  ]
+}

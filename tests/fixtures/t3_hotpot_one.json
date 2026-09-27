@@ -1,0 +1,12 @@
+{
+  "_id": "hp-1",
+  "question": "Which country produced the film?",
+  "answer": "France",
+  "type": "bridge",
+  "level": "easy",
+  "supporting_facts": [["DocA", 0]],
+  "context": [
+    ["DocA", ["The film was produced in France.", "It premiered in 1999."]],
+    ["DocB", ["An unrelated cinema opened later."]]
+  ]
+}

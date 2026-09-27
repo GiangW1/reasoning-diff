@@ -1,0 +1,7 @@
+{
+  "hook_fired": true,
+  "generated_tokens": 8,
+  "baseline_tokens": 8,
+  "followed_donor": false,
+  "stop_reason": "max_new"
+}

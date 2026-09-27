@@ -422,6 +422,7 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         "temperature": getattr(args, "temperature", 1.0),
         "top_k": getattr(args, "top_k", 0),
         "top_p": getattr(args, "top_p", 1.0),
+        "enable_thinking": not getattr(args, "disable_thinking", False),
         "n_tasks": len(tasks),
     }
     input_hashes = {Path(args.fixture).name: file_digest(args.fixture)}
@@ -441,6 +442,7 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         "temperature": getattr(args, "temperature", 1.0),
         "top_k": getattr(args, "top_k", 0),
         "top_p": getattr(args, "top_p", 1.0),
+        "enable_thinking": config["enable_thinking"],
         "device": getattr(args, "device", None),
     }
     if eval_mode == "scientific":
@@ -1948,6 +1950,7 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--temperature", type=float, default=1.0)
     prepare.add_argument("--top-k", type=int, default=0)
     prepare.add_argument("--top-p", type=float, default=1.0)
+    prepare.add_argument("--disable-thinking", action="store_true")
     prepare.set_defaults(func=cmd_prepare)
 
     def stage(name, extra=None):

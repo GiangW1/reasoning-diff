@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import torch
 
@@ -67,6 +68,21 @@ def _local_files_only(explicit: bool | None) -> bool:
     return os.environ.get("RD_LOCAL_FILES_ONLY", "1") not in {"0", "false", "False"}
 
 
+def _model_source(name: str, info: dict) -> str:
+    """Use a verified local snapshot when RD_MODEL_ROOT is configured."""
+    root = os.environ.get("RD_MODEL_ROOT")
+    if root:
+        local_name = {
+            "qwen3-8b": "Qwen3-8B",
+            "r1-distill-qwen-7b": "DeepSeek-R1-Distill-Qwen-7B",
+        }.get(name)
+        if local_name:
+            path = Path(root) / local_name
+            if (path / "config.json").is_file():
+                return str(path)
+    return info["id"]
+
+
 def think_ids_from_tokenizer(tokenizer, expected=None) -> tuple[int, int]:
     open_id = tokenizer.convert_tokens_to_ids("<think>")
     close_id = tokenizer.convert_tokens_to_ids("</think>")
@@ -85,14 +101,15 @@ def load_frozen(name: str, local_files_only: bool | None = None, device: str | N
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
     local_only = _local_files_only(local_files_only)
+    source = _model_source(name, info)
     device_obj = infer_device(device)
     dtype_obj = infer_dtype(device_obj, dtype)
     tokenizer = AutoTokenizer.from_pretrained(
-        info["id"], revision=info["revision"], local_files_only=local_only
+        source, revision=info["revision"], local_files_only=local_only
     )
     think_ids = think_ids_from_tokenizer(tokenizer, info.get("think_ids"))
     model = AutoModelForCausalLM.from_pretrained(
-        info["id"],
+        source,
         revision=info["revision"],
         local_files_only=local_only,
         torch_dtype=dtype_obj,

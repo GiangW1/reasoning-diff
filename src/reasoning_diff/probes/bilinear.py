@@ -35,7 +35,7 @@ class BilinearProbe:
         Y: np.ndarray,
         mask: np.ndarray | None = None,
         steps: int = 200,
-        lr: float = 0.1,
+        lr: float = 0.01,
         split: str = "probe_train",
     ) -> dict:
         from ..splits import require_split
@@ -59,9 +59,16 @@ class BilinearProbe:
             err = np.where(known, weights * (pred - Y), 0.0)
             scale = 1.0 / max(int(known.sum()), 1)
             dlogits = err * scale
-            self.U -= lr * (H_fit.T @ (dlogits @ ev))
-            self.V -= lr * (E_fit.T @ (dlogits.T @ hu))
-            self.b -= lr * float(dlogits.sum())
+            grad_u = H_fit.T @ (dlogits @ ev)
+            grad_v = E_fit.T @ (dlogits.T @ hu)
+            # Frozen-model residuals are wider than tiny-model features; bound
+            # updates so a valid finite feature matrix cannot produce NaN probes.
+            grad_u = np.nan_to_num(np.clip(grad_u, -1.0, 1.0), nan=0.0)
+            grad_v = np.nan_to_num(np.clip(grad_v, -1.0, 1.0), nan=0.0)
+            grad_b = float(np.clip(dlogits.sum(), -1.0, 1.0))
+            self.U -= lr * grad_u
+            self.V -= lr * grad_v
+            self.b -= lr * grad_b
         pred = self.predict_matrix(H_fit, E_fit)
         return {
             "loss": weighted_bce(pred, Y, known.astype(float), self.fn_weight),

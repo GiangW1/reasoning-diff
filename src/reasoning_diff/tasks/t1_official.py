@@ -45,7 +45,7 @@ def load_igsm_snapshot(path: str | Path, source_kind: str = "official") -> Task:
                 id=item["param"],
                 parents=list(item["parents"]),
                 value=str(item.get("value", "")),
-                aliases=[item["param"]],
+                aliases=list(item.get("aliases") or [item["param"]]),
                 expression=item["expression"],
                 scope="global",
             )
@@ -88,5 +88,7 @@ def official_value_edit(task: Task, premise_id: str, new_literal: str) -> Task:
 
 def load_igsm_directory(root: str | Path) -> list[Task]:
     root = Path(root)
-    files = [root] if root.is_file() else sorted(root.glob("**/*.json"))
+    files = [root] if root.is_file() else sorted(
+        path for path in root.glob("**/*.json") if path.name != "manifest.json"
+    )
     return [load_igsm_snapshot(path) for path in files]

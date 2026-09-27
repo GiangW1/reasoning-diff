@@ -5,7 +5,7 @@ import numpy as np
 import torch
 
 from ..interventions import apply_swap, orthonormal_basis
-from .adapters import as_input_ids
+from .adapters import as_input_ids, model_device
 from .features import select_prefix_index
 from .generate import decode_loop
 from .tiny import build_tiny, resid_post_hook
@@ -34,7 +34,8 @@ def _hidden_at_layer(model, token_ids: list[int], layer: int) -> np.ndarray:
         fwd = model(input_ids=ids, output_hidden_states=True, use_cache=False, past_key_values=None)
     states = fwd.hidden_states
     idx = min(layer + 1, len(states) - 1)
-    return states[idx][0].detach().cpu().numpy()
+    # NumPy has no bfloat16 dtype; keep model execution in bf16 and export features in fp32.
+    return states[idx][0].float().detach().cpu().numpy()
 
 
 def collect_hidden_trace(
@@ -140,7 +141,7 @@ def collect_hidden_trace(
 def collect_tiny(kind: str, prompt_ids: list[int], max_new: int = 4, seed: int = 0, weight_seed: int = 0) -> dict:
     torch.manual_seed(weight_seed)
     model = build_tiny(kind)
-    g = torch.Generator().manual_seed(seed)
+    g = torch.Generator(device=model_device(model)).manual_seed(seed)
     prompt = torch.tensor([prompt_ids], dtype=torch.long)
     decoded = decode_loop(model, prompt, g, max_new=max_new)
     offsets = [[i, i + 1] for i in range(len(decoded["token_ids"]))]
@@ -263,11 +264,11 @@ def intervene_hidden_decode(
     else:
         raise ValueError(mode)
 
-    g = torch.Generator().manual_seed(seed)
+    g = torch.Generator(device=model_device(model)).manual_seed(seed)
     prompt = as_input_ids(prompt_ids, model)
     with resid_post_hook(model, layer, transform, once=True) as record:
         decoded = decode_loop(model, prompt, g, max_new=max_new, temperature=temperature, top_k=top_k, top_p=top_p)
-    g2 = torch.Generator().manual_seed(seed)
+    g2 = torch.Generator(device=model_device(model)).manual_seed(seed)
     baseline = decode_loop(model, prompt, g2, max_new=max_new, temperature=temperature, top_k=top_k, top_p=top_p)
     return {
         **decoded,

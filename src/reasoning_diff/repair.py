@@ -165,6 +165,7 @@ def execute_repair_frozen(
     import torch
 
     from .models.adapters import as_input_ids, load_frozen
+    from .models.collect import _capture_forward_output
     from .models.generate import apply_model_template, decode_loop, sample_next
 
     if packed is None and model is None:
@@ -191,8 +192,8 @@ def execute_repair_frozen(
     produce = max_new if max_new is not None else max(1, min(64, budget))
     model.eval()
     with torch.inference_mode():
-        prefill = model(input_ids=prefix, use_cache=True, output_hidden_states=True, past_key_values=None)
-    hidden = prefill.hidden_states[-1][0, -1].detach().cpu()
+        prefill, hidden_states = _capture_forward_output(model, prefix, layer=None, use_cache=True)
+    hidden = hidden_states[0, -1].detach().cpu()
     g = torch.Generator().manual_seed(seed)
     produced = []
     tokens = prefix

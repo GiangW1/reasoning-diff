@@ -6,8 +6,8 @@ import torch
 
 from reasoning_diff.cli import build_parser, main
 from reasoning_diff.io import read_json, read_jsonl
-from reasoning_diff.models.adapters import card, infer_device, infer_dtype, load_frozen, think_ids_from_tokenizer
-from reasoning_diff.models.collect import intervene_hidden_decode
+from reasoning_diff.models.adapters import _model_source, card, infer_device, infer_dtype, load_frozen, think_ids_from_tokenizer
+from reasoning_diff.models.collect import _hidden_at_layer, intervene_hidden_decode
 from reasoning_diff.models.generate import decode_loop, generate_frozen_trace, generate_task_trace
 from reasoning_diff.models.tiny import build_tiny
 from reasoning_diff.models.tokenize import readout_layer_index
@@ -119,6 +119,19 @@ def test_load_frozen_places_eval_and_dtype(monkeypatch):
     assert not packed["model"].training
 
 
+def test_model_source_uses_only_verified_local_snapshot(tmp_path, monkeypatch):
+    root = tmp_path / "models"
+    local = root / "Qwen3-8B"
+    local.mkdir(parents=True)
+    (local / "config.json").write_text("{}", encoding="utf-8")
+    monkeypatch.setenv("RD_MODEL_ROOT", str(root))
+    info = card("qwen3-8b")
+    assert _model_source("qwen3-8b", info) == str(local)
+
+    (local / "config.json").unlink()
+    assert _model_source("qwen3-8b", info) == info["id"]
+
+
 def test_decode_loop_keeps_prompt_then_appends():
     model = build_tiny("qwen2")
     prompt = torch.tensor([[1, 2, 3]], dtype=torch.long)
@@ -127,6 +140,23 @@ def test_decode_loop_keeps_prompt_then_appends():
     assert len(out["generated_ids"]) == 2
     assert out["token_ids"][:3] == [1, 2, 3]
     assert out["device"] == "cpu"
+
+
+def test_hidden_capture_does_not_request_transformers_output_flags():
+    model = build_tiny("qwen3")
+
+    class Spy(torch.nn.Module):
+        def __init__(self, inner):
+            super().__init__()
+            self.inner = inner
+            self.model = inner.model
+
+        def forward(self, **kwargs):
+            assert "output_hidden_states" not in kwargs
+            return self.inner(**kwargs)
+
+    hidden = _hidden_at_layer(Spy(model), [1, 2, 3], 1)
+    assert hidden.shape == (3, 32)
 
 
 def test_generate_frozen_reuses_packed_and_does_not_force_target(t1_tiny_path):

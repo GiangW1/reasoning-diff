@@ -53,6 +53,33 @@ def test_scientific_prepare_emits_parseable_events(tmp_path, t1_tiny_path):
     assert any(row.get("kind") == "source_value_pair" for row in edits)
 
 
+def test_scientific_prepare_rejects_missing_answers(tmp_path, t1_tiny_path, monkeypatch):
+    import reasoning_diff.models.generate as generate
+
+    original = generate.generate_task_trace
+
+    def missing_answer(*args, **kwargs):
+        trace = original(*args, **kwargs)
+        trace.answer = None
+        return trace
+
+    monkeypatch.setattr(generate, "generate_task_trace", missing_answer)
+    with pytest.raises(ValueError, match="missing parsed answer"):
+        main(
+            [
+                "prepare",
+                "--fixture",
+                str(t1_tiny_path),
+                "--out-dir",
+                str(tmp_path / "prep"),
+                "--eval-mode",
+                "scientific",
+                "--split-fractions",
+                *FRAC,
+            ]
+        )
+
+
 def test_scientific_collect_h_is_step_boundary_not_last_token(tmp_path, t1_tiny_path):
     prep = tmp_path / "prep"
     col = tmp_path / "col"

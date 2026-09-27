@@ -24,17 +24,44 @@ def _n_layers(model) -> int:
     return n_layers
 
 
+def _capture_forward_output(model, token_ids, layer: int | None = None, **kwargs):
+    """Capture a hidden boundary without Transformers output flags."""
+    inner = getattr(model, "model", model)
+    if layer is None:
+        module = getattr(inner, "norm", None)
+        label = "final norm"
+    else:
+        layers = getattr(inner, "layers", None)
+        if layers is None or layer < 0 or layer >= len(layers):
+            raise ValueError(f"invalid hidden layer: {layer}")
+        module = layers[layer]
+        label = f"layer {layer}"
+    if module is None:
+        raise ValueError(f"model has no module for {label}")
+    captured = []
+
+    def hook(_module, _inputs, output):
+        captured.append(output[0] if isinstance(output, tuple) else output)
+
+    handle = module.register_forward_hook(hook)
+    try:
+        clean_kwargs = {key: value for key, value in kwargs.items() if value is not None}
+        output = model(input_ids=as_input_ids(token_ids, model), **clean_kwargs)
+    finally:
+        handle.remove()
+    if not captured:
+        raise RuntimeError(f"hidden capture did not fire for {label}")
+    return output, captured[-1]
+
+
 def _hidden_at_layer(model, token_ids: list[int], layer: int) -> np.ndarray:
     cap = int(getattr(getattr(model, "config", None), "max_position_embeddings", 0) or 0)
     if cap and len(token_ids) > cap:
         raise ValueError(f"trace length {len(token_ids)} exceeds model context {cap}")
-    ids = as_input_ids(token_ids, model)
     model.eval()
     with torch.inference_mode():
-        fwd = model(input_ids=ids, output_hidden_states=True, use_cache=False, past_key_values=None)
-    states = fwd.hidden_states
-    idx = min(layer + 1, len(states) - 1)
-    return states[idx][0].detach().cpu().numpy()
+        _fwd, hidden = _capture_forward_output(model, token_ids, layer=layer, use_cache=False)
+    return hidden[0].float().detach().cpu().numpy()
 
 
 def collect_hidden_trace(

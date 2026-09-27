@@ -456,6 +456,8 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         traces = [base_trace, seed1_trace, edit_trace]
         if any(not t.events or t.metadata.get("parse_status") == "parse_failed" for t in traces):
             raise ValueError("scientific prepare: parse_failed (no events)")
+        if any(t.answer is None for t in traces):
+            raise ValueError("scientific prepare: missing parsed answer")
         pair = _try_source_value_pair(task, premise_id, new_literal or "2")
         if pair:
             src_trace = generate_task_trace(pair["same_value_diff_source"].task, seed=0, run_id="trace-source", **gen_kw)

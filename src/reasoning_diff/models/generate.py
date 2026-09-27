@@ -48,7 +48,10 @@ def decode_loop(
     with torch.inference_mode():
         for _ in range(max_new):
             step = tokens if past is None else tokens[:, -1:]
-            out = model(input_ids=step, past_key_values=past, use_cache=True)
+            call = {"input_ids": step, "use_cache": True}
+            if past is not None:
+                call["past_key_values"] = past
+            out = model(**call)
             past = out.past_key_values
             logits = out.logits[:, -1, :]
             gen_device = getattr(generator, "device", None) or torch.device("cpu")
@@ -230,6 +233,8 @@ def generate_frozen_trace(
             "model_name": model_name or info.get("name"),
             "revision": info.get("revision"),
             "prompt_len": len(prompt_ids),
+            "generated_tokens": len(generated_ids),
+            "stop_reason": decoded.get("stop_reason"),
             "sampling": decoded.get("sampling"),
             "prompt_text": prompt,
             "parse_status": "ok" if events else "parse_failed",
@@ -350,6 +355,8 @@ def generate_task_trace(
             "prompt_len": len(prompt_ids),
             "weight_seed": weight_seed,
             "sampling": decoded.get("sampling"),
+            "generated_tokens": len(decoded.get("generated_ids") or []),
+            "stop_reason": decoded.get("stop_reason"),
             "prompt_text": prompt,
             "parse_status": parse_status,
             "target_assignment": assigned,

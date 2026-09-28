@@ -24,6 +24,48 @@ def _auc(scores: np.ndarray, labels: np.ndarray) -> float | None:
     return float(greater + 0.5 * equal)
 
 
+def classification_metrics(scores: np.ndarray, labels: np.ndarray, *, split: str, groups: list[str] | None = None) -> dict:
+    """Return held-out binary metrics with explicit denominator and split."""
+    scores = np.asarray(scores, dtype=float).reshape(-1)
+    labels = np.asarray(labels, dtype=float).reshape(-1)
+    known = np.isfinite(scores) & np.isfinite(labels) & np.isin(labels, [0.0, 1.0])
+    if not known.any():
+        return {"split": split, "n_units": 0, "held_out": split != "probe_train", "status": "no_known_labels"}
+    pred = (scores[known] >= 0.5).astype(int)
+    truth = labels[known].astype(int)
+    tp = int(((pred == 1) & (truth == 1)).sum())
+    fp = int(((pred == 1) & (truth == 0)).sum())
+    fn = int(((pred == 0) & (truth == 1)).sum())
+    precision = tp / (tp + fp) if tp + fp else 0.0
+    recall = tp / (tp + fn) if tp + fn else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    order = np.argsort(-scores[known])
+    ranked = truth[order]
+    positives = max(int((truth == 1).sum()), 1)
+    cumulative = np.cumsum(ranked == 1)
+    precision_at_k = cumulative / np.arange(1, len(ranked) + 1)
+    pr_auc = float(np.sum(precision_at_k[ranked == 1]) / positives) if (truth == 1).any() else None
+    known_groups = None
+    if groups is not None:
+        if len(groups) != len(scores):
+            raise ValueError("classification groups must cover every score")
+        known_groups = [str(group) for group, keep in zip(groups, known, strict=True) if keep]
+    return {
+        "split": split,
+        "n_units": int(known.sum()),
+        "n_positive": int((truth == 1).sum()),
+        "n_negative": int((truth == 0).sum()),
+        "held_out": split != "probe_train",
+        "auc": _auc(scores[known], truth),
+        "pr_auc": pr_auc,
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
+        "status": "ok" if np.unique(truth).size == 2 else "single_class",
+        "groups": None if known_groups is None else len(set(known_groups)),
+    }
+
+
 def _fit_scores(x: np.ndarray, y: np.ndarray, train: np.ndarray) -> np.ndarray:
     design = np.c_[np.ones(len(y)), np.asarray(x, dtype=float)]
     xt = design[train]
@@ -196,12 +238,20 @@ def p2_from_rows(rows: list[dict]) -> dict:
         for row in rows
     ]
     ok = [item for item in items if item.get("status") == "ok"]
+    ok_groups = [str(rows[index].get("base_group_id") or rows[index].get("task_id") or rows[index].get("pair_id") or index) for index, item in enumerate(items) if item.get("status") == "ok"]
+    rho_values = [item["delta_rho"] for item in ok]
+    acc_values = [item["delta_acc"] for item in ok]
     return {
         "n": len(rows),
         "delta_rho": float(np.mean([item["delta_rho"] for item in ok])) if ok else None,
         "delta_acc": float(np.mean([item["delta_acc"] for item in ok])) if ok else None,
         "per_item": items,
         "status": "ok" if ok else (items[0].get("status") if items else "missing_pair"),
+        "delta_rho_interval": _bootstrap_effect(rho_values, ok_groups, seed=1),
+        "delta_acc_interval": _bootstrap_effect(acc_values, ok_groups, seed=2),
+        "statistical_unit": "problem",
+        "preregistration_id": None,
+        "multiplicity_status": "unregistered",
     }
 
 
@@ -225,6 +275,9 @@ def p3_recovery(
         "invalid_rate": invalid_rate,
         "nontarget": nontarget,
         "causal_reverse_claim": False,
+        "comparison_protocol": "paired_problem_effects",
+        "preregistration_id": None,
+        "multiplicity_status": "unregistered",
         "restriction": "REST-02: undetected P3 does not imply spurious dependence is only a consequence",
     }
 
@@ -245,6 +298,12 @@ def p3_from_rows(rows: list[dict]) -> dict:
     ]
     crand = [item["vs_crand"] for item in items if item["vs_crand"] is not None]
     clayer = [item["vs_clayer"] for item in items if item["vs_clayer"] is not None]
+    groups = [
+        str(row.get("base_group_id") or row.get("task_id") or row.get("problem_id") or idx)
+        for idx, row in enumerate(rows)
+        if row.get("main_acc") is not None and row.get("crand_acc") is not None
+    ]
+    interval = _bootstrap_effect(crand, groups, seed=0)
     return {
         "n": len(rows),
         "vs_crand": float(np.mean(crand)) if crand else None,
@@ -252,13 +311,40 @@ def p3_from_rows(rows: list[dict]) -> dict:
         "vs_clayer": float(np.mean(clayer)) if clayer else None,
         "n_vs_crand": len(crand),
         "n_vs_clayer": len(clayer),
+        "vs_crand_interval": interval,
+        "interval_method": "cluster_bootstrap_problem",
+        "statistical_unit": "problem",
         "invalid_rate": None
         if any(item.get("invalid_rate") is None for item in items)
         else float(np.mean([item["invalid_rate"] for item in items])),
         "per_item": items,
         "status": "ok" if crand or clayer else "missing",
         "causal_reverse_claim": False,
+        "comparison_protocol": "paired_problem_effects",
+        "statistical_unit": "problem",
+        "preregistration_id": None,
+        "multiplicity_status": "unregistered",
     }
+
+
+def _bootstrap_effect(values: list[float], groups: list[str], *, seed: int, n: int = 500) -> dict:
+    """Cluster bootstrap an effect while retaining the problem denominator."""
+    if not values:
+        return {"interval": None, "n_groups": 0, "status": "no_valid_effect"}
+    if len(groups) != len(values):
+        groups = [str(i) for i in range(len(values))]
+    unique = list(dict.fromkeys(groups))
+    if len(unique) < 2:
+        return {"interval": None, "n_groups": len(unique), "status": "insufficient_groups"}
+    by_group = {group: [idx for idx, item in enumerate(groups) if item == group] for group in unique}
+    rng = np.random.default_rng(seed)
+    draws = []
+    for _ in range(n):
+        selected = rng.choice(unique, size=len(unique), replace=True)
+        idx = [i for group in selected for i in by_group[group]]
+        draws.append(float(np.mean(np.asarray(values)[idx])))
+    lo, hi = np.quantile(draws, [0.025, 0.975])
+    return {"interval": [float(lo), float(hi)], "n_groups": len(unique), "n_boot": len(draws), "status": "ok"}
 
 
 def _p1_delta_only(length, op, rho, y, held_out, precomputed) -> float | None:

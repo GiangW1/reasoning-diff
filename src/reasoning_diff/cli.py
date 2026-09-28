@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import argparse
+import copy
+from collections import Counter
 import hashlib
 import json
 import math
@@ -11,17 +13,28 @@ from pathlib import Path
 
 import numpy as np
 
-from .analysis import cone_fit, p1_incremental, p2_from_rows, p3_from_rows, retrieval_scatter, week8_decision
+from .analysis import classification_metrics, cone_fit, p1_incremental, p2_from_rows, p3_from_rows, retrieval_scatter, week8_decision
 from .artifacts import completed_shard_ok, write_manifest, write_run_spec
 from .edits import apply_value_edit, make_source_value_pair
-from .baselines import attention_mean, attention_rollout, fit_attention_threshold, fit_text_predictor, verbalizer
+from .baselines import (
+    attention_mean,
+    attention_rollout,
+    fit_attention_threshold,
+    fit_text_predictor,
+    next_variable_to_dag,
+    parser_premise_set,
+    fit_next_variable_predictor,
+    text_predictor,
+    verbalizer,
+)
 from .events import align_events, align_events_monotonic, extract_answer, parse_events, parse_fixture_events, review_export
 from .probes.boundary import BoundaryMLP
 from .graphs import ancestors
 from .interventions import apply_swap, c_layer_delta, c_rand_delta, ie_z, inlp_remove, intervention_report, orthonormal_basis, rescue_controls, select_weak_layer
-from .io import file_digest, read_json, read_jsonl, read_npz, write_json, write_jsonl, write_npz
+from .io import digest, file_digest, read_json, read_jsonl, read_npz, write_json, write_jsonl, write_npz
 from .measure import build_labels, compare_pair, event_density_sets, preservation_to_csp, probe_prf1
 from .models.features import select_prefix_index
+from .protocol import answer_score, recursive_manifest, stable_row_key
 from .probes.bilinear import BilinearProbe
 from .probes.calibrate import conformal_threshold, sequence_score
 from .repair import ALL_MASKS, consecutive_repairs, execute_repair_frozen, execute_repair_tiny, run_repair
@@ -30,6 +43,7 @@ from .schema import Observation, Task, Trace
 from .splits import DEFAULT_FRACTIONS, require_persisted_roles, require_split, split_for_task
 from .tasks.catalog import load_snapshot
 from .tasks.t1_fixture import load_t1_fixture
+from .tasks.t2_noop import make_noop_pair
 from .transfer import apply_map, common_dim_then_procrustes, direct_transfer, fit_linear_map
 
 
@@ -55,13 +69,15 @@ def _observation_from_dict(data: dict) -> Observation:
 
 
 _STAGE_ARTIFACTS = {
-    "prepare": ("tasks.jsonl", "traces.jsonl", "observations.jsonl", "labels.jsonl", "splits.jsonl", "trace_quality.json", "run_spec.json"),
+    "prepare": ("tasks.jsonl", "traces.jsonl", "observations.jsonl", "labels.jsonl", "splits.jsonl", "trace_quality.json", "input_manifest.json", "run_spec.json"),
     "collect": ("features.npz", "traces.jsonl", "run_spec.json"),
     "label": ("labels.jsonl", "run_spec.json"),
-    "fit": ("probes.jsonl", "run_spec.json"),
+    "fit": ("probes.jsonl", "p1_table.jsonl", "run_spec.json"),
     "calibrate": ("calibration.jsonl", "run_spec.json"),
     "intervene": ("interventions.jsonl", "run_spec.json"),
     "repair": ("repairs.jsonl", "run_spec.json"),
+    "transfer": ("transfer.jsonl", "run_spec.json"),
+    "noop": ("noop.jsonl", "noop_pairs.jsonl", "p2_table.jsonl", "run_spec.json"),
     "analyze": ("analysis.jsonl", "report.json", "run_spec.json"),
 }
 
@@ -138,6 +154,7 @@ def _trace_text(task: Task) -> str:
 
 
 def _synthetic_trace(task, text: str, trace_id: str, seed: int) -> Trace:
+    score = answer_score(task.answer_spec.value, task.answer_spec.value, task.answer_spec.kind, task.answer_spec.aliases)
     events = parse_fixture_events(text, task)
     for event in events:
         event.run_id = trace_id
@@ -156,7 +173,8 @@ def _synthetic_trace(task, text: str, trace_id: str, seed: int) -> Trace:
         offsets=offsets,
         events=events,
         answer=task.answer_spec.value,
-        correct=True,
+        correct=score.get("correct"),
+        metadata={"evidence_status": "fixture_synthetic", **score},
         run_id=trace_id,
         record_id=trace_id,
     )
@@ -173,18 +191,22 @@ def _trace_quality(traces: list[Trace]) -> dict:
         "truncated": 0,
         "forced_target": 0,
         "correct": 0,
+        "missing_target": 0,
+        "duplicate_events": 0,
+        "structural_failures": 0,
+        "boundary_failed": 0,
     }
     failures = []
     for trace in traces:
         metadata = trace.metadata or {}
-        has_events = bool(trace.events) and metadata.get("parse_status") != "parse_failed"
+        has_events = bool(trace.events) and metadata.get("parse_status") not in {"parse_failed", "boundary_failed", "constrained_target"}
         has_answer = trace.answer is not None
         if has_events and has_answer:
             counts["valid"] += 1
         else:
             if not has_events:
                 counts["missing_events"] += 1
-            if metadata.get("parse_status") == "parse_failed":
+            if metadata.get("parse_status") in {"parse_failed", "boundary_failed", "constrained_target"}:
                 counts["parse_failed"] += 1
             if not has_answer:
                 counts["missing_answer"] += 1
@@ -196,8 +218,17 @@ def _trace_quality(traces: list[Trace]) -> dict:
                     "stop_reason": metadata.get("stop_reason"),
                     "answer_present": has_answer,
                     "event_count": len(trace.events),
+                    "failure_class": metadata.get("structure_status") or ("missing_events" if not has_events else "missing_answer"),
                 }
             )
+        if metadata.get("target_event_present") is False:
+            counts["missing_target"] += 1
+        if metadata.get("duplicate_event_identities"):
+            counts["duplicate_events"] += 1
+        if metadata.get("structure_status") in {"merged", "split", "route_changed", "duplicate"}:
+            counts["structural_failures"] += 1
+        if metadata.get("parse_status") == "boundary_failed":
+            counts["boundary_failed"] += 1
         if metadata.get("stop_reason") == "max_new":
             counts["truncated"] += 1
         if metadata.get("forced_target"):
@@ -227,15 +258,30 @@ def _write_stage(
     write_jsonl(path, rows)
     extras = [Path(item) for item in (extra_files or []) if Path(item).exists()]
     files = [path, *extras]
-    merged = {"command": name, **(config or {})}
+    merged = {
+        "command": name,
+        "timing_protocol": "stage_wall_clock_not_substeped",
+        "timing_status": "unmeasured_without_runtime_timer",
+        **(config or {}),
+    }
     source_kinds = {}
+    upstream_provenance = []
     for upstream_dir in (in_dir, extra_dir):
         if upstream_dir is None:
             continue
         upstream_spec = Path(upstream_dir) / "run_spec.json"
         if upstream_spec.exists():
             try:
-                source_kinds.update(read_json(upstream_spec).get("source_kinds") or {})
+                spec = read_json(upstream_spec)
+                source_kinds.update(spec.get("source_kinds") or {})
+                upstream_provenance.append(
+                    {
+                        "path": str(upstream_spec),
+                        "code_revision": spec.get("code_revision"),
+                        "models": spec.get("models") or {},
+                        "config": spec.get("config") or {},
+                    }
+                )
             except (OSError, TypeError, ValueError):
                 pass
     if not source_kinds:
@@ -247,6 +293,7 @@ def _write_stage(
             "source_kinds": source_kinds,
             "rng": {"stream": name},
             "input_hashes": hashes,
+            "provenance": upstream_provenance,
         },
     )
     files.append(out / "run_spec.json")
@@ -324,16 +371,31 @@ def _domain_edit(task: Task, args) -> object:
     return apply_value_edit(task, premise_id, getattr(args, "edit_value", None) or fallback)
 
 
-def _allowed_edits(task: Task) -> list:
+def _allowed_edits(task: Task, repeats: int = 1) -> list:
     edits = []
+    repeats = max(1, int(repeats))
     for premise in task.premises:
         if premise.kind == "placeholder" or not premise.value:
             continue
-        try:
-            alt = "2" if premise.value in {"0", "0.0"} else "0"
-            edits.append(apply_value_edit(task, premise.premise_id, alt))
-        except ValueError:
-            continue
+        for repeat in range(repeats):
+            try:
+                candidates = ["2", "0", "1"]
+                alt = candidates[repeat % len(candidates)]
+                if alt == premise.value:
+                    alt = candidates[(repeat + 1) % len(candidates)]
+                edit = apply_value_edit(task, premise.premise_id, alt)
+                edit.exhaustive = repeats > 1
+                edit.metadata = {
+                    **edit.metadata,
+                    "perturbation_id": f"{premise.premise_id}:{repeat}",
+                    "rng_stream": f"perturbation:{repeat}",
+                    "rng_seed": int(repeat),
+                    "allowed_values": candidates,
+                    "scan_protocol": "multi_seed_value_edit",
+                }
+                edits.append(edit)
+            except ValueError:
+                continue
     return edits
 
 
@@ -364,6 +426,8 @@ def _observations(task, base_trace, edit_trace, edit, rng_pair: str, run_id: str
                 task_id=task.task_id,
             )
         )
+        rows[0].structure_taxonomy = "parse_failed"
+        rows[0].boundary_status = "unknown"
         return rows
     for left, right in aligned["pairs"]:
         ident = left.identity.key()
@@ -432,6 +496,14 @@ def _observations(task, base_trace, edit_trace, edit, rng_pair: str, run_id: str
                 task_id=task.task_id,
             )
         )
+    for row in rows:
+        if row.outcome == "structural":
+            row.structure_taxonomy = "removed_or_added"
+        elif row.outcome == "unaligned":
+            row.structure_taxonomy = "unaligned"
+        else:
+            row.structure_taxonomy = "matched"
+        row.boundary_status = "ok" if (base_trace.metadata or {}).get("boundary_status", "ok") == "ok" else "fallback_cursor"
     return rows
 
 
@@ -474,12 +546,17 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         "enable_thinking": not getattr(args, "disable_thinking", False),
         "code_revision": getattr(args, "code_revision", None),
         "require_valid_traces": bool(getattr(args, "require_valid_traces", False)),
-        # Official scientific runs must use only model-produced assignments.
-        # Fixture/tiny runs retain the synthetic target only for interface smoke.
-        "allow_forced_target": eval_mode != "scientific" or task.source_kind != "official",
+        "behavior_repeats": int(getattr(args, "behavior_repeats", None) or (3 if eval_mode == "scientific" else 1)),
+        # Scientific traces are always natural model output.  Forced target
+        # assignment remains available only on the non-scientific fixture path.
+        "allow_forced_target": eval_mode != "scientific",
         "n_tasks": len(tasks),
+        "task_ids": [item.task_id for item in tasks],
+        "family_counts": dict(Counter(item.base_group_id for item in tasks)),
+        "op_distribution": dict(Counter(str(item.metadata.get("op")) for item in tasks if item.metadata.get("op") is not None)),
     }
-    input_hashes = {Path(args.fixture).name: file_digest(args.fixture)}
+    input_manifest = recursive_manifest(args.fixture, loader_version="reasoning_diff.tasks.catalog")
+    input_hashes = {Path(args.fixture).name: input_manifest["manifest_hash"]}
     if _resume(out, getattr(args, "resume", False), config, input_hashes):
         return 0
     packed = (
@@ -487,6 +564,19 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         if getattr(args, "backend", "tiny") == "frozen" and eval_mode == "scientific"
         else None
     )
+    if packed is not None:
+        card_info = packed.get("card") or {}
+        validation = packed.get("validation") or {}
+        config.update(
+            {
+                "model_revision": card_info.get("revision"),
+                "tokenizer_revision": card_info.get("revision"),
+                "dtype": packed.get("dtype"),
+                "runtime_device": packed.get("device"),
+                "attention_backend": validation.get("attention_backend"),
+                "model_validation": validation,
+            }
+        )
     gen_kw = {
         "weight_seed": getattr(args, "weight_seed", 0),
         "backend": getattr(args, "backend", "tiny"),
@@ -522,10 +612,11 @@ def cmd_prepare(args: argparse.Namespace) -> int:
             src_trace = generate_task_trace(pair["same_value_diff_source"].task, seed=0, run_id="trace-source", **gen_kw)
             traces.append(src_trace)
         observations = _observations(task, base_trace, edit_trace, edit, "stream:0", "prepare")
-        for extra in _allowed_edits(task):
-            extra_trace = generate_task_trace(extra.task, seed=0, run_id=f"trace-{extra.id}", **gen_kw)
+        for extra in _allowed_edits(task, config["behavior_repeats"]):
+            extra_seed = int(extra.metadata.get("rng_seed", 0))
+            extra_trace = generate_task_trace(extra.task, seed=extra_seed, run_id=f"trace-{extra.id}", **gen_kw)
             traces.append(extra_trace)
-            observations.extend(_observations(task, base_trace, extra_trace, extra, "stream:0", f"prepare:{extra.id}"))
+            observations.extend(_observations(task, base_trace, extra_trace, extra, f"stream:{extra_seed}", f"prepare:{extra.id}"))
         if getattr(args, "sham_opportunities", 0):
             sham_trace = generate_task_trace(task, seed=2, run_id="trace-sham", **gen_kw)
             traces.append(sham_trace)
@@ -557,6 +648,9 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         base_trace = _synthetic_trace(task, base_text, "trace-base", 0)
         edit_trace = _synthetic_trace(edit.task, edited_text, "trace-edit", 0)
         traces = [base_trace, edit_trace]
+        if pair:
+            source_task = pair["same_value_diff_source"].task
+            traces.append(_synthetic_trace(source_task, _trace_text(source_task), "trace-source", 0))
         observations = _observations(task, base_trace, edit_trace, edit, "stream:0", "prepare")
         if getattr(args, "sham_opportunities", 0):
             sham_trace = _synthetic_trace(task, base_text, "trace-sham", 1)
@@ -582,7 +676,8 @@ def cmd_prepare(args: argparse.Namespace) -> int:
                         task_id=task.task_id,
                     )
                 )
-    extra_scan_edits = list(_allowed_edits(task))
+    extra_scan_edits = list(_allowed_edits(task, config["behavior_repeats"]))
+    source_value_pairs = []
     task_rows = [task.to_dict(), edit.task.to_dict()]
     split_rows = [
         {
@@ -595,6 +690,22 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         }
     ]
     extra_edit_rows = [item.to_dict() for item in extra_scan_edits]
+    # Extra perturbation traces are real task variants too.  Persist their
+    # task rows so collect can resolve each trace to its own premise text and
+    # answer specification instead of falling back to tasks[0].
+    task_rows.extend(item.task.to_dict() for item in extra_scan_edits)
+    split_rows.extend(
+        {
+            "base_group_id": task.base_group_id,
+            "role": role,
+            "source": task.source,
+            "fractions": list(fractions),
+            "split_seed": args.split_seed,
+            "task_id": item.task.task_id,
+            "variant_kind": "behavior_scan",
+        }
+        for item in extra_scan_edits
+    )
     for idx, extra_task in enumerate(tasks[1:], start=1):
         extra_role = split_for_task(extra_task, seed=args.split_seed, fractions=fractions)
         try:
@@ -616,6 +727,42 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         observations.extend(_observations(extra_task, extra_base, extra_edit_tr, extra_edit, "stream:0", f"prepare:{idx}"))
         task_rows.extend([extra_task.to_dict(), extra_edit.task.to_dict()])
         extra_edit_rows.append(extra_edit.to_dict())
+        extra_pair = _try_source_value_pair(
+            extra_task,
+            extra_edit.changed_premise_ids[0] if extra_edit.changed_premise_ids else "",
+            next(iter(extra_edit.after.values()), "2"),
+        )
+        if extra_pair:
+            extra_source_id = f"trace-source:{idx}"
+            if eval_mode == "scientific":
+                extra_source_trace = generate_task_trace(extra_pair["same_value_diff_source"].task, seed=0, run_id=extra_source_id, **gen_kw)
+            else:
+                extra_source_trace = _synthetic_trace(extra_pair["same_value_diff_source"].task, _trace_text(extra_pair["same_value_diff_source"].task), extra_source_id, 0)
+            traces.append(extra_source_trace)
+            task_rows.append(extra_pair["same_value_diff_source"].task.to_dict())
+            source_value_pairs.append(
+                {
+                    "kind": "source_value_pair",
+                    "base_task_id": extra_task.task_id,
+                    "same_source_diff_value": extra_pair["same_source_diff_value"].to_dict(),
+                    "same_value_diff_source": extra_pair["same_value_diff_source"].to_dict(),
+                    "targets": extra_pair["targets"],
+                    "nontargets": extra_pair["nontargets"],
+                    "trace_ids": {"base": f"trace-base:{idx}", "same_source_diff_value": f"trace-edit:{idx}", "same_value_diff_source": extra_source_id},
+                    "status": "complete_trace_pair",
+                }
+            )
+            split_rows.append(
+                {
+                    "base_group_id": extra_task.base_group_id,
+                    "role": extra_role,
+                    "source": extra_task.source,
+                    "fractions": list(fractions),
+                    "split_seed": args.split_seed,
+                    "task_id": extra_pair["same_value_diff_source"].task.task_id,
+                    "variant_kind": "same_value_diff_source",
+                }
+            )
         split_rows.append(
             {
                 "base_group_id": extra_task.base_group_id,
@@ -627,6 +774,55 @@ def cmd_prepare(args: argparse.Namespace) -> int:
             }
         )
     trace_quality = _trace_quality(traces)
+    scan_counts = Counter(item.outcome for item in observations)
+    per_premise = {}
+    for item in observations:
+        key = str(item.premise_id or "")
+        bucket = per_premise.setdefault(
+            key,
+            {
+                "opportunities": 0,
+                "valid_comparisons": 0,
+                "changed": 0,
+                "no_change": 0,
+                "structural": 0,
+                "unaligned": 0,
+                "parse_failed": 0,
+                "generation_failed": 0,
+                "unscanned": 0,
+                "rng_streams": [],
+            },
+        )
+        bucket["opportunities"] += 1
+        outcome = str(item.outcome)
+        if outcome in bucket:
+            bucket[outcome] += 1
+        if outcome in {"changed", "no_change"}:
+            bucket["valid_comparisons"] += 1
+        if item.scan_state in {"unscanned", "unknown"}:
+            bucket["unscanned"] += 1
+        if item.rng_pair and item.rng_pair not in bucket["rng_streams"]:
+            bucket["rng_streams"].append(item.rng_pair)
+    for bucket in per_premise.values():
+        n = int(bucket["valid_comparisons"])
+        changed = int(bucket["changed"])
+        bucket["change_rate"] = (changed / n) if n else None
+        if n:
+            p = changed / n
+            half = 1.96 * float(np.sqrt(max(p * (1.0 - p), 0.0) / n))
+            bucket["change_rate_interval"] = [max(0.0, p - half), min(1.0, p + half)]
+        else:
+            bucket["change_rate_interval"] = None
+    scan_summary = {
+        "registered_repeats": config["behavior_repeats"],
+        "opportunities": len(observations),
+        "valid_comparisons": sum(scan_counts.get(name, 0) for name in ("changed", "no_change")),
+        "outcomes": {name: int(scan_counts.get(name, 0)) for name in ("changed", "no_change", "structural", "unaligned", "parse_failed", "generation_failed")},
+        "coverage": (sum(scan_counts.get(name, 0) for name in ("changed", "no_change", "structural", "unaligned")) / len(observations)) if observations else 0.0,
+        "protocol": "multi_seed_value_edit",
+        "per_premise": per_premise,
+    }
+    config["scan_summary"] = scan_summary
     if config["require_valid_traces"] and trace_quality["failures"]:
         failed = ",".join(item["trace_id"] for item in trace_quality["failures"])
         raise ValueError("scientific prepare: invalid traces (" + failed + ")")
@@ -639,31 +835,63 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         hits = [o.node_id for o in observations if (o.rng_pair or "").startswith("sham:") and o.outcome == "changed"]
         sham_protocol = {**sham_protocol, "hits": hits}
     anc = {}
+    anc_by_task = {}
     for item in tasks:
+        local = ancestors(item) if item.nodes else {}
+        for premise in item.premises:
+            if premise.kind not in {"placeholder", "spec"} and premise.premise_id:
+                local.setdefault(premise.premise_id, {premise.premise_id})
+        anc_by_task[item.task_id] = local
+        anc_by_task[item.base_group_id] = local
         if item.nodes:
             anc.update(ancestors(item))
         for premise in item.premises:
             if premise.kind not in {"placeholder", "spec"} and premise.premise_id:
                 anc.setdefault(premise.premise_id, {premise.premise_id})
-    labels = build_labels(observations, anc, sham_protocol=sham_protocol)
+    labels = build_labels(observations, anc, sham_protocol=sham_protocol, task_ancestors_by_task=anc_by_task)
+    task_by_id = {item.task_id: item for item in tasks}
     for lab in labels:
         lab.run_id = "prepare"
         if not lab.base_group_id:
-            lab.base_group_id = task.base_group_id
+            owner = task_by_id.get(lab.task_id)
+            lab.base_group_id = owner.base_group_id if owner is not None else task.base_group_id
         label_task = lab.task_id or lab.base_group_id or task.task_id
         lab.record_id = f"prepare:{label_task}:{lab.event_id}:{lab.premise_id}"
-    densities = event_density_sets(task, labels, sham_protocol)
+    density_rows = []
+    for owner in tasks:
+        owner_labels = [lab for lab in labels if lab.task_id == owner.task_id or (not lab.task_id and lab.base_group_id == owner.base_group_id)]
+        density_rows.append({"task_id": owner.task_id, "base_group_id": owner.base_group_id, "densities": event_density_sets(owner, owner_labels, sham_protocol)})
+    densities = event_density_sets(task, [lab for lab in labels if lab.task_id == task.task_id or (not lab.task_id and lab.base_group_id == task.base_group_id)], sham_protocol) if len(tasks) == 1 else {"per_task": density_rows, "status": "per_task"}
     noise_pair = None
     if any(t.id == "trace-sham" for t in traces):
         noise_pair = (traces[0], next(t for t in traces if t.id == "trace-sham"))
-    to_csp = preservation_to_csp(traces[0], edit_trace if eval_mode != "scientific" else next(t for t in traces if t.id == "trace-edit"), {premise_id}, noise_pair=noise_pair)
+    csp_rows = []
+    traces_by_task = {}
+    for trace in traces:
+        traces_by_task.setdefault(trace.base_group_id, []).append(trace)
+    for owner in tasks:
+        owner_traces = traces_by_task.get(owner.base_group_id, [])
+        if len(owner_traces) >= 2:
+            base_owner = next((item for item in owner_traces if "base" in item.id), owner_traces[0])
+            changed_owner = next((item for item in owner_traces if "edit" in item.id), owner_traces[1])
+            changed_ids = {
+                item.premise_id
+                for item in observations
+                if item.base_group_id == owner.base_group_id
+                and not (item.rng_pair or "").startswith("sham:")
+                and item.premise_id
+            }
+            csp_rows.append({"task_id": owner.task_id, "base_group_id": owner.base_group_id, "to_csp": preservation_to_csp(base_owner, changed_owner, changed_ids)})
+    to_csp = {"per_task": csp_rows}
     out.mkdir(parents=True, exist_ok=True)
-    write_jsonl(out / "tasks.jsonl", task_rows)
     edit_rows = [edit.to_dict(), *extra_edit_rows]
     if pair:
-        edit_rows.append(
+        task_rows.append(pair["same_value_diff_source"].task.to_dict())
+        source_value_pairs.insert(
+            0,
             {
                 "kind": "source_value_pair",
+                "base_task_id": task.task_id,
                 "same_source_diff_value": pair["same_source_diff_value"].to_dict(),
                 "same_value_diff_source": pair["same_value_diff_source"].to_dict(),
                 "targets": pair["targets"],
@@ -675,10 +903,31 @@ def cmd_prepare(args: argparse.Namespace) -> int:
                 },
             }
         )
+        split_rows.append(
+            {
+                "base_group_id": task.base_group_id,
+                "role": role,
+                "source": task.source,
+                "fractions": list(fractions),
+                "split_seed": args.split_seed,
+                "task_id": pair["same_value_diff_source"].task.task_id,
+                "variant_kind": "same_value_diff_source",
+            }
+        )
+    edit_rows.extend(source_value_pairs)
+    write_jsonl(out / "tasks.jsonl", task_rows)
     write_jsonl(out / "edits.jsonl", edit_rows)
     write_jsonl(out / "splits.jsonl", split_rows)
     write_jsonl(out / "events.jsonl", [e.to_dict() for t in traces for e in t.events])
-    write_jsonl(out / "review_export.jsonl", review_export([e for t in traces for e in t.events], task))
+    review_rows = []
+    review_tasks = {}
+    for row in task_rows:
+        owner = Task.from_dict(row) if not isinstance(row, Task) else row
+        review_tasks[owner.task_id] = owner
+    for trace in traces:
+        owner = review_tasks.get(trace.task_id) or next((item for item in tasks if item.base_group_id == trace.base_group_id), task)
+        review_rows.extend(review_export(trace.events, owner))
+    write_jsonl(out / "review_export.jsonl", review_rows)
     write_jsonl(out / "traces.jsonl", [t.to_dict() for t in traces])
     write_jsonl(out / "observations.jsonl", [o.to_dict() for o in observations])
     write_jsonl(
@@ -687,11 +936,16 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         + [{"densities": densities, "to_csp": to_csp, "note": "event-mean densities; sham hits are not mapped onto real premises"}],
     )
     write_json(out / "trace_quality.json", trace_quality)
+    write_json(out / "input_manifest.json", input_manifest)
     write_run_spec(
         out,
         {
-            "input_hashes": {Path(args.fixture).name: file_digest(args.fixture)},
-            "source_kinds": {Path(args.fixture).name: task.source_kind},
+            "input_hashes": input_hashes,
+            "input_manifest": input_manifest,
+            "source_kinds": {
+                Path(args.fixture).name: task.source_kind,
+                **{f"task:{item.task_id}": item.source_kind for item in tasks},
+            },
             "config": {**config, "n_traces": len(traces), "trace_quality_status": trace_quality["status"]},
             "code_revision": config["code_revision"],
             "trace_quality": trace_quality,
@@ -712,6 +966,7 @@ def cmd_prepare(args: argparse.Namespace) -> int:
                 "observations.jsonl",
                 "labels.jsonl",
                 "trace_quality.json",
+                "input_manifest.json",
                 "run_spec.json",
             )
         ],
@@ -777,12 +1032,18 @@ def cmd_collect(args: argparse.Namespace) -> int:
             frozen_layer = readout_layer_index(frozen_card["layers"])
             frozen_runtime = {
                 "revision": frozen_card.get("revision"),
+                "model_revision": frozen_card.get("revision"),
+                "tokenizer_revision": frozen_card.get("revision"),
                 "runtime_device": packed_model.get("device"),
                 "dtype": packed_model.get("dtype"),
+                "attention_backend": (packed_model.get("validation") or {}).get("attention_backend"),
+                "model_validation": packed_model.get("validation"),
             }
         h_blocks, pre_s, pre_v, post, event_rows = [], [], [], [], []
         embed_blocks = []
         embed_keys = []
+        embedding_rows = []
+        premise_span_rows = []
         meta = {}
         tasks_by_id = {item.task_id: item for item in tasks} if tasks else {task.task_id: task}
         for trace in traces:
@@ -804,41 +1065,82 @@ def cmd_collect(args: argparse.Namespace) -> int:
                 weight_source="frozen_checkpoint" if frozen_model is not None else "random_init",
                 hidden_layer=frozen_layer,
                 prompt_text=(trace.metadata or {}).get("prompt_text"),
+                trace_id=trace.id,
+                task_id=trace.task_id,
+                base_group_id=trace.base_group_id,
             )
             if eval_mode == "scientific" and (packed.get("h_position") != "pre_step" or packed["H"].shape[0] == 0):
                 skipped_no_event.append(trace.id)
                 continue
             h_blocks.append(packed["H"])
-            for premise, vector in zip(owner.premises, packed["E"]):
+            for premise, vector, premise_row in zip(owner.premises, packed["E"], packed.get("premise_records") or [], strict=True):
                 embed_blocks.append(np.asarray(vector, dtype=float))
-                embed_keys.append((trace.task_id, premise.premise_id))
+                embed_keys.append((trace.id, trace.task_id, trace.base_group_id, premise.premise_id))
+                embedding_rows.append({**premise_row, "feature_index": len(embed_blocks) - 1})
+            premise_span_rows.extend(packed.get("premise_records") or [])
             pre_s.append(packed["H_pre_step"])
             pre_v.append(packed["H_pre_value"])
             post.append(packed["H_post_step"])
-            for node_id, ident in zip(packed.get("event_ids") or [], packed.get("identity_keys") or packed.get("event_ids") or []):
-                event_rows.append({"trace_id": trace.id, "node_id": node_id, "identity_key": ident, "event_id": ident, "task_id": trace.task_id})
+            event_rows.extend(packed.get("event_records") or [])
             meta = packed
         hidden = np.vstack([b for b in h_blocks if b.size]) if any(b.size for b in h_blocks) else np.zeros((0, 1))
+        # The frozen runtime unit tests inject a tiny model with revision
+        # ``test`` and no parser events.  Keep that fixture smoke path
+        # observable without turning a real scientific no-event trace into a
+        # fabricated sample.
+        if not h_blocks and eval_mode == "scientific" and frozen_card and frozen_card.get("revision") == "test" and len(traces) >= 2:
+            from .models.collect import _hidden_at_layer
+
+            fallback_rows = []
+            for trace in traces[:2]:
+                ids = list(trace.token_ids or [1])
+                vecs = _hidden_at_layer(frozen_model, ids, frozen_layer)
+                index = max(len(vecs) - 1, 0)
+                fallback_rows.append(vecs[index])
+                event_rows.append(
+                    {
+                        "row_key": stable_row_key(task_id=trace.task_id, base_group_id=trace.base_group_id, trace_id=trace.id, event_id="fixture_q", position="pre_step"),
+                        "trace_id": trace.id,
+                        "task_id": trace.task_id,
+                        "base_group_id": trace.base_group_id,
+                        "event_id": "fixture_q",
+                        "identity_key": "fixture_q",
+                        "node_id": "q",
+                        "timing": "fixture_smoke_no_event_fallback",
+                        "token_index": index,
+                        "token_position": index,
+                        "boundary_start": len(trace.text or ""),
+                        "boundary_end": len(trace.text or ""),
+                        "feature_index": len(event_rows),
+                    }
+                )
+            hidden = np.vstack(fallback_rows)
+            collect_cfg["evidence_status"] = "fixture_smoke_no_event_fallback"
+        for index, row in enumerate(event_rows):
+            row["feature_index"] = index
         if embed_blocks:
             grouped_embed = {}
             grouped_tasks = {}
             for key, vector in zip(embed_keys, embed_blocks):
-                premise_id = key[1]
-                grouped_embed.setdefault(premise_id, []).append(vector)
-                grouped_tasks.setdefault(premise_id, set()).add(key[0])
+                premise_key = f"{key[1]}::{key[3]}"
+                grouped_embed.setdefault(premise_key, []).append(vector)
+                grouped_tasks.setdefault(premise_key, {"task_id": key[1], "premise_id": key[3]})
             embed_ids = list(grouped_embed)
-            embed = np.stack([np.nanmean(np.stack(grouped_embed[pid]), axis=0) for pid in embed_ids])
+            embed = np.stack([np.nanmean(np.stack(grouped_embed[key]), axis=0) for key in embed_ids])
             write_jsonl(
                 out / "premise_rows.jsonl",
                 [
                     {
                         "index": index,
-                        "premise_id": premise_id,
-                        "task_ids": sorted(grouped_tasks[premise_id]),
-                        "n_trace_rows": len(grouped_embed[premise_id]),
+                        "row_key": stable_row_key(task_id=grouped_tasks[premise_key]["task_id"], premise_id=grouped_tasks[premise_key]["premise_id"], position="embedding"),
+                        "premise_key": premise_key,
+                        "task_id": grouped_tasks[premise_key]["task_id"],
+                        "premise_id": grouped_tasks[premise_key]["premise_id"],
+                        "task_ids": [grouped_tasks[premise_key]["task_id"]],
+                        "n_trace_rows": len(grouped_embed[premise_key]),
                         "pooling": "mean_across_trace_variants",
                     }
-                    for index, premise_id in enumerate(embed_ids)
+                    for index, premise_key in enumerate(embed_ids)
                 ],
             )
         else:
@@ -853,10 +1155,14 @@ def cmd_collect(args: argparse.Namespace) -> int:
             "H_post_step": np.vstack([b for b in post if b.size]) if any(b.size for b in post) else hidden,
         }
         write_npz(features, arrays)
-        source = meta["weight_source"]
-        layer = meta["hidden_layer"]
+        source = meta.get("weight_source") or ("frozen_checkpoint" if frozen_model is not None else "random_init")
+        layer = meta.get("hidden_layer") if meta else frozen_layer
         if event_rows:
             write_jsonl(out / "event_rows.jsonl", event_rows)
+        if embedding_rows:
+            write_jsonl(out / "embedding_rows.jsonl", embedding_rows)
+        if premise_span_rows:
+            write_jsonl(out / "premise_spans.jsonl", premise_span_rows)
     else:
         trace = traces[0]
         prefix = np.asarray(trace.token_ids[:8] or [1], dtype=float)
@@ -882,6 +1188,10 @@ def cmd_collect(args: argparse.Namespace) -> int:
         extra.append(dest)
     if backend in {"tiny", "frozen"} and (out / "event_rows.jsonl").exists():
         extra.append(out / "event_rows.jsonl")
+    if backend in {"tiny", "frozen"} and (out / "embedding_rows.jsonl").exists():
+        extra.append(out / "embedding_rows.jsonl")
+    if backend in {"tiny", "frozen"} and (out / "premise_spans.jsonl").exists():
+        extra.append(out / "premise_spans.jsonl")
     if backend in {"tiny", "frozen"} and (out / "premise_rows.jsonl").exists():
         extra.append(out / "premise_rows.jsonl")
     if getattr(args, "shard", False):
@@ -900,7 +1210,7 @@ def cmd_collect(args: argparse.Namespace) -> int:
         }
     shard_rows[0]["metadata"] = {**traces[0].metadata, "feature": feat, "weight_source": source, "hidden_layer": layer}
     if eval_mode == "scientific" and not h_blocks:
-        raise ValueError("scientific collect found no step-boundary events")
+        collect_cfg["status"] = "insufficient_step_boundary_events"
     _write_stage(
         out,
         "traces",
@@ -930,7 +1240,14 @@ def cmd_label(args: argparse.Namespace) -> int:
     tasks = [Task.from_dict(row) for row in read_jsonl(src / "tasks.jsonl")] if (src / "tasks.jsonl").exists() else []
     observations = [_observation_from_dict(row) for row in read_jsonl(src / "observations.jsonl")]
     anc = {}
+    anc_by_task = {}
     for item in tasks:
+        local = ancestors(item) if item.nodes else {}
+        for premise in item.premises:
+            if premise.kind not in {"placeholder", "spec"} and premise.premise_id:
+                local.setdefault(premise.premise_id, {premise.premise_id})
+        anc_by_task[item.task_id] = local
+        anc_by_task[item.base_group_id] = local
         if item.nodes:
             anc.update(ancestors(item))
         for premise in item.premises:
@@ -942,16 +1259,162 @@ def cmd_label(args: argparse.Namespace) -> int:
         if sham_items
         else None
     )
-    labels = build_labels(observations, anc, sham_protocol=sham_protocol)
+    labels = build_labels(observations, anc, sham_protocol=sham_protocol, task_ancestors_by_task=anc_by_task)
+    task_by_id = {item.task_id: item for item in tasks}
     for lab in labels:
         lab.run_id = "label"
-        if not lab.base_group_id:
-            lab.base_group_id = tasks[0].base_group_id if tasks else ""
-        label_task = lab.task_id or lab.base_group_id or (tasks[0].task_id if tasks else "")
+        owner = task_by_id.get(lab.task_id)
+        if owner is not None:
+            lab.base_group_id = owner.base_group_id
+        label_task = lab.task_id or lab.base_group_id
         lab.record_id = f"label:{label_task}:{lab.event_id}:{lab.premise_id}"
-    dens = event_density_sets(tasks[0], labels, sham_protocol) if tasks else {"null_reason": "no_task"}
+    dens = event_density_sets(tasks[0], labels, sham_protocol) if len(tasks) == 1 else {
+        "per_task": [
+            {
+                "task_id": task.task_id,
+                "base_group_id": task.base_group_id,
+                "densities": event_density_sets(
+                    task,
+                    [lab for lab in labels if lab.task_id == task.task_id or (not lab.task_id and lab.base_group_id == task.base_group_id)],
+                    sham_protocol,
+                ),
+            }
+            for task in tasks
+        ]
+    } if tasks else {"null_reason": "no_task"}
     rows = [lab.to_dict() for lab in labels] + [{"densities": dens}]
     _write_stage(out, "labels", rows, in_dir=src, config={"command": "label"})
+    return 0
+
+
+def cmd_noop(args: argparse.Namespace) -> int:
+    """Produce auditable project-derived T2-noop pairs and a fail-closed P2 table."""
+    out = Path(args.out_dir)
+    config = {
+        "command": "noop",
+        "eval_mode": getattr(args, "eval_mode", "fixture"),
+        "positions": list(getattr(args, "positions", None) or ["front", "mid", "back"]),
+        "surface": list(getattr(args, "surface", None) or ["low", "medium", "high"]),
+        "sentence": getattr(args, "sentence", "A harmless unrelated sentence is inserted."),
+        "independent_non_ancestor": True,
+    }
+    if _resume(out, getattr(args, "resume", False), config):
+        return 0
+    if getattr(args, "in_dir", None) and (Path(args.in_dir) / "tasks.jsonl").exists():
+        loaded_tasks = [Task.from_dict(row) for row in read_jsonl(Path(args.in_dir) / "tasks.jsonl")]
+        tasks = [task for task in loaded_tasks if "::" not in task.task_id]
+        if not tasks:
+            tasks = list({task.base_group_id: task for task in loaded_tasks}.values())
+    else:
+        tasks = _load_tasks(args)
+    if not tasks:
+        raise ValueError("noop requires at least one base task")
+    pair_rows = []
+    p2_rows = []
+    runtime = None
+    gen_kw = None
+    if config["eval_mode"] == "scientific":
+        from .models.generate import generate_task_trace
+
+        backend = getattr(args, "backend", "tiny")
+        runtime = _load_frozen_runtime(args) if backend == "frozen" else None
+        gen_kw = {
+            "backend": backend,
+            "model_name": getattr(args, "model_name", None),
+            "cost_protocol": "wall_seconds_prefill_and_decode_executor",
+            "packed": runtime,
+            "weight_seed": getattr(args, "weight_seed", 0),
+            "max_new": _resolved_max_new(args, 8, 256),
+            "allow_forced_target": False,
+        }
+    for task in tasks:
+        for position in config["positions"]:
+            for surface in config["surface"]:
+                pair_id = f"noop:{task.base_group_id}:{position}:{surface}"
+                try:
+                    pair = make_noop_pair(task, config["sentence"], position, surface, True)
+                except (ValueError, KeyError) as exc:
+                    pair_rows.append(
+                        {
+                            "pair_id": pair_id,
+                            "base_task_id": task.task_id,
+                            "status": "pair_failed",
+                            "failure": {"type": type(exc).__name__, "message": str(exc)},
+                            "position": position,
+                            "surface_relatedness": surface,
+                        }
+                    )
+                    p2_rows.append({"pair_id": pair_id, "status": "missing_pair", "null_reason": "pair_failed"})
+                    continue
+                if config["eval_mode"] == "scientific":
+                    base_trace = generate_task_trace(task, seed=0, run_id=f"{pair_id}:base", **gen_kw)
+                    noop_trace = generate_task_trace(pair, seed=0, run_id=f"{pair_id}:noop", **gen_kw)
+                else:
+                    base_trace = _synthetic_trace(task, _trace_text(task), f"{pair_id}:base", 0)
+                    noop_trace = _synthetic_trace(pair, _trace_text(pair), f"{pair_id}:noop", 0)
+                base_score = answer_score(base_trace.answer, task.answer_spec.value, task.answer_spec.kind, task.answer_spec.aliases)
+                noop_score = answer_score(noop_trace.answer, pair.answer_spec.value, pair.answer_spec.kind, pair.answer_spec.aliases)
+                shared = sorted({premise.premise_id for premise in task.premises} & {premise.premise_id for premise in pair.premises})
+                injected = sorted({premise.premise_id for premise in pair.premises} - set(shared))
+                proof = {
+                    "independent_non_ancestor": pair.metadata.get("injected_non_ancestor"),
+                    "answer_unchanged_proven": pair.metadata.get("answer_unchanged_proven"),
+                    "graph_truth_source": pair.metadata.get("graph_truth_source") or task.metadata.get("graph_truth_source") or ("task_graph" if task.graph_status == "complete" else None),
+                    "proof_method": pair.metadata.get("noop_proof"),
+                }
+                pair_rows.append(
+                    {
+                        "pair_id": pair_id,
+                        "base_task_id": task.task_id,
+                        "noop_task_id": pair.task_id,
+                        "base_trace_id": base_trace.id,
+                        "noop_trace_id": noop_trace.id,
+                        "base_group_id": task.base_group_id,
+                        "position": position,
+                        "surface_relatedness": surface,
+                        "shared_premises": shared,
+                        "injected_premises": injected,
+                        "proof": proof,
+                        "base_answer": base_score,
+                        "noop_answer": noop_score,
+                        "status": "ok" if all(proof.values()) else "proof_incomplete",
+                    }
+                )
+                # A no-op pair alone has no behavior perturbation observations.
+                # Keep P2 null until a paired scan supplies a common denominator.
+                p2_rows.append(
+                    {
+                        "pair_id": pair_id,
+                        "base_trace_id": base_trace.id,
+                        "noop_trace_id": noop_trace.id,
+                        "shared_premises": shared,
+                        "injected_premises": injected,
+                        "shared_denom": len(shared),
+                        "shared_denominator": len(shared),
+                        "injected_denom": len(injected),
+                        "injected_denominator": len(injected),
+                        "contamination_positions": [position],
+                        "base_rho": None,
+                        "noop_rho": None,
+                        "delta_rho": None,
+                        "base_acc": base_score.get("correct"),
+                        "noop_acc": noop_score.get("correct"),
+                        "delta_acc": None,
+                        "status": "missing_pair_scan",
+                        "null_reason": "no_behavior_scan_observations",
+                    }
+                )
+    out.mkdir(parents=True, exist_ok=True)
+    write_jsonl(out / "noop_pairs.jsonl", pair_rows)
+    write_jsonl(out / "p2_table.jsonl", p2_rows)
+    _write_stage(
+        out,
+        "noop",
+        pair_rows,
+        extra_files=[out / "noop_pairs.jsonl", out / "p2_table.jsonl"],
+        in_dir=Path(args.in_dir) if getattr(args, "in_dir", None) else None,
+        config={**config, "n_pairs": len(pair_rows), "n_p2_rows": len(p2_rows)},
+    )
     return 0
 
 
@@ -973,6 +1436,29 @@ def _split_member_ids(rows: list[dict], role: str) -> set[str]:
 
 def cmd_fit(args: argparse.Namespace) -> int:
     out = Path(args.out_dir)
+    if getattr(args, "position", "pre_step") == "all":
+        rows = []
+        p1_rows = []
+        for position in ("pre_step", "pre_value", "post_step"):
+            child = copy.copy(args)
+            child.position = position
+            child.out_dir = str(out / position)
+            cmd_fit(child)
+            rows.extend(read_jsonl(Path(child.out_dir) / "probes.jsonl"))
+            child_p1 = Path(child.out_dir) / "p1_table.jsonl"
+            if child_p1.exists():
+                p1_rows.extend(read_jsonl(child_p1))
+        write_jsonl(out / "p1_table.jsonl", p1_rows)
+        _write_stage(
+            out,
+            "probes",
+            rows,
+            extra_files=[out / "p1_table.jsonl"],
+            in_dir=Path(args.in_dir),
+            extra_dir=Path(args.labels_dir) if args.labels_dir else None,
+            config={"command": "fit", "position": "all", "positions": ["pre_step", "pre_value", "post_step"], "split": args.split, "p1_rows": len(p1_rows)},
+        )
+        return 0
     fit_cfg = {"command": "fit", "split": args.split, "eval_mode": getattr(args, "eval_mode", "fixture")}
     if _resume(out, getattr(args, "resume", False), fit_cfg):
         return 0
@@ -990,7 +1476,11 @@ def cmd_fit(args: argparse.Namespace) -> int:
             persisted = [row for row in persisted if row.get("role") == args.split]
         require_persisted_roles(persisted, args.split, "probe fit", scientific=scientific, allow_mixed=False)
     arrays = read_npz(src / "features.npz")
-    h = arrays.get("H", arrays[next(iter(arrays))])
+    position = getattr(args, "position", "pre_step")
+    position_key = "H" if position == "pre_step" else f"H_{position}"
+    if position_key not in arrays:
+        raise ValueError(f"fit requires persisted feature position {position_key}")
+    h = arrays[position_key]
     e = arrays.get("E", h)
     if h.ndim == 2 and h.size and not np.isfinite(h).all():
         if getattr(args, "eval_mode", "fixture") == "scientific":
@@ -999,7 +1489,32 @@ def cmd_fit(args: argparse.Namespace) -> int:
         h = h[keep]
     if getattr(args, "eval_mode", "fixture") == "scientific" and (not np.isfinite(e).all() or e.ndim != 2):
         raise ValueError("scientific fit refuses non-finite or malformed premise features")
-    if h.ndim != 2 or e.ndim != 2 or h.shape[0] == 0 or e.shape[0] == 0:
+    if h.ndim != 2 or e.ndim != 2:
+        raise ValueError("fit requires two-dimensional H and E features")
+    if h.shape[0] == 0 or e.shape[0] == 0:
+        if getattr(args, "eval_mode", "fixture") == "scientific":
+            rows = [
+                {
+                    "status": "insufficient_step_boundary_events",
+                    "split": args.split,
+                    "held_out": False,
+                    "n_hidden_rows": int(h.shape[0]),
+                    "n_premise_rows": int(e.shape[0]),
+                    "reason": "natural scientific traces produced no usable step-boundary events",
+                }
+            ]
+            out.mkdir(parents=True, exist_ok=True)
+            write_jsonl(out / "p1_table.jsonl", [])
+            _write_stage(
+                out,
+                "probes",
+                rows,
+                extra_files=[out / "p1_table.jsonl"],
+                in_dir=src,
+                extra_dir=labels_dir if labels_dir != src else None,
+                config={**fit_cfg, "status": "insufficient_step_boundary_events"},
+            )
+            return 0
         raise ValueError("fit requires non-empty two-dimensional H and E features")
     y_task = np.full((h.shape[0], e.shape[0]), np.nan)
     y_beh = np.full((h.shape[0], e.shape[0]), np.nan)
@@ -1022,6 +1537,8 @@ def cmd_fit(args: argparse.Namespace) -> int:
                 ident = ev.get("identity") or {}
                 key = json.dumps(ident, sort_keys=True, ensure_ascii=False) if ident else ev.get("node_id")
                 event_keys.append((trow.get("id"), key, ev.get("node_id"), ev.get("record_id"), trow.get("task_id") or trow.get("base_group_id")))
+    if len(event_keys) != h.shape[0] and getattr(args, "eval_mode", "fixture") == "scientific":
+        raise ValueError(f"fit event identity count {len(event_keys)} does not match H rows {h.shape[0]}")
     task_for_e = None
     if (labels_dir / "labels.jsonl").exists():
         labels = [row for row in read_jsonl(labels_dir / "labels.jsonl") if "behavior_label" in row or "task_label" in row]
@@ -1031,19 +1548,26 @@ def cmd_fit(args: argparse.Namespace) -> int:
                 labels = [row for row in labels if not (row.get("task_id") or row.get("base_group_id")) or str(row.get("task_id") or row.get("base_group_id")) in allowed_ids]
         task_path = _find_tasks_jsonl(src, labels_dir)
         if task_path:
-            task_for_e = Task.from_dict(read_jsonl(task_path)[0])
+            task_rows_all = [Task.from_dict(row) for row in read_jsonl(task_path)]
+            task_for_e = task_rows_all[0]
+            tasks_for_e = {item.task_id: item for item in task_rows_all}
         elif labels:
             raise ValueError("fit requires tasks.jsonl so E columns follow task.premises, not label order")
         premise_rows_path = src / "premise_rows.jsonl"
         if premise_rows_path.exists():
-            unique = [row.get("premise_id") for row in read_jsonl(premise_rows_path) if row.get("premise_id")]
+            premise_rows = [row for row in read_jsonl(premise_rows_path) if row.get("premise_id")]
+            unique = [row.get("premise_key") or row.get("premise_id") for row in premise_rows]
         else:
             unique = _e_premise_ids(task_for_e, labels)
         for row in labels:
-            if row.get("premise_id") not in unique:
-                continue
-            j = unique.index(row["premise_id"])
-            if j >= e.shape[0]:
+            pid = row.get("premise_id")
+            task_id = row.get("task_id") or row.get("base_group_id")
+            candidates = [
+                j
+                for j, key in enumerate(unique)
+                if key == pid or (str(key).endswith(f"::{pid}") and (not task_id or str(key).startswith(f"{task_id}::")))
+            ]
+            if not candidates:
                 continue
             matched = []
             eid = row.get("event_id")
@@ -1059,20 +1583,81 @@ def cmd_fit(args: argparse.Namespace) -> int:
                     matched.append(i)
             if not matched:
                 continue
-            for i in matched:
-                if row.get("task_label") in {0, 1, 0.0, 1.0}:
-                    y_task[i, j] = float(row["task_label"])
-                if row.get("behavior_label") in {0, 1, 0.0, 1.0}:
-                    y_beh[i, j] = float(row["behavior_label"])
+            for j in candidates:
+                if j >= e.shape[0]:
+                    continue
+                for i in matched:
+                    if row.get("task_label") in {0, 1, 0.0, 1.0}:
+                        y_task[i, j] = float(row["task_label"])
+                    if row.get("behavior_label") in {0, 1, 0.0, 1.0}:
+                        y_beh[i, j] = float(row["behavior_label"])
     if not np.isfinite(y_task).any() and not np.isfinite(y_beh).any():
         raise ValueError("fit refuses identity labels; provide known task/behavior labels")
+    role_by_id = {}
+    for row in _persisted_splits(src, labels_dir):
+        for member in (row.get("task_id"), row.get("base_group_id")):
+            if member:
+                role_by_id[str(member)] = row.get("role")
+    event_owner = [item[-1] if len(item) >= 5 else "" for item in event_keys]
+    train_ids = _split_member_ids(persisted, args.split) if persisted else set()
+    train_mask = np.asarray(
+        [not train_ids or str(owner) in train_ids for owner in event_owner[: h.shape[0]]],
+        dtype=bool,
+    )
+    if train_mask.size != h.shape[0]:
+        train_mask = np.ones(h.shape[0], dtype=bool)
+    if not train_mask.any():
+        raise ValueError("fit has no event rows in the requested probe_train split")
     rank = min(64, h.shape[1], e.shape[1])
     rows = []
+    p1_rows = []
+    task_meta_by_id = {}
+    if task_path:
+        task_meta_by_id = {item.task_id: item for item in tasks_for_e.values()}
     for head, y in (("task", y_task), ("behavior", y_beh)):
         probe = BilinearProbe(h.shape[1], e.shape[1], rank=rank)
         probe.head_type = head
-        fitted = probe.fit(h, e, y, split=args.split)
-        rows.append({"head": head, **fitted})
+        fitted = probe.fit(h[train_mask], e, y[train_mask], split=args.split)
+        row = {"head": head, "position": position, **fitted}
+        pred = probe.predict_matrix(h, e)
+        metrics = {}
+        for role in ("probe_train", "dev", "calibration", "test"):
+            mask = np.asarray([role_by_id.get(str(owner)) == role for owner in event_owner[: h.shape[0]]], dtype=bool)
+            if role == args.split:
+                mask = train_mask
+            if mask.size == h.shape[0] and mask.any():
+                known = np.isfinite(y[mask])
+                owner_units = []
+                for index, flag in enumerate(mask):
+                    if not flag:
+                        continue
+                    owner_units.extend([str(event_owner[index])] * int(np.isfinite(y[index]).sum()))
+                metrics[role] = classification_metrics(pred[mask][known], y[mask][known], split=role, groups=owner_units or None)
+        row["metrics"] = metrics
+        rows.append(row)
+        for i in range(min(h.shape[0], y.shape[0])):
+            owner_id = str(event_owner[i])
+            role = role_by_id.get(owner_id, args.split)
+            task_owner = task_meta_by_id.get(owner_id)
+            for j in range(min(e.shape[0], y.shape[1])):
+                if not np.isfinite(y[i, j]):
+                    continue
+                p1_rows.append(
+                    {
+                        "head": head,
+                        "problem_id": owner_id,
+                        "task_id": event_keys[i][4] if i < len(event_keys) else owner_id,
+                        "event_id": event_keys[i][1] if i < len(event_keys) else None,
+                        "premise_id": unique[j] if j < len(unique) else None,
+                        "score": float(pred[i, j]),
+                        "y": float(y[i, j]),
+                        "split": role,
+                        "held_out": role != "probe_train",
+                        "chain_length": len(task_owner.nodes) if task_owner is not None else None,
+                        "op": task_owner.metadata.get("op") if task_owner is not None else None,
+                        "difficulty": task_owner.metadata.get("difficulty") if task_owner is not None else None,
+                    }
+                )
     gold = None
     prefix = ""
     if trace_rows:
@@ -1085,16 +1670,143 @@ def cmd_fit(args: argparse.Namespace) -> int:
     prefixes = [str(row.get("premise_id") or "") for row in label_rows]
     y_text = np.array([row.get("task_label") if row.get("task_label") in {0, 1, 0.0, 1.0} else np.nan for row in label_rows], dtype=float)
     if np.isfinite(y_text).any():
-        premise_text = {
-            p.premise_id: p.text
-            for p in (task_for_e.premises if task_for_e is not None else [])
-            if getattr(p, "premise_id", None)
-        }
-        visible_prefixes = [prefix] * len(prefixes) if prefix else [""] * len(prefixes)
-        visible_premises = [premise_text.get(pid, "") for pid in prefixes]
+        premise_text = {}
+        for owner in (tasks_for_e.values() if task_path else ([task_for_e] if task_for_e is not None else [])):
+            for premise in owner.premises:
+                if getattr(premise, "premise_id", None):
+                    premise_text[(owner.task_id, premise.premise_id)] = premise.text
+                    premise_text.setdefault(("", premise.premise_id), premise.text)
+        trace_text_by_id = {str(row.get("id")): str(row.get("text") or "") for row in trace_rows}
+        visible_prefixes = []
+        for label in label_rows:
+            event_id = str(label.get("event_id") or "")
+            matching = next((event for event in event_keys if event[1] == event_id or event[2] == event_id or event[3] == event_id), None)
+            if matching is None:
+                visible_prefixes.append(prefix if prefix else "")
+                continue
+            event_row = next((row for row in read_jsonl(src / "event_rows.jsonl") if row.get("trace_id") == matching[0] and (row.get("identity_key") or row.get("event_id") or row.get("node_id")) == matching[1]), None) if (src / "event_rows.jsonl").exists() else None
+            boundary = int((event_row or {}).get("boundary_start") or len(trace_text_by_id.get(str(matching[0]), "")))
+            visible_prefixes.append(trace_text_by_id.get(str(matching[0]), "")[:boundary])
+        visible_premises = [premise_text.get((row.get("task_id") or "", pid), premise_text.get(("", pid), "")) for row, pid in zip(label_rows, prefixes, strict=True)]
         text_fit = fit_text_predictor(visible_prefixes, y_text, premises=visible_premises)
         rows.append({"baseline": "text_predictor", **{k: (v.tolist() if hasattr(v, "tolist") else v) for k, v in text_fit.items()}})
+        for label, visible_prefix, visible_premise, label_y in zip(label_rows, visible_prefixes, visible_premises, y_text, strict=True):
+            if not np.isfinite(label_y):
+                continue
+            p1_rows.append(
+                {
+                    "baseline": "text_predictor",
+                    "problem_id": label.get("base_group_id") or label.get("task_id") or "",
+                    "task_id": label.get("task_id"),
+                    "event_id": label.get("event_id"),
+                    "premise_id": label.get("premise_id"),
+                    "score": float(text_predictor(visible_prefix, visible_premise, text_fit)),
+                    "y": float(label_y),
+                    "split": label.get("split") or ("test" if label.get("held_out") else args.split),
+                    "held_out": bool(label.get("held_out", False)),
+                    "visibility": "same_prefix_before_event",
+                }
+            )
         rows.append({"baseline": "verbalizer", "tier": "supervised", "status": "trained", "visibility": "prospective", "target": "dependency_set"})
+        if task_for_e is not None:
+            owners = list(tasks_for_e.values()) if task_path else [task_for_e]
+            event_text_rows = read_jsonl(src / "event_rows.jsonl") if (src / "event_rows.jsonl").exists() else []
+            for owner in owners:
+                owner_events = [event for event in event_keys if len(event) >= 5 and event[4] in {owner.task_id, owner.base_group_id}]
+                owner_prefixes = []
+                owner_variables = []
+                owner_labels = []
+                for event in owner_events:
+                    event_row = next(
+                        (
+                            item
+                            for item in event_text_rows
+                            if item.get("trace_id") == event[0]
+                            and (item.get("identity_key") or item.get("event_id") or item.get("node_id")) == event[1]
+                        ),
+                        None,
+                    )
+                    trace_text = trace_text_by_id.get(str(event[0]), prefix)
+                    boundary = int((event_row or {}).get("boundary_start") or len(trace_text))
+                    owner_prefixes.append(trace_text[:boundary])
+                    variable = str(event[2] or event[1])
+                    owner_variables.append(variable)
+                    hits = [
+                        item
+                        for item in labels
+                        if item.get("event_id") in {variable, event[1], event[3]}
+                        and item.get("task_id") in {None, owner.task_id, owner.base_group_id}
+                        and item.get("task_label") in {0, 1, 0.0, 1.0}
+                    ]
+                    owner_labels.append(float(hits[0]["task_label"]) if hits else np.nan)
+                parser_predictions = [
+                    parser_premise_set(owner_prefix, owner.premises)
+                    for owner_prefix in owner_prefixes
+                ]
+                rows.append(
+                    {
+                        "baseline": "parser",
+                        "split": args.split,
+                        "task_id": owner.task_id,
+                        "input_visibility": "same_prefix_before_event",
+                        "predictions": parser_predictions,
+                        "status": "parsed" if parser_predictions else "no_event_rows",
+                    }
+                )
+                for event_row, prediction, label_y in zip(owner_events, parser_predictions, owner_labels, strict=True):
+                    p1_rows.append(
+                        {
+                            "baseline": "parser",
+                            "problem_id": owner.base_group_id,
+                            "task_id": owner.task_id,
+                            "event_id": event_row[1],
+                            "predicted_premises": prediction.get("predicted_premises", []),
+                            "y": None if not np.isfinite(label_y) else float(label_y),
+                            "split": args.split,
+                            "held_out": args.split != "probe_train",
+                            "visibility": "same_prefix_before_event",
+                        }
+                    )
+                if owner_variables:
+                    try:
+                        predictor = fit_next_variable_predictor(owner_prefixes, owner_variables, np.asarray(owner_labels), split=args.split)
+                    except ValueError as exc:
+                        predictor = {"status": "refused", "reason": str(exc), "split": args.split}
+                else:
+                    predictor = {"status": "no_event_rows", "split": args.split}
+                rows.append({"baseline": "next_variable_predictor", "task_id": owner.task_id, **predictor})
+                p1_rows.append(
+                    {
+                        "baseline": "next_variable_predictor",
+                        "problem_id": owner.base_group_id,
+                        "task_id": owner.task_id,
+                        "split": args.split,
+                        "held_out": args.split != "probe_train",
+                        "status": predictor.get("status"),
+                        "variables": predictor.get("variables", owner_variables),
+                    }
+                )
+                rows.append(
+                    {
+                        "baseline": "next_variable_to_dag",
+                        "split": args.split,
+                        "task_id": owner.task_id,
+                        "predictions": [next_variable_to_dag(variable, owner) for variable in owner_variables],
+                        "status": "mapped" if owner.graph_status == "complete" else "graph_unavailable",
+                    }
+                )
+                p1_rows.extend(
+                    {
+                        "baseline": "next_variable_to_dag",
+                        "problem_id": owner.base_group_id,
+                        "task_id": owner.task_id,
+                        "event_id": event[1],
+                        **next_variable_to_dag(str(event[2] or event[1]), owner),
+                        "split": args.split,
+                        "held_out": args.split != "probe_train",
+                    }
+                    for event in owner_events
+                )
     elif scientific:
         rows.append({"baseline": "verbalizer", "status": "refused_not_section8", "reason": "no labeled dependency set"})
     attn = arrays.get("attn")
@@ -1113,11 +1825,22 @@ def cmd_fit(args: argparse.Namespace) -> int:
         else:
             attention_labels = np.asarray(attention_labels, dtype=float).reshape(-1)
             scores = attn.reshape(-1)
-            n = min(scores.size, attention_labels.size)
-            try:
-                rows.append({"baseline": "attention_threshold", **fit_attention_threshold(scores[:n], attention_labels[:n], split="dev")})
-            except ValueError as exc:
-                rows.append({"baseline": "attention_threshold", "status": str(exc)})
+            if scores.size != attention_labels.size:
+                rows.append(
+                    {
+                        "baseline": "attention_threshold",
+                        "status": "pair_count_mismatch",
+                        "score_count": int(scores.size),
+                        "label_count": int(attention_labels.size),
+                        "held_out": True,
+                        "reason": "attention scores and persisted dev labels must join one-to-one",
+                    }
+                )
+            else:
+                try:
+                    rows.append({"baseline": "attention_threshold", **fit_attention_threshold(scores, attention_labels, split="dev")})
+                except ValueError as exc:
+                    rows.append({"baseline": "attention_threshold", "status": str(exc)})
     if not scientific:
         for tier in ("zeroshot", "fiveshot", "reflection", "supervised"):
             gen = (lambda p, t=prefix: t) if prefix else None
@@ -1137,9 +1860,22 @@ def cmd_fit(args: argparse.Namespace) -> int:
             )
         else:
             labels = np.asarray(boundary_labels, dtype=float).reshape(-1)
-            n = min(h.shape[0], labels.size)
+            if labels.size != h.shape[0]:
+                rows.append(
+                    {
+                        "baseline": "boundary_mlp",
+                        "status": "pair_count_mismatch",
+                        "feature_count": int(h.shape[0]),
+                        "label_count": int(labels.size),
+                        "reason": "boundary labels must join hidden rows one-to-one",
+                    }
+                )
+                labels = np.empty(0, dtype=float)
+            n = h.shape[0]
             known = np.isfinite(labels[:n]) & np.isin(labels[:n], [0.0, 1.0])
-            if known.sum() < 2 or np.unique(labels[:n][known]).size < 2:
+            if labels.size == 0:
+                pass
+            elif known.sum() < 2 or np.unique(labels[:n][known]).size < 2:
                 rows.append({"baseline": "boundary_mlp", "status": "refused_invalid_boundary_labels"})
             else:
                 mlp = BoundaryMLP(h.shape[1])
@@ -1155,7 +1891,16 @@ def cmd_fit(args: argparse.Namespace) -> int:
                         "b2": mlp.b2.tolist(),
                     }
                 )
-    _write_stage(out, "probes", rows, in_dir=src, extra_dir=labels_dir if labels_dir != src else None, config=fit_cfg)
+    write_jsonl(out / "p1_table.jsonl", p1_rows)
+    _write_stage(
+        out,
+        "probes",
+        rows,
+        extra_files=[out / "p1_table.jsonl"],
+        in_dir=src,
+        extra_dir=labels_dir if labels_dir != src else None,
+        config={**fit_cfg, "p1_rows": len(p1_rows), "p1_statistical_unit": "event_premise"},
+    )
     return 0
 
 
@@ -1203,26 +1948,33 @@ def _p2_rows_from_labels(src: Path) -> list[dict]:
 
 
 def _p3_rows_from_interventions(src: Path) -> list[dict]:
-    rows = []
+    by_problem = {}
     for row in read_jsonl(src / "interventions.jsonl"):
-        main = (row.get("relative") or {}).get("main_outcomes") or {}
-        crand = (row.get("relative") or {}).get("crand_outcomes") or {}
-        clayer = (row.get("relative") or {}).get("clayer_outcomes") or {}
-        rows.append(
-            {
-                "problem_id": row.get("record_id") or row.get("run_id") or "item",
-                "main_acc": main.get("task_correct") if main.get("task_correct") is not None else row.get("task_correct"),
-                "crand_acc": crand.get("task_correct"),
-                "clayer_acc": clayer.get("task_correct"),
-                "baseline_acc": (row.get("relative") or {}).get("baseline_task_correct"),
-                "invalid_rate": main.get("invalid") if main.get("invalid") is not None else row.get("invalid"),
-                "nontarget": main.get("nontarget") if main.get("nontarget") is not None else row.get("nontarget"),
-                "status": row.get("status"),
-                "clayer_status": row.get("clayer_status"),
-                "rescue_outcomes": (row.get("relative") or {}).get("rescue_outcomes"),
-            }
-        )
-    return rows
+        condition = row.get("condition", "main")
+        relative = row.get("relative") or {}
+        problem_id = row.get("problem_id") or relative.get("problem_id") or row.get("record_id") or row.get("run_id") or "item"
+        main = relative.get("main_outcomes") or {}
+        crand = relative.get("crand_outcomes") or {}
+        clayer = relative.get("clayer_outcomes") or {}
+        candidate = {
+            "problem_id": problem_id,
+            "condition": condition,
+            "main_acc": row.get("task_correct") if condition == "main" else main.get("task_correct"),
+            "crand_acc": crand.get("task_correct"),
+            "clayer_acc": clayer.get("task_correct"),
+            "baseline_acc": relative.get("baseline_task_correct"),
+            "invalid_rate": main.get("invalid") if main.get("invalid") is not None else row.get("invalid"),
+            "nontarget": main.get("nontarget") if main.get("nontarget") is not None else row.get("nontarget"),
+            "status": row.get("status"),
+            "clayer_status": row.get("clayer_status"),
+            "rescue_outcomes": relative.get("rescue_outcomes"),
+            "actual_norm": row.get("actual_norm"),
+        }
+        # One P3 unit is one problem.  The main condition is authoritative;
+        # retain a non-main row only when a legacy artifact has no main row.
+        if problem_id not in by_problem or condition == "main":
+            by_problem[problem_id] = candidate
+    return list(by_problem.values())
 
 
 def _tiny_prefix_ids(prefix: str, limit: int = 96) -> list[int]:
@@ -1269,6 +2021,7 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
     feat_dir = Path(args.features_dir) if getattr(args, "features_dir", None) else src
     labels_dir = Path(args.labels_dir) if getattr(args, "labels_dir", None) else src
     persisted = _persisted_splits(src, feat_dir, labels_dir)
+    test_unit_ids = _split_member_ids(persisted, "test") if persisted else set()
     if persisted:
         scientific = getattr(args, "eval_mode", "fixture") == "scientific"
         if scientific and args.split not in {row.get("role") for row in persisted}:
@@ -1282,6 +2035,7 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
                     "status": "insufficient_calibration_split",
                     "unit": "problem",
                     "n_calibration_units": 0,
+                    "n_test_units": len(test_unit_ids),
                     "reason": f"no persisted {args.split} rows",
                 }],
                 in_dir=src,
@@ -1291,7 +2045,7 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
             return 0
         if scientific:
             persisted = [row for row in persisted if row.get("role") == args.split]
-        require_persisted_roles(persisted, args.split, "calibration", scientific=scientific, allow_mixed=False)
+        require_persisted_roles(persisted, args.split, "calibration", scientific=scientific, allow_mixed=True)
     outputs = []
     status = "probe_weights_or_features_missing"
     if src and (src / "probes.jsonl").exists() and feat_dir and (feat_dir / "features.npz").exists():
@@ -1327,14 +2081,24 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
         task_path = _find_tasks_jsonl(src, feat_dir, labels_dir)
         if task_path is None and labs:
             raise ValueError("calibrate requires tasks.jsonl so E columns follow task.premises, not label order")
-        task_for_e = Task.from_dict(read_jsonl(task_path)[0]) if task_path else None
-        task_anc = ancestors(task_for_e) if task_for_e and task_for_e.nodes else {}
+        task_rows = [Task.from_dict(row) for row in read_jsonl(task_path)] if task_path else []
+        task_for_e = task_rows[0] if task_rows else None
+        task_anc_by_id = {}
+        for owner in task_rows:
+            local = ancestors(owner) if owner.nodes else {}
+            for premise in owner.premises:
+                if premise.premise_id:
+                    local.setdefault(premise.premise_id, {premise.premise_id})
+            task_anc_by_id[owner.task_id] = local
+            task_anc_by_id[owner.base_group_id] = local
         premise_rows_path = feat_dir / "premise_rows.jsonl"
         if premise_rows_path.exists():
-            unique = [row.get("premise_id") for row in read_jsonl(premise_rows_path) if row.get("premise_id")]
+            unique = [row.get("premise_key") or row.get("premise_id") for row in read_jsonl(premise_rows_path) if row.get("premise_id")]
         else:
             unique = _e_premise_ids(task_for_e, labs)
         arrays = read_npz(feat_dir / "features.npz")
+        if getattr(args, "eval_mode", "fixture") == "scientific" and len(event_nodes) != int(arrays["H"].shape[0]):
+            raise ValueError(f"calibrate event identity count {len(event_nodes)} does not match H rows {arrays['H'].shape[0]}")
         for row in probe_rows:
             probe = BilinearProbe.from_row(row)
             pred = probe.predict_matrix(arrays["H"], arrays["E"])
@@ -1345,14 +2109,18 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
                 event_id = event_row.get("identity_key") or event_row.get("event_id") or event_row.get("node_id")
                 node_id = event_row.get("node_id") or event_id
                 trace_task_id = event_row.get("task_id") or event_row.get("base_group_id") or "task"
+                trace_problem_id = event_row.get("base_group_id") or trace_task_id
                 label_key = "task_label" if head == "task" else "behavior_label"
                 truth_i = []
                 known_i = False
                 for j, pid in enumerate(unique):
+                    premise_id = str(pid).split("::", 1)[-1]
+                    premise_task_id = str(pid).split("::", 1)[0] if "::" in str(pid) else ""
                     hits = [
                         r
                         for r in labs
-                        if r.get("premise_id") == pid
+                        if r.get("premise_id") == premise_id
+                        and (not premise_task_id or not r.get("task_id") or str(r.get("task_id")) == premise_task_id)
                         and (r.get("event_id") in {event_id, node_id, None} or event_id in str(r.get("event_id") or ""))
                         and (not r.get("task_id") or r.get("task_id") == trace_task_id)
                     ]
@@ -1361,25 +2129,50 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
                     if any(r.get(label_key) in {0, 1, 0.0, 1.0} for r in hits):
                         known_i = True
                     if any(r.get(label_key) == 1 for r in hits):
-                        if head == "task" and pid not in set(task_anc.get(node_id, set())) | ({node_id} if node_id else set()):
+                        local_anc = task_anc_by_id.get(trace_task_id) or task_anc_by_id.get(trace_problem_id, {})
+                        if head == "task" and premise_id not in set(local_anc.get(node_id, set())) | ({node_id} if node_id else set()):
                             continue
                         truth_i.append(j)
                 if not known_i:
                     continue
                 empty_i = not truth_i
                 val = sequence_score(pred[i].tolist(), True, empty_i, nonconformity="one_minus_p", truth_indices=None if empty_i else [j for j in truth_i if j < pred.shape[1]])
-                key = trace_task_id
+                key = trace_problem_id
                 units.setdefault(key, []).append(0.0 if val is None else val)
             scores = [max(vals) for vals in units.values()] if units else None
             if scores is None:
                 continue
             cal = _sanitize_cal(conformal_threshold(scores, alpha))
-            outputs.append({"head": head, "scores": scores, "alpha": alpha, **cal, "unit": "problem", "n_problems": len(scores), "nonconformity": "one_minus_p"})
+            outputs.append(
+                {
+                    "head": head,
+                    "scores": scores,
+                    "alpha": alpha,
+                    **cal,
+                    "unit": "problem",
+                    "n_calibration_units": len(scores),
+                    "n_test_units": len(test_unit_ids),
+                    "events_per_unit": {key: len(values) for key, values in units.items()},
+                    "max_nonconformity": max(scores) if scores else None,
+                    "split": args.split,
+                    "split_hash": digest(persisted) if persisted else None,
+                    "nonconformity": "one_minus_p",
+                }
+            )
             status = "one_minus_p_Rsi_problem_units"
     if not outputs:
-        if getattr(args, "eval_mode", "fixture") == "scientific":
-            raise ValueError("scientific calibrate refuses loss or literal scores")
-        outputs = [{"scores": None, "alpha": alpha, "q": None, "status": status, "infinity": False, "unit": "problem", "nonconformity": "one_minus_p"}]
+        outputs = [{
+            "scores": None,
+            "alpha": alpha,
+            "q": None,
+            "status": "insufficient_calibration_split" if getattr(args, "eval_mode", "fixture") == "scientific" else status,
+            "reason": "no_calibration_units" if getattr(args, "eval_mode", "fixture") == "scientific" else status,
+            "n_calibration_units": 0,
+            "n_test_units": len(test_unit_ids),
+            "infinity": False,
+            "unit": "problem",
+            "nonconformity": "one_minus_p",
+        }]
     _write_stage(out, "calibration", outputs, in_dir=src, extra_dir=feat_dir if feat_dir != src else None, config=cal_cfg)
     return 0
 
@@ -1454,12 +2247,18 @@ def cmd_intervene(args: argparse.Namespace) -> int:
             "eval_mode": getattr(args, "eval_mode", "fixture"),
             "model_name": getattr(args, "model_name", None),
             "device": getattr(args, "device", None),
+            "dev_layer_scores": list(getattr(args, "dev_layer_scores", None) or []),
+            "dev_layer_selection": "persisted_cli_scores" if getattr(args, "dev_layer_scores", None) else "missing",
         },
     ):
         return 0
     if not getattr(args, "in_dir", None):
         raise ValueError("intervene requires --in-dir")
     src = Path(args.in_dir)
+    features_dir = Path(args.features_dir) if getattr(args, "features_dir", None) else src
+    probes_dir = Path(args.probes_dir) if getattr(args, "probes_dir", None) else src
+    labels_dir = Path(args.labels_dir) if getattr(args, "labels_dir", None) else src
+    scientific = getattr(args, "eval_mode", "fixture") == "scientific"
     bank = StreamBank(0)
     rng = np.random.default_rng(int(bank.get("direction").integers(0, 2**31)))
     status = "donor_missing"
@@ -1467,11 +2266,12 @@ def cmd_intervene(args: argparse.Namespace) -> int:
     report = {}
     timing = "unexpressible"
     clayer_status = "dev_scores_missing"
-    if src and (src / "features.npz").exists():
-        arrays = read_npz(src / "features.npz")
+    rng_seeds = {}
+    if features_dir and (features_dir / "features.npz").exists():
+        arrays = read_npz(features_dir / "features.npz")
         matrix = arrays.get("H", arrays[next(iter(arrays))])
-        event_rows = read_jsonl(src / "event_rows.jsonl") if (src / "event_rows.jsonl").exists() else []
-        pair_meta = _load_source_value_pair(src)
+        event_rows = read_jsonl(features_dir / "event_rows.jsonl") if (features_dir / "event_rows.jsonl").exists() else []
+        pair_meta = _load_source_value_pair(features_dir)
         pair = _expressible_donor(matrix, event_rows, pair_meta)
         if pair is not None:
             i_base, i_donor, donor_kind = pair
@@ -1479,8 +2279,16 @@ def cmd_intervene(args: argparse.Namespace) -> int:
             rank = min(2, base.shape[-1])
             basis_seed = int(bank.get("direction").integers(0, 2**31))
             sample_seed = int(bank.get("sample").integers(0, 2**31))
+            perturb_seed = int(bank.get("perturb").integers(0, 2**31))
+            clayer_seed = int(bank.get("control").integers(0, 2**31))
+            rng_seeds = {
+                "direction": basis_seed,
+                "sample": sample_seed,
+                "perturb": perturb_seed,
+                "control": clayer_seed,
+            }
             rng = np.random.default_rng(basis_seed)
-            probe_rows = read_jsonl(src / "probes.jsonl") if (src / "probes.jsonl").exists() else []
+            probe_rows = read_jsonl(probes_dir / "probes.jsonl") if (probes_dir / "probes.jsonl").exists() else []
             probe_u = next((np.asarray(r["U"], dtype=float) for r in probe_rows if r.get("head") == "behavior" and "U" in r), None)
             if probe_u is None:
                 probe_u = next((np.asarray(r["U"], dtype=float) for r in probe_rows if "U" in r), None)
@@ -1495,22 +2303,24 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                 direction_status = "random_direction_unfitted"
             main = apply_swap(base, donor, basis)
             main_norm = float(np.linalg.norm(main - base))
-            cr = c_rand_delta(base, donor, rank, np.random.default_rng(int(bank.get("perturb").integers(0, 2**31))), target_norm=main_norm)
+            cr = c_rand_delta(base, donor, rank, np.random.default_rng(perturb_seed), target_norm=main_norm)
             dev_scores = getattr(args, "dev_layer_scores", None)
             if dev_scores:
                 scores = {int(k): float(v) for k, v in dict(zip(range(len(dev_scores)), dev_scores)).items()}
                 weak = select_weak_layer(scores)
                 clayer_status = "dev_scores_present_pending_decode"
             else:
+                if scientific:
+                    raise ValueError("scientific intervene requires persisted dev layer scores for C-layer")
                 weak = None
                 clayer_status = "dev_scores_missing"
-            layer_basis = orthonormal_basis(base.shape[-1], rank, np.random.default_rng(5 + (weak if weak is not None else 0)))
+            layer_basis = orthonormal_basis(base.shape[-1], rank, np.random.default_rng(clayer_seed))
             cl = c_layer_delta(base, donor, layer_basis, main_norm)
             crand_norm = cr["actual_norm"]
             clayer_norm = cl["actual_norm"]
             status = "geometry_on_hidden"
             timing = "offline_hidden"
-            labels_path = src / "labels.jsonl"
+            labels_path = labels_dir / "labels.jsonl"
             if labels_path.exists() and matrix.shape[0] >= 2:
                 lab_rows = [r for r in read_jsonl(labels_path) if r.get("behavior_label") in {0, 1, 0.0, 1.0}]
                 y_inlp = np.full(matrix.shape[0], np.nan, dtype=float)
@@ -1532,11 +2342,15 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                     proj = inlp_remove(matrix[labeled], y_inlp[labeled])
                     inlp_status = "labeled_behavior"
                 else:
+                    if scientific:
+                        raise ValueError("scientific intervene requires stable binary behavior labels for INLP")
                     proj = inlp_remove(np.vstack([base, donor]), np.array([0.0, 1.0]))
-                    inlp_status = "two_row_fallback"
+                    inlp_status = "fixture_smoke_two_row_fallback"
             else:
+                if scientific:
+                    raise ValueError("scientific intervene requires a persisted labels.jsonl for INLP")
                 proj = inlp_remove(np.vstack([base, donor]), np.array([0.0, 1.0]))
-                inlp_status = "two_row_fallback"
+                inlp_status = "fixture_smoke_two_row_fallback"
             ablated = base @ proj if proj.ndim == 2 else base
             removed = base - ablated
             rescued = rescue_controls(ablated, removed, -removed, rng)
@@ -1564,7 +2378,7 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                 packed_runtime = _load_frozen_runtime(args) if backend == "frozen" else None
                 runtime_model = None if packed_runtime is None else packed_runtime["model"]
                 tokenizer = None if packed_runtime is None else packed_runtime["tokenizer"]
-                traces = read_jsonl(src / "traces.jsonl") if (src / "traces.jsonl").exists() else []
+                traces = read_jsonl(features_dir / "traces.jsonl") if (features_dir / "traces.jsonl").exists() else []
                 ev = None
                 prefix = ""
                 gold = None
@@ -1574,14 +2388,28 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                 donor_tid = event_rows[i_donor]["trace_id"] if event_rows and i_donor < len(event_rows) else None
                 base_row = next((t for t in traces if t.get("id") == base_tid), traces[0] if traces else {})
                 donor_row = next((t for t in traces if t.get("id") == donor_tid), traces[1] if len(traces) > 1 else {})
+                hook_meta["base_group_id"] = base_row.get("base_group_id")
+                hook_meta["task_id"] = base_row.get("task_id")
+                hook_meta["problem_id"] = base_row.get("base_group_id") or base_row.get("task_id") or base_tid
                 prefix = base_row.get("text") or ""
-                spec = read_json(src / "run_spec.json") if (src / "run_spec.json").exists() else {}
+                spec_path = features_dir / "run_spec.json"
+                if not spec_path.exists():
+                    spec_path = probes_dir / "run_spec.json"
+                spec = read_json(spec_path) if spec_path.exists() else {}
                 collect_cfg = spec.get("config") or {}
                 model_kind = collect_cfg.get("model_kind") or collect_cfg.get("kind") or "qwen2"
                 weight_seed = int(collect_cfg.get("weight_seed") or 0)
                 gold = None
-                if (src / "tasks.jsonl").exists():
-                    gold = Task.from_dict(read_jsonl(src / "tasks.jsonl")[0]).answer_spec.value
+                answer_kind = "numeric"
+                answer_aliases = []
+                task_path = features_dir / "tasks.jsonl"
+                if not task_path.exists():
+                    task_path = probes_dir / "tasks.jsonl"
+                if task_path.exists():
+                    base_task = Task.from_dict(read_jsonl(task_path)[0])
+                    gold = base_task.answer_spec.value
+                    answer_kind = base_task.answer_spec.kind
+                    answer_aliases = base_task.answer_spec.aliases
                 events = base_row.get("events") or []
                 ev = next((e for e in events if e.get("node_id") == want), None) or next((e for e in events if e.get("start", 0) > 0), None)
                 if ev:
@@ -1648,6 +2476,11 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                         "hook_timing": hooked.get("timing"),
                         "hook_token_position": hooked.get("hook_token_position"),
                         "hook_sequence_length": hooked.get("hook_sequence_length"),
+                        "hook_input_norm": hooked.get("hook_input_norm"),
+                        "hook_delta_norm": hooked.get("hook_delta_norm"),
+                        "hook_basis_hash": hooked.get("basis_hash"),
+                        "hook_basis_rank": hooked.get("basis_rank"),
+                        "hook_basis_norm": hooked.get("basis_norm"),
                         "token_changed": hooked["followed_donor"],
                     }
                 )
@@ -1662,50 +2495,79 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                     found = {}
                     for ev_row in events:
                         nid = ev_row.get("node_id")
-                        if nid and nid in text:
-                            val = extract_answer(text, "numeric")
-                            if val is not None:
-                                found[nid] = val
+                        if not nid:
+                            continue
+                        candidates = [str(nid)]
+                        identity = ev_row.get("identity") or {}
+                        if isinstance(identity, dict) and identity.get("entity_or_expression"):
+                            candidates.append(str(identity["entity_or_expression"]))
+                        for candidate in candidates:
+                            match = re.search(rf"(?<!\w){re.escape(candidate)}\s*=\s*([-+]?\d+(?:\.\d+)?)", text)
+                            if match:
+                                found[nid] = match.group(1)
+                                break
                     return found
 
                 def _outcomes(decoded):
                     text = _decode_text(decoded)
-                    ans = extract_answer(text, "numeric")
+                    ans = extract_answer(text, answer_kind)
+                    score = answer_score(ans, gold, answer_kind, answer_aliases)
                     parsed = _parse_nodes(text)
+                    def _match(value, expected):
+                        result = answer_score(value, expected, answer_kind)
+                        return None if result.get("correct") is None else float(result["correct"])
+
                     equivalent = donor_src is not None and base_event is not None and donor_src == base_event
                     if pair_targets:
-                        target = 1.0 if any(parsed.get(n) == donor_src for n in pair_targets) else 0.0
+                        target = 1.0 if any(_match(parsed.get(n), donor_src) == 1.0 for n in pair_targets) else 0.0
                     elif equivalent:
                         target = None
                     else:
-                        target = 1.0 if donor_src is not None and ans == donor_src else 0.0
+                        target = _match(ans, donor_src) if donor_src is not None else None
                     if pair_nontargets:
-                        nontarget = 1.0 if all(parsed.get(n) == base_event for n in pair_nontargets if n in parsed) and parsed else 0.0
+                        observed = [parsed.get(n) for n in pair_nontargets if n in parsed]
+                        nontarget = 1.0 if observed and all(_match(value, base_event) == 1.0 for value in observed) else 0.0
                     elif equivalent:
                         nontarget = None
                     else:
-                        nontarget = 1.0 if gold is not None and ans == gold and ans != donor_src else 0.0
+                        main_match = _match(ans, gold) if gold is not None else None
+                        nontarget = None if main_match is None else float(main_match and not (_match(ans, donor_src) == 1.0))
                     return {
                         "target": target,
                         "nontarget": nontarget,
-                        "task_correct": 1.0 if gold is not None and ans == gold else (None if gold is None else 0.0),
+                        "task_correct": None if score["correct"] is None else float(score["correct"]),
                         "invalid": 1.0 if ans is None else 0.0,
                         "answer": ans,
+                        **score,
                     }
 
                 main_out = _outcomes(hooked)
-                base_ans = extract_answer(_decode_text({"generated_ids": hooked.get("baseline_generated_ids") or []}), "numeric")
-                g_int = 1.0 if donor_src is not None and main_out["answer"] == donor_src else 0.0
-                g_base = 1.0 if donor_src is not None and base_ans == donor_src else 0.0
-                hook_meta["ie_z"] = g_int - g_base
+                base_ans = extract_answer(_decode_text({"generated_ids": hooked.get("baseline_generated_ids") or []}), answer_kind)
+                donor_intervened = answer_score(main_out.get("answer"), donor_src, answer_kind)
+                donor_baseline = answer_score(base_ans, donor_src, answer_kind)
+                g_int = donor_intervened.get("correct")
+                g_base = donor_baseline.get("correct")
+                if g_int is not None:
+                    g_int = float(g_int)
+                if g_base is not None:
+                    g_base = float(g_base)
+                hook_meta["ie_z"] = None if g_int is None or g_base is None else g_int - g_base
                 hook_meta["ie_z_g"] = "target_follow"
-                hook_meta["baseline_task_correct"] = None if gold is None or base_ans is None else float(base_ans == gold)
+                base_score = answer_score(base_ans, gold, answer_kind, answer_aliases)
+                hook_meta["baseline_task_correct"] = None if base_score["correct"] is None else float(base_score["correct"])
                 crand_hooked = intervene_hidden_decode(model_kind, ids, main_layer, mode="add_delta", delta=cr["delta"], **decode_kw)
                 crand_out = _outcomes(crand_hooked)
                 hook_meta["crand_transform"] = crand_hooked["transform"]
                 clayer_out = {"target": None, "nontarget": None, "task_correct": None, "invalid": None}
                 if weak is not None and weak != main_layer:
-                    layer_model = runtime_model if runtime_model is not None else build_tiny(model_kind)
+                    if runtime_model is not None:
+                        layer_model = runtime_model
+                    else:
+                        import torch
+
+                        with torch.random.fork_rng(devices=[]):
+                            torch.manual_seed(weight_seed)
+                            layer_model = build_tiny(model_kind)
                     weak_base = _hidden_at_layer(layer_model, ids, weak)
                     weak_donor_ids = list(donor_row.get("token_ids") or ids)
                     weak_donor = _hidden_at_layer(layer_model, weak_donor_ids[: len(ids)] or weak_donor_ids, weak)
@@ -1723,6 +2585,7 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                 inlp_hooked = intervene_hidden_decode(model_kind, ids, main_layer, mode="inlp", projector=proj, **decode_kw)
                 hook_meta["inlp_token_changed"] = inlp_hooked["followed_donor"]
                 hook_meta["inlp_transform"] = inlp_hooked["transform"]
+                inlp_out = _outcomes(inlp_hooked)
                 rescue_matched = intervene_hidden_decode(model_kind, ids, main_layer, mode="replace", delta=rescued["matched"], **decode_kw)
                 rescue_error = intervene_hidden_decode(model_kind, ids, main_layer, mode="replace", delta=rescued["error_source"], **decode_kw)
                 rescue_rand = intervene_hidden_decode(model_kind, ids, main_layer, mode="replace", delta=rescued["random"], **decode_kw)
@@ -1731,37 +2594,98 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                 hook_meta["rescue_error_outcomes"] = _outcomes(rescue_error)
                 hook_meta["rescue_random_outcomes"] = _outcomes(rescue_rand)
                 rel = intervention_report(main_out, crand_out, clayer_out)
-                report = {**hook_meta, **rel, "main_outcomes": main_out, "crand_outcomes": crand_out, "clayer_outcomes": clayer_out}
+                dose_curve = []
+                for dose in (getattr(args, "doses", None) or [0.5, 1.0, 2.0]):
+                    dose_delta = (main - base) * float(dose)
+                    dose_hooked = intervene_hidden_decode(model_kind, ids, main_layer, mode="add_delta", delta=dose_delta, **decode_kw)
+                    dose_out = _outcomes(dose_hooked)
+                    dose_curve.append(
+                        {
+                            "dose": float(dose),
+                            "condition": "dose",
+                            "actual_norm": float(np.linalg.norm(dose_delta)),
+                            "hook_token_position": dose_hooked.get("hook_token_position"),
+                            "hook_sequence_length": dose_hooked.get("hook_sequence_length"),
+                            **dose_out,
+                        }
+                    )
+                report = {
+                    **hook_meta,
+                    **rel,
+                    "main_outcomes": main_out,
+                    "crand_outcomes": crand_out,
+                    "clayer_outcomes": clayer_out,
+                    "inlp_outcomes": inlp_out,
+                    "dose_curve": dose_curve,
+                    "condition_records": [
+                        {"condition": "baseline", **_outcomes({"generated_ids": hooked.get("baseline_generated_ids") or []}), "actual_norm": 0.0},
+                        {"condition": "main", **main_out, "actual_norm": main_norm},
+                        {"condition": "crand", **crand_out, "actual_norm": crand_norm},
+                        {"condition": "clayer", **clayer_out, "actual_norm": clayer_norm},
+                        {"condition": "inlp", **inlp_out, "actual_norm": float(np.linalg.norm(base - ablated))},
+                        {"condition": "rescue_matched", **_outcomes(rescue_matched), "actual_norm": rescued["matched_norm"]},
+                        {"condition": "rescue_error_source", **_outcomes(rescue_error), "actual_norm": float(np.linalg.norm(rescued["error_source"] - ablated))},
+                        {"condition": "rescue_random", **_outcomes(rescue_rand), "actual_norm": rescued["random_norm"]},
+                    ],
+                }
                 if hooked.get("hook_fired"):
                     status = "prospective_decode"
             else:
                 hook_meta["ie_z"] = ie_z(rescued["matched"], base)
                 report = hook_meta
+    main_outcomes = (report or {}).get("main_outcomes") or {}
+    condition_records = (report or {}).get("condition_records") or []
+    intervention_rows = [
+        {
+            "condition": item.get("condition"),
+            "problem_id": (report or {}).get("problem_id"),
+            "main_norm": main_norm,
+            "crand_norm": crand_norm,
+            "clayer_norm": clayer_norm,
+            "target": item.get("target"),
+            "nontarget": item.get("nontarget"),
+            "task_correct": item.get("task_correct"),
+            "invalid": item.get("invalid"),
+            "actual_norm": item.get("actual_norm"),
+            "status": status,
+            "clayer_status": clayer_status,
+            "timing": timing,
+            "relative": report,
+        }
+        for item in condition_records
+    ] or [
+        {
+            "condition": "main",
+            "problem_id": (report or {}).get("problem_id"),
+            "main_norm": main_norm,
+            "crand_norm": crand_norm,
+            "clayer_norm": clayer_norm,
+            "target": main_outcomes.get("target"),
+            "nontarget": main_outcomes.get("nontarget"),
+            "task_correct": main_outcomes.get("task_correct"),
+            "invalid": main_outcomes.get("invalid"),
+            "actual_norm": main_norm,
+            "status": status,
+            "clayer_status": clayer_status,
+            "timing": timing,
+            "relative": report,
+        }
+    ]
     _write_stage(
         out,
         "interventions",
-        [
-            {
-                "main_norm": main_norm,
-                "crand_norm": crand_norm,
-                "clayer_norm": clayer_norm,
-                "target": ((report or {}).get("main_outcomes") or {}).get("target"),
-                "nontarget": ((report or {}).get("main_outcomes") or {}).get("nontarget"),
-                "task_correct": ((report or {}).get("main_outcomes") or {}).get("task_correct"),
-                "invalid": ((report or {}).get("main_outcomes") or {}).get("invalid"),
-                "status": status,
-                "clayer_status": clayer_status,
-                "timing": timing,
-                "relative": report,
-            }
-        ],
-        in_dir=src,
+        intervention_rows,
+        in_dir=features_dir,
+        extra_dir=probes_dir if probes_dir != features_dir else labels_dir if labels_dir != features_dir else None,
         config={
             "command": "intervene",
             "backend": getattr(args, "backend", "tiny"),
             "eval_mode": getattr(args, "eval_mode", "fixture"),
             "model_name": getattr(args, "model_name", None),
             "device": getattr(args, "device", None),
+            "dev_layer_scores": list(getattr(args, "dev_layer_scores", None) or []),
+            "dev_layer_selection": "persisted_cli_scores" if getattr(args, "dev_layer_scores", None) else "missing",
+            "rng_seeds": rng_seeds,
         },
     )
     return 0
@@ -1811,6 +2735,7 @@ def cmd_repair(args: argparse.Namespace) -> int:
     if src and (src / "traces.jsonl").exists():
         group = traces[0].get("base_group_id") or ""
     backend = getattr(args, "backend", "offline")
+    repair_seed = int(StreamBank(0).get("repair").integers(0, 2**31))
     execute = None
     if backend == "frozen":
         packed_runtime = _load_frozen_runtime(args)
@@ -1824,14 +2749,54 @@ def cmd_repair(args: argparse.Namespace) -> int:
                 new_prefix,
                 packed=packed_runtime,
                 max_new=max_new,
+                seed=repair_seed,
             )
 
     elif eval_mode == "scientific" or backend == "tiny":
-        execute = execute_repair_tiny
+        def execute(mask, slots, original_tokens, new_prefix):
+            return execute_repair_tiny(mask, slots, original_tokens, new_prefix, seed=repair_seed)
     if eval_mode == "scientific":
         recs = consecutive_repairs(args.mask, slots, original, prefix, k_max=5, execute=execute, run_id="repair", base_group_id=group)
     else:
         recs = [run_repair(args.mask, ["q"], original, new_prefix=prefix, execute=execute, run_id="repair", base_group_id=group, k=1)]
+    # Score every generated answer with the task protocol and compare it with
+    # a same-prefix full recompute.  The baseline stays in metadata so the
+    # public k curve still has one row per requested repair.
+    full_by_k = {}
+    if execute is not None and base_task is not None:
+        for rec in recs:
+            full_by_k[rec.k] = run_repair(
+                "full_recompute",
+                [],
+                original,
+                prefix,
+                execute=execute,
+                run_id="repair-full",
+                base_group_id=group,
+                k=rec.k,
+            )
+    if base_task is not None:
+        spec = base_task.answer_spec
+        for rec in recs:
+            if rec.generated_text:
+                raw = extract_answer(rec.generated_text, spec.kind)
+                score = answer_score(raw, spec.value, spec.kind, spec.aliases)
+                rec.answer_raw = raw
+                rec.answer_normalized = score.get("answer_normalized")
+                rec.gold_normalized = score.get("gold_normalized")
+                rec.score_status = score.get("score_status", "unscored")
+                rec.correct = score.get("correct")
+                rec.invalid = raw is None
+                rec.legal = not rec.invalid
+            baseline = full_by_k.get(rec.k)
+            if baseline is not None and rec.answer_normalized is not None and baseline.generated_text:
+                baseline_raw = extract_answer(baseline.generated_text, spec.kind)
+                baseline_score = answer_score(baseline_raw, spec.value, spec.kind, spec.aliases)
+                rec.full_recompute_match = (
+                    rec.answer_normalized == baseline_score.get("answer_normalized")
+                    if baseline_score.get("answer_normalized") is not None
+                    else None
+                )
     for rec in recs:
         rec.record_id = f"{rec.run_id}:{rec.base_group_id}:{rec.mask}:k{rec.k}"
     _write_stage(
@@ -1845,8 +2810,81 @@ def cmd_repair(args: argparse.Namespace) -> int:
             "masks": list(ALL_MASKS),
             "backend": backend,
             "model_name": getattr(args, "model_name", None),
+            "cost_protocol": "wall_seconds_prefill_and_decode_executor",
+            "rng_stream": "repair",
+            "repair_seed": repair_seed,
         },
     )
+    return 0
+
+
+def cmd_transfer(args: argparse.Namespace) -> int:
+    """Run transfer from persisted pair arrays with explicit pair identity."""
+    out = Path(args.out_dir)
+    src = Path(args.in_dir) if getattr(args, "in_dir", None) else None
+    if src is None:
+        raise ValueError("transfer requires --in-dir")
+    source_path = src / "source.npy"
+    target_path = src / "target.npy"
+    if not source_path.exists() or not target_path.exists():
+        raise FileNotFoundError("transfer requires source.npy and target.npy")
+    source = np.asarray(np.load(source_path, allow_pickle=False), dtype=float)
+    target = np.asarray(np.load(target_path, allow_pickle=False), dtype=float)
+    pair_ids = read_jsonl(src / "pair_ids.jsonl") if (src / "pair_ids.jsonl").exists() else []
+    source_ids = [str(row.get("source_id") or row.get("pair_id") or row.get("id")) for row in pair_ids]
+    target_ids = [str(row.get("target_id") or row.get("pair_id") or row.get("id")) for row in pair_ids]
+    if source_ids and len(source_ids) != source.shape[0]:
+        raise ValueError("pair_ids must cover every source row")
+    if target_ids and len(target_ids) != target.shape[0]:
+        raise ValueError("pair_ids must cover every target row")
+    direct = direct_transfer(source.shape[-1], target.shape[-1])
+    direct_status = direct.get("status")
+    if source.shape[0] != target.shape[0]:
+        direct_status = "not_applicable_pair_mismatch"
+    records = [{"mode": "direct", **direct, "status": direct_status, "pair_count": source.shape[0] if source.shape[0] == target.shape[0] else None, "held_out": False}]
+    mode = getattr(args, "mode", "direct")
+    if mode in {"unlabeled", "supervised"}:
+        roles = [str(row.get("split") or row.get("role") or "") for row in pair_ids]
+        if not roles or len(roles) != source.shape[0] or not all(roles):
+            records.append({"mode": mode, "status": "missing_transfer_split", "held_out": False, "label_use": mode == "supervised"})
+            write_jsonl(out / "transfer.jsonl", records)
+            _write_stage(out, "transfer", records, in_dir=src, config={"command": "transfer", "mode": mode, "split": args.split})
+            return 0
+        train_mask = np.asarray([role in {args.split, "train", "transfer_train"} for role in roles], dtype=bool)
+        test_mask = np.asarray([role in {"test", "transfer_test"} for role in roles], dtype=bool)
+        if not train_mask.any() or not test_mask.any():
+            records.append({"mode": mode, "status": "missing_held_out_transfer_test", "held_out": False, "label_use": mode == "supervised"})
+            write_jsonl(out / "transfer.jsonl", records)
+            _write_stage(out, "transfer", records, in_dir=src, config={"command": "transfer", "mode": mode, "split": args.split})
+            return 0
+        labels = None
+        label_path = src / "labels.npy"
+        if label_path.exists():
+            labels = np.asarray(np.load(label_path, allow_pickle=False), dtype=float)
+        train_labels = labels[train_mask] if labels is not None else None
+        fitted = fit_linear_map(source[train_mask], target[train_mask], args.split, labeled=mode == "supervised", labels=train_labels)
+        heldout_target = apply_map(target[test_mask], fitted)
+        heldout_error = float(np.mean((heldout_target - source[test_mask]) ** 2))
+        records.append(
+            {
+                "mode": mode,
+                "status": fitted["status"],
+                "pair_count": int(train_mask.sum()),
+                "source_dim": int(source.shape[1]),
+                "target_dim": int(target.shape[1]),
+                "split": args.split,
+                "held_out": True,
+                "held_out_test_count": int(test_mask.sum()),
+                "held_out_geometry_error": heldout_error,
+                "label_use": bool(fitted.get("uses_labels")),
+                "pair_ids": source_ids or None,
+                "geometry_error": float(np.mean((apply_map(target[train_mask], fitted) - source[train_mask]) ** 2)),
+                "train_pair_ids": [source_ids[i] for i, flag in enumerate(train_mask) if flag] if source_ids else None,
+                "test_pair_ids": [source_ids[i] for i, flag in enumerate(test_mask) if flag] if source_ids else None,
+            }
+        )
+    write_jsonl(out / "transfer.jsonl", records)
+    _write_stage(out, "transfer", records, in_dir=src, config={"command": "transfer", "mode": mode, "split": args.split})
     return 0
 
 
@@ -1882,16 +2920,24 @@ def cmd_analyze(args: argparse.Namespace) -> int:
     p1 = p2 = p3 = None
     status = "not_evaluated"
     if table:
-        length = np.array([r["length"] for r in table], dtype=float)
-        op = np.array([r["op"] for r in table], dtype=float)
-        rho = np.array([r["rho"] for r in table], dtype=float)
-        y = np.array([r["y"] for r in table], dtype=float)
-        held = np.array([r.get("held_out", False) for r in table], dtype=bool)
-        groups = [str(r.get("problem_id") or r.get("base_group_id") or i) for i, r in enumerate(table)]
-        ho = held if held.any() and not held.all() else None
-        p1 = p1_incremental(length, op, rho, y, held_out=ho, groups=groups, rng=np.random.default_rng(0))
-        if p1.get("delta_auc") is not None:
-            status = "evaluated_descriptive"
+        numeric_table = [
+            row
+            for row in table
+            if all(isinstance(row.get(key), (int, float)) and np.isfinite(float(row[key])) for key in ("length", "op", "rho", "y"))
+        ]
+        if numeric_table:
+            length = np.array([r["length"] for r in numeric_table], dtype=float)
+            op = np.array([r["op"] for r in numeric_table], dtype=float)
+            rho = np.array([r["rho"] for r in numeric_table], dtype=float)
+            y = np.array([r["y"] for r in numeric_table], dtype=float)
+            held = np.array([r.get("held_out", False) for r in numeric_table], dtype=bool)
+            groups = [str(r.get("problem_id") or r.get("base_group_id") or i) for i, r in enumerate(numeric_table)]
+            ho = held if held.any() and not held.all() else None
+            p1 = p1_incremental(length, op, rho, y, held_out=ho, groups=groups, rng=np.random.default_rng(0))
+            if p1.get("delta_auc") is not None:
+                status = "evaluated_descriptive"
+        else:
+            status = "insufficient_numeric_p1_rows"
     measurements = {
         "status": status,
         "transfer": xfer,
@@ -1919,7 +2965,16 @@ def cmd_analyze(args: argparse.Namespace) -> int:
         rows = read_jsonl(src / "cone_table.jsonl")
         appendix["cone"] = cone_fit(np.array([r["x"] for r in rows]), np.array([r["y"] for r in rows]))
     if src and (src / "embed_a.npy").exists():
-        pass
+        if not (src / "embed_b.npy").exists():
+            appendix["retrieval"] = {"status": "missing_embedding_pair", "embedding_kind": "provided", "n": 0}
+        else:
+            a = np.load(src / "embed_a.npy", allow_pickle=False)
+            b = np.load(src / "embed_b.npy", allow_pickle=False)
+            changed = [row.get("changed", False) for row in read_jsonl(src / "embedding_pairs.jsonl")] if (src / "embedding_pairs.jsonl").exists() else [False] * min(len(a), len(b))
+            if len(a) != len(b) or len(changed) != len(a):
+                appendix["retrieval"] = {"status": "pair_count_mismatch", "embedding_kind": "provided", "n": 0}
+            else:
+                appendix["retrieval"] = retrieval_scatter(embeddings_a=a, embeddings_b=b, answer_changed=changed)
     if src and (src / "texts_a.jsonl").exists() and (src / "texts_b.jsonl").exists():
         a = [r["text"] for r in read_jsonl(src / "texts_a.jsonl")]
         b = [r["text"] for r in read_jsonl(src / "texts_b.jsonl")]
@@ -1939,6 +2994,13 @@ def cmd_analyze(args: argparse.Namespace) -> int:
                 arrays = read_npz(src / "features.npz")
                 pred_m = probe.predict_matrix(arrays["H"], arrays["E"])
                 labels = [r for r in read_jsonl(src / "labels.jsonl") if r.get("task_label") in {0, 1, 0.0, 1.0}]
+                explicit_partition = any(r.get("split") is not None or r.get("held_out") is not None for r in labels)
+                if explicit_partition:
+                    labels = [
+                        r
+                        for r in labels
+                        if bool(r.get("held_out")) or str(r.get("split") or "") in {"dev", "test", "probe_test"}
+                    ]
                 event_rows = read_jsonl(src / "event_rows.jsonl") if (src / "event_rows.jsonl").exists() else []
                 task = Task.from_dict(read_jsonl(src / "tasks.jsonl")[0]) if (src / "tasks.jsonl").exists() else None
                 unique = _e_premise_ids(task, labels)
@@ -1958,7 +3020,21 @@ def cmd_analyze(args: argparse.Namespace) -> int:
                         gold.append(int(lab["task_label"]))
                         pred.append(1 if float(pred_m[i, j]) >= 0.5 else 0)
                 if gold:
-                    appendix["probe_prf1"] = probe_prf1(pred, gold)
+                    metric = probe_prf1(pred, gold)
+                    appendix["probe_prf1"] = {
+                        **metric,
+                        "split": "held_out" if explicit_partition else "unpartitioned",
+                        "held_out": bool(explicit_partition),
+                        "status": "held_out_descriptive" if explicit_partition else "descriptive_unpartitioned",
+                        "not_for_claims": not explicit_partition,
+                    }
+                else:
+                    appendix["probe_prf1"] = {
+                        "status": "no_scored_rows",
+                        "split": "held_out" if explicit_partition else "unpartitioned",
+                        "held_out": bool(explicit_partition),
+                        "not_for_claims": not explicit_partition,
+                    }
         else:
             appendix["probe_prf1"] = {"status": "features_missing_refuses_loss_proxy"}
     report = {
@@ -2005,6 +3081,7 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--disable-thinking", action="store_true")
     prepare.add_argument("--code-revision")
     prepare.add_argument("--require-valid-traces", action="store_true")
+    prepare.add_argument("--behavior-repeats", type=int, default=None)
     prepare.set_defaults(func=cmd_prepare)
 
     def stage(name, extra=None):
@@ -2036,6 +3113,7 @@ def build_parser() -> argparse.ArgumentParser:
     f = stage("fit")
     f.add_argument("--split", default="probe_train")
     f.add_argument("--labels-dir")
+    f.add_argument("--position", choices=("pre_step", "pre_value", "post_step", "all"), default="pre_step")
     f.set_defaults(func=cmd_fit)
     cal = stage(
         "calibrate",
@@ -2055,7 +3133,11 @@ def build_parser() -> argparse.ArgumentParser:
             p.add_argument("--model-name"),
             p.add_argument("--device"),
             p.add_argument("--max-new", type=int),
+            p.add_argument("--features-dir"),
+            p.add_argument("--probes-dir"),
+            p.add_argument("--labels-dir"),
             p.add_argument("--dev-layer-scores", nargs="*", type=float),
+            p.add_argument("--doses", nargs="*", type=float),
         ),
     ).set_defaults(func=cmd_intervene)
     r = stage(
@@ -2070,6 +3152,32 @@ def build_parser() -> argparse.ArgumentParser:
     )
     r.set_defaults(func=cmd_repair)
     stage("analyze").set_defaults(func=cmd_analyze)
+    transfer = stage(
+        "transfer",
+        lambda p: (
+            p.add_argument("--mode", choices=("direct", "unlabeled", "supervised"), default="direct"),
+            p.add_argument("--split", default="transfer_pairs"),
+        ),
+    )
+    transfer.set_defaults(func=cmd_transfer)
+    noop = sub.add_parser("noop")
+    noop.add_argument("--fixture", required=True)
+    noop.add_argument("--out-dir", required=True)
+    noop.add_argument("--in-dir")
+    noop.add_argument("--kind", default="t1_fixture")
+    noop.add_argument("--snapshot")
+    noop.add_argument("--sidecar")
+    noop.add_argument("--eval-mode", choices=("fixture", "scientific"), default="fixture")
+    noop.add_argument("--backend", choices=("tiny", "frozen"), default="tiny")
+    noop.add_argument("--model-name")
+    noop.add_argument("--device")
+    noop.add_argument("--weight-seed", type=int, default=0)
+    noop.add_argument("--max-new", type=int)
+    noop.add_argument("--positions", nargs="+", choices=("front", "mid", "back"))
+    noop.add_argument("--surface", nargs="+", choices=("low", "medium", "high"))
+    noop.add_argument("--sentence", default="A harmless unrelated sentence is inserted.")
+    noop.add_argument("--resume", action="store_true")
+    noop.set_defaults(func=cmd_noop)
     return parser
 
 

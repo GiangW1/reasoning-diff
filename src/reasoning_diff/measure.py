@@ -7,6 +7,7 @@ import numpy as np
 
 from .events import align_events
 from .graphs import behavior_mask, dirty_cone, oracle_mask
+from .protocol import stable_row_key
 from .schema import Event, Label, Observation, Trace, finite_or_none
 
 
@@ -47,6 +48,7 @@ def build_labels(
     observations: Iterable[Observation],
     task_ancestors: dict[str, set[str]],
     sham_protocol: dict | None = None,
+    task_ancestors_by_task: dict[str, dict[str, set[str]]] | None = None,
 ) -> list[Label]:
     # Materialize once: callers may pass a generator.  Re-iterating a
     # generator silently drops sham observations and changes noise labels.
@@ -62,9 +64,10 @@ def build_labels(
         grouped.setdefault((task_key, _event_key(obs), obs.premise_id), []).append(obs)
     for (task_key, event_id, premise_id), items in grouped.items():
         node_id = next((item.node_id for item in items if item.node_id), None)
-        graph_id = _label_node_id(event_id, node_id, task_ancestors)
-        known_task = graph_id in task_ancestors
-        task_pos = known_task and premise_id in task_ancestors.get(graph_id, set())
+        local_ancestors = (task_ancestors_by_task or {}).get(task_key, task_ancestors)
+        graph_id = _label_node_id(event_id, node_id, local_ancestors)
+        known_task = graph_id in local_ancestors
+        task_pos = known_task and premise_id in local_ancestors.get(graph_id, set())
         real = [i for i in items if not _is_sham(i)]
         positives = [i for i in real if i.outcome == "changed"]
         known_negatives = [
@@ -93,6 +96,13 @@ def build_labels(
                 opportunities=len(positives) + len(known_negatives),
                 task_id=items[0].task_id,
                 base_group_id=items[0].base_group_id,
+                row_key=stable_row_key(
+                    task_id=items[0].task_id,
+                    base_group_id=items[0].base_group_id,
+                    event_id=event_id,
+                    premise_id=premise_id,
+                    protocol=items[0].rng_pair or "",
+                ),
             )
         )
     sham_by_event: dict[tuple[str, str], list[Observation]] = {}
@@ -114,11 +124,21 @@ def build_labels(
             ]
         if sham_protocol is None or not shams:
             row.noise_ref = None
+            row.noise_opportunities = 0
+            row.noise_status = "missing_protocol" if sham_protocol is None else "missing_event_match"
         elif str(row.premise_id).startswith("sham:"):
-            row.noise_ref = 1.0 if any(item.outcome == "changed" for item in shams) else 0.0
+            changed = [item for item in shams if item.outcome == "changed"]
+            row.noise_ref = len(changed) / len(shams)
+            row.noise_reference_rate = row.noise_ref
+            row.noise_opportunities = len(shams)
+            row.noise_status = "sham_observed"
             row.evidence_ids = list(row.evidence_ids) + [item.observation_id for item in shams]
         else:
+            changed = [item for item in shams if item.outcome == "changed"]
             row.noise_ref = None
+            row.noise_reference_rate = len(changed) / len(shams)
+            row.noise_opportunities = len(shams)
+            row.noise_status = "reference_only_unmapped"
     return rows
 
 
@@ -395,10 +415,18 @@ def _density_null(reason: str) -> dict:
 def event_density_sets(task, labels, sham_protocol: dict | None = None) -> dict:
     from .graphs import ancestors
 
+    sham_reference = {
+        event_id: float(np.mean([rate for lab in labels if lab.event_id == event_id for rate in [lab.noise_reference_rate if lab.noise_reference_rate is not None else lab.noise_ref] if rate is not None]))
+        for event_id in sorted({lab.event_id for lab in labels if lab.noise_reference_rate is not None or lab.noise_ref is not None})
+    }
     if getattr(task, "graph_status", None) == "unknown" or getattr(task, "graph_kind", None) in {"none"}:
-        return _density_null("task_graph_unknown")
+        out = _density_null("task_graph_unknown")
+        out["noise_reference_rate"] = sham_reference
+        return out
     if not any(getattr(lab, "task_known", False) for lab in labels):
-        return _density_null("task_truth_unknown")
+        out = _density_null("task_truth_unknown")
+        out["noise_reference_rate"] = sham_reference
+        return out
     anc = ancestors(task) if task.nodes else {}
     for premise in task.premises:
         if premise.kind not in {"placeholder", "spec"} and premise.premise_id:
@@ -446,7 +474,7 @@ def event_density_sets(task, labels, sham_protocol: dict | None = None) -> dict:
         observed = any(lab.noise_ref is not None for lab in labels)
         known = {lab.premise_id for lab in labels if lab.behavior_known and lab.premise_id in premises}
         task_set = anc.get(task.target) if task.target in anc else set()
-        return dependency_densities(
+        out = dependency_densities(
             premises=premises,
             task_set=task_set,
             behavior_set={lab.premise_id for lab in labels if lab.behavior_label == 1 and lab.premise_id in premises},
@@ -455,7 +483,11 @@ def event_density_sets(task, labels, sham_protocol: dict | None = None) -> dict:
             noise_evaluated=_fallback_noise_evaluated(premises, labels, sham_protocol, observed),
             behavior_unknown=not known or (bool(task_set) and not set(task_set) <= known),
         )
-    return dependency_densities(event_sets=event_sets)
+        out["noise_reference_rate"] = sham_reference
+        return out
+    out = dependency_densities(event_sets=event_sets)
+    out["noise_reference_rate"] = sham_reference
+    return out
 
 
 def joint_edit_counterexample(f, singles, joint) -> dict:

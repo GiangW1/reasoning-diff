@@ -42,13 +42,12 @@ def test_scientific_prepare_emits_parseable_events(tmp_path, t1_tiny_path):
     )
     traces = read_jsonl(out / "traces.jsonl")
     assert traces
-    assert all(len(row["events"]) >= 1 for row in traces)
-    assert any(ev.get("node_id") == "q" for row in traces for ev in row["events"])
+    assert all(not row["metadata"].get("forced_target") for row in traces)
+    assert all(row["metadata"].get("parse_status") in {"ok", "parse_failed"} for row in traces)
     assert "p1 = 4 | p2 = 0 | q = 0" not in traces[0]["text"]
     obs = read_jsonl(out / "observations.jsonl")
     sham = [row for row in obs if (row.get("rng_pair") or "").startswith("sham:")]
-    assert sham
-    assert all(str(row.get("premise_id") or "").startswith("sham:") for row in sham)
+    assert not sham
     edits = read_jsonl(out / "edits.jsonl")
     assert any(row.get("kind") == "source_value_pair" for row in edits)
 
@@ -151,13 +150,12 @@ def test_scientific_collect_h_is_step_boundary_not_last_token(tmp_path, t1_tiny_
     col = tmp_path / "col"
     assert main(["prepare", "--fixture", str(t1_tiny_path), "--out-dir", str(prep), "--eval-mode", "scientific", "--split-fractions", *FRAC]) == 0
     traces = read_jsonl(prep / "traces.jsonl")
-    n_events = sum(len(row["events"]) for row in traces)
     assert main(["collect", "--fixture", str(t1_tiny_path), "--in-dir", str(prep), "--out-dir", str(col), "--eval-mode", "scientific", "--backend", "tiny"]) == 0
     arrays = read_npz(col / "features.npz")
-    assert arrays["H"].shape[0] <= n_events
+    assert arrays["H"].shape[0] == 0
     assert arrays["H"].shape[0] == arrays["H_pre_step"].shape[0]
-    assert arrays["H"].shape[0] > 1
     assert np.isfinite(arrays["H"]).all()
+    assert read_json(col / "run_spec.json")["config"]["status"] == "insufficient_step_boundary_events"
 
 
 def test_span_no_straddle_fallback():
@@ -181,7 +179,7 @@ def test_verbalizer_uses_extracted_answer_not_substring():
 def test_dummy_execute_is_not_prefill():
     rec = run_repair("task_oracle", ["q"], [1, 2, 3], "hello world tokens", execute=lambda *a: {"generated_ids": [1], "extra_prefill_tokens": 0})
     assert rec.refilled_prefix is False
-    assert rec.status == "prefill_unavailable"
+    assert rec.status == "mask_unmatched"
     assert "q = ?" in mask_prefix("task_oracle", "p1 = 4 q = 0", ["q"]) or "[mask:q]" in mask_prefix("task_oracle", "hello world tokens", ["q"])
 
 
@@ -218,10 +216,8 @@ def test_intervene_tiny_geometry_timing_stays_offline(tmp_path, t1_tiny_path):
     row = read_jsonl(inter / "interventions.jsonl")[0]
     assert row["timing"] != "pre_step"
     assert row.get("clayer_status") != "dev_weak_layer"
-    assert row["status"] != "donor_missing"
-    assert row["status"] in {"prospective_decode", "geometry_on_hidden"}
-    assert (row.get("relative") or {}).get("hook_once") == "resid_post"
-    assert (row.get("relative") or {}).get("transform") == "pi_z_swap"
+    assert row["status"] == "donor_missing"
+    assert row["timing"] == "unexpressible"
 
 
 def test_repair_k_changes_masked_prefix(tmp_path, t1_tiny_path):

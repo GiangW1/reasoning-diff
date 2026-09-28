@@ -51,6 +51,8 @@ class HookRecord:
     touched: bool = False
     token_position: int | None = None
     sequence_length: int | None = None
+    input_norm: float | None = None
+    delta_norm: float | None = None
 
 
 @contextmanager
@@ -69,7 +71,10 @@ def resid_post_hook(model, layer: int, transform, once: bool = False):
             record.sequence_length = int(tensor.shape[1])
             record.token_position = record.sequence_length - 1
             patched = tensor.clone()
-            patched[:, -1:] = transform(tensor[:, -1:])
+            transformed = transform(tensor[:, -1:])
+            record.input_norm = float(tensor[:, -1:].detach().float().norm().cpu())
+            record.delta_norm = float((transformed - tensor[:, -1:]).detach().float().norm().cpu())
+            patched[:, -1:] = transformed
         else:
             patched = transform(tensor)
         if isinstance(output, tuple):

@@ -61,7 +61,13 @@ def load_musique_records(path: str | Path) -> list[Task]:
                 nodes=nodes,
                 graph_status="partial",
                 graph_kind="composition_reference",
-                metadata={"native_id": record["id"], "answerable": record.get("answerable", True)},
+                metadata={
+                    "native_id": record["id"],
+                    "answerable": record.get("answerable", True),
+                    "graph_truth_source": "question_decomposition",
+                    "graph_review_status": "dataset_annotation",
+                    "graph_sidecar_version": record.get("graph_version"),
+                },
             )
         )
     ids = [t.task_id for t in tasks]

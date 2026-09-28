@@ -39,14 +39,14 @@ class Stream:
 
 
 class StreamBank:
-    NAMES = ("sample", "direction", "perturb", "bootstrap", "split")
+    NAMES = ("sample", "direction", "perturb", "control", "bootstrap", "split", "repair")
 
     def __init__(self, seed: int) -> None:
         self.streams = {name: Stream(name, seed) for name in self.NAMES}
 
     def get(self, name: str) -> Stream:
         if name not in self.streams:
-            raise KeyError(f"unknown stream {name}; sample/direction/perturb/bootstrap are isolated")
+            raise KeyError(f"unknown stream {name}; sample/direction/perturb/control/bootstrap are isolated")
         return self.streams[name]
 
     def snapshot(self) -> dict:

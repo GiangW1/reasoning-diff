@@ -56,7 +56,8 @@ def test_scientific_prepare_is_generated_not_node_values(tmp_path, t1_tiny_path)
     assert traces[0]["model"] != "fixture"
     assert traces[0]["metadata"].get("generation") == "decode_loop"
     assert "p1 = 4 | p2 = 0 | q = 0" not in traces[0]["text"]
-    assert all(len(row["events"]) >= 1 for row in traces)
+    assert all(not row["metadata"].get("forced_target") for row in traces)
+    assert all(row["metadata"].get("parse_status") in {"ok", "parse_failed"} for row in traces)
     seeds = {row["seed"] for row in traces}
     assert 0 in seeds and 1 in seeds
     sham = next(row for row in traces if row["id"] == "trace-sham")
@@ -104,11 +105,12 @@ def test_scientific_collect_span_pool_and_refuses_offline(tmp_path, t1_tiny_path
         == 0
     )
     arrays = read_npz(col / "features.npz")
-    assert arrays["E"].shape[0] >= 2
-    assert not np.allclose(arrays["E"][0], arrays["E"][1], equal_nan=False)
+    assert arrays["H"].shape[0] == 0
+    assert arrays["E"].shape[0] == 1
     spec = read_json(col / "run_spec.json")
-    assert spec["config"]["hidden_layer"] == 1
+    assert spec["config"]["hidden_layer"] is None
     assert spec["config"]["weight_source"] == "random_init"
+    assert spec["config"]["status"] == "insufficient_step_boundary_events"
     assert "H_pre_step" in arrays
 
 

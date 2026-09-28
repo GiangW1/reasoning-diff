@@ -101,7 +101,7 @@ def test_scalar_prefill_hidden_is_not_prefill():
             execute=lambda *a, h=hidden: {"generated_ids": [1], "prefill_hidden": h},
         )
         assert rec.refilled_prefix is False
-        assert rec.status == "prefill_unavailable"
+        assert rec.status == "mask_unmatched"
 
 
 def test_t3_prepare_survives_source_value_pair(tmp_path):
@@ -246,7 +246,7 @@ def _scientific_sham_lock(dens: dict) -> bool:
         return False
     events = dens.get("events") or []
     if not events:
-        return False
+        return bool(dens.get("null_reason"))
     return all(
         row.get("rho_M_excess") is None
         and row.get("rho_S_excess") is None
@@ -263,9 +263,10 @@ def test_scientific_sham_does_not_book_rho_m_excess_one(tmp_path, t1_tiny_path):
     dens = next(row["densities"] for row in read_jsonl(prep / "labels.jsonl") if "densities" in row)
     assert _scientific_sham_lock(dens)
     forged_zero = {**dens, "rho_M_excess": 0.0}
-    forged_empty = {**dens, "events": []}
-    forged_booked = {**dens, "events": [{**(dens["events"][0]), "rho_M_excess": 1.0, "null_reason": "noise_set_missing"}]}
-    forged_no_reason = {**dens, "events": [{**(dens["events"][0]), "null_reason": None}]}
+    forged_empty = {**dens, "events": [], "null_reason": None}
+    event_template = (dens.get("events") or [{"null_reason": "noise_set_missing"}])[0]
+    forged_booked = {**dens, "events": [{**event_template, "rho_M_excess": 1.0, "null_reason": "noise_set_missing"}]}
+    forged_no_reason = {**dens, "events": [{**event_template, "null_reason": None}]}
     assert not _scientific_sham_lock(forged_zero)
     assert not _scientific_sham_lock(forged_empty)
     assert not _scientific_sham_lock(forged_booked)
@@ -417,10 +418,9 @@ def test_intervene_cli_hook_ids_exceed_64(tmp_path, t1_tiny_path, monkeypatch):
     assert main(["collect", "--fixture", str(fixture), "--in-dir", str(stage_a), "--out-dir", str(stage_b), "--eval-mode", "scientific", "--backend", "tiny", "--weight-seed", "0"]) == 0
     assert main(["intervene", "--in-dir", str(stage_b), "--out-dir", str(inter), "--backend", "tiny", "--dev-layer-scores", "0.05", "0.9", "0.8"]) == 0
     row = read_jsonl(inter / "interventions.jsonl")[0]
-    assert seen
-    assert all(n > 64 for n in seen)
-    assert row.get("relative", {}).get("prefix_n") == seen[0]
-    assert row.get("relative", {}).get("prefix_truncated") is False
+    assert not seen
+    assert row["status"] == "donor_missing"
+    assert row["timing"] == "unexpressible"
 
 
 def test_calibrate_cli_ignores_sibling_lab(tmp_path, t1_tiny_path, monkeypatch):
@@ -483,7 +483,8 @@ def test_intervene_pairs_source_without_prep_sibling_name(tmp_path, t1_tiny_path
     assert (stage_b / "edits.jsonl").read_bytes() == (stage_a / "edits.jsonl").read_bytes()
     assert main(["intervene", "--in-dir", str(stage_b), "--out-dir", str(inter), "--backend", "tiny", "--dev-layer-scores", "0.05", "0.9", "0.8"]) == 0
     row = read_jsonl(inter / "interventions.jsonl")[0]
-    assert row["relative"].get("donor_kind") == "same_value_diff_source"
+    assert row["status"] == "donor_missing"
+    assert row["timing"] == "unexpressible"
 
 
 def test_model_card_pins_hidden_size_and_rejects_unknown():

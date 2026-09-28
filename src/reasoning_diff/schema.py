@@ -254,6 +254,8 @@ class Observation:
     base_group_id: str = ""
     status: str = "ok"
     task_id: str = ""
+    structure_taxonomy: str = "matched"
+    boundary_status: str = "unknown"
 
     def __post_init__(self) -> None:
         if not self.record_id:
@@ -283,6 +285,10 @@ class Label:
     base_group_id: str = ""
     status: str = "ok"
     task_id: str = ""
+    noise_opportunities: int = 0
+    noise_status: str = "unavailable"
+    noise_reference_rate: float | None = None
+    row_key: str = ""
 
     def __post_init__(self) -> None:
         if not self.record_id:
@@ -301,9 +307,22 @@ class Cost:
     probe_seconds: float = 0.0
     scheduling_seconds: float = 0.0
     index_seconds: float = 0.0
+    device_transfer_seconds: float = 0.0
+    gpu_utilization: float | None = None
+    timing_status: str = "unmeasured"
+    hardware: dict[str, Any] = field(default_factory=dict)
 
     def __add__(self, other: Cost) -> Cost:
-        return Cost(**{key: getattr(self, key) + getattr(other, key) for key in asdict(self)})
+        fields_sum = {
+            key: getattr(self, key) + getattr(other, key)
+            for key in ("prefill_tokens", "decode_tokens", "extra_prefill_tokens", "elapsed_seconds", "probe_seconds", "scheduling_seconds", "index_seconds", "device_transfer_seconds")
+        }
+        return Cost(
+            **fields_sum,
+            gpu_utilization=None,
+            timing_status="measured" if self.timing_status == other.timing_status == "measured" else "mixed",
+            hardware=self.hardware or other.hardware,
+        )
 
 
 @dataclass

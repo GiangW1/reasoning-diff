@@ -11,6 +11,7 @@ from reasoning_diff.io import (
     read_json,
     read_jsonl,
     read_npz,
+    runtime_info,
     write_jsonl,
     write_npz,
 )
@@ -71,3 +72,8 @@ def test_run_spec_and_manifest(tmp_path, t1_tiny_path):
 def test_encode_rejects_nan():
     with pytest.raises(ValueError):
         encode({"x": math.nan})
+
+
+def test_runtime_info_accepts_explicit_revision(monkeypatch):
+    monkeypatch.setenv("RD_GIT_REVISION", "server-commit")
+    assert runtime_info()["git_revision"] == "server-commit"

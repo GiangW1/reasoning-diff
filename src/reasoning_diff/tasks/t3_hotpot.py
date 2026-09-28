@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 
 from ..io import read_json
-from ..schema import AnswerSpec, Edit, Premise, Task
+from ..schema import AnswerSpec, Edit, Node, Premise, Task
 
 
 def load_hotpot(path: str | Path, sidecar: dict | None = None) -> Task:
@@ -21,6 +21,8 @@ def load_hotpot(path: str | Path, sidecar: dict | None = None) -> Task:
             question_parts.append(sent)
     support = {f"{title}:{sid}" for title, sid in record.get("supporting_facts", [])}
     question = record["question"]
+    graph_nodes = [Node(**node) if isinstance(node, dict) else node for node in (sidecar or {}).get("nodes", [])]
+    graph_complete = bool(sidecar and sidecar.get("status") == "complete" and graph_nodes)
     task = Task(
         task_id=record["_id"],
         base_group_id=record["_id"],
@@ -31,12 +33,17 @@ def load_hotpot(path: str | Path, sidecar: dict | None = None) -> Task:
         premises=premises or [Premise("q", question, 0, len(question))],
         question=question if premises else question,
         answer_spec=AnswerSpec(value=record.get("answer"), kind="span"),
-        graph_status="partial" if sidecar else "unknown",
-        graph_kind="supporting_facts_only",
+        graph_status="complete" if graph_complete else ("partial" if sidecar else "unknown"),
+        graph_kind="sidecar_dag" if graph_complete else "supporting_facts_only",
+        nodes=graph_nodes,
+        graph_ref=(sidecar or {}).get("graph_ref") if sidecar else None,
         metadata={
             "supporting_facts": sorted(support),
             "supporting_facts_are_not_complete_dag": True,
             "unknown_non_support": True,
+            "graph_truth_source": "reviewed_sidecar" if sidecar else "supporting_facts_only",
+            "graph_sidecar_version": (sidecar or {}).get("version") if sidecar else None,
+            "graph_review_status": (sidecar or {}).get("review_status") if sidecar else "unavailable",
         },
     )
     if premises:

@@ -31,10 +31,10 @@
 
 ## 当前基线记录
 
-- [x] 本机完整测试：`python -m pytest -q --tb=line`，修改后结果为 `218 passed in 31.04s`。证据等级：`LOCAL_CODE_TEST`。
-- [x] 工作区在审查时没有未提交修改。
+- [~] 本轮无 torch 依赖回归子集：38 passed（含 CLI smoke）；独立 Python 3.11 venv 完整回归：230 passed。系统默认 Anaconda Python 仍被 `WinError 1114`（torch `c10.dll`）阻断。证据等级：`LOCAL_CODE_TEST`。
+- [ ] 工作区在本轮审查结束前仍有待提交修改。
 - [x] offline/fixture CLI smoke 路径可以完成并写出 manifest。证据等级：`FIXTURE_TINY`。
-- [~] scientific tiny 的 `prepare → collect → label → fit` 可以运行。证据等级：`FIXTURE_TINY`。
+- [~] scientific tiny 的 `prepare → collect → label → fit` 可以运行；自然轨迹没有 step event 时 fit 写出 `insufficient_step_boundary_events`，不会创建未声明 probe。证据等级：`FIXTURE_TINY`。
 - [~] scientific tiny 的 `calibrate` 若没有独立 calibration 角色现在会写出 `status=insufficient_calibration_split`、`n_calibration_units=0`，不再把 probe_train 当 calibration；独立多题 calibration 仍待真实运行。
 - [ ] 真实模型权重、官方全量数据、CUDA、自然 CoT、隔离代码执行和服务器成本均未在本机验证。
 - [x] 更新 `.planning/FINAL_ACCEPTANCE.md` 的历史冻结说明和本机测试数；旧的两轮审查结论仅适用于历史 hash。证据等级：`LOCAL_CODE_TEST`。
@@ -48,8 +48,9 @@
 - `[~]` repair 的连续 `k` 从同一干净 prefix 开始；tiny/frozen 生成和 tokenizer offset 保存成本与 boundary fallback 证据；目录 hash 支持稳定递归摘要；统一 span answer normalization。证据：`LOCAL_CODE_TEST`/`FIXTURE_TINY`。
 - `[~]` 普通 labels 不再生成伪造的 P2 base/no-op 相同密度；P3 汇总增加有效分母和 `vs_crand` 键统一；attention threshold 没有持久 dev labels 时拒绝硬编码标签；transfer 监督适配拒绝 malformed/single-class 输入。证据：`LOCAL_CODE_TEST`。
 - `[~]` stage provenance 继承 upstream `source_kinds`；T1 ops 校验使用实际载入题数，fixture 被标记为 pilot，而不是硬编码为 500 题。证据：`LOCAL_CODE_TEST`/`FIXTURE_TINY`。
-- `[~]` tiny forced-target 产物在 collect/fit run spec 中显式标为 `fixture/tiny_only_forced_target`；干预记录方向 hash、rank、范数、donor key、hook layer/token；INLP 不再按 label 行号切片；repair 将执行后未匹配的 task-oracle slot 标记为失败。证据：`LOCAL_CODE_TEST`/`FIXTURE_TINY`。
+- `[~]` forced-target 仅保留在非 scientific fixture smoke，collect/fit run spec 显式标记其证据等级；scientific natural trajectory 不追加目标赋值；干预记录方向 hash、rank、范数、donor key、hook layer/token；INLP 不再按 label 行号切片；repair 将执行后未匹配的 task-oracle slot 标记为失败。证据：`LOCAL_CODE_TEST`/`FIXTURE_TINY`。
 - `[~]` boundary MLP 没有持久化边界标签时不再用 `pre_step=1/post_step=0` 伪造监督，改为明确拒绝状态。证据：`LOCAL_CODE_TEST`。
+- `[~]` 新增 `noop` stage，固定 front/mid/back 与 low/medium/high，保存 pair/proof/trace ID，并在没有 paired behavior scan 时 fail-closed 写入 `missing_pair_scan`；行为扫描保存每个 premise 的多流变化率与区间，fit 的逐行 `p1_table.jsonl` 同时保留 probe、text、parser、next-variable→DAG 记录。新增 transfer held-out split 检查、repair answer/full-recompute metadata、问题级 P3 cluster bootstrap 与三位置 fit 入口。证据：`LOCAL_CODE_TEST`/`FIXTURE_TINY`；真实 GPU 与独立数据仍待服务器。
 
 ## BLOCKER：科学结果当前不可解释
 
@@ -60,7 +61,7 @@
 - [ ] natural trajectory 的 parse 状态只能由模型实际生成文本决定，不能为了通过校验追加目标事件。
 - [ ] `parse_status="constrained_target"` 不得被当作自然轨迹或科学样本。
 - [ ] 为“自然生成无事件”“目标事件缺失”“事件重复”“结构变化”分别增加失败样本和统计。
-- **当前证据：** `src/reasoning_diff/models/generate.py:83`, `:296`, `:316`；本机轨迹出现 `target_assignment` 和 `constrained_target`。
+- **当前证据：** `src/reasoning_diff/models/generate.py` 将 `allow_forced_target=False` 传入 scientific prepare；fixture smoke 的 forced target 保留独立 evidence status，scientific natural trace 的无事件/缺失目标会进入 trace quality failure。
 - **关闭标准：** 至少一批真实模型自然轨迹在不追加目标赋值的情况下完成事件解析，报告解析覆盖率、缺失率和结构变化率。
 - **验证等级：** `REAL_MODEL_GPU` + `INDEPENDENT_DATA`。
 

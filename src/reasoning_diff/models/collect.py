@@ -1,10 +1,12 @@
 """Tiny-model collection and prospective swap decode. Real weights stay pending_server."""
 from __future__ import annotations
 
+import hashlib
 import numpy as np
 import torch
 
 from ..interventions import apply_swap, orthonormal_basis
+from ..protocol import stable_row_key
 from .adapters import as_input_ids, model_device
 from .features import select_prefix_index
 from .generate import decode_loop
@@ -75,10 +77,14 @@ def collect_hidden_trace(
     weight_source: str = "random_init",
     hidden_layer: int | None = None,
     prompt_text: str | None = None,
+    trace_id: str = "",
+    task_id: str = "",
+    base_group_id: str = "",
 ) -> dict:
     if model is None:
-        torch.manual_seed(weight_seed)
-        model = build_tiny(kind)
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(weight_seed)
+            model = build_tiny(kind)
     n_layers = _n_layers(model)
     layer = readout_layer_index(n_layers) if hidden_layer is None else hidden_layer
     hidden = _hidden_at_layer(model, token_ids, layer)
@@ -86,6 +92,7 @@ def collect_hidden_trace(
     positions = {"pre_step": [], "pre_value": [], "post_step": []}
     event_ids = []
     identity_keys = []
+    event_records = []
     for event in events:
         start = event.start
         value_start = getattr(event, "value_start", start)
@@ -99,8 +106,36 @@ def collect_hidden_trace(
         if pre_idx is None or pre_idx >= hidden.shape[0]:
             continue
         ident = getattr(event, "identity", None)
-        event_ids.append(getattr(event, "node_id", None) or getattr(ident, "entity_or_expression", None))
-        identity_keys.append(ident.key() if ident is not None else event_ids[-1])
+        event_id = getattr(event, "node_id", None) or getattr(ident, "entity_or_expression", None)
+        identity_key = ident.key() if ident is not None else event_id
+        event_ids.append(event_id)
+        identity_keys.append(identity_key)
+        event_records.append(
+            {
+                "row_key": stable_row_key(
+                    task_id=task_id,
+                    base_group_id=base_group_id,
+                    trace_id=trace_id,
+                    event_id=event_id,
+                    identity_key=identity_key,
+                    position="pre_step",
+                ),
+                "trace_id": trace_id,
+                "task_id": task_id,
+                "base_group_id": base_group_id,
+                "event_id": event_id,
+                "identity_key": identity_key,
+                "node_id": getattr(event, "node_id", None),
+                "timing": "pre_step",
+                "token_index": pre_idx,
+                "token_position": pre_idx,
+                "boundary_start": start,
+                "boundary_end": value_start,
+                "prefix_token_ids": list(token_ids[: pre_idx + 1]),
+                "prefix_token_count": int(pre_idx + 1),
+                "kv_update_range": [int(pre_idx + 1), int(len(token_ids))],
+            }
+        )
         for name, item in feat.items():
             idx = item.get("token_index")
             if idx is None or idx >= hidden.shape[0]:
@@ -135,11 +170,37 @@ def collect_hidden_trace(
 
     e_rows = []
     premise_spans = []
+    premise_records = []
     search_cursor = 0
     for premise in premises:
         span_start, span_end, next_cursor = resolved_span(premise, search_cursor)
         premise_spans.append([span_start, span_end])
         search_cursor = max(search_cursor, next_cursor)
+        span_text = (prompt_text or "")[span_start:span_end] if prompt_text else premise.text
+        span_status = "matched" if span_text == premise.text else "mismatch"
+        if prompt_text and span_status != "matched":
+            raise ValueError(f"premise span round-trip failed for {premise.premise_id}")
+        premise_records.append(
+            {
+                "row_key": stable_row_key(
+                    task_id=task_id,
+                    base_group_id=base_group_id,
+                    trace_id=trace_id,
+                    premise_id=premise.premise_id,
+                    position="embedding",
+                ),
+                "trace_id": trace_id,
+                "task_id": task_id,
+                "base_group_id": base_group_id,
+                "premise_id": premise.premise_id,
+                "prompt_start": span_start,
+                "prompt_end": span_end,
+                "text": premise.text,
+                "matched_text": span_text,
+                "status": span_status,
+                "kind": premise.kind,
+            }
+        )
         idxs = [i for i in span_token_indices(offsets, span_start, span_end) if i < hidden.shape[0]]
         if idxs:
             e_rows.append(hidden[idxs].mean(axis=0))
@@ -161,12 +222,15 @@ def collect_hidden_trace(
         "event_ids": event_ids,
         "identity_keys": identity_keys,
         "premise_spans": premise_spans,
+        "event_records": event_records,
+        "premise_records": premise_records,
     }
 
 
 def collect_tiny(kind: str, prompt_ids: list[int], max_new: int = 4, seed: int = 0, weight_seed: int = 0) -> dict:
-    torch.manual_seed(weight_seed)
-    model = build_tiny(kind)
+    with torch.random.fork_rng(devices=[]):
+        torch.manual_seed(weight_seed)
+        model = build_tiny(kind)
     g = torch.Generator(device=model_device(model)).manual_seed(seed)
     prompt = torch.tensor([prompt_ids], dtype=torch.long)
     decoded = decode_loop(model, prompt, g, max_new=max_new)
@@ -196,8 +260,9 @@ def collect_tiny(kind: str, prompt_ids: list[int], max_new: int = 4, seed: int =
 
 
 def intervene_tiny(kind: str, prompt_ids: list[int], layer: int = 1, donor: np.ndarray | None = None, weight_seed: int = 0) -> dict:
-    torch.manual_seed(weight_seed)
-    model = build_tiny(kind)
+    with torch.random.fork_rng(devices=[]):
+        torch.manual_seed(weight_seed)
+        model = build_tiny(kind)
     ids = torch.tensor([prompt_ids], dtype=torch.long)
     base = model(input_ids=ids, use_cache=True)
     cache_a = base.past_key_values
@@ -242,11 +307,13 @@ def intervene_hidden_decode(
     mode: str = "pi_z_swap",
     projector: np.ndarray | None = None,
     delta: np.ndarray | None = None,
+    target_prefix_len: int | None = None,
     model=None,
 ) -> dict:
     if model is None:
-        torch.manual_seed(weight_seed)
-        model = build_tiny(kind)
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(weight_seed)
+            model = build_tiny(kind)
     donor_vec = np.asarray(donor, dtype=float) if donor is not None else None
     rng = np.random.default_rng(1 if basis_seed is None else int(basis_seed))
     fitted_basis = None if basis is None else np.asarray(basis, dtype=float)
@@ -292,8 +359,15 @@ def intervene_hidden_decode(
 
     g = torch.Generator(device=model_device(model)).manual_seed(seed)
     prompt = as_input_ids(prompt_ids, model)
+    if event_aligned:
+        if target_prefix_len is None:
+            raise ValueError("event-aligned intervention requires target_prefix_len")
+        if int(target_prefix_len) != int(prompt.shape[1]):
+            raise ValueError("target_prefix_len must match the supplied prefix")
     with resid_post_hook(model, layer, transform, once=True) as record:
         decoded = decode_loop(model, prompt, g, max_new=max_new, temperature=temperature, top_k=top_k, top_p=top_p)
+    if event_aligned and record.sequence_length != int(target_prefix_len):
+        raise RuntimeError("event-aligned hook did not fire on the requested prefix length")
     g2 = torch.Generator(device=model_device(model)).manual_seed(seed)
     baseline = decode_loop(model, prompt, g2, max_new=max_new, temperature=temperature, top_k=top_k, top_p=top_p)
     return {
@@ -304,7 +378,18 @@ def intervene_hidden_decode(
         "transform": mode,
         "timing": "pre_step" if event_aligned else "hook_on_prompt",
         "hook_fired": record.touched,
+        "hook_token_position": record.token_position,
+        "hook_sequence_length": record.sequence_length,
+        "hook_input_norm": record.input_norm,
+        "hook_delta_norm": record.delta_norm,
+        "basis_hash": None if basis is None else hashlib.sha256(np.ascontiguousarray(basis).tobytes()).hexdigest(),
+        "basis_rank": None if basis is None else int(basis.shape[1]),
+        "basis_norm": None if basis is None else float(np.linalg.norm(basis)),
         "layer": layer,
+        "prefix_token_ids": prompt[0].detach().cpu().tolist(),
+        "target_prefix_len": int(target_prefix_len) if target_prefix_len is not None else int(prompt.shape[1]),
+        "kv_update_range": [int(prompt.shape[1]), int(prompt.shape[1] + len(decoded.get("generated_ids") or []))],
+        "prefix_boundary_verified": bool(not event_aligned or record.token_position == int(target_prefix_len) - 1),
     }
 
 

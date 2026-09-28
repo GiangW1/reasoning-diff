@@ -1,6 +1,6 @@
 # Reasoning Diff
 
-论文实验项目。本机代码验收：`CODE_READY_SERVER_VALIDATION_PENDING`。冻结 `1f5f379835bba8431e1857c7d184ba4fc136bf1896a15b3193a5609819c7bcdb`。**真实模型/GPU 实验结果仍待服务器。**
+论文实验项目。本机代码验收：`CODE_PATHS_PARTIALLY_VERIFIED / SCIENTIFIC_VALIDITY_BLOCKED`。**真实模型/GPU、官方数据和独立任务图结果仍待服务器。**
 
 ## 从这里开始
 
@@ -16,9 +16,15 @@ pip install -e ".[dev,models]"
 python -m pytest -q --tb=line
 python -m reasoning_diff prepare --fixture tests/fixtures/t1_tiny.json --out-dir stage_a --eval-mode scientific --split-fractions 0.4 0.15 0.1 0.1 0.1 0.15
 python -m reasoning_diff collect --fixture tests/fixtures/t1_tiny.json --in-dir stage_a --out-dir stage_b --eval-mode scientific --backend tiny --weight-seed 0
+python -m reasoning_diff noop --fixture tests/fixtures/t1_tiny.json --out-dir stage_noop
+python -m reasoning_diff transfer --in-dir transfer_pairs --out-dir stage_transfer --mode direct
 ```
 
-完整八段与服务器入口见 `FINAL_ACCEPTANCE.md`。tiny 随机权重不是 MODEL-01。scientific collect 拒绝 offline 前缀当 H。
+完整回归已在独立 Python 3.11 venv 中验证为 230 passed；当前 Windows 系统默认 Anaconda Python 的 torch `c10.dll` 初始化失败时，先修复该运行时或使用项目 venv。
+
+`intervene` 可用 `--features-dir`、`--probes-dir`、`--labels-dir` 分别接入 collect、fit 和 label 产物；scientific 模式缺少拟合方向、稳定标签或 dev layer curve 时会拒绝运行。
+
+完整 stage、T2-noop 配对和服务器入口见 [`.planning/FINAL_ACCEPTANCE.md`](.planning/FINAL_ACCEPTANCE.md)。tiny 随机权重只是接口 smoke，不是 MODEL-01。scientific collect 拒绝 offline 前缀当 H；`noop` 的项目派生配对在缺少行为扫描时会保留 null P2 分母。
 
 ## 研究范围
 

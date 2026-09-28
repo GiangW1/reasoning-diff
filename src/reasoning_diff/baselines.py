@@ -7,6 +7,54 @@ import hashlib
 import numpy as np
 
 
+def parser_premise_set(prefix: str, premises) -> dict:
+    """Surface-only parser baseline; it never reads hidden states."""
+    text = str(prefix or "")
+    found = []
+    for premise in premises or []:
+        pid = getattr(premise, "premise_id", None)
+        value = getattr(premise, "text", "")
+        if pid and value and value.casefold() in text.casefold():
+            found.append(pid)
+    return {"predicted_premises": sorted(set(found)), "visibility": "prospective", "status": "parsed"}
+
+
+def next_variable_to_dag(event_id: str, task) -> dict:
+    """Map a predicted next variable to its independent task-DAG ancestors."""
+    from .graphs import ancestors
+
+    if getattr(task, "graph_status", None) != "complete" or not getattr(task, "nodes", None):
+        return {"predicted_variable": event_id, "predicted_premises": [], "status": "graph_unavailable"}
+    anc = ancestors(task)
+    node = next((item for item in task.nodes if item.id == event_id or event_id in item.aliases), None)
+    if node is None:
+        return {"predicted_variable": event_id, "predicted_premises": [], "status": "unknown_variable"}
+    return {
+        "predicted_variable": node.id,
+        "predicted_premises": sorted(anc.get(node.id, set())),
+        "status": "mapped",
+        "visibility": "prospective",
+    }
+
+
+def fit_next_variable_predictor(prefixes: list[str], variables: list[str], labels: np.ndarray, split: str = "probe_train") -> dict:
+    """Fit a small text-only next-variable predictor with split provenance."""
+    from .splits import require_split
+
+    require_split(split, ("probe_train",), "next-variable predictor")
+    if len(prefixes) != len(variables) or len(labels) != len(prefixes):
+        raise ValueError("next-variable predictor inputs must have equal lengths")
+    labels = np.asarray(labels, dtype=float)
+    known = np.isfinite(labels) & np.isin(labels, [0.0, 1.0])
+    if not known.any():
+        return {"status": "no_known_labels", "split": split}
+    # Each training unit is a (visible prefix, candidate next variable) pair;
+    # fitting on prefixes alone would make the reported predictor independent
+    # of the variable it claims to select.
+    weights = fit_text_predictor(prefixes, labels, split=split, premises=variables)
+    return {"status": "trained", "split": split, "variables": list(variables), "weights": weights}
+
+
 @dataclass
 class Visibility:
     prefix: str
@@ -131,7 +179,10 @@ def verbalizer(
     if tier == "supervised" and not trained:
         raise ValueError("supervised verbalizer requires the same labeled split as the probe")
     if tier == "supervised" and weights:
-        return {"tier": tier, "score": text_predictor(prefix, gold or "", weights), "visibility": visibility, "status": "trained"}
+        # The gold answer is the target, never an input feature.  A
+        # supervised verbalizer must use the same visible prefix contract as
+        # the probe and receive labels only during fitting.
+        return {"tier": tier, "score": text_predictor(prefix, "", weights), "visibility": visibility, "status": "trained"}
     if generate_fn is None:
         return {"tier": tier, "score": None, "visibility": visibility, "status": "generate_unavailable"}
     shots = ""
@@ -141,12 +192,20 @@ def verbalizer(
     instruction = "reflect on the prefix then answer.\n" if tier == "reflection" else ""
     text = generate_fn(instruction + shots + prefix)
     from .events import extract_answer
+    from .protocol import answer_score
 
     pred = extract_answer(str(text), "numeric")
+    answer_kind = "numeric"
     if pred is None:
         pred = extract_answer(str(text), "text")
-    gold_n = extract_answer(str(gold), "numeric") if gold else None
-    if gold_n is None:
-        gold_n = str(gold).strip() if gold else None
-    score = 1.0 if gold_n is not None and pred is not None and str(pred) == str(gold_n) else 0.0
-    return {"tier": tier, "score": score, "visibility": visibility, "status": "generated", "text": str(text), "extracted": pred}
+        answer_kind = "text"
+    scored = answer_score(pred, gold, answer_kind)
+    return {
+        "tier": tier,
+        "score": scored.get("correct"),
+        "visibility": visibility,
+        "status": "generated",
+        "text": str(text),
+        "extracted": pred,
+        **scored,
+    }

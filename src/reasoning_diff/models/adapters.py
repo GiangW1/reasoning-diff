@@ -14,6 +14,7 @@ MODELS = {
         "hidden_size": 4096,
         "layers": 36,
         "think_ids": (151667, 151668),
+        "tokenizer_special_ids": {"bos": 151643, "eos": 151645, "pad": 151643},
         "context_limit": 32768,
     },
     "r1-distill-qwen-7b": {
@@ -23,6 +24,7 @@ MODELS = {
         "hidden_size": 3584,
         "layers": 28,
         "think_ids": (151648, 151649),
+        "tokenizer_special_ids": {"bos": 151643, "eos": 151645, "pad": 151643},
         "context_limit": 16384,
     },
 }
@@ -96,6 +98,48 @@ def think_ids_from_tokenizer(tokenizer, expected=None) -> tuple[int, int]:
     return actual
 
 
+def validate_loaded_model(model, tokenizer, info: dict) -> dict:
+    """Check runtime structure against the pinned model card."""
+    config = getattr(model, "config", None)
+    checks = {
+        "hidden_size": getattr(config, "hidden_size", None),
+        "layers": getattr(config, "num_hidden_layers", None),
+        "context_limit": getattr(config, "max_position_embeddings", None),
+    }
+    mismatches = {
+        key: {"expected": info.get(key), "actual": value}
+        for key, value in checks.items()
+        if value is not None and info.get(key) is not None
+        and (int(value) < int(info[key]) if key == "context_limit" else int(value) != int(info[key]))
+    }
+    if mismatches:
+        raise ValueError(f"checkpoint structure does not match model card: {mismatches}")
+    if tokenizer is None:
+        raise ValueError("frozen checkpoint requires tokenizer")
+    special_ids = {
+        "bos": getattr(tokenizer, "bos_token_id", None),
+        "eos": getattr(tokenizer, "eos_token_id", None),
+        "pad": getattr(tokenizer, "pad_token_id", None),
+    }
+    expected_special_ids = info.get("tokenizer_special_ids") or {}
+    special_mismatches = {
+        key: {"expected": expected_special_ids[key], "actual": value}
+        for key, value in special_ids.items()
+        if expected_special_ids.get(key) is not None and value is not None
+        and value not in (expected_special_ids[key] if isinstance(expected_special_ids[key], list) else [expected_special_ids[key]])
+    }
+    if special_mismatches:
+        raise ValueError(f"tokenizer special ids do not match model card: {special_mismatches}")
+    return {
+        "validation_status": "verified" if config is not None and all(value is not None for value in special_ids.values()) else "injected_runtime_unverified",
+        "config": checks,
+        "tokenizer_special_ids": special_ids,
+        "expected_tokenizer_special_ids": expected_special_ids,
+        "missing_tokenizer_special_ids": [key for key, value in special_ids.items() if value is None],
+        "attention_backend": getattr(config, "_attn_implementation", None) if config is not None else None,
+    }
+
+
 def load_frozen(name: str, local_files_only: bool | None = None, device: str | None = None, dtype=None):
     info = card(name)
     from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -116,11 +160,12 @@ def load_frozen(name: str, local_files_only: bool | None = None, device: str | N
     )
     model.to(device_obj)
     model.eval()
+    validation = validate_loaded_model(model, tokenizer, info)
     # Manual decoding and hooks do not need Transformers' output capture.
     # Disable the legacy Qwen3 decorator path that can reject valid forwards
     # with a misleading kwargs error.
     for flag in ("output_hidden_states", "output_attentions"):
-        if hasattr(model.config, flag):
+        if hasattr(getattr(model, "config", None), flag):
             setattr(model.config, flag, False)
     for parameter in model.parameters():
         parameter.requires_grad_(False)
@@ -133,4 +178,5 @@ def load_frozen(name: str, local_files_only: bool | None = None, device: str | N
         "think_ids": list(think_ids),
         "cuda": device_obj.type == "cuda",
         "cuda_name": torch.cuda.get_device_name(device_obj) if device_obj.type == "cuda" else None,
+        "validation": validation,
     }

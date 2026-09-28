@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import re
+import time
 from dataclasses import asdict, dataclass, field
+import hashlib
 from typing import Callable
 
 import numpy as np
@@ -21,6 +23,22 @@ def _hidden_is_prefill(hidden) -> bool:
     if arr.ndim == 0 or arr.size < 2:
         return False
     return bool(np.isfinite(arr).all() and float(np.linalg.norm(arr)) > 0)
+
+
+def _verified_prefill(hidden, provenance: dict) -> bool:
+    """Accept only a model supplied hidden vector with matching provenance."""
+    if not provenance.get("verified") or not _hidden_is_prefill(hidden):
+        return False
+    try:
+        declared = tuple(int(value) for value in provenance.get("hidden_shape", ()))
+        actual = tuple(np.asarray(hidden).shape)
+        if declared and declared != actual:
+            return False
+        prefix_tokens = int(provenance.get("prefix_tokens", 0))
+        has_model = bool(provenance.get("device") or provenance.get("model_kind") or provenance.get("model_revision"))
+        return prefix_tokens > 0 and has_model
+    except (TypeError, ValueError):
+        return False
 
 
 MASKS_MAIN = ("full_recompute", "task_oracle", "linear_truncation", "prompt_instruction", "supervised_text")
@@ -46,6 +64,18 @@ class RepairRecord:
     status: str = "ok"
     k: int | None = None
     text: str = ""
+    generated_text: str = ""
+    answer_raw: str | None = None
+    answer_normalized: str | None = None
+    gold_normalized: str | None = None
+    score_status: str = "unscored"
+    correct: bool | None = None
+    invalid: bool | None = None
+    legal: bool | None = None
+    full_recompute_match: bool | None = None
+    cost: dict = field(default_factory=dict)
+    prefix_hash: str | None = None
+    slot_status: dict = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if self.mask not in ALL_MASKS:
@@ -103,21 +133,23 @@ def execute_repair_tiny(
     kind: str = "qwen2",
     weight_seed: int = 0,
     max_new: int | None = None,
+    seed: int = 0,
 ) -> dict:
     import torch
 
     from .models.generate import sample_next
     from .models.tiny import build_tiny
-    from .models.tokenize import encode_text
+    from .models.tokenize import decode_ids, encode_text
 
     prompt = mask_prefix(mask, new_prefix, slots)
     ids, _ = encode_text(prompt)
     ids = ids[:32] or [1]
     budget = max(len(original_tokens), 1)
-    torch.manual_seed(weight_seed)
-    model = build_tiny(kind)
+    with torch.random.fork_rng(devices=[]):
+        torch.manual_seed(weight_seed)
+        model = build_tiny(kind)
     produce = max_new if max_new is not None else max(1, min(8, budget))
-    g = torch.Generator().manual_seed(0)
+    g = torch.Generator().manual_seed(seed)
     prefix = torch.tensor([ids], dtype=torch.long)
     model.eval()
     with torch.inference_mode():
@@ -144,7 +176,18 @@ def execute_repair_tiny(
         "extra_prefill_tokens": len(ids),
         "prefill_hidden": hidden.tolist(),
         "refilled_prefix": True,
+        "prefill_provenance": {
+            "verified": True,
+            "hidden_shape": list(hidden.shape),
+            "hidden_dtype": str(hidden.dtype),
+            "prefix_tokens": len(ids),
+            "model_kind": kind,
+            "device": str(getattr(model, "device", "cpu")),
+        },
+        "prefix_hash": hashlib.sha256(np.asarray(ids, dtype=np.int64).tobytes()).hexdigest(),
+        "device_transfer_seconds": 0.0,
         "text": prompt,
+        "generated_text": decode_ids(produced),
         "masked_prefix": prompt,
     }
 
@@ -166,7 +209,7 @@ def execute_repair_frozen(
 
     from .models.adapters import as_input_ids, load_frozen
     from .models.collect import _capture_forward_output
-    from .models.generate import apply_model_template, decode_loop, sample_next
+    from .models.generate import apply_model_template, sample_next
 
     if packed is None and model is None:
         if not model_name:
@@ -198,17 +241,30 @@ def execute_repair_frozen(
     produced = []
     tokens = prefix
     past = prefill.past_key_values
+    transfer_seconds = 0.0
     with torch.inference_mode():
         if produce > 0:
             logits = prefill.logits[:, -1, :]
             if logits.device != g.device:
+                transfer_started = time.perf_counter()
                 logits = logits.to(g.device)
+                transfer_seconds += time.perf_counter() - transfer_started
             nxt = sample_next(logits, g, temperature=1.0).to(tokens.device)
             produced.append(int(nxt.item()))
             tokens = torch.cat([tokens, nxt.view(1, 1) if nxt.ndim == 1 else nxt], dim=-1)
-            if produce > 1:
-                decoded = decode_loop(model, tokens, g, max_new=produce - 1, eos_id=getattr(tokenizer, "eos_token_id", None))
-                produced.extend(decoded["generated_ids"])
+            for _ in range(produce - 1):
+                step = model(input_ids=tokens[:, -1:], past_key_values=past, use_cache=True)
+                past = step.past_key_values
+                logits = step.logits[:, -1, :]
+                if logits.device != g.device:
+                    transfer_started = time.perf_counter()
+                    logits = logits.to(g.device)
+                    transfer_seconds += time.perf_counter() - transfer_started
+                nxt = sample_next(logits, g, temperature=1.0).to(tokens.device)
+                produced.append(int(nxt.item()))
+                tokens = torch.cat([tokens, nxt.view(1, 1) if nxt.ndim == 1 else nxt], dim=-1)
+                if getattr(tokenizer, "eos_token_id", None) is not None and int(nxt.item()) == tokenizer.eos_token_id:
+                    break
     return {
         "generated_ids": produced,
         "prefix_token_ids": prefix_ids,
@@ -216,7 +272,18 @@ def execute_repair_frozen(
         "extra_prefill_tokens": len(prefix_ids),
         "prefill_hidden": hidden.tolist(),
         "refilled_prefix": True,
+        "prefill_provenance": {
+            "verified": True,
+            "hidden_shape": list(hidden.shape),
+            "hidden_dtype": str(hidden.dtype),
+            "prefix_tokens": len(prefix_ids),
+            "model_revision": info.get("revision"),
+            "device": str(getattr(model, "device", "unknown")),
+        },
+        "prefix_hash": hashlib.sha256(np.asarray(prefix_ids, dtype=np.int64).tobytes()).hexdigest(),
+        "device_transfer_seconds": transfer_seconds,
         "text": prompt,
+        "generated_text": tokenizer.decode(produced, skip_special_tokens=True),
         "masked_prefix": prompt,
     }
 
@@ -236,7 +303,9 @@ def run_repair(
     if not new_prefix and mask != "full_recompute":
         raise ValueError("retained text must be re-prefilled on the current prefix")
     if execute is not None:
+        started = time.perf_counter()
         result = execute(mask, slots, original_tokens, new_prefix)
+        elapsed = time.perf_counter() - started
         raw_ids = result.get("generated_ids")
         raw_n = result.get("generated_tokens")
         if raw_ids is not None:
@@ -247,8 +316,12 @@ def run_repair(
             n_gen = 0
         extra = result.get("extra_prefill_tokens", len(result.get("prefix_token_ids") or []))
         hidden = result.get("prefill_hidden")
-        prefilled = _hidden_is_prefill(hidden)
-        unmatched = _unmatched_slots(mask, new_prefix, slots) if prefilled else []
+        provenance = result.get("prefill_provenance") or {}
+        prefilled = _verified_prefill(hidden, provenance)
+        # Slot matching is a textual contract independent of whether the
+        # executor returned a verified hidden state.  Preserve the precise
+        # failure class even when prefill provenance is unavailable.
+        unmatched = _unmatched_slots(mask, new_prefix, slots)
         return RepairRecord(
             mask=mask,
             slots=list(slots),
@@ -256,14 +329,33 @@ def run_repair(
             generated_tokens=n_gen,
             extra_prefill_tokens=extra if prefilled else None,
             refilled_prefix=prefilled,
-            failures=([] if prefilled else ["execute_without_prefill"])
-            + ([f"slot_not_found:{slot}" for slot in unmatched] if unmatched else []),
+            failures=(
+                [f"slot_not_found:{slot}" for slot in unmatched]
+                if unmatched
+                else ([] if prefilled else ["execute_without_prefill"])
+            ),
             record_id="",
             run_id=run_id,
             base_group_id=base_group_id,
             status="mask_unmatched" if unmatched else ("ok" if prefilled else "prefill_unavailable"),
             k=k,
             text=str(result.get("text") or result.get("masked_prefix") or ""),
+            generated_text=str(result.get("generated_text") or ""),
+            answer_raw=result.get("answer"),
+            answer_normalized=result.get("answer_normalized"),
+            gold_normalized=result.get("gold_normalized"),
+            score_status=result.get("score_status", "unscored"),
+            correct=result.get("correct"),
+            invalid=result.get("invalid"),
+            legal=result.get("legal"),
+            cost=result.get("cost") or {
+                "wall_seconds": elapsed,
+                "device_transfer_seconds": float(result.get("device_transfer_seconds") or 0.0),
+                "timing_status": "measured",
+                "hardware": {"device": provenance.get("device")},
+            },
+            prefix_hash=result.get("prefix_hash"),
+            slot_status={"unmatched": unmatched},
         )
     if prefix_token_ids is not None:
         produced = list(generated_tokens or [])
@@ -280,6 +372,8 @@ def run_repair(
             base_group_id=base_group_id,
             status="prefill_unavailable",
             k=k,
+            score_status="unscored",
+            legal=None,
         )
     return RepairRecord(
         mask=mask,
@@ -294,6 +388,8 @@ def run_repair(
         base_group_id=base_group_id,
         status="prefill_unavailable",
         k=k,
+        score_status="unscored",
+        legal=None,
     )
 
 

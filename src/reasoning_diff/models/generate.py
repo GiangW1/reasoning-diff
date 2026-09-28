@@ -44,6 +44,7 @@ def decode_loop(
     prompt_len = int(tokens.shape[1])
     past = None
     produced = []
+    transfer_seconds = 0.0
     sampling = {"temperature": temperature, "top_k": top_k, "top_p": top_p}
     with torch.inference_mode():
         for _ in range(max_new):
@@ -56,7 +57,9 @@ def decode_loop(
             logits = out.logits[:, -1, :]
             gen_device = getattr(generator, "device", None) or torch.device("cpu")
             if logits.device != gen_device:
+                transfer_started = time.perf_counter()
                 logits = logits.to(gen_device)
+                transfer_seconds += time.perf_counter() - transfer_started
             nxt = sample_next(logits, generator, temperature=temperature, top_k=top_k, top_p=top_p)
             nxt = nxt.to(tokens.device)
             produced.append(int(nxt.item()))
@@ -70,6 +73,7 @@ def decode_loop(
         "stop_reason": "eos" if eos_id is not None and produced and produced[-1] == eos_id else "max_new",
         "sampling": sampling,
         "device": str(model_device(model)),
+        "device_transfer_seconds": transfer_seconds,
     }
 
 
@@ -118,9 +122,18 @@ def task_prompt(task) -> str:
         if getattr(premise, "kind", None) in {"sentence", "paragraph"} and premise.text:
             title = getattr(premise, "document_id", None) or ""
             docs.append(f"{title}: {premise.text}" if title else premise.text)
-    if docs:
-        return "\n".join(docs) + "\n\n" + task.question
-    return task.question
+    prompt = "\n".join(docs) + "\n\n" + task.question if docs else task.question
+    mod = getattr(getattr(task, "answer_spec", None), "mod", None)
+    if getattr(task, "source_kind", None) == "official" and mod:
+        prompt += (
+            f"\n\nUse these iGSM rules: compute every arithmetic operation modulo {mod}; "
+            "a requested aggregate category is the sum of its listed named subcategories; "
+            "use only the givens needed for the query and ignore irrelevant equations. "
+            "Give a concise derivation without restarting. Write every quantity used as an "
+            "assignment with its exact full name from the question, then end with exactly "
+            "one final answer in the form \\boxed{number}."
+        )
+    return prompt
 
 
 def generate_frozen_trace(
@@ -139,7 +152,8 @@ def generate_frozen_trace(
     top_p: float = 1.0,
     device: str | None = None,
 ):
-    from ..events import answers_equal, extract_answer, parse_events
+    from ..events import extract_answer, parse_events
+    from ..protocol import answer_score
     from ..schema import Cost, Trace
     from .adapters import card, load_frozen
     from .tokenize import offsets_from_tokenizer
@@ -152,7 +166,7 @@ def generate_frozen_trace(
         model = model or packed["model"]
         tokenizer = tokenizer or packed["tokenizer"]
         info = packed["card"]
-        runtime = {key: packed.get(key) for key in ("device", "dtype", "think_ids", "cuda_name")}
+        runtime = {key: packed.get(key) for key in ("device", "dtype", "think_ids", "cuda_name", "validation")}
     else:
         if tokenizer is None:
             raise ValueError("frozen generate requires tokenizer")
@@ -196,6 +210,25 @@ def generate_frozen_trace(
         offsets = [[i, i + 1] for i in range(len(full_ids))]
     rid = run_id or f"trace:{task.task_id}:{seed}"
     events = parse_events(gen_text, task)
+    identity_keys = [event.identity.key() for event in events]
+    target = getattr(task, "target", None) or (task.nodes[-1].id if task.nodes else None)
+    target_present = target is None or any(event.node_id == target for event in events)
+    duplicate_events = len(identity_keys) != len(set(identity_keys))
+    special_ids = {
+        int(value)
+        for value in (
+            getattr(tokenizer, "bos_token_id", None),
+            getattr(tokenizer, "eos_token_id", None),
+            getattr(tokenizer, "pad_token_id", None),
+        )
+        if value is not None
+    }
+    crossing_tokens = sum(
+        1
+        for event in events
+        for boundary in (event.start, event.value_start, event.end)
+        if any(a < boundary < b for a, b in offsets if a < b)
+    )
     prompt_n = len(prompt_ids)
     if prompt_n < len(offsets):
         gen_char_start = offsets[prompt_n][0]
@@ -212,6 +245,7 @@ def generate_frozen_trace(
         event.record_id = f"{rid}:{event.identity.key()}"
     pred = extract_answer(gen_text, task.answer_spec.kind)
     gold = task.answer_spec.value
+    score = answer_score(pred, gold, task.answer_spec.kind, task.answer_spec.aliases)
     return Trace(
         id=rid,
         task_id=task.task_id,
@@ -223,8 +257,15 @@ def generate_frozen_trace(
         offsets=offsets,
         events=events,
         answer=pred,
-        correct=answers_equal(pred, gold, task.answer_spec.kind),
-        cost=Cost(prefill_tokens=len(prompt_ids), decode_tokens=len(generated_ids), elapsed_seconds=elapsed),
+        correct=score["correct"],
+        cost=Cost(
+            prefill_tokens=len(prompt_ids),
+            decode_tokens=len(generated_ids),
+            elapsed_seconds=elapsed,
+            device_transfer_seconds=float(decoded.get("device_transfer_seconds") or 0.0),
+            timing_status="measured",
+            hardware={"device": runtime.get("device") or decoded.get("device"), "dtype": runtime.get("dtype")},
+        ),
         run_id=rid,
         record_id=rid,
         metadata={
@@ -236,17 +277,26 @@ def generate_frozen_trace(
             "generated_tokens": len(generated_ids),
             "stop_reason": decoded.get("stop_reason"),
             "sampling": decoded.get("sampling"),
+            "enable_thinking": enable_thinking,
             "prompt_text": prompt,
-            "parse_status": "ok" if events else "parse_failed",
+            "parse_status": "boundary_failed" if offset_failures else ("ok" if events else "parse_failed"),
+            "target_event_present": target_present,
+            "duplicate_event_identities": duplicate_events,
+            "structure_status": "duplicate" if duplicate_events else ("target_missing" if not target_present else "ok"),
             "parse_region": "generated",
             "offset_reconstruction_failures": offset_failures,
+            "offset_reconstruction_failure_count": len(offset_failures),
+            "boundary_crossing_token_count": crossing_tokens,
+            "special_token_count": sum(int(token) in special_ids for token in full_ids),
             "boundary_status": "ok" if not offset_failures else "fallback_cursor",
             "forced_target": False,
             "evidence_status": "model_generated",
+            **score,
             "device": runtime.get("device") or decoded.get("device"),
             "dtype": runtime.get("dtype"),
             "think_ids": runtime.get("think_ids") or list(info.get("think_ids") or []),
             "cuda_name": runtime.get("cuda_name"),
+            "validation": runtime.get("validation"),
         },
     )
 
@@ -266,6 +316,8 @@ def generate_task_trace(
     model_name: str | None = None,
     packed: dict | None = None,
     device: str | None = None,
+    allow_forced_target: bool = True,
+    enable_thinking: bool = True,
 ):
     if backend == "frozen":
         if not model_name and packed is None and model is None:
@@ -282,8 +334,10 @@ def generate_task_trace(
             top_k=top_k,
             top_p=top_p,
             device=device,
+            enable_thinking=enable_thinking,
         )
-    from ..events import answers_equal, extract_answer, parse_events
+    from ..events import extract_answer, parse_events
+    from ..protocol import answer_score
     from ..schema import Cost, Trace
     from .tiny import build_tiny
     from .tokenize import decode_ids, encode_text
@@ -293,8 +347,9 @@ def generate_task_trace(
     if len(prompt_ids) > 96:
         raise ValueError("tiny prompt exceeds context; refuse truncated source/value prompts")
     if model is None:
-        torch.manual_seed(weight_seed)
-        model = build_tiny(kind)
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(weight_seed)
+            model = build_tiny(kind)
     g = torch.Generator(device=model_device(model)).manual_seed(seed)
     ids = torch.tensor([prompt_ids], dtype=torch.long, device=model_device(model))
     started = time.perf_counter()
@@ -304,7 +359,7 @@ def generate_task_trace(
     target = getattr(task, "target", None) or (task.nodes[-1].id if task.nodes else None)
     assigned = ""
     decoded_token_count = len(decoded.get("generated_ids") or [])
-    if target:
+    if target and allow_forced_target:
         token_ids, assigned = append_target_assignment(model, token_ids, target, g)
     assignment_token_count = max(0, len(token_ids) - len(decoded.get("token_ids") or []))
     elapsed = time.perf_counter() - started
@@ -328,7 +383,15 @@ def generate_task_trace(
     parse_status = "ok" if events else "parse_failed"
     if assigned and any(e.start >= len(prompt) + len(gen_text) for e in events):
         parse_status = "constrained_target"
-    if target and not any(e.node_id == target for e in events):
+    target_present = target is None or any(e.node_id == target for e in events)
+    duplicate_events = len({e.identity.key() for e in events}) != len(events)
+    crossing_tokens = sum(
+        1
+        for event in events
+        for boundary in (event.start, event.value_start, event.end)
+        if any(a < boundary < b for a, b in offsets if a < b)
+    )
+    if target and not target_present:
         parse_status = "parse_failed"
     for event in events:
         event.run_id = rid
@@ -336,6 +399,7 @@ def generate_task_trace(
         event.record_id = f"{rid}:{event.identity.key()}"
     pred = extract_answer(full_text, task.answer_spec.kind)
     gold = task.answer_spec.value
+    score = answer_score(pred, gold, task.answer_spec.kind, task.answer_spec.aliases)
     return Trace(
         id=rid,
         task_id=task.task_id,
@@ -347,8 +411,15 @@ def generate_task_trace(
         offsets=offsets,
         events=events,
         answer=pred,
-        correct=answers_equal(pred, gold, task.answer_spec.kind),
-        cost=Cost(prefill_tokens=len(prompt_ids), decode_tokens=len(generated), elapsed_seconds=elapsed),
+        correct=score["correct"],
+        cost=Cost(
+            prefill_tokens=len(prompt_ids),
+            decode_tokens=decoded_token_count + assignment_token_count,
+            elapsed_seconds=elapsed,
+            device_transfer_seconds=float(decoded.get("device_transfer_seconds") or 0.0),
+            timing_status="measured",
+            hardware={"device": str(model_device(model)), "dtype": str(next(model.parameters()).dtype) if list(model.parameters()) else None},
+        ),
         run_id=rid,
         record_id=rid,
         metadata={
@@ -361,11 +432,19 @@ def generate_task_trace(
             "model_generated_tokens": decoded_token_count,
             "constrained_target_tokens": assignment_token_count,
             "stop_reason": "constrained_target" if assigned else decoded.get("stop_reason"),
+            "allow_forced_target": allow_forced_target,
             "prompt_text": prompt,
             "parse_status": parse_status,
+            "target_event_present": target_present,
+            "duplicate_event_identities": duplicate_events,
+            "structure_status": "duplicate" if duplicate_events else ("target_missing" if not target_present else "ok"),
+            "offset_reconstruction_failure_count": 0,
+            "boundary_crossing_token_count": crossing_tokens,
+            "special_token_count": 0,
             "target_assignment": assigned,
             "forced_target": bool(assigned),
             "evidence_status": "synthetic_target_assignment" if assigned else "model_generated",
+            **score,
             "parse_region": "generated",
         },
     )

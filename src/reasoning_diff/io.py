@@ -139,16 +139,19 @@ def runtime_info() -> dict:
         except importlib.metadata.PackageNotFoundError:
             versions[name] = None
     root = Path(__file__).resolve().parents[2]
-    result = subprocess.run(
-        ["git", "-C", str(root), "rev-parse", "HEAD"],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
+    revision = os.environ.get("RD_GIT_REVISION")
+    if not revision:
+        result = subprocess.run(
+            ["git", "-C", str(root), "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        revision = result.stdout.strip() if result.returncode == 0 else None
     return {
         "python": sys.version,
         "platform": platform.platform(),
         "packages": versions,
-        "git_revision": result.stdout.strip() if result.returncode == 0 else None,
+        "git_revision": revision,
         "repo_root": str(root),
     }

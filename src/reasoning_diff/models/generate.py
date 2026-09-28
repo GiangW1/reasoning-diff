@@ -201,6 +201,7 @@ def generate_frozen_trace(
     full_ids = decoded["token_ids"]
     generated_ids = decoded["generated_ids"]
     text = tokenizer.decode(full_ids, skip_special_tokens=False)
+    rendered_prompt_text = tokenizer.decode(prompt_ids, skip_special_tokens=False)
     gen_text = tokenizer.decode(generated_ids, skip_special_tokens=False)
     offset_failures = []
     try:
@@ -279,6 +280,8 @@ def generate_frozen_trace(
             "sampling": decoded.get("sampling"),
             "enable_thinking": enable_thinking,
             "prompt_text": prompt,
+            "rendered_prompt_text": rendered_prompt_text,
+            "rendered_prompt_char_len": len(rendered_prompt_text),
             "parse_status": "boundary_failed" if offset_failures else ("ok" if events else "parse_failed"),
             "target_event_present": target_present,
             "duplicate_event_identities": duplicate_events,
@@ -434,6 +437,8 @@ def generate_task_trace(
             "stop_reason": "constrained_target" if assigned else decoded.get("stop_reason"),
             "allow_forced_target": allow_forced_target,
             "prompt_text": prompt,
+            "rendered_prompt_text": prompt,
+            "rendered_prompt_char_len": len(prompt),
             "parse_status": parse_status,
             "target_event_present": target_present,
             "duplicate_event_identities": duplicate_events,

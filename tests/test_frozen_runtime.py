@@ -6,7 +6,7 @@ import torch
 
 from reasoning_diff.cli import build_parser, main
 from reasoning_diff.io import read_json, read_jsonl
-from reasoning_diff.models.adapters import _model_source, card, infer_device, infer_dtype, load_frozen, think_ids_from_tokenizer
+from reasoning_diff.models.adapters import _model_source, card, infer_device, infer_dtype, load_frozen, think_ids_from_tokenizer, validate_loaded_model
 from reasoning_diff.models.collect import _hidden_at_layer, intervene_hidden_decode
 from reasoning_diff.models.generate import decode_loop, generate_frozen_trace, generate_task_trace
 from reasoning_diff.models.tiny import build_tiny
@@ -85,6 +85,31 @@ def test_think_ids_must_match_card():
     with pytest.raises(ValueError, match="think ids"):
         think_ids_from_tokenizer(tok, (151667, 151668))
     assert think_ids_from_tokenizer(_Tok(), (151667, 151668)) == (151667, 151668)
+
+
+def test_runtime_validation_does_not_verify_missing_structure_fields():
+    class CompleteTokenizer(_Tok):
+        bos_token_id = 151643
+        eos_token_id = 151645
+        pad_token_id = 151643
+
+    class CompleteConfig:
+        hidden_size = 4096
+        num_hidden_layers = 36
+        max_position_embeddings = 32768
+
+    class PartialConfig:
+        hidden_size = 4096
+
+    class Model:
+        config = CompleteConfig()
+
+    verified = validate_loaded_model(Model(), CompleteTokenizer(), card("qwen3-8b"))
+    assert verified["validation_status"] == "verified"
+    Model.config = PartialConfig()
+    unverified = validate_loaded_model(Model(), CompleteTokenizer(), card("qwen3-8b"))
+    assert unverified["validation_status"] == "injected_runtime_unverified"
+    assert set(unverified["missing_structure_fields"]) == {"layers", "context_limit"}
 
 
 def test_load_frozen_places_eval_and_dtype(monkeypatch):

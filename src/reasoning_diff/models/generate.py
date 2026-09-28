@@ -202,6 +202,8 @@ def generate_frozen_trace(
     generated_ids = decoded["generated_ids"]
     text = tokenizer.decode(full_ids, skip_special_tokens=False)
     rendered_prompt_text = tokenizer.decode(prompt_ids, skip_special_tokens=False)
+    if not text.startswith(rendered_prompt_text):
+        raise ValueError("decoded full trace does not preserve the rendered prompt prefix")
     gen_text = tokenizer.decode(generated_ids, skip_special_tokens=False)
     offset_failures = []
     try:
@@ -282,6 +284,7 @@ def generate_frozen_trace(
             "prompt_text": prompt,
             "rendered_prompt_text": rendered_prompt_text,
             "rendered_prompt_char_len": len(rendered_prompt_text),
+            "rendered_prompt_prefix_status": "exact",
             "parse_status": "boundary_failed" if offset_failures else ("ok" if events else "parse_failed"),
             "target_event_present": target_present,
             "duplicate_event_identities": duplicate_events,
@@ -445,6 +448,7 @@ def generate_task_trace(
             "structure_status": "duplicate" if duplicate_events else ("target_missing" if not target_present else "ok"),
             "offset_reconstruction_failure_count": 0,
             "boundary_crossing_token_count": crossing_tokens,
+            "boundary_status": "unverified_character_offsets",
             "special_token_count": 0,
             "target_assignment": assigned,
             "forced_target": bool(assigned),

@@ -59,7 +59,7 @@ def _load_frozen_runtime(args: argparse.Namespace):
         if validation.get("validation_status") != "verified":
             raise ValueError(
                 "scientific frozen runtime validation failed: "
-                f"{validation.get('missing_required_tokenizer_special_ids') or validation.get('validation_status')}"
+                f"{validation.get('missing_structure_fields') or validation.get('missing_required_tokenizer_special_ids') or validation.get('validation_status')}"
             )
         requested = getattr(args, "device", None)
         if requested and str(requested).startswith("cuda") and not packed.get("cuda"):
@@ -1527,7 +1527,19 @@ def cmd_fit(args: argparse.Namespace) -> int:
             if child_p1.exists():
                 p1_rows.extend(read_jsonl(child_p1))
         write_jsonl(out / "p1_table.jsonl", p1_rows)
-        write_json(out / "dev_layer_scores.json", {"status": "unavailable_multi_layer_curve", "scores": {}, "reason": "fit all positions does not provide per-transformer-layer probes"})
+        supplied_scores = list(getattr(args, "dev_layer_scores", None) or [])
+        if supplied_scores and len(supplied_scores) < 2:
+            raise ValueError("fit --dev-layer-scores requires at least two layer scores")
+        write_json(
+            out / "dev_layer_scores.json",
+            {
+                "status": "ready" if supplied_scores else "unavailable_multi_layer_curve",
+                "scores": supplied_scores,
+                "layer_ids": list(range(len(supplied_scores))),
+                "source": "pre_registered_dev_curve" if supplied_scores else None,
+                "reason": None if supplied_scores else "fit all positions does not provide per-transformer-layer probes",
+            },
+        )
         _write_stage(
             out,
             "probes",
@@ -1538,7 +1550,12 @@ def cmd_fit(args: argparse.Namespace) -> int:
             config={"command": "fit", "position": "all", "positions": ["pre_step", "pre_value", "post_step"], "split": args.split, "p1_rows": len(p1_rows)},
         )
         return 0
-    fit_cfg = {"command": "fit", "split": args.split, "eval_mode": getattr(args, "eval_mode", "fixture")}
+    fit_cfg = {"command": "fit", "split": args.split, "eval_mode": getattr(args, "eval_mode", "fixture"), "dev_layer_scores": list(getattr(args, "dev_layer_scores", None) or [])}
+    if getattr(args, "dev_layer_scores", None):
+        if len(args.dev_layer_scores) < 2:
+            raise ValueError("fit --dev-layer-scores requires at least two layer scores")
+        if not np.isfinite(np.asarray(args.dev_layer_scores, dtype=float)).all():
+            raise ValueError("fit --dev-layer-scores must be finite")
     if _resume(out, getattr(args, "resume", False), fit_cfg):
         return 0
     require_split(args.split, ("probe_train",), "probe fit")
@@ -1982,9 +1999,12 @@ def cmd_fit(args: argparse.Namespace) -> int:
     write_json(
         out / "dev_layer_scores.json",
         {
-            "status": "unavailable_multi_layer_curve" if len(layer_scores) <= 1 else "position_curve_not_layer_curve",
-            "scores": layer_scores,
-            "reason": "fit persists held-out dev metrics; transformer-layer selection requires a layer sweep",
+            "status": "ready" if getattr(args, "dev_layer_scores", None) and len(args.dev_layer_scores) >= 2 else "unavailable_multi_layer_curve",
+            "scores": list(getattr(args, "dev_layer_scores", None) or []),
+            "layer_ids": list(range(len(getattr(args, "dev_layer_scores", None) or []))),
+            "position_metrics": layer_scores,
+            "source": "pre_registered_dev_curve" if getattr(args, "dev_layer_scores", None) else None,
+            "reason": None if getattr(args, "dev_layer_scores", None) else "fit persists held-out dev metrics; transformer-layer selection requires --dev-layer-scores from a pre-registered dev sweep",
         },
     )
     _write_stage(
@@ -2378,6 +2398,8 @@ def cmd_intervene(args: argparse.Namespace) -> int:
     dev_score_source = "missing"
     if getattr(args, "dev_layer_scores", None):
         persisted_dev_scores = list(getattr(args, "dev_layer_scores"))
+        if len(persisted_dev_scores) < 2 or not np.isfinite(np.asarray(persisted_dev_scores, dtype=float)).all():
+            raise ValueError("intervene --dev-layer-scores requires at least two finite layer scores")
         dev_score_source = "cli"
     else:
         score_path = probes_dir / "dev_layer_scores.json"
@@ -2573,7 +2595,7 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                 aligned = ev is not None
                 if scientific and not aligned:
                     raise ValueError("scientific intervene requires an explicitly aligned target event boundary")
-                if scientific and (base_row.get("metadata") or {}).get("boundary_status") not in {None, "ok"}:
+                if scientific and (base_row.get("metadata") or {}).get("boundary_status") != "ok":
                     raise ValueError("scientific intervene refuses a trace with fallback token boundaries")
                 decode_kw = {
                     "weight_seed": weight_seed,
@@ -3238,6 +3260,7 @@ def build_parser() -> argparse.ArgumentParser:
     f.add_argument("--split", default="probe_train")
     f.add_argument("--labels-dir")
     f.add_argument("--position", choices=("pre_step", "pre_value", "post_step", "all"), default="pre_step")
+    f.add_argument("--dev-layer-scores", nargs="*", type=float)
     f.set_defaults(func=cmd_fit)
     cal = stage(
         "calibrate",

@@ -1,0 +1,321 @@
+{
+  "model": "Qwen3-8B",
+  "model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "code_revision": "1534e10e31c702d5d9a8a0371ae3f7dd80a208eb",
+  "gpus": [
+    1,
+    3,
+    6
+  ],
+  "total_traces": 1096,
+  "valid_traces_in_quality": 151,
+  "collect_traces": 150,
+  "correct_traces": 189,
+  "scan_opportunities": {
+    "changed": 48,
+    "no_change": 256,
+    "parse_failed": 168,
+    "structural": 2252
+  },
+  "analysis_status": "not_evaluated",
+  "scientific_conclusion": null,
+  "intervention": "not_run: fit did not persist dev layer scores",
+  "excluded_patterns": [
+    "model weights",
+    "features.npz",
+    "probes.jsonl",
+    "prepare/traces.jsonl",
+    "collect/event_rows.jsonl",
+    "collect/observations.jsonl"
+  ],
+  "selected_files": [
+    {
+      "path": "gpu1/prep/manifest.json",
+      "bytes": 66498
+    },
+    {
+      "path": "gpu1/prep/run_spec.json",
+      "bytes": 117073
+    },
+    {
+      "path": "gpu1/prep/trace_quality.json",
+      "bytes": 65191
+    },
+    {
+      "path": "gpu1/collect/manifest.json",
+      "bytes": 1420
+    },
+    {
+      "path": "gpu1/collect/run_spec.json",
+      "bytes": 2002
+    },
+    {
+      "path": "gpu1/collect/failure.json",
+      "bytes": 103
+    },
+    {
+      "path": "gpu1/label/manifest.json",
+      "bytes": 503
+    },
+    {
+      "path": "gpu1/label/run_spec.json",
+      "bytes": 30764
+    },
+    {
+      "path": "gpu1/fit/manifest.json",
+      "bytes": 658
+    },
+    {
+      "path": "gpu1/fit/run_spec.json",
+      "bytes": 11495
+    },
+    {
+      "path": "gpu1/fit/p1_table.jsonl",
+      "bytes": 1675650
+    },
+    {
+      "path": "gpu1/cal/manifest.json",
+      "bytes": 579
+    },
+    {
+      "path": "gpu1/cal/run_spec.json",
+      "bytes": 11685
+    },
+    {
+      "path": "gpu1/cal/calibration.jsonl",
+      "bytes": 1293
+    },
+    {
+      "path": "gpu1/intervene/failure.json",
+      "bytes": 108
+    },
+    {
+      "path": "gpu1/repair/manifest.json",
+      "bytes": 503
+    },
+    {
+      "path": "gpu1/repair/run_spec.json",
+      "bytes": 31128
+    },
+    {
+      "path": "gpu1/repair/repairs.jsonl",
+      "bytes": 10125
+    },
+    {
+      "path": "gpu1/analyze/manifest.json",
+      "bytes": 588
+    },
+    {
+      "path": "gpu1/analyze/run_spec.json",
+      "bytes": 8678
+    },
+    {
+      "path": "gpu1/analyze/analysis.jsonl",
+      "bytes": 580
+    },
+    {
+      "path": "gpu1/analyze/report.json",
+      "bytes": 428027
+    },
+    {
+      "path": "logs/pipeline-gpu1.log",
+      "bytes": 9491
+    },
+    {
+      "path": "logs/tail-gpu1.log",
+      "bytes": 1598
+    },
+    {
+      "path": "gpu3/prep/manifest.json",
+      "bytes": 66331
+    },
+    {
+      "path": "gpu3/prep/run_spec.json",
+      "bytes": 115875
+    },
+    {
+      "path": "gpu3/prep/trace_quality.json",
+      "bytes": 65024
+    },
+    {
+      "path": "gpu3/collect/manifest.json",
+      "bytes": 1420
+    },
+    {
+      "path": "gpu3/collect/run_spec.json",
+      "bytes": 2002
+    },
+    {
+      "path": "gpu3/collect/failure.json",
+      "bytes": 103
+    },
+    {
+      "path": "gpu3/label/manifest.json",
+      "bytes": 503
+    },
+    {
+      "path": "gpu3/label/run_spec.json",
+      "bytes": 29731
+    },
+    {
+      "path": "gpu3/fit/manifest.json",
+      "bytes": 658
+    },
+    {
+      "path": "gpu3/fit/run_spec.json",
+      "bytes": 11495
+    },
+    {
+      "path": "gpu3/fit/p1_table.jsonl",
+      "bytes": 2011668
+    },
+    {
+      "path": "gpu3/cal/manifest.json",
+      "bytes": 579
+    },
+    {
+      "path": "gpu3/cal/run_spec.json",
+      "bytes": 11685
+    },
+    {
+      "path": "gpu3/cal/calibration.jsonl",
+      "bytes": 2628
+    },
+    {
+      "path": "gpu3/intervene/failure.json",
+      "bytes": 108
+    },
+    {
+      "path": "gpu3/repair/manifest.json",
+      "bytes": 503
+    },
+    {
+      "path": "gpu3/repair/run_spec.json",
+      "bytes": 30095
+    },
+    {
+      "path": "gpu3/repair/repairs.jsonl",
+      "bytes": 8321
+    },
+    {
+      "path": "gpu3/analyze/manifest.json",
+      "bytes": 588
+    },
+    {
+      "path": "gpu3/analyze/run_spec.json",
+      "bytes": 8678
+    },
+    {
+      "path": "gpu3/analyze/analysis.jsonl",
+      "bytes": 580
+    },
+    {
+      "path": "gpu3/analyze/report.json",
+      "bytes": 415449
+    },
+    {
+      "path": "logs/pipeline-gpu3.log",
+      "bytes": 7105
+    },
+    {
+      "path": "logs/tail-gpu3.log",
+      "bytes": 1598
+    },
+    {
+      "path": "gpu6/prep/manifest.json",
+      "bytes": 68673
+    },
+    {
+      "path": "gpu6/prep/run_spec.json",
+      "bytes": 118991
+    },
+    {
+      "path": "gpu6/prep/trace_quality.json",
+      "bytes": 67366
+    },
+    {
+      "path": "gpu6/collect/manifest.json",
+      "bytes": 1420
+    },
+    {
+      "path": "gpu6/collect/run_spec.json",
+      "bytes": 2002
+    },
+    {
+      "path": "gpu6/collect/failure.json",
+      "bytes": 103
+    },
+    {
+      "path": "gpu6/label/manifest.json",
+      "bytes": 503
+    },
+    {
+      "path": "gpu6/label/run_spec.json",
+      "bytes": 30641
+    },
+    {
+      "path": "gpu6/fit/manifest.json",
+      "bytes": 658
+    },
+    {
+      "path": "gpu6/fit/run_spec.json",
+      "bytes": 11452
+    },
+    {
+      "path": "gpu6/fit/p1_table.jsonl",
+      "bytes": 1982985
+    },
+    {
+      "path": "gpu6/cal/manifest.json",
+      "bytes": 579
+    },
+    {
+      "path": "gpu6/cal/run_spec.json",
+      "bytes": 11642
+    },
+    {
+      "path": "gpu6/cal/calibration.jsonl",
+      "bytes": 1746
+    },
+    {
+      "path": "gpu6/intervene/failure.json",
+      "bytes": 108
+    },
+    {
+      "path": "gpu6/repair/manifest.json",
+      "bytes": 503
+    },
+    {
+      "path": "gpu6/repair/run_spec.json",
+      "bytes": 31005
+    },
+    {
+      "path": "gpu6/repair/repairs.jsonl",
+      "bytes": 20519
+    },
+    {
+      "path": "gpu6/analyze/manifest.json",
+      "bytes": 588
+    },
+    {
+      "path": "gpu6/analyze/run_spec.json",
+      "bytes": 8635
+    },
+    {
+      "path": "gpu6/analyze/analysis.jsonl",
+      "bytes": 580
+    },
+    {
+      "path": "gpu6/analyze/report.json",
+      "bytes": 382116
+    },
+    {
+      "path": "logs/pipeline-gpu6.log",
+      "bytes": 7105
+    },
+    {
+      "path": "logs/tail-gpu6.log",
+      "bytes": 1598
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+[2026-09-28T18:35:46+08:00] stage=collect start
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/wja/reasoning-diff-pr4-run/src/reasoning_diff/__main__.py", line 4, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/wja/reasoning-diff-pr4-run/src/reasoning_diff/cli.py", line 3188, in main
+    return args.func(args)
+           ~~~~~~~~~^^^^^^
+  File "/home/wja/reasoning-diff-pr4-run/src/reasoning_diff/cli.py", line 998, in cmd_collect
+    task = _load_task(args)
+  File "/home/wja/reasoning-diff-pr4-run/src/reasoning_diff/cli.py", line 342, in _load_task
+    return _load_tasks(args)[0]
+           ~~~~~~~~~~~^^^^^^
+  File "/home/wja/reasoning-diff-pr4-run/src/reasoning_diff/cli.py", line 330, in _load_tasks
+    return list(load_igsm_directory(path))
+                ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/wja/reasoning-diff-pr4-run/src/reasoning_diff/tasks/t1_official.py", line 94, in load_igsm_directory
+    return [load_igsm_snapshot(path) for path in files]
+            ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/wja/reasoning-diff-pr4-run/src/reasoning_diff/tasks/t1_official.py", line 20, in load_igsm_snapshot
+    template = data["template"]
+               ~~~~^^^^^^^^^^^^
+KeyError: 'template'
+[2026-09-28T18:35:47+08:00] stage=collect exit_code=1
+[2026-09-28T18:37:52+08:00] stage=collect start
+`torch_dtype` is deprecated! Use `dtype` instead!
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1790591886.722633   85941 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1790591889.553686   85941 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1790591894.479501   85941 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1790591894.481727   85941 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 283.99it/s]
+/home/wja/reasoning-diff-pr4-run/src/reasoning_diff/cli.py:1129: RuntimeWarning: Mean of empty slice
+  embed = np.stack([np.nanmean(np.stack(grouped_embed[key]), axis=0) for key in embed_ids])
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/wja/reasoning-diff-pr4-run/src/reasoning_diff/__main__.py", line 4, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/wja/reasoning-diff-pr4-run/src/reasoning_diff/cli.py", line 3188, in main
+    return args.func(args)
+           ~~~~~~~~~^^^^^^
+  File "/home/wja/reasoning-diff-pr4-run/src/reasoning_diff/cli.py", line 1149, in cmd_collect
+    raise ValueError("scientific collect refuses non-finite hidden or premise features")
+ValueError: scientific collect refuses non-finite hidden or premise features
+[2026-09-28T18:40:29+08:00] stage=collect exit_code=1
+[2026-09-28T18:44:04+08:00] stage=collect start
+`torch_dtype` is deprecated! Use `dtype` instead!
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1790592247.604189  154831 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1790592247.657013  154831 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1790592248.478958  154831 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1790592248.479880  154831 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 280.27it/s]
+[2026-09-28T18:44:28+08:00] stage=collect exit_code=0
+[2026-09-28T18:44:28+08:00] stage=label start
+[2026-09-28T18:44:28+08:00] stage=label exit_code=0
+[2026-09-28T18:44:28+08:00] stage=fit start
+[2026-09-28T18:45:25+08:00] stage=fit exit_code=0
+[2026-09-28T18:45:25+08:00] stage=calibrate start
+[2026-09-28T18:45:27+08:00] stage=calibrate exit_code=0
+[2026-09-28T18:45:27+08:00] stage=intervene exit_code=skipped_missing_dev_scores
+[2026-09-28T18:45:27+08:00] stage=repair start
+`torch_dtype` is deprecated! Use `dtype` instead!
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1790592331.437718  174602 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1790592331.478605  174602 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1790592332.381295  174602 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1790592332.382219  174602 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 282.83it/s]

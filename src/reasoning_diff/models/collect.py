@@ -341,9 +341,10 @@ def intervene_hidden_decode(
     seed: int = 0,
     weight_seed: int = 0,
     max_new: int = 4,
-    temperature: float = 1.0,
-    top_k: int = 0,
-    top_p: float = 1.0,
+    temperature: float = 0.6,
+    top_k: int = 20,
+    top_p: float = 0.95,
+    eos_id: int | None = None,
     event_aligned: bool = False,
     basis_seed: int | None = None,
     basis: np.ndarray | None = None,
@@ -408,11 +409,11 @@ def intervene_hidden_decode(
         if int(target_prefix_len) != int(prompt.shape[1]):
             raise ValueError("target_prefix_len must match the supplied prefix")
     with resid_post_hook(model, layer, transform, once=True) as record:
-        decoded = decode_loop(model, prompt, g, max_new=max_new, temperature=temperature, top_k=top_k, top_p=top_p)
+        decoded = decode_loop(model, prompt, g, max_new=max_new, eos_id=eos_id, temperature=temperature, top_k=top_k, top_p=top_p)
     if event_aligned and record.sequence_length != int(target_prefix_len):
         raise RuntimeError("event-aligned hook did not fire on the requested prefix length")
     g2 = torch.Generator(device=model_device(model)).manual_seed(seed)
-    baseline = decode_loop(model, prompt, g2, max_new=max_new, temperature=temperature, top_k=top_k, top_p=top_p)
+    baseline = decode_loop(model, prompt, g2, max_new=max_new, eos_id=eos_id, temperature=temperature, top_k=top_k, top_p=top_p)
     return {
         **decoded,
         "baseline_generated_ids": baseline["generated_ids"],
@@ -444,9 +445,9 @@ def intervene_swap_decode(
     seed: int = 0,
     weight_seed: int = 0,
     max_new: int = 4,
-    temperature: float = 1.0,
-    top_k: int = 0,
-    top_p: float = 1.0,
+    temperature: float = 0.6,
+    top_k: int = 20,
+    top_p: float = 0.95,
     event_aligned: bool = False,
     basis_seed: int | None = None,
 ) -> dict:

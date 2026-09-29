@@ -141,6 +141,9 @@ def execute_repair_tiny(
     kind: str = "qwen2",
     weight_seed: int = 0,
     max_new: int | None = None,
+    temperature: float = 0.6,
+    top_k: int = 20,
+    top_p: float = 0.95,
     seed: int = 0,
 ) -> dict:
     import torch
@@ -168,13 +171,13 @@ def execute_repair_tiny(
     tokens = prefix
     with torch.inference_mode():
         if produce > 0:
-            nxt = sample_next(prefill.logits[:, -1, :], g, temperature=1.0)
+            nxt = sample_next(prefill.logits[:, -1, :], g, temperature=temperature, top_k=top_k, top_p=top_p)
             produced.append(int(nxt.item()))
             tokens = torch.cat([tokens, nxt.view(1, 1)], dim=-1)
             for _ in range(produce - 1):
                 out = model(input_ids=tokens[:, -1:], past_key_values=past, use_cache=True)
                 past = out.past_key_values
-                nxt = sample_next(out.logits[:, -1, :], g, temperature=1.0)
+                nxt = sample_next(out.logits[:, -1, :], g, temperature=temperature, top_k=top_k, top_p=top_p)
                 produced.append(int(nxt.item()))
                 tokens = torch.cat([tokens, nxt.view(1, 1)], dim=-1)
     return {
@@ -210,6 +213,9 @@ def execute_repair_frozen(
     tokenizer=None,
     model_name: str | None = None,
     max_new: int | None = None,
+    temperature: float = 0.6,
+    top_k: int = 20,
+    top_p: float = 0.95,
     seed: int = 0,
     device: str | None = None,
 ) -> dict:
@@ -250,6 +256,7 @@ def execute_repair_frozen(
     tokens = prefix
     past = prefill.past_key_values
     transfer_seconds = 0.0
+    eos_id = getattr(tokenizer, "eos_token_id", None)
     with torch.inference_mode():
         if produce > 0:
             logits = prefill.logits[:, -1, :]
@@ -257,22 +264,23 @@ def execute_repair_frozen(
                 transfer_started = time.perf_counter()
                 logits = logits.to(g.device)
                 transfer_seconds += time.perf_counter() - transfer_started
-            nxt = sample_next(logits, g, temperature=1.0).to(tokens.device)
+            nxt = sample_next(logits, g, temperature=temperature, top_k=top_k, top_p=top_p).to(tokens.device)
             produced.append(int(nxt.item()))
             tokens = torch.cat([tokens, nxt.view(1, 1) if nxt.ndim == 1 else nxt], dim=-1)
-            for _ in range(produce - 1):
-                step = model(input_ids=tokens[:, -1:], past_key_values=past, use_cache=True)
-                past = step.past_key_values
-                logits = step.logits[:, -1, :]
-                if logits.device != g.device:
-                    transfer_started = time.perf_counter()
-                    logits = logits.to(g.device)
-                    transfer_seconds += time.perf_counter() - transfer_started
-                nxt = sample_next(logits, g, temperature=1.0).to(tokens.device)
-                produced.append(int(nxt.item()))
-                tokens = torch.cat([tokens, nxt.view(1, 1) if nxt.ndim == 1 else nxt], dim=-1)
-                if getattr(tokenizer, "eos_token_id", None) is not None and int(nxt.item()) == tokenizer.eos_token_id:
-                    break
+            if eos_id is None or int(nxt.item()) != eos_id:
+                for _ in range(produce - 1):
+                    step = model(input_ids=tokens[:, -1:], past_key_values=past, use_cache=True)
+                    past = step.past_key_values
+                    logits = step.logits[:, -1, :]
+                    if logits.device != g.device:
+                        transfer_started = time.perf_counter()
+                        logits = logits.to(g.device)
+                        transfer_seconds += time.perf_counter() - transfer_started
+                    nxt = sample_next(logits, g, temperature=temperature, top_k=top_k, top_p=top_p).to(tokens.device)
+                    produced.append(int(nxt.item()))
+                    tokens = torch.cat([tokens, nxt.view(1, 1) if nxt.ndim == 1 else nxt], dim=-1)
+                    if eos_id is not None and int(nxt.item()) == eos_id:
+                        break
     return {
         "generated_ids": produced,
         "prefix_token_ids": prefix_ids,

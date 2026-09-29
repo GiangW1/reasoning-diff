@@ -646,7 +646,17 @@ def cmd_prepare(args: argparse.Namespace) -> int:
             3 if eval_mode == "scientific" else 1,
             int(getattr(args, "n_seeds", None) or (3 if eval_mode == "scientific" else 1)),
         ),
-        "sham_opportunities": max(1, int(getattr(args, "sham_opportunities", 0) or 0)) if eval_mode == "scientific" else int(getattr(args, "sham_opportunities", 0) or 0),
+        # Match the no-edit reference opportunities to the per-premise edit
+        # repetitions so noise is estimated on the same opportunity count.
+        "sham_opportunities": (
+            max(
+                1,
+                int(getattr(args, "sham_opportunities", 0) or 0),
+                int(getattr(args, "behavior_repeats", None) or (3 if eval_mode == "scientific" else 1)),
+            )
+            if eval_mode == "scientific"
+            else int(getattr(args, "sham_opportunities", 0) or 0)
+        ),
         # Scientific traces are always natural model output.  Forced target
         # assignment remains available only on the non-scientific fixture path.
         "allow_forced_target": eval_mode != "scientific",
@@ -979,9 +989,6 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         owner_labels = [lab for lab in labels if lab.task_id == owner.task_id or (not lab.task_id and lab.base_group_id == owner.base_group_id)]
         density_rows.append({"task_id": owner.task_id, "base_group_id": owner.base_group_id, "densities": event_density_sets(owner, owner_labels, sham_protocol)})
     densities = event_density_sets(task, [lab for lab in labels if lab.task_id == task.task_id or (not lab.task_id and lab.base_group_id == task.base_group_id)], sham_protocol) if len(tasks) == 1 else {"per_task": density_rows, "status": "per_task"}
-    noise_pair = None
-    if any(t.id == "trace-sham" for t in traces):
-        noise_pair = (traces[0], next(t for t in traces if t.id == "trace-sham"))
     csp_rows = []
     traces_by_task = {}
     for trace in traces:
@@ -998,7 +1005,15 @@ def cmd_prepare(args: argparse.Namespace) -> int:
                 and not (item.rng_pair or "").startswith("sham:")
                 and item.premise_id
             }
-            csp_rows.append({"task_id": owner.task_id, "base_group_id": owner.base_group_id, "to_csp": preservation_to_csp(base_owner, changed_owner, changed_ids)})
+            sham_owner = next((item for item in owner_traces if "sham" in item.id), None)
+            noise_pair = None if sham_owner is None else (base_owner, sham_owner)
+            csp_rows.append(
+                {
+                    "task_id": owner.task_id,
+                    "base_group_id": owner.base_group_id,
+                    "to_csp": preservation_to_csp(base_owner, changed_owner, changed_ids, noise_pair=noise_pair),
+                }
+            )
     to_csp = {"per_task": csp_rows}
     out.mkdir(parents=True, exist_ok=True)
     edit_rows = [edit.to_dict(), *extra_edit_rows]
@@ -1451,6 +1466,18 @@ def cmd_noop(args: argparse.Namespace) -> int:
     config = {
         "command": "noop",
         "eval_mode": getattr(args, "eval_mode", "fixture"),
+        "backend": getattr(args, "backend", "tiny"),
+        "model_name": getattr(args, "model_name", None),
+        "weight_seed": getattr(args, "weight_seed", 0),
+        "max_new": _resolved_max_new(
+            args,
+            8,
+            4096 if getattr(args, "eval_mode", "fixture") == "scientific" else 256,
+        ),
+        "temperature": 0.6,
+        "top_k": 20,
+        "top_p": 0.95,
+        "generation_seeds": [0],
         "positions": list(getattr(args, "positions", None) or ["front", "mid", "back"]),
         "surface": list(getattr(args, "surface", None) or ["low", "medium", "high"]),
         "sentence": getattr(args, "sentence", "A harmless unrelated sentence is inserted."),
@@ -1469,6 +1496,8 @@ def cmd_noop(args: argparse.Namespace) -> int:
         raise ValueError("noop requires at least one base task")
     pair_rows = []
     p2_rows = []
+    trace_rows = []
+    task_rows = {}
     runtime = None
     gen_kw = None
     if config["eval_mode"] == "scientific":
@@ -1479,13 +1508,12 @@ def cmd_noop(args: argparse.Namespace) -> int:
         gen_kw = {
             "backend": backend,
             "model_name": getattr(args, "model_name", None),
-            "cost_protocol": "wall_seconds_prefill_and_decode_executor",
             "packed": runtime,
             "weight_seed": getattr(args, "weight_seed", 0),
-            "max_new": _resolved_max_new(args, 8, 4096 if config["eval_mode"] == "scientific" else 256),
-            "temperature": 0.6,
-            "top_k": 20,
-            "top_p": 0.95,
+            "max_new": config["max_new"],
+            "temperature": config["temperature"],
+            "top_k": config["top_k"],
+            "top_p": config["top_p"],
             "allow_forced_target": False,
         }
     for task in tasks:
@@ -1513,6 +1541,9 @@ def cmd_noop(args: argparse.Namespace) -> int:
                 else:
                     base_trace = _synthetic_trace(task, _trace_text(task), f"{pair_id}:base", 0)
                     noop_trace = _synthetic_trace(pair, _trace_text(pair), f"{pair_id}:noop", 0)
+                trace_rows.extend([base_trace.to_dict(), noop_trace.to_dict()])
+                task_rows.setdefault(task.task_id, task.to_dict())
+                task_rows.setdefault(pair.task_id, pair.to_dict())
                 base_score = answer_score(base_trace.answer, task.answer_spec.value, task.answer_spec.kind, task.answer_spec.aliases)
                 noop_score = answer_score(noop_trace.answer, pair.answer_spec.value, pair.answer_spec.kind, pair.answer_spec.aliases)
                 shared = sorted({premise.premise_id for premise in task.premises} & {premise.premise_id for premise in pair.premises})
@@ -1568,11 +1599,13 @@ def cmd_noop(args: argparse.Namespace) -> int:
     out.mkdir(parents=True, exist_ok=True)
     write_jsonl(out / "noop_pairs.jsonl", pair_rows)
     write_jsonl(out / "p2_table.jsonl", p2_rows)
+    write_jsonl(out / "traces.jsonl", trace_rows)
+    write_jsonl(out / "tasks.jsonl", list(task_rows.values()))
     _write_stage(
         out,
         "noop",
         pair_rows,
-        extra_files=[out / "noop_pairs.jsonl", out / "p2_table.jsonl"],
+        extra_files=[out / "noop_pairs.jsonl", out / "p2_table.jsonl", out / "traces.jsonl", out / "tasks.jsonl"],
         in_dir=Path(args.in_dir) if getattr(args, "in_dir", None) else None,
         config={**config, "n_pairs": len(pair_rows), "n_p2_rows": len(p2_rows)},
     )
@@ -2835,7 +2868,8 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                     "target_prefix_len": len(ids) if aligned else None,
                     "seed": sample_seed,
                     "model": runtime_model,
-                    "max_new": _resolved_max_new(args, 4, 32),
+                    "max_new": _resolved_max_new(args, 4, 4096 if scientific else 32),
+                    "eos_id": getattr(tokenizer, "eos_token_id", None),
                 }
                 hooked = intervene_hidden_decode(
                     model_kind,
@@ -2869,8 +2903,18 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                 def _decode_text(decoded) -> str:
                     ids_out = decoded.get("generated_ids") or []
                     if tokenizer is not None:
-                        return tokenizer.decode(ids_out, skip_special_tokens=True)
+                        # Keep <think>/</think> markers so a truncated
+                        # intervention cannot fall through to numeric answer
+                        # extraction.
+                        return tokenizer.decode(ids_out, skip_special_tokens=False)
                     return decode_ids(ids_out)
+
+                requires_think_close = bool(scientific and backend == "frozen")
+
+                def _extract_intervention_answer(text: str):
+                    if requires_think_close and "</think>" not in text:
+                        return None
+                    return extract_answer(text, answer_kind)
 
                 def _parse_nodes(text: str) -> dict[str, str]:
                     found = {}
@@ -2891,7 +2935,7 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
 
                 def _outcomes(decoded):
                     text = _decode_text(decoded)
-                    ans = extract_answer(text, answer_kind)
+                    ans = _extract_intervention_answer(text)
                     score = answer_score(ans, gold, answer_kind, answer_aliases)
                     parsed = _parse_nodes(text)
                     def _match(value, expected):
@@ -2923,7 +2967,7 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                     }
 
                 main_out = _outcomes(hooked)
-                base_ans = extract_answer(_decode_text({"generated_ids": hooked.get("baseline_generated_ids") or []}), answer_kind)
+                base_ans = _extract_intervention_answer(_decode_text({"generated_ids": hooked.get("baseline_generated_ids") or []}))
                 donor_intervened = answer_score(main_out.get("answer"), donor_src, answer_kind)
                 donor_baseline = answer_score(base_ans, donor_src, answer_kind)
                 g_int = donor_intervened.get("correct")
@@ -3067,6 +3111,7 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
             "dev_layer_scores": list(getattr(args, "dev_layer_scores", None) or []),
             "dev_layer_selection": dev_score_source,
             "rng_seeds": rng_seeds,
+            "sampling": {"temperature": 0.6, "top_k": 20, "top_p": 0.95},
         },
     )
     return 0
@@ -3193,7 +3238,7 @@ def cmd_repair(args: argparse.Namespace) -> int:
     execute = None
     if backend == "frozen":
         packed_runtime = _load_frozen_runtime(args)
-        max_new = _resolved_max_new(args, 8, 32)
+        max_new = _resolved_max_new(args, 8, 4096 if eval_mode == "scientific" else 32)
 
         def execute(mask, slots, original_tokens, new_prefix):
             return execute_repair_frozen(
@@ -3271,6 +3316,7 @@ def cmd_repair(args: argparse.Namespace) -> int:
             "cost_protocol": "wall_seconds_prefill_and_decode_executor",
             "rng_stream": "repair",
             "repair_seed": repair_seed,
+            "sampling": {"temperature": 0.6, "top_k": 20, "top_p": 0.95},
             "learned_mask": learned_mask_meta,
         },
     )

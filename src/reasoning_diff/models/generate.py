@@ -200,8 +200,17 @@ def generate_frozen_trace(
     def boxed_answer_complete(generated: list[int]) -> bool:
         if getattr(task, "source_kind", None) != "official":
             return False
-        tail = tokenizer.decode(generated[-96:], skip_special_tokens=False)
-        return re.search(r"\\boxed\{[^{}\n]+\}", tail) is not None
+        # A boxed intermediate value inside the reasoning section must not
+        # terminate the trace.  Only stop after a thinking boundary.
+        # A bounded suffix keeps the stop check from repeatedly decoding the
+        # full growing trace.  If the boundary is older than this suffix we
+        # simply continue to the registered budget, which is conservative.
+        generated_text = tokenizer.decode(generated[-256:], skip_special_tokens=False)
+        close = generated_text.rfind("</think>")
+        if close < 0:
+            return False
+        answer_text = generated_text[close + len("</think>") :]
+        return re.search(r"\\boxed\{[^{}\n]+\}", answer_text) is not None
 
     thinking_budget = max_new
     decoded = decode_loop(
@@ -271,6 +280,12 @@ def generate_frozen_trace(
         event.base_group_id = task.base_group_id
         event.record_id = f"{rid}:{event.identity.key()}"
     pred, answer_status = extract_answer_with_status(gen_text, task.answer_spec.kind)
+    # The chat template places the opening <think> in the rendered prompt,
+    # so it is absent from ``gen_text``.  A missing close marker therefore
+    # has to be checked explicitly here; otherwise an unfinished reasoning
+    # line can be mistaken for a numeric fallback answer.
+    if enable_thinking and "</think>" not in gen_text:
+        pred, answer_status = None, "missing_think_close"
     gold = task.answer_spec.value
     score = answer_score(pred, gold, task.answer_spec.kind, task.answer_spec.aliases)
     trace_status = (

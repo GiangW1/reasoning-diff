@@ -77,6 +77,8 @@ def collect_hidden_trace(
     weight_source: str = "random_init",
     hidden_layer: int | None = None,
     prompt_text: str | None = None,
+    rendered_prompt_text: str | None = None,
+    strict_prompt_spans: bool = False,
     trace_id: str = "",
     task_id: str = "",
     base_group_id: str = "",
@@ -154,31 +156,55 @@ def collect_hidden_trace(
         pre_step = h_matrix
         pre_value = h_matrix
         post_step = h_matrix
-    def resolved_span(premise, cursor: int) -> tuple[int, int, int]:
-        """Resolve local sentence/paragraph spans in the rendered prompt."""
-        if prompt_text and getattr(premise, "kind", None) in {"sentence", "paragraph"}:
+    span_source = rendered_prompt_text or prompt_text
+
+    matched_spans: set[tuple[int, int]] = set()
+
+    def resolved_span(premise, cursor: int) -> tuple[int, int, int, str]:
+        """Resolve premise text in the exact rendered prompt coordinates."""
+        if span_source:
+            # The loader's ``start``/``end`` fields are coordinates in the
+            # logical question.  They are not valid after a chat template has
+            # added system/user markers, so every scientific span is located
+            # by an exact text round trip instead.
             prefix = f"{premise.document_id}: " if getattr(premise, "document_id", None) else ""
-            needle = prefix + premise.text
-            loc = prompt_text.find(needle, cursor)
-            if loc >= 0:
-                start = loc + len(prefix)
-                return start, start + len(premise.text), start + len(premise.text)
-            loc = prompt_text.find(premise.text, cursor)
-            if loc >= 0:
-                return loc, loc + len(premise.text), loc + len(premise.text)
-        return premise.start, premise.end, cursor
+            for needle, prefix_len in ((prefix + premise.text, len(prefix)), (premise.text, 0)):
+                # Premises are not guaranteed to be stored in prompt order.
+                # Prefer the old forward search, then scan from the beginning
+                # while avoiding a span already assigned to another premise.
+                locations = []
+                loc = span_source.find(needle, cursor)
+                if loc >= 0:
+                    locations.append(loc)
+                loc = span_source.find(needle)
+                while loc >= 0:
+                    if loc not in locations:
+                        locations.append(loc)
+                    loc = span_source.find(needle, loc + 1)
+                for loc in locations:
+                    start = loc + prefix_len
+                    span = (start, start + len(premise.text))
+                    if span in matched_spans:
+                        continue
+                    matched_spans.add(span)
+                    return start, span[1], span[1], "matched"
+            if strict_prompt_spans:
+                raise ValueError(f"premise span not found in rendered prompt for {premise.premise_id}")
+            return premise.start, premise.end, cursor, "fallback_logical_coordinates"
+        return premise.start, premise.end, cursor, "logical_coordinates"
 
     e_rows = []
     premise_spans = []
     premise_records = []
     search_cursor = 0
     for premise in premises:
-        span_start, span_end, next_cursor = resolved_span(premise, search_cursor)
+        span_start, span_end, next_cursor, span_status = resolved_span(premise, search_cursor)
         premise_spans.append([span_start, span_end])
         search_cursor = max(search_cursor, next_cursor)
-        span_text = (prompt_text or "")[span_start:span_end] if prompt_text else premise.text
-        span_status = "matched" if span_text == premise.text else "mismatch"
-        if prompt_text and span_status != "matched":
+        span_text = span_source[span_start:span_end] if span_source and span_status == "matched" else premise.text
+        if span_source and span_status == "matched" and span_text != premise.text:
+            span_status = "mismatch"
+        if strict_prompt_spans and span_status != "matched":
             raise ValueError(f"premise span round-trip failed for {premise.premise_id}")
         premise_records.append(
             {
@@ -199,6 +225,7 @@ def collect_hidden_trace(
                 "matched_text": span_text,
                 "status": span_status,
                 "kind": premise.kind,
+                "source": "rendered_prompt" if rendered_prompt_text else ("logical_prompt" if prompt_text else "premise_fields"),
             }
         )
         idxs = [i for i in span_token_indices(offsets, span_start, span_end) if i < hidden.shape[0]]
@@ -273,7 +300,7 @@ def intervene_tiny(kind: str, prompt_ids: list[int], layer: int = 1, donor: np.n
     basis = orthonormal_basis(base_vec.shape[-1], 1, rng)
 
     def transform(t):
-        vec = t.detach().cpu().numpy().reshape(-1)
+        vec = t.detach().float().cpu().numpy().reshape(-1)
         swapped = apply_swap(vec, donor_vec, basis)
         return torch.as_tensor(swapped, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -329,7 +356,7 @@ def intervene_hidden_decode(
         basis = fitted_basis
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             swapped = apply_swap(vec, donor_vec, basis)
             return torch.as_tensor(swapped, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -337,7 +364,7 @@ def intervene_hidden_decode(
         proj = np.asarray(projector, dtype=float)
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             out = vec @ proj if proj.ndim == 2 and vec.shape[-1] == proj.shape[0] else vec
             return torch.as_tensor(out, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -345,7 +372,7 @@ def intervene_hidden_decode(
         step = np.asarray(delta, dtype=float)
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             return torch.as_tensor(vec + step, dtype=t.dtype, device=t.device).view_as(t)
 
     elif mode == "replace":

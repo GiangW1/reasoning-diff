@@ -24,6 +24,8 @@ python -m reasoning_diff transfer --in-dir transfer_pairs --out-dir stage_transf
 
 `intervene` 可用 `--features-dir`、`--probes-dir`、`--labels-dir` 分别接入 collect、fit 和 label 产物；scientific 模式缺少拟合方向、稳定标签或 dev layer curve 时会拒绝运行。
 
+如果要运行 scientific C-layer，先在 dev split 上完成预注册的逐层扫描，再把每层分数按层序传给 `fit --dev-layer-scores <score...>`；fit 会保存 `dev_layer_scores.json`，intervene 只消费状态为 `ready` 的工件。
+
 完整 stage、T2-noop 配对和服务器入口见 [`.planning/FINAL_ACCEPTANCE.md`](.planning/FINAL_ACCEPTANCE.md)。tiny 随机权重只是接口 smoke，不是 MODEL-01。scientific collect 拒绝 offline 前缀当 H；`noop` 的项目派生配对在缺少行为扫描时会保留 null P2 分母。
 
 ## 研究范围

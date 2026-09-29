@@ -10,10 +10,18 @@ from .schema import Event, EventIdentity, Task, canonical_value
 NUMBER = r"[+-]?(?:\d[\d,]*(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
 
 
+def premise_aliases(premise) -> list[str]:
+    aliases = [str(premise.premise_id)] if getattr(premise, "premise_id", None) else []
+    match = re.search(r"The number of (?:each )?(.+?) (?:equals?|is|are)\b", str(getattr(premise, "text", "")), re.IGNORECASE)
+    if match:
+        aliases.append(match.group(1))
+    return aliases
+
+
 def surface_mentions(text: str, task: Task) -> list[str]:
     found = []
     for premise in task.premises:
-        names = [premise.premise_id]
+        names = premise_aliases(premise)
         for node in task.nodes:
             if node.id == premise.premise_id:
                 names.extend(node.aliases)
@@ -78,8 +86,9 @@ def parse_events(text: str, task: Task) -> list[Event]:
     for premise in task.premises:
         if premise.kind == "placeholder" or not premise.premise_id:
             continue
-        seen_alias[premise.premise_id.casefold()] += 1
-        entities.append((premise.premise_id, premise.premise_id, premise.value, "global", [premise.premise_id], task.graph_status))
+        for alias in premise_aliases(premise):
+            seen_alias[alias.casefold()] += 1
+            entities.append((alias, premise.premise_id, premise.value, "global", [premise.premise_id], task.graph_status))
     for node in task.nodes:
         for alias in node.aliases or [node.id]:
             seen_alias[alias.casefold()] += 1

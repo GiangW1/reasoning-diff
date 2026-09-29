@@ -15,6 +15,7 @@ MODELS = {
         "layers": 36,
         "think_ids": (151667, 151668),
         "tokenizer_special_ids": {"bos": 151643, "eos": 151645, "pad": 151643},
+        "required_tokenizer_special_ids": ("eos", "pad"),
         "context_limit": 32768,
     },
     "r1-distill-qwen-7b": {
@@ -25,6 +26,7 @@ MODELS = {
         "layers": 28,
         "think_ids": (151648, 151649),
         "tokenizer_special_ids": {"bos": 151643, "eos": 151645, "pad": 151643},
+        "required_tokenizer_special_ids": ("eos", "pad"),
         "context_limit": 16384,
     },
 }
@@ -106,6 +108,10 @@ def validate_loaded_model(model, tokenizer, info: dict) -> dict:
         "layers": getattr(config, "num_hidden_layers", None),
         "context_limit": getattr(config, "max_position_embeddings", None),
     }
+    missing_structure = [
+        key for key, value in checks.items()
+        if info.get(key) is not None and value is None
+    ]
     mismatches = {
         key: {"expected": info.get(key), "actual": value}
         for key, value in checks.items()
@@ -130,12 +136,16 @@ def validate_loaded_model(model, tokenizer, info: dict) -> dict:
     }
     if special_mismatches:
         raise ValueError(f"tokenizer special ids do not match model card: {special_mismatches}")
+    required_ids = tuple(info.get("required_tokenizer_special_ids") or special_ids)
+    missing_required = [key for key in required_ids if special_ids.get(key) is None]
     return {
-        "validation_status": "verified" if config is not None and all(value is not None for value in special_ids.values()) else "injected_runtime_unverified",
+        "validation_status": "verified" if config is not None and not missing_structure and not missing_required else "injected_runtime_unverified",
         "config": checks,
+        "missing_structure_fields": missing_structure,
         "tokenizer_special_ids": special_ids,
         "expected_tokenizer_special_ids": expected_special_ids,
         "missing_tokenizer_special_ids": [key for key, value in special_ids.items() if value is None],
+        "missing_required_tokenizer_special_ids": missing_required,
         "attention_backend": getattr(config, "_attn_implementation", None) if config is not None else None,
     }
 

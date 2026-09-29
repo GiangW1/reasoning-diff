@@ -6,7 +6,7 @@ import torch
 
 from reasoning_diff.cli import build_parser, main
 from reasoning_diff.io import read_json, read_jsonl
-from reasoning_diff.models.adapters import _model_source, card, infer_device, infer_dtype, load_frozen, think_ids_from_tokenizer
+from reasoning_diff.models.adapters import _model_source, card, infer_device, infer_dtype, load_frozen, think_ids_from_tokenizer, validate_loaded_model
 from reasoning_diff.models.collect import _hidden_at_layer, intervene_hidden_decode
 from reasoning_diff.models.generate import decode_loop, generate_frozen_trace, generate_task_trace
 from reasoning_diff.models.tiny import build_tiny
@@ -85,6 +85,31 @@ def test_think_ids_must_match_card():
     with pytest.raises(ValueError, match="think ids"):
         think_ids_from_tokenizer(tok, (151667, 151668))
     assert think_ids_from_tokenizer(_Tok(), (151667, 151668)) == (151667, 151668)
+
+
+def test_runtime_validation_does_not_verify_missing_structure_fields():
+    class CompleteTokenizer(_Tok):
+        bos_token_id = 151643
+        eos_token_id = 151645
+        pad_token_id = 151643
+
+    class CompleteConfig:
+        hidden_size = 4096
+        num_hidden_layers = 36
+        max_position_embeddings = 32768
+
+    class PartialConfig:
+        hidden_size = 4096
+
+    class Model:
+        config = CompleteConfig()
+
+    verified = validate_loaded_model(Model(), CompleteTokenizer(), card("qwen3-8b"))
+    assert verified["validation_status"] == "verified"
+    Model.config = PartialConfig()
+    unverified = validate_loaded_model(Model(), CompleteTokenizer(), card("qwen3-8b"))
+    assert unverified["validation_status"] == "injected_runtime_unverified"
+    assert set(unverified["missing_structure_fields"]) == {"layers", "context_limit"}
 
 
 def test_load_frozen_places_eval_and_dtype(monkeypatch):
@@ -197,6 +222,16 @@ def test_intervene_hidden_decode_accepts_injected_model():
     assert "baseline_generated_ids" in out
 
 
+def test_intervene_hidden_decode_accepts_bfloat16_hidden_states():
+    import numpy as np
+
+    model = build_tiny("qwen2").to(dtype=torch.bfloat16)
+    donor = np.ones(32)
+    out = intervene_hidden_decode("qwen2", [1, 2, 3], 1, donor=donor, model=model, max_new=1)
+    assert out["hook_fired"]
+    assert out["hook_sequence_length"] == 3
+
+
 def test_event_aligned_intervention_records_prefix_boundary():
     import numpy as np
 
@@ -234,6 +269,10 @@ def test_cli_accepts_frozen_backends():
     assert repair.backend == "frozen"
     prepare = parser.parse_args(["prepare", "--fixture", "f", "--out-dir", "x", "--backend", "frozen", "--model-name", "qwen3-8b", "--max-new", "128"])
     assert prepare.max_new == 128
+    collect = parser.parse_args(["collect", "--fixture", "f", "--out-dir", "x", "--hidden-layer", "12"])
+    assert collect.hidden_layer == 12
+    fit = parser.parse_args(["fit", "--out-dir", "x", "--dev-layer-scores", "0.2", "0.8", "--dev-layer-ids", "6", "24"])
+    assert fit.dev_layer_ids == [6, 24]
 
 
 def test_frozen_cli_pipeline_uses_injected_runtime(tmp_path, t1_tiny_path, monkeypatch):

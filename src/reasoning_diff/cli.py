@@ -53,7 +53,20 @@ def _load_frozen_runtime(args: argparse.Namespace):
         raise ValueError("frozen backend requires --model-name")
     from .models.adapters import load_frozen
 
-    return load_frozen(name, device=getattr(args, "device", None))
+    packed = load_frozen(name, device=getattr(args, "device", None))
+    if getattr(args, "eval_mode", "fixture") == "scientific":
+        validation = packed.get("validation") or {}
+        if validation.get("validation_status") != "verified":
+            raise ValueError(
+                "scientific frozen runtime validation failed: "
+                f"{validation.get('missing_structure_fields') or validation.get('missing_required_tokenizer_special_ids') or validation.get('validation_status')}"
+            )
+        requested = getattr(args, "device", None)
+        if requested and str(requested).startswith("cuda") and not packed.get("cuda"):
+            raise ValueError(f"scientific frozen runtime requested {requested} but loaded device is {packed.get('device')}")
+        if not requested and not packed.get("cuda") and (packed.get("card") or {}).get("revision") != "test":
+            raise ValueError("scientific frozen runtime requires a verified CUDA device; use fixture mode for CPU smoke tests")
+    return packed
 
 
 def _resolved_max_new(args: argparse.Namespace, tiny_default: int, frozen_default: int) -> int:
@@ -69,10 +82,10 @@ def _observation_from_dict(data: dict) -> Observation:
 
 
 _STAGE_ARTIFACTS = {
-    "prepare": ("tasks.jsonl", "traces.jsonl", "observations.jsonl", "labels.jsonl", "splits.jsonl", "trace_quality.json", "input_manifest.json", "run_spec.json"),
-    "collect": ("features.npz", "traces.jsonl", "run_spec.json"),
+    "prepare": ("tasks.jsonl", "traces.jsonl", "observations.jsonl", "labels.jsonl", "splits.jsonl", "trace_quality.json", "audit_sample.jsonl", "input_manifest.json", "run_spec.json"),
+    "collect": ("features.npz", "traces.jsonl", "audit_sample.jsonl", "run_spec.json"),
     "label": ("labels.jsonl", "run_spec.json"),
-    "fit": ("probes.jsonl", "p1_table.jsonl", "run_spec.json"),
+    "fit": ("probes.jsonl", "p1_table.jsonl", "dev_layer_scores.json", "run_spec.json"),
     "calibrate": ("calibration.jsonl", "run_spec.json"),
     "intervene": ("interventions.jsonl", "run_spec.json"),
     "repair": ("repairs.jsonl", "run_spec.json"),
@@ -118,6 +131,9 @@ def _resume(out: Path, resume: bool, config: dict | None = None, input_hashes: d
 
     if digest and digest != digest_obj(check):
         raise ValueError("resume manifest digest is not self-consistent")
+    stale_failure = out / "failure.json"
+    if stale_failure.exists():
+        stale_failure.unlink()
     return True
 
 
@@ -197,12 +213,17 @@ def _trace_quality(traces: list[Trace]) -> dict:
         "boundary_failed": 0,
     }
     failures = []
+    by_family = {}
     for trace in traces:
         metadata = trace.metadata or {}
+        family = str(trace.id).split(":", 1)[0] or "unknown"
+        family_counts = by_family.setdefault(family, {"total": 0, "valid": 0, "correct": 0})
+        family_counts["total"] += 1
         has_events = bool(trace.events) and metadata.get("parse_status") not in {"parse_failed", "boundary_failed", "constrained_target"}
         has_answer = trace.answer is not None
         if has_events and has_answer:
             counts["valid"] += 1
+            family_counts["valid"] += 1
         else:
             if not has_events:
                 counts["missing_events"] += 1
@@ -235,9 +256,11 @@ def _trace_quality(traces: list[Trace]) -> dict:
             counts["forced_target"] += 1
         if trace.correct is True:
             counts["correct"] += 1
+            family_counts["correct"] += 1
     return {
         "status": "complete" if not failures else "partial",
         "counts": counts,
+        "by_trace_family": by_family,
         "failures": failures,
     }
 
@@ -264,7 +287,7 @@ def _write_stage(
         "timing_status": "unmeasured_without_runtime_timer",
         **(config or {}),
     }
-    source_kinds = {}
+    source_kinds = dict((config or {}).get("source_kinds") or {})
     upstream_provenance = []
     for upstream_dir in (in_dir, extra_dir):
         if upstream_dir is None:
@@ -285,7 +308,26 @@ def _write_stage(
             except (OSError, TypeError, ValueError):
                 pass
     if not source_kinds:
+        for candidate in (in_dir, extra_dir):
+            task_file = candidate / "tasks.jsonl" if candidate is not None else None
+            if task_file is None or not task_file.exists():
+                continue
+            try:
+                task_rows = read_jsonl(task_file)
+                source_kinds = {
+                    f"task:{row.get('task_id')}": str(row.get("source_kind"))
+                    for row in task_rows
+                    if row.get("task_id") and row.get("source_kind")
+                }
+                if source_kinds:
+                    break
+            except (OSError, TypeError, ValueError):
+                pass
+    if not source_kinds:
         source_kinds = {"cli": "fixture"}
+    stale_failure = out / "failure.json"
+    if stale_failure.exists():
+        stale_failure.unlink()
     write_run_spec(
         out,
         {
@@ -518,6 +560,8 @@ def cmd_prepare(args: argparse.Namespace) -> int:
     eval_mode = getattr(args, "eval_mode", "fixture")
     if eval_mode == "scientific" and not getattr(args, "split_fractions", None):
         raise ValueError("scientific mode requires explicit --split-fractions")
+    if eval_mode == "scientific" and getattr(args, "disable_thinking", False):
+        raise ValueError("scientific reasoning traces require thinking; use fixture mode for a non-thinking comparison")
     try:
         edit = _domain_edit(task, args)
     except ValueError:
@@ -935,6 +979,19 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         [lab.to_dict() for lab in labels]
         + [{"densities": densities, "to_csp": to_csp, "note": "event-mean densities; sham hits are not mapped onto real premises"}],
     )
+    write_jsonl(
+        out / "audit_sample.jsonl",
+        [
+            {
+                "trace_id": trace.id,
+                "task_id": trace.task_id,
+                "text": trace.text,
+                "metadata": trace.metadata,
+                "events": [event.to_dict() for event in trace.events],
+            }
+            for trace in traces[:3]
+        ],
+    )
     write_json(out / "trace_quality.json", trace_quality)
     write_json(out / "input_manifest.json", input_manifest)
     write_run_spec(
@@ -966,6 +1023,7 @@ def cmd_prepare(args: argparse.Namespace) -> int:
                 "observations.jsonl",
                 "labels.jsonl",
                 "trace_quality.json",
+                "audit_sample.jsonl",
                 "input_manifest.json",
                 "run_spec.json",
             )
@@ -992,6 +1050,7 @@ def cmd_collect(args: argparse.Namespace) -> int:
         "weight_seed": getattr(args, "weight_seed", 0),
         "model_name": getattr(args, "model_name", None),
         "device": getattr(args, "device", None),
+        "hidden_layer": getattr(args, "hidden_layer", None),
     }
     if _resume(out, getattr(args, "resume", False), collect_cfg, hashes):
         return 0
@@ -1016,6 +1075,9 @@ def cmd_collect(args: argparse.Namespace) -> int:
     features = out / "features.npz"
     frozen_runtime = {}
     skipped_no_event = []
+    h_blocks = []
+    event_rows = []
+    premise_span_rows = []
     if eval_mode == "scientific" and backend not in {"tiny", "frozen"}:
         raise ValueError("scientific collect refuses offline_prefix_ids as H")
     if backend in {"tiny", "frozen"}:
@@ -1029,7 +1091,10 @@ def cmd_collect(args: argparse.Namespace) -> int:
             packed_model = _load_frozen_runtime(args)
             frozen_model = packed_model["model"]
             frozen_card = packed_model["card"]
-            frozen_layer = readout_layer_index(frozen_card["layers"])
+            requested_layer = getattr(args, "hidden_layer", None)
+            frozen_layer = readout_layer_index(frozen_card["layers"]) if requested_layer is None else int(requested_layer)
+            if frozen_layer < 0 or frozen_layer >= int(frozen_card["layers"]):
+                raise ValueError(f"collect hidden layer {frozen_layer} is outside model layers 0..{int(frozen_card['layers']) - 1}")
             frozen_runtime = {
                 "revision": frozen_card.get("revision"),
                 "model_revision": frozen_card.get("revision"),
@@ -1039,14 +1104,15 @@ def cmd_collect(args: argparse.Namespace) -> int:
                 "attention_backend": (packed_model.get("validation") or {}).get("attention_backend"),
                 "model_validation": packed_model.get("validation"),
             }
-        h_blocks, pre_s, pre_v, post, event_rows = [], [], [], [], []
+        h_blocks, pre_s, pre_v, post = [], [], [], []
         embed_blocks = []
         embed_keys = []
         embedding_rows = []
-        premise_span_rows = []
         meta = {}
         tasks_by_id = {item.task_id: item for item in tasks} if tasks else {task.task_id: task}
         for trace in traces:
+            if eval_mode == "scientific" and backend == "frozen" and not (trace.metadata or {}).get("rendered_prompt_text"):
+                raise ValueError(f"scientific frozen collect requires rendered_prompt_text metadata for {trace.id}")
             token_ids = list(trace.token_ids or [])
             offsets = list(trace.offsets or [])
             if not token_ids:
@@ -1065,6 +1131,8 @@ def cmd_collect(args: argparse.Namespace) -> int:
                 weight_source="frozen_checkpoint" if frozen_model is not None else "random_init",
                 hidden_layer=frozen_layer,
                 prompt_text=(trace.metadata or {}).get("prompt_text"),
+                rendered_prompt_text=(trace.metadata or {}).get("rendered_prompt_text"),
+                strict_prompt_spans=eval_mode == "scientific",
                 trace_id=trace.id,
                 task_id=trace.task_id,
                 base_group_id=trace.base_group_id,
@@ -1211,6 +1279,22 @@ def cmd_collect(args: argparse.Namespace) -> int:
     shard_rows[0]["metadata"] = {**traces[0].metadata, "feature": feat, "weight_source": source, "hidden_layer": layer}
     if eval_mode == "scientific" and not h_blocks:
         collect_cfg["status"] = "insufficient_step_boundary_events"
+    write_jsonl(
+        out / "audit_sample.jsonl",
+        [
+            {
+                "trace_id": row.get("trace_id"),
+                "event_id": row.get("event_id"),
+                "identity_key": row.get("identity_key"),
+                "token_index": row.get("token_index"),
+                "boundary_start": row.get("boundary_start"),
+                "boundary_end": row.get("boundary_end"),
+                "premise_spans": [item for item in premise_span_rows if item.get("trace_id") == row.get("trace_id")][:8],
+            }
+            for row in event_rows[:8]
+        ],
+    )
+    extra.append(out / "audit_sample.jsonl")
     _write_stage(
         out,
         "traces",
@@ -1447,19 +1531,52 @@ def cmd_fit(args: argparse.Namespace) -> int:
             rows.extend(read_jsonl(Path(child.out_dir) / "probes.jsonl"))
             child_p1 = Path(child.out_dir) / "p1_table.jsonl"
             if child_p1.exists():
-                p1_rows.extend(read_jsonl(child_p1))
+                position_rows = read_jsonl(child_p1)
+                for row in position_rows:
+                    row.setdefault("position", position)
+                p1_rows.extend(position_rows)
         write_jsonl(out / "p1_table.jsonl", p1_rows)
+        supplied_scores = list(getattr(args, "dev_layer_scores", None) or [])
+        supplied_layers = list(getattr(args, "dev_layer_ids", None) or range(len(supplied_scores)))
+        if supplied_scores and len(supplied_scores) < 2:
+            raise ValueError("fit --dev-layer-scores requires at least two layer scores")
+        if len(supplied_layers) != len(supplied_scores) or len(set(supplied_layers)) != len(supplied_layers):
+            raise ValueError("fit --dev-layer-ids must be unique and match --dev-layer-scores")
+        write_json(
+            out / "dev_layer_scores.json",
+            {
+                "status": "ready" if supplied_scores else "unavailable_multi_layer_curve",
+                "scores": supplied_scores,
+                "layer_ids": supplied_layers,
+                "source": "pre_registered_dev_curve" if supplied_scores else None,
+                "reason": None if supplied_scores else "fit all positions does not provide per-transformer-layer probes",
+            },
+        )
         _write_stage(
             out,
             "probes",
             rows,
-            extra_files=[out / "p1_table.jsonl"],
+            extra_files=[out / "p1_table.jsonl", out / "dev_layer_scores.json"],
             in_dir=Path(args.in_dir),
             extra_dir=Path(args.labels_dir) if args.labels_dir else None,
             config={"command": "fit", "position": "all", "positions": ["pre_step", "pre_value", "post_step"], "split": args.split, "p1_rows": len(p1_rows)},
         )
         return 0
-    fit_cfg = {"command": "fit", "split": args.split, "eval_mode": getattr(args, "eval_mode", "fixture")}
+    fit_cfg = {
+        "command": "fit",
+        "split": args.split,
+        "eval_mode": getattr(args, "eval_mode", "fixture"),
+        "dev_layer_scores": list(getattr(args, "dev_layer_scores", None) or []),
+        "dev_layer_ids": list(getattr(args, "dev_layer_ids", None) or []),
+    }
+    if getattr(args, "dev_layer_scores", None):
+        if len(args.dev_layer_scores) < 2:
+            raise ValueError("fit --dev-layer-scores requires at least two layer scores")
+        if not np.isfinite(np.asarray(args.dev_layer_scores, dtype=float)).all():
+            raise ValueError("fit --dev-layer-scores must be finite")
+        layer_ids = list(getattr(args, "dev_layer_ids", None) or range(len(args.dev_layer_scores)))
+        if len(layer_ids) != len(args.dev_layer_scores) or len(set(layer_ids)) != len(layer_ids):
+            raise ValueError("fit --dev-layer-ids must be unique and match --dev-layer-scores")
     if _resume(out, getattr(args, "resume", False), fit_cfg):
         return 0
     require_split(args.split, ("probe_train",), "probe fit")
@@ -1505,11 +1622,12 @@ def cmd_fit(args: argparse.Namespace) -> int:
             ]
             out.mkdir(parents=True, exist_ok=True)
             write_jsonl(out / "p1_table.jsonl", [])
+            write_json(out / "dev_layer_scores.json", {"status": "insufficient_step_boundary_events", "scores": {}, "reason": "no usable scientific event rows"})
             _write_stage(
                 out,
                 "probes",
                 rows,
-                extra_files=[out / "p1_table.jsonl"],
+                extra_files=[out / "p1_table.jsonl", out / "dev_layer_scores.json"],
                 in_dir=src,
                 extra_dir=labels_dir if labels_dir != src else None,
                 config={**fit_cfg, "status": "insufficient_step_boundary_events"},
@@ -1542,10 +1660,9 @@ def cmd_fit(args: argparse.Namespace) -> int:
     task_for_e = None
     if (labels_dir / "labels.jsonl").exists():
         labels = [row for row in read_jsonl(labels_dir / "labels.jsonl") if "behavior_label" in row or "task_label" in row]
-        if persisted and getattr(args, "eval_mode", "fixture") == "scientific":
-            allowed_ids = _split_member_ids(persisted, args.split)
-            if allowed_ids:
-                labels = [row for row in labels if not (row.get("task_id") or row.get("base_group_id")) or str(row.get("task_id") or row.get("base_group_id")) in allowed_ids]
+        # Keep labels for every persisted role.  The fit mask below controls
+        # optimization on probe_train; retaining dev/calibration/test rows is
+        # required to report held-out metrics and choose a weak layer.
         task_path = _find_tasks_jsonl(src, labels_dir)
         if task_path:
             task_rows_all = [Task.from_dict(row) for row in read_jsonl(task_path)]
@@ -1892,11 +2009,30 @@ def cmd_fit(args: argparse.Namespace) -> int:
                     }
                 )
     write_jsonl(out / "p1_table.jsonl", p1_rows)
+    layer_scores = {}
+    for row in rows:
+        if row.get("head") not in {"task", "behavior"}:
+            continue
+        dev = (row.get("metrics") or {}).get("dev") or {}
+        score = dev.get("auc")
+        if score is not None and row.get("position"):
+            layer_scores[str(row.get("position"))] = float(score)
+    write_json(
+        out / "dev_layer_scores.json",
+        {
+            "status": "ready" if getattr(args, "dev_layer_scores", None) and len(args.dev_layer_scores) >= 2 else "unavailable_multi_layer_curve",
+            "scores": list(getattr(args, "dev_layer_scores", None) or []),
+            "layer_ids": list(getattr(args, "dev_layer_ids", None) or range(len(getattr(args, "dev_layer_scores", None) or []))),
+            "position_metrics": layer_scores,
+            "source": "pre_registered_dev_curve" if getattr(args, "dev_layer_scores", None) else None,
+            "reason": None if getattr(args, "dev_layer_scores", None) else "fit persists held-out dev metrics; transformer-layer selection requires --dev-layer-scores from a pre-registered dev sweep",
+        },
+    )
     _write_stage(
         out,
         "probes",
         rows,
-        extra_files=[out / "p1_table.jsonl"],
+        extra_files=[out / "p1_table.jsonl", out / "dev_layer_scores.json"],
         in_dir=src,
         extra_dir=labels_dir if labels_dir != src else None,
         config={**fit_cfg, "p1_rows": len(p1_rows), "p1_statistical_unit": "event_premise"},
@@ -2011,7 +2147,9 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
     out = Path(args.out_dir)
     alpha = float(getattr(args, "alpha", 0.4))
     head_name = getattr(args, "head", None)
-    cal_cfg = {"command": "calibrate", "split": args.split, "alpha": alpha, "head": head_name, "eval_mode": getattr(args, "eval_mode", "fixture")}
+    eval_mode = getattr(args, "eval_mode", "fixture")
+    min_units = int(getattr(args, "min_calibration_units", None) or (5 if eval_mode == "scientific" else 0))
+    cal_cfg = {"command": "calibrate", "split": args.split, "alpha": alpha, "head": head_name, "eval_mode": eval_mode, "min_calibration_units": min_units}
     if _resume(out, getattr(args, "resume", False), cal_cfg):
         return 0
     require_split(args.split, ("calibration",), "calibration")
@@ -2173,6 +2311,18 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
             "unit": "problem",
             "nonconformity": "one_minus_p",
         }]
+    if eval_mode == "scientific":
+        for row in outputs:
+            n_units = int(row.get("n_calibration_units") or 0)
+            if n_units < min_units:
+                row.update(
+                    {
+                        "status": "insufficient_calibration_units",
+                        "reason": f"requires at least {min_units} independent problem units",
+                        "q": None,
+                        "infinity": False,
+                    }
+                )
     _write_stage(out, "calibration", outputs, in_dir=src, extra_dir=feat_dir if feat_dir != src else None, config=cal_cfg)
     return 0
 
@@ -2248,7 +2398,6 @@ def cmd_intervene(args: argparse.Namespace) -> int:
             "model_name": getattr(args, "model_name", None),
             "device": getattr(args, "device", None),
             "dev_layer_scores": list(getattr(args, "dev_layer_scores", None) or []),
-            "dev_layer_selection": "persisted_cli_scores" if getattr(args, "dev_layer_scores", None) else "missing",
         },
     ):
         return 0
@@ -2266,6 +2415,27 @@ def cmd_intervene(args: argparse.Namespace) -> int:
     report = {}
     timing = "unexpressible"
     clayer_status = "dev_scores_missing"
+    persisted_dev_scores = None
+    persisted_dev_layers = None
+    dev_score_source = "missing"
+    if getattr(args, "dev_layer_scores", None):
+        persisted_dev_scores = list(getattr(args, "dev_layer_scores"))
+        if len(persisted_dev_scores) < 2 or not np.isfinite(np.asarray(persisted_dev_scores, dtype=float)).all():
+            raise ValueError("intervene --dev-layer-scores requires at least two finite layer scores")
+        dev_score_source = "cli"
+        persisted_dev_layers = list(getattr(args, "dev_layer_ids", None) or range(len(persisted_dev_scores)))
+        if len(persisted_dev_layers) != len(persisted_dev_scores) or len(set(persisted_dev_layers)) != len(persisted_dev_layers):
+            raise ValueError("intervene --dev-layer-ids must be unique and match --dev-layer-scores")
+    else:
+        score_path = probes_dir / "dev_layer_scores.json"
+        if score_path.exists():
+            payload = read_json(score_path)
+            if payload.get("status") == "ready" and payload.get("scores"):
+                persisted_dev_scores = list(payload["scores"])
+                persisted_dev_layers = list(payload.get("layer_ids") or range(len(persisted_dev_scores)))
+                if len(persisted_dev_layers) != len(persisted_dev_scores):
+                    raise ValueError("persisted dev layer ids do not match scores")
+                dev_score_source = "fit_artifact"
     rng_seeds = {}
     if features_dir and (features_dir / "features.npz").exists():
         arrays = read_npz(features_dir / "features.npz")
@@ -2304,11 +2474,11 @@ def cmd_intervene(args: argparse.Namespace) -> int:
             main = apply_swap(base, donor, basis)
             main_norm = float(np.linalg.norm(main - base))
             cr = c_rand_delta(base, donor, rank, np.random.default_rng(perturb_seed), target_norm=main_norm)
-            dev_scores = getattr(args, "dev_layer_scores", None)
+            dev_scores = persisted_dev_scores
             if dev_scores:
-                scores = {int(k): float(v) for k, v in dict(zip(range(len(dev_scores)), dev_scores)).items()}
+                scores = {int(k): float(v) for k, v in zip(persisted_dev_layers or range(len(dev_scores)), dev_scores, strict=True)}
                 weak = select_weak_layer(scores)
-                clayer_status = "dev_scores_present_pending_decode"
+                clayer_status = f"dev_scores_present_pending_decode:{dev_score_source}"
             else:
                 if scientific:
                     raise ValueError("scientific intervene requires persisted dev layer scores for C-layer")
@@ -2451,6 +2621,10 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                     main_layer = int(collect_cfg.get("hidden_layer") or readout_layer_index(3))
                 hook_meta["hook_layer"] = main_layer
                 aligned = ev is not None
+                if scientific and not aligned:
+                    raise ValueError("scientific intervene requires an explicitly aligned target event boundary")
+                if scientific and (base_row.get("metadata") or {}).get("boundary_status") != "ok":
+                    raise ValueError("scientific intervene refuses a trace with fallback token boundaries")
                 decode_kw = {
                     "weight_seed": weight_seed,
                     "event_aligned": aligned,
@@ -2684,11 +2858,30 @@ def cmd_intervene(args: argparse.Namespace) -> int:
             "model_name": getattr(args, "model_name", None),
             "device": getattr(args, "device", None),
             "dev_layer_scores": list(getattr(args, "dev_layer_scores", None) or []),
-            "dev_layer_selection": "persisted_cli_scores" if getattr(args, "dev_layer_scores", None) else "missing",
+            "dev_layer_selection": dev_score_source,
             "rng_seeds": rng_seeds,
         },
     )
     return 0
+
+
+def _canonical_repair_prefix(trace: dict) -> str:
+    text = str(trace.get("text") or "")
+    replacements = []
+    for event in trace.get("events") or []:
+        start, end = event.get("start"), event.get("end")
+        node_id, value = event.get("node_id"), event.get("value")
+        if not isinstance(start, int) or not isinstance(end, int) or not node_id or value is None:
+            continue
+        if 0 <= start < end <= len(text):
+            replacements.append((start, end, f"{node_id} = {value}"))
+    last_start = len(text)
+    for start, end, replacement in sorted(replacements, reverse=True):
+        if end > last_start:
+            continue
+        text = text[:start] + replacement + text[end:]
+        last_start = start
+    return text
 
 
 def cmd_repair(args: argparse.Namespace) -> int:
@@ -2721,9 +2914,20 @@ def cmd_repair(args: argparse.Namespace) -> int:
             slots = graph_slots
     if src and (src / "traces.jsonl").exists():
         traces = read_jsonl(src / "traces.jsonl")
-        original = traces[0].get("token_ids") or original
+        repair_trace = next(
+            (
+                trace
+                for trace in traces
+                if edited_task is not None and trace.get("task_id") == edited_task.task_id and trace.get("events")
+            ),
+            traces[0],
+        )
+        original = repair_trace.get("token_ids") or original
+        retained_prefix = _canonical_repair_prefix(repair_trace)
+        if retained_prefix:
+            prefix = retained_prefix
         ev_slots = []
-        for ev in traces[0].get("events") or []:
+        for ev in repair_trace.get("events") or []:
             nid = ev.get("node_id") or (ev.get("identity") or {}).get("entity_or_expression")
             if nid and nid not in ev_slots:
                 ev_slots.append(nid)
@@ -2733,7 +2937,7 @@ def cmd_repair(args: argparse.Namespace) -> int:
     eval_mode = getattr(args, "eval_mode", "fixture")
     group = ""
     if src and (src / "traces.jsonl").exists():
-        group = traces[0].get("base_group_id") or ""
+        group = repair_trace.get("base_group_id") or ""
     backend = getattr(args, "backend", "offline")
     repair_seed = int(StreamBank(0).get("repair").integers(0, 2**31))
     execute = None
@@ -2775,8 +2979,9 @@ def cmd_repair(args: argparse.Namespace) -> int:
                 base_group_id=group,
                 k=rec.k,
             )
-    if base_task is not None:
-        spec = base_task.answer_spec
+    score_task = edited_task or base_task
+    if score_task is not None:
+        spec = score_task.answer_spec
         for rec in recs:
             if rec.generated_text:
                 raw = extract_answer(rec.generated_text, spec.kind)
@@ -2920,20 +3125,31 @@ def cmd_analyze(args: argparse.Namespace) -> int:
     p1 = p2 = p3 = None
     status = "not_evaluated"
     if table:
-        numeric_table = [
-            row
-            for row in table
-            if all(isinstance(row.get(key), (int, float)) and np.isfinite(float(row[key])) for key in ("length", "op", "rho", "y"))
-        ]
+        numeric_table = []
+        for row in table:
+            normalized = {
+                **row,
+                "length": row.get("length", row.get("chain_length")),
+                "rho": row.get("rho", row.get("score")),
+            }
+            if all(isinstance(normalized.get(key), (int, float)) and np.isfinite(float(normalized[key])) for key in ("length", "op", "rho", "y")):
+                numeric_table.append(normalized)
         if numeric_table:
-            length = np.array([r["length"] for r in numeric_table], dtype=float)
-            op = np.array([r["op"] for r in numeric_table], dtype=float)
-            rho = np.array([r["rho"] for r in numeric_table], dtype=float)
-            y = np.array([r["y"] for r in numeric_table], dtype=float)
-            held = np.array([r.get("held_out", False) for r in numeric_table], dtype=bool)
-            groups = [str(r.get("problem_id") or r.get("base_group_id") or i) for i, r in enumerate(numeric_table)]
-            ho = held if held.any() and not held.all() else None
-            p1 = p1_incremental(length, op, rho, y, held_out=ho, groups=groups, rng=np.random.default_rng(0))
+            partitions = sorted({(str(row.get("position") or "unspecified"), str(row.get("head") or "unspecified")) for row in numeric_table})
+            partition_results = []
+            for position, head in partitions:
+                selected = [row for row in numeric_table if str(row.get("position") or "unspecified") == position and str(row.get("head") or "unspecified") == head]
+                length = np.array([r["length"] for r in selected], dtype=float)
+                op = np.array([r["op"] for r in selected], dtype=float)
+                rho = np.array([r["rho"] for r in selected], dtype=float)
+                y = np.array([r["y"] for r in selected], dtype=float)
+                held = np.array([r.get("held_out", False) for r in selected], dtype=bool)
+                groups = [str(r.get("problem_id") or r.get("base_group_id") or i) for i, r in enumerate(selected)]
+                ho = held if held.any() and not held.all() else None
+                result = p1_incremental(length, op, rho, y, held_out=ho, groups=groups, rng=np.random.default_rng(0))
+                partition_results.append({"position": position, "head": head, "n_rows": len(selected), **result})
+            primary = next((row for row in partition_results if row["position"] == "pre_step" and row["head"] == "behavior"), partition_results[0])
+            p1 = {**primary, "by_head_position": partition_results}
             if p1.get("delta_auc") is not None:
                 status = "evaluated_descriptive"
         else:
@@ -3106,6 +3322,7 @@ def build_parser() -> argparse.ArgumentParser:
             p.add_argument("--weight-seed", type=int, default=0),
             p.add_argument("--model-name"),
             p.add_argument("--device"),
+            p.add_argument("--hidden-layer", type=int),
         ),
     )
     c.set_defaults(func=cmd_collect)
@@ -3114,6 +3331,8 @@ def build_parser() -> argparse.ArgumentParser:
     f.add_argument("--split", default="probe_train")
     f.add_argument("--labels-dir")
     f.add_argument("--position", choices=("pre_step", "pre_value", "post_step", "all"), default="pre_step")
+    f.add_argument("--dev-layer-scores", nargs="*", type=float)
+    f.add_argument("--dev-layer-ids", nargs="*", type=int)
     f.set_defaults(func=cmd_fit)
     cal = stage(
         "calibrate",
@@ -3122,6 +3341,7 @@ def build_parser() -> argparse.ArgumentParser:
             p.add_argument("--features-dir"),
             p.add_argument("--labels-dir"),
             p.add_argument("--alpha", type=float, default=0.4),
+            p.add_argument("--min-calibration-units", type=int),
             p.add_argument("--head", choices=("task", "behavior")),
         ),
     )
@@ -3137,6 +3357,7 @@ def build_parser() -> argparse.ArgumentParser:
             p.add_argument("--probes-dir"),
             p.add_argument("--labels-dir"),
             p.add_argument("--dev-layer-scores", nargs="*", type=float),
+            p.add_argument("--dev-layer-ids", nargs="*", type=int),
             p.add_argument("--doses", nargs="*", type=float),
         ),
     ).set_defaults(func=cmd_intervene)
@@ -3191,7 +3412,6 @@ def main(argv=None) -> int:
         if out:
             path = Path(out)
             path.mkdir(parents=True, exist_ok=True)
-            write_json(path / "failure.json", {"error": type(exc).__name__, "message": str(exc)})
             manifest = path / "manifest.json"
             preserve = False
             if manifest.exists():
@@ -3204,7 +3424,17 @@ def main(argv=None) -> int:
                     )
                 except Exception:
                     preserve = False
-            if not preserve:
+            failure = {"error": type(exc).__name__, "message": str(exc)}
+            if preserve:
+                # A failed resume is an attempt history entry, not the
+                # authoritative stage result.  Keep the familiar failure
+                # marker while the retry is pending; a successful stage
+                # write removes it before rebuilding the manifest.
+                with (path / "failure_attempts.jsonl").open("a", encoding="utf-8") as handle:
+                    handle.write(json.dumps(failure, ensure_ascii=False, sort_keys=True) + "\n")
+                write_json(path / "failure.json", failure)
+            else:
+                write_json(path / "failure.json", failure)
                 try:
                     write_manifest(path, [path / "failure.json"], {"success": 0, "failure": 1})
                 except Exception:

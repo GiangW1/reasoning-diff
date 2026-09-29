@@ -33,7 +33,7 @@ def test_decode_loop_stops_on_completed_output_condition():
     assert out["stop_reason"] == "stop_condition"
 
 
-def test_official_prompt_includes_aggregate_membership_without_values():
+def test_official_prompt_does_not_leak_target_membership_or_assignment_name():
     task = SimpleNamespace(
         question="How many Ingredient does Canned Beef have?",
         source_kind="official",
@@ -54,9 +54,10 @@ def test_official_prompt_includes_aggregate_membership_without_values():
         ],
     )
     prompt = task_prompt(task)
-    assert '"Canned Beef\'s Ingredient"' in prompt
-    assert '"Canned Beef\'s Dill"' in prompt
-    assert '"Canned Beef\'s Parsley"' in prompt
-    assert '"Canned Beef\'s Paprika"' in prompt
-    assert "Full Name = final integer" in prompt
-    assert '"Canned Beef\'s Ingredient = integer"' in prompt
+    assert "Canned Beef's Ingredient" not in prompt
+    assert "Canned Beef's Dill" not in prompt
+    assert "Canned Beef's Parsley" not in prompt
+    assert "Canned Beef's Paprika" not in prompt
+    assert "Full Name = final integer" not in prompt
+    assert "Canned Beef's Ingredient = integer" not in prompt
+    assert "compute every arithmetic operation modulo 23" in prompt

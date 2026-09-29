@@ -140,6 +140,7 @@ def runtime_info() -> dict:
             versions[name] = None
     root = Path(__file__).resolve().parents[2]
     revision = os.environ.get("RD_GIT_REVISION")
+    revision_source = "environment" if revision else "git"
     if not revision:
         result = subprocess.run(
             ["git", "-C", str(root), "rev-parse", "HEAD"],
@@ -148,10 +149,19 @@ def runtime_info() -> dict:
             check=False,
         )
         revision = result.stdout.strip() if result.returncode == 0 else None
+    dirty_result = subprocess.run(
+        ["git", "-C", str(root), "status", "--porcelain"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    dirty = bool(dirty_result.stdout.strip()) if dirty_result.returncode == 0 else None
     return {
         "python": sys.version,
         "platform": platform.platform(),
         "packages": versions,
         "git_revision": revision,
+        "git_revision_source": revision_source,
+        "git_dirty": dirty,
         "repo_root": str(root),
     }

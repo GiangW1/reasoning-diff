@@ -60,7 +60,9 @@ def make_noop_pair(base: Task, sentence: str, position: str, surface: str, indep
     data = base.to_dict()
     data.update(
         {
-            "task_id": f"{base.task_id}::noop",
+            # Each position/surface pair has its own task identity so its
+            # persisted task row and trace remain uniquely addressable.
+            "task_id": f"{base.task_id}::noop:{position}:{surface}",
             "variant_id": f"{base.variant_id}:noop:{position}:{surface}",
             "source": "reasoning_diff_noop",
             "source_kind": "project_derived",

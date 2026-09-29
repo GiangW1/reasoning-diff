@@ -158,6 +158,8 @@ def collect_hidden_trace(
         post_step = h_matrix
     span_source = rendered_prompt_text or prompt_text
 
+    matched_spans: set[tuple[int, int]] = set()
+
     def resolved_span(premise, cursor: int) -> tuple[int, int, int, str]:
         """Resolve premise text in the exact rendered prompt coordinates."""
         if span_source:
@@ -167,10 +169,25 @@ def collect_hidden_trace(
             # by an exact text round trip instead.
             prefix = f"{premise.document_id}: " if getattr(premise, "document_id", None) else ""
             for needle, prefix_len in ((prefix + premise.text, len(prefix)), (premise.text, 0)):
+                # Premises are not guaranteed to be stored in prompt order.
+                # Prefer the old forward search, then scan from the beginning
+                # while avoiding a span already assigned to another premise.
+                locations = []
                 loc = span_source.find(needle, cursor)
                 if loc >= 0:
+                    locations.append(loc)
+                loc = span_source.find(needle)
+                while loc >= 0:
+                    if loc not in locations:
+                        locations.append(loc)
+                    loc = span_source.find(needle, loc + 1)
+                for loc in locations:
                     start = loc + prefix_len
-                    return start, start + len(premise.text), start + len(premise.text), "matched"
+                    span = (start, start + len(premise.text))
+                    if span in matched_spans:
+                        continue
+                    matched_spans.add(span)
+                    return start, span[1], span[1], "matched"
             if strict_prompt_spans:
                 raise ValueError(f"premise span not found in rendered prompt for {premise.premise_id}")
             return premise.start, premise.end, cursor, "fallback_logical_coordinates"
@@ -283,7 +300,7 @@ def intervene_tiny(kind: str, prompt_ids: list[int], layer: int = 1, donor: np.n
     basis = orthonormal_basis(base_vec.shape[-1], 1, rng)
 
     def transform(t):
-        vec = t.detach().cpu().numpy().reshape(-1)
+        vec = t.detach().float().cpu().numpy().reshape(-1)
         swapped = apply_swap(vec, donor_vec, basis)
         return torch.as_tensor(swapped, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -339,7 +356,7 @@ def intervene_hidden_decode(
         basis = fitted_basis
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             swapped = apply_swap(vec, donor_vec, basis)
             return torch.as_tensor(swapped, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -347,7 +364,7 @@ def intervene_hidden_decode(
         proj = np.asarray(projector, dtype=float)
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             out = vec @ proj if proj.ndim == 2 and vec.shape[-1] == proj.shape[0] else vec
             return torch.as_tensor(out, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -355,7 +372,7 @@ def intervene_hidden_decode(
         step = np.asarray(delta, dtype=float)
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             return torch.as_tensor(vec + step, dtype=t.dtype, device=t.device).view_as(t)
 
     elif mode == "replace":

@@ -1,17 +1,20 @@
 """CE-level regressions for round-05 A/F confirmed defects."""
 from __future__ import annotations
 
+import json
+
 import numpy as np
 import pytest
 
 from reasoning_diff.analysis import p1_incremental, retrieval_scatter, week8_decision
 from reasoning_diff.baselines import verbalizer
-from reasoning_diff.cli import main
+from reasoning_diff.cli import _canonical_repair_prefix, main
 from reasoning_diff.events import parse_events
 from reasoning_diff.io import read_json, read_jsonl, read_npz
 from reasoning_diff.models.tokenize import readout_layer_index, span_token_indices
 from reasoning_diff.repair import mask_prefix, run_repair
 from reasoning_diff.tasks.t1_fixture import load_t1_fixture
+from reasoning_diff.tasks.t1_official import load_igsm_snapshot
 from reasoning_diff.tasks.t2_gsm_plus import apply_plus_numeric_edit, load_gsm_plus
 from reasoning_diff.tasks.t3_hotpot import document_edit, load_hotpot
 from reasoning_diff.transfer import common_dim_then_procrustes
@@ -232,12 +235,66 @@ def test_repair_k_changes_masked_prefix(tmp_path, t1_tiny_path):
     assert len(set(slots)) > 1
 
 
+def test_repair_prefix_uses_canonical_event_assignments():
+    text = "Reasoning: Canned Beef's Paprika equals 2. Done."
+    start = text.index("Canned Beef's Paprika")
+    end = text.index(". Done")
+    prefix = _canonical_repair_prefix(
+        {
+            "text": text,
+            "events": [
+                {
+                    "start": start,
+                    "end": end,
+                    "node_id": "p_0_0_0_2",
+                    "value": "2",
+                }
+            ],
+        }
+    )
+    assert prefix == "Reasoning: p_0_0_0_2 = 2. Done."
+
+
+def test_analyze_reads_current_fit_p1_columns_by_position(tmp_path):
+    src = tmp_path / "fit"
+    out = tmp_path / "analyze"
+    src.mkdir()
+    rows = []
+    for index, (held_out, y, score) in enumerate(
+        [(False, 0, 0.1), (False, 1, 0.9), (False, 0, 0.2), (False, 1, 0.8), (True, 0, 0.1), (True, 1, 0.9)]
+    ):
+        rows.append(
+            {
+                "head": "behavior",
+                "position": "pre_step",
+                "problem_id": f"p{index}",
+                "chain_length": index + 1,
+                "op": 5 + index,
+                "score": score,
+                "y": y,
+                "held_out": held_out,
+            }
+        )
+    (src / "p1_table.jsonl").write_text("".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8")
+    assert main(["analyze", "--in-dir", str(src), "--out-dir", str(out), "--eval-mode", "scientific"]) == 0
+    p1 = read_json(out / "report.json")["p1"]
+    assert p1["head"] == "behavior"
+    assert p1["position"] == "pre_step"
+    assert p1["n_rows"] == 6
+
+
 def test_parse_events_reads_premises_and_target(t1_tiny_path):
     task = load_t1_fixture(t1_tiny_path)
     events = parse_events("p1 = 4. p2 = 0.\nq = 9", task)
     ids = {e.node_id for e in events}
     assert {"p1", "p2", "q"} <= ids
     assert next(e.value for e in events if e.node_id == "q") == "9"
+
+
+def test_parse_events_reads_official_premise_natural_name():
+    task = load_igsm_snapshot("tests/fixtures/t1_official_shape.json")
+    events = parse_events("red apples = 3\nboxes = 3\nq = 9", task)
+    assert {event.node_id for event in events} == {"a", "b", "q"}
 
 
 def test_common_dim_is_not_silent_truncate():

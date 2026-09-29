@@ -1,6 +1,7 @@
 """Explicit decode loop with isolated torch.Generator. HF generate(generator=) is unused."""
 from __future__ import annotations
 
+import re
 import time
 
 import torch
@@ -38,6 +39,7 @@ def decode_loop(
     temperature: float = 1.0,
     top_k: int = 0,
     top_p: float = 1.0,
+    stop_condition=None,
 ) -> dict:
     model.eval()
     tokens = as_input_ids(prompt_ids, model)
@@ -45,6 +47,7 @@ def decode_loop(
     past = None
     produced = []
     transfer_seconds = 0.0
+    stop_reason = "max_new"
     sampling = {"temperature": temperature, "top_k": top_k, "top_p": top_p}
     with torch.inference_mode():
         for _ in range(max_new):
@@ -65,12 +68,16 @@ def decode_loop(
             produced.append(int(nxt.item()))
             tokens = torch.cat([tokens, nxt], dim=-1)
             if eos_id is not None and int(nxt.item()) == eos_id:
+                stop_reason = "eos"
+                break
+            if stop_condition is not None and stop_condition(produced):
+                stop_reason = "stop_condition"
                 break
     return {
         "prompt_ids": tokens[0, :prompt_len].detach().cpu().tolist(),
         "generated_ids": produced,
         "token_ids": tokens[0].detach().cpu().tolist(),
-        "stop_reason": "eos" if eos_id is not None and produced and produced[-1] == eos_id else "max_new",
+        "stop_reason": stop_reason,
         "sampling": sampling,
         "device": str(model_device(model)),
         "device_transfer_seconds": transfer_seconds,
@@ -116,6 +123,40 @@ def append_target_assignment(model, token_ids: list[int], target: str, generator
     return tokens[0].tolist(), line + digit_text
 
 
+def aggregate_membership_hint(task) -> str:
+    target = getattr(task, "target", None)
+    nodes = {getattr(node, "id", None): node for node in getattr(task, "nodes", []) or []}
+    target_node = nodes.get(target)
+    parents = list(getattr(target_node, "parents", None) or [])
+    expression = str(getattr(target_node, "expression", ""))
+    if target_node is None or len(parents) < 2 or "+" not in expression or any(op in expression for op in ("*", "-", "/")):
+        return ""
+
+    def node_name(node) -> str | None:
+        aliases = [str(item) for item in (getattr(node, "aliases", None) or [])]
+        return next((item for item in aliases if item != getattr(node, "id", None) and not item.startswith("p_")), None)
+
+    premise_names = {}
+    for premise in getattr(task, "premises", []) or []:
+        match = re.search(r"The number of (?:each )?(.+?) (?:equals?|is|are)\b", str(getattr(premise, "text", "")), re.IGNORECASE)
+        if match:
+            premise_names[getattr(premise, "premise_id", None)] = match.group(1)
+    target_name = node_name(target_node)
+    members = [node_name(nodes[parent]) if parent in nodes else premise_names.get(parent) for parent in parents]
+    if not target_name or any(not item for item in members):
+        return ""
+    quoted = ", ".join(f'"{item}"' for item in members)
+    return f'For this query, the benchmark defines "{target_name}" as the modulo sum of: {quoted}.'
+
+
+def target_assignment_hint(task) -> str:
+    target = getattr(task, "target", None)
+    node = next((item for item in (getattr(task, "nodes", None) or []) if getattr(item, "id", None) == target), None)
+    aliases = [str(item) for item in (getattr(node, "aliases", None) or [])]
+    target_name = next((item for item in aliases if item != target and not item.startswith("p_")), None)
+    return f'The last assignment before the boxed answer must be exactly "{target_name} = integer".' if target_name else ""
+
+
 def task_prompt(task) -> str:
     docs = []
     for premise in getattr(task, "premises", []) or []:
@@ -125,14 +166,24 @@ def task_prompt(task) -> str:
     prompt = "\n".join(docs) + "\n\n" + task.question if docs else task.question
     mod = getattr(getattr(task, "answer_spec", None), "mod", None)
     if getattr(task, "source_kind", None) == "official" and mod:
+        membership = aggregate_membership_hint(task)
         prompt += (
             f"\n\nUse these iGSM rules: compute every arithmetic operation modulo {mod}; "
-            "a requested aggregate category is the sum of its listed named subcategories; "
+            "a requested aggregate category is the sum of the exact quantities named for the "
+            "queried entity in the question; this benchmark meaning is fixed, so do not debate "
+            "or reinterpret it. "
             "use only the givens needed for the query and ignore irrelevant equations. "
-            "Give a concise derivation without restarting. Write every quantity used as an "
-            "assignment with its exact full name from the question, then end with exactly "
+            "Finish the reasoning within 768 tokens without restating the question, restarting, "
+            "or repeating an earlier step. After </think>, give a concise derivation. Write every "
+            "quantity used as a plain-text assignment in the exact form Full Name = final integer, with no "
+            "formula immediately after the equals sign. Then end with exactly "
             "one final answer in the form \\boxed{number}."
         )
+        if membership:
+            prompt += f" {membership}"
+        target_hint = target_assignment_hint(task)
+        if target_hint:
+            prompt += f" {target_hint}"
     return prompt
 
 
@@ -187,16 +238,82 @@ def generate_frozen_trace(
         raise ValueError(f"frozen prompt {len(prompt_ids)} exceeds context {limit}")
     g = torch.Generator(device=model_device(model)).manual_seed(seed)
     started = time.perf_counter()
+
+    def boxed_answer_complete(generated: list[int]) -> bool:
+        if getattr(task, "source_kind", None) != "official":
+            return False
+        tail = tokenizer.decode(generated[-96:], skip_special_tokens=False)
+        return re.search(r"\\boxed\{[^{}\n]+\}", tail) is not None
+
+    thinking_budget = min(max_new, 768) if enable_thinking else max_new
     decoded = decode_loop(
         model,
         prompt_tensor,
         g,
-        max_new=max_new,
+        max_new=thinking_budget,
         eos_id=getattr(tokenizer, "eos_token_id", None),
         temperature=temperature,
         top_k=top_k,
         top_p=top_p,
+        stop_condition=boxed_answer_complete,
     )
+    forced_think_close = False
+    finalizer_used = False
+    finalizer_control_tokens = 0
+    extra_prefill_tokens = 0
+    model_generated_tokens = len(decoded["generated_ids"])
+    if decoded["stop_reason"] == "max_new" and thinking_budget < max_new:
+        first_generated = list(decoded["generated_ids"])
+        continuation_ids = list(decoded["token_ids"])
+        think_ids = runtime.get("think_ids") or list(info.get("think_ids") or [])
+        close_id = int(think_ids[1]) if len(think_ids) >= 2 else None
+        if close_id is not None and close_id not in first_generated:
+            continuation_ids.append(close_id)
+            forced_think_close = True
+        mod = getattr(getattr(task, "answer_spec", None), "mod", None)
+        membership = aggregate_membership_hint(task)
+        target_hint = target_assignment_hint(task)
+        finalizer = (
+            "Use the reasoning above and finish now. Do not discuss ambiguity or restart. "
+            + (f"Apply modulo {mod} to every operation, including the final sum. " if mod else "")
+            + (membership + " " if membership else "")
+            + (target_hint + " " if target_hint else "")
+            + "Output only plain-text assignments, one per line, using the exact names from the question. "
+            + "Every line must have the form Full Name = final integer; put no formula after the equals sign and use no LaTeX in names. "
+            + "Follow the assignments with the required boxed final answer."
+        )
+        transition = f"<|im_end|>\n<|im_start|>user\n{finalizer}<|im_end|>\n<|im_start|>assistant\n"
+        transition_ids = tokenizer.encode(transition, add_special_tokens=False)
+        continuation_ids.extend(int(item) for item in transition_ids)
+        finalizer_used = True
+        finalizer_control_tokens = len(transition_ids)
+        remaining = min(
+            1024,
+            max_new - len(first_generated) - int(forced_think_close) - finalizer_control_tokens,
+        )
+        if remaining > 0:
+            extra_prefill_tokens = len(continuation_ids)
+            continued = decode_loop(
+                model,
+                torch.tensor([continuation_ids], dtype=torch.long),
+                g,
+                max_new=remaining,
+                eos_id=getattr(tokenizer, "eos_token_id", None),
+                temperature=temperature,
+                top_k=top_k,
+                top_p=top_p,
+                stop_condition=boxed_answer_complete,
+            )
+            model_generated_tokens += len(continued["generated_ids"])
+            constrained = ([close_id] if forced_think_close else []) + list(transition_ids)
+            decoded = {
+                **continued,
+                "prompt_ids": list(prompt_ids),
+                "generated_ids": first_generated + constrained + list(continued["generated_ids"]),
+                "token_ids": list(prompt_ids) + first_generated + constrained + list(continued["generated_ids"]),
+                "device_transfer_seconds": float(decoded.get("device_transfer_seconds") or 0.0)
+                + float(continued.get("device_transfer_seconds") or 0.0),
+            }
     elapsed = time.perf_counter() - started
     full_ids = decoded["token_ids"]
     generated_ids = decoded["generated_ids"]
@@ -263,7 +380,8 @@ def generate_frozen_trace(
         correct=score["correct"],
         cost=Cost(
             prefill_tokens=len(prompt_ids),
-            decode_tokens=len(generated_ids),
+            decode_tokens=model_generated_tokens,
+            extra_prefill_tokens=extra_prefill_tokens,
             elapsed_seconds=elapsed,
             device_transfer_seconds=float(decoded.get("device_transfer_seconds") or 0.0),
             timing_status="measured",
@@ -278,6 +396,13 @@ def generate_frozen_trace(
             "revision": info.get("revision"),
             "prompt_len": len(prompt_ids),
             "generated_tokens": len(generated_ids),
+            "model_generated_tokens": model_generated_tokens,
+            "thinking_budget_tokens": thinking_budget,
+            "thinking_forced_close": forced_think_close,
+            "constrained_thinking_tokens": int(forced_think_close),
+            "finalizer_used": finalizer_used,
+            "finalizer_control_tokens": finalizer_control_tokens,
+            "finalizer_max_new": 1024 if finalizer_used else 0,
             "stop_reason": decoded.get("stop_reason"),
             "sampling": decoded.get("sampling"),
             "enable_thinking": enable_thinking,
@@ -296,7 +421,7 @@ def generate_frozen_trace(
             "special_token_count": sum(int(token) in special_ids for token in full_ids),
             "boundary_status": "ok" if not offset_failures else "fallback_cursor",
             "forced_target": False,
-            "evidence_status": "model_generated",
+            "evidence_status": "model_generated_budgeted_thinking_finalized" if finalizer_used else "model_generated",
             **score,
             "device": runtime.get("device") or decoded.get("device"),
             "dtype": runtime.get("dtype"),

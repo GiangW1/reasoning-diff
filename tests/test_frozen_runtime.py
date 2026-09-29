@@ -222,6 +222,16 @@ def test_intervene_hidden_decode_accepts_injected_model():
     assert "baseline_generated_ids" in out
 
 
+def test_intervene_hidden_decode_accepts_bfloat16_hidden_states():
+    import numpy as np
+
+    model = build_tiny("qwen2").to(dtype=torch.bfloat16)
+    donor = np.ones(32)
+    out = intervene_hidden_decode("qwen2", [1, 2, 3], 1, donor=donor, model=model, max_new=1)
+    assert out["hook_fired"]
+    assert out["hook_sequence_length"] == 3
+
+
 def test_event_aligned_intervention_records_prefix_boundary():
     import numpy as np
 
@@ -259,6 +269,10 @@ def test_cli_accepts_frozen_backends():
     assert repair.backend == "frozen"
     prepare = parser.parse_args(["prepare", "--fixture", "f", "--out-dir", "x", "--backend", "frozen", "--model-name", "qwen3-8b", "--max-new", "128"])
     assert prepare.max_new == 128
+    collect = parser.parse_args(["collect", "--fixture", "f", "--out-dir", "x", "--hidden-layer", "12"])
+    assert collect.hidden_layer == 12
+    fit = parser.parse_args(["fit", "--out-dir", "x", "--dev-layer-scores", "0.2", "0.8", "--dev-layer-ids", "6", "24"])
+    assert fit.dev_layer_ids == [6, 24]
 
 
 def test_frozen_cli_pipeline_uses_injected_runtime(tmp_path, t1_tiny_path, monkeypatch):

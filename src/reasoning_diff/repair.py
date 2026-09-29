@@ -41,7 +41,7 @@ def _verified_prefill(hidden, provenance: dict) -> bool:
         return False
 
 
-MASKS_MAIN = ("full_recompute", "task_oracle", "linear_truncation", "prompt_instruction", "supervised_text")
+MASKS_MAIN = ("full_recompute", "task_oracle", "linear_truncation", "prompt_instruction", "supervised_text", "learned")
 MASKS_APPENDIX = ("behavior_reference", "retrieval_of_thought", "matched_budget_random")
 ALL_MASKS = MASKS_MAIN + MASKS_APPENDIX
 
@@ -106,6 +106,14 @@ def mask_prefix(mask: str, new_prefix: str, slots: list[str]) -> str:
         return "recompute damaged slots. " + new_prefix
     if mask == "supervised_text":
         return "complete the solution. " + new_prefix
+    if mask == "learned":
+        # The caller supplies the probe-selected slots.  Keep the textual
+        # intervention distinct from the oracle mask so the report can state
+        # which mask generated the row.
+        text = new_prefix
+        for slot in slots:
+            text = re.sub(rf"(?<!\w){re.escape(slot)}\s*=\s*{NUMBER}", f"{slot} = ?", text, flags=re.I)
+        return text if text != new_prefix else new_prefix + " [mask:learned]"
     if mask == "retrieval_of_thought":
         return "retrieved: " + new_prefix
     if mask == "matched_budget_random":

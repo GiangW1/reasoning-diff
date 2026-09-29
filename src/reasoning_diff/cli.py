@@ -37,7 +37,7 @@ from .models.features import select_prefix_index
 from .protocol import answer_score, recursive_manifest, stable_row_key
 from .probes.bilinear import BilinearProbe
 from .probes.calibrate import conformal_threshold, sequence_score
-from .repair import ALL_MASKS, consecutive_repairs, execute_repair_frozen, execute_repair_tiny, run_repair
+from .repair import ALL_MASKS, MASKS_MAIN, consecutive_repairs, execute_repair_frozen, execute_repair_tiny, run_repair
 from .rng import StreamBank
 from .schema import Observation, Task, Trace
 from .splits import DEFAULT_FRACTIONS, require_persisted_roles, require_split, split_for_task
@@ -173,6 +173,7 @@ def _synthetic_trace(task, text: str, trace_id: str, seed: int) -> Trace:
     score = answer_score(task.answer_spec.value, task.answer_spec.value, task.answer_spec.kind, task.answer_spec.aliases)
     events = parse_fixture_events(text, task)
     for event in events:
+        event.event_region = "answer"
         event.run_id = trace_id
         event.base_group_id = task.base_group_id
         event.record_id = f"{trace_id}:{event.identity.key()}"
@@ -190,7 +191,15 @@ def _synthetic_trace(task, text: str, trace_id: str, seed: int) -> Trace:
         events=events,
         answer=task.answer_spec.value,
         correct=score.get("correct"),
-        metadata={"evidence_status": "fixture_synthetic", **score},
+        status="natural_complete",
+        metadata={
+            "evidence_status": "fixture_synthetic",
+            "protocol_version": "fixture_synthetic_v1",
+            "trace_status": "natural_complete",
+            "answer_status": "structured_fixture",
+            "analysis_eligibility": {"C1": False, "C2": True, "C3": True, "C4": True},
+            **score,
+        },
         run_id=trace_id,
         record_id=trace_id,
     )
@@ -211,14 +220,25 @@ def _trace_quality(traces: list[Trace]) -> dict:
         "duplicate_events": 0,
         "structural_failures": 0,
         "boundary_failed": 0,
+        "natural_complete": 0,
+        "natural_truncated": 0,
+        "answer_missing_status": 0,
     }
     failures = []
     by_family = {}
     for trace in traces:
         metadata = trace.metadata or {}
+        trace_status = str(metadata.get("trace_status") or trace.status or "unknown")
+        if trace_status == "natural_complete":
+            counts["natural_complete"] += 1
+        elif trace_status == "natural_truncated":
+            counts["natural_truncated"] += 1
+        elif trace_status == "answer_missing":
+            counts["answer_missing_status"] += 1
         family = str(trace.id).split(":", 1)[0] or "unknown"
-        family_counts = by_family.setdefault(family, {"total": 0, "valid": 0, "correct": 0})
+        family_counts = by_family.setdefault(family, {"total": 0, "valid": 0, "correct": 0, "statuses": {}})
         family_counts["total"] += 1
+        family_counts["statuses"][trace_status] = family_counts["statuses"].get(trace_status, 0) + 1
         has_events = bool(trace.events) and metadata.get("parse_status") not in {"parse_failed", "boundary_failed", "constrained_target"}
         has_answer = trace.answer is not None
         if has_events and has_answer:
@@ -549,6 +569,34 @@ def _observations(task, base_trace, edit_trace, edit, rng_pair: str, run_id: str
     return rows
 
 
+def _sham_observations(task: Task, base_trace: Trace, sham_trace: Trace, seed: int, run_id: str) -> list[Observation]:
+    """Create a matched, semantic-preserving sampled sham comparison."""
+    rows = []
+    for left, right in align_events(base_trace.events, sham_trace.events)["pairs"]:
+        key = left.node_id or left.identity.key()
+        rows.append(
+            Observation(
+                observation_id=f"obs:{run_id}:{seed}:{key}",
+                reference_trace=base_trace.id,
+                comparison_trace=sham_trace.id,
+                edit_id="sham:no_edit_sampled",
+                premise_id=f"sham:{key}",
+                event_pair=[key, right.node_id or right.identity.key()],
+                outcome=compare_pair(left, right),
+                raw_values=[left.value, right.value],
+                alignment_ref=left.identity.key(),
+                rng_pair=f"sham:{seed}",
+                scan_state="observed_response",
+                base_group_id=task.base_group_id,
+                run_id=run_id,
+                record_id=f"{run_id}:{seed}:{left.identity.key()}",
+                node_id=left.node_id,
+                task_id=task.task_id,
+            )
+        )
+    return rows
+
+
 def cmd_prepare(args: argparse.Namespace) -> int:
     out = Path(args.out_dir)
     tasks = _load_tasks(args)
@@ -583,14 +631,22 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         "backend": getattr(args, "backend", "tiny"),
         "model_name": getattr(args, "model_name", None),
         "device": getattr(args, "device", None),
-        "max_new": _resolved_max_new(args, 8, 256),
-        "temperature": getattr(args, "temperature", 1.0),
-        "top_k": getattr(args, "top_k", 0),
-        "top_p": getattr(args, "top_p", 1.0),
+        # The scientific pilot must expose the natural length distribution;
+        # there is no hidden 768-token close or other truncation here.
+        "max_new": _resolved_max_new(args, 8, 4096 if eval_mode == "scientific" else 256),
+        "temperature": getattr(args, "temperature", 0.6),
+        "top_k": getattr(args, "top_k", 20),
+        "top_p": getattr(args, "top_p", 0.95),
         "enable_thinking": not getattr(args, "disable_thinking", False),
         "code_revision": getattr(args, "code_revision", None),
-        "require_valid_traces": bool(getattr(args, "require_valid_traces", False)),
+        "require_valid_traces": False,
+        "quality_gate": "disabled_scientific_failures_retained",
         "behavior_repeats": int(getattr(args, "behavior_repeats", None) or (3 if eval_mode == "scientific" else 1)),
+        "n_generation_seeds": max(
+            3 if eval_mode == "scientific" else 1,
+            int(getattr(args, "n_seeds", None) or (3 if eval_mode == "scientific" else 1)),
+        ),
+        "sham_opportunities": max(1, int(getattr(args, "sham_opportunities", 0) or 0)) if eval_mode == "scientific" else int(getattr(args, "sham_opportunities", 0) or 0),
         # Scientific traces are always natural model output.  Forced target
         # assignment remains available only on the non-scientific fixture path.
         "allow_forced_target": eval_mode != "scientific",
@@ -627,9 +683,9 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         "model_name": getattr(args, "model_name", None),
         "packed": packed,
         "max_new": config["max_new"],
-        "temperature": getattr(args, "temperature", 1.0),
-        "top_k": getattr(args, "top_k", 0),
-        "top_p": getattr(args, "top_p", 1.0),
+        "temperature": getattr(args, "temperature", 0.6),
+        "top_k": getattr(args, "top_k", 20),
+        "top_p": getattr(args, "top_p", 0.95),
         "allow_forced_target": config["allow_forced_target"],
         "enable_thinking": config["enable_thinking"],
         "device": getattr(args, "device", None),
@@ -647,44 +703,50 @@ def cmd_prepare(args: argparse.Namespace) -> int:
                 config["t1_protocol_status"] = "fixture_pilot_n_problems_mismatch"
             config["t1_ops"] = list(ops)
             config["t1_n_problems"] = declared_n
-        base_trace = generate_task_trace(task, seed=0, run_id="trace-base", **gen_kw)
-        seed1_trace = generate_task_trace(task, seed=1, run_id="trace-t0p", **gen_kw)
-        edit_trace = generate_task_trace(edit.task, seed=0, run_id="trace-edit", **gen_kw)
-        traces = [base_trace, seed1_trace, edit_trace]
+        generation_seeds = list(range(config["n_generation_seeds"]))
+        base_by_seed = {}
+        edit_by_seed = {}
+        traces = []
+        observations = []
+        for generation_seed in generation_seeds:
+            base_id = "trace-base" if generation_seed == 0 else ("trace-t0p" if generation_seed == 1 else f"trace-base:seed{generation_seed}")
+            base_by_seed[generation_seed] = generate_task_trace(task, seed=generation_seed, run_id=base_id, **gen_kw)
+            traces.append(base_by_seed[generation_seed])
+        for generation_seed in generation_seeds:
+            edit_id = "trace-edit" if generation_seed == 0 else f"trace-edit:seed{generation_seed}"
+            edit_by_seed[generation_seed] = generate_task_trace(edit.task, seed=generation_seed, run_id=edit_id, **gen_kw)
+            traces.append(edit_by_seed[generation_seed])
+        for generation_seed in generation_seeds:
+            observations.extend(
+                _observations(
+                    task,
+                    base_by_seed[generation_seed],
+                    edit_by_seed[generation_seed],
+                    edit,
+                    f"stream:{generation_seed}",
+                    f"prepare:seed{generation_seed}",
+                )
+            )
+        base_trace = base_by_seed[0]
+        edit_trace = edit_by_seed[0]
         pair = _try_source_value_pair(task, premise_id, new_literal or "2")
         if pair:
             src_trace = generate_task_trace(pair["same_value_diff_source"].task, seed=0, run_id="trace-source", **gen_kw)
             traces.append(src_trace)
-        observations = _observations(task, base_trace, edit_trace, edit, "stream:0", "prepare")
         for extra in _allowed_edits(task, config["behavior_repeats"]):
             extra_seed = int(extra.metadata.get("rng_seed", 0))
             extra_trace = generate_task_trace(extra.task, seed=extra_seed, run_id=f"trace-{extra.id}", **gen_kw)
             traces.append(extra_trace)
-            observations.extend(_observations(task, base_trace, extra_trace, extra, f"stream:{extra_seed}", f"prepare:{extra.id}"))
-        if getattr(args, "sham_opportunities", 0):
-            sham_trace = generate_task_trace(task, seed=2, run_id="trace-sham", **gen_kw)
-            traces.append(sham_trace)
-            for left, right in align_events(base_trace.events, sham_trace.events)["pairs"]:
-                observations.append(
-                    Observation(
-                        observation_id=f"obs:sham:{left.node_id or left.identity.key()}",
-                        reference_trace=base_trace.id,
-                        comparison_trace=sham_trace.id,
-                        edit_id="sham:no_edit",
-                        premise_id=f"sham:{left.node_id or left.identity.entity_or_expression}",
-                        event_pair=[left.node_id or left.identity.key(), right.node_id or right.identity.key()],
-                        outcome=compare_pair(left, right),
-                        raw_values=[left.value, right.value],
-                        alignment_ref=left.identity.key(),
-                        rng_pair="sham:0",
-                        scan_state="observed_response",
-                        base_group_id=task.base_group_id,
-                        run_id="prepare-sham",
-                        record_id=f"prepare-sham:{left.identity.key()}",
-                        node_id=left.node_id,
-                        task_id=task.task_id,
-                    )
-                )
+            paired_base = base_by_seed.get(extra_seed, base_trace)
+            observations.extend(_observations(task, paired_base, extra_trace, extra, f"stream:{extra_seed}", f"prepare:{extra.id}"))
+        for generation_seed in generation_seeds:
+            paired_base = base_by_seed[generation_seed]
+            for opportunity in range(config["sham_opportunities"]):
+                sham_seed = 1000 + generation_seed * config["sham_opportunities"] + opportunity
+                sham_id = "trace-sham" if generation_seed == 0 and opportunity == 0 else f"trace-sham:{generation_seed}:{opportunity}"
+                sham_trace = generate_task_trace(task, seed=sham_seed, run_id=sham_id, **gen_kw)
+                traces.append(sham_trace)
+                observations.extend(_sham_observations(task, paired_base, sham_trace, sham_seed, "prepare-sham"))
     else:
         pair = _try_source_value_pair(task, premise_id, new_literal or "2")
         base_text = _trace_text(task)
@@ -696,30 +758,10 @@ def cmd_prepare(args: argparse.Namespace) -> int:
             source_task = pair["same_value_diff_source"].task
             traces.append(_synthetic_trace(source_task, _trace_text(source_task), "trace-source", 0))
         observations = _observations(task, base_trace, edit_trace, edit, "stream:0", "prepare")
-        if getattr(args, "sham_opportunities", 0):
+        if config["sham_opportunities"]:
             sham_trace = _synthetic_trace(task, base_text, "trace-sham", 1)
             traces.append(sham_trace)
-            for left, right in align_events(base_trace.events, sham_trace.events)["pairs"]:
-                observations.append(
-                    Observation(
-                        observation_id=f"obs:sham:{left.node_id or left.identity.key()}",
-                        reference_trace=base_trace.id,
-                        comparison_trace=sham_trace.id,
-                        edit_id="sham:no_edit",
-                        premise_id=f"sham:{left.node_id or left.identity.entity_or_expression}",
-                        event_pair=[left.node_id or left.identity.key(), right.node_id or right.identity.key()],
-                        outcome=compare_pair(left, right),
-                        raw_values=[left.value, right.value],
-                        alignment_ref=left.identity.key(),
-                        rng_pair="sham:0",
-                        scan_state="observed_response",
-                        base_group_id=task.base_group_id,
-                        run_id="prepare-sham",
-                        record_id=f"prepare-sham:{left.identity.key()}",
-                        node_id=left.node_id,
-                        task_id=task.task_id,
-                    )
-                )
+            observations.extend(_sham_observations(task, base_trace, sham_trace, 1, "prepare-sham"))
     extra_scan_edits = list(_allowed_edits(task, config["behavior_repeats"]))
     source_value_pairs = []
     task_rows = [task.to_dict(), edit.task.to_dict()]
@@ -761,14 +803,44 @@ def cmd_prepare(args: argparse.Namespace) -> int:
             extra_edit = apply_value_edit(extra_task, extra_pid, extra_fallback)
         if eval_mode == "scientific":
             from .models.generate import generate_task_trace
-
-            extra_base = generate_task_trace(extra_task, seed=0, run_id=f"trace-base:{idx}", **gen_kw)
-            extra_edit_tr = generate_task_trace(extra_edit.task, seed=0, run_id=f"trace-edit:{idx}", **gen_kw)
+            extra_bases = {}
+            extra_edits = {}
+            for generation_seed in generation_seeds:
+                base_id = f"trace-base:{idx}" if generation_seed == 0 else f"trace-base:{idx}:seed{generation_seed}"
+                edit_id = f"trace-edit:{idx}" if generation_seed == 0 else f"trace-edit:{idx}:seed{generation_seed}"
+                extra_bases[generation_seed] = generate_task_trace(extra_task, seed=generation_seed, run_id=base_id, **gen_kw)
+                extra_edits[generation_seed] = generate_task_trace(extra_edit.task, seed=generation_seed, run_id=edit_id, **gen_kw)
+                traces.extend([extra_bases[generation_seed], extra_edits[generation_seed]])
+                observations.extend(
+                    _observations(
+                        extra_task,
+                        extra_bases[generation_seed],
+                        extra_edits[generation_seed],
+                        extra_edit,
+                        f"stream:{generation_seed}",
+                        f"prepare:{idx}:seed{generation_seed}",
+                    )
+                )
+            extra_base = extra_bases[0]
+            extra_edit_tr = extra_edits[0]
         else:
             extra_base = _synthetic_trace(extra_task, _trace_text(extra_task), f"trace-base:{idx}", 0)
             extra_edit_tr = _synthetic_trace(extra_edit.task, _trace_text(extra_edit.task), f"trace-edit:{idx}", 0)
-        traces.extend([extra_base, extra_edit_tr])
-        observations.extend(_observations(extra_task, extra_base, extra_edit_tr, extra_edit, "stream:0", f"prepare:{idx}"))
+            traces.extend([extra_base, extra_edit_tr])
+            observations.extend(_observations(extra_task, extra_base, extra_edit_tr, extra_edit, "stream:0", f"prepare:{idx}"))
+        if config["sham_opportunities"]:
+            sham_generation_seeds = generation_seeds if eval_mode == "scientific" else [0]
+            for generation_seed in sham_generation_seeds:
+                paired_base = extra_bases[generation_seed] if eval_mode == "scientific" else extra_base
+                for opportunity in range(config["sham_opportunities"]):
+                    sham_seed = 2000 + idx * config["n_generation_seeds"] * config["sham_opportunities"] + generation_seed * config["sham_opportunities"] + opportunity
+                    sham_id = f"trace-sham:{idx}:{generation_seed}:{opportunity}" if eval_mode == "scientific" else f"trace-sham:{idx}:{opportunity}"
+                    if eval_mode == "scientific":
+                        extra_sham = generate_task_trace(extra_task, seed=sham_seed, run_id=sham_id, **gen_kw)
+                    else:
+                        extra_sham = _synthetic_trace(extra_task, _trace_text(extra_task), sham_id, sham_seed)
+                    traces.append(extra_sham)
+                    observations.extend(_sham_observations(extra_task, paired_base, extra_sham, sham_seed, f"prepare-sham:{idx}:seed{generation_seed}"))
         task_rows.extend([extra_task.to_dict(), extra_edit.task.to_dict()])
         extra_edit_rows.append(extra_edit.to_dict())
         extra_pair = _try_source_value_pair(
@@ -867,12 +939,13 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         "per_premise": per_premise,
     }
     config["scan_summary"] = scan_summary
-    if config["require_valid_traces"] and trace_quality["failures"]:
-        failed = ",".join(item["trace_id"] for item in trace_quality["failures"])
-        raise ValueError("scientific prepare: invalid traces (" + failed + ")")
+    # Scientific quality failures are persisted for ITT and sensitivity
+    # analyses.  Runtime execution only stops for technical exceptions (for
+    # example a missing checkpoint or malformed tensor), never for a bad row.
+    config["quality_gate"] = "disabled_scientific_failures_retained"
     sham_protocol = (
-        {"name": "no_edit_matched", "opportunities": args.sham_opportunities}
-        if getattr(args, "sham_opportunities", 0)
+        {"name": "sampled_semantic_noop", "opportunities": config["sham_opportunities"], "coverage": "per_task_per_seed"}
+        if config["sham_opportunities"]
         else None
     )
     if sham_protocol:
@@ -1133,6 +1206,7 @@ def cmd_collect(args: argparse.Namespace) -> int:
                 prompt_text=(trace.metadata or {}).get("prompt_text"),
                 rendered_prompt_text=(trace.metadata or {}).get("rendered_prompt_text"),
                 strict_prompt_spans=eval_mode == "scientific",
+                include_nonthinking_events=eval_mode != "scientific",
                 trace_id=trace.id,
                 task_id=trace.task_id,
                 base_group_id=trace.base_group_id,
@@ -1408,7 +1482,10 @@ def cmd_noop(args: argparse.Namespace) -> int:
             "cost_protocol": "wall_seconds_prefill_and_decode_executor",
             "packed": runtime,
             "weight_seed": getattr(args, "weight_seed", 0),
-            "max_new": _resolved_max_new(args, 8, 256),
+            "max_new": _resolved_max_new(args, 8, 4096 if config["eval_mode"] == "scientific" else 256),
+            "temperature": 0.6,
+            "top_k": 20,
+            "top_p": 0.95,
             "allow_forced_target": False,
         }
     for task in tasks:
@@ -1610,6 +1687,28 @@ def cmd_fit(args: argparse.Namespace) -> int:
         raise ValueError("fit requires two-dimensional H and E features")
     if h.shape[0] == 0 or e.shape[0] == 0:
         if getattr(args, "eval_mode", "fixture") == "scientific":
+            failed_traces = read_jsonl(src / "traces.jsonl") if (src / "traces.jsonl").exists() else []
+            itt_rows = [
+                {
+                    "head": "behavior",
+                    "position": "pre_step",
+                    "problem_id": row.get("base_group_id") or row.get("task_id") or row.get("id"),
+                    "task_id": row.get("task_id"),
+                    "event_id": None,
+                    "premise_id": None,
+                    "length": 0.0,
+                    "op": 0.0,
+                    "rho": 0.0,
+                    "score": 0.0,
+                    "y": 0.0,
+                    "split": args.split,
+                    "held_out": False,
+                    "trace_status": row.get("status") or (row.get("metadata") or {}).get("trace_status"),
+                    "failure_as_incorrect": True,
+                }
+                for row in failed_traces
+                if (row.get("status") or (row.get("metadata") or {}).get("trace_status")) in {"parse_failed", "natural_truncated", "answer_missing"}
+            ]
             rows = [
                 {
                     "status": "insufficient_step_boundary_events",
@@ -1621,7 +1720,7 @@ def cmd_fit(args: argparse.Namespace) -> int:
                 }
             ]
             out.mkdir(parents=True, exist_ok=True)
-            write_jsonl(out / "p1_table.jsonl", [])
+            write_jsonl(out / "p1_table.jsonl", itt_rows)
             write_json(out / "dev_layer_scores.json", {"status": "insufficient_step_boundary_events", "scores": {}, "reason": "no usable scientific event rows"})
             _write_stage(
                 out,
@@ -1630,7 +1729,12 @@ def cmd_fit(args: argparse.Namespace) -> int:
                 extra_files=[out / "p1_table.jsonl", out / "dev_layer_scores.json"],
                 in_dir=src,
                 extra_dir=labels_dir if labels_dir != src else None,
-                config={**fit_cfg, "status": "insufficient_step_boundary_events"},
+                config={
+                    **fit_cfg,
+                    "status": "insufficient_step_boundary_events",
+                    "p1_rows": len(itt_rows),
+                    "p1_failure_as_incorrect": True,
+                },
             )
             return 0
         raise ValueError("fit requires non-empty two-dimensional H and E features")
@@ -1728,6 +1832,11 @@ def cmd_fit(args: argparse.Namespace) -> int:
     rank = min(64, h.shape[1], e.shape[1])
     rows = []
     p1_rows = []
+    trace_status_by_id = {
+        str(item.get("id")): str(item.get("status") or (item.get("metadata") or {}).get("trace_status") or "unknown")
+        for item in trace_rows
+        if item.get("id")
+    }
     task_meta_by_id = {}
     if task_path:
         task_meta_by_id = {item.task_id: item for item in tasks_for_e.values()}
@@ -1773,6 +1882,8 @@ def cmd_fit(args: argparse.Namespace) -> int:
                         "chain_length": len(task_owner.nodes) if task_owner is not None else None,
                         "op": task_owner.metadata.get("op") if task_owner is not None else None,
                         "difficulty": task_owner.metadata.get("difficulty") if task_owner is not None else None,
+                        "trace_status": trace_status_by_id.get(str(event_keys[i][0]), "unknown") if i < len(event_keys) else "unknown",
+                        "failure_as_incorrect": False,
                     }
                 )
     gold = None
@@ -2008,6 +2119,37 @@ def cmd_fit(args: argparse.Namespace) -> int:
                         "b2": mlp.b2.tolist(),
                     }
                 )
+    # Intention-to-treat P1 keeps a sentinel negative for every failed or
+    # truncated generation.  It contributes to the problem denominator with
+    # score zero; complete-case rows remain available through the existing
+    # event table for sensitivity analysis.
+    if getattr(args, "eval_mode", "fixture") == "scientific":
+        failure_statuses = {"parse_failed", "natural_truncated", "answer_missing"}
+        for trace in trace_rows:
+            trace_status = str(trace.get("status") or (trace.get("metadata") or {}).get("trace_status") or "")
+            if trace_status not in failure_statuses:
+                continue
+            owner_id = str(trace.get("base_group_id") or trace.get("task_id") or trace.get("id") or "")
+            role = role_by_id.get(owner_id, args.split)
+            p1_rows.append(
+                {
+                    "head": "behavior",
+                    "position": "pre_step",
+                    "problem_id": owner_id,
+                    "task_id": trace.get("task_id"),
+                    "event_id": None,
+                    "premise_id": None,
+                    "length": 0.0,
+                    "op": 0.0,
+                    "rho": 0.0,
+                    "score": 0.0,
+                    "y": 0.0,
+                    "split": role,
+                    "held_out": role != args.split,
+                    "trace_status": trace_status,
+                    "failure_as_incorrect": True,
+                }
+            )
     write_jsonl(out / "p1_table.jsonl", p1_rows)
     layer_scores = {}
     for row in rows:
@@ -2035,7 +2177,12 @@ def cmd_fit(args: argparse.Namespace) -> int:
         extra_files=[out / "p1_table.jsonl", out / "dev_layer_scores.json"],
         in_dir=src,
         extra_dir=labels_dir if labels_dir != src else None,
-        config={**fit_cfg, "p1_rows": len(p1_rows), "p1_statistical_unit": "event_premise"},
+        config={
+            **fit_cfg,
+            "p1_rows": len(p1_rows),
+            "p1_statistical_unit": "problem_itt_with_event_premise_sensitivity",
+            "p1_failure_as_incorrect": True,
+        },
     )
     return 0
 
@@ -2148,8 +2295,19 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
     alpha = float(getattr(args, "alpha", 0.4))
     head_name = getattr(args, "head", None)
     eval_mode = getattr(args, "eval_mode", "fixture")
-    min_units = int(getattr(args, "min_calibration_units", None) or (5 if eval_mode == "scientific" else 0))
-    cal_cfg = {"command": "calibrate", "split": args.split, "alpha": alpha, "head": head_name, "eval_mode": eval_mode, "min_calibration_units": min_units}
+    # Sample size is planned from pilot effect/variance; the CLI does not
+    # impose an unregistered scientific minimum.  A user-supplied value is a
+    # reporting threshold only and never aborts calibration.
+    min_units = int(getattr(args, "min_calibration_units", None) or 0)
+    cal_cfg = {
+        "command": "calibrate",
+        "split": args.split,
+        "alpha": alpha,
+        "head": head_name,
+        "eval_mode": eval_mode,
+        "min_calibration_units": min_units,
+        "sample_size_protocol": "pilot_power_planned",
+    }
     if _resume(out, getattr(args, "resume", False), cal_cfg):
         return 0
     require_split(args.split, ("calibration",), "calibration")
@@ -2360,10 +2518,18 @@ def _pair_source_value(matrix: np.ndarray, event_rows: list[dict], pair_meta: di
     return None
 
 
-def _expressible_donor(matrix: np.ndarray, event_rows: list[dict] | None = None, pair_meta: dict | None = None):
+def _expressible_donor(
+    matrix: np.ndarray,
+    event_rows: list[dict] | None = None,
+    pair_meta: dict | None = None,
+    *,
+    allow_fallback: bool = True,
+):
     sourced = _pair_source_value(matrix, event_rows or [], pair_meta)
     if sourced is not None:
         return sourced
+    if not allow_fallback:
+        return None
     finite = [i for i, row in enumerate(matrix) if np.isfinite(row).all()]
     if len(finite) < 2:
         return None
@@ -2387,6 +2553,40 @@ def _expressible_donor(matrix: np.ndarray, event_rows: list[dict] | None = None,
 
 
 def cmd_intervene(args: argparse.Namespace) -> int:
+    """Run intervention and persist scientific prerequisite failures as rows."""
+    try:
+        return _cmd_intervene_impl(args)
+    except ValueError as exc:
+        scientific = getattr(args, "eval_mode", "fixture") == "scientific"
+        message = str(exc)
+        quality_failure = message.startswith("scientific intervene requires") or message.startswith("scientific intervene refuses")
+        if not scientific or not quality_failure:
+            raise
+        out = Path(args.out_dir)
+        src = Path(args.features_dir) if getattr(args, "features_dir", None) else Path(args.in_dir)
+        row = {
+            "condition": "all",
+            "problem_id": None,
+            "status": "scientific_failure_retained",
+            "failure": {"type": type(exc).__name__, "message": message},
+            "analysis_eligibility": {"P3": False},
+        }
+        _write_stage(
+            out,
+            "interventions",
+            [row],
+            in_dir=src,
+            config={
+                "command": "intervene",
+                "eval_mode": "scientific",
+                "scientific_failures_retained": True,
+                "failure_as_data": True,
+            },
+        )
+        return 0
+
+
+def _cmd_intervene_impl(args: argparse.Namespace) -> int:
     out = Path(args.out_dir)
     if _resume(
         out,
@@ -2442,7 +2642,7 @@ def cmd_intervene(args: argparse.Namespace) -> int:
         matrix = arrays.get("H", arrays[next(iter(arrays))])
         event_rows = read_jsonl(features_dir / "event_rows.jsonl") if (features_dir / "event_rows.jsonl").exists() else []
         pair_meta = _load_source_value_pair(features_dir)
-        pair = _expressible_donor(matrix, event_rows, pair_meta)
+        pair = _expressible_donor(matrix, event_rows, pair_meta, allow_fallback=not scientific)
         if pair is not None:
             i_base, i_donor, donor_kind = pair
             base, donor = np.asarray(matrix[i_base], dtype=float), np.asarray(matrix[i_donor], dtype=float)
@@ -2472,7 +2672,8 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                 basis = orthonormal_basis(base.shape[-1], rank, rng)
                 direction_status = "random_direction_unfitted"
             main = apply_swap(base, donor, basis)
-            main_norm = float(np.linalg.norm(main - base))
+            main_delta = main - base
+            main_norm = float(np.linalg.norm(main_delta))
             cr = c_rand_delta(base, donor, rank, np.random.default_rng(perturb_seed), target_norm=main_norm)
             dev_scores = persisted_dev_scores
             if dev_scores:
@@ -2526,8 +2727,11 @@ def cmd_intervene(args: argparse.Namespace) -> int:
             rescued = rescue_controls(ablated, removed, -removed, rng)
             hook_meta = {
                 "inlp_rank": int(np.linalg.matrix_rank(proj)),
+                "inlp_retained_rank": int(np.linalg.matrix_rank(proj)),
+                "inlp_removed_rank": int(proj.shape[0] - np.linalg.matrix_rank(proj)) if proj.ndim == 2 else None,
                 "donor_rows": [i_base, i_donor],
                 "donor_kind": donor_kind,
+                "donor_fallback_used": donor_kind.endswith("fallback"),
                 "direction_status": direction_status,
                 "inlp_status": inlp_status,
                 "direction_hash": hashlib.sha256(np.ascontiguousarray(basis).tobytes()).hexdigest(),
@@ -2640,7 +2844,8 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                     donor=donor,
                     basis_seed=basis_seed,
                     basis=basis,
-                    mode="pi_z_swap",
+                    mode="add_delta",
+                    delta=main_delta,
                     **decode_kw,
                 )
                 hook_meta.update(
@@ -2656,6 +2861,8 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                         "hook_basis_rank": hooked.get("basis_rank"),
                         "hook_basis_norm": hooked.get("basis_norm"),
                         "token_changed": hooked["followed_donor"],
+                        "main_geometry": "pi_z_swap_projected_delta",
+                        "control_transform_family": "add_delta",
                     }
                 )
 
@@ -2884,6 +3091,42 @@ def _canonical_repair_prefix(trace: dict) -> str:
     return text
 
 
+def _learned_repair_slots(src: Path, trace_id: str, fallback: list[str]) -> tuple[list[str], dict]:
+    """Resolve a probe-selected mask without silently substituting the oracle."""
+    feature_path = src / "features.npz"
+    probe_path = src / "probes.jsonl"
+    event_path = src / "event_rows.jsonl"
+    premise_path = src / "premise_rows.jsonl"
+    if not all(path.exists() for path in (feature_path, probe_path, event_path, premise_path)):
+        return [], {"status": "learned_mask_unavailable", "reason": "features_probes_or_identity_rows_missing"}
+    arrays = read_npz(feature_path)
+    if "H" not in arrays or "E" not in arrays:
+        return [], {"status": "learned_mask_unavailable", "reason": "H_or_E_missing"}
+    probe_row = next((row for row in read_jsonl(probe_path) if "U" in row), None)
+    if probe_row is None:
+        return [], {"status": "learned_mask_unavailable", "reason": "probe_weights_missing"}
+    probe = BilinearProbe.from_row(probe_row)
+    scores = probe.predict_matrix(arrays["H"], arrays["E"])
+    event_rows = read_jsonl(event_path)
+    candidates = [i for i, row in enumerate(event_rows) if row.get("trace_id") == trace_id]
+    if not candidates:
+        return [], {"status": "learned_mask_unavailable", "reason": "trace_event_missing"}
+    row_scores = scores[candidates[0]]
+    premise_rows = read_jsonl(premise_path)
+    selected = [
+        str(row.get("premise_id"))
+        for index, row in enumerate(premise_rows)
+        if index < len(row_scores) and float(row_scores[index]) >= 0.5 and row.get("premise_id")
+    ]
+    return selected, {
+        "status": "learned_mask_selected",
+        "threshold": 0.5,
+        "probe_head": probe_row.get("head"),
+        "selected_slots": selected,
+        "candidate_slots": [row.get("premise_id") for row in premise_rows if row.get("premise_id")],
+    }
+
+
 def cmd_repair(args: argparse.Namespace) -> int:
     out = Path(args.out_dir)
     if _resume(out, getattr(args, "resume", False), {"command": "repair"}):
@@ -2891,6 +3134,7 @@ def cmd_repair(args: argparse.Namespace) -> int:
     if not getattr(args, "in_dir", None):
         raise ValueError("repair requires --in-dir")
     src = Path(args.in_dir)
+    requested_masks = list(MASKS_MAIN) if args.mask == "all" else [args.mask]
     original = [4, 4, 4]
     prefix = "updated prefix"
     slots = ["p1", "p2", "q"]
@@ -2934,6 +3178,12 @@ def cmd_repair(args: argparse.Namespace) -> int:
         for nid in ev_slots:
             if nid not in slots:
                 slots.append(nid)
+    learned_mask_meta = {"status": "not_requested"}
+    if "learned" in requested_masks:
+        learned_slots, learned_mask_meta = _learned_repair_slots(src, repair_trace.get("id", "") if "repair_trace" in locals() else "", slots)
+        learned_slots_for_run = learned_slots
+    else:
+        learned_slots_for_run = slots
     eval_mode = getattr(args, "eval_mode", "fixture")
     group = ""
     if src and (src / "traces.jsonl").exists():
@@ -2959,17 +3209,20 @@ def cmd_repair(args: argparse.Namespace) -> int:
     elif eval_mode == "scientific" or backend == "tiny":
         def execute(mask, slots, original_tokens, new_prefix):
             return execute_repair_tiny(mask, slots, original_tokens, new_prefix, seed=repair_seed)
-    if eval_mode == "scientific":
-        recs = consecutive_repairs(args.mask, slots, original, prefix, k_max=5, execute=execute, run_id="repair", base_group_id=group)
-    else:
-        recs = [run_repair(args.mask, ["q"], original, new_prefix=prefix, execute=execute, run_id="repair", base_group_id=group, k=1)]
+    recs = []
+    for mask_name in requested_masks:
+        mask_slots = learned_slots_for_run if mask_name == "learned" else slots
+        if eval_mode == "scientific":
+            recs.extend(consecutive_repairs(mask_name, mask_slots, original, prefix, k_max=5, execute=execute, run_id="repair", base_group_id=group))
+        else:
+            recs.append(run_repair(mask_name, ["q"], original, new_prefix=prefix, execute=execute, run_id="repair", base_group_id=group, k=1))
     # Score every generated answer with the task protocol and compare it with
     # a same-prefix full recompute.  The baseline stays in metadata so the
     # public k curve still has one row per requested repair.
     full_by_k = {}
     if execute is not None and base_task is not None:
         for rec in recs:
-            full_by_k[rec.k] = run_repair(
+            full_by_k[(rec.mask, rec.k)] = run_repair(
                 "full_recompute",
                 [],
                 original,
@@ -2993,7 +3246,7 @@ def cmd_repair(args: argparse.Namespace) -> int:
                 rec.correct = score.get("correct")
                 rec.invalid = raw is None
                 rec.legal = not rec.invalid
-            baseline = full_by_k.get(rec.k)
+            baseline = full_by_k.get((rec.mask, rec.k)) or full_by_k.get(("full_recompute", rec.k))
             if baseline is not None and rec.answer_normalized is not None and baseline.generated_text:
                 baseline_raw = extract_answer(baseline.generated_text, spec.kind)
                 baseline_score = answer_score(baseline_raw, spec.value, spec.kind, spec.aliases)
@@ -3018,6 +3271,7 @@ def cmd_repair(args: argparse.Namespace) -> int:
             "cost_protocol": "wall_seconds_prefill_and_decode_executor",
             "rng_stream": "repair",
             "repair_seed": repair_seed,
+            "learned_mask": learned_mask_meta,
         },
     )
     return 0
@@ -3089,7 +3343,20 @@ def cmd_transfer(args: argparse.Namespace) -> int:
             }
         )
     write_jsonl(out / "transfer.jsonl", records)
-    _write_stage(out, "transfer", records, in_dir=src, config={"command": "transfer", "mode": mode, "split": args.split})
+    _write_stage(
+        out,
+        "transfer",
+        records,
+        in_dir=src,
+        config={
+            "command": "transfer",
+            "mode": mode,
+            "split": args.split,
+            "source_model_name": getattr(args, "source_model_name", None),
+            "target_model_name": getattr(args, "target_model_name", None),
+            "transfer_protocol": "held_out_pair_identity",
+        },
+    )
     return 0
 
 
@@ -3100,6 +3367,9 @@ def cmd_analyze(args: argparse.Namespace) -> int:
         raise ValueError("analyze requires --in-dir")
     if src is not None and src.exists() and src.is_file():
         raise NotADirectoryError(f"--in-dir must be a directory: {src}")
+    trace_rows = read_jsonl(src / "traces.jsonl") if src and (src / "traces.jsonl").exists() else []
+    failure_statuses = {"parse_failed", "natural_truncated", "answer_missing"}
+    trace_failure_count = sum(1 for row in trace_rows if row.get("status") in failure_statuses)
     if _resume(out, getattr(args, "resume", False), {"command": "analyze"}):
         return 0
     table = []
@@ -3160,6 +3430,14 @@ def cmd_analyze(args: argparse.Namespace) -> int:
         "rho_S_excess": None if not dens else dens.get("rho_S_excess"),
         "null_reason": None if not dens else dens.get("null_reason"),
         "labels_present": bool(src and (src / "labels.jsonl").exists()),
+        "analysis_protocol": {
+            "p1_primary": "intention_to_treat",
+            "p1_failure_as_incorrect": True,
+            "p1_complete_case": "sensitivity_only",
+            "trace_failure_count": trace_failure_count,
+            "auc_baseline": {"raw_auc": 0.5, "delta_auc": 0.0},
+            "inference_unit": "problem",
+        },
     }
     decision = week8_decision(measurements)
     if src and (src / "p2_table.jsonl").exists():
@@ -3262,10 +3540,18 @@ def cmd_analyze(args: argparse.Namespace) -> int:
         "p3": p3,
         "densities": dens,
         "appendix": appendix,
+        "analysis_protocol": measurements["analysis_protocol"],
         "scientific_conclusion": None,
     }
     write_json(out / "report.json", report)
-    _write_stage(out, "analysis", [{"week8": decision, "transfer": xfer, "p1": p1, "p2": p2, "p3": p3, "appendix": appendix}], extra_files=[out / "report.json"], in_dir=src, config={"command": "analyze"})
+    _write_stage(
+        out,
+        "analysis",
+        [{"week8": decision, "transfer": xfer, "p1": p1, "p2": p2, "p3": p3, "appendix": appendix}],
+        extra_files=[out / "report.json"],
+        in_dir=src,
+        config={"command": "analyze", "analysis_protocol": measurements["analysis_protocol"]},
+    )
     return 0
 
 
@@ -3279,6 +3565,7 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--edit-premise")
     prepare.add_argument("--edit-value")
     prepare.add_argument("--sham-opportunities", type=int, default=0)
+    prepare.add_argument("--n-seeds", type=int, default=None)
     prepare.add_argument("--resume", action="store_true")
     prepare.add_argument("--eval-mode", choices=("fixture", "scientific"), default="fixture")
     prepare.add_argument("--kind", default="t1_fixture")
@@ -3291,12 +3578,13 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--model-name")
     prepare.add_argument("--device")
     prepare.add_argument("--max-new", type=int)
-    prepare.add_argument("--temperature", type=float, default=1.0)
-    prepare.add_argument("--top-k", type=int, default=0)
-    prepare.add_argument("--top-p", type=float, default=1.0)
+    prepare.add_argument("--temperature", type=float, default=0.6)
+    prepare.add_argument("--top-k", type=int, default=20)
+    prepare.add_argument("--top-p", type=float, default=0.95)
     prepare.add_argument("--disable-thinking", action="store_true")
     prepare.add_argument("--code-revision")
-    prepare.add_argument("--require-valid-traces", action="store_true")
+    # Kept as a compatibility flag; scientific runs always retain failures.
+    prepare.add_argument("--require-valid-traces", action="store_true", help=argparse.SUPPRESS)
     prepare.add_argument("--behavior-repeats", type=int, default=None)
     prepare.set_defaults(func=cmd_prepare)
 
@@ -3378,6 +3666,8 @@ def build_parser() -> argparse.ArgumentParser:
         lambda p: (
             p.add_argument("--mode", choices=("direct", "unlabeled", "supervised"), default="direct"),
             p.add_argument("--split", default="transfer_pairs"),
+            p.add_argument("--source-model-name"),
+            p.add_argument("--target-model-name"),
         ),
     )
     transfer.set_defaults(func=cmd_transfer)

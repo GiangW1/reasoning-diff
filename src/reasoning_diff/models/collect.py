@@ -82,6 +82,7 @@ def collect_hidden_trace(
     trace_id: str = "",
     task_id: str = "",
     base_group_id: str = "",
+    include_nonthinking_events: bool = True,
 ) -> dict:
     if model is None:
         with torch.random.fork_rng(devices=[]):
@@ -96,6 +97,13 @@ def collect_hidden_trace(
     identity_keys = []
     event_records = []
     for event in events:
+        event_region = getattr(event, "event_region", "unknown")
+        # C1 concerns information available before a reasoning commit.  The
+        # raw trace retains answer-region events for audit; they do not enter
+        # the hidden-state matrix used by the scientific probe.
+        c1_eligible = include_nonthinking_events or event_region in {"thinking", "unknown"}
+        if not c1_eligible:
+            continue
         start = event.start
         value_start = getattr(event, "value_start", start)
         end = event.end
@@ -129,6 +137,14 @@ def collect_hidden_trace(
                 "identity_key": identity_key,
                 "node_id": getattr(event, "node_id", None),
                 "timing": "pre_step",
+                "event_region": event_region,
+                "event_status": getattr(event, "status", "ok"),
+                "analysis_eligibility": {
+                    "C1": True,
+                    "C2": bool(getattr(event, "status", "ok") == "ok"),
+                    "C3": bool(getattr(event, "status", "ok") == "ok"),
+                    "C4": False,
+                },
                 "token_index": pre_idx,
                 "token_position": pre_idx,
                 "boundary_start": start,

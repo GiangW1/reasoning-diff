@@ -37,6 +37,7 @@ ALIGNMENT_STATUSES = (
     "unmatched",
 )
 POSITION_KINDS = ("pre_step", "pre_value", "post_step")
+EVENT_REGIONS = ("thinking", "answer", "post_finalizer", "unknown")
 T4_STATUSES = (
     "insufficient_information",
     "inconsistent_constraints",
@@ -208,11 +209,13 @@ class Event:
     run_id: str = ""
     base_group_id: str = ""
     status: str = "ok"
+    event_region: str = "unknown"
 
     def __post_init__(self) -> None:
         if not self.record_id:
             ident = self.identity.key() if isinstance(self.identity, EventIdentity) else ""
             self.record_id = f"{self.run_id}:{ident}" if self.run_id else ident
+        _require_enum("event_region", self.event_region, EVENT_REGIONS)
 
     def to_dict(self) -> dict:
         return asdict(self)

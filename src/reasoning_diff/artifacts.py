@@ -21,11 +21,21 @@ def _reject_latest(obj: Any, path: str = "") -> None:
 
 
 def write_run_spec(out_dir: str | Path, spec: dict) -> Path:
+    runtime = runtime_info()
+    requested_revision = spec.get("code_revision")
+    runtime_revision = runtime.get("git_revision")
     payload = {
         "schema_version": SCHEMA_VERSION,
         "protocol_version": spec.get("protocol_version", "reasoning-diff/0.1"),
-        "code_revision": spec.get("code_revision") or runtime_info()["git_revision"],
-        "environment": spec.get("environment") or runtime_info(),
+        "code_revision": requested_revision or runtime_revision,
+        "requested_code_revision": requested_revision,
+        "runtime_code_revision": runtime_revision,
+        "revision_match": (
+            None
+            if requested_revision is None or runtime_revision is None
+            else str(requested_revision) == str(runtime_revision)
+        ),
+        "environment": spec.get("environment") or runtime,
         "input_hashes": dict(spec.get("input_hashes") or {}),
         "source_kinds": dict(spec.get("source_kinds") or {}),
         "config": dict(spec.get("config") or {}),

@@ -221,6 +221,8 @@ def review_export(events: list[Event], task: Task | None = None) -> list[dict]:
                 "text": event.text,
                 "value": event.value,
                 "node_id": event.node_id,
+                "event_region": event.event_region,
+                "event_status": event.status,
                 "task_id": None if task is None else task.task_id,
                 "review": None,
                 "review_status": "awaiting_human",
@@ -251,27 +253,64 @@ def boundary_index(offsets: list[list[int]], character: int, position: str = "be
     return candidates[-1] if candidates else None
 
 
-def extract_answer(text: str, answer_kind: str) -> str | None:
+def assign_event_regions(
+    events: list[Event],
+    text: str,
+    *,
+    finalizer_start: int | None = None,
+) -> list[Event]:
+    """Annotate events by the generation region that produced them.
+
+    The parser intentionally remains region agnostic.  Generation owns the
+    boundary because it knows whether the text contains a natural ``</think>``
+    transition or a legacy finalizer.  Returning the same objects keeps this
+    helper usable by both frozen and tiny backends.
+    """
+    close = text.find("</think>")
+    answer_start = close + len("</think>") if close >= 0 else None
+    for event in events:
+        if finalizer_start is not None and event.start >= finalizer_start:
+            event.event_region = "post_finalizer"
+        elif answer_start is not None and event.start >= answer_start:
+            event.event_region = "answer"
+        else:
+            # Tiny fixtures have no chat-template thinking marker.  Their
+            # generated assignments are answer-region text; callers that need
+            # a C1 feature can explicitly treat ``unknown`` as legacy data.
+            event.event_region = "thinking" if answer_start is not None else "answer"
+    return events
+
+
+def extract_answer_with_status(text: str, answer_kind: str) -> tuple[str | None, str]:
+    """Extract an answer and preserve how it was obtained.
+
+    Numeric fallback is retained for legacy data but is explicitly marked so
+    it cannot be silently treated as a boxed or structured answer.
+    """
     if "<think>" in text and "</think>" not in text:
-        return None
+        return None, "missing_think_close"
     text = re.sub(r"<think>.*?</think>", " ", text, flags=re.S)
     if answer_kind == "code":
         matches = re.findall(r"```(?:python)?\s*\n(.*?)```", text, re.DOTALL)
-        return matches[-1].strip() if matches else text.strip() or None
+        return (matches[-1].strip(), "code_block") if matches else ((text.strip() or None), "code_text")
     matches = re.findall(r"\\boxed\{([^{}]+)\}", text)
     if matches:
-        return canonical_value(matches[-1])
+        return canonical_value(matches[-1]), "boxed"
     matches = re.findall(r"####\s*([^\n]+)", text)
     if matches:
-        return canonical_value(matches[-1])
+        return canonical_value(matches[-1]), "hash_delimited"
     if answer_kind in {"span", "text", "short"}:
         labeled = re.search(r"(?:the answer is|answer:)\s*(.+?)(?:[.!?]|$)", text, flags=re.I)
         if labeled:
-            return canonical_value(labeled.group(1))
+            return canonical_value(labeled.group(1)), "labeled"
         stripped = text.strip()
-        return canonical_value(stripped) if stripped else None
+        return (canonical_value(stripped), "text_fallback") if stripped else (None, "missing")
     numbers = re.findall(NUMBER, text)
-    return canonical_value(numbers[-1]) if numbers else None
+    return (canonical_value(numbers[-1]), "numeric_fallback") if numbers else (None, "missing")
+
+
+def extract_answer(text: str, answer_kind: str) -> str | None:
+    return extract_answer_with_status(text, answer_kind)[0]
 
 
 def normalize_answer(value: str | None, answer_kind: str) -> str | None:

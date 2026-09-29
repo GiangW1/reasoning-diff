@@ -14,6 +14,9 @@ Record: GPU model, CUDA, dtype, attention backend, model revisions
 
 - Qwen3-8B `b968826d9c46dd6066d109eabc6255188de91218` (hidden 4096)
 - DeepSeek-R1-Distill-Qwen-7B `916b56a44061fd5cd7d6a8fb632557ed4f724f60` (hidden 3584)
+- Qwen3-14B `40c069824f4251a91eefaf281ebe4c544efd3e18` (hidden 5120; capability control)
+- DeepSeek-R1-Distill-Qwen-14B `1df8507178afcc1bef68cd8c393f61a886323761` (hidden 5120; capability control)
+- DeepSeek-R1-Distill-Qwen-32B `711ad2ea6aa40cfca18895e8aca02ab92df1a746` (hidden 5120; capability control)
 
 Direct transfer of this pair must report `not_applicable_dimension_mismatch`.
 
@@ -45,9 +48,11 @@ python -m reasoning_diff prepare ... --eval-mode scientific --code-revision "$RD
 ```
 
 The prepare stage writes `trace_quality.json` and continues after per-trace parse, answer, or
-truncation failures. Add `--require-valid-traces` only for a strict pilot gate; do not use it for
-the full scan because it discards the failure distribution needed for analysis. `--disable-thinking`
-is recorded in the run spec when a Qwen3 non-thinking comparison is run.
+truncation failures. Scientific runs retain those rows for intention-to-treat and complete-case
+sensitivity analyses; the legacy `--require-valid-traces` flag is accepted for compatibility but
+does not enable a scientific quality gate. `--disable-thinking` is recorded in the run spec when
+a Qwen3 non-thinking comparison is run. Scientific generation uses one shared sampled protocol
+(temperature 0.6, top-p 0.95, top-k 20) across traces, shams, labels, and hidden-state collection.
 
 Optional matched no-edit noise: add `--sham-opportunities 1` to `prepare`.
 

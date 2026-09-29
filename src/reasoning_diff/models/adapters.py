@@ -18,6 +18,17 @@ MODELS = {
         "required_tokenizer_special_ids": ("eos", "pad"),
         "context_limit": 32768,
     },
+    "qwen3-14b": {
+        "id": "Qwen/Qwen3-14B",
+        "revision": "40c069824f4251a91eefaf281ebe4c544efd3e18",
+        "arch": "qwen3",
+        "hidden_size": 5120,
+        "layers": 40,
+        "think_ids": (151667, 151668),
+        "tokenizer_special_ids": {"bos": 151643, "eos": 151645, "pad": 151643},
+        "required_tokenizer_special_ids": ("eos", "pad"),
+        "context_limit": 40960,
+    },
     "r1-distill-qwen-7b": {
         "id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
         "revision": "916b56a44061fd5cd7d6a8fb632557ed4f724f60",
@@ -28,6 +39,28 @@ MODELS = {
         "tokenizer_special_ids": {"bos": 151643, "eos": 151645, "pad": 151643},
         "required_tokenizer_special_ids": ("eos", "pad"),
         "context_limit": 16384,
+    },
+    "r1-distill-qwen-14b": {
+        "id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B",
+        "revision": "1df8507178afcc1bef68cd8c393f61a886323761",
+        "arch": "qwen2",
+        "hidden_size": 5120,
+        "layers": 48,
+        "think_ids": (151648, 151649),
+        "tokenizer_special_ids": {"bos": 151643, "eos": 151645, "pad": 151643},
+        "required_tokenizer_special_ids": ("eos", "pad"),
+        "context_limit": 131072,
+    },
+    "r1-distill-qwen-32b": {
+        "id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+        "revision": "711ad2ea6aa40cfca18895e8aca02ab92df1a746",
+        "arch": "qwen2",
+        "hidden_size": 5120,
+        "layers": 64,
+        "think_ids": (151648, 151649),
+        "tokenizer_special_ids": {"bos": 151643, "eos": 151645, "pad": 151643},
+        "required_tokenizer_special_ids": ("eos", "pad"),
+        "context_limit": 131072,
     },
 }
 
@@ -78,7 +111,10 @@ def _model_source(name: str, info: dict) -> str:
     if root:
         local_name = {
             "qwen3-8b": "Qwen3-8B",
+            "qwen3-14b": "Qwen3-14B",
             "r1-distill-qwen-7b": "DeepSeek-R1-Distill-Qwen-7B",
+            "r1-distill-qwen-14b": "DeepSeek-R1-Distill-Qwen-14B",
+            "r1-distill-qwen-32b": "DeepSeek-R1-Distill-Qwen-32B",
         }.get(name)
         if local_name:
             path = Path(root) / local_name

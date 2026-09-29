@@ -123,40 +123,6 @@ def append_target_assignment(model, token_ids: list[int], target: str, generator
     return tokens[0].tolist(), line + digit_text
 
 
-def aggregate_membership_hint(task) -> str:
-    target = getattr(task, "target", None)
-    nodes = {getattr(node, "id", None): node for node in getattr(task, "nodes", []) or []}
-    target_node = nodes.get(target)
-    parents = list(getattr(target_node, "parents", None) or [])
-    expression = str(getattr(target_node, "expression", ""))
-    if target_node is None or len(parents) < 2 or "+" not in expression or any(op in expression for op in ("*", "-", "/")):
-        return ""
-
-    def node_name(node) -> str | None:
-        aliases = [str(item) for item in (getattr(node, "aliases", None) or [])]
-        return next((item for item in aliases if item != getattr(node, "id", None) and not item.startswith("p_")), None)
-
-    premise_names = {}
-    for premise in getattr(task, "premises", []) or []:
-        match = re.search(r"The number of (?:each )?(.+?) (?:equals?|is|are)\b", str(getattr(premise, "text", "")), re.IGNORECASE)
-        if match:
-            premise_names[getattr(premise, "premise_id", None)] = match.group(1)
-    target_name = node_name(target_node)
-    members = [node_name(nodes[parent]) if parent in nodes else premise_names.get(parent) for parent in parents]
-    if not target_name or any(not item for item in members):
-        return ""
-    quoted = ", ".join(f'"{item}"' for item in members)
-    return f'For this query, the benchmark defines "{target_name}" as the modulo sum of: {quoted}.'
-
-
-def target_assignment_hint(task) -> str:
-    target = getattr(task, "target", None)
-    node = next((item for item in (getattr(task, "nodes", None) or []) if getattr(item, "id", None) == target), None)
-    aliases = [str(item) for item in (getattr(node, "aliases", None) or [])]
-    target_name = next((item for item in aliases if item != target and not item.startswith("p_")), None)
-    return f'The last assignment before the boxed answer must be exactly "{target_name} = integer".' if target_name else ""
-
-
 def task_prompt(task) -> str:
     docs = []
     for premise in getattr(task, "premises", []) or []:
@@ -166,24 +132,16 @@ def task_prompt(task) -> str:
     prompt = "\n".join(docs) + "\n\n" + task.question if docs else task.question
     mod = getattr(getattr(task, "answer_spec", None), "mod", None)
     if getattr(task, "source_kind", None) == "official" and mod:
-        membership = aggregate_membership_hint(task)
         prompt += (
             f"\n\nUse these iGSM rules: compute every arithmetic operation modulo {mod}; "
             "a requested aggregate category is the sum of the exact quantities named for the "
             "queried entity in the question; this benchmark meaning is fixed, so do not debate "
             "or reinterpret it. "
             "use only the givens needed for the query and ignore irrelevant equations. "
-            "Finish the reasoning within 768 tokens without restating the question, restarting, "
-            "or repeating an earlier step. After </think>, give a concise derivation. Write every "
-            "quantity used as a plain-text assignment in the exact form Full Name = final integer, with no "
-            "formula immediately after the equals sign. Then end with exactly "
-            "one final answer in the form \\boxed{number}."
+            "Reason naturally until reaching a conclusion, without restarting or repeating an "
+            "earlier step. After </think>, give a concise answer and end with exactly one final "
+            "answer in the form \\boxed{number}."
         )
-        if membership:
-            prompt += f" {membership}"
-        target_hint = target_assignment_hint(task)
-        if target_hint:
-            prompt += f" {target_hint}"
     return prompt
 
 
@@ -198,12 +156,12 @@ def generate_frozen_trace(
     packed: dict | None = None,
     model=None,
     tokenizer=None,
-    temperature: float = 1.0,
-    top_k: int = 0,
-    top_p: float = 1.0,
+    temperature: float = 0.6,
+    top_k: int = 20,
+    top_p: float = 0.95,
     device: str | None = None,
 ):
-    from ..events import extract_answer, parse_events
+    from ..events import assign_event_regions, extract_answer_with_status, parse_events
     from ..protocol import answer_score
     from ..schema import Cost, Trace
     from .adapters import card, load_frozen
@@ -245,7 +203,7 @@ def generate_frozen_trace(
         tail = tokenizer.decode(generated[-96:], skip_special_tokens=False)
         return re.search(r"\\boxed\{[^{}\n]+\}", tail) is not None
 
-    thinking_budget = min(max_new, 768) if enable_thinking else max_new
+    thinking_budget = max_new
     decoded = decode_loop(
         model,
         prompt_tensor,
@@ -262,58 +220,6 @@ def generate_frozen_trace(
     finalizer_control_tokens = 0
     extra_prefill_tokens = 0
     model_generated_tokens = len(decoded["generated_ids"])
-    if decoded["stop_reason"] == "max_new" and thinking_budget < max_new:
-        first_generated = list(decoded["generated_ids"])
-        continuation_ids = list(decoded["token_ids"])
-        think_ids = runtime.get("think_ids") or list(info.get("think_ids") or [])
-        close_id = int(think_ids[1]) if len(think_ids) >= 2 else None
-        if close_id is not None and close_id not in first_generated:
-            continuation_ids.append(close_id)
-            forced_think_close = True
-        mod = getattr(getattr(task, "answer_spec", None), "mod", None)
-        membership = aggregate_membership_hint(task)
-        target_hint = target_assignment_hint(task)
-        finalizer = (
-            "Use the reasoning above and finish now. Do not discuss ambiguity or restart. "
-            + (f"Apply modulo {mod} to every operation, including the final sum. " if mod else "")
-            + (membership + " " if membership else "")
-            + (target_hint + " " if target_hint else "")
-            + "Output only plain-text assignments, one per line, using the exact names from the question. "
-            + "Every line must have the form Full Name = final integer; put no formula after the equals sign and use no LaTeX in names. "
-            + "Follow the assignments with the required boxed final answer."
-        )
-        transition = f"<|im_end|>\n<|im_start|>user\n{finalizer}<|im_end|>\n<|im_start|>assistant\n"
-        transition_ids = tokenizer.encode(transition, add_special_tokens=False)
-        continuation_ids.extend(int(item) for item in transition_ids)
-        finalizer_used = True
-        finalizer_control_tokens = len(transition_ids)
-        remaining = min(
-            1024,
-            max_new - len(first_generated) - int(forced_think_close) - finalizer_control_tokens,
-        )
-        if remaining > 0:
-            extra_prefill_tokens = len(continuation_ids)
-            continued = decode_loop(
-                model,
-                torch.tensor([continuation_ids], dtype=torch.long),
-                g,
-                max_new=remaining,
-                eos_id=getattr(tokenizer, "eos_token_id", None),
-                temperature=temperature,
-                top_k=top_k,
-                top_p=top_p,
-                stop_condition=boxed_answer_complete,
-            )
-            model_generated_tokens += len(continued["generated_ids"])
-            constrained = ([close_id] if forced_think_close else []) + list(transition_ids)
-            decoded = {
-                **continued,
-                "prompt_ids": list(prompt_ids),
-                "generated_ids": first_generated + constrained + list(continued["generated_ids"]),
-                "token_ids": list(prompt_ids) + first_generated + constrained + list(continued["generated_ids"]),
-                "device_transfer_seconds": float(decoded.get("device_transfer_seconds") or 0.0)
-                + float(continued.get("device_transfer_seconds") or 0.0),
-            }
     elapsed = time.perf_counter() - started
     full_ids = decoded["token_ids"]
     generated_ids = decoded["generated_ids"]
@@ -330,6 +236,7 @@ def generate_frozen_trace(
         offsets = [[i, i + 1] for i in range(len(full_ids))]
     rid = run_id or f"trace:{task.task_id}:{seed}"
     events = parse_events(gen_text, task)
+    assign_event_regions(events, gen_text)
     identity_keys = [event.identity.key() for event in events]
     target = getattr(task, "target", None) or (task.nodes[-1].id if task.nodes else None)
     target_present = target is None or any(event.node_id == target for event in events)
@@ -363,9 +270,18 @@ def generate_frozen_trace(
         event.run_id = rid
         event.base_group_id = task.base_group_id
         event.record_id = f"{rid}:{event.identity.key()}"
-    pred = extract_answer(gen_text, task.answer_spec.kind)
+    pred, answer_status = extract_answer_with_status(gen_text, task.answer_spec.kind)
     gold = task.answer_spec.value
     score = answer_score(pred, gold, task.answer_spec.kind, task.answer_spec.aliases)
+    trace_status = (
+        "parse_failed"
+        if not events
+        else "natural_truncated"
+        if decoded.get("stop_reason") == "max_new"
+        else "answer_missing"
+        if pred is None
+        else "natural_complete"
+    )
     return Trace(
         id=rid,
         task_id=task.task_id,
@@ -378,6 +294,7 @@ def generate_frozen_trace(
         events=events,
         answer=pred,
         correct=score["correct"],
+        status=trace_status,
         cost=Cost(
             prefill_tokens=len(prompt_ids),
             decode_tokens=model_generated_tokens,
@@ -421,7 +338,16 @@ def generate_frozen_trace(
             "special_token_count": sum(int(token) in special_ids for token in full_ids),
             "boundary_status": "ok" if not offset_failures else "fallback_cursor",
             "forced_target": False,
-            "evidence_status": "model_generated_budgeted_thinking_finalized" if finalizer_used else "model_generated",
+            "evidence_status": "model_generated_natural",
+            "protocol_version": "natural_no_finalizer_v1",
+            "trace_status": trace_status,
+            "answer_status": answer_status,
+            "analysis_eligibility": {
+                "C1": bool(any(event.event_region == "thinking" for event in events)),
+                "C2": bool(events),
+                "C3": bool(events),
+                "C4": bool(pred is not None),
+            },
             **score,
             "device": runtime.get("device") or decoded.get("device"),
             "dtype": runtime.get("dtype"),
@@ -440,9 +366,9 @@ def generate_task_trace(
     weight_seed: int = 0,
     run_id: str = "",
     model=None,
-    temperature: float = 1.0,
-    top_k: int = 0,
-    top_p: float = 1.0,
+    temperature: float = 0.6,
+    top_k: int = 20,
+    top_p: float = 0.95,
     backend: str = "tiny",
     model_name: str | None = None,
     packed: dict | None = None,
@@ -467,7 +393,7 @@ def generate_task_trace(
             device=device,
             enable_thinking=enable_thinking,
         )
-    from ..events import extract_answer, parse_events
+    from ..events import assign_event_regions, extract_answer_with_status, parse_events
     from ..protocol import answer_score
     from ..schema import Cost, Trace
     from .tiny import build_tiny
@@ -505,6 +431,7 @@ def generate_task_trace(
     rid = run_id or f"trace:{task.task_id}:{seed}"
     generated = gen_text + assigned
     raw = parse_events(generated, task)
+    assign_event_regions(raw, generated)
     events = []
     for event in raw:
         event.start += len(prompt)
@@ -528,9 +455,20 @@ def generate_task_trace(
         event.run_id = rid
         event.base_group_id = task.base_group_id
         event.record_id = f"{rid}:{event.identity.key()}"
-    pred = extract_answer(full_text, task.answer_spec.kind)
+    pred, answer_status = extract_answer_with_status(full_text, task.answer_spec.kind)
     gold = task.answer_spec.value
     score = answer_score(pred, gold, task.answer_spec.kind, task.answer_spec.aliases)
+    trace_status = (
+        "fixture_forced_target"
+        if assigned
+        else "parse_failed"
+        if not events
+        else "natural_truncated"
+        if decoded.get("stop_reason") == "max_new"
+        else "answer_missing"
+        if pred is None
+        else "natural_complete"
+    )
     return Trace(
         id=rid,
         task_id=task.task_id,
@@ -543,6 +481,7 @@ def generate_task_trace(
         events=events,
         answer=pred,
         correct=score["correct"],
+        status=trace_status,
         cost=Cost(
             prefill_tokens=len(prompt_ids),
             decode_tokens=decoded_token_count + assignment_token_count,
@@ -577,7 +516,16 @@ def generate_task_trace(
             "special_token_count": 0,
             "target_assignment": assigned,
             "forced_target": bool(assigned),
-            "evidence_status": "synthetic_target_assignment" if assigned else "model_generated",
+            "evidence_status": "synthetic_target_assignment" if assigned else "model_generated_natural",
+            "protocol_version": "natural_no_finalizer_v1" if not assigned else "fixture_forced_target_v1",
+            "trace_status": trace_status,
+            "answer_status": answer_status,
+            "analysis_eligibility": {
+                "C1": bool(any(event.event_region == "thinking" for event in events)),
+                "C2": bool(events),
+                "C3": bool(events),
+                "C4": bool(pred is not None),
+            },
             **score,
             "parse_region": "generated",
         },

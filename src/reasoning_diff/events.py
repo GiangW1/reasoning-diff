@@ -40,18 +40,38 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
             continue
         value_pattern = NUMBER if task.answer_spec.kind == "numeric" else r"[^\n.;]+"
         pattern = re.compile(
-            rf"(?<!\w){re.escape(alias)}\s*(?:=|:|equals?|is|are)\s*\$?(?P<value>{value_pattern})",
+            rf"(?<!\w){re.escape(alias)}\s*(?:=|:|equals?|is|are)\s*\$?\(*\s*(?P<value>{value_pattern})",
             re.IGNORECASE,
         )
         for match in pattern.finditer(text):
             start = match.start()
             end = match.end()
-            found.append((start, end, match.start("value"), node_id, gold, scope, parents, graph_status, match.group("value")))
+            value_start = match.start("value")
+            value = match.group("value")
+            kind = "restatement" if any(p.premise_id == node_id for p in task.premises) else "commit"
+            if task.answer_spec.kind == "numeric":
+                # A leading operand is not a committed result. Read equation
+                # chains through the final numeric RHS, or refuse ambiguity.
+                line_end = text.find("\n", end)
+                line_end = len(text) if line_end < 0 else line_end
+                tail = text[end:line_end]
+                separator = re.search(r";|\.(?!\d)", tail)
+                if separator:
+                    tail = tail[:separator.start()]
+                if re.match(r"\s*(?:[+*/%=−×÷^-]|plus\b|minus\b|times\b|divided\b)", tail):
+                    chain = re.match(r"(?P<expr>[^\n;]*?)=\s*\$?(?P<result>" + NUMBER + r")(?=\s*(?:$|[.,;)]|\bmod\b))", tail)
+                    if chain is None:
+                        continue
+                    value_start = end + chain.start("result")
+                    value = chain.group("result")
+                    end += chain.end("result")
+                    kind = "calculation"
+            found.append((start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind))
     found.sort(key=lambda item: (item[0], item[1]))
     line_counts = Counter(item[0] for item in found)
     occurrences: Counter = Counter()
     events = []
-    for start, end, value_start, node_id, gold, scope, parents, graph_status, value in found:
+    for start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind in found:
         key = (node_id, scope)
         occurrences[key] += 1
         identity = EventIdentity(node_id, occurrences[key], scope)
@@ -74,6 +94,7 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 node_id=node_id,
                 graph_status=graph_status,
                 status=status,
+                event_kind=kind,
             )
         )
     return events
@@ -84,7 +105,7 @@ def parse_events(text: str, task: Task) -> list[Event]:
     entities = []
     seen_alias = Counter()
     for premise in task.premises:
-        if premise.kind == "placeholder" or not premise.premise_id:
+        if premise.kind in {"placeholder", "relation"} or not premise.premise_id:
             continue
         for alias in premise_aliases(premise):
             seen_alias[alias.casefold()] += 1
@@ -258,6 +279,7 @@ def assign_event_regions(
     text: str,
     *,
     finalizer_start: int | None = None,
+    initial_thinking: bool = False,
 ) -> list[Event]:
     """Annotate events by the generation region that produced them.
 
@@ -277,7 +299,7 @@ def assign_event_regions(
             # Tiny fixtures have no chat-template thinking marker.  Their
             # generated assignments are answer-region text; callers that need
             # a C1 feature can explicitly treat ``unknown`` as legacy data.
-            event.event_region = "thinking" if answer_start is not None else "answer"
+            event.event_region = "thinking" if answer_start is not None or initial_thinking else "answer"
     return events
 
 

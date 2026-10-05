@@ -6,7 +6,6 @@ import argparse
 from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime, timezone
-import fcntl
 import math
 import os
 from pathlib import Path
@@ -18,6 +17,7 @@ import time
 
 from reasoning_diff import cli
 from reasoning_diff.io import file_digest, read_json, read_jsonl, write_json
+from reasoning_diff.next_round import select_dev_layer
 
 
 @dataclass
@@ -80,6 +80,7 @@ def process_state(pid):
 
 
 def main():
+    import fcntl
     parser = argparse.ArgumentParser()
     parser.add_argument("--out-root", required=True, type=Path)
     parser.add_argument("--dataset", required=True, type=Path)
@@ -203,7 +204,8 @@ def main():
             scores.append(float(value) if value is not None and math.isfinite(float(value)) else None)
         curve = [] if any(score is None for score in scores) else ["--dev-layer-scores", *scores, "--dev-layer-ids", *layers]
         write_json(work / "layer_sweep.json", {"layer_ids": layers, "dev_behavior_auc": scores, "status": "ready" if curve else "insufficient_dev_labels"})
-        collect = work / f"collect-layer{layers[-1]}"
+        selected_layer = select_dev_layer(layers, scores)
+        collect = work / f"collect-layer{selected_layer}"
         fit = work / "fit"
         fit_options = ["--in-dir", collect, "--labels-dir", labels, "--split", "probe_train", *curve]
         positions = ("pre_step", "pre_value", "post_step")

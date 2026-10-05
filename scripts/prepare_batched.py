@@ -20,6 +20,8 @@ def prepare_requests(args):
     tasks = cli._load_tasks(args)
     repeats = max(3, int(args.n_seeds or 3))
     opportunities = max(1, int(args.sham_opportunities or 0), int(args.behavior_repeats or 3))
+    if getattr(args, "noise_reference", "independent_sham") == "base_pairs":
+        opportunities = 0
     requests = []
     for index, task in enumerate(tasks):
         edit = cli._domain_edit(task, args)
@@ -33,13 +35,15 @@ def prepare_requests(args):
             for seed in range(repeats):
                 suffix = "" if seed == 0 else f":seed{seed}"
                 requests.extend([(task, seed, f"trace-base:{index}{suffix}"), (edit.task, seed, f"trace-edit:{index}{suffix}")])
+            for extra in cli._allowed_edits(task, int(args.behavior_repeats or 3)):
+                requests.append((extra.task, int(extra.metadata.get("rng_seed", 0)), cli._scan_run_id(extra)))
         pair = cli._try_source_value_pair(task, edit.changed_premise_ids[0] if edit.changed_premise_ids else "",
                                          next(iter(edit.after.values()), "2"))
         if index == 0:
             if pair:
                 requests.append((pair["same_value_diff_source"].task, 0, "trace-source"))
             for extra in cli._allowed_edits(task, int(args.behavior_repeats or 3)):
-                requests.append((extra.task, int(extra.metadata.get("rng_seed", 0)), f"trace-{extra.id}"))
+                requests.append((extra.task, int(extra.metadata.get("rng_seed", 0)), cli._scan_run_id(extra)))
         for seed in range(repeats):
             for opportunity in range(opportunities):
                 if index == 0:

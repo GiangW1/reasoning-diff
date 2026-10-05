@@ -258,7 +258,7 @@ def test_repair_prefix_uses_canonical_event_assignments():
     assert prefix == "Reasoning: p_0_0_0_2 = 2. Done."
 
 
-def test_analyze_reads_current_fit_p1_columns_by_position(tmp_path):
+def test_analyze_refuses_dependency_cells_as_trajectory_p1(tmp_path):
     src = tmp_path / "fit"
     out = tmp_path / "analyze"
     src.mkdir()
@@ -281,9 +281,7 @@ def test_analyze_reads_current_fit_p1_columns_by_position(tmp_path):
     (src / "p1_table.jsonl").write_text("".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8")
     assert main(["analyze", "--in-dir", str(src), "--out-dir", str(out), "--eval-mode", "scientific"]) == 0
     p1 = read_json(out / "report.json")["p1"]
-    assert p1["head"] == "behavior"
-    assert p1["position"] == "pre_step"
-    assert p1["n_rows"] == 6
+    assert p1 is None
 
 
 def test_parse_events_reads_premises_and_target(t1_tiny_path):

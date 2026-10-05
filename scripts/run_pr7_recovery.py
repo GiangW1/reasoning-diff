@@ -18,6 +18,7 @@ import time
 
 from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json
 from reasoning_diff.models.adapters import card
+from reasoning_diff.next_round import select_dev_layer
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -225,7 +226,8 @@ def main() -> None:
         curve = [] if any(score is None for score in scores) else ["--dev-layer-scores", *scores, "--dev-layer-ids", *layers]
         write_json(work / "layer_sweep.json", {"layer_ids": layers, "dev_behavior_auc": scores,
                    "status": "ready" if curve else "insufficient_dev_labels"})
-        collect = work / f"collect-layer{layers[-1]}"
+        selected_layer = select_dev_layer(layers, scores)
+        collect = work / f"collect-layer{selected_layer}"
         fit = work / "fit"
         stage(f"{args.model}-fit-all", "fit", "--in-dir", collect, "--out-dir", fit,
               "--labels-dir", labels, "--split", "probe_train", "--position", "all", *curve)

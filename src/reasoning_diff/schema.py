@@ -210,6 +210,7 @@ class Event:
     base_group_id: str = ""
     status: str = "ok"
     event_region: str = "unknown"
+    event_kind: str = "commit"
 
     def __post_init__(self) -> None:
         if not self.record_id:
@@ -292,6 +293,7 @@ class Label:
     noise_status: str = "unavailable"
     noise_reference_rate: float | None = None
     row_key: str = ""
+    trace_id: str = ""
 
     def __post_init__(self) -> None:
         if not self.record_id:

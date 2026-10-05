@@ -213,6 +213,10 @@ def generate_frozen_trace(
         return re.search(r"\\boxed\{[^{}\n]+\}", answer_text) is not None
 
     thinking_budget = max_new
+    if limit:
+        thinking_budget = min(max_new, int(limit) - len(prompt_ids))
+        if thinking_budget < 1:
+            raise ValueError("no generation space remains in the model context")
     decoded = decode_loop(
         model,
         prompt_tensor,
@@ -242,10 +246,10 @@ def generate_frozen_trace(
         offsets, offset_failures = offsets_from_tokenizer(tokenizer, full_ids, text, return_failures=True)
     except Exception as exc:
         offset_failures = [{"error": type(exc).__name__, "message": str(exc)}]
-        offsets = [[i, i + 1] for i in range(len(full_ids))]
+        offsets = [[0, 0] for _ in full_ids]
     rid = run_id or f"trace:{task.task_id}:{seed}"
     events = parse_events(gen_text, task)
-    assign_event_regions(events, gen_text)
+    assign_event_regions(events, gen_text, initial_thinking=enable_thinking)
     identity_keys = [event.identity.key() for event in events]
     target = getattr(task, "target", None) or (task.nodes[-1].id if task.nodes else None)
     target_present = target is None or any(event.node_id == target for event in events)
@@ -267,7 +271,7 @@ def generate_frozen_trace(
     )
     prompt_n = len(prompt_ids)
     if prompt_n < len(offsets):
-        gen_char_start = offsets[prompt_n][0]
+        gen_char_start = len(rendered_prompt_text)
     elif offsets:
         gen_char_start = offsets[-1][1]
     else:

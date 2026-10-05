@@ -61,7 +61,7 @@ def test_scientific_prepare_is_generated_not_node_values(tmp_path, t1_tiny_path)
     seeds = {row["seed"] for row in traces}
     assert 0 in seeds and 1 in seeds
     sham = next(row for row in traces if row["id"] == "trace-sham")
-    assert sham["seed"] == 2
+    assert sham["seed"] == 1000
     assert sham["text"] != traces[0]["text"] or sham["token_ids"] != traces[0]["token_ids"]
 
 

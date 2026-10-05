@@ -1,0 +1,334 @@
+{
+  "native_id": "igsm-official-0103-op21",
+  "family_id": "igsm-official-0103-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261031,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "18",
+  "target": "p_1_0_0_2",
+  "question": "The number of each Dollar General's Canned Milk equals 22 more than each Canned Milk's Corn. The number of each Canned Pineapple's Rye equals the sum of each Canned Milk's Amaranth and each Family Dollar's Canned Pineapple. The number of each Canned Milk's Amaranth equals 19 more than the difference of each Dollar General's Canned Milk and each Canned Milk's Corn. The number of each Canned Milk's Rye equals 2 times as much as the difference of each Dollar General's Canned Milk and each Canned Milk's Corn. The number of each Canned Pineapple's Corn equals each Family Dollar's Canned Milk. The number of each Canned Pineapple's Amaranth equals 12 times as much as each Canned Pineapple's Rye. The number of each Canned Sauces's Rye equals 17 more than the sum of each Canned Sauces's Amaranth, each Canned Sauces's Corn and each Marc's's Canned Milk. The number of each Canned Sauces's Corn equals each Canned Sauces's Amaranth. The number of each Family Dollar's Canned Pineapple equals 4 more than the difference of each Canned Milk's Corn and each Canned Milk's Rye. The number of each Family Dollar's Canned Milk equals 9 more than the difference of each Dollar General's Ingredient and each Canned Milk's Rye. The number of each Canned Milk's Corn equals 19. The number of each Marc's's Canned Pineapple equals each Dollar General's Product. The number of each Marc's's Canned Milk equals 19 times as much as each Canned Sauces's Corn. The number of each Marc's's Canned Sauces equals 20. The number of each Canned Sauces's Amaranth equals 19. How many Ingredient does Family Dollar have?",
+  "lookup": {
+    "p_0_0_1_2": 20,
+    "p_0_1_1_1": 19,
+    "p_0_0_2_1": 18,
+    "p_0_1_1_0": 21,
+    "p_0_1_2_2": 19,
+    "p_1_0_2_1": 18,
+    "p_0_0_1_0": 18,
+    "p_0_0_0_0": 2,
+    "p_0_1_2_1": 19,
+    "p_0_0_1_1": 16,
+    "p_0_1_2_0": 2,
+    "p_0_1_1_2": 18,
+    "p_0_1_0_0": 20,
+    "p_0_1_0_2": 10,
+    "p_1_1_1_2": 12,
+    "p_1_0_2_2": 9,
+    "p_0_0_0_1": 20,
+    "p_0_1_0_1": 20,
+    "p_1_1_0_2": 4,
+    "p_1_0_0_2": 18
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_1",
+        "literal": 19,
+        "span": [
+          1220,
+          1267
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Dollar General's Canned Milk"
+        ],
+        "expression": "(22 + p_0_1_1_1)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Canned Milk's Rye"
+        ],
+        "expression": "(2 * (p_0_0_2_1 - p_0_1_1_1))",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_1_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Family Dollar's Canned Pineapple"
+        ],
+        "expression": "(4 + (p_0_1_1_1 - p_0_1_1_0))",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Canned Milk's Amaranth"
+        ],
+        "expression": "(19 + (p_0_0_2_1 - p_0_1_1_1))",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_1_2",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Canned Pineapple's Rye"
+        ],
+        "expression": "(p_0_1_1_2 + p_0_0_0_0)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Canned Milk's Ingredient"
+        ],
+        "expression": "((p_0_1_1_0 + p_0_1_1_1) + p_0_1_1_2)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_1",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "Dollar General's Ingredient"
+        ],
+        "expression": "(p_0_0_2_1 * p_1_1_1_2)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_1_0_2_2",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Family Dollar's Canned Milk"
+        ],
+        "expression": "(9 + (p_1_0_2_2 - p_0_1_1_0))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Canned Pineapple's Corn"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Canned Pineapple's Amaranth"
+        ],
+        "expression": "(12 * p_0_1_0_0)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1",
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Canned Pineapple's Ingredient"
+        ],
+        "expression": "((p_0_1_0_0 + p_0_1_0_1) + p_0_1_0_2)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_2",
+        "parents": [
+          "p_0_0_0_0",
+          "p_1_1_0_2",
+          "p_0_0_0_1",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_1_0_0_2",
+          "Family Dollar's Ingredient"
+        ],
+        "expression": "((p_0_0_0_0 * p_1_1_0_2) + (p_0_0_0_1 * p_1_1_1_2))",
+        "value": 18
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_0_2_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_0_2"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "native_id": "igsm-official-0181-op10",
+  "family_id": "igsm-official-0181-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261114,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "15",
+  "target": "p_0_0_3_3",
+  "question": "The number of each Etosha National Park's Rhinoceros Pen equals 1. The number of each Anteater Area's Hellbender equals 6. The number of each Selous Game Reserve's Anteater Area equals the sum of each Rhinoceros Pen's Caecilian, each Lemur Island's Caecilian, each Tiger Territory's Salamander and each Selous Game Reserve's Tiger Territory. The number of each Lemur Island's Caecilian equals each Rhinoceros Pen's Caecilian. The number of each Tiger Territory's Caecilian equals each Mikumi National Park's Enclosure. The number of each Selous Game Reserve's Tiger Territory equals each Selous Game Reserve's Lemur Island. The number of each Anteater Area's Salamander equals the sum of each Tiger Territory's Poison Dart Frog, each Etosha National Park's Anteater Area, each Rhinoceros Pen's Poison Dart Frog and each Anteater Area's Hellbender. The number of each Selous Game Reserve's Rhinoceros Pen equals the sum of each Etosha National Park's Anteater Area and each Selous Game Reserve's Anteater Area. The number of each Rhinoceros Pen's Caecilian equals each Tiger Territory's Hellbender. The number of each Amboseli National Park's Lemur Island equals 13. The number of each Lemur Island's Salamander equals 14 more than the sum of each Lemur Island's Hellbender, each Tiger Territory's Caecilian and each Anteater Area's Hellbender. The number of each Mikumi National Park's Lemur Island equals 22 more than the sum of each Rhinoceros Pen's Caecilian and each Mikumi National Park's Rhinoceros Pen. The number of each Rhinoceros Pen's Salamander equals 13. The number of each Rhinoceros Pen's Poison Dart Frog equals 5. The number of each Tiger Territory's Salamander equals each Mikumi National Park's Enclosure. The number of each Tiger Territory's Hellbender equals 6 times as much as each Rhinoceros Pen's Poison Dart Frog. The number of each Etosha National Park's Anteater Area equals 19 more than the sum of each Tiger Territory's Poison Dart Frog and each Mikumi National Park's Lemur Island. The number of each Lemur Island's Hellbender equals each Anteater Area's Hellbender. The number of each Tiger Territory's Poison Dart Frog equals the difference of each Mikumi National Park's Enclosure and each Tiger Territory's Hellbender. The number of each Selous Game Reserve's Lemur Island equals 22 times as much as each Anteater Area's Hellbender. The number of each Lemur Island's Poison Dart Frog equals 11. The number of each Amboseli National Park's Tiger Territory equals 3. The number of each Mikumi National Park's Rhinoceros Pen equals 20. How many Anteater Area does Etosha National Park have?",
+  "lookup": {
+    "p_0_0_0_1": 13,
+    "p_0_1_2_2": 13,
+    "p_0_0_0_0": 3,
+    "p_0_1_2_3": 5,
+    "p_0_1_3_0": 6,
+    "p_0_0_1_1": 17,
+    "p_0_0_2_2": 20,
+    "p_0_1_0_0": 7,
+    "p_0_1_1_0": 6,
+    "p_0_1_2_1": 7,
+    "p_0_0_1_0": 17,
+    "p_0_0_2_1": 3,
+    "p_0_1_1_1": 7,
+    "p_0_0_3_2": 1,
+    "p_1_0_2_1": 0,
+    "p_0_1_0_2": 0,
+    "p_0_1_0_3": 16,
+    "p_0_0_1_3": 8,
+    "p_0_1_0_1": 0,
+    "p_0_1_1_2": 3,
+    "p_0_0_3_3": 15,
+    "p_0_1_3_2": 19,
+    "p_0_1_1_3": 11,
+    "p_0_0_1_2": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_3",
+        "literal": 5,
+        "span": [
+          1568,
+          1629
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_2",
+        "literal": 20,
+        "span": [
+          2499,
+          2565
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_2_3"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Tiger Territory's Hellbender"
+        ],
+        "expression": "(6 * p_0_1_2_3)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Rhinoceros Pen's Caecilian"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_1_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Mikumi National Park's Lemur Island"
+        ],
+        "expression": "(22 + (p_0_1_2_1 + p_0_0_2_2))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Mikumi National Park's Enclosure"
+        ],
+        "expression": "(p_0_0_2_1 + p_0_0_2_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_3",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_3",
+          "Tiger Territory's Poison Dart Frog"
+        ],
+        "expression": "(p_1_0_2_1 - p_0_1_0_0)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_3",
+        "parents": [
+          "p_0_1_0_3",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_3_3",
+          "Etosha National Park's Anteater Area"
+        ],
+        "expression": "(19 + (p_0_1_0_3 + p_0_0_2_1))",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_3",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_0_0_3_3"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_3_3"
+      ]
+    ]
+  }
+}

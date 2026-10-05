@@ -1,0 +1,122 @@
+{
+  "native_id": "igsm-official-0124-op5",
+  "family_id": "igsm-official-0124-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261053,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "2",
+  "target": "p_0_0_2_0",
+  "question": "The number of each Biking Backpack's Ink Bottle equals 22 times as much as the sum of each Hydration Backpack's Spray Paint and each Running Backpack's Embossing Powder. The number of each Hydration Backpack's Embossing Powder equals 18. The number of each Shoe Compartment Backpack's Palette equals 17. The number of each Running Backpack's Embossing Powder equals 21. The number of each Running Backpack's Ink Bottle equals the sum of each Biking Backpack's Ink Bottle and each Hydration Backpack's Spray Paint. The number of each Hydration Backpack's Spray Paint equals 6 times as much as each Running Backpack's Embossing Powder. The number of each Shoe Compartment Backpack's Embossing Powder equals 8. The number of each Biking Backpack's Embossing Powder equals 4 more than each Running Backpack's Embossing Powder. The number of each Biking Backpack's Palette equals 9. The number of each Running Backpack's Palette equals each Running Backpack's Embossing Powder. The number of each Hydration Backpack's Palette equals each Hydration Backpack's Ink Bottle. The number of each Hydration Backpack's Ink Bottle equals 3. The number of each Shoe Compartment Backpack's Ink Bottle equals the difference of each Hydration Backpack's Ink Bottle and each Shoe Compartment Backpack's Palette. The number of each Running Backpack's Spray Paint equals each Hydration Backpack's Ink Bottle. The number of each Shoe Compartment Backpack's Spray Paint equals 8 times as much as the sum of each Shoe Compartment Backpack's Ink Bottle, each Shoe Compartment Backpack's Palette and each Running Backpack's Spray Paint. The number of each Biking Backpack's Spray Paint equals the sum of each Hydration Backpack's Ink Bottle and each Shoe Compartment Backpack's Palette. How many Ink Bottle does Running Backpack have?",
+  "lookup": {
+    "p_0_0_2_1": 21,
+    "p_0_0_0_1": 2,
+    "p_0_0_0_2": 9,
+    "p_0_0_1_1": 8,
+    "p_0_0_3_3": 11,
+    "p_0_0_2_2": 21,
+    "p_0_0_0_0": 14,
+    "p_0_0_3_0": 3,
+    "p_0_0_1_2": 17,
+    "p_0_0_2_3": 3,
+    "p_0_0_3_2": 3,
+    "p_0_0_3_1": 18,
+    "p_0_0_1_0": 9,
+    "p_0_0_0_3": 20,
+    "p_0_0_1_3": 2,
+    "p_0_0_2_0": 2
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 21,
+        "span": [
+          304,
+          368
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_3",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_3_3",
+          "Hydration Backpack's Spray Paint"
+        ],
+        "expression": "(6 * p_0_0_2_1)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_3_3",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Biking Backpack's Ink Bottle"
+        ],
+        "expression": "(22 * (p_0_0_3_3 + p_0_0_2_1))",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Running Backpack's Ink Bottle"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_3_3)",
+        "value": 2
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_1",
+        "p_0_0_3_3"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_2_0"
+      ]
+    ]
+  }
+}

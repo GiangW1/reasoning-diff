@@ -1,0 +1,131 @@
+{
+  "native_id": "igsm-official-0168-op5",
+  "family_id": "igsm-official-0168-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261099,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "6",
+  "target": "p_0_0_0_2",
+  "question": "The number of each Ant Farm's Monitor Lizard equals 14 times as much as each Caterpillar Nursery's Chameleon. The number of each Ant Farm's Chameleon equals each Tarantula Terrarium's Monitor Lizard. The number of each Snail Shellter's Monitor Lizard equals the sum of each Tarantula Terrarium's Monitor Lizard and each Caterpillar Nursery's Rattlesnake. The number of each Tarantula Terrarium's Rattlesnake equals the sum of each Snail Shellter's Monitor Lizard and each Caterpillar Nursery's Monitor Lizard. The number of each Caterpillar Nursery's Skink equals each Ant Farm's Monitor Lizard. The number of each Snail Shellter's Rattlesnake equals 5. The number of each Ant Farm's Rattlesnake equals 9 times as much as the sum of each Snail Shellter's Animal, each Caterpillar Nursery's Animal and each Ant Farm's Monitor Lizard. The number of each Tarantula Terrarium's Skink equals the difference of each Snail Shellter's Chameleon and each Caterpillar Nursery's Monitor Lizard. The number of each Ant Farm's Skink equals each Snail Shellter's Skink. The number of each Caterpillar Nursery's Rattlesnake equals 0. The number of each Caterpillar Nursery's Monitor Lizard equals 15 more than each Snail Shellter's Chameleon. The number of each Tarantula Terrarium's Chameleon equals each Caterpillar Nursery's Rattlesnake. The number of each Caterpillar Nursery's Chameleon equals 15 more than each Caterpillar Nursery's Monitor Lizard. The number of each Tarantula Terrarium's Monitor Lizard equals each Caterpillar Nursery's Rattlesnake. The number of each Snail Shellter's Chameleon equals 0. The number of each Snail Shellter's Skink equals 14. How many Skink does Caterpillar Nursery have?",
+  "lookup": {
+    "p_0_0_3_1": 0,
+    "p_0_0_3_2": 14,
+    "p_0_0_0_3": 15,
+    "p_0_0_2_2": 8,
+    "p_0_0_1_2": 14,
+    "p_0_0_0_1": 7,
+    "p_0_0_3_0": 5,
+    "p_0_0_1_3": 6,
+    "p_0_0_0_2": 6,
+    "p_0_0_0_0": 0,
+    "p_0_0_2_1": 0,
+    "p_0_0_2_3": 0,
+    "p_1_0_0_1": 5,
+    "p_0_0_1_1": 0,
+    "p_0_0_3_3": 0,
+    "p_0_0_2_0": 15,
+    "p_1_0_3_1": 19,
+    "p_0_0_1_0": 17
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_3_1",
+        "literal": 0,
+        "span": [
+          1543,
+          1597
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_3",
+        "parents": [
+          "p_0_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_0_3",
+          "Caterpillar Nursery's Monitor Lizard"
+        ],
+        "expression": "(15 + p_0_0_3_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Caterpillar Nursery's Chameleon"
+        ],
+        "expression": "(15 + p_0_0_0_3)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Ant Farm's Monitor Lizard"
+        ],
+        "expression": "(14 * p_0_0_0_1)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Caterpillar Nursery's Skink"
+        ],
+        "expression": "p_0_0_1_3",
+        "value": 6
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_3_1",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_0_2"
+      ]
+    ]
+  }
+}

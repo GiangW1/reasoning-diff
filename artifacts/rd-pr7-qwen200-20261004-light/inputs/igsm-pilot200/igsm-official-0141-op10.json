@@ -1,0 +1,192 @@
+{
+  "native_id": "igsm-official-0141-op10",
+  "family_id": "igsm-official-0141-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261071,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "21",
+  "target": "p_0_0_1_2",
+  "question": "The number of each Warehouse District's Valli Produce equals 12 more than the sum of each Warehouse District's Mitsuwa Marketplace and each Fashion District's Galleria Supermarket. The number of each Warehouse District's Mitsuwa Marketplace equals 17 times as much as the difference of each Automotive District's Galleria Supermarket and each Automotive District's Valli Produce. The number of each Warehouse District's New Grand Mart equals 6 more than each Media District's Valli Produce. The number of each Media District's Valli Produce equals each Fashion District's New Grand Mart. The number of each Automotive District's New Grand Mart equals each Fashion District's New Grand Mart. The number of each Media District's New Grand Mart equals 13. The number of each Automotive District's Valli Produce equals 5. The number of each Fashion District's Valli Produce equals 12. The number of each Media District's Mitsuwa Marketplace equals each Media District's New Grand Mart. The number of each Warehouse District's Galleria Supermarket equals the sum of each Automotive District's Supermarket, each Media District's Valli Produce and each Automotive District's New Grand Mart. The number of each Automotive District's Galleria Supermarket equals each Warehouse District's New Grand Mart. The number of each Fashion District's New Grand Mart equals 14. The number of each Media District's Galleria Supermarket equals each Fashion District's Valli Produce. The number of each Fashion District's Galleria Supermarket equals 20. The number of each Fashion District's Mitsuwa Marketplace equals 22 times as much as the difference of each Automotive District's Galleria Supermarket and each Warehouse District's Mitsuwa Marketplace. How many Galleria Supermarket does Warehouse District have?",
+  "lookup": {
+    "p_0_0_3_3": 12,
+    "p_0_0_0_2": 12,
+    "p_0_0_3_2": 20,
+    "p_0_0_0_0": 13,
+    "p_0_0_3_0": 14,
+    "p_0_0_0_1": 13,
+    "p_0_0_0_3": 14,
+    "p_0_0_2_0": 14,
+    "p_0_0_1_0": 20,
+    "p_0_0_2_2": 20,
+    "p_0_0_2_3": 5,
+    "p_1_0_2_1": 16,
+    "p_0_0_1_2": 21,
+    "p_0_0_1_1": 2,
+    "p_0_0_3_1": 5,
+    "p_0_0_1_3": 11
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_3_0",
+        "literal": 14,
+        "span": [
+          1295,
+          1357
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_3",
+        "literal": 5,
+        "span": [
+          753,
+          816
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Automotive District's New Grand Mart"
+        ],
+        "expression": "p_0_0_3_0",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_3",
+        "parents": [
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_0_0_3",
+          "Media District's Valli Produce"
+        ],
+        "expression": "p_0_0_3_0",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Warehouse District's New Grand Mart"
+        ],
+        "expression": "(6 + p_0_0_0_3)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Automotive District's Galleria Supermarket"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_2",
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Automotive District's Supermarket"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_2) + p_0_0_2_3)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_0_3",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Warehouse District's Galleria Supermarket"
+        ],
+        "expression": "((p_1_0_2_1 + p_0_0_0_3) + p_0_0_2_0)",
+        "value": 21
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_3_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_1_2"
+      ]
+    ]
+  }
+}

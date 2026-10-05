@@ -1,0 +1,220 @@
+{
+  "native_id": "igsm-official-0022-op15",
+  "family_id": "igsm-official-0022-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260948,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "7",
+  "target": "p_0_1_1_1",
+  "question": "The number of each Buford Highway Farmers Market's Salsa equals 9 more than each Fiesta Mart's Salsa. The number of each Lake Homes's Fiesta Mart equals the sum of each Lake Homes's Buford Highway Farmers Market, each Buford Highway Farmers Market's Yogurt Covered Raisins and each Fiesta Mart's Yogurt Covered Raisins. The number of each Fiesta Mart's Yogurt Covered Raisins equals each Buford Highway Farmers Market's Yogurt Covered Raisins. The number of each Lake Homes's Buford Highway Farmers Market equals 22 more than the sum of each Lake Homes's Galleria Supermarket, each Buford Highway Farmers Market's Yogurt Covered Raisins and each Fiesta Mart's Yogurt Covered Raisins. The number of each Mountain Homes's Fiesta Mart equals 13 more than the sum of each Fiesta Mart's Salsa and each Buford Highway Farmers Market's Salsa. The number of each Mountain Homes's Galleria Supermarket equals 2 more than each Lake Homes's Supermarket. The number of each Buford Highway Farmers Market's Yogurt Covered Raisins equals 10. The number of each Galleria Supermarket's Yogurt Covered Raisins equals 14 times as much as the sum of each Mountain Homes's Galleria Supermarket, each Lake Homes's Buford Highway Farmers Market and each Buford Highway Farmers Market's Yogurt Covered Raisins. The number of each Lake Homes's Galleria Supermarket equals 16 times as much as the sum of each Fiesta Mart's Yogurt Covered Raisins and each Buford Highway Farmers Market's Yogurt Covered Raisins. The number of each Fiesta Mart's Salsa equals 5. How many Yogurt Covered Raisins does Galleria Supermarket have?",
+  "lookup": {
+    "p_0_1_2_1": 10,
+    "p_0_1_0_1": 10,
+    "p_0_0_0_1": 21,
+    "p_0_0_0_2": 17,
+    "p_0_0_0_0": 14,
+    "p_1_0_0_1": 6,
+    "p_0_0_1_1": 8,
+    "p_0_1_0_0": 5,
+    "p_0_1_1_1": 7,
+    "p_0_1_2_0": 14,
+    "p_0_0_1_0": 9
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_1",
+        "literal": 10,
+        "span": [
+          943,
+          1026
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Fiesta Mart's Yogurt Covered Raisins"
+        ],
+        "expression": "p_0_1_2_1",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Lake Homes's Galleria Supermarket"
+        ],
+        "expression": "(16 * (p_0_1_0_1 + p_0_1_2_1))",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_1_2_1",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Lake Homes's Buford Highway Farmers Market"
+        ],
+        "expression": "(22 + ((p_0_0_0_1 + p_0_1_2_1) + p_0_1_0_1))",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_2",
+          "p_0_1_2_1",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Lake Homes's Fiesta Mart"
+        ],
+        "expression": "((p_0_0_0_2 + p_0_1_2_1) + p_0_1_0_1)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Lake Homes's Supermarket"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Mountain Homes's Galleria Supermarket"
+        ],
+        "expression": "(2 + p_1_0_0_1)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_0_2",
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Galleria Supermarket's Yogurt Covered Raisins"
+        ],
+        "expression": "(14 * ((p_0_0_1_1 + p_0_0_0_2) + p_0_1_2_1))",
+        "value": 7
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_1_1"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "native_id": "igsm-official-0048-op5",
+  "family_id": "igsm-official-0048-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260975,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "15",
+  "target": "p_0_1_1_2",
+  "question": "The number of each Epiglottis's Smooth Muscle Cells equals 0. The number of each Leopard's Nasopharynx equals the sum of each Lungs's Cells and each Lungs's Uterine Muscle Cells. The number of each Nasopharynx's Papillary Muscle Cells equals 5. The number of each Lungs's Uterine Muscle Cells equals 15. The number of each Wolf's Lungs equals 21 more than each Nasopharynx's Papillary Muscle Cells. The number of each Lungs's Muscle Spindle Cells equals each Sloth's Cells. The number of each Leopard's Epiglottis equals each Wolf's Lungs. The number of each Wolf's Vocal Cords equals each Vocal Cords's Cells. The number of each Nasopharynx's Smooth Muscle Cells equals the difference of each Lungs's Cells and each Lungs's Muscle Spindle Cells. How many Smooth Muscle Cells does Nasopharynx have?",
+  "lookup": {
+    "p_1_1_3_2": 0,
+    "p_0_0_1_3": 0,
+    "p_0_1_2_2": 0,
+    "p_0_1_0_1": 15,
+    "p_0_1_1_0": 5,
+    "p_0_0_1_0": 3,
+    "p_1_0_3_2": 0,
+    "p_0_0_0_2": 3,
+    "p_0_1_0_3": 0,
+    "p_1_1_0_2": 15,
+    "p_0_1_1_2": 15,
+    "p_0_0_0_1": 7
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_1",
+        "literal": 15,
+        "span": [
+          245,
+          302
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_3",
+        "literal": 0,
+        "span": [
+          399,
+          472
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_1_0_3"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Lungs's Cells"
+        ],
+        "expression": "(p_0_1_0_1 + p_0_1_0_3)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_1_1_0_2",
+          "p_0_1_0_3"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Nasopharynx's Smooth Muscle Cells"
+        ],
+        "expression": "(p_1_1_0_2 - p_0_1_0_3)",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_0_1_1_2"
+      ]
+    ]
+  }
+}

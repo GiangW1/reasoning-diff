@@ -1,0 +1,272 @@
+{
+  "native_id": "igsm-official-0178-op15",
+  "family_id": "igsm-official-0178-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261110,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "8",
+  "target": "p_0_1_1_3",
+  "question": "The number of each Cheetah Run's Tree Frog equals 19 times as much as the difference of each Giraffe Enclosure's Giant Salamander and each Mikumi National Park's Giraffe Enclosure. The number of each Mikumi National Park's Cheetah Run equals 15. The number of each Etosha National Park's Giraffe Enclosure equals 5 times as much as each Tiger Territory's Tree Frog. The number of each Tiger Territory's Tree Frog equals each Bat Cave's Animal. The number of each Etosha National Park's Bat Cave equals 3 more than the difference of each Cheetah Run's Bullfrog and each Ruaha National Park's Giraffe Enclosure. The number of each Bat Cave's Tree Frog equals 0. The number of each Tiger Territory's Salamander equals 19 times as much as each Mikumi National Park's Giraffe Enclosure. The number of each Cheetah Run's Salamander equals 17. The number of each Giraffe Enclosure's Tree Frog equals each Serengeti National Park's Bat Cave. The number of each Etosha National Park's Tiger Territory equals 14. The number of each Ruaha National Park's Giraffe Enclosure equals 5 more than the difference of each Serengeti National Park's Tiger Territory and each Tiger Territory's Tree Frog. The number of each Mikumi National Park's Bat Cave equals the sum of each Etosha National Park's Cheetah Run, each Cheetah Run's Bullfrog, each Bat Cave's Salamander and each Etosha National Park's Bat Cave. The number of each Serengeti National Park's Cheetah Run equals 11 times as much as each Giraffe Enclosure's Giant Salamander. The number of each Bat Cave's Salamander equals 6 times as much as each Bat Cave's Tree Frog. The number of each Tiger Territory's Giant Salamander equals 17 times as much as each Etosha National Park's Bat Cave. The number of each Serengeti National Park's Bat Cave equals 16 more than each Serengeti National Park's Cheetah Run. The number of each Mikumi National Park's Giraffe Enclosure equals the difference of each Serengeti National Park's Bat Cave and each Etosha National Park's Cheetah Run. The number of each Mikumi National Park's Tiger Territory equals 14. The number of each Cheetah Run's Bullfrog equals the sum of each Ruaha National Park's Giraffe Enclosure, each Etosha National Park's Giraffe Enclosure and each Tiger Territory's Tree Frog. The number of each Etosha National Park's Cheetah Run equals the sum of each Giraffe Enclosure's Giant Salamander and each Etosha National Park's Tiger Territory. The number of each Giraffe Enclosure's Giant Salamander equals 7. The number of each Giraffe Enclosure's Salamander equals 20. The number of each Bat Cave's Giant Salamander equals 21 more than each Bat Cave's Salamander. The number of each Serengeti National Park's Tiger Territory equals each Etosha National Park's Giraffe Enclosure. The number of each Ruaha National Park's Tiger Territory equals the sum of each Giraffe Enclosure's Giant Salamander and each Serengeti National Park's Cheetah Run. The number of each Giraffe Enclosure's Bullfrog equals the difference of each Mikumi National Park's Giraffe Enclosure and each Ruaha National Park's Tiger Territory. How many Giant Salamander does Tiger Territory have?",
+  "lookup": {
+    "p_0_0_2_1": 14,
+    "p_0_1_0_1": 20,
+    "p_0_1_0_3": 7,
+    "p_0_1_2_0": 0,
+    "p_0_0_2_3": 21,
+    "p_0_1_3_1": 17,
+    "p_0_0_3_1": 14,
+    "p_0_0_0_3": 8,
+    "p_0_0_0_2": 1,
+    "p_0_0_3_0": 3,
+    "p_0_0_1_1": 15,
+    "p_0_0_3_3": 15,
+    "p_0_1_0_2": 11,
+    "p_0_1_3_0": 7,
+    "p_0_1_2_1": 0,
+    "p_0_1_0_0": 1,
+    "p_0_1_2_3": 21,
+    "p_1_1_2_2": 21,
+    "p_0_1_1_0": 21,
+    "p_0_1_1_1": 11,
+    "p_0_0_2_0": 13,
+    "p_0_0_0_1": 13,
+    "p_0_0_1_0": 20,
+    "p_0_1_3_2": 8,
+    "p_0_0_2_2": 14,
+    "p_0_1_1_3": 8,
+    "p_0_0_3_2": 20
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_0",
+        "literal": 0,
+        "span": [
+          610,
+          658
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Bat Cave's Salamander"
+        ],
+        "expression": "(6 * p_0_1_2_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_3",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_3",
+          "Bat Cave's Giant Salamander"
+        ],
+        "expression": "(21 + p_0_1_2_1)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_1",
+          "p_0_1_2_3"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Bat Cave's Animal"
+        ],
+        "expression": "((p_0_1_2_0 + p_0_1_2_1) + p_0_1_2_3)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Tiger Territory's Tree Frog"
+        ],
+        "expression": "p_1_1_2_2",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Etosha National Park's Giraffe Enclosure"
+        ],
+        "expression": "(5 * p_0_1_1_0)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Serengeti National Park's Tiger Territory"
+        ],
+        "expression": "p_0_0_2_0",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Ruaha National Park's Giraffe Enclosure"
+        ],
+        "expression": "(5 + (p_0_0_0_1 - p_0_1_1_0))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_2_0",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_3_2",
+          "Cheetah Run's Bullfrog"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_0_2_0) + p_0_1_1_0)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_1_3_2",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Etosha National Park's Bat Cave"
+        ],
+        "expression": "(3 + (p_0_1_3_2 - p_0_0_1_0))",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_3",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_1_3",
+          "Tiger Territory's Giant Salamander"
+        ],
+        "expression": "(17 * p_0_0_2_2)",
+        "value": 8
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_0",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_2_3"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_1_3"
+      ]
+    ]
+  }
+}

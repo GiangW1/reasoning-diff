@@ -1,0 +1,131 @@
+{
+  "native_id": "igsm-official-0156-op5",
+  "family_id": "igsm-official-0156-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261087,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "18",
+  "target": "p_1_0_1_2",
+  "question": "The number of each Price Chopper's Milk equals the sum of each Ice Cream's Chicken Breast, each Marc's's Ice Cream, each Milk's Ingredient and each Ice Cream's Ingredient. The number of each Milk's Chicken Breast equals each Ice Cream's Turkey. The number of each Marc's's Ice Cream equals 8. The number of each Ice Cream's Chicken Breast equals 1 more than each Ice Cream's Turkey. The number of each Ice Cream's Turkey equals 22 times as much as each Marc's's Ice Cream. How many Ingredient does Marc's have?",
+  "lookup": {
+    "p_0_0_1_1": 8,
+    "p_0_1_1_0": 15,
+    "p_0_1_1_1": 16,
+    "p_0_1_0_1": 15,
+    "p_1_1_1_2": 8,
+    "p_1_0_1_2": 18,
+    "p_1_1_0_2": 15,
+    "p_0_0_0_0": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 8,
+        "span": [
+          245,
+          291
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Ice Cream's Turkey"
+        ],
+        "expression": "(22 * p_0_0_1_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Ice Cream's Chicken Breast"
+        ],
+        "expression": "(1 + p_0_1_1_0)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Ice Cream's Ingredient"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_1",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Marc's's Ingredient"
+        ],
+        "expression": "(p_0_0_1_1 * p_1_1_1_2)",
+        "value": 18
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_1_2"
+      ]
+    ]
+  }
+}

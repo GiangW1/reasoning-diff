@@ -1,0 +1,176 @@
+{
+  "native_id": "igsm-official-0157-op10",
+  "family_id": "igsm-official-0157-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261088,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "1",
+  "target": "p_1_0_1_2",
+  "question": "The number of each Primate House's Hellbender equals 17 times as much as the sum of each Primate House's Axolotl and each Wolf Woods's Frog. The number of each Wolf Woods's Hellbender equals each Wolf Woods's Axolotl. The number of each Wolf Woods's Frog equals each Primate House's Axolotl. The number of each Primate House's Frog equals the sum of each Lemur Island's Frog, each Primate House's Hellbender, each Wolf Woods's Frog and each Primate House's Axolotl. The number of each Lemur Island's Axolotl equals each Wolf Woods's Axolotl. The number of each Primate House's Axolotl equals 20. The number of each Lemur Island's Frog equals 19. The number of each Hellbender's Middle Phalanx equals 17 more than the sum of each Frog's Bone, each Wolf Woods's Frog and each Lemur Island's Frog. The number of each Frog's Middle Phalanx equals each Frog's Radial Carpal. The number of each Frog's Radial Carpal equals each Wolf Woods's Axolotl. The number of each Wolf Woods's Axolotl equals 1 more than each Lemur Island's Frog. How many Bone does Lemur Island have?",
+  "lookup": {
+    "p_0_0_0_2": 20,
+    "p_0_0_1_0": 19,
+    "p_0_0_2_2": 20,
+    "p_0_0_1_2": 20,
+    "p_0_1_0_0": 20,
+    "p_0_1_0_1": 20,
+    "p_0_0_2_1": 20,
+    "p_1_1_2_2": 0,
+    "p_1_1_0_2": 17,
+    "p_0_0_2_0": 20,
+    "p_0_0_0_1": 13,
+    "p_1_0_1_2": 1,
+    "p_0_1_1_1": 4,
+    "p_0_0_0_0": 3
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 19,
+        "span": [
+          596,
+          644
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Wolf Woods's Axolotl"
+        ],
+        "expression": "(1 + p_0_0_1_0)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Frog's Radial Carpal"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Frog's Middle Phalanx"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Frog's Bone"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Lemur Island's Axolotl"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_2",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Lemur Island's Bone"
+        ],
+        "expression": "((p_0_0_1_0 * p_1_1_0_2) + (p_0_0_1_2 * 0))",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_2"
+      ]
+    ]
+  }
+}

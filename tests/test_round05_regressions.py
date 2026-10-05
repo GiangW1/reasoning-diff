@@ -120,7 +120,7 @@ def test_scientific_prepare_checks_later_traces(tmp_path, t1_tiny_path, monkeypa
     assert any(item["trace_id"] == "trace-edit" for item in quality["failures"])
 
 
-def test_scientific_prepare_can_require_complete_traces(tmp_path, t1_tiny_path, monkeypatch):
+def test_scientific_prepare_retains_incomplete_traces_without_quality_gate(tmp_path, t1_tiny_path, monkeypatch):
     import reasoning_diff.models.generate as generate
 
     original = generate.generate_task_trace
@@ -131,21 +131,24 @@ def test_scientific_prepare_can_require_complete_traces(tmp_path, t1_tiny_path, 
         return trace
 
     monkeypatch.setattr(generate, "generate_task_trace", missing_answer)
-    with pytest.raises(ValueError, match="invalid traces"):
-        main(
-            [
-                "prepare",
-                "--fixture",
-                str(t1_tiny_path),
-                "--out-dir",
-                str(tmp_path / "prep"),
-                "--eval-mode",
-                "scientific",
-                "--split-fractions",
-                *FRAC,
-                "--require-valid-traces",
-            ]
-        )
+    out = tmp_path / "prep"
+    assert main(
+        [
+            "prepare",
+            "--fixture",
+            str(t1_tiny_path),
+            "--out-dir",
+            str(out),
+            "--eval-mode",
+            "scientific",
+            "--split-fractions",
+            *FRAC,
+            "--require-valid-traces",
+        ]
+    ) == 0
+    quality = read_json(out / "trace_quality.json")
+    assert quality["counts"]["total"] >= 1
+    assert read_json(out / "run_spec.json")["config"]["quality_gate"] == "disabled_scientific_failures_retained"
 
 
 def test_scientific_collect_h_is_step_boundary_not_last_token(tmp_path, t1_tiny_path):

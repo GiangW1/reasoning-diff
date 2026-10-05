@@ -1,0 +1,174 @@
+{
+  "native_id": "igsm-official-0001-op10",
+  "family_id": "igsm-official-0001-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260927,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "15",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Bald Eagle's Hamstrings equals 4 times as much as the sum of each Kingfisher's Organs and each Peacock's Cartilage. The number of each Kingfisher's Triceps equals 15 times as much as the sum of each Peacock's Organs, each Peacock's Triceps and each Peacock's Cartilage. The number of each Peacock's Cartilage equals each Peacock's Triceps. The number of each Peacock's Triceps equals 6. How many Organs does Bald Eagle have?",
+  "lookup": {
+    "p_0_0_2_2": 6,
+    "p_0_0_2_1": 6,
+    "p_1_0_2_1": 12,
+    "p_0_0_1_2": 15,
+    "p_1_0_1_1": 15,
+    "p_0_0_0_0": 15,
+    "p_1_0_0_1": 15
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_2",
+        "literal": 6,
+        "span": [
+          359,
+          404
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Peacock's Cartilage"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Peacock's Organs"
+        ],
+        "expression": "(p_0_0_2_1 + p_0_0_2_2)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_2_2",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Kingfisher's Triceps"
+        ],
+        "expression": "(15 * ((p_1_0_2_1 + p_0_0_2_2) + p_0_0_2_1))",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Kingfisher's Organs"
+        ],
+        "expression": "p_0_0_1_2",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Bald Eagle's Hamstrings"
+        ],
+        "expression": "(4 * (p_1_0_1_1 + p_0_0_2_1))",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Bald Eagle's Organs"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

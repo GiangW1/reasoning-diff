@@ -1,0 +1,177 @@
+{
+  "native_id": "igsm-official-0093-op10",
+  "family_id": "igsm-official-0093-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261020,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "1",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Amboseli National Park's Dolphin Lagoon equals each Ngorongoro Conservation Area's Dolphin Lagoon. The number of each Lake Nakuru National Park's Dolphin Lagoon equals each Lake Nakuru National Park's Piranha Pond. The number of each Lake Nakuru National Park's Coral Reef Exhibit equals 20 more than the sum of each Ngorongoro Conservation Area's Dolphin Lagoon, each Lake Nakuru National Park's Dolphin Lagoon and each Lake Nakuru National Park's Piranha Pond. The number of each Lake Nakuru National Park's Piranha Pond equals 9. The number of each Ngorongoro Conservation Area's Octopus Den equals each Lake Nakuru National Park's Dolphin Lagoon. The number of each Amboseli National Park's Octopus Den equals 10 more than the sum of each Ngorongoro Conservation Area's Dolphin Lagoon, each Amboseli National Park's Dolphin Lagoon and each Lake Nakuru National Park's Coral Reef Exhibit. The number of each Amboseli National Park's Piranha Pond equals 17. The number of each Lake Nakuru National Park's Octopus Den equals each Lake Nakuru National Park's Dolphin Lagoon. The number of each Moremi Game Reserve's Piranha Pond equals 6 more than the difference of each Moremi Game Reserve's Dolphin Lagoon and each Moremi Game Reserve's Octopus Den. The number of each Amboseli National Park's Coral Reef Exhibit equals each Amboseli National Park's Piranha Pond. The number of each Moremi Game Reserve's Octopus Den equals 3. The number of each Ngorongoro Conservation Area's Dolphin Lagoon equals each Amboseli National Park's Piranha Pond. The number of each Ngorongoro Conservation Area's Piranha Pond equals 5. The number of each Ngorongoro Conservation Area's Coral Reef Exhibit equals each Moremi Game Reserve's Octopus Den. The number of each Moremi Game Reserve's Dolphin Lagoon equals the difference of each Ngorongoro Conservation Area's Coral Reef Exhibit and each Moremi Game Reserve's Octopus Den. The number of each Moremi Game Reserve's Coral Reef Exhibit equals 21 more than the difference of each Moremi Game Reserve's Dolphin Lagoon and each Ngorongoro Conservation Area's Coral Reef Exhibit. How many Enclosure does Moremi Game Reserve have?",
+  "lookup": {
+    "p_0_0_1_3": 5,
+    "p_0_0_3_3": 17,
+    "p_0_0_2_3": 9,
+    "p_0_0_0_2": 3,
+    "p_0_0_3_0": 17,
+    "p_0_0_1_0": 3,
+    "p_0_0_1_1": 17,
+    "p_0_0_2_1": 9,
+    "p_0_0_3_1": 17,
+    "p_0_0_2_0": 9,
+    "p_0_0_2_2": 9,
+    "p_0_0_3_2": 7,
+    "p_0_0_0_1": 0,
+    "p_0_0_1_2": 9,
+    "p_0_0_0_0": 18,
+    "p_0_0_0_3": 3,
+    "p_1_0_0_1": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_2",
+        "literal": 3,
+        "span": [
+          1385,
+          1446
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Ngorongoro Conservation Area's Coral Reef Exhibit"
+        ],
+        "expression": "p_0_0_0_2",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Moremi Game Reserve's Dolphin Lagoon"
+        ],
+        "expression": "(p_0_0_1_0 - p_0_0_0_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Moremi Game Reserve's Coral Reef Exhibit"
+        ],
+        "expression": "(21 + (p_0_0_0_1 - p_0_0_1_0))",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_3",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_3",
+          "Moremi Game Reserve's Piranha Pond"
+        ],
+        "expression": "(6 + (p_0_0_0_1 - p_0_0_0_2))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2",
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Moremi Game Reserve's Enclosure"
+        ],
+        "expression": "(((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2) + p_0_0_0_3)",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

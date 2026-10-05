@@ -1,0 +1,254 @@
+{
+  "native_id": "igsm-official-0098-op15",
+  "family_id": "igsm-official-0098-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261025,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "7",
+  "target": "p_1_1_1_2",
+  "question": "The number of each Row Houses's Dollar General equals 9 times as much as the difference of each Dollar General's Canned Tomatoes and each Gated Community's Lidl. The number of each Gated Community's Lidl equals 21. The number of each Gated Community's Dollar General equals the sum of each Row Houses's Shop 'n Save, each Row Houses's Lidl and each Lidl's Canned Peaches. The number of each Lidl's Canned Pasta equals each Gated Community's Lidl. The number of each Shop 'n Save's Canned Pasta equals the sum of each Dollar General's Canned Peaches, each Shop 'n Save's Canned Peaches and each Lidl's Canned Pasta. The number of each Lidl's Canned Peaches equals 9 more than each Row Houses's Lidl. The number of each Dollar General's Canned Tomatoes equals 3 times as much as the sum of each Lidl's Canned Pasta and each Gated Community's Lidl. The number of each Row Houses's Lidl equals 14. The number of each Cottage Community's Lidl equals 6 times as much as each Gated Community's Product. The number of each Dollar General's Canned Pasta equals 22 times as much as each Row Houses's Shop 'n Save. The number of each Dollar General's Canned Peaches equals 2 more than the difference of each Row Houses's Dollar General and each Dollar General's Canned Tomatoes. The number of each Lidl's Canned Tomatoes equals the difference of each Gated Community's Shop 'n Save and each Shop 'n Save's Canned Peaches. The number of each Cottage Community's Shop 'n Save equals 3. The number of each Gated Community's Shop 'n Save equals each Shop 'n Save's Canned Tomatoes. The number of each Cottage Community's Dollar General equals the difference of each Gated Community's Supermarket and each Row Houses's Lidl. The number of each Shop 'n Save's Canned Tomatoes equals the difference of each Dollar General's Canned Peaches and each Gated Community's Lidl. The number of each Shop 'n Save's Canned Peaches equals the sum of each Dollar General's Canned Tomatoes, each Dollar General's Canned Peaches and each Shop 'n Save's Canned Tomatoes. The number of each Row Houses's Shop 'n Save equals 10. How many Product does Shop 'n Save have?",
+  "lookup": {
+    "p_0_0_2_1": 3,
+    "p_0_0_1_2": 14,
+    "p_0_1_2_2": 0,
+    "p_0_0_1_1": 10,
+    "p_0_0_0_2": 21,
+    "p_0_1_0_1": 13,
+    "p_0_0_0_0": 1,
+    "p_0_1_2_1": 21,
+    "p_0_1_0_0": 11,
+    "p_0_0_1_0": 2,
+    "p_0_1_0_2": 16,
+    "p_0_1_1_0": 18,
+    "p_0_0_0_1": 18,
+    "p_1_1_0_2": 17,
+    "p_0_1_1_2": 22,
+    "p_1_0_0_1": 17,
+    "p_0_0_2_0": 3,
+    "p_0_1_2_0": 19,
+    "p_1_1_2_2": 17,
+    "p_0_1_1_1": 13,
+    "p_1_1_1_2": 7,
+    "p_1_0_0_2": 17,
+    "p_0_0_2_2": 10
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_2",
+        "literal": 21,
+        "span": [
+          162,
+          213
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Lidl's Canned Pasta"
+        ],
+        "expression": "p_0_0_0_2",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_2_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Dollar General's Canned Tomatoes"
+        ],
+        "expression": "(3 * (p_0_1_2_1 + p_0_0_0_2))",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Row Houses's Dollar General"
+        ],
+        "expression": "(9 * (p_0_1_0_0 - p_0_0_0_2))",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Dollar General's Canned Peaches"
+        ],
+        "expression": "(2 + (p_0_0_1_0 - p_0_1_0_0))",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_0_2",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Shop 'n Save's Canned Tomatoes"
+        ],
+        "expression": "(p_0_1_0_2 - p_0_0_0_2)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_2",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Shop 'n Save's Canned Peaches"
+        ],
+        "expression": "((p_0_1_0_0 + p_0_1_0_2) + p_0_1_1_0)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_0_2",
+          "p_0_1_1_2",
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Shop 'n Save's Canned Pasta"
+        ],
+        "expression": "((p_0_1_0_2 + p_0_1_1_2) + p_0_1_2_1)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Shop 'n Save's Product"
+        ],
+        "expression": "((p_0_1_1_0 + p_0_1_1_1) + p_0_1_1_2)",
+        "value": 7
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_2",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ]
+    ]
+  }
+}

@@ -185,13 +185,14 @@ def _snapshot(generator, native_id: str, seed: int, op: int) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--out-dir", type=Path, required=True)
+    parser.add_argument("--source-root", type=Path, default=SOURCE_ROOT)
     parser.add_argument("--n", type=int, default=500)
     parser.add_argument("--seed", type=int, default=20260926)
     parser.add_argument("--ops", type=int, nargs="+", default=[5, 10, 15, 21])
     args = parser.parse_args()
 
     _install_offline_stubs()
-    sys.path.insert(0, str(SOURCE_ROOT))
+    sys.path.insert(0, str(args.source_root))
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
     from data_gen.pretrain.id_gen import IdGen
     from reasoning_diff.tasks.t1_official import load_igsm_snapshot

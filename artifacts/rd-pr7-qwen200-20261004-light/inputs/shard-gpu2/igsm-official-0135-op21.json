@@ -1,0 +1,365 @@
+{
+  "native_id": "igsm-official-0135-op21",
+  "family_id": "igsm-official-0135-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261065,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "9",
+  "target": "p_1_0_2_2",
+  "question": "The number of each Padded Backpack's Gouache equals 16 times as much as each Squash Court's Padded Backpack. The number of each Squash Court's Padded Backpack equals 7 times as much as each Baseball Field's Organizer Backpack. The number of each Squash Court's Organizer Backpack equals 14 more than each Squash Court's Two-Strap Backpack. The number of each Baseball Field's Padded Backpack equals each Two-Strap Backpack's Stationery. The number of each Two-Strap Backpack's Palette equals the difference of each Squash Court's Backpack and each Weight Training Room's Organizer Backpack. The number of each Weight Training Room's Padded Backpack equals 4. The number of each Organizer Backpack's Stencil equals the sum of each Weight Training Room's Two-Strap Backpack and each Squash Court's Two-Strap Backpack. The number of each Padded Backpack's Palette equals 7. The number of each Weight Training Room's Organizer Backpack equals 22. The number of each Squash Court's Two-Strap Backpack equals 20 times as much as each Baseball Field's Organizer Backpack. The number of each Baseball Field's Organizer Backpack equals 12 more than each Weight Training Room's Organizer Backpack. The number of each Two-Strap Backpack's Stencil equals each Weight Training Room's Two-Strap Backpack. The number of each Weight Training Room's Two-Strap Backpack equals each Squash Court's Backpack. How many Stationery does Squash Court have?",
+  "lookup": {
+    "p_0_1_2_1": 7,
+    "p_0_0_1_0": 22,
+    "p_0_0_0_0": 11,
+    "p_0_0_2_1": 13,
+    "p_0_0_2_2": 8,
+    "p_0_1_2_0": 13,
+    "p_0_0_2_0": 4,
+    "p_0_0_1_2": 4,
+    "p_1_0_2_1": 2,
+    "p_1_1_2_2": 20,
+    "p_0_0_1_1": 2,
+    "p_0_1_1_2": 2,
+    "p_0_1_0_2": 15,
+    "p_1_1_0_2": 15,
+    "p_0_1_1_1": 3,
+    "p_1_1_1_2": 5,
+    "p_1_0_2_2": 9,
+    "p_0_0_0_2": 5
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 22,
+        "span": [
+          871,
+          941
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_1",
+        "literal": 7,
+        "span": [
+          816,
+          869
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Baseball Field's Organizer Backpack"
+        ],
+        "expression": "(12 + p_0_0_1_0)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Squash Court's Two-Strap Backpack"
+        ],
+        "expression": "(20 * p_0_0_0_0)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Squash Court's Organizer Backpack"
+        ],
+        "expression": "(14 + p_0_0_2_1)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Squash Court's Padded Backpack"
+        ],
+        "expression": "(7 * p_0_0_0_0)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Squash Court's Backpack"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Weight Training Room's Two-Strap Backpack"
+        ],
+        "expression": "p_1_0_2_1",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Organizer Backpack's Stencil"
+        ],
+        "expression": "(p_0_0_1_1 + p_0_0_2_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Organizer Backpack's Stationery"
+        ],
+        "expression": "p_0_1_0_2",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Two-Strap Backpack's Palette"
+        ],
+        "expression": "(p_1_0_2_1 - p_0_0_1_0)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Two-Strap Backpack's Stencil"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_1",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Two-Strap Backpack's Stationery"
+        ],
+        "expression": "(p_0_1_1_1 + p_0_1_1_2)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Padded Backpack's Gouache"
+        ],
+        "expression": "(16 * p_0_0_2_2)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Padded Backpack's Stationery"
+        ],
+        "expression": "(p_0_1_2_0 + p_0_1_2_1)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_1_0_2",
+          "p_0_0_2_1",
+          "p_1_1_1_2",
+          "p_0_0_2_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "Squash Court's Stationery"
+        ],
+        "expression": "(((p_0_0_2_0 * p_1_1_0_2) + (p_0_0_2_1 * p_1_1_1_2)) + (p_0_0_2_2 * p_1_1_2_2))",
+        "value": 9
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_2_2"
+      ]
+    ]
+  }
+}

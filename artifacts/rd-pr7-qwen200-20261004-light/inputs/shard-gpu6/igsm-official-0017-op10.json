@@ -1,0 +1,198 @@
+{
+  "native_id": "igsm-official-0017-op10",
+  "family_id": "igsm-official-0017-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260943,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "6",
+  "target": "p_0_2_0_2",
+  "question": "The number of each Martial Arts Dojo's Wheeled Backpack equals 7. The number of each Packable Travel Backpack's Flip Chart equals each Martial Arts Dojo's Packable Travel Backpack. The number of each Golf Practice Area's Wheeled Backpack equals each Wheeled Backpack's Flip Chart. The number of each Ultralight Backpack's Flip Chart equals 6 more than each Packable Travel Backpack's Stationery. The number of each Maple Grove Elementary's Gymnasium equals each Golf Practice Area's Wheeled Backpack. The number of each Ultralight Backpack's Craft Paper equals 11. The number of each Packable Travel Backpack's Index Cards equals the difference of each Maple Grove Elementary's Backpack and each Martial Arts Dojo's Packable Travel Backpack. The number of each Lakeview Elementary's Martial Arts Dojo equals 21 times as much as each Martial Arts Dojo's Wheeled Backpack. The number of each Martial Arts Dojo's Packable Travel Backpack equals each Gymnasium's Backpack. The number of each Mountain Peak Elementary's Golf Practice Area equals each Packable Travel Backpack's Flip Chart. The number of each Wheeled Backpack's Flip Chart equals 7. The number of each Martial Arts Dojo's Ultralight Backpack equals the difference of each Packable Travel Backpack's Index Cards and each Golf Practice Area's Wheeled Backpack. How many Flip Chart does Ultralight Backpack have?",
+  "lookup": {
+    "p_1_1_1_2": 0,
+    "p_0_1_0_2": 0,
+    "p_0_1_0_1": 7,
+    "p_0_2_2_2": 0,
+    "p_0_2_1_2": 7,
+    "p_0_1_2_1": 7,
+    "p_0_0_0_1": 7,
+    "p_1_0_0_2": 0,
+    "p_0_2_2_1": 0,
+    "p_0_0_2_2": 0,
+    "p_0_0_1_0": 9,
+    "p_0_2_0_0": 11,
+    "p_0_1_0_0": 16,
+    "p_1_2_2_3": 0,
+    "p_0_2_0_2": 6
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_1_2",
+        "literal": 7,
+        "span": [
+          1085,
+          1142
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_2",
+        "literal": 0,
+        "span": [
+          871,
+          967
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_2_1_2"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Golf Practice Area's Wheeled Backpack"
+        ],
+        "expression": "p_0_2_1_2",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Maple Grove Elementary's Gymnasium"
+        ],
+        "expression": "p_0_1_2_1",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_2",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_2",
+          "Maple Grove Elementary's Backpack"
+        ],
+        "expression": "(p_0_0_0_1 * 0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_1",
+        "parents": [
+          "p_1_0_0_2",
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_2_2_1",
+          "Packable Travel Backpack's Index Cards"
+        ],
+        "expression": "(p_1_0_0_2 - p_0_1_0_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_2",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_2_2_2",
+          "Packable Travel Backpack's Flip Chart"
+        ],
+        "expression": "p_0_1_0_2",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_2_3",
+        "parents": [
+          "p_0_2_2_1",
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_1_2_2_3",
+          "Packable Travel Backpack's Stationery"
+        ],
+        "expression": "(p_0_2_2_1 + p_0_2_2_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_2",
+        "parents": [
+          "p_1_2_2_3"
+        ],
+        "aliases": [
+          "p_0_2_0_2",
+          "Ultralight Backpack's Flip Chart"
+        ],
+        "expression": "(6 + p_1_2_2_3)",
+        "value": 6
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_1_2",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_0_0_2",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_2_2_1",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_0_2_0_2"
+      ]
+    ]
+  }
+}

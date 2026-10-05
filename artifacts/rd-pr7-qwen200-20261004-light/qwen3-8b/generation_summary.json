@@ -1,0 +1,1 @@
+{"base_accuracy_itt": 0.07166666666666667, "base_correct": 43, "base_generations": 600, "execution_backends": {"serial_decode": 1326, "shared_model_batched_decode": 1725}, "n_problems": 200, "n_traces": 3051, "scientific_conclusion": null, "statuses": {"natural_complete": 255, "natural_truncated": 2679, "parse_failed": 117}}

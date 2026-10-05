@@ -1,0 +1,138 @@
+{
+  "native_id": "igsm-official-0184-op5",
+  "family_id": "igsm-official-0184-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261117,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "5",
+  "target": "p_0_0_2_3",
+  "question": "The number of each Bois de Boulogne in Paris's Stingray equals the sum of each Chapultepec Park in Mexico City's Stingray and each Starfish's Wrist Joint. The number of each Sea Turtle's Wrist Joint equals each Millennium Park in Chicago's Great White Shark. The number of each Millennium Park in Chicago's Sea Turtle equals the sum of each Great White Shark's Wrist Joint, each Starfish's Quadriceps, each Great White Shark's Rotator Cuff and each Starfish's Biceps. The number of each Ibirapuera Park in S\u00e3o Paulo's Starfish equals each Sea Turtle's Wrist Joint. The number of each Chapultepec Park in Mexico City's Starfish equals 22. The number of each Great White Shark's Rotator Cuff equals the sum of each Starfish's Rotator Cuff, each Bois de Boulogne in Paris's Stingray, each Bois de Boulogne in Paris's Starfish and each Stingray's Quadriceps. The number of each Millennium Park in Chicago's Stingray equals the sum of each Starfish's Rotator Cuff, each Stingray's Quadriceps and each Starfish's Wrist Joint. The number of each Great White Shark's Quadriceps equals each Chapultepec Park in Mexico City's Stingray. The number of each Millennium Park in Chicago's Great White Shark equals 18 times as much as each Chapultepec Park in Mexico City's Starfish. The number of each Chapultepec Park in Mexico City's Sea Turtle equals each Stingray's Quadriceps. The number of each Ibirapuera Park in S\u00e3o Paulo's Great White Shark equals each Starfish's Wrist Joint. The number of each Great White Shark's Wrist Joint equals 15. The number of each Bois de Boulogne in Paris's Great White Shark equals each Ibirapuera Park in S\u00e3o Paulo's Starfish. The number of each Stingray's Quadriceps equals 22 more than the sum of each Chapultepec Park in Mexico City's Stingray, each Starfish's Wrist Joint and each Bois de Boulogne in Paris's Starfish. The number of each Bois de Boulogne in Paris's Starfish equals the difference of each Starfish's Wrist Joint and each Chapultepec Park in Mexico City's Stingray. The number of each Starfish's Rotator Cuff equals 22 times as much as each Chapultepec Park in Mexico City's Stingray. The number of each Ibirapuera Park in S\u00e3o Paulo's Stingray equals 8 more than each Stingray's Quadriceps. The number of each Chapultepec Park in Mexico City's Stingray equals 5. The number of each Starfish's Quadriceps equals each Starfish's Wrist Joint. The number of each Starfish's Wrist Joint equals 3. The number of each Stingray's Wrist Joint equals 20. The number of each Starfish's Biceps equals each Bois de Boulogne in Paris's Starfish. The number of each Sea Turtle's Quadriceps equals 20 times as much as each Bois de Boulogne in Paris's Stingray. The number of each Great White Shark's Biceps equals each Starfish's Biceps. The number of each Stingray's Rotator Cuff equals each Bois de Boulogne in Paris's Stingray. How many Great White Shark does Bois de Boulogne in Paris have?",
+  "lookup": {
+    "p_0_1_3_0": 15,
+    "p_0_1_0_0": 20,
+    "p_0_0_0_0": 5,
+    "p_0_1_3_2": 5,
+    "p_0_1_1_0": 3,
+    "p_0_0_2_0": 8,
+    "p_0_0_0_1": 22,
+    "p_0_1_0_3": 8,
+    "p_0_1_2_2": 22,
+    "p_0_1_1_3": 18,
+    "p_0_0_2_1": 21,
+    "p_0_0_3_3": 3,
+    "p_0_1_0_2": 5,
+    "p_0_0_3_0": 13,
+    "p_0_0_1_3": 5,
+    "p_0_0_1_0": 3,
+    "p_0_1_3_3": 6,
+    "p_0_1_1_1": 21,
+    "p_0_1_2_0": 5,
+    "p_0_1_3_1": 21,
+    "p_0_0_0_2": 5,
+    "p_0_1_1_2": 3,
+    "p_0_0_3_1": 5,
+    "p_0_0_1_2": 22,
+    "p_0_0_2_3": 5
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 22,
+        "span": [
+          565,
+          636
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Millennium Park in Chicago's Great White Shark"
+        ],
+        "expression": "(18 * p_0_0_0_1)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Sea Turtle's Wrist Joint"
+        ],
+        "expression": "p_0_0_1_3",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "Ibirapuera Park in S\u00e3o Paulo's Starfish"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Bois de Boulogne in Paris's Great White Shark"
+        ],
+        "expression": "p_0_0_3_1",
+        "value": 5
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_0_0_2_3"
+      ]
+    ]
+  }
+}

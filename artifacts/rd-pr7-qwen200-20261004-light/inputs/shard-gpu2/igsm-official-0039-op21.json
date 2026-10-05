@@ -1,0 +1,309 @@
+{
+  "native_id": "igsm-official-0039-op21",
+  "family_id": "igsm-official-0039-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260965,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "6",
+  "target": "p_1_0_1_1",
+  "question": "The number of each Sourdough Bread's Cayenne Pepper equals 11 times as much as each Bread's Dill. The number of each Cinnamon Rolls's Dill equals 0 more than the sum of each Bread's Ingredient, each Cinnamon Rolls's Oregano and each Bread's Cayenne Pepper. The number of each Sourdough Bread's Dill equals 12 times as much as the sum of each Cinnamon Rolls's Oregano and each Cinnamon Rolls's Cayenne Pepper. The number of each Bread's Oregano equals 10. The number of each Cinnamon Rolls's Oregano equals 15 more than the sum of each Bread's Ingredient, each Bread's Oregano and each Bread's Cayenne Pepper. The number of each Bread's Dill equals each Bread's Oregano. The number of each Sourdough Bread's Oregano equals the sum of each Cinnamon Rolls's Ingredient and each Cinnamon Rolls's Dill. The number of each Bread's Cayenne Pepper equals 15 more than each Bread's Dill. The number of each Cinnamon Rolls's Cayenne Pepper equals 17 more than the sum of each Bread's Cayenne Pepper and each Cinnamon Rolls's Oregano. How many Ingredient does Sourdough Bread have?",
+  "lookup": {
+    "p_0_0_2_2": 10,
+    "p_0_0_2_0": 10,
+    "p_0_0_1_1": 18,
+    "p_0_0_2_1": 2,
+    "p_1_0_2_1": 22,
+    "p_0_0_0_2": 3,
+    "p_0_0_0_1": 22,
+    "p_0_0_1_0": 1,
+    "p_0_0_0_0": 4,
+    "p_1_0_0_1": 6,
+    "p_0_0_1_2": 10,
+    "p_1_0_1_1": 6
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_2",
+        "literal": 10,
+        "span": [
+          409,
+          453
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Bread's Dill"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Bread's Cayenne Pepper"
+        ],
+        "expression": "(15 + p_0_0_2_0)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Bread's Ingredient"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_2_2",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Cinnamon Rolls's Oregano"
+        ],
+        "expression": "(15 + ((p_1_0_2_1 + p_0_0_2_2) + p_0_0_2_1))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Cinnamon Rolls's Cayenne Pepper"
+        ],
+        "expression": "(17 + (p_0_0_2_1 + p_0_0_0_2))",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_2",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Sourdough Bread's Dill"
+        ],
+        "expression": "(12 * (p_0_0_0_2 + p_0_0_0_1))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Sourdough Bread's Cayenne Pepper"
+        ],
+        "expression": "(11 * p_0_0_2_0)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_0_2",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Cinnamon Rolls's Dill"
+        ],
+        "expression": "(0 + ((p_1_0_2_1 + p_0_0_0_2) + p_0_0_2_1))",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Cinnamon Rolls's Ingredient"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Sourdough Bread's Oregano"
+        ],
+        "expression": "(p_1_0_0_1 + p_0_0_0_0)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Sourdough Bread's Ingredient"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_0_1_1) + p_0_0_1_2)",
+        "value": 6
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ]
+    ]
+  }
+}

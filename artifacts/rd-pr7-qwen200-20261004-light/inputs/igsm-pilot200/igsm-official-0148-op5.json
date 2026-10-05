@@ -1,0 +1,140 @@
+{
+  "native_id": "igsm-official-0148-op5",
+  "family_id": "igsm-official-0148-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261078,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "18",
+  "target": "p_0_1_2_3",
+  "question": "The number of each Cedarwood Elementary's Rock Climbing Wall equals 19 times as much as each Table Tennis Room's Camping Backpack. The number of each Yoga Studio's Camping Backpack equals each Yoga Studio's Overnight Backpack. The number of each Rock Climbing Wall's Ultralight Backpack equals the sum of each Rock Climbing Wall's Camping Backpack and each Table Tennis Room's Camping Backpack. The number of each Table Tennis Room's Ultralight Backpack equals the sum of each Rock Climbing Wall's Expedition Pack, each Rock Climbing Wall's Overnight Backpack and each Yoga Studio's Expedition Pack. The number of each Yoga Studio's Expedition Pack equals 6. The number of each Elmwood Elementary's Rock Climbing Wall equals each Cedarwood Elementary's Rock Climbing Wall. The number of each Yoga Studio's Overnight Backpack equals each Yoga Studio's Ultralight Backpack. The number of each Elmwood Elementary's Table Tennis Room equals 7. The number of each Green Field Elementary's Table Tennis Room equals the sum of each Elmwood Elementary's Rock Climbing Wall, each Yoga Studio's Overnight Backpack, each Green Field Elementary's Rock Climbing Wall and each Elmwood Elementary's Yoga Studio. The number of each Rock Climbing Wall's Overnight Backpack equals 10. The number of each Rock Climbing Wall's Expedition Pack equals 8. The number of each Yoga Studio's Ultralight Backpack equals the sum of each Elmwood Elementary's Rock Climbing Wall and each Table Tennis Room's Camping Backpack. The number of each Green Field Elementary's Yoga Studio equals the difference of each Rock Climbing Wall's Ultralight Backpack and each Cedarwood Elementary's Rock Climbing Wall. The number of each Green Field Elementary's Rock Climbing Wall equals the difference of each Rock Climbing Wall's Camping Backpack and each Table Tennis Room's Camping Backpack. The number of each Cedarwood Elementary's Table Tennis Room equals the sum of each Yoga Studio's Camping Backpack, each Table Tennis Room's Camping Backpack and each Cedarwood Elementary's Rock Climbing Wall. The number of each Rock Climbing Wall's Camping Backpack equals the sum of each Table Tennis Room's Camping Backpack, each Elmwood Elementary's Rock Climbing Wall and each Cedarwood Elementary's Rock Climbing Wall. The number of each Table Tennis Room's Camping Backpack equals 17. The number of each Elmwood Elementary's Yoga Studio equals 17. The number of each Table Tennis Room's Overnight Backpack equals each Rock Climbing Wall's Expedition Pack. The number of each Cedarwood Elementary's Yoga Studio equals 15 times as much as each Elmwood Elementary's Classroom. The number of each Table Tennis Room's Expedition Pack equals each Yoga Studio's Expedition Pack. How many Overnight Backpack does Yoga Studio have?",
+  "lookup": {
+    "p_0_1_1_1": 17,
+    "p_0_0_2_1": 7,
+    "p_0_1_0_2": 8,
+    "p_0_0_2_2": 17,
+    "p_0_1_0_3": 10,
+    "p_0_0_0_0": 1,
+    "p_0_1_1_3": 8,
+    "p_0_1_2_2": 6,
+    "p_0_0_2_0": 1,
+    "p_0_1_0_1": 19,
+    "p_0_1_1_0": 1,
+    "p_0_1_2_0": 18,
+    "p_0_1_0_0": 13,
+    "p_0_1_2_3": 18,
+    "p_1_0_2_1": 2,
+    "p_0_1_2_1": 18,
+    "p_0_0_1_2": 12,
+    "p_0_0_1_0": 2,
+    "p_0_0_0_2": 7,
+    "p_0_0_1_1": 15,
+    "p_0_1_1_2": 6,
+    "p_0_0_0_1": 13
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_1",
+        "literal": 17,
+        "span": [
+          2277,
+          2342
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Cedarwood Elementary's Rock Climbing Wall"
+        ],
+        "expression": "(19 * p_0_1_1_1)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Elmwood Elementary's Rock Climbing Wall"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Yoga Studio's Ultralight Backpack"
+        ],
+        "expression": "(p_0_0_2_0 + p_0_1_1_1)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_3",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_1_2_3",
+          "Yoga Studio's Overnight Backpack"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 18
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_1_2_3"
+      ]
+    ]
+  }
+}

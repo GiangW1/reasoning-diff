@@ -1,0 +1,205 @@
+{
+  "native_id": "igsm-official-0193-op10",
+  "family_id": "igsm-official-0193-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261127,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "1",
+  "target": "p_1_0_2_1",
+  "question": "The number of each Tiger Territory's Goldfish equals 1 more than each Tiger Territory's Haddock. The number of each Kangaroo Walkabout's Haddock equals the difference of each Kangaroo Walkabout's Goldfish and each Tiger Territory's Trout. The number of each Kangaroo Walkabout's Trout equals each Kangaroo Walkabout's Haddock. The number of each Elephant Habitat's Haddock equals 10 times as much as each Kangaroo Walkabout's Trout. The number of each Kangaroo Walkabout's Goldfish equals each Tiger Territory's Animal. The number of each Tiger Territory's Trout equals each Tiger Territory's Haddock. The number of each Tiger Territory's Haddock equals 3. How many Animal does Elephant Habitat have?",
+  "lookup": {
+    "p_0_0_0_0": 3,
+    "p_0_0_0_1": 3,
+    "p_0_0_0_2": 4,
+    "p_1_0_0_1": 10,
+    "p_0_0_1_2": 10,
+    "p_0_0_1_0": 7,
+    "p_0_0_1_1": 7,
+    "p_0_0_2_0": 1,
+    "p_1_0_2_1": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 3,
+        "span": [
+          602,
+          655
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Tiger Territory's Trout"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Tiger Territory's Goldfish"
+        ],
+        "expression": "(1 + p_0_0_0_0)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Tiger Territory's Animal"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Kangaroo Walkabout's Goldfish"
+        ],
+        "expression": "p_1_0_0_1",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_1_2",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Kangaroo Walkabout's Haddock"
+        ],
+        "expression": "(p_0_0_1_2 - p_0_0_0_1)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Kangaroo Walkabout's Trout"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Elephant Habitat's Haddock"
+        ],
+        "expression": "(10 * p_0_0_1_1)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Elephant Habitat's Animal"
+        ],
+        "expression": "p_0_0_2_0",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ]
+    ]
+  }
+}

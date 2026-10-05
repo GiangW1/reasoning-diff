@@ -1,0 +1,265 @@
+{
+  "native_id": "igsm-official-0058-op15",
+  "family_id": "igsm-official-0058-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260985,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "0",
+  "target": "p_0_2_2_0",
+  "question": "The number of each Arctic Ocean's Pegasus equals each Phoenix's Cells. The number of each Arctic Ocean's Yeti equals 2. The number of each Cerebellum's Natural Killer Cells equals the sum of each Stream Ecosystem's Creatures and each Yeti's Cerebellum. The number of each Hippocampus's Natural Killer Cells equals 16. The number of each Phoenix's Autonomic Nerves equals the sum of each Benthic Zone's Cells, each Stream Ecosystem's Creatures and each Stream Ecosystem's Phoenix. The number of each Yeti's Hippocampus equals 7 times as much as each Benthic Zone's Creatures. The number of each Stream Ecosystem's Phoenix equals 19 more than each Hippocampus's Monocytes. The number of each Yeti's Cerebellum equals each Cerebellum's Monocytes. The number of each Cerebellum's Monocytes equals 10. The number of each Hippocampus's Megakaryocytes equals 4 times as much as each Arctic Ocean's Pegasus. The number of each Benthic Zone's Pegasus equals 22 times as much as each Cerebellum's Natural Killer Cells. The number of each Hippocampus's Monocytes equals each Yeti's Cerebellum. How many Megakaryocytes does Hippocampus have?",
+  "lookup": {
+    "p_1_1_1_3": 0,
+    "p_0_2_2_2": 16,
+    "p_0_0_1_2": 2,
+    "p_1_2_1_3": 0,
+    "p_0_2_0_1": 10,
+    "p_0_1_2_0": 10,
+    "p_0_2_2_1": 10,
+    "p_0_0_0_0": 6,
+    "p_1_0_0_1": 6,
+    "p_0_2_0_2": 16,
+    "p_0_0_2_1": 7,
+    "p_1_0_2_1": 7,
+    "p_0_1_2_2": 3,
+    "p_1_0_2_3": 0,
+    "p_0_1_0_1": 12,
+    "p_1_1_0_3": 0,
+    "p_0_0_1_1": 0,
+    "p_0_2_2_0": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_1",
+        "literal": 10,
+        "span": [
+          744,
+          795
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Yeti's Cerebellum"
+        ],
+        "expression": "p_0_2_0_1",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_1",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_2_2_1",
+          "Hippocampus's Monocytes"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_2_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Stream Ecosystem's Phoenix"
+        ],
+        "expression": "(19 + p_0_2_2_1)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Stream Ecosystem's Creatures"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_2",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_2_0_2",
+          "Cerebellum's Natural Killer Cells"
+        ],
+        "expression": "(p_1_0_0_1 + p_0_1_2_0)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Benthic Zone's Pegasus"
+        ],
+        "expression": "(22 * p_0_2_0_2)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_3",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_1_0_2_3",
+          "Benthic Zone's Cells"
+        ],
+        "expression": "(p_0_0_2_1 * 0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_1_0_2_3",
+          "p_1_0_0_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Phoenix's Autonomic Nerves"
+        ],
+        "expression": "((p_1_0_2_3 + p_1_0_0_1) + p_0_0_0_0)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Phoenix's Cells"
+        ],
+        "expression": "(p_0_1_0_1 * 0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Arctic Ocean's Pegasus"
+        ],
+        "expression": "p_1_1_0_3",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_2_2_0",
+          "Hippocampus's Megakaryocytes"
+        ],
+        "expression": "(4 * p_0_0_1_1)",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_0_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_2_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_3"
+      ],
+      [
+        "p_1_0_2_3",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_2_2_0"
+      ]
+    ]
+  }
+}

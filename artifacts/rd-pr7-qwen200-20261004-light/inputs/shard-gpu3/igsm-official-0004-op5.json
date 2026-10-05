@@ -1,0 +1,117 @@
+{
+  "native_id": "igsm-official-0004-op5",
+  "family_id": "igsm-official-0004-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260930,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "14",
+  "target": "p_0_0_0_0",
+  "question": "The number of each Sainsbury's's Muffins equals each Sainsbury's's Tortillas. The number of each Meijer's Muffins equals the sum of each Meijer's Bagels, each Carrefour's Tortillas, each Meijer's Tortillas and each Kroger's Bagels. The number of each Carrefour's Muffins equals 1. The number of each Meijer's Tortillas equals 17. The number of each Carrefour's Tortillas equals 13. The number of each Meijer's Bagels equals 17. The number of each Sainsbury's's Bagels equals the sum of each Carrefour's Muffins, each Kroger's Muffins and each Carrefour's Bagels. The number of each Kroger's Bagels equals the difference of each Meijer's Bagels and each Meijer's Cakes. The number of each Meijer's Cakes equals the sum of each Meijer's Tortillas and each Carrefour's Tortillas. The number of each Sainsbury's's Tortillas equals the difference of each Kroger's Muffins and each Kroger's Tortillas. The number of each Kroger's Muffins equals 19 times as much as each Kroger's Cakes. The number of each Kroger's Cakes equals 20 times as much as the difference of each Carrefour's Bagels and each Carrefour's Muffins. The number of each Sainsbury's's Cakes equals each Kroger's Cakes. The number of each Carrefour's Cakes equals 11 times as much as each Meijer's Tortillas. The number of each Carrefour's Bagels equals 6 times as much as each Carrefour's Muffins. The number of each Kroger's Tortillas equals 14 times as much as each Carrefour's Bagels. How many Muffins does Kroger have?",
+  "lookup": {
+    "p_0_0_1_2": 17,
+    "p_0_0_3_0": 1,
+    "p_0_0_3_3": 6,
+    "p_0_0_3_2": 13,
+    "p_0_0_0_2": 15,
+    "p_0_0_1_3": 17,
+    "p_0_0_3_1": 3,
+    "p_0_0_1_1": 7,
+    "p_0_0_0_1": 8,
+    "p_0_0_0_3": 10,
+    "p_0_0_2_1": 8,
+    "p_0_0_0_0": 14,
+    "p_0_0_2_2": 22,
+    "p_0_0_1_0": 11,
+    "p_0_0_2_3": 21,
+    "p_0_0_2_0": 22
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_3_0",
+        "literal": 1,
+        "span": [
+          232,
+          279
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_3",
+        "parents": [
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_0_3_3",
+          "Carrefour's Bagels"
+        ],
+        "expression": "(6 * p_0_0_3_0)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_3_3",
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Kroger's Cakes"
+        ],
+        "expression": "(20 * (p_0_0_3_3 - p_0_0_3_0))",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Kroger's Muffins"
+        ],
+        "expression": "(19 * p_0_0_0_1)",
+        "value": 14
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_3_0",
+        "p_0_0_3_3"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_0"
+      ]
+    ]
+  }
+}

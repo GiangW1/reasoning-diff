@@ -1,0 +1,130 @@
+{
+  "native_id": "igsm-official-0136-op5",
+  "family_id": "igsm-official-0136-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261066,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "14",
+  "target": "p_0_0_2_2",
+  "question": "The number of each Hot Chocolate's Garlic equals 14. The number of each Marc's's Hot Chocolate equals 17. The number of each Protein Shakes's Beetroot equals 2 more than the difference of each Dollar Tree's Coffee and each Protein Shakes's Potato. The number of each Dollar Tree's Hot Chocolate equals 5. The number of each Lidl's Coffee equals 14. The number of each Dollar Tree's Protein Shakes equals the sum of each Dollar Tree's Coffee and each Hot Chocolate's Beetroot. The number of each Hot Chocolate's Beetroot equals 14 times as much as each Dollar Tree's Hot Chocolate. The number of each Diplomatic District's Marc's equals each Coffee's Potato. The number of each Coffee's Beetroot equals 13. The number of each Protein Shakes's Potato equals 22. The number of each Bureaucratic District's Lidl equals 22 more than the sum of each Marc's's Hot Chocolate and each Hot Chocolate's Beetroot. The number of each Coffee's Potato equals each Administrative District's Supermarket. The number of each Administrative District's Dollar Tree equals each Lidl's Coffee. The number of each Bureaucratic District's Dollar Tree equals the sum of each Dollar Tree's Protein Shakes, each Dollar Tree's Hot Chocolate, each Marc's's Hot Chocolate and each Bureaucratic District's Lidl. The number of each Dollar Tree's Coffee equals the sum of each Dollar Tree's Hot Chocolate, each Marc's's Hot Chocolate and each Bureaucratic District's Lidl. The number of each Marc's's Protein Shakes equals 18. How many Marc's does Diplomatic District have?",
+  "lookup": {
+    "p_0_1_2_2": 17,
+    "p_0_2_0_1": 13,
+    "p_0_2_1_0": 22,
+    "p_0_1_0_2": 5,
+    "p_0_2_2_1": 1,
+    "p_0_2_2_2": 14,
+    "p_0_1_1_0": 14,
+    "p_0_0_1_1": 17,
+    "p_0_1_0_0": 16,
+    "p_0_0_0_0": 14,
+    "p_0_1_0_1": 17,
+    "p_1_0_0_1": 14,
+    "p_0_2_0_0": 14,
+    "p_0_2_1_1": 19,
+    "p_0_0_2_2": 14,
+    "p_0_1_2_1": 18,
+    "p_0_0_1_0": 10
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_0",
+        "literal": 14,
+        "span": [
+          305,
+          347
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Administrative District's Dollar Tree"
+        ],
+        "expression": "p_0_1_1_0",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Administrative District's Supermarket"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Coffee's Potato"
+        ],
+        "expression": "p_1_0_0_1",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Diplomatic District's Marc's"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 14
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_0_2_2"
+      ]
+    ]
+  }
+}

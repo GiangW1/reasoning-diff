@@ -1,0 +1,204 @@
+{
+  "native_id": "igsm-official-0021-op10",
+  "family_id": "igsm-official-0021-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260947,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "7",
+  "target": "p_1_0_1_1",
+  "question": "The number of each CyberScholars's Weight Training Room equals 0. The number of each CyberScholars's Track and Field equals 10. The number of each Weight Training Room's Canvas Backpack equals the difference of each Aerobics Studio's Canvas Backpack and each CyberScholars's Track and Field. The number of each Aerobics Studio's Anti-Theft Backpack equals 4. The number of each Digital Scholars's Weight Training Room equals each Weight Training Room's Canvas Backpack. The number of each Track and Field's Canvas Backpack equals 15 times as much as the difference of each CyberScholars's Classroom and each CyberScholars's Weight Training Room. The number of each Digital Scholars's Aerobics Studio equals 10 times as much as each Aerobics Studio's Canvas Backpack. The number of each Weight Training Room's Organizer Backpack equals 7 more than the sum of each Digital Scholars's Classroom, each Digital Scholars's Weight Training Room and each Weight Training Room's Canvas Backpack. The number of each Aerobics Studio's Canvas Backpack equals each Track and Field's Canvas Backpack. How many Classroom does Digital Scholars have?",
+  "lookup": {
+    "p_0_1_1_1": 4,
+    "p_0_0_0_2": 0,
+    "p_0_0_0_0": 10,
+    "p_1_0_0_1": 10,
+    "p_0_1_0_2": 12,
+    "p_0_1_1_2": 12,
+    "p_0_1_2_2": 2,
+    "p_0_0_1_2": 2,
+    "p_0_0_1_1": 5,
+    "p_1_0_1_1": 7,
+    "p_0_1_2_0": 18
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 10,
+        "span": [
+          66,
+          126
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_2",
+        "literal": 0,
+        "span": [
+          0,
+          64
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "CyberScholars's Classroom"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_2)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Track and Field's Canvas Backpack"
+        ],
+        "expression": "(15 * (p_1_0_0_1 - p_0_0_0_2))",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Aerobics Studio's Canvas Backpack"
+        ],
+        "expression": "p_0_1_0_2",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Digital Scholars's Aerobics Studio"
+        ],
+        "expression": "(10 * p_0_1_1_2)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_1_1_2",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Weight Training Room's Canvas Backpack"
+        ],
+        "expression": "(p_0_1_1_2 - p_0_0_0_0)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Digital Scholars's Weight Training Room"
+        ],
+        "expression": "p_0_1_2_2",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Digital Scholars's Classroom"
+        ],
+        "expression": "(p_0_0_1_1 + p_0_0_1_2)",
+        "value": 7
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ]
+    ]
+  }
+}

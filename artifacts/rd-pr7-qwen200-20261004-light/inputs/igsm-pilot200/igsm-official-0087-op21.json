@@ -1,0 +1,361 @@
+{
+  "native_id": "igsm-official-0087-op21",
+  "family_id": "igsm-official-0087-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261014,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "15",
+  "target": "p_1_1_2_2",
+  "question": "The number of each Cardia's Neutrophils equals each Parrot's Gallbladder. The number of each Parrot's Anus equals 16 more than each Anus's Neutrophils. The number of each Gallbladder's Platelets equals 7 more than each Pigeon's Anus. The number of each Parrot's Gallbladder equals 19 times as much as the difference of each Gallbladder's Red Blood Cells and each Gallbladder's Neutrophils. The number of each Pigeon's Cardia equals 14. The number of each Anus's Red Blood Cells equals 9. The number of each Condor's Cardia equals 21. The number of each Parrot's Cardia equals 20 times as much as the difference of each Parrot's Gallbladder and each Gallbladder's Platelets. The number of each Cardia's Platelets equals each Condor's Gallbladder. The number of each Anus's Neutrophils equals each Anus's Platelets. The number of each Pigeon's Anus equals 22 more than each Gallbladder's Red Blood Cells. The number of each Condor's Anus equals 9. The number of each Condor's Gallbladder equals each Parrot's Organs. The number of each Anus's Platelets equals 2 more than each Gallbladder's Cells. The number of each Gallbladder's Red Blood Cells equals 7. The number of each Gallbladder's Neutrophils equals each Gallbladder's Red Blood Cells. The number of each Cardia's Red Blood Cells equals each Cardia's Neutrophils. The number of each Pigeon's Gallbladder equals each Condor's Cardia. How many Cells does Cardia have?",
+  "lookup": {
+    "p_0_1_0_1": 9,
+    "p_0_0_1_0": 9,
+    "p_0_1_1_1": 7,
+    "p_0_0_1_2": 21,
+    "p_0_0_0_0": 6,
+    "p_0_0_0_1": 21,
+    "p_0_1_1_0": 7,
+    "p_0_1_1_2": 13,
+    "p_0_0_0_2": 14,
+    "p_1_1_1_2": 4,
+    "p_0_1_0_2": 6,
+    "p_0_0_2_1": 0,
+    "p_0_1_2_0": 0,
+    "p_0_1_2_1": 0,
+    "p_0_1_0_0": 6,
+    "p_0_0_2_0": 22,
+    "p_0_0_2_2": 16,
+    "p_1_0_2_1": 15,
+    "p_0_0_1_1": 15,
+    "p_0_1_2_2": 15,
+    "p_1_1_2_2": 15
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_1",
+        "literal": 7,
+        "span": [
+          1096,
+          1153
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Gallbladder's Neutrophils"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_1_1_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Parrot's Gallbladder"
+        ],
+        "expression": "(19 * (p_0_1_1_1 - p_0_1_1_0))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Cardia's Neutrophils"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Cardia's Red Blood Cells"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Pigeon's Anus"
+        ],
+        "expression": "(22 + p_0_1_1_1)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Gallbladder's Platelets"
+        ],
+        "expression": "(7 + p_0_0_0_0)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Gallbladder's Cells"
+        ],
+        "expression": "((p_0_1_1_0 + p_0_1_1_1) + p_0_1_1_2)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Anus's Platelets"
+        ],
+        "expression": "(2 + p_1_1_1_2)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Anus's Neutrophils"
+        ],
+        "expression": "p_0_1_0_2",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Parrot's Anus"
+        ],
+        "expression": "(16 + p_0_1_0_0)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Parrot's Cardia"
+        ],
+        "expression": "(20 * (p_0_0_2_1 - p_0_1_1_2))",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Parrot's Organs"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Condor's Gallbladder"
+        ],
+        "expression": "p_1_0_2_1",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Cardia's Platelets"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_1",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Cardia's Cells"
+        ],
+        "expression": "((p_0_1_2_0 + p_0_1_2_1) + p_0_1_2_2)",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "native_id": "igsm-official-0084-op5",
+  "family_id": "igsm-official-0084-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261011,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "0",
+  "target": "p_0_0_0_1",
+  "question": "The number of each Westland College's Music Room equals 19. The number of each Drawing Studio's Presentation Backpack equals the difference of each Music Room's Daily Work Backpack and each Westland College's Drawing Studio. The number of each Westland College's Drawing Studio equals 6. The number of each Mountainview College's Music Room equals 1 times as much as each Drawing Studio's Backpack. The number of each Music Room's Daily Work Backpack equals each Westland College's Drawing Studio. How many Music Room does Mountainview College have?",
+  "lookup": {
+    "p_0_0_1_1": 19,
+    "p_0_0_1_0": 6,
+    "p_0_1_1_1": 6,
+    "p_0_1_0_0": 0,
+    "p_1_1_0_2": 0,
+    "p_0_0_0_1": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 6,
+        "span": [
+          225,
+          286
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Music Room's Daily Work Backpack"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_1_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Drawing Studio's Presentation Backpack"
+        ],
+        "expression": "(p_0_1_1_1 - p_0_0_1_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Drawing Studio's Backpack"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_1_1_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Mountainview College's Music Room"
+        ],
+        "expression": "(1 * p_1_1_0_2)",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_0_0_1"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,319 @@
+{
+  "native_id": "igsm-official-0055-op21",
+  "family_id": "igsm-official-0055-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260982,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "2",
+  "target": "p_1_0_0_3",
+  "question": "The number of each Swan's Aortic Valve equals 4 times as much as each Taiga Forest's Butterfly. The number of each Butterfly's Endothelium equals 0. The number of each Swan's Endothelium equals 16 more than the difference of each Taiga Forest's Butterfly and each Butterfly's Endothelium. The number of each Taiga Forest's Swan equals 3. The number of each Taiga Forest's Butterfly equals 20. The number of each Cloud Forest's Swan equals 22 more than each Swan's Aortic Valve. The number of each Endothelium's Eosinophils equals 7 more than the sum of each Taiga Forest's Creatures, each Taiga Forest's Swan and each Taiga Forest's Butterfly. The number of each Aortic Valve's Plasma Cells equals 22 times as much as the sum of each Butterfly's Cells, each Taiga Forest's Creatures and each Endothelium's Eosinophils. How many Cells does Cloud Forest have?",
+  "lookup": {
+    "p_0_0_1_0": 3,
+    "p_0_0_1_1": 20,
+    "p_0_1_0_1": 11,
+    "p_0_0_0_0": 10,
+    "p_1_0_1_1": 0,
+    "p_0_1_1_0": 0,
+    "p_0_2_0_0": 7,
+    "p_0_1_0_0": 13,
+    "p_1_2_0_3": 7,
+    "p_1_1_1_3": 0,
+    "p_0_2_1_1": 16,
+    "p_1_2_1_3": 16,
+    "p_1_1_0_3": 14,
+    "p_1_0_0_3": 2
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 20,
+        "span": [
+          338,
+          391
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_0",
+        "literal": 0,
+        "span": [
+          96,
+          147
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 3,
+        "span": [
+          289,
+          336
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Swan's Aortic Valve"
+        ],
+        "expression": "(4 * p_0_0_1_1)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Cloud Forest's Swan"
+        ],
+        "expression": "(22 + p_0_1_0_1)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Swan's Endothelium"
+        ],
+        "expression": "(16 + (p_0_0_1_1 - p_0_1_1_0))",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Taiga Forest's Creatures"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Endothelium's Eosinophils"
+        ],
+        "expression": "(7 + ((p_1_0_1_1 + p_0_0_1_0) + p_0_0_1_1))",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Endothelium's Cells"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_0",
+          "p_1_2_0_3"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "Butterfly's Cells"
+        ],
+        "expression": "(p_0_1_1_0 * p_1_2_0_3)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_1_1_1_3",
+          "p_1_0_1_1",
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Aortic Valve's Plasma Cells"
+        ],
+        "expression": "(22 * ((p_1_1_1_3 + p_1_0_1_1) + p_0_2_0_0))",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Aortic Valve's Cells"
+        ],
+        "expression": "p_0_2_1_1",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_0",
+          "p_1_2_0_3",
+          "p_0_1_0_1",
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Swan's Cells"
+        ],
+        "expression": "((p_0_1_0_0 * p_1_2_0_3) + (p_0_1_0_1 * p_1_2_1_3))",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_3",
+        "parents": [
+          "p_0_0_0_0",
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_1_0_0_3",
+          "Cloud Forest's Cells"
+        ],
+        "expression": "(p_0_0_0_0 * p_1_1_0_3)",
+        "value": 2
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_1_0_0_3"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "native_id": "igsm-official-0153-op10",
+  "family_id": "igsm-official-0153-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261084,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "8",
+  "target": "p_1_0_0_2",
+  "question": "The number of each Metropolitan High's Rock Climbing Wall equals 11. The number of each Dance Hall's Sling Backpack equals 19 more than the sum of each Dance Hall's Athletic Backpack and each Hillcrest High's Dance Hall. The number of each Hillcrest High's Dance Hall equals 19. The number of each Hillcrest High's Rock Climbing Wall equals 21. The number of each Dance Hall's Athletic Backpack equals 3. How many Backpack does Hillcrest High have?",
+  "lookup": {
+    "p_1_1_1_2": 0,
+    "p_0_0_0_0": 19,
+    "p_0_0_0_1": 21,
+    "p_0_1_0_1": 3,
+    "p_0_1_0_0": 18,
+    "p_0_0_1_1": 11,
+    "p_1_1_0_2": 21,
+    "p_1_0_0_2": 8
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 19,
+        "span": [
+          221,
+          277
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_1",
+        "literal": 3,
+        "span": [
+          345,
+          403
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 21,
+        "span": [
+          279,
+          343
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Dance Hall's Sling Backpack"
+        ],
+        "expression": "(19 + (p_0_1_0_1 + p_0_0_0_0))",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Dance Hall's Backpack"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_2",
+        "parents": [
+          "p_0_0_0_0",
+          "p_1_1_0_2",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_2",
+          "Hillcrest High's Backpack"
+        ],
+        "expression": "((p_0_0_0_0 * p_1_1_0_2) + (p_0_0_0_1 * 0))",
+        "value": 8
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_2"
+      ]
+    ]
+  }
+}

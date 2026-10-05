@@ -1,0 +1,128 @@
+{
+  "native_id": "igsm-official-0040-op5",
+  "family_id": "igsm-official-0040-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260966,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "9",
+  "target": "p_1_1_0_2",
+  "question": "The number of each Pons's Astrocytes equals 5 more than the sum of each Central Park in New York City's Creatures and each Bukhansan National Park in Seoul's Blue Whale. The number of each Bukhansan National Park in Seoul's Blue Whale equals 16. The number of each Ibirapuera Park in S\u00e3o Paulo's Jellyfish equals 22. The number of each Parietal Lobe's Cerebral Cortex Neurons equals 22. The number of each Blue Whale's Ganglia equals 13 more than each Parietal Lobe's Cerebral Cortex Neurons. The number of each Ganglia's Hypothalamic Neurons equals each Parietal Lobe's Cerebral Cortex Neurons. The number of each Central Park in New York City's Blue Whale equals 10 more than each Ibirapuera Park in S\u00e3o Paulo's Jellyfish. The number of each Walrus's Parietal Lobe equals 9 more than the sum of each Pons's Astrocytes, each Blue Whale's Organs and each Ibirapuera Park in S\u00e3o Paulo's Organs. The number of each Jellyfish's Pons equals each Central Park in New York City's Creatures. The number of each Bukhansan National Park in Seoul's Walrus equals 20. The number of each Walrus's Ganglia equals each Parietal Lobe's Cerebral Cortex Neurons. How many Organs does Jellyfish have?",
+  "lookup": {
+    "p_0_0_0_1": 20,
+    "p_0_0_0_2": 16,
+    "p_0_0_1_0": 22,
+    "p_0_0_2_2": 9,
+    "p_1_0_2_1": 9,
+    "p_0_2_1_2": 22,
+    "p_0_2_2_0": 22,
+    "p_0_1_1_2": 22,
+    "p_0_2_0_1": 7,
+    "p_0_1_2_2": 12,
+    "p_0_1_0_0": 9,
+    "p_1_1_2_2": 12,
+    "p_1_1_0_2": 9,
+    "p_1_0_1_2": 14,
+    "p_0_1_1_1": 19
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 22,
+        "span": [
+          246,
+          315
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Central Park in New York City's Blue Whale"
+        ],
+        "expression": "(10 + p_0_0_1_0)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Central Park in New York City's Creatures"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_1_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Jellyfish's Pons"
+        ],
+        "expression": "p_1_0_2_1",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Jellyfish's Organs"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 9
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ]
+    ]
+  }
+}

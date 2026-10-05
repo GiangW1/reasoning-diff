@@ -1,0 +1,161 @@
+{
+  "native_id": "igsm-official-0161-op10",
+  "family_id": "igsm-official-0161-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261092,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "13",
+  "target": "p_0_1_0_0",
+  "question": "The number of each Komodo Dragon Den's Halibut equals 9 times as much as the sum of each Hluhluwe-Imfolozi Park's Crocodile Swamp, each Crocodile Swamp's Cod and each Hluhluwe-Imfolozi Park's Komodo Dragon Den. The number of each Hluhluwe-Imfolozi Park's Komodo Dragon Den equals the difference of each Etosha National Park's Enclosure and each Etosha National Park's Crocodile Swamp. The number of each Crocodile Swamp's Cod equals 6. The number of each Etosha National Park's Crocodile Swamp equals each Crocodile Swamp's Cod. The number of each Hluhluwe-Imfolozi Park's Crocodile Swamp equals 19 times as much as the sum of each Hluhluwe-Imfolozi Park's Komodo Dragon Den, each Crocodile Swamp's Cod and each Etosha National Park's Enclosure. How many Halibut does Komodo Dragon Den have?",
+  "lookup": {
+    "p_0_1_1_1": 6,
+    "p_0_0_0_1": 6,
+    "p_1_0_0_1": 6,
+    "p_0_0_1_0": 0,
+    "p_0_0_1_1": 21,
+    "p_0_1_0_0": 13
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_1",
+        "literal": 6,
+        "span": [
+          385,
+          434
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Etosha National Park's Crocodile Swamp"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Etosha National Park's Enclosure"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Hluhluwe-Imfolozi Park's Komodo Dragon Den"
+        ],
+        "expression": "(p_1_0_0_1 - p_0_0_0_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_1_1_1",
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Hluhluwe-Imfolozi Park's Crocodile Swamp"
+        ],
+        "expression": "(19 * ((p_0_0_1_0 + p_0_1_1_1) + p_1_0_0_1))",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_1_1_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Komodo Dragon Den's Halibut"
+        ],
+        "expression": "(9 * ((p_0_0_1_1 + p_0_1_1_1) + p_0_0_1_0))",
+        "value": 13
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_0_0"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,368 @@
+{
+  "native_id": "igsm-official-0035-op21",
+  "family_id": "igsm-official-0035-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260961,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "0",
+  "target": "p_1_1_2_3",
+  "question": "The number of each Goldfish's Pelvic Fin Rays equals the sum of each Baltimore Aquarium's Animal and each Monitor Lizard Habitat's Goldfish. The number of each Shark's Pelvic Fin Rays equals 6 more than the sum of each Goldfish's Pelvic Fin Rays, each Caiman Creek's Goldfish and each Reptile House's Animal. The number of each Baltimore Aquarium's Monitor Lizard Habitat equals each Reptile House's Shark. The number of each Flounder's Distal Radials equals 15. The number of each The Florida Aquarium's Caiman Creek equals each Goldfish's Bone. The number of each Monitor Lizard Habitat's Goldfish equals 0. The number of each Reptile House's Flounder equals each Monitor Lizard Habitat's Animal. The number of each Shark's Prezygapophyses equals the sum of each Goldfish's Bone, each Baltimore Aquarium's Animal and each Caiman Creek's Bone. The number of each Reptile House's Shark equals the difference of each Monitor Lizard Habitat's Animal and each Baltimore Aquarium's Reptile House. The number of each Baltimore Aquarium's Reptile House equals the difference of each Monitor Lizard Habitat's Flounder and each Caiman Creek's Goldfish. The number of each Monitor Lizard Habitat's Flounder equals each Monitor Lizard Habitat's Goldfish. The number of each Caiman Creek's Goldfish equals 0 more than the sum of each Monitor Lizard Habitat's Flounder, each Monitor Lizard Habitat's Goldfish and each Monitor Lizard Habitat's Animal. The number of each National Aquarium's Reptile House equals 7. The number of each Baltimore Aquarium's Caiman Creek equals each Reptile House's Animal. How many Bone does Caiman Creek have?",
+  "lookup": {
+    "p_0_2_0_1": 15,
+    "p_0_0_1_0": 7,
+    "p_0_1_1_2": 0,
+    "p_0_1_1_0": 0,
+    "p_1_1_1_2": 0,
+    "p_0_1_2_2": 0,
+    "p_1_1_2_2": 0,
+    "p_0_0_2_0": 0,
+    "p_0_1_0_0": 0,
+    "p_0_1_0_1": 0,
+    "p_1_1_0_2": 0,
+    "p_0_0_2_1": 0,
+    "p_0_0_2_2": 0,
+    "p_1_0_2_2": 0,
+    "p_0_2_2_2": 0,
+    "p_1_2_2_3": 0,
+    "p_0_0_0_2": 0,
+    "p_0_2_1_2": 6,
+    "p_1_1_2_3": 0,
+    "p_0_2_1_0": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_2",
+        "literal": 0,
+        "span": [
+          547,
+          608
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Monitor Lizard Habitat's Flounder"
+        ],
+        "expression": "p_0_1_1_2",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Monitor Lizard Habitat's Animal"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_2",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Caiman Creek's Goldfish"
+        ],
+        "expression": "(0 + ((p_0_1_1_0 + p_0_1_1_2) + p_1_1_1_2))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Baltimore Aquarium's Reptile House"
+        ],
+        "expression": "(p_0_1_1_0 - p_0_1_2_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Reptile House's Flounder"
+        ],
+        "expression": "p_1_1_1_2",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_1_1_1_2",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Reptile House's Shark"
+        ],
+        "expression": "(p_1_1_1_2 - p_0_0_2_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Reptile House's Animal"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Baltimore Aquarium's Monitor Lizard Habitat"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_1_1_0_2"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Baltimore Aquarium's Caiman Creek"
+        ],
+        "expression": "p_1_1_0_2",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Caiman Creek's Animal"
+        ],
+        "expression": "p_0_1_2_2",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_1_0_2",
+          "p_0_0_2_1",
+          "p_1_1_1_2",
+          "p_0_0_2_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "Baltimore Aquarium's Animal"
+        ],
+        "expression": "(((p_0_0_2_0 * p_1_1_0_2) + (p_0_0_2_1 * p_1_1_1_2)) + (p_0_0_2_2 * p_1_1_2_2))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_2",
+        "parents": [
+          "p_1_0_2_2",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_2_2_2",
+          "Goldfish's Pelvic Fin Rays"
+        ],
+        "expression": "(p_1_0_2_2 + p_0_1_1_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_2_3",
+        "parents": [
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_1_2_2_3",
+          "Goldfish's Bone"
+        ],
+        "expression": "p_0_2_2_2",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_3",
+        "parents": [
+          "p_0_1_2_2",
+          "p_1_2_2_3"
+        ],
+        "aliases": [
+          "p_1_1_2_3",
+          "Caiman Creek's Bone"
+        ],
+        "expression": "(p_0_1_2_2 * p_1_2_2_3)",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_0_2_2",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_1_1_2_3"
+      ]
+    ]
+  }
+}

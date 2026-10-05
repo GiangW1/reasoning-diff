@@ -1,0 +1,122 @@
+{
+  "native_id": "igsm-official-0132-op5",
+  "family_id": "igsm-official-0132-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261061,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "1",
+  "target": "p_0_2_1_1",
+  "question": "The number of each Rural Homes's Deliveroo equals the sum of each Sun Basket's Product and each Rural Homes's Sun Basket. The number of each Rural Homes's Ocado equals 0 more than each Rural Homes's Shipt. The number of each White Bread's Paprika equals 14 times as much as each Shipt's Product. The number of each Shipt's Croissants equals 3. The number of each Shipt's White Bread equals 15 more than each Rural Homes's Sun Basket. The number of each Rural Homes's Shipt equals 10. The number of each Croissants's Coriander equals the sum of each White Bread's Ingredient, each Row Houses's Ingredient and each Sun Basket's Product. The number of each Rural Homes's Sun Basket equals 10. How many Paprika does White Bread have?",
+  "lookup": {
+    "p_1_1_3_2": 0,
+    "p_0_1_2_0": 3,
+    "p_0_0_0_3": 10,
+    "p_1_0_1_3": 0,
+    "p_0_1_2_1": 2,
+    "p_0_0_0_0": 10,
+    "p_0_0_0_2": 10,
+    "p_0_0_0_1": 10,
+    "p_1_1_2_2": 5,
+    "p_0_2_1_1": 1,
+    "p_1_2_1_3": 1,
+    "p_0_2_0_0": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_0",
+        "literal": 3,
+        "span": [
+          296,
+          342
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_3",
+        "literal": 10,
+        "span": [
+          635,
+          688
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Shipt's White Bread"
+        ],
+        "expression": "(15 + p_0_0_0_3)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Shipt's Product"
+        ],
+        "expression": "(p_0_1_2_0 + p_0_1_2_1)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "White Bread's Paprika"
+        ],
+        "expression": "(14 * p_1_1_2_2)",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_3",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_2_1_1"
+      ]
+    ]
+  }
+}

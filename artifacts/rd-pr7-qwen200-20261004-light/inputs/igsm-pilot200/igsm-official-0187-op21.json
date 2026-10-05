@@ -1,0 +1,413 @@
+{
+  "native_id": "igsm-official-0187-op21",
+  "family_id": "igsm-official-0187-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261120,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "3",
+  "target": "p_1_1_0_2",
+  "question": "The number of each Plankton's Alveoli equals 1. The number of each Central Park in New York City's Rotifer equals each Laryngopharynx's Chondrocytes. The number of each Yoyogi Park in Tokyo's Rotifer equals the sum of each Central Park in New York City's Creatures and each Laryngopharynx's Chondrocytes. The number of each Alveoli's Stromal Cells equals each Bukhansan National Park in Seoul's Plankton. The number of each Bukhansan National Park in Seoul's Plankton equals 22. The number of each Radiolarian's Laryngopharynx equals each Yoyogi Park in Tokyo's Cells. The number of each Diaphragm's Chondrocytes equals each Radiolarian's Organs. The number of each Alveoli's Fibroblasts equals each Bukhansan National Park in Seoul's Plankton. The number of each Laryngopharynx's Chondrocytes equals each Gardens by the Bay in Singapore's Radiolarian. The number of each Rotifer's Alveoli equals 5 more than each Plankton's Cells. The number of each Bukhansan National Park in Seoul's Rotifer equals each Alveoli's Fibroblasts. The number of each Radiolarian's Diaphragm equals 8 times as much as each Plankton's Alveoli. The number of each Gardens by the Bay in Singapore's Radiolarian equals the difference of each Bukhansan National Park in Seoul's Cells and each Plankton's Cells. How many Organs does Radiolarian have?",
+  "lookup": {
+    "p_0_1_1_2": 1,
+    "p_0_0_0_1": 22,
+    "p_0_1_0_0": 8,
+    "p_0_2_2_1": 22,
+    "p_0_2_2_0": 22,
+    "p_1_2_2_3": 21,
+    "p_0_0_0_2": 22,
+    "p_1_1_1_3": 21,
+    "p_0_1_2_2": 3,
+    "p_1_1_2_3": 17,
+    "p_1_0_0_3": 8,
+    "p_0_0_1_0": 10,
+    "p_0_2_1_2": 10,
+    "p_0_0_2_2": 10,
+    "p_1_0_2_1": 10,
+    "p_0_0_3_2": 20,
+    "p_1_0_3_3": 18,
+    "p_0_1_0_1": 18,
+    "p_1_1_0_2": 3,
+    "p_0_2_0_2": 3
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_2",
+        "literal": 1,
+        "span": [
+          0,
+          46
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 22,
+        "span": [
+          405,
+          477
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Radiolarian's Diaphragm"
+        ],
+        "expression": "(8 * p_0_1_1_2)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_0",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_2_2_0",
+          "Alveoli's Fibroblasts"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_1",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_2_2_1",
+          "Alveoli's Stromal Cells"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_2_3",
+        "parents": [
+          "p_0_2_2_0",
+          "p_0_2_2_1"
+        ],
+        "aliases": [
+          "p_1_2_2_3",
+          "Alveoli's Cells"
+        ],
+        "expression": "(p_0_2_2_0 + p_0_2_2_1)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_2",
+          "p_1_2_2_3"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "Plankton's Cells"
+        ],
+        "expression": "(p_0_1_1_2 * p_1_2_2_3)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_2_2_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Bukhansan National Park in Seoul's Rotifer"
+        ],
+        "expression": "p_0_2_2_0",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_1_1_1_3"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Rotifer's Alveoli"
+        ],
+        "expression": "(5 + p_1_1_1_3)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_3",
+        "parents": [
+          "p_0_1_2_2",
+          "p_1_2_2_3"
+        ],
+        "aliases": [
+          "p_1_1_2_3",
+          "Rotifer's Cells"
+        ],
+        "expression": "(p_0_1_2_2 * p_1_2_2_3)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_3",
+        "parents": [
+          "p_0_0_0_1",
+          "p_1_1_1_3",
+          "p_0_0_0_2",
+          "p_1_1_2_3"
+        ],
+        "aliases": [
+          "p_1_0_0_3",
+          "Bukhansan National Park in Seoul's Cells"
+        ],
+        "expression": "((p_0_0_0_1 * p_1_1_1_3) + (p_0_0_0_2 * p_1_1_2_3))",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_1_0_0_3",
+          "p_1_1_1_3"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Gardens by the Bay in Singapore's Radiolarian"
+        ],
+        "expression": "(p_1_0_0_3 - p_1_1_1_3)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_2",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_2_1_2",
+          "Laryngopharynx's Chondrocytes"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_2_1_2"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Central Park in New York City's Rotifer"
+        ],
+        "expression": "p_0_2_1_2",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Central Park in New York City's Creatures"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_2_1_2"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "Yoyogi Park in Tokyo's Rotifer"
+        ],
+        "expression": "(p_1_0_2_1 + p_0_2_1_2)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_3",
+        "parents": [
+          "p_0_0_3_2",
+          "p_1_1_2_3"
+        ],
+        "aliases": [
+          "p_1_0_3_3",
+          "Yoyogi Park in Tokyo's Cells"
+        ],
+        "expression": "(p_0_0_3_2 * p_1_1_2_3)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_1_0_3_3"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Radiolarian's Laryngopharynx"
+        ],
+        "expression": "p_1_0_3_3",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Radiolarian's Organs"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 3
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_2",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_2_2_1",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_1_1_2_3"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_1_1_2_3",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_1_0_0_3",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_1_2"
+      ],
+      [
+        "p_0_2_1_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_2_1_2",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_3"
+      ],
+      [
+        "p_1_1_2_3",
+        "p_1_0_3_3"
+      ],
+      [
+        "p_1_0_3_3",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ]
+    ]
+  }
+}

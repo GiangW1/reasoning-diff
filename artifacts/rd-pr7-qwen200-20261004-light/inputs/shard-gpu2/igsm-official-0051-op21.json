@@ -1,0 +1,278 @@
+{
+  "native_id": "igsm-official-0051-op21",
+  "family_id": "igsm-official-0051-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260978,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "19",
+  "target": "p_1_0_1_1",
+  "question": "The number of each Staphylococcus's Carina equals 11 more than the sum of each Euglena's Organs, each Staphylococcus's Diaphragm and each Carina's Diaphragm Muscle Cells. The number of each Euglena's Diaphragm equals 7 more than the sum of each Carina's Diaphragm Muscle Cells, each Staphylococcus's Diaphragm and each Diaphragm's Extraocular Muscle Cells. The number of each Euglena's Carina equals 7 times as much as the sum of each Diaphragm's Diaphragm Muscle Cells, each Carina's Extraocular Muscle Cells and each Carina's Diaphragm Muscle Cells. The number of each Staphylococcus's Diaphragm equals 10 more than the sum of each Carina's Extraocular Muscle Cells, each Diaphragm's Extraocular Muscle Cells and each Carina's Diaphragm Muscle Cells. The number of each Carina's Extraocular Muscle Cells equals 3 times as much as the difference of each Diaphragm's Extraocular Muscle Cells and each Carina's Diaphragm Muscle Cells. The number of each Diaphragm's Diaphragm Muscle Cells equals the sum of each Carina's Extraocular Muscle Cells, each Carina's Diaphragm Muscle Cells, each Staphylococcus's Diaphragm and each Diaphragm's Extraocular Muscle Cells. The number of each Diaphragm's Extraocular Muscle Cells equals 15. The number of each Carina's Diaphragm Muscle Cells equals 22 more than each Diaphragm's Extraocular Muscle Cells. How many Organs does Staphylococcus have?",
+  "lookup": {
+    "p_0_1_1_0": 15,
+    "p_0_1_0_1": 14,
+    "p_0_1_0_0": 3,
+    "p_0_0_1_1": 19,
+    "p_0_0_0_1": 9,
+    "p_0_1_1_1": 5,
+    "p_0_0_0_0": 16,
+    "p_1_0_0_1": 2,
+    "p_0_0_1_0": 0,
+    "p_1_0_1_1": 19
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_0",
+        "literal": 15,
+        "span": [
+          1163,
+          1228
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Carina's Diaphragm Muscle Cells"
+        ],
+        "expression": "(22 + p_0_1_1_0)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Carina's Extraocular Muscle Cells"
+        ],
+        "expression": "(3 * (p_0_1_1_0 - p_0_1_0_1))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_1_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Staphylococcus's Diaphragm"
+        ],
+        "expression": "(10 + ((p_0_1_0_0 + p_0_1_1_0) + p_0_1_0_1))",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1",
+          "p_0_0_1_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Diaphragm's Diaphragm Muscle Cells"
+        ],
+        "expression": "(((p_0_1_0_0 + p_0_1_0_1) + p_0_0_1_1) + p_0_1_1_0)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_1_1",
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Euglena's Carina"
+        ],
+        "expression": "(7 * ((p_0_1_1_1 + p_0_1_0_0) + p_0_1_0_1))",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_0_1_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Euglena's Diaphragm"
+        ],
+        "expression": "(7 + ((p_0_1_0_1 + p_0_0_1_1) + p_0_1_1_0))",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Euglena's Organs"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_1_1",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Staphylococcus's Carina"
+        ],
+        "expression": "(11 + ((p_1_0_0_1 + p_0_0_1_1) + p_0_1_0_1))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Staphylococcus's Organs"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_1)",
+        "value": 19
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ]
+    ]
+  }
+}

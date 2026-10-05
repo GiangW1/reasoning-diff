@@ -1,0 +1,402 @@
+{
+  "native_id": "igsm-official-0143-op21",
+  "family_id": "igsm-official-0143-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261073,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "8",
+  "target": "p_0_0_0_0",
+  "question": "The number of each Biceps's Megakaryocytes equals the sum of each Quadriceps's Erythroblasts and each Shoulder Joint's Megakaryocytes. The number of each Chimera's Shoulder Joint equals 4. The number of each Quadriceps's Erythroblasts equals each Shoulder Joint's Erythroblasts. The number of each Dragon's Quadriceps equals 9 times as much as each Chimera's Shoulder Joint. The number of each Shoulder Joint's Monocytes equals the sum of each Dragon's Biceps and each Quadriceps's Erythroblasts. The number of each Biceps's Monocytes equals 4 times as much as each Dragon's Shoulder Joint. The number of each Quadriceps's Monocytes equals 0 more than the difference of each Shoulder Joint's Megakaryocytes and each Dragon's Quadriceps. The number of each Biceps's Erythroblasts equals 1 more than each Quadriceps's Megakaryocytes. The number of each Cerberus's Biceps equals the sum of each Chimera's Quadriceps and each Chimera's Shoulder Joint. The number of each Dragon's Biceps equals the sum of each Cerberus's Cells and each Chimera's Quadriceps. The number of each Quadriceps's Megakaryocytes equals 10 times as much as each Dragon's Shoulder Joint. The number of each Shoulder Joint's Megakaryocytes equals 20 times as much as each Dragon's Quadriceps. The number of each Shoulder Joint's Erythroblasts equals each Quadriceps's Monocytes. The number of each Dragon's Shoulder Joint equals 17 times as much as the difference of each Quadriceps's Monocytes and each Biceps's Megakaryocytes. The number of each Chimera's Biceps equals each Shoulder Joint's Monocytes. The number of each Chimera's Quadriceps equals the sum of each Dragon's Shoulder Joint and each Chimera's Shoulder Joint. How many Biceps does Chimera have?",
+  "lookup": {
+    "p_0_0_0_1": 4,
+    "p_0_0_2_2": 13,
+    "p_0_1_1_0": 7,
+    "p_0_1_2_2": 17,
+    "p_0_1_1_1": 17,
+    "p_0_1_2_1": 17,
+    "p_0_1_0_0": 1,
+    "p_0_0_2_1": 19,
+    "p_0_0_0_2": 0,
+    "p_0_0_1_0": 4,
+    "p_0_1_0_2": 7,
+    "p_0_1_2_0": 6,
+    "p_0_1_0_1": 7,
+    "p_1_1_0_2": 15,
+    "p_1_0_1_2": 14,
+    "p_0_0_2_0": 14,
+    "p_0_1_1_2": 8,
+    "p_0_0_0_0": 8
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 4,
+        "span": [
+          135,
+          187
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Dragon's Quadriceps"
+        ],
+        "expression": "(9 * p_0_0_0_1)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Shoulder Joint's Megakaryocytes"
+        ],
+        "expression": "(20 * p_0_0_2_2)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Quadriceps's Monocytes"
+        ],
+        "expression": "(0 + (p_0_1_1_0 - p_0_0_2_2))",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Shoulder Joint's Erythroblasts"
+        ],
+        "expression": "p_0_1_2_2",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Quadriceps's Erythroblasts"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_2_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Biceps's Megakaryocytes"
+        ],
+        "expression": "(p_0_1_2_1 + p_0_1_1_0)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_1_2_2",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Dragon's Shoulder Joint"
+        ],
+        "expression": "(17 * (p_0_1_2_2 - p_0_1_0_0))",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Chimera's Quadriceps"
+        ],
+        "expression": "(p_0_0_2_1 + p_0_0_0_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_2",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Cerberus's Biceps"
+        ],
+        "expression": "(p_0_0_0_2 + p_0_0_0_1)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Quadriceps's Megakaryocytes"
+        ],
+        "expression": "(10 * p_0_0_2_1)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Biceps's Erythroblasts"
+        ],
+        "expression": "(1 + p_0_1_2_0)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Biceps's Monocytes"
+        ],
+        "expression": "(4 * p_0_0_2_1)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1",
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Biceps's Cells"
+        ],
+        "expression": "((p_0_1_0_0 + p_0_1_0_1) + p_0_1_0_2)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Cerberus's Cells"
+        ],
+        "expression": "(p_0_0_1_0 * p_1_1_0_2)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_1_0_1_2",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Dragon's Biceps"
+        ],
+        "expression": "(p_1_0_1_2 + p_0_0_0_2)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Shoulder Joint's Monocytes"
+        ],
+        "expression": "(p_0_0_2_0 + p_0_1_2_1)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Chimera's Biceps"
+        ],
+        "expression": "p_0_1_1_2",
+        "value": 8
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_0_1_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_0_0_0"
+      ]
+    ]
+  }
+}

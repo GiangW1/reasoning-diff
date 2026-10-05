@@ -1,0 +1,297 @@
+{
+  "native_id": "igsm-official-0091-op21",
+  "family_id": "igsm-official-0091-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261018,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "6",
+  "target": "p_0_0_2_1",
+  "question": "The number of each Crustacean Cove's Bear equals 12 times as much as the sum of each Bear's Neural Spines, each Giraffe's Fin Spines and each Crustacean Cove's Giraffe. The number of each Crustacean Cove's Giraffe equals the sum of each San Jose Insectarium's Crustacean Cove and each Coral Reef Exhibit's Bear. The number of each San Jose Insectarium's Crustacean Cove equals 22 more than each Coral Reef Exhibit's Bear. The number of each Crustacean Cove's Tiger equals the difference of each San Jose Insectarium's Coral Reef Exhibit and each Coral Reef Exhibit's Giraffe. The number of each Bear's Neural Spines equals 22. The number of each San Jose Insectarium's Aquarium equals 22. The number of each Audubon Insectarium's Crustacean Cove equals 19. The number of each Aquarium's Tiger equals each Coral Reef Exhibit's Bear. The number of each Aquarium's Giraffe equals the sum of each Coral Reef Exhibit's Tiger, each San Jose Insectarium's Crustacean Cove, each Coral Reef Exhibit's Bear and each Crustacean Cove's Tiger. The number of each Insectarium of Victoria's Coral Reef Exhibit equals the sum of each Tiger's Bone, each Tiger's Fin Spines and each Giraffe's Neural Spines. The number of each Audubon Insectarium's Coral Reef Exhibit equals 8. The number of each Giraffe's Pectoral Fin Rays equals 15 times as much as the sum of each Crustacean Cove's Tiger, each Crustacean Cove's Bear and each Bear's Neural Spines. The number of each Audubon Insectarium's Aquarium equals 22 more than the difference of each Audubon Insectarium's Crustacean Cove and each Audubon Insectarium's Coral Reef Exhibit. The number of each Coral Reef Exhibit's Tiger equals each Coral Reef Exhibit's Giraffe. The number of each Aquarium's Bear equals 5. The number of each Tiger's Fin Spines equals the sum of each Audubon Insectarium's Crustacean Cove, each Audubon Insectarium's Enclosure and each Audubon Insectarium's Aquarium. The number of each San Jose Insectarium's Coral Reef Exhibit equals each Bear's Neural Spines. The number of each Coral Reef Exhibit's Bear equals 5. The number of each Giraffe's Fin Spines equals 0 more than each Crustacean Cove's Giraffe. The number of each Coral Reef Exhibit's Giraffe equals the sum of each Giraffe's Fin Spines, each Coral Reef Exhibit's Bear and each Bear's Neural Spines. The number of each Giraffe's Neural Spines equals 0 more than the sum of each Audubon Insectarium's Enclosure, each Audubon Insectarium's Aquarium and each Audubon Insectarium's Crustacean Cove. The number of each Insectarium of Victoria's Aquarium equals each Tiger's Neural Spines. The number of each Bear's Pectoral Fin Rays equals 1. The number of each Tiger's Neural Spines equals the sum of each Giraffe's Neural Spines, each Audubon Insectarium's Coral Reef Exhibit, each Audubon Insectarium's Crustacean Cove and each Audubon Insectarium's Aquarium. The number of each Tiger's Pectoral Fin Rays equals 0 more than the sum of each Tiger's Fin Spines, each Giraffe's Neural Spines and each Audubon Insectarium's Aquarium. How many Coral Reef Exhibit does Insectarium of Victoria have?",
+  "lookup": {
+    "p_0_0_1_2": 19,
+    "p_0_2_1_0": 22,
+    "p_0_0_0_0": 22,
+    "p_0_2_1_1": 1,
+    "p_0_1_1_1": 5,
+    "p_0_0_1_1": 8,
+    "p_0_0_1_0": 10,
+    "p_0_0_0_2": 4,
+    "p_0_1_0_1": 5,
+    "p_0_1_2_0": 9,
+    "p_0_2_0_2": 9,
+    "p_0_0_0_1": 22,
+    "p_0_1_2_1": 20,
+    "p_0_1_1_0": 13,
+    "p_1_0_1_1": 14,
+    "p_0_1_2_2": 9,
+    "p_0_2_0_0": 20,
+    "p_0_1_0_2": 5,
+    "p_0_2_2_2": 20,
+    "p_0_2_2_0": 11,
+    "p_0_2_2_1": 4,
+    "p_0_1_1_2": 13,
+    "p_0_0_2_0": 11,
+    "p_0_2_0_1": 6,
+    "p_1_2_2_3": 12,
+    "p_0_1_0_0": 8,
+    "p_0_0_2_1": 6
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_2",
+        "literal": 19,
+        "span": [
+          689,
+          755
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 8,
+        "span": [
+          1190,
+          1258
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_1_2",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Audubon Insectarium's Aquarium"
+        ],
+        "expression": "(22 + (p_0_0_1_2 - p_0_0_1_1))",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Audubon Insectarium's Enclosure"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_0_1_1) + p_0_0_1_2)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_1_0",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Giraffe's Neural Spines"
+        ],
+        "expression": "(0 + ((p_1_0_1_1 + p_0_0_1_0) + p_0_0_1_2))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_0",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_0_1_1",
+          "p_0_0_1_2",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_2_2_0",
+          "Tiger's Neural Spines"
+        ],
+        "expression": "(((p_0_2_0_0 + p_0_0_1_1) + p_0_0_1_2) + p_0_0_1_0)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_2",
+        "parents": [
+          "p_0_0_1_2",
+          "p_1_0_1_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_2_2_2",
+          "Tiger's Fin Spines"
+        ],
+        "expression": "((p_0_0_1_2 + p_1_0_1_1) + p_0_0_1_0)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_1",
+        "parents": [
+          "p_0_2_2_2",
+          "p_0_2_0_0",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_2_2_1",
+          "Tiger's Pectoral Fin Rays"
+        ],
+        "expression": "(0 + ((p_0_2_2_2 + p_0_2_0_0) + p_0_0_1_0))",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_2_3",
+        "parents": [
+          "p_0_2_2_0",
+          "p_0_2_2_1",
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_1_2_2_3",
+          "Tiger's Bone"
+        ],
+        "expression": "((p_0_2_2_0 + p_0_2_2_1) + p_0_2_2_2)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_1_2_2_3",
+          "p_0_2_2_2",
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Insectarium of Victoria's Coral Reef Exhibit"
+        ],
+        "expression": "((p_1_2_2_3 + p_0_2_2_2) + p_0_2_0_0)",
+        "value": 6
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_2_2_1",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_0_2_1"
+      ]
+    ]
+  }
+}

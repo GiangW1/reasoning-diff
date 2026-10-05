@@ -1,0 +1,307 @@
+{
+  "native_id": "igsm-official-0114-op15",
+  "family_id": "igsm-official-0114-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261042,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "9",
+  "target": "p_0_1_0_2",
+  "question": "The number of each Pampas's Blue Whale equals 17. The number of each Dolphin's Lungs equals the sum of each Coral's Vocal Cords, each Montane Grassland's Blue Whale and each Blue Whale's Organs. The number of each Montane Grassland's Blue Whale equals 10 more than each Veldt's Sea Urchin. The number of each Veldt's Sea Urchin equals each Sea Urchin's Organs. The number of each Pampas's Dolphin equals each Steppe's Organs. The number of each Montane Grassland's Dolphin equals each Veldt's Sea Urchin. The number of each Montane Grassland's Coral equals 10 times as much as each Veldt's Organs. The number of each Steppe's Blue Whale equals 15. The number of each Pampas's Coral equals 14 more than the sum of each Coral's Vocal Cords, each Dolphin's Organs and each Montane Grassland's Dolphin. The number of each Respiratory Mucosa's Neurons equals the difference of each Lungs's Autonomic Ganglia Neurons and each Vocal Cords's Interneurons. The number of each Blue Whale's Respiratory Mucosa equals the difference of each Montane Grassland's Creatures and each Veldt's Organs. The number of each Montane Grassland's Sea Urchin equals each Sea Urchin's Organs. The number of each Coral's Vocal Cords equals each Blue Whale's Organs. The number of each Lungs's Autonomic Ganglia Neurons equals each Nasopharynx's Interneurons. The number of each Respiratory Mucosa's Autonomic Ganglia Neurons equals 9 more than each Steppe's Organs. The number of each Vocal Cords's Interneurons equals the difference of each Lungs's Autonomic Ganglia Neurons and each Nasopharynx's Interneurons. The number of each Sea Urchin's Lungs equals 16. The number of each Vocal Cords's Autonomic Ganglia Neurons equals 19 more than each Nasopharynx's Interneurons. The number of each Coral's Nasopharynx equals 1 times as much as each Respiratory Mucosa's Neurons. The number of each Nasopharynx's Bipolar Cells equals 17. The number of each Nasopharynx's Interneurons equals 9. The number of each Blue Whale's Nasopharynx equals each Montane Grassland's Dolphin. How many Vocal Cords does Coral have?",
+  "lookup": {
+    "p_0_2_0_2": 9,
+    "p_0_0_2_2": 17,
+    "p_0_2_2_0": 5,
+    "p_0_2_0_3": 17,
+    "p_0_1_1_1": 16,
+    "p_0_0_3_2": 15,
+    "p_1_1_1_2": 16,
+    "p_0_2_1_0": 9,
+    "p_0_2_2_2": 0,
+    "p_0_2_3_1": 9,
+    "p_0_1_0_0": 9,
+    "p_0_0_1_1": 16,
+    "p_1_0_1_2": 3,
+    "p_0_0_0_3": 16,
+    "p_0_0_0_1": 16,
+    "p_0_1_2_0": 16,
+    "p_0_0_0_0": 7,
+    "p_0_0_0_2": 3,
+    "p_1_0_0_1": 19,
+    "p_0_1_2_3": 16,
+    "p_1_1_2_2": 9,
+    "p_1_0_3_2": 20,
+    "p_0_0_2_3": 20,
+    "p_0_2_3_0": 6,
+    "p_0_1_0_2": 9,
+    "p_0_1_3_1": 21,
+    "p_1_1_3_2": 21,
+    "p_0_0_2_0": 14
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_1",
+        "literal": 16,
+        "span": [
+          1586,
+          1633
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Sea Urchin's Organs"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Veldt's Sea Urchin"
+        ],
+        "expression": "p_1_1_1_2",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_3",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_3",
+          "Montane Grassland's Dolphin"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Blue Whale's Nasopharynx"
+        ],
+        "expression": "p_0_0_0_3",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_1",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Veldt's Organs"
+        ],
+        "expression": "(p_0_0_1_1 * p_1_1_1_2)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Montane Grassland's Coral"
+        ],
+        "expression": "(10 * p_1_0_1_2)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Montane Grassland's Sea Urchin"
+        ],
+        "expression": "p_1_1_1_2",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Montane Grassland's Blue Whale"
+        ],
+        "expression": "(10 + p_0_0_1_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2",
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Montane Grassland's Creatures"
+        ],
+        "expression": "(((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2) + p_0_0_0_3)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_3",
+        "parents": [
+          "p_1_0_0_1",
+          "p_1_0_1_2"
+        ],
+        "aliases": [
+          "p_0_1_2_3",
+          "Blue Whale's Respiratory Mucosa"
+        ],
+        "expression": "(p_1_0_0_1 - p_1_0_1_2)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_3"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Blue Whale's Organs"
+        ],
+        "expression": "(p_0_1_2_0 + p_0_1_2_3)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Coral's Vocal Cords"
+        ],
+        "expression": "p_1_1_2_2",
+        "value": 9
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_0_1_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_2_3"
+      ],
+      [
+        "p_1_0_1_2",
+        "p_0_1_2_3"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_1_0_2"
+      ]
+    ]
+  }
+}

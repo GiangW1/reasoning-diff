@@ -23,6 +23,73 @@ def test_equation_chain_commits_final_value(t1_tiny_path):
     assert parse_events("q = 0 + 22 = 22. p1 = 4.", task)[0].value == "22"
 
 
+@pytest.mark.parametrize("text,value", [("q = (2) + 3 = 5", "5"), ("q = ((2)) * 3 = 6", "6"),
+                                       ("q = 2 + 3 = 5 (mod 23)", "5")])
+def test_parenthesized_equation_reads_result(t1_tiny_path, text, value):
+    event = parse_events(text, load_t1_fixture(t1_tiny_path))[0]
+    assert event.value == value and event.event_kind == "calculation"
+    assert text[event.value_start:event.end] == value
+
+
+@pytest.mark.parametrize("text", ["q = (2) + 3", "q = ((2)) * 3", "q = 2 + 3 = 5) + 1"])
+def test_parenthesized_operand_is_not_a_commit(t1_tiny_path, text):
+    assert parse_events(text, load_t1_fixture(t1_tiny_path)) == []
+
+
+def test_density_summary_averages_traces_without_union(t1_tiny_path):
+    from reasoning_diff.next_round import sentence_graph_task
+    from reasoning_diff.measure import event_density_sets
+    from reasoning_diff.graphs import ancestors
+    from reasoning_diff.schema import Label
+    task = sentence_graph_task(load_t1_fixture(t1_tiny_path))
+    event = parse_events("q = 7", task)[0]
+    needed = ancestors(task)["q"]
+    labels = [Label(event.identity.key(), p.premise_id, int(p.premise_id in needed), True,
+                    int(p.premise_id in needed or (seed == 0 and p.premise_id == "unused_a")),
+                    True, None, "all_sentence_facts_v1", trace_id=f"base{seed}")
+              for seed in range(3) for p in task.premises]
+    summary = event_density_sets(task, labels)
+    assert summary["rho_S_raw"] == pytest.approx(1 / 6)
+    assert [r["densities"]["rho_S_raw"] for r in summary["per_trace"]] == [0.5, 0, 0]
+    assert summary["aggregation"] == "mean_over_observed_trajectories"
+
+
+def test_directed_noise_ids_are_unique_and_repeatable(t1_tiny_path):
+    from itertools import permutations
+    from reasoning_diff import cli
+    from reasoning_diff.schema import Task
+    task = load_t1_fixture(t1_tiny_path)
+    tasks = [task, Task.from_dict({**task.to_dict(), "task_id": "second", "base_group_id": "second"})]
+    def observations():
+        rows = []
+        for owner in tasks:
+            traces = [cli._synthetic_trace(owner, "q = 7\nq = 7", f"base{seed}", seed) for seed in range(3)]
+            for left, right in permutations(traces, 2):
+                rows.extend(cli._sham_observations(owner, left, right, right.seed, "base-seed-noise"))
+        return rows
+    rows = observations()
+    assert len(rows) == 24
+    assert len({r.observation_id for r in rows}) == len(rows)
+    assert len({r.record_id for r in rows}) == len(rows)
+    assert [r.observation_id for r in rows] == [r.observation_id for r in observations()]
+
+
+@pytest.mark.parametrize("broken", ["baseline", "main", "crand", "clayer"])
+def test_c2_smoke_requires_valid_controls_from_same_pair(broken):
+    from reasoning_diff.next_round import intervention_coverage
+    rows = [{"base_task_id": "t", "pair_index": 0, "pair_kind": "same_source_diff_value",
+             "condition": c, "status": "prospective_decode", "invalid": 0, "decode_complete": True,
+             "actual_norm": 0 if c == "baseline" else 1, "clayer_status": "dev_weak_layer_decode"}
+            for c in ("baseline", "main", "crand", "clayer")]
+    assert intervention_coverage(rows)["usable_main_contrasts"] == 1
+    next(r for r in rows if r["condition"] == broken)["invalid"] = 1
+    assert intervention_coverage(rows)["usable_main_contrasts"] == 0
+    next(r for r in rows if r["condition"] == broken).update(invalid=0, decode_complete=False)
+    assert intervention_coverage(rows)["usable_main_contrasts"] == 0
+    next(r for r in rows if r["condition"] == broken).update(decode_complete=True, pair_index=1)
+    assert intervention_coverage(rows)["usable_main_contrasts"] == 0
+
+
 def test_dev_selection_is_not_last_layer():
     from reasoning_diff.next_round import select_dev_layer
     assert select_dev_layer([0, 12, 24, 35], [0.6, 0.82, 0.7, 0.49]) == 12
@@ -282,6 +349,55 @@ def test_failed_length_pilot_never_launches_formal_generation(tmp_path, t1_tiny_
         runner.main(["--mode", "full", "--out-root", str(out), "--dataset", str(tmp_path), "--gpus", "2"])
     assert not read_json(out / "length_pilot.json")["passed"]
     assert not any(any("prepare_batched.py" in str(v) for v in c) for c in calls)
+
+
+def test_invalid_c2_control_prevents_formal_generation(tmp_path, t1_tiny_path, monkeypatch):
+    """Exercise the runner with subprocesses replaced; no model is invoked."""
+    import importlib
+    from pathlib import Path
+    from types import SimpleNamespace
+    from reasoning_diff.io import write_jsonl, read_json
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / "scripts"))
+    runner = importlib.import_module("run_pr8")
+    monkeypatch.setitem(__import__("sys").modules, "fcntl", SimpleNamespace(LOCK_EX=1, LOCK_NB=2, flock=lambda *a: None))
+    monkeypatch.setattr(runner, "SERVER", tmp_path)
+    monkeypatch.setattr(runner, "cohorts", lambda _paths: ([t1_tiny_path], [t1_tiny_path]))
+    monkeypatch.setattr(runner.subprocess, "check_output", lambda *a, **k: "/dev/mock\n")
+    monkeypatch.setattr(runner, "smoke_report", lambda *a: {"checks": {"measurement": True}, "base_traces": 1})
+    calls = []
+    def run(command, **kwargs):
+        calls.append(command)
+        if "--out-root" in command:
+            output = Path(command[command.index("--out-root") + 1])
+            write_jsonl(output / "traces.jsonl", [{"status": "natural_complete", "events": [{"event_region": "thinking", "event_kind": "commit"}],
+                        "metadata": {"op": 5, "generated_tokens": 100, "boundary_status": "ok"}}])
+        elif "--out-dir" in command:
+            output = Path(command[command.index("--out-dir") + 1])
+            output.mkdir(parents=True, exist_ok=True)
+            if "fit" in command:
+                write_jsonl(output / "probes.jsonl", [{"head": "behavior", "U": [[1]], "metrics": {"dev": {"auc": 0.5}}}])
+                write_jsonl(output / "p1_table.jsonl", [{"trace_id": "base", "rho": 0, "support_cells": 1, "eligible_cells": 1}])
+            elif "collect" in command:
+                write_jsonl(output / "event_rows.jsonl", [{}])
+            elif "intervene" in command:
+                write_jsonl(output / "interventions.jsonl", [
+                    {"base_task_id": "t", "pair_index": 0, "pair_kind": "same_source_diff_value", "condition": c,
+                     "status": "prospective_decode", "invalid": int(c == "clayer"), "decode_complete": True,
+                     "actual_norm": 0 if c == "baseline" else 1, "clayer_status": "dev_weak_layer_decode"}
+                    for c in ("baseline", "main", "crand", "clayer")])
+            else:
+                for name in ("traces.jsonl", "tasks.jsonl", "observations.jsonl"):
+                    write_jsonl(output / name, [])
+        return SimpleNamespace(stdout="")
+    monkeypatch.setattr(runner.subprocess, "run", run)
+    out = tmp_path / "output"
+    with pytest.raises(RuntimeError, match="no usable donor/decode"):
+        runner.main(["--mode", "full", "--out-root", str(out), "--dataset", str(tmp_path), "--gpus", "2"])
+    assert read_json(out / "pipeline.json")["status"] == "failed"
+    assert not read_json(out / "smoke/smoke_report.json")["checks"]["causal_decode"]
+    coverage = read_json(out / "smoke/intervention_coverage.json")
+    assert coverage["contrasts"][0]["failed_conditions"] == ["clayer"]
+    assert not any(str(out / "full/prepare-gpu2") in c for c in calls)
 
 
 @pytest.mark.parametrize("op", [5, 10, 15, 21])

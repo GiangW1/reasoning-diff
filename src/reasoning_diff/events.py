@@ -58,9 +58,13 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 separator = re.search(r";|\.(?!\d)", tail)
                 if separator:
                     tail = tail[:separator.start()]
-                if re.match(r"\s*(?:[+*/%=−×÷^-]|plus\b|minus\b|times\b|divided\b)", tail):
-                    chain = re.match(r"(?P<expr>[^\n;]*?)=\s*\$?(?P<result>" + NUMBER + r")(?=\s*(?:$|[.,;)]|\bmod\b))", tail)
+                # Closing parentheses after the first operand do not make
+                # it a committed value when arithmetic still follows.
+                if re.match(r"(?:\s*\))*\s*(?:[+*/%=−×÷^-]|plus\b|minus\b|times\b|divided\b)", tail):
+                    chain = re.match(r"(?P<expr>[^\n;]*?)=\s*\$?(?P<result>" + NUMBER + r")(?=\s*(?:$|[.,;)]|\(?\s*\bmod\b))", tail)
                     if chain is None:
+                        continue
+                    if re.match(r"(?:\s*\))*\s*(?:[+*/%=−×÷^-]|plus\b|minus\b|times\b|divided\b)", tail[chain.end("result"):]):
                         continue
                     value_start = end + chain.start("result")
                     value = chain.group("result")

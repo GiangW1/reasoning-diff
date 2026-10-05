@@ -220,6 +220,7 @@ def test_intervene_hidden_decode_accepts_injected_model():
     assert out["hook_fired"]
     assert len(out["generated_ids"]) == 2
     assert "baseline_generated_ids" in out
+    assert out["stop_reason"] == out["baseline_stop_reason"] == "max_new"
 
 
 def test_intervene_hidden_decode_accepts_bfloat16_hidden_states():
@@ -295,6 +296,9 @@ def test_frozen_cli_pipeline_uses_injected_runtime(tmp_path, t1_tiny_path, monke
     row = read_jsonl(inter / "interventions.jsonl")[0]
     assert row["status"] in {"prospective_decode", "geometry_on_hidden"}
     assert row["relative"]["revision"] == "test"
+    if row["status"] == "prospective_decode":
+        assert row["decode_stop_reason"] == "max_new"
+        assert row["decode_complete"] is False
     assert main(["repair", "--in-dir", str(col), "--out-dir", str(repair), "--backend", "frozen", "--model-name", "qwen3-8b", "--eval-mode", "scientific"]) == 0
     recs = read_jsonl(repair / "repairs.jsonl")
     assert recs

@@ -427,6 +427,7 @@ def intervene_hidden_decode(
     return {
         **decoded,
         "baseline_generated_ids": baseline["generated_ids"],
+        "baseline_stop_reason": baseline["stop_reason"],
         "followed_donor": decoded["generated_ids"] != baseline["generated_ids"],
         "hook": "resid_post",
         "transform": mode,

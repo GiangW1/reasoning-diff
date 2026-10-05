@@ -16,7 +16,7 @@ import sys
 
 from reasoning_diff import cli
 from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
-from reasoning_diff.next_round import select_dev_layer, smoke_report
+from reasoning_diff.next_round import intervention_coverage, select_dev_layer, smoke_report
 from reasoning_diff.splits import DEFAULT_FRACTIONS, split_for_task
 from reasoning_diff.tasks.t1_official import load_igsm_snapshot
 
@@ -219,9 +219,9 @@ def main(argv=None):
               "--labels-dir", labels, "--out-dir", work / "intervention", "--backend", "frozen", "--model-name", args.model,
               "--device", "cuda", "--max-new", args.max_new, "--all-source-pairs", "--pair-split", "dev" if name == "smoke" else "test", gpu=args.gpus[0])
         intervention = read_jsonl(work / "intervention/interventions.jsonl")
-        usable = sum(r.get("status") == "prospective_decode" and r.get("condition") == "main" and r.get("invalid") == 0
-                     and (r.get("actual_norm") or 0) > 0 and r.get("clayer_status") == "dev_weak_layer_decode" for r in intervention)
-        write_json(work / "intervention_coverage.json", {"usable_main_contrasts": usable, "P3": "not_evaluated"})
+        coverage = intervention_coverage(intervention)
+        usable = coverage["usable_main_contrasts"]
+        write_json(work / "intervention_coverage.json", coverage)
         if name == "smoke" and not usable:
             report["checks"]["causal_decode"] = False
             report["passed"] = False

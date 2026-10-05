@@ -596,9 +596,10 @@ def _sham_observations(task: Task, base_trace: Trace, sham_trace: Trace, seed: i
     rows = []
     for left, right in align_events(base_trace.events, sham_trace.events)["pairs"]:
         key = left.node_id or left.identity.key()
+        identity = digest([task.task_id, base_trace.id, sham_trace.id, left.identity.key(), right.identity.key(), seed, run_id])
         rows.append(
             Observation(
-                observation_id=f"obs:{run_id}:{seed}:{key}",
+                observation_id=f"obs:{run_id}:{identity}",
                 reference_trace=base_trace.id,
                 comparison_trace=sham_trace.id,
                 edit_id="sham:no_edit_sampled",
@@ -611,7 +612,7 @@ def _sham_observations(task: Task, base_trace: Trace, sham_trace: Trace, seed: i
                 scan_state="observed_response",
                 base_group_id=task.base_group_id,
                 run_id=run_id,
-                record_id=f"{run_id}:{seed}:{left.identity.key()}",
+                record_id=f"{run_id}:{identity}",
                 node_id=left.node_id,
                 task_id=task.task_id,
             )
@@ -3076,6 +3077,8 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                         "nontarget": nontarget,
                         "task_correct": None if score["correct"] is None else float(score["correct"]),
                         "invalid": 1.0 if ans is None else 0.0,
+                        "decode_stop_reason": decoded.get("stop_reason"),
+                        "decode_complete": decoded.get("stop_reason") in {"eos", "stop_condition"},
                         "answer": ans,
                         **score,
                     }
@@ -3159,7 +3162,8 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                     "inlp_outcomes": inlp_out,
                     "dose_curve": dose_curve,
                     "condition_records": [
-                        {"condition": "baseline", **_outcomes({"generated_ids": hooked.get("baseline_generated_ids") or []}), "actual_norm": 0.0},
+                        {"condition": "baseline", **_outcomes({"generated_ids": hooked.get("baseline_generated_ids") or [],
+                                                              "stop_reason": hooked.get("baseline_stop_reason")}), "actual_norm": 0.0},
                         {"condition": "main", **main_out, "actual_norm": main_norm},
                         {"condition": "crand", **crand_out, "actual_norm": crand_norm},
                         {"condition": "clayer", **clayer_out, "actual_norm": clayer_norm},
@@ -3188,6 +3192,8 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
             "nontarget": item.get("nontarget"),
             "task_correct": item.get("task_correct"),
             "invalid": item.get("invalid"),
+            "decode_stop_reason": item.get("decode_stop_reason"),
+            "decode_complete": item.get("decode_complete"),
             "actual_norm": item.get("actual_norm"),
             "status": status,
             "clayer_status": clayer_status,

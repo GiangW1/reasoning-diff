@@ -240,6 +240,31 @@ def smoke_report(traces, tasks, observations, event_rows, probes):
             "scientific_conclusion": None}
 
 
+def intervention_coverage(rows):
+    """Count complete source contrasts with valid answers in every control."""
+    grouped = defaultdict(list)
+    for row in rows:
+        grouped[(row.get("base_task_id"), row.get("pair_index"), row.get("pair_kind"))].append(row)
+    usable, contrasts = 0, []
+    required = {"baseline", "main", "crand", "clayer"}
+    for (task, index, kind), records in grouped.items():
+        conditions = {r.get("condition"): r for r in records}
+        failures = []
+        for condition in sorted(required):
+            r = conditions.get(condition, {})
+            norm = r.get("actual_norm")
+            valid = (r.get("status") == "prospective_decode" and r.get("invalid") == 0
+                     and r.get("decode_complete") is True
+                     and isinstance(norm, (int, float)) and math.isfinite(norm)
+                     and (norm == 0 if condition == "baseline" else norm > 0))
+            if not valid or (condition == "clayer" and r.get("clayer_status") != "dev_weak_layer_decode"):
+                failures.append(condition)
+        usable += not failures
+        contrasts.append({"base_task_id": task, "pair_index": index, "pair_kind": kind,
+                          "usable": not failures, "failed_conditions": failures})
+    return {"usable_main_contrasts": usable, "contrasts": contrasts, "P3": "not_evaluated"}
+
+
 def matched_baselines(h, y_task, y_beh, event_keys, feature_rows, tasks, traces, premise_keys, train, roles, position):
     """Train and evaluate text and trivial baselines on the probe's exact cells."""
     import numpy as np

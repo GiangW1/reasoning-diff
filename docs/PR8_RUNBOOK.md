@@ -37,7 +37,7 @@ PY=/home/wja/reasoning-diff/.venv/bin/python
 - train/dev 有两类有效 behavior 标签，至少两个 dev 层有可用 AUC。
 - P1 每条 base 轨迹一行，没有三种位置重复或零长度哨兵。
 - 已观察非任务依赖格覆盖率至少 50%，至少一条轨迹有匹配噪声后的密度。
-- 至少一个来源对完成非零干预、有效答案解码及 C-layer 对照。
+- 至少一个来源对的 baseline、main、随机对照和 C-layer 对照全部自然结束且有有效答案；三种干预范数均有限且非零。按同一来源对核对，不能将不同来源对的条件拼成一次成功。
 
 失败保留诊断、不启动正式生成。50% 是防止大面积截断/无法测量的工程检查，**不是论文验收阈值**。没有“必须准确”“AUC 必须高”“效应必须正”的门槛。真实 smoke 也消耗算力，分两阶段让预算/解析问题尽早暴露。
 
@@ -54,6 +54,8 @@ PY=/home/wja/reasoning-diff/.venv/bin/python
 解析区分 restatement/calculation/commit，科学主探针排除 restatement 和边界失败轨迹，原始轨迹全部保留。Unicode 跨 token 时按原始 bytes 对齐；重编码或 byte round trip 失败就保留失败，不能回退到虚构游标。
 
 行为标签绑定 reference trace/seed，不把一个 seed 的变化传播到所有 seeds。只收集主 probe 和来源对 donor 特征，避免所有扫描变体形成无标签的大矩阵。文本基线、预测下一变量后映射 DAG 的基线、`restatement + R_task` 诊断基线均只用 probe_train 拟合，并在与 probe 相同的格子上报告 dev/test。
+
+标签文件的密度摘要先逐轨迹计算，再取有观测轨迹的平均，保留 `per_trace` 和观测分母；跨 seed 的正例不取并集。噪声记录 ID 包含题目、两条轨迹及完整事件身份。`intervention_coverage.json` 记录每个来源对未通过的具体条件，预算耗尽的解码不算自然完成。
 
 ## P1 的解释范围与暂未执行的检验
 

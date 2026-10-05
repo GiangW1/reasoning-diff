@@ -1,0 +1,235 @@
+{
+  "native_id": "igsm-official-0166-op15",
+  "family_id": "igsm-official-0166-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261097,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "0",
+  "target": "p_0_1_1_2",
+  "question": "The number of each Lion Exhibit's Parrot equals each Wolf Woods's Parrot. The number of each SeaWorld Orlando's Lion Exhibit equals 13 times as much as each The Living Seas's Animal. The number of each SeaWorld Orlando's Hippopotamus Tank equals 5. The number of each Wolf Woods's Owl equals each Vancouver Aquarium's Enclosure. The number of each Wolf Woods's Parrot equals 22 times as much as each SeaWorld Orlando's Enclosure. The number of each Vancouver Aquarium's Wolf Woods equals each SeaWorld Orlando's Animal. The number of each Wolf Woods's Swan equals the sum of each Wolf Woods's Owl and each Hippopotamus Tank's Animal. How many Swan does Wolf Woods have?",
+  "lookup": {
+    "p_1_0_0_2": 0,
+    "p_0_0_2_0": 0,
+    "p_0_0_2_2": 5,
+    "p_1_1_2_2": 0,
+    "p_1_0_2_1": 5,
+    "p_0_1_1_1": 18,
+    "p_0_1_0_1": 18,
+    "p_1_1_0_2": 18,
+    "p_1_0_2_2": 0,
+    "p_0_0_1_1": 0,
+    "p_1_0_1_1": 0,
+    "p_0_1_1_0": 0,
+    "p_0_1_1_2": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_0",
+        "literal": 0,
+        "span": [
+          74,
+          181
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_2",
+        "literal": 5,
+        "span": [
+          183,
+          247
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "SeaWorld Orlando's Enclosure"
+        ],
+        "expression": "(p_0_0_2_0 + p_0_0_2_2)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_1_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Wolf Woods's Parrot"
+        ],
+        "expression": "(22 * p_1_0_2_1)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Lion Exhibit's Parrot"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Lion Exhibit's Animal"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_1_0_2",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "SeaWorld Orlando's Animal"
+        ],
+        "expression": "((p_0_0_2_0 * p_1_1_0_2) + (p_0_0_2_2 * 0))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Vancouver Aquarium's Wolf Woods"
+        ],
+        "expression": "p_1_0_2_2",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Vancouver Aquarium's Enclosure"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Wolf Woods's Owl"
+        ],
+        "expression": "p_1_0_1_1",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Wolf Woods's Swan"
+        ],
+        "expression": "(p_0_1_1_0 + 0)",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_0_2_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_1_2"
+      ]
+    ]
+  }
+}

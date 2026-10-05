@@ -1,0 +1,131 @@
+{
+  "native_id": "igsm-official-0120-op5",
+  "family_id": "igsm-official-0120-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261049,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "16",
+  "target": "p_0_2_1_1",
+  "question": "The number of each Leopard's Anal Fin Rays equals the difference of each Aquarium's Kangaroo and each The Deep's Aquarium. The number of each The Deep's Aquarium equals 15. The number of each The Deep's Dolphin Lagoon equals the sum of each Leopard's Anal Fin Rays, each The Deep's Aquarium, each Aquarium's Kangaroo and each Aquarium's Leopard. The number of each Aquarium's Leopard equals each Leopard's Anal Fin Rays. The number of each Kangaroo's Anal Fin Rays equals 20 more than the difference of each Aquarium's Kangaroo and each The Deep's Aquarium. The number of each Dolphin Lagoon's Leopard equals 20 times as much as each Baltimore Aquarium's Dolphin Lagoon. The number of each Leopard's Epicentrals equals 15 times as much as the sum of each The Deep's Aquarium, each Dolphin Lagoon's Kangaroo and each Kangaroo's Epicentrals. The number of each Dolphin Lagoon's Kangaroo equals 19 times as much as each Baltimore Aquarium's Dolphin Lagoon. The number of each Baltimore Aquarium's Aquarium equals 2. The number of each Baltimore Aquarium's Dolphin Lagoon equals 1. The number of each Kangaroo's Epicentrals equals each Dolphin Lagoon's Animal. The number of each Aquarium's Kangaroo equals 11. How many Epicentrals does Kangaroo have?",
+  "lookup": {
+    "p_0_0_1_1": 1,
+    "p_0_0_0_0": 15,
+    "p_0_1_1_1": 19,
+    "p_0_1_0_1": 11,
+    "p_0_2_0_0": 19,
+    "p_0_1_0_0": 19,
+    "p_0_1_1_0": 20,
+    "p_0_0_0_1": 18,
+    "p_0_0_1_0": 2,
+    "p_0_2_1_0": 16,
+    "p_1_1_1_2": 16,
+    "p_0_2_1_1": 16,
+    "p_0_2_0_1": 14
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 1,
+        "span": [
+          1013,
+          1076
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Dolphin Lagoon's Leopard"
+        ],
+        "expression": "(20 * p_0_0_1_1)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Dolphin Lagoon's Kangaroo"
+        ],
+        "expression": "(19 * p_0_0_1_1)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Dolphin Lagoon's Animal"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Kangaroo's Epicentrals"
+        ],
+        "expression": "p_1_1_1_2",
+        "value": 16
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_2_1_1"
+      ]
+    ]
+  }
+}

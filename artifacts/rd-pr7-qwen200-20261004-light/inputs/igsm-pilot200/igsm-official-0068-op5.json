@@ -1,0 +1,107 @@
+{
+  "native_id": "igsm-official-0068-op5",
+  "family_id": "igsm-official-0068-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260995,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "17",
+  "target": "p_0_0_2_1",
+  "question": "The number of each Insectarium of Washington DC's Worm World equals 13 times as much as each San Francisco Insectarium's Worm World. The number of each Insectarium of Washington DC's Cricket Chorus equals 22 more than the sum of each San Francisco Insectarium's Worm World and each Insectarium of Washington DC's Moth Metropolis. The number of each Insectarium of Boston's Stick Insect Forest equals each Insectarium of Washington DC's Moth Metropolis. The number of each Insectarium of Washington DC's Moth Metropolis equals 9. The number of each San Francisco Insectarium's Cricket Chorus equals 15. The number of each San Francisco Insectarium's Worm World equals each Insectarium of Boston's Stick Insect Forest. How many Cricket Chorus does Insectarium of Washington DC have?",
+  "lookup": {
+    "p_0_0_1_1": 15,
+    "p_0_0_2_2": 9,
+    "p_0_0_0_0": 9,
+    "p_0_0_1_3": 9,
+    "p_0_0_2_3": 2,
+    "p_0_0_2_1": 17
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_2",
+        "literal": 9,
+        "span": [
+          453,
+          527
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Insectarium of Boston's Stick Insect Forest"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "San Francisco Insectarium's Worm World"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_1_3",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Insectarium of Washington DC's Cricket Chorus"
+        ],
+        "expression": "(22 + (p_0_0_1_3 + p_0_0_2_2))",
+        "value": 17
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_1"
+      ]
+    ]
+  }
+}

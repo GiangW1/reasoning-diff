@@ -1,0 +1,269 @@
+{
+  "native_id": "igsm-official-0083-op21",
+  "family_id": "igsm-official-0083-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261010,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "3",
+  "target": "p_1_0_2_1",
+  "question": "The number of each Education Studies Room's Skiing Backpack equals 2 times as much as the sum of each Education Studies Room's Golf Backpack, each Business Management Room's Backpack and each Business Management Room's Skiing Backpack. The number of each International Relations Classroom's Running Backpack equals 18 more than the difference of each Geography Lab's Skiing Backpack and each Geography Lab's Biking Backpack. The number of each Business Management Room's Skiing Backpack equals 5 times as much as the sum of each Business Management Room's Golf Backpack and each Business Management Room's Biking Backpack. The number of each International Relations Classroom's Biking Backpack equals 16. The number of each Business Management Room's Biking Backpack equals 3. The number of each Business Management Room's Golf Backpack equals each Business Management Room's Biking Backpack. The number of each Education Studies Room's Biking Backpack equals 19 times as much as the sum of each Business Management Room's Skiing Backpack, each Education Studies Room's Golf Backpack and each Business Management Room's Golf Backpack. The number of each Geography Lab's Biking Backpack equals each Geography Lab's Skiing Backpack. The number of each Education Studies Room's Running Backpack equals the sum of each Education Studies Room's Skiing Backpack, each Education Studies Room's Golf Backpack, each Business Management Room's Golf Backpack and each Education Studies Room's Biking Backpack. The number of each Geography Lab's Skiing Backpack equals 0. The number of each Education Studies Room's Golf Backpack equals 14 times as much as the sum of each Business Management Room's Backpack, each Business Management Room's Skiing Backpack and each Business Management Room's Biking Backpack. How many Backpack does Education Studies Room have?",
+  "lookup": {
+    "p_0_0_1_1": 16,
+    "p_0_0_0_1": 3,
+    "p_0_0_3_3": 0,
+    "p_0_0_0_0": 3,
+    "p_0_0_0_3": 7,
+    "p_0_0_3_1": 0,
+    "p_1_0_0_1": 13,
+    "p_0_0_1_2": 18,
+    "p_0_0_2_0": 0,
+    "p_0_0_2_3": 17,
+    "p_0_0_2_1": 6,
+    "p_0_0_2_2": 3,
+    "p_1_0_2_1": 3
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 3,
+        "span": [
+          705,
+          775
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Business Management Room's Golf Backpack"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_3",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_3",
+          "Business Management Room's Skiing Backpack"
+        ],
+        "expression": "(5 * (p_0_0_0_0 + p_0_0_0_1))",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Business Management Room's Backpack"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_3)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_3",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Education Studies Room's Golf Backpack"
+        ],
+        "expression": "(14 * ((p_1_0_0_1 + p_0_0_0_3) + p_0_0_0_1))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_0_3",
+          "p_0_0_2_0",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Education Studies Room's Biking Backpack"
+        ],
+        "expression": "(19 * ((p_0_0_0_3 + p_0_0_2_0) + p_0_0_0_0))",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_0_0_1",
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Education Studies Room's Skiing Backpack"
+        ],
+        "expression": "(2 * ((p_0_0_2_0 + p_1_0_0_1) + p_0_0_0_3))",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_2_3",
+          "p_0_0_2_0",
+          "p_0_0_0_0",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Education Studies Room's Running Backpack"
+        ],
+        "expression": "(((p_0_0_2_3 + p_0_0_2_0) + p_0_0_0_0) + p_0_0_2_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2",
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Education Studies Room's Backpack"
+        ],
+        "expression": "(((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2) + p_0_0_2_3)",
+        "value": 3
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_1_0_2_1"
+      ]
+    ]
+  }
+}

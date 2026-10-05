@@ -1,0 +1,392 @@
+{
+  "native_id": "igsm-official-0163-op21",
+  "family_id": "igsm-official-0163-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261094,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "5",
+  "target": "p_1_1_1_3",
+  "question": "The number of each Dasht-e Lut's Minotaur equals 19. The number of each Dasht-e Kavir's Yeti equals 7 more than each Endothelium's Cells. The number of each Dasht-e Lut's Basilisk equals each Endothelium's Macrophages. The number of each Pulmonary Veins's Dendritic Cells equals the sum of each Aortic Valve's Cells and each Basilisk's Endothelium. The number of each Cerberus's Pulmonary Veins equals each Basilisk's Aortic Valve. The number of each Endothelium's Macrophages equals the difference of each Cerberus's Tricuspid Valve and each Cerberus's Pulmonary Veins. The number of each Cerberus's Aortic Valve equals each Tricuspid Valve's Proerythroblasts. The number of each Aortic Valve's Platelets equals each Cerberus's Organs. The number of each Aortic Valve's Dendritic Cells equals 19. The number of each Basilisk's Endothelium equals the sum of each Dasht-e Lut's Basilisk and each Cerberus's Pulmonary Veins. The number of each Cerberus's Tricuspid Valve equals 14. The number of each Basilisk's Aortic Valve equals the sum of each Turkestan Desert's Cerberus and each Cerberus's Tricuspid Valve. The number of each Dasht-e Lut's Yeti equals 0. The number of each Minotaur's Endothelium equals each Basilisk's Cells. The number of each Tricuspid Valve's Proerythroblasts equals the sum of each Basilisk's Aortic Valve, each Turkestan Desert's Cerberus and each Cerberus's Tricuspid Valve. The number of each Turkestan Desert's Cerberus equals each Cerberus's Tricuspid Valve. The number of each Pulmonary Veins's Macrophages equals 5 times as much as each Tricuspid Valve's Cells. How many Cells does Minotaur have?",
+  "lookup": {
+    "p_0_2_3_2": 19,
+    "p_0_1_2_0": 14,
+    "p_0_0_0_1": 19,
+    "p_0_0_1_2": 14,
+    "p_0_1_0_3": 5,
+    "p_0_1_2_2": 5,
+    "p_0_2_0_3": 10,
+    "p_0_0_0_3": 0,
+    "p_1_2_0_3": 10,
+    "p_0_2_1_0": 9,
+    "p_0_0_0_0": 9,
+    "p_0_2_2_0": 4,
+    "p_0_1_0_1": 14,
+    "p_0_1_2_3": 10,
+    "p_1_2_1_3": 9,
+    "p_1_1_2_2": 6,
+    "p_0_0_3_3": 16,
+    "p_0_2_3_1": 6,
+    "p_1_2_3_3": 2,
+    "p_1_1_0_3": 21,
+    "p_0_1_1_1": 21,
+    "p_1_1_1_3": 5,
+    "p_0_2_2_2": 16
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_0",
+        "literal": 14,
+        "span": [
+          923,
+          978
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_3_2",
+        "literal": 19,
+        "span": [
+          737,
+          796
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Turkestan Desert's Cerberus"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_3",
+        "parents": [
+          "p_0_0_1_2",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_1_0_3",
+          "Basilisk's Aortic Valve"
+        ],
+        "expression": "(p_0_0_1_2 + p_0_1_2_0)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_1_0_3"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Cerberus's Pulmonary Veins"
+        ],
+        "expression": "p_0_1_0_3",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Endothelium's Macrophages"
+        ],
+        "expression": "(p_0_1_2_0 - p_0_1_2_2)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_2_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Dasht-e Lut's Basilisk"
+        ],
+        "expression": "p_0_2_1_0",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Basilisk's Endothelium"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_1_2_2)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_0"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Endothelium's Cells"
+        ],
+        "expression": "p_0_2_1_0",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_3",
+        "parents": [
+          "p_0_1_0_3",
+          "p_0_0_1_2",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_2_0_3",
+          "Tricuspid Valve's Proerythroblasts"
+        ],
+        "expression": "((p_0_1_0_3 + p_0_0_1_2) + p_0_1_2_0)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_3",
+        "parents": [
+          "p_0_2_0_3"
+        ],
+        "aliases": [
+          "p_0_1_2_3",
+          "Cerberus's Aortic Valve"
+        ],
+        "expression": "p_0_2_0_3",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_2",
+          "p_0_1_2_3"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Cerberus's Organs"
+        ],
+        "expression": "((p_0_1_2_0 + p_0_1_2_2) + p_0_1_2_3)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_3_1",
+        "parents": [
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_0_2_3_1",
+          "Aortic Valve's Platelets"
+        ],
+        "expression": "p_1_1_2_2",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_3_3",
+        "parents": [
+          "p_0_2_3_1",
+          "p_0_2_3_2"
+        ],
+        "aliases": [
+          "p_1_2_3_3",
+          "Aortic Valve's Cells"
+        ],
+        "expression": "(p_0_2_3_1 + p_0_2_3_2)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_1",
+          "p_1_2_1_3",
+          "p_0_1_0_3",
+          "p_1_2_3_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Basilisk's Cells"
+        ],
+        "expression": "((p_0_1_0_1 * p_1_2_1_3) + (p_0_1_0_3 * p_1_2_3_3))",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Minotaur's Endothelium"
+        ],
+        "expression": "p_1_1_0_3",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_1",
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "Minotaur's Cells"
+        ],
+        "expression": "(p_0_1_1_1 * p_1_2_1_3)",
+        "value": 5
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_0",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_0_2_0_3"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_2_0_3"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_2_0_3"
+      ],
+      [
+        "p_0_2_0_3",
+        "p_0_1_2_3"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_2_3_1"
+      ],
+      [
+        "p_0_2_3_1",
+        "p_1_2_3_3"
+      ],
+      [
+        "p_0_2_3_2",
+        "p_1_2_3_3"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_3_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_1_3"
+      ]
+    ]
+  }
+}

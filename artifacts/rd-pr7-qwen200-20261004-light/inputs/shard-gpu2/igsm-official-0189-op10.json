@@ -1,0 +1,239 @@
+{
+  "native_id": "igsm-official-0189-op10",
+  "family_id": "igsm-official-0189-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261122,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "5",
+  "target": "p_1_1_3_2",
+  "question": "The number of each Millennium Park in Chicago's Manatee equals 18 more than the sum of each Millennium Park in Chicago's Sea Turtle, each Millennium Park in Chicago's Sea Anemone and each Great White Shark's Pylorus. The number of each Millennium Park in Chicago's Sea Anemone equals 16. The number of each Millennium Park in Chicago's Great White Shark equals 20. The number of each Sea Turtle's Ileum equals each Millennium Park in Chicago's Sea Anemone. The number of each Sea Anemone's Stomach equals each Hampstead Heath in London's Organs. The number of each Great White Shark's Ileum equals each Sea Turtle's Pylorus. The number of each Millennium Park in Chicago's Sea Turtle equals 22. The number of each Vondelpark in Amsterdam's Great White Shark equals the difference of each Vondelpark in Amsterdam's Sea Anemone and each Vondelpark in Amsterdam's Sea Turtle. The number of each Stanley Park in Vancouver's Sea Anemone equals the sum of each Millennium Park in Chicago's Sea Turtle and each Millennium Park in Chicago's Sea Anemone. The number of each Hampstead Heath in London's Great White Shark equals each Sea Anemone's Duodenum. The number of each Stanley Park in Vancouver's Great White Shark equals each Great White Shark's Pylorus. The number of each Manatee's Ileum equals 3 more than the sum of each Vondelpark in Amsterdam's Sea Anemone and each Sea Turtle's Ileum. The number of each Manatee's Duodenum equals each Vondelpark in Amsterdam's Sea Anemone. The number of each Manatee's Stomach equals 21 more than each Hampstead Heath in London's Manatee. The number of each Great White Shark's Pylorus equals the sum of each Vondelpark in Amsterdam's Sea Turtle and each Manatee's Duodenum. The number of each Sea Turtle's Pylorus equals the sum of each Vondelpark in Amsterdam's Creatures and each Vondelpark in Amsterdam's Sea Turtle. The number of each Vondelpark in Amsterdam's Sea Turtle equals 1 times as much as each Manatee's Duodenum. The number of each Sea Turtle's Duodenum equals 21 times as much as the sum of each Hampstead Heath in London's Great White Shark, each Millennium Park in Chicago's Sea Anemone and each Millennium Park in Chicago's Sea Turtle. The number of each Sea Turtle's Stomach equals each Millennium Park in Chicago's Sea Anemone. The number of each Vondelpark in Amsterdam's Sea Anemone equals 1. The number of each Sea Anemone's Duodenum equals each Millennium Park in Chicago's Sea Anemone. The number of each Sea Anemone's Ileum equals 14 more than each Millennium Park in Chicago's Creatures. The number of each Hampstead Heath in London's Manatee equals each Millennium Park in Chicago's Sea Anemone. How many Organs does Great White Shark have?",
+  "lookup": {
+    "p_0_0_3_0": 16,
+    "p_0_1_2_3": 16,
+    "p_0_0_3_3": 20,
+    "p_0_1_2_0": 16,
+    "p_0_0_1_1": 16,
+    "p_0_1_0_1": 16,
+    "p_0_1_1_3": 14,
+    "p_0_0_1_3": 16,
+    "p_0_0_3_2": 22,
+    "p_0_0_0_0": 15,
+    "p_0_1_2_1": 7,
+    "p_0_0_2_0": 1,
+    "p_0_1_1_1": 1,
+    "p_0_0_2_2": 1,
+    "p_0_1_1_0": 20,
+    "p_0_1_3_2": 2,
+    "p_0_0_3_1": 12,
+    "p_1_0_3_1": 1,
+    "p_1_1_1_2": 12,
+    "p_0_1_0_0": 15,
+    "p_0_0_2_3": 0,
+    "p_0_0_0_3": 2,
+    "p_1_0_2_1": 2,
+    "p_0_1_2_2": 3,
+    "p_0_1_3_0": 3,
+    "p_1_1_3_2": 5,
+    "p_1_0_1_2": 19,
+    "p_0_1_0_3": 19
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_0",
+        "literal": 1,
+        "span": [
+          2288,
+          2353
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Manatee's Duodenum"
+        ],
+        "expression": "p_0_0_2_0",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Vondelpark in Amsterdam's Sea Turtle"
+        ],
+        "expression": "(1 * p_0_1_1_1)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Vondelpark in Amsterdam's Great White Shark"
+        ],
+        "expression": "(p_0_0_2_0 - p_0_0_2_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_2",
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Vondelpark in Amsterdam's Creatures"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_2) + p_0_0_2_3)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Sea Turtle's Pylorus"
+        ],
+        "expression": "(p_1_0_2_1 + p_0_0_2_2)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_0",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_1_3_0",
+          "Great White Shark's Ileum"
+        ],
+        "expression": "p_0_1_2_2",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_2",
+        "parents": [
+          "p_0_0_2_2",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_3_2",
+          "Great White Shark's Pylorus"
+        ],
+        "expression": "(p_0_0_2_2 + p_0_1_1_1)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_3_2",
+        "parents": [
+          "p_0_1_3_0",
+          "p_0_1_3_2"
+        ],
+        "aliases": [
+          "p_1_1_3_2",
+          "Great White Shark's Organs"
+        ],
+        "expression": "(p_0_1_3_0 + p_0_1_3_2)",
+        "value": 5
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_1_3_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_1_3_0",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_1_1_3_2"
+      ]
+    ]
+  }
+}

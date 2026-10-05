@@ -1,0 +1,106 @@
+{
+  "native_id": "igsm-official-0160-op5",
+  "family_id": "igsm-official-0160-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261091,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "6",
+  "target": "p_0_0_2_3",
+  "question": "The number of each Spine's Muscle Spindle Cells equals 3 more than the sum of each Achilles Tendon's Muscle Spindle Cells and each Achilles Tendon's Myoblasts. The number of each Achilles Tendon's Myoblasts equals each Achilles Tendon's Arrector Pili Muscle Cells. The number of each Achilles Tendon's Muscle Spindle Cells equals 5 times as much as each Achilles Tendon's Myoblasts. The number of each Deltoid's Uterine Muscle Cells equals 4. The number of each Achilles Tendon's Arrector Pili Muscle Cells equals 12. How many Muscle Spindle Cells does Spine have?",
+  "lookup": {
+    "p_0_0_1_0": 12,
+    "p_0_0_1_1": 12,
+    "p_0_0_3_2": 4,
+    "p_0_0_1_3": 14,
+    "p_0_0_2_3": 6
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 12,
+        "span": [
+          443,
+          516
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Achilles Tendon's Myoblasts"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Achilles Tendon's Muscle Spindle Cells"
+        ],
+        "expression": "(5 * p_0_0_1_1)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_0_1_3",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Spine's Muscle Spindle Cells"
+        ],
+        "expression": "(3 + (p_0_0_1_3 + p_0_0_1_1))",
+        "value": 6
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_3"
+      ]
+    ]
+  }
+}

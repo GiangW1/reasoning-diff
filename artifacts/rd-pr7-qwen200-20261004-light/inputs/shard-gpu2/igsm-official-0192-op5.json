@@ -1,0 +1,105 @@
+{
+  "native_id": "igsm-official-0192-op5",
+  "family_id": "igsm-official-0192-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261126,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "8",
+  "target": "p_0_0_1_0",
+  "question": "The number of each GrubMarket's Canned Pineapple equals 16 times as much as the sum of each DoorDash's Canned Pineapple and each DoorDash's Canned Peas. The number of each DoorDash's Canned Peas equals 22. The number of each DoorDash's Canned Pineapple equals 21 more than each DoorDash's Canned Peas. The number of each GrubMarket's Canned Peas equals 3 more than each GrubMarket's Canned Pineapple. How many Canned Peas does GrubMarket have?",
+  "lookup": {
+    "p_0_0_0_0": 22,
+    "p_0_0_0_1": 20,
+    "p_0_0_1_1": 5,
+    "p_0_0_1_0": 8
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 22,
+        "span": [
+          153,
+          204
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "DoorDash's Canned Pineapple"
+        ],
+        "expression": "(21 + p_0_0_0_0)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "GrubMarket's Canned Pineapple"
+        ],
+        "expression": "(16 * (p_0_0_0_1 + p_0_0_0_0))",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "GrubMarket's Canned Peas"
+        ],
+        "expression": "(3 + p_0_0_1_1)",
+        "value": 8
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_0"
+      ]
+    ]
+  }
+}

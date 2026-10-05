@@ -1,0 +1,285 @@
+{
+  "native_id": "igsm-official-0154-op15",
+  "family_id": "igsm-official-0154-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261085,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "9",
+  "target": "p_0_2_2_0",
+  "question": "The number of each Old Fortress's BriarPatch Food Co-op equals the sum of each Lakewinds Food Co-op's Croissants, each Erewhon Market's Rolls and each BriarPatch Food Co-op's Croissants. The number of each Preservation District's BriarPatch Food Co-op equals 10. The number of each Sprouts Farmers Market's Danishes equals each BriarPatch Food Co-op's Croissants. The number of each Preservation District's Erewhon Market equals 11. The number of each Historic Industrial District's BriarPatch Food Co-op equals 9 times as much as each Historic Industrial District's Lakewinds Food Co-op. The number of each Pastries's Mushrooms equals 8 times as much as each Lakewinds Food Co-op's Product. The number of each BriarPatch Food Co-op's Pastries equals the sum of each Preservation District's BriarPatch Food Co-op, each Sprouts Farmers Market's Danishes and each BriarPatch Food Co-op's Croissants. The number of each Lakewinds Food Co-op's Rolls equals the sum of each Historic Industrial District's Supermarket, each Erewhon Market's Pastries and each Erewhon Market's Rolls. The number of each Old Fortress's Erewhon Market equals the sum of each Danishes's Mushrooms, each Danishes's Kale and each Erewhon Market's Product. The number of each Erewhon Market's Pastries equals each Lakewinds Food Co-op's Croissants. The number of each Pastries's Lettuce equals the sum of each Historic Industrial District's Sprouts Farmers Market, each Danishes's Kale and each Rolls's Ingredient. The number of each Croissants's Mushrooms equals the sum of each Preservation District's BriarPatch Food Co-op, each BriarPatch Food Co-op's Croissants and each Sprouts Farmers Market's Danishes. The number of each Croissants's Beetroot equals 16. The number of each Erewhon Market's Rolls equals 6 times as much as the sum of each Historic Industrial District's Lakewinds Food Co-op and each Historic Industrial District's BriarPatch Food Co-op. The number of each Pastries's Kale equals 21 more than each Sprouts Farmers Market's Danishes. The number of each BriarPatch Food Co-op's Croissants equals 0. The number of each Lakewinds Food Co-op's Croissants equals each Historic Industrial District's Lakewinds Food Co-op. The number of each BriarPatch Food Co-op's Rolls equals each Castle District's Supermarket. The number of each Danishes's Mushrooms equals the sum of each Old Fortress's BriarPatch Food Co-op, each Rolls's Ingredient and each Preservation District's Lakewinds Food Co-op. The number of each Danishes's Kale equals 21. The number of each Castle District's Sprouts Farmers Market equals 1 more than the sum of each Lakewinds Food Co-op's Product, each Pastries's Mushrooms and each Sprouts Farmers Market's Rolls. The number of each Preservation District's Lakewinds Food Co-op equals 18. The number of each Historic Industrial District's Sprouts Farmers Market equals 0 more than the difference of each Erewhon Market's Product and each Erewhon Market's Rolls. The number of each Sprouts Farmers Market's Rolls equals the sum of each Erewhon Market's Pastries, each Historic Industrial District's Lakewinds Food Co-op, each Historic Industrial District's Sprouts Farmers Market and each Historic Industrial District's BriarPatch Food Co-op. The number of each Historic Industrial District's Lakewinds Food Co-op equals 1. How many Mushrooms does Pastries have?",
+  "lookup": {
+    "p_0_2_1_2": 16,
+    "p_0_0_0_1": 11,
+    "p_0_0_0_3": 10,
+    "p_0_0_1_0": 1,
+    "p_0_0_0_0": 18,
+    "p_0_0_1_3": 9,
+    "p_0_2_0_1": 21,
+    "p_0_1_1_3": 14,
+    "p_0_1_3_1": 0,
+    "p_0_1_2_0": 0,
+    "p_0_2_1_0": 10,
+    "p_0_1_3_2": 10,
+    "p_0_1_0_1": 1,
+    "p_1_2_3_3": 0,
+    "p_0_2_2_1": 21,
+    "p_0_1_1_2": 1,
+    "p_0_0_2_3": 15,
+    "p_1_1_1_2": 15,
+    "p_0_0_1_2": 1,
+    "p_0_1_2_3": 12,
+    "p_0_2_2_3": 22,
+    "p_0_2_0_0": 10,
+    "p_1_0_1_1": 11,
+    "p_0_1_0_3": 3,
+    "p_1_1_0_2": 4,
+    "p_0_2_2_0": 9,
+    "p_0_0_3_2": 3,
+    "p_1_0_3_1": 3,
+    "p_0_0_2_1": 0,
+    "p_0_1_3_3": 3
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 1,
+        "span": [
+          3249,
+          3328
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Lakewinds Food Co-op's Croissants"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Erewhon Market's Pastries"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Historic Industrial District's BriarPatch Food Co-op"
+        ],
+        "expression": "(9 * p_0_0_1_0)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_3",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_1_1_3",
+          "Erewhon Market's Rolls"
+        ],
+        "expression": "(6 * (p_0_0_1_0 + p_0_0_1_3))",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_2",
+          "p_0_1_1_3"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Erewhon Market's Product"
+        ],
+        "expression": "(p_0_1_1_2 + p_0_1_1_3)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_1_1_1_2",
+          "p_0_1_1_3"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Historic Industrial District's Sprouts Farmers Market"
+        ],
+        "expression": "(0 + (p_1_1_1_2 - p_0_1_1_3))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_2",
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Historic Industrial District's Supermarket"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_0_1_2) + p_0_0_1_3)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_3",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_1_1_2",
+          "p_0_1_1_3"
+        ],
+        "aliases": [
+          "p_0_1_0_3",
+          "Lakewinds Food Co-op's Rolls"
+        ],
+        "expression": "((p_1_0_1_1 + p_0_1_1_2) + p_0_1_1_3)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_1_0_3"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Lakewinds Food Co-op's Product"
+        ],
+        "expression": "(p_0_1_0_1 + p_0_1_0_3)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_0",
+        "parents": [
+          "p_1_1_0_2"
+        ],
+        "aliases": [
+          "p_0_2_2_0",
+          "Pastries's Mushrooms"
+        ],
+        "expression": "(8 * p_1_1_0_2)",
+        "value": 9
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_1_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_1_1_3"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_3",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_1_1_3",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_0_1_1_3",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_2_2_0"
+      ]
+    ]
+  }
+}

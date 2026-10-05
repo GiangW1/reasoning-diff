@@ -1,0 +1,251 @@
+{
+  "native_id": "igsm-official-0074-op15",
+  "family_id": "igsm-official-0074-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261001,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "15",
+  "target": "p_0_0_0_0",
+  "question": "The number of each Marukai Corporation's Hot Chocolate equals 20 times as much as each Almond Milk's Tomato. The number of each International School District's Marukai Corporation equals each Almond Milk's Broccoli. The number of each Almond Milk's Broccoli equals each Engineering Campus's Supermarket. The number of each Engineering Campus's Marukai Corporation equals 19 more than each Sedano's's Product. The number of each International School District's Sedano's equals each Hot Chocolate's Tomato. The number of each Engineering Campus's Sedano's equals 5. The number of each Marukai Corporation's Almond Milk equals 12. The number of each Almond Milk's Tomato equals 21. The number of each Sedano's's Hot Chocolate equals 1 more than the difference of each Hot Chocolate's Broccoli and each Almond Milk's Tomato. The number of each Sedano's's Almond Milk equals 8 times as much as the sum of each Almond Milk's Tomato, each Sedano's's Hot Chocolate and each Marukai Corporation's Hot Chocolate. The number of each Hot Chocolate's Tomato equals 5. The number of each Hot Chocolate's Broccoli equals 10 more than the difference of each Marukai Corporation's Hot Chocolate and each Almond Milk's Tomato. How many Marukai Corporation does International School District have?",
+  "lookup": {
+    "p_0_0_1_1": 5,
+    "p_0_2_0_1": 21,
+    "p_0_2_1_1": 5,
+    "p_0_0_0_1": 5,
+    "p_0_1_0_1": 6,
+    "p_0_2_1_0": 18,
+    "p_0_1_0_0": 12,
+    "p_0_1_1_1": 21,
+    "p_0_1_1_0": 16,
+    "p_1_1_1_2": 14,
+    "p_0_0_1_0": 10,
+    "p_1_0_1_1": 15,
+    "p_0_2_0_0": 15,
+    "p_0_0_0_0": 15
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_1",
+        "literal": 21,
+        "span": [
+          628,
+          677
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 5,
+        "span": [
+          505,
+          562
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Marukai Corporation's Hot Chocolate"
+        ],
+        "expression": "(20 * p_0_2_0_1)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Hot Chocolate's Broccoli"
+        ],
+        "expression": "(10 + (p_0_1_0_1 - p_0_2_0_1))",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_2_1_0",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Sedano's's Hot Chocolate"
+        ],
+        "expression": "(1 + (p_0_2_1_0 - p_0_2_0_1))",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_2_0_1",
+          "p_0_1_1_1",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Sedano's's Almond Milk"
+        ],
+        "expression": "(8 * ((p_0_2_0_1 + p_0_1_1_1) + p_0_1_0_1))",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Sedano's's Product"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Engineering Campus's Marukai Corporation"
+        ],
+        "expression": "(19 + p_1_1_1_2)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Engineering Campus's Supermarket"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Almond Milk's Broccoli"
+        ],
+        "expression": "p_1_0_1_1",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "International School District's Marukai Corporation"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_0_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_0_0_0"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+{"layer_ids": [], "position_metrics": {"pre_step": 0.47351917786049524}, "reason": "fit persists held-out dev metrics; transformer-layer selection requires --dev-layer-scores from a pre-registered dev sweep", "scores": [], "source": null, "status": "unavailable_multi_layer_curve"}

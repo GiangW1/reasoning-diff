@@ -1,0 +1,299 @@
+{
+  "native_id": "igsm-official-0019-op21",
+  "family_id": "igsm-official-0019-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260945,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "3",
+  "target": "p_0_2_1_1",
+  "question": "The number of each Structural Engineering Lab's Backpacking Pack equals 11. The number of each Thermodynamics Lab's Overnight Backpack equals 5 more than the sum of each Structural Engineering Lab's Backpack, each Overnight Backpack's Correction Tape and each Structural Engineering Lab's Overnight Backpack. The number of each Starlight College's Thermodynamics Lab equals 2 more than the sum of each Thermodynamics Lab's Overnight Backpack, each Starlight College's Structural Engineering Lab and each Structural Engineering Lab's Backpacking Pack. The number of each Overnight Backpack's Paper Clip equals 3 more than the difference of each Meadowland College's Classroom and each Meadowland College's Thermodynamics Lab. The number of each Structural Engineering Lab's Overnight Backpack equals each Structural Engineering Lab's Backpacking Pack. The number of each Overnight Backpack's Correction Tape equals 19 more than the sum of each Structural Engineering Lab's Backpack and each Structural Engineering Lab's Backpacking Pack. The number of each Meadowland College's Thermodynamics Lab equals each Starlight College's Backpack. The number of each Starlight College's Structural Engineering Lab equals 2 times as much as the sum of each Overnight Backpack's Correction Tape and each Structural Engineering Lab's Overnight Backpack. How many Paper Clip does Overnight Backpack have?",
+  "lookup": {
+    "p_0_1_1_0": 11,
+    "p_0_1_1_1": 11,
+    "p_1_1_1_2": 22,
+    "p_0_2_1_0": 6,
+    "p_0_1_0_1": 21,
+    "p_1_1_0_2": 21,
+    "p_0_0_0_1": 11,
+    "p_0_0_0_0": 22,
+    "p_1_0_0_2": 14,
+    "p_0_0_1_0": 14,
+    "p_1_0_1_1": 14,
+    "p_0_2_1_1": 3
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_0",
+        "literal": 11,
+        "span": [
+          0,
+          74
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Structural Engineering Lab's Overnight Backpack"
+        ],
+        "expression": "p_0_1_1_0",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Structural Engineering Lab's Backpack"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_1_1_1_2",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Overnight Backpack's Correction Tape"
+        ],
+        "expression": "(19 + (p_1_1_1_2 + p_0_1_1_0))",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_1_1_1_2",
+          "p_0_2_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Thermodynamics Lab's Overnight Backpack"
+        ],
+        "expression": "(5 + ((p_1_1_1_2 + p_0_2_1_0) + p_0_1_1_1))",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_2_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Starlight College's Structural Engineering Lab"
+        ],
+        "expression": "(2 * (p_0_2_1_0 + p_0_1_1_1))",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_0_0_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Starlight College's Thermodynamics Lab"
+        ],
+        "expression": "(2 + ((p_0_1_0_1 + p_0_0_0_1) + p_0_1_1_0))",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Thermodynamics Lab's Backpack"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_2",
+        "parents": [
+          "p_0_0_0_0",
+          "p_1_1_0_2",
+          "p_0_0_0_1",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_1_0_0_2",
+          "Starlight College's Backpack"
+        ],
+        "expression": "((p_0_0_0_0 * p_1_1_0_2) + (p_0_0_0_1 * p_1_1_1_2))",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_1_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Meadowland College's Thermodynamics Lab"
+        ],
+        "expression": "p_1_0_0_2",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Meadowland College's Classroom"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Overnight Backpack's Paper Clip"
+        ],
+        "expression": "(3 + (p_1_0_1_1 - p_0_0_1_0))",
+        "value": 3
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_0_0_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_1_1"
+      ]
+    ]
+  }
+}

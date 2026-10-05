@@ -1,0 +1,304 @@
+{
+  "native_id": "igsm-official-0131-op21",
+  "family_id": "igsm-official-0131-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261060,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "15",
+  "target": "p_0_0_1_2",
+  "question": "The number of each Wall Street's Aldi equals 11. The number of each Sainsbury's's Bottled Water equals 7 more than each Carrefour's Product. The number of each Tea's Cumin equals 16 more than the sum of each Sainsbury's's Bottled Water, each Carrefour's Bottled Water and each Carrefour's Tea. The number of each Market District's Sainsbury's equals 11. The number of each Bottled Water's Cardamom equals each Carrefour's Tea. The number of each Tech Park's Carrefour equals 12. The number of each Wall Street's Sainsbury's equals the sum of each Aldi's Tea, each Tech Park's Carrefour and each Sparkling Water's Cardamom. The number of each Tea's Saffron equals 6 times as much as the sum of each Sainsbury's's Bottled Water, each Carrefour's Bottled Water and each Tea's Cumin. The number of each Carrefour's Sparkling Water equals 14 times as much as the sum of each Carrefour's Tea and each Carrefour's Bottled Water. The number of each Aldi's Bottled Water equals 22. The number of each Carrefour's Bottled Water equals 8 more than the difference of each Wall Street's Aldi and each Carrefour's Tea. The number of each Tea's Cardamom equals 20 more than the sum of each Carrefour's Tea and each Sainsbury's's Bottled Water. The number of each Sparkling Water's Cumin equals 12. The number of each Bottled Water's Saffron equals 16 more than each Tea's Cumin. The number of each Sparkling Water's Cardamom equals each Tech Park's Carrefour. The number of each Aldi's Tea equals the sum of each Sparkling Water's Cardamom, each Bottled Water's Cumin and each Tech Park's Carrefour. The number of each Sainsbury's's Tea equals 0. The number of each Tech Park's Aldi equals the sum of each Tea's Ingredient, each Carrefour's Bottled Water and each Carrefour's Tea. The number of each Bottled Water's Cumin equals 2 more than the difference of each Tech Park's Carrefour and each Sparkling Water's Cardamom. The number of each Aldi's Sparkling Water equals 14. The number of each Tech Park's Sainsbury's equals each Sparkling Water's Cardamom. The number of each Carrefour's Tea equals each Wall Street's Aldi. How many Aldi does Tech Park have?",
+  "lookup": {
+    "p_0_0_0_0": 11,
+    "p_0_0_1_1": 12,
+    "p_0_1_2_1": 22,
+    "p_0_1_2_2": 14,
+    "p_0_2_2_0": 12,
+    "p_0_1_0_0": 0,
+    "p_0_2_2_1": 12,
+    "p_0_0_1_0": 12,
+    "p_0_2_1_0": 2,
+    "p_0_1_2_0": 3,
+    "p_0_0_2_2": 11,
+    "p_0_1_1_0": 11,
+    "p_0_0_2_0": 4,
+    "p_0_1_1_1": 8,
+    "p_0_1_1_2": 13,
+    "p_0_2_1_1": 11,
+    "p_1_1_1_2": 9,
+    "p_0_1_0_1": 16,
+    "p_0_2_0_1": 1,
+    "p_0_2_0_0": 5,
+    "p_0_2_0_2": 13,
+    "p_0_2_1_2": 21,
+    "p_1_2_0_3": 19,
+    "p_0_0_1_2": 15
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_2",
+        "literal": 11,
+        "span": [
+          0,
+          47
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Carrefour's Tea"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_2_2",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Carrefour's Bottled Water"
+        ],
+        "expression": "(8 + (p_0_0_2_2 - p_0_1_1_0))",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Carrefour's Sparkling Water"
+        ],
+        "expression": "(14 * (p_0_1_1_0 + p_0_1_1_1))",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Carrefour's Product"
+        ],
+        "expression": "((p_0_1_1_0 + p_0_1_1_1) + p_0_1_1_2)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Sainsbury's's Bottled Water"
+        ],
+        "expression": "(7 + p_1_1_1_2)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_1_1_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Tea's Cumin"
+        ],
+        "expression": "(16 + ((p_0_1_0_1 + p_0_1_1_1) + p_0_1_1_0))",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Tea's Cardamom"
+        ],
+        "expression": "(20 + (p_0_1_1_0 + p_0_1_0_1))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_2",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_1_1_1",
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_2_0_2",
+          "Tea's Saffron"
+        ],
+        "expression": "(6 * ((p_0_1_0_1 + p_0_1_1_1) + p_0_2_0_0))",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_2_0_1",
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Tea's Ingredient"
+        ],
+        "expression": "((p_0_2_0_0 + p_0_2_0_1) + p_0_2_0_2)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_1_2_0_3",
+          "p_0_1_1_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Tech Park's Aldi"
+        ],
+        "expression": "((p_1_2_0_3 + p_0_1_1_1) + p_0_1_1_0)",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_1_2"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,353 @@
+{
+  "native_id": "igsm-official-0183-op21",
+  "family_id": "igsm-official-0183-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261116,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "2",
+  "target": "p_0_1_0_2",
+  "question": "The number of each Chimera's Sinuses equals 10 more than the difference of each Epiglottis's Monocytes and each Chimera's Epiglottis. The number of each Chimera's Respiratory Mucosa equals 19 times as much as the sum of each Respiratory Mucosa's Neutrophils and each Epiglottis's Erythroblasts. The number of each Epiglottis's Neutrophils equals 9 times as much as the difference of each Chimera's Respiratory Mucosa and each Epiglottis's Erythroblasts. The number of each Unicorn's Respiratory Mucosa equals 1 times as much as each Unicorn's Sinuses. The number of each Chimera's Epiglottis equals the difference of each Epiglottis's Neutrophils and each Chimera's Respiratory Mucosa. The number of each Respiratory Mucosa's Neutrophils equals 8 times as much as each Epiglottis's Erythroblasts. The number of each Sinuses's Erythroblasts equals 20 times as much as the difference of each Sinuses's Neutrophils and each Chimera's Sinuses. The number of each Sinuses's Monocytes equals the sum of each Unicorn's Organs and each Epiglottis's Erythroblasts. The number of each Respiratory Mucosa's Monocytes equals the sum of each Respiratory Mucosa's Erythroblasts and each Unicorn's Sinuses. The number of each Epiglottis's Erythroblasts equals 15. The number of each Unicorn's Sinuses equals 10 times as much as each Sinuses's Erythroblasts. The number of each Epiglottis's Monocytes equals 11 more than the sum of each Chimera's Epiglottis and each Epiglottis's Erythroblasts. The number of each Sinuses's Neutrophils equals each Chimera's Sinuses. The number of each Respiratory Mucosa's Erythroblasts equals the sum of each Sinuses's Monocytes, each Epiglottis's Monocytes and each Unicorn's Sinuses. How many Monocytes does Respiratory Mucosa have?",
+  "lookup": {
+    "p_0_1_1_1": 15,
+    "p_0_1_0_0": 5,
+    "p_0_0_0_0": 12,
+    "p_0_1_1_0": 19,
+    "p_0_0_0_1": 7,
+    "p_0_1_1_2": 10,
+    "p_0_0_0_2": 13,
+    "p_0_1_2_0": 13,
+    "p_0_1_2_1": 0,
+    "p_0_0_1_2": 0,
+    "p_0_0_1_0": 0,
+    "p_1_0_1_1": 0,
+    "p_0_1_2_2": 15,
+    "p_0_1_0_1": 2,
+    "p_0_1_0_2": 2
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_1",
+        "literal": 15,
+        "span": [
+          1192,
+          1247
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Respiratory Mucosa's Neutrophils"
+        ],
+        "expression": "(8 * p_0_1_1_1)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Chimera's Respiratory Mucosa"
+        ],
+        "expression": "(19 * (p_0_1_0_0 + p_0_1_1_1))",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Epiglottis's Neutrophils"
+        ],
+        "expression": "(9 * (p_0_0_0_0 - p_0_1_1_1))",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Chimera's Epiglottis"
+        ],
+        "expression": "(p_0_1_1_0 - p_0_0_0_0)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Epiglottis's Monocytes"
+        ],
+        "expression": "(11 + (p_0_0_0_1 + p_0_1_1_1))",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_1_1_2",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Chimera's Sinuses"
+        ],
+        "expression": "(10 + (p_0_1_1_2 - p_0_0_0_1))",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Sinuses's Neutrophils"
+        ],
+        "expression": "p_0_0_0_2",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Sinuses's Erythroblasts"
+        ],
+        "expression": "(20 * (p_0_1_2_0 - p_0_0_0_2))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Unicorn's Sinuses"
+        ],
+        "expression": "(10 * p_0_1_2_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Unicorn's Respiratory Mucosa"
+        ],
+        "expression": "(1 * p_0_0_1_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Unicorn's Organs"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Sinuses's Monocytes"
+        ],
+        "expression": "(p_1_0_1_1 + p_0_1_1_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_2_2",
+          "p_0_1_1_2",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Respiratory Mucosa's Erythroblasts"
+        ],
+        "expression": "((p_0_1_2_2 + p_0_1_1_2) + p_0_0_1_2)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Respiratory Mucosa's Monocytes"
+        ],
+        "expression": "(p_0_1_0_1 + p_0_0_1_2)",
+        "value": 2
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_1_0_2"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "native_id": "igsm-official-0109-op10",
+  "family_id": "igsm-official-0109-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261037,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "19",
+  "target": "p_0_0_0_0",
+  "question": "The number of each EduLink Online's Fluid Mechanics Lab equals the sum of each Fluid Mechanics Lab's Backpack and each Fluid Mechanics Lab's Casual Backpack. The number of each Fluid Mechanics Lab's Casual Backpack equals 16 times as much as each GlobalNet University's Classroom. The number of each GlobalNet University's Statistics Lab equals 13 times as much as each Statistics Lab's Casual Backpack. The number of each GlobalNet University's Fluid Mechanics Lab equals 9. The number of each Fluid Mechanics Lab's Bookbag equals 22 times as much as the difference of each Fluid Mechanics Lab's Casual Backpack and each GlobalNet University's Fluid Mechanics Lab. The number of each EduLink Online's Statistics Lab equals the difference of each GlobalNet University's Backpack and each GlobalNet University's Fluid Mechanics Lab. The number of each Statistics Lab's Bookbag equals 13. The number of each Statistics Lab's Casual Backpack equals 18 times as much as each Statistics Lab's Bookbag. How many Fluid Mechanics Lab does EduLink Online have?",
+  "lookup": {
+    "p_0_1_1_1": 13,
+    "p_0_1_1_0": 4,
+    "p_1_1_1_2": 17,
+    "p_0_0_1_1": 6,
+    "p_0_0_1_0": 9,
+    "p_1_0_1_1": 15,
+    "p_0_1_0_0": 10,
+    "p_0_1_0_1": 22,
+    "p_1_1_0_2": 9,
+    "p_1_0_1_2": 22,
+    "p_0_0_0_1": 13,
+    "p_0_0_0_0": 19
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 9,
+        "span": [
+          404,
+          474
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_1",
+        "literal": 13,
+        "span": [
+          832,
+          885
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Statistics Lab's Casual Backpack"
+        ],
+        "expression": "(18 * p_0_1_1_1)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "GlobalNet University's Statistics Lab"
+        ],
+        "expression": "(13 * p_0_1_1_0)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "GlobalNet University's Classroom"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Fluid Mechanics Lab's Casual Backpack"
+        ],
+        "expression": "(16 * p_1_0_1_1)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Fluid Mechanics Lab's Bookbag"
+        ],
+        "expression": "(22 * (p_0_1_0_0 - p_0_0_1_0))",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Fluid Mechanics Lab's Backpack"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_1_0_2",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "EduLink Online's Fluid Mechanics Lab"
+        ],
+        "expression": "(p_1_1_0_2 + p_0_1_0_0)",
+        "value": 19
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_0_0"
+      ]
+    ]
+  }
+}

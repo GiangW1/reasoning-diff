@@ -1,0 +1,221 @@
+{
+  "native_id": "igsm-official-0033-op10",
+  "family_id": "igsm-official-0033-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260959,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "19",
+  "target": "p_1_1_0_2",
+  "question": "The number of each Tech Backpack's Erasable Pen equals 9 times as much as the sum of each Camera Backpack's Erasable Pen and each Digital Scholars's Electrical Engineering Lab. The number of each Digital Scholars's Electrical Engineering Lab equals 8 more than each Camera Backpack's Erasable Pen. The number of each WebMasters Academy's Electrical Engineering Lab equals 0. The number of each WebMasters Academy's Statistics Lab equals each WebMasters Academy's Electrical Engineering Lab. The number of each Electrical Engineering Lab's Tech Backpack equals 12 times as much as the difference of each WebMasters Academy's Classroom and each WebMasters Academy's Statistics Lab. The number of each Camera Backpack's Erasable Pen equals 7. The number of each Camera Backpack's Brush Pen equals 22 times as much as each Statistics Lab's Camera Backpack. The number of each Digital Scholars's Statistics Lab equals the difference of each Electrical Engineering Lab's Camera Backpack and each Electrical Engineering Lab's Tech Backpack. The number of each Statistics Lab's Tech Backpack equals 19 more than each WebMasters Academy's Statistics Lab. The number of each Electrical Engineering Lab's Camera Backpack equals 22 times as much as each Electrical Engineering Lab's Tech Backpack. The number of each Tech Backpack's Brush Pen equals each Statistics Lab's Tech Backpack. The number of each Statistics Lab's Camera Backpack equals the difference of each Electrical Engineering Lab's Backpack and each WebMasters Academy's Classroom. How many Backpack does Statistics Lab have?",
+  "lookup": {
+    "p_0_0_0_1": 0,
+    "p_0_0_0_0": 0,
+    "p_0_1_0_0": 19,
+    "p_1_0_0_1": 0,
+    "p_0_1_1_0": 0,
+    "p_0_2_1_0": 7,
+    "p_0_1_1_1": 0,
+    "p_0_2_0_1": 19,
+    "p_0_0_1_0": 0,
+    "p_1_1_1_2": 0,
+    "p_0_0_1_1": 15,
+    "p_0_2_0_0": 14,
+    "p_0_1_0_1": 0,
+    "p_0_2_1_1": 0,
+    "p_1_1_0_2": 19
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 0,
+        "span": [
+          298,
+          373
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "WebMasters Academy's Statistics Lab"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Statistics Lab's Tech Backpack"
+        ],
+        "expression": "(19 + p_0_0_0_0)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "WebMasters Academy's Classroom"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Electrical Engineering Lab's Tech Backpack"
+        ],
+        "expression": "(12 * (p_1_0_0_1 - p_0_0_0_0))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Electrical Engineering Lab's Camera Backpack"
+        ],
+        "expression": "(22 * p_0_1_1_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Electrical Engineering Lab's Backpack"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_1_1_1_2",
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Statistics Lab's Camera Backpack"
+        ],
+        "expression": "(p_1_1_1_2 - p_1_0_0_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Statistics Lab's Backpack"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 19
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ]
+    ]
+  }
+}

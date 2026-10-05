@@ -1,0 +1,284 @@
+{
+  "native_id": "igsm-official-0118-op15",
+  "family_id": "igsm-official-0118-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261047,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "15",
+  "target": "p_1_0_0_3",
+  "question": "The number of each Robotics Lab's Commuter Backpack equals 8. The number of each Commuter Backpack's Mechanical Pencil equals the difference of each Lakeview Elementary's Robotics Lab and each Robotics Lab's Commuter Backpack. The number of each Daily Work Backpack's Fineliner equals 16 more than the sum of each Lakeview Elementary's Stationery, each Commuter Backpack's Stationery and each Robotics Lab's Commuter Backpack. The number of each Green Field Elementary's Electrical Engineering Lab equals 11 more than each Robotics Lab's Commuter Backpack. The number of each Lakeview Elementary's Robotics Lab equals each Robotics Lab's Commuter Backpack. The number of each Electrical Engineering Lab's Daily Work Backpack equals 18 times as much as the difference of each Green Field Elementary's Electrical Engineering Lab and each Daily Work Backpack's Fineliner. How many Stationery does Green Field Elementary have?",
+  "lookup": {
+    "p_0_1_0_1": 8,
+    "p_0_0_1_0": 8,
+    "p_0_0_0_1": 19,
+    "p_0_2_1_0": 0,
+    "p_1_2_1_3": 0,
+    "p_1_1_0_3": 0,
+    "p_1_0_1_3": 0,
+    "p_0_2_0_1": 1,
+    "p_1_2_0_3": 1,
+    "p_0_1_1_0": 2,
+    "p_1_1_1_3": 2,
+    "p_1_0_0_3": 15
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_1",
+        "literal": 8,
+        "span": [
+          0,
+          60
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Green Field Elementary's Electrical Engineering Lab"
+        ],
+        "expression": "(11 + p_0_1_0_1)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Lakeview Elementary's Robotics Lab"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Commuter Backpack's Mechanical Pencil"
+        ],
+        "expression": "(p_0_0_1_0 - p_0_1_0_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_0"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Commuter Backpack's Stationery"
+        ],
+        "expression": "p_0_2_1_0",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_1",
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Robotics Lab's Stationery"
+        ],
+        "expression": "(p_0_1_0_1 * p_1_2_1_3)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_3",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_1_0_1_3",
+          "Lakeview Elementary's Stationery"
+        ],
+        "expression": "(p_0_0_1_0 * p_1_1_0_3)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_1_0_1_3",
+          "p_1_2_1_3",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Daily Work Backpack's Fineliner"
+        ],
+        "expression": "(16 + ((p_1_0_1_3 + p_1_2_1_3) + p_0_1_0_1))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Electrical Engineering Lab's Daily Work Backpack"
+        ],
+        "expression": "(18 * (p_0_0_0_1 - p_0_2_0_1))",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Daily Work Backpack's Stationery"
+        ],
+        "expression": "p_0_2_0_1",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_0",
+          "p_1_2_0_3"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "Electrical Engineering Lab's Stationery"
+        ],
+        "expression": "(p_0_1_1_0 * p_1_2_0_3)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_3",
+        "parents": [
+          "p_0_0_0_1",
+          "p_1_1_1_3"
+        ],
+        "aliases": [
+          "p_1_0_0_3",
+          "Green Field Elementary's Stationery"
+        ],
+        "expression": "(p_0_0_0_1 * p_1_1_1_3)",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_0_1_3",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_1_0_0_3"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,2633 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 190.48it/s]
+generate igsm-official-0002-op15 trace-base
+saved igsm-official-0002-op15 trace-base status=natural_truncated
+generate igsm-official-0002-op15 trace-t0p
+saved igsm-official-0002-op15 trace-t0p status=parse_failed
+generate igsm-official-0002-op15 trace-base:seed2
+saved igsm-official-0002-op15 trace-base:seed2 status=parse_failed
+generate igsm-official-0002-op15 trace-edit
+saved igsm-official-0002-op15 trace-edit status=natural_truncated
+generate igsm-official-0002-op15 trace-edit:seed1
+saved igsm-official-0002-op15 trace-edit:seed1 status=parse_failed
+generate igsm-official-0002-op15 trace-edit:seed2
+saved igsm-official-0002-op15 trace-edit:seed2 status=natural_truncated
+generate igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:2
+saved igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:2 status=natural_truncated
+generate igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:0
+saved igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:0 status=natural_truncated
+generate igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:1
+saved igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:1 status=natural_truncated
+generate igsm-official-0002-op15 trace-sham
+saved igsm-official-0002-op15 trace-sham status=natural_truncated
+generate igsm-official-0002-op15 trace-sham:0:1
+saved igsm-official-0002-op15 trace-sham:0:1 status=parse_failed
+generate igsm-official-0002-op15 trace-sham:0:2
+saved igsm-official-0002-op15 trace-sham:0:2 status=natural_truncated
+generate igsm-official-0002-op15 trace-sham:1:0
+saved igsm-official-0002-op15 trace-sham:1:0 status=natural_truncated
+generate igsm-official-0002-op15 trace-sham:1:1
+saved igsm-official-0002-op15 trace-sham:1:1 status=parse_failed
+generate igsm-official-0002-op15 trace-sham:1:2
+saved igsm-official-0002-op15 trace-sham:1:2 status=natural_truncated
+generate igsm-official-0002-op15 trace-sham:2:0
+saved igsm-official-0002-op15 trace-sham:2:0 status=natural_truncated
+generate igsm-official-0002-op15 trace-sham:2:1
+saved igsm-official-0002-op15 trace-sham:2:1 status=natural_truncated
+generate igsm-official-0002-op15 trace-sham:2:2
+saved igsm-official-0002-op15 trace-sham:2:2 status=natural_truncated
+completed 1/66 problems
+generate igsm-official-0005-op10 trace-base:1
+saved igsm-official-0005-op10 trace-base:1 status=natural_truncated
+generate igsm-official-0005-op10 trace-edit:1
+saved igsm-official-0005-op10 trace-edit:1 status=natural_truncated
+generate igsm-official-0005-op10 trace-base:1:seed1
+saved igsm-official-0005-op10 trace-base:1:seed1 status=natural_truncated
+generate igsm-official-0005-op10 trace-edit:1:seed1
+saved igsm-official-0005-op10 trace-edit:1:seed1 status=natural_truncated
+generate igsm-official-0005-op10 trace-base:1:seed2
+saved igsm-official-0005-op10 trace-base:1:seed2 status=natural_truncated
+generate igsm-official-0005-op10 trace-edit:1:seed2
+saved igsm-official-0005-op10 trace-edit:1:seed2 status=parse_failed
+generate igsm-official-0005-op10 trace-sham:1:0:0
+saved igsm-official-0005-op10 trace-sham:1:0:0 status=natural_truncated
+generate igsm-official-0005-op10 trace-sham:1:0:1
+saved igsm-official-0005-op10 trace-sham:1:0:1 status=natural_truncated
+generate igsm-official-0005-op10 trace-sham:1:0:2
+saved igsm-official-0005-op10 trace-sham:1:0:2 status=natural_truncated
+generate igsm-official-0005-op10 trace-sham:1:1:0
+saved igsm-official-0005-op10 trace-sham:1:1:0 status=natural_truncated
+generate igsm-official-0005-op10 trace-sham:1:1:1
+saved igsm-official-0005-op10 trace-sham:1:1:1 status=natural_truncated
+generate igsm-official-0005-op10 trace-sham:1:1:2
+saved igsm-official-0005-op10 trace-sham:1:1:2 status=parse_failed
+generate igsm-official-0005-op10 trace-sham:1:2:0
+saved igsm-official-0005-op10 trace-sham:1:2:0 status=parse_failed
+generate igsm-official-0005-op10 trace-sham:1:2:1
+saved igsm-official-0005-op10 trace-sham:1:2:1 status=natural_truncated
+generate igsm-official-0005-op10 trace-sham:1:2:2
+saved igsm-official-0005-op10 trace-sham:1:2:2 status=natural_truncated
+completed 2/66 problems
+generate igsm-official-0008-op5 trace-base:2
+saved igsm-official-0008-op5 trace-base:2 status=natural_truncated
+generate igsm-official-0008-op5 trace-edit:2
+saved igsm-official-0008-op5 trace-edit:2 status=natural_truncated
+generate igsm-official-0008-op5 trace-base:2:seed1
+saved igsm-official-0008-op5 trace-base:2:seed1 status=natural_truncated
+generate igsm-official-0008-op5 trace-edit:2:seed1
+saved igsm-official-0008-op5 trace-edit:2:seed1 status=natural_truncated
+generate igsm-official-0008-op5 trace-base:2:seed2
+saved igsm-official-0008-op5 trace-base:2:seed2 status=natural_truncated
+generate igsm-official-0008-op5 trace-edit:2:seed2
+saved igsm-official-0008-op5 trace-edit:2:seed2 status=natural_truncated
+generate igsm-official-0008-op5 trace-sham:2:0:0
+saved igsm-official-0008-op5 trace-sham:2:0:0 status=natural_truncated
+generate igsm-official-0008-op5 trace-sham:2:0:1
+saved igsm-official-0008-op5 trace-sham:2:0:1 status=natural_truncated
+generate igsm-official-0008-op5 trace-sham:2:0:2
+saved igsm-official-0008-op5 trace-sham:2:0:2 status=natural_truncated
+generate igsm-official-0008-op5 trace-sham:2:1:0
+saved igsm-official-0008-op5 trace-sham:2:1:0 status=natural_truncated
+generate igsm-official-0008-op5 trace-sham:2:1:1
+saved igsm-official-0008-op5 trace-sham:2:1:1 status=natural_truncated
+generate igsm-official-0008-op5 trace-sham:2:1:2
+saved igsm-official-0008-op5 trace-sham:2:1:2 status=natural_truncated
+generate igsm-official-0008-op5 trace-sham:2:2:0
+saved igsm-official-0008-op5 trace-sham:2:2:0 status=natural_truncated
+generate igsm-official-0008-op5 trace-sham:2:2:1
+saved igsm-official-0008-op5 trace-sham:2:2:1 status=natural_truncated
+generate igsm-official-0008-op5 trace-sham:2:2:2
+saved igsm-official-0008-op5 trace-sham:2:2:2 status=natural_truncated
+completed 3/66 problems
+generate igsm-official-0011-op21 trace-base:3
+saved igsm-official-0011-op21 trace-base:3 status=natural_truncated
+generate igsm-official-0011-op21 trace-edit:3
+saved igsm-official-0011-op21 trace-edit:3 status=natural_truncated
+generate igsm-official-0011-op21 trace-base:3:seed1
+saved igsm-official-0011-op21 trace-base:3:seed1 status=natural_truncated
+generate igsm-official-0011-op21 trace-edit:3:seed1
+saved igsm-official-0011-op21 trace-edit:3:seed1 status=natural_truncated
+generate igsm-official-0011-op21 trace-base:3:seed2
+saved igsm-official-0011-op21 trace-base:3:seed2 status=natural_truncated
+generate igsm-official-0011-op21 trace-edit:3:seed2
+saved igsm-official-0011-op21 trace-edit:3:seed2 status=natural_truncated
+generate igsm-official-0011-op21 trace-sham:3:0:0
+saved igsm-official-0011-op21 trace-sham:3:0:0 status=natural_truncated
+generate igsm-official-0011-op21 trace-sham:3:0:1
+saved igsm-official-0011-op21 trace-sham:3:0:1 status=natural_truncated
+generate igsm-official-0011-op21 trace-sham:3:0:2
+saved igsm-official-0011-op21 trace-sham:3:0:2 status=natural_truncated
+generate igsm-official-0011-op21 trace-sham:3:1:0
+saved igsm-official-0011-op21 trace-sham:3:1:0 status=natural_truncated
+generate igsm-official-0011-op21 trace-sham:3:1:1
+saved igsm-official-0011-op21 trace-sham:3:1:1 status=natural_truncated
+generate igsm-official-0011-op21 trace-sham:3:1:2
+saved igsm-official-0011-op21 trace-sham:3:1:2 status=natural_truncated
+generate igsm-official-0011-op21 trace-sham:3:2:0
+saved igsm-official-0011-op21 trace-sham:3:2:0 status=natural_truncated
+generate igsm-official-0011-op21 trace-sham:3:2:1
+saved igsm-official-0011-op21 trace-sham:3:2:1 status=natural_truncated
+generate igsm-official-0011-op21 trace-sham:3:2:2
+saved igsm-official-0011-op21 trace-sham:3:2:2 status=natural_truncated
+completed 4/66 problems
+generate igsm-official-0014-op15 trace-base:4
+saved igsm-official-0014-op15 trace-base:4 status=natural_truncated
+generate igsm-official-0014-op15 trace-edit:4
+saved igsm-official-0014-op15 trace-edit:4 status=natural_truncated
+generate igsm-official-0014-op15 trace-base:4:seed1
+saved igsm-official-0014-op15 trace-base:4:seed1 status=natural_truncated
+generate igsm-official-0014-op15 trace-edit:4:seed1
+saved igsm-official-0014-op15 trace-edit:4:seed1 status=natural_truncated
+generate igsm-official-0014-op15 trace-base:4:seed2
+saved igsm-official-0014-op15 trace-base:4:seed2 status=natural_truncated
+generate igsm-official-0014-op15 trace-edit:4:seed2
+saved igsm-official-0014-op15 trace-edit:4:seed2 status=natural_truncated
+generate igsm-official-0014-op15 trace-sham:4:0:0
+saved igsm-official-0014-op15 trace-sham:4:0:0 status=natural_truncated
+generate igsm-official-0014-op15 trace-sham:4:0:1
+saved igsm-official-0014-op15 trace-sham:4:0:1 status=natural_truncated
+generate igsm-official-0014-op15 trace-sham:4:0:2
+saved igsm-official-0014-op15 trace-sham:4:0:2 status=natural_truncated
+generate igsm-official-0014-op15 trace-sham:4:1:0
+saved igsm-official-0014-op15 trace-sham:4:1:0 status=natural_truncated
+generate igsm-official-0014-op15 trace-sham:4:1:1
+saved igsm-official-0014-op15 trace-sham:4:1:1 status=natural_truncated
+generate igsm-official-0014-op15 trace-sham:4:1:2
+saved igsm-official-0014-op15 trace-sham:4:1:2 status=natural_truncated
+generate igsm-official-0014-op15 trace-sham:4:2:0
+saved igsm-official-0014-op15 trace-sham:4:2:0 status=natural_truncated
+generate igsm-official-0014-op15 trace-sham:4:2:1
+saved igsm-official-0014-op15 trace-sham:4:2:1 status=natural_truncated
+generate igsm-official-0014-op15 trace-sham:4:2:2
+saved igsm-official-0014-op15 trace-sham:4:2:2 status=natural_truncated
+completed 5/66 problems
+generate igsm-official-0017-op10 trace-base:5
+saved igsm-official-0017-op10 trace-base:5 status=natural_truncated
+generate igsm-official-0017-op10 trace-edit:5
+saved igsm-official-0017-op10 trace-edit:5 status=natural_truncated
+generate igsm-official-0017-op10 trace-base:5:seed1
+saved igsm-official-0017-op10 trace-base:5:seed1 status=natural_truncated
+generate igsm-official-0017-op10 trace-edit:5:seed1
+saved igsm-official-0017-op10 trace-edit:5:seed1 status=natural_truncated
+generate igsm-official-0017-op10 trace-base:5:seed2
+saved igsm-official-0017-op10 trace-base:5:seed2 status=natural_truncated
+generate igsm-official-0017-op10 trace-edit:5:seed2
+saved igsm-official-0017-op10 trace-edit:5:seed2 status=natural_truncated
+generate igsm-official-0017-op10 trace-sham:5:0:0
+saved igsm-official-0017-op10 trace-sham:5:0:0 status=natural_truncated
+generate igsm-official-0017-op10 trace-sham:5:0:1
+saved igsm-official-0017-op10 trace-sham:5:0:1 status=natural_truncated
+generate igsm-official-0017-op10 trace-sham:5:0:2
+saved igsm-official-0017-op10 trace-sham:5:0:2 status=natural_truncated
+generate igsm-official-0017-op10 trace-sham:5:1:0
+saved igsm-official-0017-op10 trace-sham:5:1:0 status=natural_truncated
+generate igsm-official-0017-op10 trace-sham:5:1:1
+saved igsm-official-0017-op10 trace-sham:5:1:1 status=natural_truncated
+generate igsm-official-0017-op10 trace-sham:5:1:2
+saved igsm-official-0017-op10 trace-sham:5:1:2 status=natural_truncated
+generate igsm-official-0017-op10 trace-sham:5:2:0
+saved igsm-official-0017-op10 trace-sham:5:2:0 status=natural_truncated
+generate igsm-official-0017-op10 trace-sham:5:2:1
+saved igsm-official-0017-op10 trace-sham:5:2:1 status=natural_truncated
+generate igsm-official-0017-op10 trace-sham:5:2:2
+saved igsm-official-0017-op10 trace-sham:5:2:2 status=natural_truncated
+completed 6/66 problems
+generate igsm-official-0020-op5 trace-base:6
+saved igsm-official-0020-op5 trace-base:6 status=natural_truncated
+generate igsm-official-0020-op5 trace-edit:6
+saved igsm-official-0020-op5 trace-edit:6 status=natural_truncated
+generate igsm-official-0020-op5 trace-base:6:seed1
+saved igsm-official-0020-op5 trace-base:6:seed1 status=natural_truncated
+generate igsm-official-0020-op5 trace-edit:6:seed1
+saved igsm-official-0020-op5 trace-edit:6:seed1 status=natural_truncated
+generate igsm-official-0020-op5 trace-base:6:seed2
+saved igsm-official-0020-op5 trace-base:6:seed2 status=natural_truncated
+generate igsm-official-0020-op5 trace-edit:6:seed2
+saved igsm-official-0020-op5 trace-edit:6:seed2 status=natural_truncated
+generate igsm-official-0020-op5 trace-sham:6:0:0
+saved igsm-official-0020-op5 trace-sham:6:0:0 status=natural_truncated
+generate igsm-official-0020-op5 trace-sham:6:0:1
+saved igsm-official-0020-op5 trace-sham:6:0:1 status=natural_truncated
+generate igsm-official-0020-op5 trace-sham:6:0:2
+saved igsm-official-0020-op5 trace-sham:6:0:2 status=natural_truncated
+generate igsm-official-0020-op5 trace-sham:6:1:0
+saved igsm-official-0020-op5 trace-sham:6:1:0 status=natural_truncated
+generate igsm-official-0020-op5 trace-sham:6:1:1
+saved igsm-official-0020-op5 trace-sham:6:1:1 status=natural_truncated
+generate igsm-official-0020-op5 trace-sham:6:1:2
+saved igsm-official-0020-op5 trace-sham:6:1:2 status=natural_truncated
+generate igsm-official-0020-op5 trace-sham:6:2:0
+saved igsm-official-0020-op5 trace-sham:6:2:0 status=natural_truncated
+generate igsm-official-0020-op5 trace-sham:6:2:1
+saved igsm-official-0020-op5 trace-sham:6:2:1 status=natural_truncated
+generate igsm-official-0020-op5 trace-sham:6:2:2
+saved igsm-official-0020-op5 trace-sham:6:2:2 status=natural_truncated
+generate igsm-official-0020-op5 trace-source:6
+saved igsm-official-0020-op5 trace-source:6 status=natural_truncated
+completed 7/66 problems
+generate igsm-official-0023-op21 trace-base:7
+saved igsm-official-0023-op21 trace-base:7 status=natural_truncated
+generate igsm-official-0023-op21 trace-edit:7
+saved igsm-official-0023-op21 trace-edit:7 status=natural_truncated
+generate igsm-official-0023-op21 trace-base:7:seed1
+saved igsm-official-0023-op21 trace-base:7:seed1 status=parse_failed
+generate igsm-official-0023-op21 trace-edit:7:seed1
+saved igsm-official-0023-op21 trace-edit:7:seed1 status=natural_truncated
+generate igsm-official-0023-op21 trace-base:7:seed2
+saved igsm-official-0023-op21 trace-base:7:seed2 status=natural_truncated
+generate igsm-official-0023-op21 trace-edit:7:seed2
+saved igsm-official-0023-op21 trace-edit:7:seed2 status=natural_truncated
+generate igsm-official-0023-op21 trace-sham:7:0:0
+saved igsm-official-0023-op21 trace-sham:7:0:0 status=natural_truncated
+generate igsm-official-0023-op21 trace-sham:7:0:1
+saved igsm-official-0023-op21 trace-sham:7:0:1 status=natural_truncated
+generate igsm-official-0023-op21 trace-sham:7:0:2
+saved igsm-official-0023-op21 trace-sham:7:0:2 status=natural_truncated
+generate igsm-official-0023-op21 trace-sham:7:1:0
+saved igsm-official-0023-op21 trace-sham:7:1:0 status=parse_failed
+generate igsm-official-0023-op21 trace-sham:7:1:1
+saved igsm-official-0023-op21 trace-sham:7:1:1 status=natural_truncated
+generate igsm-official-0023-op21 trace-sham:7:1:2
+saved igsm-official-0023-op21 trace-sham:7:1:2 status=natural_truncated
+generate igsm-official-0023-op21 trace-sham:7:2:0
+saved igsm-official-0023-op21 trace-sham:7:2:0 status=natural_truncated
+generate igsm-official-0023-op21 trace-sham:7:2:1
+saved igsm-official-0023-op21 trace-sham:7:2:1 status=natural_truncated
+generate igsm-official-0023-op21 trace-sham:7:2:2
+saved igsm-official-0023-op21 trace-sham:7:2:2 status=natural_truncated
+completed 8/66 problems
+generate igsm-official-0026-op15 trace-base:8
+saved igsm-official-0026-op15 trace-base:8 status=natural_truncated
+generate igsm-official-0026-op15 trace-edit:8
+saved igsm-official-0026-op15 trace-edit:8 status=natural_truncated
+generate igsm-official-0026-op15 trace-base:8:seed1
+saved igsm-official-0026-op15 trace-base:8:seed1 status=natural_truncated
+generate igsm-official-0026-op15 trace-edit:8:seed1
+saved igsm-official-0026-op15 trace-edit:8:seed1 status=natural_truncated
+generate igsm-official-0026-op15 trace-base:8:seed2
+saved igsm-official-0026-op15 trace-base:8:seed2 status=natural_truncated
+generate igsm-official-0026-op15 trace-edit:8:seed2
+saved igsm-official-0026-op15 trace-edit:8:seed2 status=natural_truncated
+generate igsm-official-0026-op15 trace-sham:8:0:0
+saved igsm-official-0026-op15 trace-sham:8:0:0 status=natural_truncated
+generate igsm-official-0026-op15 trace-sham:8:0:1
+saved igsm-official-0026-op15 trace-sham:8:0:1 status=natural_truncated
+generate igsm-official-0026-op15 trace-sham:8:0:2
+saved igsm-official-0026-op15 trace-sham:8:0:2 status=natural_truncated
+generate igsm-official-0026-op15 trace-sham:8:1:0
+saved igsm-official-0026-op15 trace-sham:8:1:0 status=natural_truncated
+generate igsm-official-0026-op15 trace-sham:8:1:1
+saved igsm-official-0026-op15 trace-sham:8:1:1 status=natural_truncated
+generate igsm-official-0026-op15 trace-sham:8:1:2
+saved igsm-official-0026-op15 trace-sham:8:1:2 status=natural_truncated
+generate igsm-official-0026-op15 trace-sham:8:2:0
+saved igsm-official-0026-op15 trace-sham:8:2:0 status=natural_truncated
+generate igsm-official-0026-op15 trace-sham:8:2:1
+saved igsm-official-0026-op15 trace-sham:8:2:1 status=natural_truncated
+generate igsm-official-0026-op15 trace-sham:8:2:2
+saved igsm-official-0026-op15 trace-sham:8:2:2 status=natural_truncated
+completed 9/66 problems
+generate igsm-official-0029-op10 trace-base:9
+saved igsm-official-0029-op10 trace-base:9 status=natural_truncated
+generate igsm-official-0029-op10 trace-edit:9
+saved igsm-official-0029-op10 trace-edit:9 status=natural_truncated
+generate igsm-official-0029-op10 trace-base:9:seed1
+saved igsm-official-0029-op10 trace-base:9:seed1 status=natural_truncated
+generate igsm-official-0029-op10 trace-edit:9:seed1
+saved igsm-official-0029-op10 trace-edit:9:seed1 status=natural_truncated
+generate igsm-official-0029-op10 trace-base:9:seed2
+saved igsm-official-0029-op10 trace-base:9:seed2 status=natural_truncated
+generate igsm-official-0029-op10 trace-edit:9:seed2
+saved igsm-official-0029-op10 trace-edit:9:seed2 status=natural_truncated
+generate igsm-official-0029-op10 trace-sham:9:0:0
+saved igsm-official-0029-op10 trace-sham:9:0:0 status=natural_truncated
+generate igsm-official-0029-op10 trace-sham:9:0:1
+saved igsm-official-0029-op10 trace-sham:9:0:1 status=natural_truncated
+generate igsm-official-0029-op10 trace-sham:9:0:2
+saved igsm-official-0029-op10 trace-sham:9:0:2 status=parse_failed
+generate igsm-official-0029-op10 trace-sham:9:1:0
+saved igsm-official-0029-op10 trace-sham:9:1:0 status=natural_truncated
+generate igsm-official-0029-op10 trace-sham:9:1:1
+saved igsm-official-0029-op10 trace-sham:9:1:1 status=natural_truncated
+generate igsm-official-0029-op10 trace-sham:9:1:2
+saved igsm-official-0029-op10 trace-sham:9:1:2 status=natural_truncated
+generate igsm-official-0029-op10 trace-sham:9:2:0
+saved igsm-official-0029-op10 trace-sham:9:2:0 status=natural_truncated
+generate igsm-official-0029-op10 trace-sham:9:2:1
+saved igsm-official-0029-op10 trace-sham:9:2:1 status=parse_failed
+generate igsm-official-0029-op10 trace-sham:9:2:2
+saved igsm-official-0029-op10 trace-sham:9:2:2 status=natural_truncated
+completed 10/66 problems
+generate igsm-official-0032-op5 trace-base:10
+saved igsm-official-0032-op5 trace-base:10 status=natural_truncated
+generate igsm-official-0032-op5 trace-edit:10
+saved igsm-official-0032-op5 trace-edit:10 status=natural_truncated
+generate igsm-official-0032-op5 trace-base:10:seed1
+saved igsm-official-0032-op5 trace-base:10:seed1 status=natural_truncated
+generate igsm-official-0032-op5 trace-edit:10:seed1
+saved igsm-official-0032-op5 trace-edit:10:seed1 status=natural_truncated
+generate igsm-official-0032-op5 trace-base:10:seed2
+saved igsm-official-0032-op5 trace-base:10:seed2 status=natural_truncated
+generate igsm-official-0032-op5 trace-edit:10:seed2
+saved igsm-official-0032-op5 trace-edit:10:seed2 status=natural_truncated
+generate igsm-official-0032-op5 trace-sham:10:0:0
+saved igsm-official-0032-op5 trace-sham:10:0:0 status=natural_truncated
+generate igsm-official-0032-op5 trace-sham:10:0:1
+saved igsm-official-0032-op5 trace-sham:10:0:1 status=natural_truncated
+generate igsm-official-0032-op5 trace-sham:10:0:2
+saved igsm-official-0032-op5 trace-sham:10:0:2 status=natural_truncated
+generate igsm-official-0032-op5 trace-sham:10:1:0
+saved igsm-official-0032-op5 trace-sham:10:1:0 status=natural_truncated
+generate igsm-official-0032-op5 trace-sham:10:1:1
+saved igsm-official-0032-op5 trace-sham:10:1:1 status=natural_truncated
+generate igsm-official-0032-op5 trace-sham:10:1:2
+saved igsm-official-0032-op5 trace-sham:10:1:2 status=natural_truncated
+generate igsm-official-0032-op5 trace-sham:10:2:0
+saved igsm-official-0032-op5 trace-sham:10:2:0 status=natural_truncated
+generate igsm-official-0032-op5 trace-sham:10:2:1
+saved igsm-official-0032-op5 trace-sham:10:2:1 status=natural_truncated
+generate igsm-official-0032-op5 trace-sham:10:2:2
+saved igsm-official-0032-op5 trace-sham:10:2:2 status=natural_truncated
+completed 11/66 problems
+generate igsm-official-0035-op21 trace-base:11
+saved igsm-official-0035-op21 trace-base:11 status=parse_failed
+generate igsm-official-0035-op21 trace-edit:11
+saved igsm-official-0035-op21 trace-edit:11 status=natural_truncated
+generate igsm-official-0035-op21 trace-base:11:seed1
+saved igsm-official-0035-op21 trace-base:11:seed1 status=natural_truncated
+generate igsm-official-0035-op21 trace-edit:11:seed1
+saved igsm-official-0035-op21 trace-edit:11:seed1 status=natural_truncated
+generate igsm-official-0035-op21 trace-base:11:seed2
+saved igsm-official-0035-op21 trace-base:11:seed2 status=parse_failed
+generate igsm-official-0035-op21 trace-edit:11:seed2
+saved igsm-official-0035-op21 trace-edit:11:seed2 status=parse_failed
+generate igsm-official-0035-op21 trace-sham:11:0:0
+saved igsm-official-0035-op21 trace-sham:11:0:0 status=parse_failed
+generate igsm-official-0035-op21 trace-sham:11:0:1
+saved igsm-official-0035-op21 trace-sham:11:0:1 status=parse_failed
+generate igsm-official-0035-op21 trace-sham:11:0:2
+saved igsm-official-0035-op21 trace-sham:11:0:2 status=natural_truncated
+generate igsm-official-0035-op21 trace-sham:11:1:0
+saved igsm-official-0035-op21 trace-sham:11:1:0 status=natural_truncated
+generate igsm-official-0035-op21 trace-sham:11:1:1
+saved igsm-official-0035-op21 trace-sham:11:1:1 status=natural_truncated
+generate igsm-official-0035-op21 trace-sham:11:1:2
+saved igsm-official-0035-op21 trace-sham:11:1:2 status=natural_truncated
+generate igsm-official-0035-op21 trace-sham:11:2:0
+saved igsm-official-0035-op21 trace-sham:11:2:0 status=natural_truncated
+generate igsm-official-0035-op21 trace-sham:11:2:1
+saved igsm-official-0035-op21 trace-sham:11:2:1 status=natural_truncated
+generate igsm-official-0035-op21 trace-sham:11:2:2
+saved igsm-official-0035-op21 trace-sham:11:2:2 status=natural_truncated
+completed 12/66 problems
+generate igsm-official-0038-op15 trace-base:12
+saved igsm-official-0038-op15 trace-base:12 status=natural_truncated
+generate igsm-official-0038-op15 trace-edit:12
+saved igsm-official-0038-op15 trace-edit:12 status=natural_truncated
+generate igsm-official-0038-op15 trace-base:12:seed1
+saved igsm-official-0038-op15 trace-base:12:seed1 status=natural_truncated
+generate igsm-official-0038-op15 trace-edit:12:seed1
+saved igsm-official-0038-op15 trace-edit:12:seed1 status=natural_truncated
+generate igsm-official-0038-op15 trace-base:12:seed2
+saved igsm-official-0038-op15 trace-base:12:seed2 status=natural_truncated
+generate igsm-official-0038-op15 trace-edit:12:seed2
+saved igsm-official-0038-op15 trace-edit:12:seed2 status=natural_truncated
+generate igsm-official-0038-op15 trace-sham:12:0:0
+saved igsm-official-0038-op15 trace-sham:12:0:0 status=natural_truncated
+generate igsm-official-0038-op15 trace-sham:12:0:1
+saved igsm-official-0038-op15 trace-sham:12:0:1 status=natural_truncated
+generate igsm-official-0038-op15 trace-sham:12:0:2
+saved igsm-official-0038-op15 trace-sham:12:0:2 status=natural_truncated
+generate igsm-official-0038-op15 trace-sham:12:1:0
+saved igsm-official-0038-op15 trace-sham:12:1:0 status=natural_truncated
+generate igsm-official-0038-op15 trace-sham:12:1:1
+saved igsm-official-0038-op15 trace-sham:12:1:1 status=natural_truncated
+generate igsm-official-0038-op15 trace-sham:12:1:2
+saved igsm-official-0038-op15 trace-sham:12:1:2 status=natural_truncated
+generate igsm-official-0038-op15 trace-sham:12:2:0
+saved igsm-official-0038-op15 trace-sham:12:2:0 status=natural_truncated
+generate igsm-official-0038-op15 trace-sham:12:2:1
+saved igsm-official-0038-op15 trace-sham:12:2:1 status=natural_truncated
+generate igsm-official-0038-op15 trace-sham:12:2:2
+saved igsm-official-0038-op15 trace-sham:12:2:2 status=natural_truncated
+completed 13/66 problems
+generate igsm-official-0041-op10 trace-base:13
+saved igsm-official-0041-op10 trace-base:13 status=parse_failed
+generate igsm-official-0041-op10 trace-edit:13
+saved igsm-official-0041-op10 trace-edit:13 status=natural_truncated
+generate igsm-official-0041-op10 trace-base:13:seed1
+saved igsm-official-0041-op10 trace-base:13:seed1 status=natural_truncated
+generate igsm-official-0041-op10 trace-edit:13:seed1
+saved igsm-official-0041-op10 trace-edit:13:seed1 status=natural_truncated
+generate igsm-official-0041-op10 trace-base:13:seed2
+saved igsm-official-0041-op10 trace-base:13:seed2 status=natural_truncated
+generate igsm-official-0041-op10 trace-edit:13:seed2
+saved igsm-official-0041-op10 trace-edit:13:seed2 status=natural_truncated
+generate igsm-official-0041-op10 trace-sham:13:0:0
+saved igsm-official-0041-op10 trace-sham:13:0:0 status=natural_truncated
+generate igsm-official-0041-op10 trace-sham:13:0:1
+saved igsm-official-0041-op10 trace-sham:13:0:1 status=natural_truncated
+generate igsm-official-0041-op10 trace-sham:13:0:2
+saved igsm-official-0041-op10 trace-sham:13:0:2 status=natural_truncated
+generate igsm-official-0041-op10 trace-sham:13:1:0
+saved igsm-official-0041-op10 trace-sham:13:1:0 status=natural_truncated
+generate igsm-official-0041-op10 trace-sham:13:1:1
+saved igsm-official-0041-op10 trace-sham:13:1:1 status=natural_truncated
+generate igsm-official-0041-op10 trace-sham:13:1:2
+saved igsm-official-0041-op10 trace-sham:13:1:2 status=natural_truncated
+generate igsm-official-0041-op10 trace-sham:13:2:0
+saved igsm-official-0041-op10 trace-sham:13:2:0 status=natural_truncated
+generate igsm-official-0041-op10 trace-sham:13:2:1
+saved igsm-official-0041-op10 trace-sham:13:2:1 status=natural_truncated
+generate igsm-official-0041-op10 trace-sham:13:2:2
+saved igsm-official-0041-op10 trace-sham:13:2:2 status=natural_truncated
+completed 14/66 problems
+generate igsm-official-0044-op5 trace-base:14
+saved igsm-official-0044-op5 trace-base:14 status=natural_truncated
+generate igsm-official-0044-op5 trace-edit:14
+saved igsm-official-0044-op5 trace-edit:14 status=natural_complete
+generate igsm-official-0044-op5 trace-base:14:seed1
+saved igsm-official-0044-op5 trace-base:14:seed1 status=natural_truncated
+generate igsm-official-0044-op5 trace-edit:14:seed1
+saved igsm-official-0044-op5 trace-edit:14:seed1 status=natural_truncated
+generate igsm-official-0044-op5 trace-base:14:seed2
+saved igsm-official-0044-op5 trace-base:14:seed2 status=natural_complete
+generate igsm-official-0044-op5 trace-edit:14:seed2
+saved igsm-official-0044-op5 trace-edit:14:seed2 status=natural_complete
+generate igsm-official-0044-op5 trace-sham:14:0:0
+saved igsm-official-0044-op5 trace-sham:14:0:0 status=natural_truncated
+generate igsm-official-0044-op5 trace-sham:14:0:1
+saved igsm-official-0044-op5 trace-sham:14:0:1 status=natural_truncated
+generate igsm-official-0044-op5 trace-sham:14:0:2
+saved igsm-official-0044-op5 trace-sham:14:0:2 status=natural_truncated
+generate igsm-official-0044-op5 trace-sham:14:1:0
+saved igsm-official-0044-op5 trace-sham:14:1:0 status=natural_truncated
+generate igsm-official-0044-op5 trace-sham:14:1:1
+saved igsm-official-0044-op5 trace-sham:14:1:1 status=natural_truncated
+generate igsm-official-0044-op5 trace-sham:14:1:2
+saved igsm-official-0044-op5 trace-sham:14:1:2 status=natural_complete
+generate igsm-official-0044-op5 trace-sham:14:2:0
+saved igsm-official-0044-op5 trace-sham:14:2:0 status=natural_truncated
+generate igsm-official-0044-op5 trace-sham:14:2:1
+saved igsm-official-0044-op5 trace-sham:14:2:1 status=natural_truncated
+generate igsm-official-0044-op5 trace-sham:14:2:2
+saved igsm-official-0044-op5 trace-sham:14:2:2 status=natural_truncated
+completed 15/66 problems
+generate igsm-official-0047-op21 trace-base:15
+saved igsm-official-0047-op21 trace-base:15 status=natural_truncated
+generate igsm-official-0047-op21 trace-edit:15
+saved igsm-official-0047-op21 trace-edit:15 status=natural_truncated
+generate igsm-official-0047-op21 trace-base:15:seed1
+saved igsm-official-0047-op21 trace-base:15:seed1 status=natural_truncated
+generate igsm-official-0047-op21 trace-edit:15:seed1
+saved igsm-official-0047-op21 trace-edit:15:seed1 status=natural_truncated
+generate igsm-official-0047-op21 trace-base:15:seed2
+saved igsm-official-0047-op21 trace-base:15:seed2 status=natural_truncated
+generate igsm-official-0047-op21 trace-edit:15:seed2
+saved igsm-official-0047-op21 trace-edit:15:seed2 status=natural_truncated
+generate igsm-official-0047-op21 trace-sham:15:0:0
+saved igsm-official-0047-op21 trace-sham:15:0:0 status=parse_failed
+generate igsm-official-0047-op21 trace-sham:15:0:1
+saved igsm-official-0047-op21 trace-sham:15:0:1 status=natural_truncated
+generate igsm-official-0047-op21 trace-sham:15:0:2
+saved igsm-official-0047-op21 trace-sham:15:0:2 status=natural_truncated
+generate igsm-official-0047-op21 trace-sham:15:1:0
+saved igsm-official-0047-op21 trace-sham:15:1:0 status=natural_truncated
+generate igsm-official-0047-op21 trace-sham:15:1:1
+saved igsm-official-0047-op21 trace-sham:15:1:1 status=natural_truncated
+generate igsm-official-0047-op21 trace-sham:15:1:2
+saved igsm-official-0047-op21 trace-sham:15:1:2 status=natural_truncated
+generate igsm-official-0047-op21 trace-sham:15:2:0
+saved igsm-official-0047-op21 trace-sham:15:2:0 status=natural_truncated
+generate igsm-official-0047-op21 trace-sham:15:2:1
+saved igsm-official-0047-op21 trace-sham:15:2:1 status=natural_truncated
+generate igsm-official-0047-op21 trace-sham:15:2:2
+saved igsm-official-0047-op21 trace-sham:15:2:2 status=natural_truncated
+completed 16/66 problems
+generate igsm-official-0050-op15 trace-base:16
+saved igsm-official-0050-op15 trace-base:16 status=natural_truncated
+generate igsm-official-0050-op15 trace-edit:16
+saved igsm-official-0050-op15 trace-edit:16 status=natural_truncated
+generate igsm-official-0050-op15 trace-base:16:seed1
+saved igsm-official-0050-op15 trace-base:16:seed1 status=parse_failed
+generate igsm-official-0050-op15 trace-edit:16:seed1
+saved igsm-official-0050-op15 trace-edit:16:seed1 status=parse_failed
+generate igsm-official-0050-op15 trace-base:16:seed2
+saved igsm-official-0050-op15 trace-base:16:seed2 status=natural_truncated
+generate igsm-official-0050-op15 trace-edit:16:seed2
+saved igsm-official-0050-op15 trace-edit:16:seed2 status=natural_truncated
+generate igsm-official-0050-op15 trace-sham:16:0:0
+saved igsm-official-0050-op15 trace-sham:16:0:0 status=natural_truncated
+generate igsm-official-0050-op15 trace-sham:16:0:1
+saved igsm-official-0050-op15 trace-sham:16:0:1 status=natural_truncated
+generate igsm-official-0050-op15 trace-sham:16:0:2
+saved igsm-official-0050-op15 trace-sham:16:0:2 status=natural_truncated
+generate igsm-official-0050-op15 trace-sham:16:1:0
+saved igsm-official-0050-op15 trace-sham:16:1:0 status=natural_truncated
+generate igsm-official-0050-op15 trace-sham:16:1:1
+saved igsm-official-0050-op15 trace-sham:16:1:1 status=parse_failed
+generate igsm-official-0050-op15 trace-sham:16:1:2
+saved igsm-official-0050-op15 trace-sham:16:1:2 status=natural_truncated
+generate igsm-official-0050-op15 trace-sham:16:2:0
+saved igsm-official-0050-op15 trace-sham:16:2:0 status=natural_truncated
+generate igsm-official-0050-op15 trace-sham:16:2:1
+saved igsm-official-0050-op15 trace-sham:16:2:1 status=natural_truncated
+generate igsm-official-0050-op15 trace-sham:16:2:2
+saved igsm-official-0050-op15 trace-sham:16:2:2 status=natural_truncated
+completed 17/66 problems
+generate igsm-official-0053-op10 trace-base:17
+saved igsm-official-0053-op10 trace-base:17 status=natural_truncated
+generate igsm-official-0053-op10 trace-edit:17
+saved igsm-official-0053-op10 trace-edit:17 status=natural_truncated
+generate igsm-official-0053-op10 trace-base:17:seed1
+saved igsm-official-0053-op10 trace-base:17:seed1 status=natural_truncated
+generate igsm-official-0053-op10 trace-edit:17:seed1
+saved igsm-official-0053-op10 trace-edit:17:seed1 status=natural_truncated
+generate igsm-official-0053-op10 trace-base:17:seed2
+saved igsm-official-0053-op10 trace-base:17:seed2 status=natural_truncated
+generate igsm-official-0053-op10 trace-edit:17:seed2
+saved igsm-official-0053-op10 trace-edit:17:seed2 status=natural_truncated
+generate igsm-official-0053-op10 trace-sham:17:0:0
+saved igsm-official-0053-op10 trace-sham:17:0:0 status=natural_truncated
+generate igsm-official-0053-op10 trace-sham:17:0:1
+saved igsm-official-0053-op10 trace-sham:17:0:1 status=natural_truncated
+generate igsm-official-0053-op10 trace-sham:17:0:2
+saved igsm-official-0053-op10 trace-sham:17:0:2 status=natural_truncated
+generate igsm-official-0053-op10 trace-sham:17:1:0
+saved igsm-official-0053-op10 trace-sham:17:1:0 status=natural_truncated
+generate igsm-official-0053-op10 trace-sham:17:1:1
+saved igsm-official-0053-op10 trace-sham:17:1:1 status=natural_truncated
+generate igsm-official-0053-op10 trace-sham:17:1:2
+saved igsm-official-0053-op10 trace-sham:17:1:2 status=natural_truncated
+generate igsm-official-0053-op10 trace-sham:17:2:0
+saved igsm-official-0053-op10 trace-sham:17:2:0 status=natural_truncated
+generate igsm-official-0053-op10 trace-sham:17:2:1
+saved igsm-official-0053-op10 trace-sham:17:2:1 status=natural_truncated
+generate igsm-official-0053-op10 trace-sham:17:2:2
+saved igsm-official-0053-op10 trace-sham:17:2:2 status=natural_truncated
+completed 18/66 problems
+generate igsm-official-0056-op5 trace-base:18
+saved igsm-official-0056-op5 trace-base:18 status=natural_truncated
+generate igsm-official-0056-op5 trace-edit:18
+saved igsm-official-0056-op5 trace-edit:18 status=natural_truncated
+generate igsm-official-0056-op5 trace-base:18:seed1
+saved igsm-official-0056-op5 trace-base:18:seed1 status=natural_truncated
+generate igsm-official-0056-op5 trace-edit:18:seed1
+saved igsm-official-0056-op5 trace-edit:18:seed1 status=natural_truncated
+generate igsm-official-0056-op5 trace-base:18:seed2
+saved igsm-official-0056-op5 trace-base:18:seed2 status=natural_truncated
+generate igsm-official-0056-op5 trace-edit:18:seed2
+saved igsm-official-0056-op5 trace-edit:18:seed2 status=natural_truncated
+generate igsm-official-0056-op5 trace-sham:18:0:0
+saved igsm-official-0056-op5 trace-sham:18:0:0 status=natural_truncated
+generate igsm-official-0056-op5 trace-sham:18:0:1
+saved igsm-official-0056-op5 trace-sham:18:0:1 status=natural_truncated
+generate igsm-official-0056-op5 trace-sham:18:0:2
+saved igsm-official-0056-op5 trace-sham:18:0:2 status=natural_truncated
+generate igsm-official-0056-op5 trace-sham:18:1:0
+saved igsm-official-0056-op5 trace-sham:18:1:0 status=natural_truncated
+generate igsm-official-0056-op5 trace-sham:18:1:1
+saved igsm-official-0056-op5 trace-sham:18:1:1 status=natural_truncated
+generate igsm-official-0056-op5 trace-sham:18:1:2
+saved igsm-official-0056-op5 trace-sham:18:1:2 status=natural_truncated
+generate igsm-official-0056-op5 trace-sham:18:2:0
+saved igsm-official-0056-op5 trace-sham:18:2:0 status=natural_truncated
+generate igsm-official-0056-op5 trace-sham:18:2:1
+saved igsm-official-0056-op5 trace-sham:18:2:1 status=natural_truncated
+generate igsm-official-0056-op5 trace-sham:18:2:2
+saved igsm-official-0056-op5 trace-sham:18:2:2 status=natural_truncated
+completed 19/66 problems
+generate igsm-official-0059-op21 trace-base:19
+saved igsm-official-0059-op21 trace-base:19 status=natural_truncated
+generate igsm-official-0059-op21 trace-edit:19
+saved igsm-official-0059-op21 trace-edit:19 status=natural_truncated
+generate igsm-official-0059-op21 trace-base:19:seed1
+saved igsm-official-0059-op21 trace-base:19:seed1 status=natural_truncated
+generate igsm-official-0059-op21 trace-edit:19:seed1
+saved igsm-official-0059-op21 trace-edit:19:seed1 status=natural_truncated
+generate igsm-official-0059-op21 trace-base:19:seed2
+saved igsm-official-0059-op21 trace-base:19:seed2 status=natural_truncated
+generate igsm-official-0059-op21 trace-edit:19:seed2
+saved igsm-official-0059-op21 trace-edit:19:seed2 status=natural_truncated
+generate igsm-official-0059-op21 trace-sham:19:0:0
+saved igsm-official-0059-op21 trace-sham:19:0:0 status=natural_truncated
+generate igsm-official-0059-op21 trace-sham:19:0:1
+saved igsm-official-0059-op21 trace-sham:19:0:1 status=natural_truncated
+generate igsm-official-0059-op21 trace-sham:19:0:2
+saved igsm-official-0059-op21 trace-sham:19:0:2 status=natural_truncated
+generate igsm-official-0059-op21 trace-sham:19:1:0
+saved igsm-official-0059-op21 trace-sham:19:1:0 status=natural_truncated
+generate igsm-official-0059-op21 trace-sham:19:1:1
+saved igsm-official-0059-op21 trace-sham:19:1:1 status=natural_truncated
+generate igsm-official-0059-op21 trace-sham:19:1:2
+saved igsm-official-0059-op21 trace-sham:19:1:2 status=natural_truncated
+generate igsm-official-0059-op21 trace-sham:19:2:0
+saved igsm-official-0059-op21 trace-sham:19:2:0 status=natural_truncated
+generate igsm-official-0059-op21 trace-sham:19:2:1
+saved igsm-official-0059-op21 trace-sham:19:2:1 status=natural_truncated
+generate igsm-official-0059-op21 trace-sham:19:2:2
+saved igsm-official-0059-op21 trace-sham:19:2:2 status=natural_complete
+completed 20/66 problems
+generate igsm-official-0062-op15 trace-base:20
+saved igsm-official-0062-op15 trace-base:20 status=parse_failed
+generate igsm-official-0062-op15 trace-edit:20
+saved igsm-official-0062-op15 trace-edit:20 status=natural_truncated
+generate igsm-official-0062-op15 trace-base:20:seed1
+saved igsm-official-0062-op15 trace-base:20:seed1 status=natural_truncated
+generate igsm-official-0062-op15 trace-edit:20:seed1
+saved igsm-official-0062-op15 trace-edit:20:seed1 status=natural_truncated
+generate igsm-official-0062-op15 trace-base:20:seed2
+saved igsm-official-0062-op15 trace-base:20:seed2 status=natural_truncated
+generate igsm-official-0062-op15 trace-edit:20:seed2
+saved igsm-official-0062-op15 trace-edit:20:seed2 status=natural_truncated
+generate igsm-official-0062-op15 trace-sham:20:0:0
+saved igsm-official-0062-op15 trace-sham:20:0:0 status=natural_truncated
+generate igsm-official-0062-op15 trace-sham:20:0:1
+saved igsm-official-0062-op15 trace-sham:20:0:1 status=natural_truncated
+generate igsm-official-0062-op15 trace-sham:20:0:2
+saved igsm-official-0062-op15 trace-sham:20:0:2 status=natural_truncated
+generate igsm-official-0062-op15 trace-sham:20:1:0
+saved igsm-official-0062-op15 trace-sham:20:1:0 status=natural_truncated
+generate igsm-official-0062-op15 trace-sham:20:1:1
+saved igsm-official-0062-op15 trace-sham:20:1:1 status=natural_truncated
+generate igsm-official-0062-op15 trace-sham:20:1:2
+saved igsm-official-0062-op15 trace-sham:20:1:2 status=natural_truncated
+generate igsm-official-0062-op15 trace-sham:20:2:0
+saved igsm-official-0062-op15 trace-sham:20:2:0 status=natural_truncated
+generate igsm-official-0062-op15 trace-sham:20:2:1
+saved igsm-official-0062-op15 trace-sham:20:2:1 status=natural_truncated
+generate igsm-official-0062-op15 trace-sham:20:2:2
+saved igsm-official-0062-op15 trace-sham:20:2:2 status=natural_truncated
+completed 21/66 problems
+generate igsm-official-0065-op10 trace-base:21
+saved igsm-official-0065-op10 trace-base:21 status=natural_truncated
+generate igsm-official-0065-op10 trace-edit:21
+saved igsm-official-0065-op10 trace-edit:21 status=natural_truncated
+generate igsm-official-0065-op10 trace-base:21:seed1
+saved igsm-official-0065-op10 trace-base:21:seed1 status=natural_truncated
+generate igsm-official-0065-op10 trace-edit:21:seed1
+saved igsm-official-0065-op10 trace-edit:21:seed1 status=parse_failed
+generate igsm-official-0065-op10 trace-base:21:seed2
+saved igsm-official-0065-op10 trace-base:21:seed2 status=natural_truncated
+generate igsm-official-0065-op10 trace-edit:21:seed2
+saved igsm-official-0065-op10 trace-edit:21:seed2 status=natural_truncated
+generate igsm-official-0065-op10 trace-sham:21:0:0
+saved igsm-official-0065-op10 trace-sham:21:0:0 status=natural_truncated
+generate igsm-official-0065-op10 trace-sham:21:0:1
+saved igsm-official-0065-op10 trace-sham:21:0:1 status=natural_truncated
+generate igsm-official-0065-op10 trace-sham:21:0:2
+saved igsm-official-0065-op10 trace-sham:21:0:2 status=natural_truncated
+generate igsm-official-0065-op10 trace-sham:21:1:0
+saved igsm-official-0065-op10 trace-sham:21:1:0 status=natural_truncated
+generate igsm-official-0065-op10 trace-sham:21:1:1
+saved igsm-official-0065-op10 trace-sham:21:1:1 status=natural_truncated
+generate igsm-official-0065-op10 trace-sham:21:1:2
+saved igsm-official-0065-op10 trace-sham:21:1:2 status=natural_truncated
+generate igsm-official-0065-op10 trace-sham:21:2:0
+saved igsm-official-0065-op10 trace-sham:21:2:0 status=parse_failed
+generate igsm-official-0065-op10 trace-sham:21:2:1
+saved igsm-official-0065-op10 trace-sham:21:2:1 status=natural_truncated
+generate igsm-official-0065-op10 trace-sham:21:2:2
+saved igsm-official-0065-op10 trace-sham:21:2:2 status=natural_truncated
+completed 22/66 problems
+generate igsm-official-0068-op5 trace-base:22
+saved igsm-official-0068-op5 trace-base:22 status=natural_complete
+generate igsm-official-0068-op5 trace-edit:22
+saved igsm-official-0068-op5 trace-edit:22 status=natural_complete
+generate igsm-official-0068-op5 trace-base:22:seed1
+saved igsm-official-0068-op5 trace-base:22:seed1 status=natural_complete
+generate igsm-official-0068-op5 trace-edit:22:seed1
+saved igsm-official-0068-op5 trace-edit:22:seed1 status=natural_complete
+generate igsm-official-0068-op5 trace-base:22:seed2
+saved igsm-official-0068-op5 trace-base:22:seed2 status=natural_complete
+generate igsm-official-0068-op5 trace-edit:22:seed2
+saved igsm-official-0068-op5 trace-edit:22:seed2 status=natural_truncated
+generate igsm-official-0068-op5 trace-sham:22:0:0
+saved igsm-official-0068-op5 trace-sham:22:0:0 status=natural_complete
+generate igsm-official-0068-op5 trace-sham:22:0:1
+saved igsm-official-0068-op5 trace-sham:22:0:1 status=natural_complete
+generate igsm-official-0068-op5 trace-sham:22:0:2
+saved igsm-official-0068-op5 trace-sham:22:0:2 status=natural_complete
+generate igsm-official-0068-op5 trace-sham:22:1:0
+saved igsm-official-0068-op5 trace-sham:22:1:0 status=natural_complete
+generate igsm-official-0068-op5 trace-sham:22:1:1
+saved igsm-official-0068-op5 trace-sham:22:1:1 status=natural_complete
+generate igsm-official-0068-op5 trace-sham:22:1:2
+saved igsm-official-0068-op5 trace-sham:22:1:2 status=natural_complete
+generate igsm-official-0068-op5 trace-sham:22:2:0
+saved igsm-official-0068-op5 trace-sham:22:2:0 status=natural_complete
+generate igsm-official-0068-op5 trace-sham:22:2:1
+saved igsm-official-0068-op5 trace-sham:22:2:1 status=parse_failed
+generate igsm-official-0068-op5 trace-sham:22:2:2
+saved igsm-official-0068-op5 trace-sham:22:2:2 status=natural_complete
+generate igsm-official-0068-op5 trace-source:22
+saved igsm-official-0068-op5 trace-source:22 status=natural_complete
+completed 23/66 problems
+generate igsm-official-0071-op21 trace-base:23
+saved igsm-official-0071-op21 trace-base:23 status=natural_truncated
+generate igsm-official-0071-op21 trace-edit:23
+saved igsm-official-0071-op21 trace-edit:23 status=natural_truncated
+generate igsm-official-0071-op21 trace-base:23:seed1
+saved igsm-official-0071-op21 trace-base:23:seed1 status=natural_truncated
+generate igsm-official-0071-op21 trace-edit:23:seed1
+saved igsm-official-0071-op21 trace-edit:23:seed1 status=natural_truncated
+generate igsm-official-0071-op21 trace-base:23:seed2
+saved igsm-official-0071-op21 trace-base:23:seed2 status=natural_truncated
+generate igsm-official-0071-op21 trace-edit:23:seed2
+saved igsm-official-0071-op21 trace-edit:23:seed2 status=natural_truncated
+generate igsm-official-0071-op21 trace-sham:23:0:0
+saved igsm-official-0071-op21 trace-sham:23:0:0 status=natural_truncated
+generate igsm-official-0071-op21 trace-sham:23:0:1
+saved igsm-official-0071-op21 trace-sham:23:0:1 status=natural_truncated
+generate igsm-official-0071-op21 trace-sham:23:0:2
+saved igsm-official-0071-op21 trace-sham:23:0:2 status=natural_truncated
+generate igsm-official-0071-op21 trace-sham:23:1:0
+saved igsm-official-0071-op21 trace-sham:23:1:0 status=natural_truncated
+generate igsm-official-0071-op21 trace-sham:23:1:1
+saved igsm-official-0071-op21 trace-sham:23:1:1 status=natural_truncated
+generate igsm-official-0071-op21 trace-sham:23:1:2
+saved igsm-official-0071-op21 trace-sham:23:1:2 status=natural_truncated
+generate igsm-official-0071-op21 trace-sham:23:2:0
+saved igsm-official-0071-op21 trace-sham:23:2:0 status=natural_truncated
+generate igsm-official-0071-op21 trace-sham:23:2:1
+saved igsm-official-0071-op21 trace-sham:23:2:1 status=natural_truncated
+generate igsm-official-0071-op21 trace-sham:23:2:2
+saved igsm-official-0071-op21 trace-sham:23:2:2 status=natural_truncated
+completed 24/66 problems
+generate igsm-official-0074-op15 trace-base:24
+saved igsm-official-0074-op15 trace-base:24 status=natural_truncated
+generate igsm-official-0074-op15 trace-edit:24
+saved igsm-official-0074-op15 trace-edit:24 status=natural_truncated
+generate igsm-official-0074-op15 trace-base:24:seed1
+saved igsm-official-0074-op15 trace-base:24:seed1 status=natural_truncated
+generate igsm-official-0074-op15 trace-edit:24:seed1
+saved igsm-official-0074-op15 trace-edit:24:seed1 status=natural_truncated
+generate igsm-official-0074-op15 trace-base:24:seed2
+saved igsm-official-0074-op15 trace-base:24:seed2 status=natural_truncated
+generate igsm-official-0074-op15 trace-edit:24:seed2
+saved igsm-official-0074-op15 trace-edit:24:seed2 status=natural_truncated
+generate igsm-official-0074-op15 trace-sham:24:0:0
+saved igsm-official-0074-op15 trace-sham:24:0:0 status=natural_truncated
+generate igsm-official-0074-op15 trace-sham:24:0:1
+saved igsm-official-0074-op15 trace-sham:24:0:1 status=natural_truncated
+generate igsm-official-0074-op15 trace-sham:24:0:2
+saved igsm-official-0074-op15 trace-sham:24:0:2 status=natural_truncated
+generate igsm-official-0074-op15 trace-sham:24:1:0
+saved igsm-official-0074-op15 trace-sham:24:1:0 status=natural_truncated
+generate igsm-official-0074-op15 trace-sham:24:1:1
+saved igsm-official-0074-op15 trace-sham:24:1:1 status=natural_truncated
+generate igsm-official-0074-op15 trace-sham:24:1:2
+saved igsm-official-0074-op15 trace-sham:24:1:2 status=natural_truncated
+generate igsm-official-0074-op15 trace-sham:24:2:0
+saved igsm-official-0074-op15 trace-sham:24:2:0 status=natural_truncated
+generate igsm-official-0074-op15 trace-sham:24:2:1
+saved igsm-official-0074-op15 trace-sham:24:2:1 status=natural_truncated
+generate igsm-official-0074-op15 trace-sham:24:2:2
+saved igsm-official-0074-op15 trace-sham:24:2:2 status=natural_truncated
+completed 25/66 problems
+generate igsm-official-0077-op10 trace-base:25
+saved igsm-official-0077-op10 trace-base:25 status=natural_truncated
+generate igsm-official-0077-op10 trace-edit:25
+saved igsm-official-0077-op10 trace-edit:25 status=natural_truncated
+generate igsm-official-0077-op10 trace-base:25:seed1
+saved igsm-official-0077-op10 trace-base:25:seed1 status=natural_truncated
+generate igsm-official-0077-op10 trace-edit:25:seed1
+saved igsm-official-0077-op10 trace-edit:25:seed1 status=natural_truncated
+generate igsm-official-0077-op10 trace-base:25:seed2
+saved igsm-official-0077-op10 trace-base:25:seed2 status=natural_truncated
+generate igsm-official-0077-op10 trace-edit:25:seed2
+saved igsm-official-0077-op10 trace-edit:25:seed2 status=natural_truncated
+generate igsm-official-0077-op10 trace-sham:25:0:0
+saved igsm-official-0077-op10 trace-sham:25:0:0 status=natural_truncated
+generate igsm-official-0077-op10 trace-sham:25:0:1
+saved igsm-official-0077-op10 trace-sham:25:0:1 status=natural_truncated
+generate igsm-official-0077-op10 trace-sham:25:0:2
+saved igsm-official-0077-op10 trace-sham:25:0:2 status=natural_truncated
+generate igsm-official-0077-op10 trace-sham:25:1:0
+saved igsm-official-0077-op10 trace-sham:25:1:0 status=natural_truncated
+generate igsm-official-0077-op10 trace-sham:25:1:1
+saved igsm-official-0077-op10 trace-sham:25:1:1 status=natural_truncated
+generate igsm-official-0077-op10 trace-sham:25:1:2
+saved igsm-official-0077-op10 trace-sham:25:1:2 status=natural_truncated
+generate igsm-official-0077-op10 trace-sham:25:2:0
+saved igsm-official-0077-op10 trace-sham:25:2:0 status=natural_truncated
+generate igsm-official-0077-op10 trace-sham:25:2:1
+saved igsm-official-0077-op10 trace-sham:25:2:1 status=natural_truncated
+generate igsm-official-0077-op10 trace-sham:25:2:2
+saved igsm-official-0077-op10 trace-sham:25:2:2 status=natural_truncated
+completed 26/66 problems
+generate igsm-official-0080-op5 trace-base:26
+saved igsm-official-0080-op5 trace-base:26 status=natural_truncated
+generate igsm-official-0080-op5 trace-edit:26
+saved igsm-official-0080-op5 trace-edit:26 status=natural_truncated
+generate igsm-official-0080-op5 trace-base:26:seed1
+saved igsm-official-0080-op5 trace-base:26:seed1 status=natural_truncated
+generate igsm-official-0080-op5 trace-edit:26:seed1
+saved igsm-official-0080-op5 trace-edit:26:seed1 status=natural_truncated
+generate igsm-official-0080-op5 trace-base:26:seed2
+saved igsm-official-0080-op5 trace-base:26:seed2 status=natural_truncated
+generate igsm-official-0080-op5 trace-edit:26:seed2
+saved igsm-official-0080-op5 trace-edit:26:seed2 status=parse_failed
+generate igsm-official-0080-op5 trace-sham:26:0:0
+saved igsm-official-0080-op5 trace-sham:26:0:0 status=natural_truncated
+generate igsm-official-0080-op5 trace-sham:26:0:1
+saved igsm-official-0080-op5 trace-sham:26:0:1 status=natural_truncated
+generate igsm-official-0080-op5 trace-sham:26:0:2
+saved igsm-official-0080-op5 trace-sham:26:0:2 status=parse_failed
+generate igsm-official-0080-op5 trace-sham:26:1:0
+saved igsm-official-0080-op5 trace-sham:26:1:0 status=natural_truncated
+generate igsm-official-0080-op5 trace-sham:26:1:1
+saved igsm-official-0080-op5 trace-sham:26:1:1 status=natural_truncated
+generate igsm-official-0080-op5 trace-sham:26:1:2
+saved igsm-official-0080-op5 trace-sham:26:1:2 status=natural_truncated
+generate igsm-official-0080-op5 trace-sham:26:2:0
+saved igsm-official-0080-op5 trace-sham:26:2:0 status=natural_complete
+generate igsm-official-0080-op5 trace-sham:26:2:1
+saved igsm-official-0080-op5 trace-sham:26:2:1 status=natural_truncated
+generate igsm-official-0080-op5 trace-sham:26:2:2
+saved igsm-official-0080-op5 trace-sham:26:2:2 status=natural_truncated
+completed 27/66 problems
+generate igsm-official-0083-op21 trace-base:27
+saved igsm-official-0083-op21 trace-base:27 status=natural_truncated
+generate igsm-official-0083-op21 trace-edit:27
+saved igsm-official-0083-op21 trace-edit:27 status=natural_truncated
+generate igsm-official-0083-op21 trace-base:27:seed1
+saved igsm-official-0083-op21 trace-base:27:seed1 status=natural_truncated
+generate igsm-official-0083-op21 trace-edit:27:seed1
+saved igsm-official-0083-op21 trace-edit:27:seed1 status=parse_failed
+generate igsm-official-0083-op21 trace-base:27:seed2
+saved igsm-official-0083-op21 trace-base:27:seed2 status=natural_truncated
+generate igsm-official-0083-op21 trace-edit:27:seed2
+saved igsm-official-0083-op21 trace-edit:27:seed2 status=natural_truncated
+generate igsm-official-0083-op21 trace-sham:27:0:0
+saved igsm-official-0083-op21 trace-sham:27:0:0 status=natural_truncated
+generate igsm-official-0083-op21 trace-sham:27:0:1
+saved igsm-official-0083-op21 trace-sham:27:0:1 status=natural_truncated
+generate igsm-official-0083-op21 trace-sham:27:0:2
+saved igsm-official-0083-op21 trace-sham:27:0:2 status=natural_truncated
+generate igsm-official-0083-op21 trace-sham:27:1:0
+saved igsm-official-0083-op21 trace-sham:27:1:0 status=natural_truncated
+generate igsm-official-0083-op21 trace-sham:27:1:1
+saved igsm-official-0083-op21 trace-sham:27:1:1 status=natural_truncated
+generate igsm-official-0083-op21 trace-sham:27:1:2
+saved igsm-official-0083-op21 trace-sham:27:1:2 status=natural_truncated
+generate igsm-official-0083-op21 trace-sham:27:2:0
+saved igsm-official-0083-op21 trace-sham:27:2:0 status=parse_failed
+generate igsm-official-0083-op21 trace-sham:27:2:1
+saved igsm-official-0083-op21 trace-sham:27:2:1 status=natural_truncated
+generate igsm-official-0083-op21 trace-sham:27:2:2
+saved igsm-official-0083-op21 trace-sham:27:2:2 status=natural_truncated
+completed 28/66 problems
+generate igsm-official-0086-op15 trace-base:28
+saved igsm-official-0086-op15 trace-base:28 status=natural_truncated
+generate igsm-official-0086-op15 trace-edit:28
+saved igsm-official-0086-op15 trace-edit:28 status=natural_truncated
+generate igsm-official-0086-op15 trace-base:28:seed1
+saved igsm-official-0086-op15 trace-base:28:seed1 status=natural_truncated
+generate igsm-official-0086-op15 trace-edit:28:seed1
+saved igsm-official-0086-op15 trace-edit:28:seed1 status=natural_truncated
+generate igsm-official-0086-op15 trace-base:28:seed2
+saved igsm-official-0086-op15 trace-base:28:seed2 status=natural_truncated
+generate igsm-official-0086-op15 trace-edit:28:seed2
+saved igsm-official-0086-op15 trace-edit:28:seed2 status=natural_truncated
+generate igsm-official-0086-op15 trace-sham:28:0:0
+saved igsm-official-0086-op15 trace-sham:28:0:0 status=natural_truncated
+generate igsm-official-0086-op15 trace-sham:28:0:1
+saved igsm-official-0086-op15 trace-sham:28:0:1 status=natural_truncated
+generate igsm-official-0086-op15 trace-sham:28:0:2
+saved igsm-official-0086-op15 trace-sham:28:0:2 status=natural_truncated
+generate igsm-official-0086-op15 trace-sham:28:1:0
+saved igsm-official-0086-op15 trace-sham:28:1:0 status=natural_truncated
+generate igsm-official-0086-op15 trace-sham:28:1:1
+saved igsm-official-0086-op15 trace-sham:28:1:1 status=natural_truncated
+generate igsm-official-0086-op15 trace-sham:28:1:2
+saved igsm-official-0086-op15 trace-sham:28:1:2 status=natural_truncated
+generate igsm-official-0086-op15 trace-sham:28:2:0
+saved igsm-official-0086-op15 trace-sham:28:2:0 status=natural_truncated
+generate igsm-official-0086-op15 trace-sham:28:2:1
+saved igsm-official-0086-op15 trace-sham:28:2:1 status=natural_truncated
+generate igsm-official-0086-op15 trace-sham:28:2:2
+saved igsm-official-0086-op15 trace-sham:28:2:2 status=natural_truncated
+generate igsm-official-0086-op15 trace-source:28
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/qwen3-8b/code/src/reasoning_diff/__main__.py", line 4, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/qwen3-8b/code/src/reasoning_diff/cli.py", line 3768, in main
+    return args.func(args)
+           ^^^^^^^^^^^^^^^
+  File "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/qwen3-8b/code/src/reasoning_diff/cli.py", line 882, in cmd_prepare
+    extra_source_trace = generate(extra_pair["same_value_diff_source"].task, seed=0, run_id=extra_source_id, **gen_kw)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/qwen3-8b/code/src/reasoning_diff/checkpoints.py", line 59, in cached_generate
+    trace = generate(task, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/qwen3-8b/code/src/reasoning_diff/models/generate.py", line 397, in generate_task_trace
+    return generate_frozen_trace(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/qwen3-8b/code/src/reasoning_diff/models/generate.py", line 216, in generate_frozen_trace
+    decoded = decode_loop(
+              ^^^^^^^^^^^^
+  File "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/qwen3-8b/code/src/reasoning_diff/models/generate.py", line 58, in decode_loop
+    out = model(**call)
+          ^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/transformers/utils/generic.py", line 918, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 480, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+                                       ^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/transformers/utils/generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 410, in forward
+    hidden_states = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 260, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 205, in forward
+    query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 116, in apply_rotary_pos_emb
+    k_embed = (k * cos) + (rotate_half(k) * sin)
+                           ^^^^^^^^^^^^^^
+  File "/mnt/mydata/zm/projects/RPent/.venv/lib/python3.11/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 90, in rotate_half
+    return torch.cat((-x2, x1), dim=-1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 184.48it/s]
+resume igsm-official-0002-op15 trace-base
+resume igsm-official-0002-op15 trace-t0p
+resume igsm-official-0002-op15 trace-base:seed2resume igsm-official-0002-op15 trace-edit
+
+resume igsm-official-0002-op15 trace-edit:seed1
+resume igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:0resume igsm-official-0002-op15 trace-edit:seed2resume igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:2
+
+
+resume igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:1
+resume igsm-official-0002-op15 trace-sham
+resume igsm-official-0002-op15 trace-sham:0:1
+resume igsm-official-0002-op15 trace-sham:0:2
+resume igsm-official-0002-op15 trace-sham:1:0
+resume igsm-official-0002-op15 trace-sham:1:1resume igsm-official-0002-op15 trace-sham:1:2
+
+resume igsm-official-0002-op15 trace-sham:2:0
+resume igsm-official-0002-op15 trace-sham:2:1
+resume igsm-official-0005-op10 trace-base:1resume igsm-official-0005-op10 trace-edit:1
+
+resume igsm-official-0002-op15 trace-sham:2:2
+completed 29/66 problems
+resume igsm-official-0005-op10 trace-edit:1:seed2resume igsm-official-0005-op10 trace-edit:1:seed1
+resume igsm-official-0005-op10 trace-base:1:seed2
+
+resume igsm-official-0005-op10 trace-base:1:seed1
+resume igsm-official-0005-op10 trace-sham:1:0:0
+resume igsm-official-0005-op10 trace-sham:1:1:0resume igsm-official-0005-op10 trace-sham:1:0:1
+resume igsm-official-0005-op10 trace-sham:1:0:2
+
+resume igsm-official-0005-op10 trace-sham:1:1:1resume igsm-official-0005-op10 trace-sham:1:1:2resume igsm-official-0005-op10 trace-sham:1:2:0
+
+
+resume igsm-official-0005-op10 trace-sham:1:2:1
+resume igsm-official-0008-op5 trace-edit:2resume igsm-official-0008-op5 trace-base:2
+
+resume igsm-official-0008-op5 trace-base:2:seed1
+resume igsm-official-0005-op10 trace-sham:1:2:2
+completed 29/66 problems
+resume igsm-official-0008-op5 trace-edit:2:seed2resume igsm-official-0008-op5 trace-base:2:seed2
+
+resume igsm-official-0008-op5 trace-sham:2:0:0
+resume igsm-official-0008-op5 trace-edit:2:seed1
+resume igsm-official-0008-op5 trace-sham:2:1:0
+resume igsm-official-0008-op5 trace-sham:2:0:2
+resume igsm-official-0008-op5 trace-sham:2:1:1
+resume igsm-official-0008-op5 trace-sham:2:0:1
+resume igsm-official-0008-op5 trace-sham:2:2:1resume igsm-official-0008-op5 trace-sham:2:2:0
+
+resume igsm-official-0008-op5 trace-sham:2:1:2resume igsm-official-0008-op5 trace-sham:2:2:2
+
+completed 29/66 problems
+resume igsm-official-0011-op21 trace-base:3resume igsm-official-0011-op21 trace-edit:3:seed1
+
+resume igsm-official-0011-op21 trace-edit:3
+resume igsm-official-0011-op21 trace-base:3:seed1
+resume igsm-official-0011-op21 trace-sham:3:0:1
+resume igsm-official-0011-op21 trace-base:3:seed2resume igsm-official-0011-op21 trace-sham:3:0:0
+
+resume igsm-official-0011-op21 trace-edit:3:seed2
+resume igsm-official-0011-op21 trace-sham:3:0:2
+resume igsm-official-0011-op21 trace-sham:3:1:1
+resume igsm-official-0011-op21 trace-sham:3:1:0resume igsm-official-0011-op21 trace-sham:3:1:2
+
+resume igsm-official-0011-op21 trace-sham:3:2:0
+resume igsm-official-0011-op21 trace-sham:3:2:1
+resume igsm-official-0011-op21 trace-sham:3:2:2
+resume igsm-official-0014-op15 trace-base:4
+completed 29/66 problems
+resume igsm-official-0014-op15 trace-edit:4
+resume igsm-official-0014-op15 trace-base:4:seed1
+resume igsm-official-0014-op15 trace-edit:4:seed1
+resume igsm-official-0014-op15 trace-base:4:seed2
+resume igsm-official-0014-op15 trace-edit:4:seed2resume igsm-official-0014-op15 trace-sham:4:0:0
+
+resume igsm-official-0014-op15 trace-sham:4:0:2
+resume igsm-official-0014-op15 trace-sham:4:0:1
+resume igsm-official-0014-op15 trace-sham:4:1:0
+resume igsm-official-0014-op15 trace-sham:4:1:1
+resume igsm-official-0014-op15 trace-sham:4:1:2
+resume igsm-official-0014-op15 trace-sham:4:2:0
+resume igsm-official-0014-op15 trace-sham:4:2:1
+resume igsm-official-0017-op10 trace-base:5resume igsm-official-0017-op10 trace-edit:5
+resume igsm-official-0014-op15 trace-sham:4:2:2
+
+completed 29/66 problems
+resume igsm-official-0017-op10 trace-edit:5:seed1resume igsm-official-0017-op10 trace-base:5:seed2resume igsm-official-0017-op10 trace-edit:5:seed2
+
+
+resume igsm-official-0017-op10 trace-base:5:seed1
+resume igsm-official-0017-op10 trace-sham:5:0:2
+resume igsm-official-0017-op10 trace-sham:5:0:1resume igsm-official-0017-op10 trace-sham:5:1:0
+
+resume igsm-official-0017-op10 trace-sham:5:0:0
+resume igsm-official-0017-op10 trace-sham:5:1:1
+resume igsm-official-0017-op10 trace-sham:5:2:1resume igsm-official-0017-op10 trace-sham:5:1:2
+resume igsm-official-0017-op10 trace-sham:5:2:0
+
+resume igsm-official-0017-op10 trace-sham:5:2:2
+resume igsm-official-0020-op5 trace-base:6
+resume igsm-official-0020-op5 trace-edit:6
+resume igsm-official-0020-op5 trace-base:6:seed1
+completed 29/66 problems
+resume igsm-official-0020-op5 trace-base:6:seed2
+resume igsm-official-0020-op5 trace-sham:6:0:0resume igsm-official-0020-op5 trace-edit:6:seed2
+resume igsm-official-0020-op5 trace-edit:6:seed1
+
+resume igsm-official-0020-op5 trace-sham:6:0:2resume igsm-official-0020-op5 trace-sham:6:0:1
+
+resume igsm-official-0020-op5 trace-sham:6:1:1resume igsm-official-0020-op5 trace-sham:6:1:0
+
+resume igsm-official-0020-op5 trace-sham:6:2:1resume igsm-official-0020-op5 trace-sham:6:2:0
+
+resume igsm-official-0020-op5 trace-sham:6:1:2
+resume igsm-official-0020-op5 trace-sham:6:2:2
+resume igsm-official-0020-op5 trace-source:6resume igsm-official-0023-op21 trace-base:7
+
+resume igsm-official-0023-op21 trace-base:7:seed1
+resume igsm-official-0023-op21 trace-edit:7
+completed 29/66 problems
+resume igsm-official-0023-op21 trace-edit:7:seed1
+resume igsm-official-0023-op21 trace-sham:7:0:0resume igsm-official-0023-op21 trace-base:7:seed2
+
+resume igsm-official-0023-op21 trace-edit:7:seed2
+resume igsm-official-0023-op21 trace-sham:7:0:2
+resume igsm-official-0023-op21 trace-sham:7:0:1
+resume igsm-official-0023-op21 trace-sham:7:1:0
+resume igsm-official-0023-op21 trace-sham:7:1:1
+resume igsm-official-0023-op21 trace-sham:7:1:2
+resume igsm-official-0023-op21 trace-sham:7:2:0
+resume igsm-official-0023-op21 trace-sham:7:2:2resume igsm-official-0023-op21 trace-sham:7:2:1
+
+completed 29/66 problems
+resume igsm-official-0026-op15 trace-edit:8resume igsm-official-0026-op15 trace-base:8:seed1
+
+resume igsm-official-0026-op15 trace-base:8resume igsm-official-0026-op15 trace-edit:8:seed1
+
+resume igsm-official-0026-op15 trace-sham:8:0:1
+resume igsm-official-0026-op15 trace-base:8:seed2
+resume igsm-official-0026-op15 trace-sham:8:0:0resume igsm-official-0026-op15 trace-edit:8:seed2
+
+resume igsm-official-0026-op15 trace-sham:8:0:2
+resume igsm-official-0026-op15 trace-sham:8:1:1resume igsm-official-0026-op15 trace-sham:8:1:0
+
+resume igsm-official-0026-op15 trace-sham:8:1:2
+resume igsm-official-0026-op15 trace-sham:8:2:0resume igsm-official-0026-op15 trace-sham:8:2:1
+resume igsm-official-0026-op15 trace-sham:8:2:2
+
+resume igsm-official-0029-op10 trace-base:9
+completed 29/66 problems
+resume igsm-official-0029-op10 trace-base:9:seed1resume igsm-official-0029-op10 trace-edit:9
+
+resume igsm-official-0029-op10 trace-edit:9:seed1resume igsm-official-0029-op10 trace-base:9:seed2
+
+resume igsm-official-0029-op10 trace-sham:9:0:0
+resume igsm-official-0029-op10 trace-edit:9:seed2
+resume igsm-official-0029-op10 trace-sham:9:0:1resume igsm-official-0029-op10 trace-sham:9:0:2
+
+resume igsm-official-0029-op10 trace-sham:9:1:0
+resume igsm-official-0029-op10 trace-sham:9:1:1resume igsm-official-0029-op10 trace-sham:9:2:0resume igsm-official-0029-op10 trace-sham:9:1:2
+
+
+resume igsm-official-0029-op10 trace-sham:9:2:2resume igsm-official-0029-op10 trace-sham:9:2:1
+
+resume igsm-official-0032-op5 trace-edit:10resume igsm-official-0032-op5 trace-base:10
+
+completed 29/66 problems
+resume igsm-official-0032-op5 trace-base:10:seed2resume igsm-official-0032-op5 trace-edit:10:seed2
+
+resume igsm-official-0032-op5 trace-base:10:seed1
+resume igsm-official-0032-op5 trace-edit:10:seed1
+resume igsm-official-0032-op5 trace-sham:10:0:1resume igsm-official-0032-op5 trace-sham:10:0:0
+
+resume igsm-official-0032-op5 trace-sham:10:1:0
+resume igsm-official-0032-op5 trace-sham:10:0:2
+resume igsm-official-0032-op5 trace-sham:10:1:1
+resume igsm-official-0032-op5 trace-sham:10:1:2
+resume igsm-official-0032-op5 trace-sham:10:2:0
+resume igsm-official-0032-op5 trace-sham:10:2:1
+resume igsm-official-0032-op5 trace-sham:10:2:2resume igsm-official-0035-op21 trace-edit:11
+
+resume igsm-official-0035-op21 trace-base:11
+resume igsm-official-0035-op21 trace-base:11:seed1
+completed 29/66 problems
+resume igsm-official-0035-op21 trace-edit:11:seed1resume igsm-official-0035-op21 trace-base:11:seed2resume igsm-official-0035-op21 trace-edit:11:seed2
+
+
+resume igsm-official-0035-op21 trace-sham:11:0:0
+resume igsm-official-0035-op21 trace-sham:11:0:1
+resume igsm-official-0035-op21 trace-sham:11:0:2
+resume igsm-official-0035-op21 trace-sham:11:1:1
+resume igsm-official-0035-op21 trace-sham:11:1:0
+resume igsm-official-0035-op21 trace-sham:11:1:2
+resume igsm-official-0035-op21 trace-sham:11:2:0resume igsm-official-0035-op21 trace-sham:11:2:1
+
+resume igsm-official-0035-op21 trace-sham:11:2:2
+completed 29/66 problems
+resume igsm-official-0038-op15 trace-edit:12
+resume igsm-official-0038-op15 trace-base:12
+resume igsm-official-0038-op15 trace-edit:12:seed1resume igsm-official-0038-op15 trace-base:12:seed1
+
+resume igsm-official-0038-op15 trace-base:12:seed2
+resume igsm-official-0038-op15 trace-edit:12:seed2
+resume igsm-official-0038-op15 trace-sham:12:0:1resume igsm-official-0038-op15 trace-sham:12:0:0
+
+resume igsm-official-0038-op15 trace-sham:12:1:1resume igsm-official-0038-op15 trace-sham:12:1:0
+
+resume igsm-official-0038-op15 trace-sham:12:1:2
+resume igsm-official-0038-op15 trace-sham:12:0:2
+resume igsm-official-0038-op15 trace-sham:12:2:0resume igsm-official-0041-op10 trace-base:13resume igsm-official-0038-op15 trace-sham:12:2:1
+resume igsm-official-0038-op15 trace-sham:12:2:2
+
+
+completed 29/66 problems
+resume igsm-official-0041-op10 trace-base:13:seed1
+resume igsm-official-0041-op10 trace-edit:13
+resume igsm-official-0041-op10 trace-edit:13:seed1
+resume igsm-official-0041-op10 trace-base:13:seed2
+resume igsm-official-0041-op10 trace-edit:13:seed2resume igsm-official-0041-op10 trace-sham:13:0:0
+resume igsm-official-0041-op10 trace-sham:13:0:2
+
+resume igsm-official-0041-op10 trace-sham:13:0:1
+resume igsm-official-0041-op10 trace-sham:13:1:0
+resume igsm-official-0041-op10 trace-sham:13:1:2
+resume igsm-official-0041-op10 trace-sham:13:2:0
+resume igsm-official-0041-op10 trace-sham:13:1:1
+resume igsm-official-0041-op10 trace-sham:13:2:2resume igsm-official-0044-op5 trace-edit:14resume igsm-official-0044-op5 trace-base:14
+
+
+resume igsm-official-0041-op10 trace-sham:13:2:1
+completed 29/66 problems
+resume igsm-official-0044-op5 trace-base:14:seed2resume igsm-official-0044-op5 trace-base:14:seed1resume igsm-official-0044-op5 trace-edit:14:seed2
+
+
+resume igsm-official-0044-op5 trace-edit:14:seed1
+resume igsm-official-0044-op5 trace-sham:14:1:0resume igsm-official-0044-op5 trace-sham:14:0:1
+
+resume igsm-official-0044-op5 trace-sham:14:0:0
+resume igsm-official-0044-op5 trace-sham:14:0:2
+resume igsm-official-0044-op5 trace-sham:14:1:2resume igsm-official-0044-op5 trace-sham:14:2:0
+
+resume igsm-official-0044-op5 trace-sham:14:2:1resume igsm-official-0044-op5 trace-sham:14:1:1
+
+resume igsm-official-0044-op5 trace-sham:14:2:2resume igsm-official-0047-op21 trace-edit:15
+
+resume igsm-official-0047-op21 trace-base:15
+resume igsm-official-0047-op21 trace-base:15:seed1
+completed 29/66 problems
+resume igsm-official-0047-op21 trace-edit:15:seed1resume igsm-official-0047-op21 trace-base:15:seed2
+
+resume igsm-official-0047-op21 trace-sham:15:0:0
+resume igsm-official-0047-op21 trace-edit:15:seed2
+resume igsm-official-0047-op21 trace-sham:15:0:1resume igsm-official-0047-op21 trace-sham:15:1:0
+
+resume igsm-official-0047-op21 trace-sham:15:0:2
+resume igsm-official-0047-op21 trace-sham:15:1:1
+resume igsm-official-0047-op21 trace-sham:15:1:2
+resume igsm-official-0047-op21 trace-sham:15:2:0resume igsm-official-0047-op21 trace-sham:15:2:2
+
+resume igsm-official-0047-op21 trace-sham:15:2:1
+completed 29/66 problems
+resume igsm-official-0050-op15 trace-edit:16resume igsm-official-0050-op15 trace-base:16:seed1
+
+resume igsm-official-0050-op15 trace-base:16
+resume igsm-official-0050-op15 trace-edit:16:seed1
+resume igsm-official-0050-op15 trace-base:16:seed2resume igsm-official-0050-op15 trace-edit:16:seed2resume igsm-official-0050-op15 trace-sham:16:0:0
+
+resume igsm-official-0050-op15 trace-sham:16:0:1
+
+resume igsm-official-0050-op15 trace-sham:16:1:0
+resume igsm-official-0050-op15 trace-sham:16:1:1
+resume igsm-official-0050-op15 trace-sham:16:1:2resume igsm-official-0050-op15 trace-sham:16:0:2
+
+resume igsm-official-0050-op15 trace-sham:16:2:0
+resume igsm-official-0050-op15 trace-sham:16:2:1
+resume igsm-official-0053-op10 trace-base:17
+resume igsm-official-0050-op15 trace-sham:16:2:2
+completed 29/66 problems
+resume igsm-official-0053-op10 trace-base:17:seed1resume igsm-official-0053-op10 trace-edit:17
+
+resume igsm-official-0053-op10 trace-edit:17:seed1
+resume igsm-official-0053-op10 trace-base:17:seed2
+resume igsm-official-0053-op10 trace-sham:17:0:1resume igsm-official-0053-op10 trace-sham:17:0:0
+resume igsm-official-0053-op10 trace-edit:17:seed2
+
+resume igsm-official-0053-op10 trace-sham:17:0:2
+resume igsm-official-0053-op10 trace-sham:17:1:1resume igsm-official-0053-op10 trace-sham:17:1:0resume igsm-official-0053-op10 trace-sham:17:1:2
+
+
+resume igsm-official-0053-op10 trace-sham:17:2:0
+resume igsm-official-0053-op10 trace-sham:17:2:1resume igsm-official-0053-op10 trace-sham:17:2:2
+
+resume igsm-official-0056-op5 trace-edit:18
+resume igsm-official-0056-op5 trace-base:18
+completed 29/66 problems
+resume igsm-official-0056-op5 trace-edit:18:seed1resume igsm-official-0056-op5 trace-edit:18:seed2
+
+resume igsm-official-0056-op5 trace-base:18:seed1
+resume igsm-official-0056-op5 trace-base:18:seed2
+resume igsm-official-0056-op5 trace-sham:18:0:0
+resume igsm-official-0056-op5 trace-sham:18:0:1resume igsm-official-0056-op5 trace-sham:18:1:0
+
+resume igsm-official-0056-op5 trace-sham:18:0:2
+resume igsm-official-0056-op5 trace-sham:18:1:1
+resume igsm-official-0056-op5 trace-sham:18:1:2
+resume igsm-official-0056-op5 trace-sham:18:2:0resume igsm-official-0056-op5 trace-sham:18:2:1
+
+resume igsm-official-0056-op5 trace-sham:18:2:2
+resume igsm-official-0059-op21 trace-base:19resume igsm-official-0059-op21 trace-edit:19
+
+resume igsm-official-0059-op21 trace-base:19:seed1
+completed 29/66 problems
+resume igsm-official-0059-op21 trace-edit:19:seed1
+resume igsm-official-0059-op21 trace-base:19:seed2resume igsm-official-0059-op21 trace-edit:19:seed2
+
+resume igsm-official-0059-op21 trace-sham:19:0:0
+resume igsm-official-0059-op21 trace-sham:19:0:1
+resume igsm-official-0059-op21 trace-sham:19:0:2
+resume igsm-official-0059-op21 trace-sham:19:1:0
+resume igsm-official-0059-op21 trace-sham:19:1:1
+resume igsm-official-0059-op21 trace-sham:19:2:0
+resume igsm-official-0059-op21 trace-sham:19:1:2
+resume igsm-official-0059-op21 trace-sham:19:2:1resume igsm-official-0059-op21 trace-sham:19:2:2
+
+completed 29/66 problems
+resume igsm-official-0062-op15 trace-edit:20:seed1resume igsm-official-0062-op15 trace-base:20
+resume igsm-official-0062-op15 trace-edit:20
+
+resume igsm-official-0062-op15 trace-base:20:seed1
+resume igsm-official-0062-op15 trace-edit:20:seed2
+resume igsm-official-0062-op15 trace-base:20:seed2resume igsm-official-0062-op15 trace-sham:20:0:0
+
+resume igsm-official-0062-op15 trace-sham:20:0:1
+resume igsm-official-0062-op15 trace-sham:20:0:2
+resume igsm-official-0062-op15 trace-sham:20:1:1resume igsm-official-0062-op15 trace-sham:20:1:0
+
+resume igsm-official-0062-op15 trace-sham:20:1:2
+resume igsm-official-0062-op15 trace-sham:20:2:0resume igsm-official-0062-op15 trace-sham:20:2:2
+
+resume igsm-official-0065-op10 trace-base:21
+resume igsm-official-0062-op15 trace-sham:20:2:1
+completed 29/66 problems
+resume igsm-official-0065-op10 trace-base:21:seed2resume igsm-official-0065-op10 trace-base:21:seed1
+
+resume igsm-official-0065-op10 trace-edit:21:seed1resume igsm-official-0065-op10 trace-edit:21
+
+resume igsm-official-0065-op10 trace-sham:21:0:0
+resume igsm-official-0065-op10 trace-sham:21:0:1resume igsm-official-0065-op10 trace-edit:21:seed2
+
+resume igsm-official-0065-op10 trace-sham:21:0:2
+resume igsm-official-0065-op10 trace-sham:21:1:0resume igsm-official-0065-op10 trace-sham:21:1:1
+
+resume igsm-official-0065-op10 trace-sham:21:1:2
+resume igsm-official-0065-op10 trace-sham:21:2:0
+resume igsm-official-0068-op5 trace-base:22
+resume igsm-official-0065-op10 trace-sham:21:2:2
+resume igsm-official-0065-op10 trace-sham:21:2:1resume igsm-official-0068-op5 trace-edit:22
+
+completed 29/66 problems
+resume igsm-official-0068-op5 trace-edit:22:seed1resume igsm-official-0068-op5 trace-edit:22:seed2
+
+resume igsm-official-0068-op5 trace-base:22:seed2
+resume igsm-official-0068-op5 trace-base:22:seed1
+resume igsm-official-0068-op5 trace-sham:22:0:0
+resume igsm-official-0068-op5 trace-sham:22:0:1
+resume igsm-official-0068-op5 trace-sham:22:1:0resume igsm-official-0068-op5 trace-sham:22:0:2
+
+resume igsm-official-0068-op5 trace-sham:22:1:1resume igsm-official-0068-op5 trace-sham:22:1:2resume igsm-official-0068-op5 trace-sham:22:2:0
+
+
+resume igsm-official-0068-op5 trace-sham:22:2:1
+resume igsm-official-0068-op5 trace-source:22
+resume igsm-official-0071-op21 trace-edit:23resume igsm-official-0068-op5 trace-sham:22:2:2
+
+resume igsm-official-0071-op21 trace-base:23
+completed 29/66 problems
+resume igsm-official-0071-op21 trace-base:23:seed1
+resume igsm-official-0071-op21 trace-edit:23:seed1resume igsm-official-0071-op21 trace-base:23:seed2
+
+resume igsm-official-0071-op21 trace-edit:23:seed2
+resume igsm-official-0071-op21 trace-sham:23:0:0
+resume igsm-official-0071-op21 trace-sham:23:0:2resume igsm-official-0071-op21 trace-sham:23:0:1resume igsm-official-0071-op21 trace-sham:23:1:0
+
+
+resume igsm-official-0071-op21 trace-sham:23:1:1
+resume igsm-official-0071-op21 trace-sham:23:1:2
+resume igsm-official-0071-op21 trace-sham:23:2:1
+resume igsm-official-0071-op21 trace-sham:23:2:0
+resume igsm-official-0071-op21 trace-sham:23:2:2
+resume igsm-official-0074-op15 trace-base:24
+resume igsm-official-0074-op15 trace-base:24:seed1
+resume igsm-official-0074-op15 trace-edit:24
+completed 29/66 problems
+resume igsm-official-0074-op15 trace-edit:24:seed1
+resume igsm-official-0074-op15 trace-edit:24:seed2
+resume igsm-official-0074-op15 trace-sham:24:0:0resume igsm-official-0074-op15 trace-base:24:seed2
+
+resume igsm-official-0074-op15 trace-sham:24:0:2
+resume igsm-official-0074-op15 trace-sham:24:0:1resume igsm-official-0074-op15 trace-sham:24:1:0
+
+resume igsm-official-0074-op15 trace-sham:24:1:1
+resume igsm-official-0074-op15 trace-sham:24:2:1
+resume igsm-official-0074-op15 trace-sham:24:2:0resume igsm-official-0074-op15 trace-sham:24:2:2
+
+resume igsm-official-0074-op15 trace-sham:24:1:2
+completed 29/66 problems
+resume igsm-official-0077-op10 trace-base:25:seed1
+resume igsm-official-0077-op10 trace-edit:25:seed1resume igsm-official-0077-op10 trace-edit:25
+
+resume igsm-official-0077-op10 trace-base:25
+resume igsm-official-0077-op10 trace-edit:25:seed2resume igsm-official-0077-op10 trace-sham:25:0:0
+
+resume igsm-official-0077-op10 trace-base:25:seed2
+resume igsm-official-0077-op10 trace-sham:25:0:1
+resume igsm-official-0077-op10 trace-sham:25:1:1resume igsm-official-0077-op10 trace-sham:25:1:0
+resume igsm-official-0077-op10 trace-sham:25:1:2
+
+resume igsm-official-0077-op10 trace-sham:25:0:2
+resume igsm-official-0077-op10 trace-sham:25:2:1
+resume igsm-official-0077-op10 trace-sham:25:2:2
+resume igsm-official-0080-op5 trace-base:26resume igsm-official-0077-op10 trace-sham:25:2:0
+
+completed 29/66 problems
+resume igsm-official-0080-op5 trace-edit:26:seed1resume igsm-official-0080-op5 trace-edit:26
+
+resume igsm-official-0080-op5 trace-base:26:seed2resume igsm-official-0080-op5 trace-base:26:seed1
+
+resume igsm-official-0080-op5 trace-sham:26:0:0
+resume igsm-official-0080-op5 trace-sham:26:0:1
+resume igsm-official-0080-op5 trace-edit:26:seed2
+resume igsm-official-0080-op5 trace-sham:26:0:2
+resume igsm-official-0080-op5 trace-sham:26:2:0resume igsm-official-0080-op5 trace-sham:26:1:1
+
+resume igsm-official-0080-op5 trace-sham:26:1:0
+resume igsm-official-0080-op5 trace-sham:26:1:2
+resume igsm-official-0080-op5 trace-sham:26:2:1
+resume igsm-official-0080-op5 trace-sham:26:2:2
+resume igsm-official-0083-op21 trace-base:27resume igsm-official-0083-op21 trace-edit:27
+
+completed 29/66 problems
+resume igsm-official-0083-op21 trace-edit:27:seed1
+resume igsm-official-0083-op21 trace-base:27:seed1resume igsm-official-0083-op21 trace-base:27:seed2resume igsm-official-0083-op21 trace-edit:27:seed2
+
+
+resume igsm-official-0083-op21 trace-sham:27:0:1
+resume igsm-official-0083-op21 trace-sham:27:0:2resume igsm-official-0083-op21 trace-sham:27:1:0
+
+resume igsm-official-0083-op21 trace-sham:27:0:0
+resume igsm-official-0083-op21 trace-sham:27:1:2
+resume igsm-official-0083-op21 trace-sham:27:2:0
+resume igsm-official-0083-op21 trace-sham:27:1:1
+resume igsm-official-0083-op21 trace-sham:27:2:1
+resume igsm-official-0083-op21 trace-sham:27:2:2
+resume igsm-official-0086-op15 trace-base:28resume igsm-official-0086-op15 trace-base:28:seed1
+
+resume igsm-official-0086-op15 trace-edit:28
+completed 29/66 problems
+resume igsm-official-0086-op15 trace-edit:28:seed1
+resume igsm-official-0086-op15 trace-base:28:seed2resume igsm-official-0086-op15 trace-edit:28:seed2
+
+resume igsm-official-0086-op15 trace-sham:28:0:0
+resume igsm-official-0086-op15 trace-sham:28:0:1
+resume igsm-official-0086-op15 trace-sham:28:0:2
+resume igsm-official-0086-op15 trace-sham:28:1:1
+resume igsm-official-0086-op15 trace-sham:28:1:0
+resume igsm-official-0086-op15 trace-sham:28:1:2
+resume igsm-official-0086-op15 trace-sham:28:2:0
+resume igsm-official-0086-op15 trace-sham:28:2:2
+resume igsm-official-0086-op15 trace-sham:28:2:1
+resume igsm-official-0086-op15 trace-source:28resume igsm-official-0089-op10 trace-base:29
+
+resume igsm-official-0089-op10 trace-edit:29
+resume igsm-official-0089-op10 trace-base:29:seed1
+completed 29/66 problems
+resume igsm-official-0089-op10 trace-edit:29:seed1
+resume igsm-official-0089-op10 trace-base:29:seed2resume igsm-official-0089-op10 trace-edit:29:seed2
+
+resume igsm-official-0089-op10 trace-sham:29:0:0
+generate igsm-official-0089-op10 trace-sham:29:0:2
+generate igsm-official-0089-op10 trace-sham:29:1:0
+generate igsm-official-0089-op10 trace-sham:29:0:1
+generate igsm-official-0089-op10 trace-sham:29:1:1
+saved igsm-official-0089-op10 trace-sham:29:1:0 status=natural_truncated
+saved igsm-official-0089-op10 trace-sham:29:0:2 status=natural_truncatedsaved igsm-official-0089-op10 trace-sham:29:1:1 status=natural_truncated
+
+saved igsm-official-0089-op10 trace-sham:29:0:1 status=natural_truncated
+generate igsm-official-0089-op10 trace-sham:29:2:0
+generate igsm-official-0089-op10 trace-sham:29:2:1
+generate igsm-official-0089-op10 trace-sham:29:1:2
+generate igsm-official-0089-op10 trace-sham:29:2:2
+saved igsm-official-0089-op10 trace-sham:29:1:2 status=natural_truncated
+saved igsm-official-0089-op10 trace-sham:29:2:1 status=natural_truncated
+saved igsm-official-0089-op10 trace-sham:29:2:0 status=natural_truncated
+saved igsm-official-0089-op10 trace-sham:29:2:2 status=natural_truncated
+completed 30/66 problems
+generate igsm-official-0092-op5 trace-base:30
+generate igsm-official-0092-op5 trace-edit:30:seed1
+generate igsm-official-0092-op5 trace-base:30:seed1
+generate igsm-official-0092-op5 trace-edit:30
+saved igsm-official-0092-op5 trace-base:30:seed1 status=natural_truncated
+saved igsm-official-0092-op5 trace-edit:30:seed1 status=natural_truncated
+saved igsm-official-0092-op5 trace-base:30 status=natural_truncated
+saved igsm-official-0092-op5 trace-edit:30 status=natural_truncated
+generate igsm-official-0092-op5 trace-base:30:seed2
+generate igsm-official-0092-op5 trace-sham:30:0:1
+generate igsm-official-0092-op5 trace-sham:30:0:0
+generate igsm-official-0092-op5 trace-edit:30:seed2
+saved igsm-official-0092-op5 trace-sham:30:0:0 status=natural_truncated
+saved igsm-official-0092-op5 trace-base:30:seed2 status=natural_truncated
+saved igsm-official-0092-op5 trace-sham:30:0:1 status=natural_truncated
+saved igsm-official-0092-op5 trace-edit:30:seed2 status=natural_truncated
+generate igsm-official-0092-op5 trace-sham:30:1:0
+generate igsm-official-0092-op5 trace-sham:30:1:1
+generate igsm-official-0092-op5 trace-sham:30:0:2
+generate igsm-official-0092-op5 trace-sham:30:1:2
+saved igsm-official-0092-op5 trace-sham:30:1:0 status=natural_truncated
+saved igsm-official-0092-op5 trace-sham:30:1:1 status=natural_truncated
+saved igsm-official-0092-op5 trace-sham:30:0:2 status=natural_truncatedsaved igsm-official-0092-op5 trace-sham:30:1:2 status=natural_truncated
+
+generate igsm-official-0092-op5 trace-sham:30:2:0
+generate igsm-official-0092-op5 trace-source:30
+generate igsm-official-0092-op5 trace-sham:30:2:2
+generate igsm-official-0092-op5 trace-sham:30:2:1
+saved igsm-official-0092-op5 trace-sham:30:2:2 status=natural_truncated
+saved igsm-official-0092-op5 trace-source:30 status=natural_truncated
+saved igsm-official-0092-op5 trace-sham:30:2:0 status=natural_truncated
+saved igsm-official-0092-op5 trace-sham:30:2:1 status=natural_truncated
+completed 31/66 problems
+generate igsm-official-0095-op21 trace-base:31
+generate igsm-official-0095-op21 trace-edit:31
+generate igsm-official-0095-op21 trace-base:31:seed1
+generate igsm-official-0095-op21 trace-edit:31:seed1
+saved igsm-official-0095-op21 trace-edit:31 status=natural_truncated
+saved igsm-official-0095-op21 trace-base:31:seed1 status=natural_truncated
+saved igsm-official-0095-op21 trace-base:31 status=natural_truncated
+saved igsm-official-0095-op21 trace-edit:31:seed1 status=natural_truncated
+generate igsm-official-0095-op21 trace-base:31:seed2
+generate igsm-official-0095-op21 trace-edit:31:seed2
+generate igsm-official-0095-op21 trace-sham:31:0:0
+generate igsm-official-0095-op21 trace-sham:31:0:1
+saved igsm-official-0095-op21 trace-edit:31:seed2 status=natural_truncatedsaved igsm-official-0095-op21 trace-base:31:seed2 status=natural_truncatedsaved igsm-official-0095-op21 trace-sham:31:0:0 status=natural_truncated
+
+
+saved igsm-official-0095-op21 trace-sham:31:0:1 status=natural_truncated
+generate igsm-official-0095-op21 trace-sham:31:0:2
+generate igsm-official-0095-op21 trace-sham:31:1:0
+generate igsm-official-0095-op21 trace-sham:31:1:1
+generate igsm-official-0095-op21 trace-sham:31:1:2
+saved igsm-official-0095-op21 trace-sham:31:1:2 status=natural_truncated
+saved igsm-official-0095-op21 trace-sham:31:0:2 status=natural_truncated
+saved igsm-official-0095-op21 trace-sham:31:1:1 status=natural_truncatedsaved igsm-official-0095-op21 trace-sham:31:1:0 status=natural_truncated
+
+generate igsm-official-0095-op21 trace-sham:31:2:0
+generate igsm-official-0095-op21 trace-sham:31:2:2
+generate igsm-official-0095-op21 trace-sham:31:2:1
+generate igsm-official-0098-op15 trace-base:32
+saved igsm-official-0098-op15 trace-base:32 status=parse_failed
+saved igsm-official-0095-op21 trace-sham:31:2:1 status=natural_truncatedsaved igsm-official-0095-op21 trace-sham:31:2:0 status=natural_truncated
+
+saved igsm-official-0095-op21 trace-sham:31:2:2 status=natural_truncated
+completed 32/66 problems
+generate igsm-official-0098-op15 trace-edit:32
+generate igsm-official-0098-op15 trace-edit:32:seed1
+generate igsm-official-0098-op15 trace-base:32:seed1
+generate igsm-official-0098-op15 trace-base:32:seed2
+saved igsm-official-0098-op15 trace-base:32:seed2 status=natural_truncatedsaved igsm-official-0098-op15 trace-edit:32 status=natural_truncated
+
+saved igsm-official-0098-op15 trace-edit:32:seed1 status=natural_truncated
+saved igsm-official-0098-op15 trace-base:32:seed1 status=natural_truncated
+generate igsm-official-0098-op15 trace-edit:32:seed2
+generate igsm-official-0098-op15 trace-sham:32:0:0
+generate igsm-official-0098-op15 trace-sham:32:0:2
+generate igsm-official-0098-op15 trace-sham:32:0:1
+saved igsm-official-0098-op15 trace-sham:32:0:0 status=natural_truncated
+saved igsm-official-0098-op15 trace-sham:32:0:1 status=natural_truncated
+saved igsm-official-0098-op15 trace-edit:32:seed2 status=natural_truncated
+saved igsm-official-0098-op15 trace-sham:32:0:2 status=natural_truncated
+generate igsm-official-0098-op15 trace-sham:32:1:0
+generate igsm-official-0098-op15 trace-sham:32:1:2
+generate igsm-official-0098-op15 trace-sham:32:2:0
+generate igsm-official-0098-op15 trace-sham:32:1:1
+saved igsm-official-0098-op15 trace-sham:32:1:2 status=natural_truncated
+saved igsm-official-0098-op15 trace-sham:32:2:0 status=parse_failed
+saved igsm-official-0098-op15 trace-sham:32:1:1 status=natural_truncatedsaved igsm-official-0098-op15 trace-sham:32:1:0 status=natural_truncated
+
+generate igsm-official-0098-op15 trace-sham:32:2:2
+generate igsm-official-0098-op15 trace-sham:32:2:1
+generate igsm-official-0101-op10 trace-base:33
+generate igsm-official-0101-op10 trace-edit:33
+saved igsm-official-0098-op15 trace-sham:32:2:1 status=natural_truncated
+saved igsm-official-0101-op10 trace-base:33 status=natural_truncated
+saved igsm-official-0098-op15 trace-sham:32:2:2 status=natural_truncated
+completed 33/66 problems
+saved igsm-official-0101-op10 trace-edit:33 status=natural_truncated
+generate igsm-official-0101-op10 trace-base:33:seed1
+generate igsm-official-0101-op10 trace-edit:33:seed1
+generate igsm-official-0101-op10 trace-edit:33:seed2
+generate igsm-official-0101-op10 trace-base:33:seed2
+saved igsm-official-0101-op10 trace-edit:33:seed2 status=natural_truncated
+saved igsm-official-0101-op10 trace-base:33:seed2 status=parse_failed
+saved igsm-official-0101-op10 trace-base:33:seed1 status=natural_truncatedsaved igsm-official-0101-op10 trace-edit:33:seed1 status=natural_truncated
+
+generate igsm-official-0101-op10 trace-sham:33:0:0
+generate igsm-official-0101-op10 trace-sham:33:0:2
+generate igsm-official-0101-op10 trace-sham:33:0:1
+generate igsm-official-0101-op10 trace-sham:33:1:0
+saved igsm-official-0101-op10 trace-sham:33:0:2 status=natural_complete
+saved igsm-official-0101-op10 trace-sham:33:0:0 status=natural_truncatedsaved igsm-official-0101-op10 trace-sham:33:1:0 status=natural_truncatedsaved igsm-official-0101-op10 trace-sham:33:0:1 status=natural_truncated
+
+
+generate igsm-official-0101-op10 trace-sham:33:1:1
+generate igsm-official-0101-op10 trace-sham:33:2:0
+generate igsm-official-0101-op10 trace-sham:33:2:1
+generate igsm-official-0101-op10 trace-sham:33:1:2
+saved igsm-official-0101-op10 trace-sham:33:1:1 status=natural_truncated
+saved igsm-official-0101-op10 trace-sham:33:2:0 status=natural_truncated
+saved igsm-official-0101-op10 trace-sham:33:2:1 status=natural_truncated
+saved igsm-official-0101-op10 trace-sham:33:1:2 status=natural_truncated
+generate igsm-official-0101-op10 trace-sham:33:2:2
+generate igsm-official-0104-op5 trace-base:34
+generate igsm-official-0101-op10 trace-source:33
+generate igsm-official-0104-op5 trace-edit:34
+saved igsm-official-0101-op10 trace-sham:33:2:2 status=natural_truncatedsaved igsm-official-0104-op5 trace-base:34 status=natural_completesaved igsm-official-0104-op5 trace-edit:34 status=natural_complete
+
+
+saved igsm-official-0101-op10 trace-source:33 status=natural_truncated
+completed 34/66 problems
+generate igsm-official-0104-op5 trace-base:34:seed1
+generate igsm-official-0104-op5 trace-edit:34:seed1
+generate igsm-official-0104-op5 trace-base:34:seed2
+generate igsm-official-0104-op5 trace-edit:34:seed2
+saved igsm-official-0104-op5 trace-edit:34:seed2 status=natural_complete
+saved igsm-official-0104-op5 trace-edit:34:seed1 status=natural_complete
+saved igsm-official-0104-op5 trace-base:34:seed1 status=natural_complete
+saved igsm-official-0104-op5 trace-base:34:seed2 status=natural_complete
+generate igsm-official-0104-op5 trace-sham:34:0:1
+generate igsm-official-0104-op5 trace-sham:34:0:0
+generate igsm-official-0104-op5 trace-sham:34:0:2
+generate igsm-official-0104-op5 trace-sham:34:1:0
+saved igsm-official-0104-op5 trace-sham:34:0:1 status=natural_complete
+saved igsm-official-0104-op5 trace-sham:34:0:0 status=natural_complete
+saved igsm-official-0104-op5 trace-sham:34:0:2 status=natural_complete
+saved igsm-official-0104-op5 trace-sham:34:1:0 status=natural_complete
+generate igsm-official-0104-op5 trace-sham:34:1:1
+generate igsm-official-0104-op5 trace-sham:34:2:1
+generate igsm-official-0104-op5 trace-sham:34:2:0
+generate igsm-official-0104-op5 trace-sham:34:1:2
+saved igsm-official-0104-op5 trace-sham:34:1:2 status=natural_complete
+saved igsm-official-0104-op5 trace-sham:34:1:1 status=natural_complete
+saved igsm-official-0104-op5 trace-sham:34:2:1 status=natural_completesaved igsm-official-0104-op5 trace-sham:34:2:0 status=natural_complete
+
+generate igsm-official-0104-op5 trace-sham:34:2:2
+generate igsm-official-0104-op5 trace-source:34
+generate igsm-official-0107-op21 trace-base:35
+generate igsm-official-0107-op21 trace-edit:35
+saved igsm-official-0104-op5 trace-sham:34:2:2 status=natural_completesaved igsm-official-0104-op5 trace-source:34 status=natural_complete
+
+saved igsm-official-0107-op21 trace-edit:35 status=natural_truncated
+saved igsm-official-0107-op21 trace-base:35 status=natural_truncated
+completed 35/66 problems
+generate igsm-official-0107-op21 trace-base:35:seed1
+generate igsm-official-0107-op21 trace-edit:35:seed2
+generate igsm-official-0107-op21 trace-edit:35:seed1
+generate igsm-official-0107-op21 trace-base:35:seed2
+saved igsm-official-0107-op21 trace-edit:35:seed1 status=natural_truncated
+saved igsm-official-0107-op21 trace-base:35:seed2 status=natural_truncatedsaved igsm-official-0107-op21 trace-base:35:seed1 status=parse_failed
+
+saved igsm-official-0107-op21 trace-edit:35:seed2 status=natural_truncated
+generate igsm-official-0107-op21 trace-sham:35:0:0
+generate igsm-official-0107-op21 trace-sham:35:0:1
+generate igsm-official-0107-op21 trace-sham:35:0:2
+generate igsm-official-0107-op21 trace-sham:35:1:0
+saved igsm-official-0107-op21 trace-sham:35:0:2 status=natural_truncatedsaved igsm-official-0107-op21 trace-sham:35:0:0 status=natural_truncated
+
+saved igsm-official-0107-op21 trace-sham:35:1:0 status=natural_truncated
+saved igsm-official-0107-op21 trace-sham:35:0:1 status=natural_truncated
+generate igsm-official-0107-op21 trace-sham:35:1:1
+generate igsm-official-0107-op21 trace-sham:35:2:0
+generate igsm-official-0107-op21 trace-sham:35:2:1
+generate igsm-official-0107-op21 trace-sham:35:1:2
+saved igsm-official-0107-op21 trace-sham:35:2:1 status=natural_truncated
+saved igsm-official-0107-op21 trace-sham:35:2:0 status=natural_truncated
+saved igsm-official-0107-op21 trace-sham:35:1:1 status=natural_truncated
+saved igsm-official-0107-op21 trace-sham:35:1:2 status=natural_truncated
+generate igsm-official-0107-op21 trace-source:35
+generate igsm-official-0107-op21 trace-sham:35:2:2
+generate igsm-official-0110-op15 trace-edit:36
+generate igsm-official-0110-op15 trace-base:36
+saved igsm-official-0110-op15 trace-edit:36 status=natural_truncated
+saved igsm-official-0107-op21 trace-source:35 status=natural_truncated
+saved igsm-official-0107-op21 trace-sham:35:2:2 status=natural_truncated
+saved igsm-official-0110-op15 trace-base:36 status=natural_truncated
+completed 36/66 problems
+generate igsm-official-0110-op15 trace-base:36:seed1
+generate igsm-official-0110-op15 trace-edit:36:seed2
+generate igsm-official-0110-op15 trace-base:36:seed2
+generate igsm-official-0110-op15 trace-edit:36:seed1
+saved igsm-official-0110-op15 trace-base:36:seed2 status=natural_truncated
+saved igsm-official-0110-op15 trace-base:36:seed1 status=natural_truncated
+saved igsm-official-0110-op15 trace-edit:36:seed1 status=natural_truncated
+saved igsm-official-0110-op15 trace-edit:36:seed2 status=natural_truncated
+generate igsm-official-0110-op15 trace-sham:36:0:0
+generate igsm-official-0110-op15 trace-sham:36:0:1
+generate igsm-official-0110-op15 trace-sham:36:0:2
+generate igsm-official-0110-op15 trace-sham:36:1:0
+saved igsm-official-0110-op15 trace-sham:36:1:0 status=natural_truncated
+saved igsm-official-0110-op15 trace-sham:36:0:2 status=parse_failed
+saved igsm-official-0110-op15 trace-sham:36:0:1 status=natural_truncated
+saved igsm-official-0110-op15 trace-sham:36:0:0 status=natural_truncated
+generate igsm-official-0110-op15 trace-sham:36:1:1
+generate igsm-official-0110-op15 trace-sham:36:1:2
+generate igsm-official-0110-op15 trace-sham:36:2:0
+generate igsm-official-0110-op15 trace-sham:36:2:1
+saved igsm-official-0110-op15 trace-sham:36:2:1 status=natural_truncated
+saved igsm-official-0110-op15 trace-sham:36:2:0 status=parse_failedsaved igsm-official-0110-op15 trace-sham:36:1:2 status=natural_truncatedsaved igsm-official-0110-op15 trace-sham:36:1:1 status=natural_truncated
+
+
+generate igsm-official-0110-op15 trace-sham:36:2:2
+generate igsm-official-0113-op10 trace-base:37
+generate igsm-official-0113-op10 trace-edit:37
+generate igsm-official-0113-op10 trace-base:37:seed1
+saved igsm-official-0113-op10 trace-base:37 status=natural_completesaved igsm-official-0113-op10 trace-edit:37 status=natural_truncatedsaved igsm-official-0113-op10 trace-base:37:seed1 status=natural_truncated
+
+
+saved igsm-official-0110-op15 trace-sham:36:2:2 status=natural_truncated
+completed 37/66 problems
+generate igsm-official-0113-op10 trace-edit:37:seed2
+generate igsm-official-0113-op10 trace-base:37:seed2
+generate igsm-official-0113-op10 trace-edit:37:seed1
+generate igsm-official-0113-op10 trace-sham:37:0:0
+saved igsm-official-0113-op10 trace-edit:37:seed1 status=natural_truncated
+saved igsm-official-0113-op10 trace-base:37:seed2 status=parse_failed
+saved igsm-official-0113-op10 trace-sham:37:0:0 status=natural_truncatedsaved igsm-official-0113-op10 trace-edit:37:seed2 status=parse_failed
+
+generate igsm-official-0113-op10 trace-sham:37:0:1
+generate igsm-official-0113-op10 trace-sham:37:0:2
+generate igsm-official-0113-op10 trace-sham:37:1:0
+generate igsm-official-0113-op10 trace-sham:37:1:1
+saved igsm-official-0113-op10 trace-sham:37:0:1 status=natural_truncated
+saved igsm-official-0113-op10 trace-sham:37:0:2 status=parse_failed
+saved igsm-official-0113-op10 trace-sham:37:1:1 status=natural_truncated
+saved igsm-official-0113-op10 trace-sham:37:1:0 status=natural_complete
+generate igsm-official-0113-op10 trace-sham:37:1:2
+generate igsm-official-0113-op10 trace-sham:37:2:1
+generate igsm-official-0113-op10 trace-sham:37:2:0
+generate igsm-official-0113-op10 trace-sham:37:2:2
+saved igsm-official-0113-op10 trace-sham:37:2:1 status=natural_truncated
+saved igsm-official-0113-op10 trace-sham:37:2:2 status=natural_truncated
+saved igsm-official-0113-op10 trace-sham:37:1:2 status=natural_truncated
+saved igsm-official-0113-op10 trace-sham:37:2:0 status=natural_truncated
+completed 38/66 problems
+generate igsm-official-0116-op5 trace-base:38
+generate igsm-official-0116-op5 trace-edit:38
+generate igsm-official-0116-op5 trace-base:38:seed1
+generate igsm-official-0116-op5 trace-edit:38:seed1
+saved igsm-official-0116-op5 trace-edit:38 status=natural_complete
+saved igsm-official-0116-op5 trace-edit:38:seed1 status=natural_truncated
+saved igsm-official-0116-op5 trace-base:38:seed1 status=natural_complete
+saved igsm-official-0116-op5 trace-base:38 status=natural_complete
+generate igsm-official-0116-op5 trace-base:38:seed2
+generate igsm-official-0116-op5 trace-edit:38:seed2
+generate igsm-official-0116-op5 trace-sham:38:0:0
+generate igsm-official-0116-op5 trace-sham:38:0:1
+saved igsm-official-0116-op5 trace-sham:38:0:0 status=natural_complete
+saved igsm-official-0116-op5 trace-base:38:seed2 status=natural_complete
+saved igsm-official-0116-op5 trace-sham:38:0:1 status=natural_truncated
+saved igsm-official-0116-op5 trace-edit:38:seed2 status=natural_truncated
+generate igsm-official-0116-op5 trace-sham:38:0:2
+generate igsm-official-0116-op5 trace-sham:38:1:0
+generate igsm-official-0116-op5 trace-sham:38:1:1
+generate igsm-official-0116-op5 trace-sham:38:1:2
+saved igsm-official-0116-op5 trace-sham:38:1:2 status=natural_complete
+saved igsm-official-0116-op5 trace-sham:38:1:1 status=natural_completesaved igsm-official-0116-op5 trace-sham:38:0:2 status=natural_completesaved igsm-official-0116-op5 trace-sham:38:1:0 status=natural_complete
+
+
+generate igsm-official-0116-op5 trace-sham:38:2:0
+generate igsm-official-0116-op5 trace-sham:38:2:1
+generate igsm-official-0116-op5 trace-sham:38:2:2
+generate igsm-official-0119-op21 trace-base:39
+saved igsm-official-0116-op5 trace-sham:38:2:1 status=natural_complete
+saved igsm-official-0116-op5 trace-sham:38:2:0 status=natural_complete
+saved igsm-official-0116-op5 trace-sham:38:2:2 status=natural_complete
+saved igsm-official-0119-op21 trace-base:39 status=natural_truncated
+completed 39/66 problems
+generate igsm-official-0119-op21 trace-edit:39
+generate igsm-official-0119-op21 trace-base:39:seed1
+generate igsm-official-0119-op21 trace-edit:39:seed1
+generate igsm-official-0119-op21 trace-base:39:seed2
+saved igsm-official-0119-op21 trace-edit:39:seed1 status=natural_truncated
+saved igsm-official-0119-op21 trace-edit:39 status=natural_truncatedsaved igsm-official-0119-op21 trace-base:39:seed2 status=natural_truncated
+
+saved igsm-official-0119-op21 trace-base:39:seed1 status=natural_truncated
+generate igsm-official-0119-op21 trace-edit:39:seed2
+generate igsm-official-0119-op21 trace-sham:39:0:0
+generate igsm-official-0119-op21 trace-sham:39:0:2
+generate igsm-official-0119-op21 trace-sham:39:0:1
+saved igsm-official-0119-op21 trace-sham:39:0:0 status=natural_truncated
+saved igsm-official-0119-op21 trace-edit:39:seed2 status=natural_truncated
+saved igsm-official-0119-op21 trace-sham:39:0:1 status=natural_truncated
+saved igsm-official-0119-op21 trace-sham:39:0:2 status=natural_truncated
+generate igsm-official-0119-op21 trace-sham:39:1:0
+generate igsm-official-0119-op21 trace-sham:39:1:2
+generate igsm-official-0119-op21 trace-sham:39:2:0
+generate igsm-official-0119-op21 trace-sham:39:1:1
+saved igsm-official-0119-op21 trace-sham:39:2:0 status=natural_truncated
+saved igsm-official-0119-op21 trace-sham:39:1:1 status=natural_truncated
+saved igsm-official-0119-op21 trace-sham:39:1:0 status=natural_truncated
+saved igsm-official-0119-op21 trace-sham:39:1:2 status=natural_truncated
+generate igsm-official-0119-op21 trace-sham:39:2:1
+generate igsm-official-0119-op21 trace-sham:39:2:2
+generate igsm-official-0122-op15 trace-base:40
+generate igsm-official-0122-op15 trace-edit:40
+saved igsm-official-0119-op21 trace-sham:39:2:1 status=natural_truncated
+saved igsm-official-0119-op21 trace-sham:39:2:2 status=natural_truncated
+saved igsm-official-0122-op15 trace-edit:40 status=natural_truncated
+saved igsm-official-0122-op15 trace-base:40 status=natural_truncated
+completed 40/66 problems
+generate igsm-official-0122-op15 trace-base:40:seed1
+generate igsm-official-0122-op15 trace-edit:40:seed2
+generate igsm-official-0122-op15 trace-base:40:seed2
+generate igsm-official-0122-op15 trace-edit:40:seed1
+saved igsm-official-0122-op15 trace-edit:40:seed1 status=natural_truncated
+saved igsm-official-0122-op15 trace-edit:40:seed2 status=natural_truncated
+saved igsm-official-0122-op15 trace-base:40:seed2 status=natural_truncated
+saved igsm-official-0122-op15 trace-base:40:seed1 status=natural_truncated
+generate igsm-official-0122-op15 trace-sham:40:0:0
+generate igsm-official-0122-op15 trace-sham:40:0:1
+generate igsm-official-0122-op15 trace-sham:40:0:2
+generate igsm-official-0122-op15 trace-sham:40:1:0
+saved igsm-official-0122-op15 trace-sham:40:0:1 status=natural_truncated
+saved igsm-official-0122-op15 trace-sham:40:1:0 status=natural_truncated
+saved igsm-official-0122-op15 trace-sham:40:0:2 status=natural_truncated
+saved igsm-official-0122-op15 trace-sham:40:0:0 status=natural_truncated
+generate igsm-official-0122-op15 trace-sham:40:1:1
+generate igsm-official-0122-op15 trace-sham:40:2:0
+generate igsm-official-0122-op15 trace-sham:40:1:2
+generate igsm-official-0122-op15 trace-sham:40:2:1
+saved igsm-official-0122-op15 trace-sham:40:1:1 status=natural_truncated
+saved igsm-official-0122-op15 trace-sham:40:2:0 status=natural_truncated
+saved igsm-official-0122-op15 trace-sham:40:2:1 status=natural_truncated
+saved igsm-official-0122-op15 trace-sham:40:1:2 status=natural_truncated
+generate igsm-official-0122-op15 trace-sham:40:2:2
+generate igsm-official-0125-op10 trace-edit:41
+generate igsm-official-0125-op10 trace-base:41
+generate igsm-official-0122-op15 trace-source:40
+saved igsm-official-0122-op15 trace-source:40 status=natural_truncated
+saved igsm-official-0122-op15 trace-sham:40:2:2 status=natural_truncated
+saved igsm-official-0125-op10 trace-base:41 status=natural_truncated
+saved igsm-official-0125-op10 trace-edit:41 status=natural_truncated
+completed 41/66 problems
+generate igsm-official-0125-op10 trace-base:41:seed1
+generate igsm-official-0125-op10 trace-base:41:seed2
+generate igsm-official-0125-op10 trace-edit:41:seed1
+generate igsm-official-0125-op10 trace-edit:41:seed2
+saved igsm-official-0125-op10 trace-base:41:seed2 status=natural_truncated
+saved igsm-official-0125-op10 trace-edit:41:seed2 status=natural_completesaved igsm-official-0125-op10 trace-base:41:seed1 status=natural_truncated
+
+saved igsm-official-0125-op10 trace-edit:41:seed1 status=natural_complete
+generate igsm-official-0125-op10 trace-sham:41:0:0
+generate igsm-official-0125-op10 trace-sham:41:0:1
+generate igsm-official-0125-op10 trace-sham:41:1:0
+generate igsm-official-0125-op10 trace-sham:41:0:2
+saved igsm-official-0125-op10 trace-sham:41:0:2 status=natural_truncated
+saved igsm-official-0125-op10 trace-sham:41:0:1 status=natural_completesaved igsm-official-0125-op10 trace-sham:41:0:0 status=natural_complete
+
+saved igsm-official-0125-op10 trace-sham:41:1:0 status=natural_truncated
+generate igsm-official-0125-op10 trace-sham:41:1:1
+generate igsm-official-0125-op10 trace-sham:41:2:0
+generate igsm-official-0125-op10 trace-sham:41:1:2
+generate igsm-official-0125-op10 trace-sham:41:2:1
+saved igsm-official-0125-op10 trace-sham:41:1:1 status=natural_complete
+saved igsm-official-0125-op10 trace-sham:41:2:1 status=natural_truncated
+saved igsm-official-0125-op10 trace-sham:41:2:0 status=natural_truncated
+saved igsm-official-0125-op10 trace-sham:41:1:2 status=natural_truncated
+generate igsm-official-0125-op10 trace-sham:41:2:2
+generate igsm-official-0128-op5 trace-base:42
+generate igsm-official-0125-op10 trace-source:41
+generate igsm-official-0128-op5 trace-edit:42
+saved igsm-official-0128-op5 trace-base:42 status=natural_truncated
+saved igsm-official-0128-op5 trace-edit:42 status=natural_truncated
+saved igsm-official-0125-op10 trace-sham:41:2:2 status=natural_truncated
+saved igsm-official-0125-op10 trace-source:41 status=natural_truncated
+completed 42/66 problems
+generate igsm-official-0128-op5 trace-base:42:seed1
+generate igsm-official-0128-op5 trace-edit:42:seed1
+generate igsm-official-0128-op5 trace-base:42:seed2
+generate igsm-official-0128-op5 trace-edit:42:seed2
+saved igsm-official-0128-op5 trace-base:42:seed1 status=natural_truncated
+saved igsm-official-0128-op5 trace-edit:42:seed2 status=natural_truncated
+saved igsm-official-0128-op5 trace-base:42:seed2 status=natural_truncated
+saved igsm-official-0128-op5 trace-edit:42:seed1 status=natural_truncated
+generate igsm-official-0128-op5 trace-sham:42:0:0
+generate igsm-official-0128-op5 trace-sham:42:0:1
+generate igsm-official-0128-op5 trace-sham:42:1:0
+generate igsm-official-0128-op5 trace-sham:42:0:2
+saved igsm-official-0128-op5 trace-sham:42:0:0 status=natural_truncated
+saved igsm-official-0128-op5 trace-sham:42:1:0 status=natural_complete
+saved igsm-official-0128-op5 trace-sham:42:0:2 status=natural_complete
+saved igsm-official-0128-op5 trace-sham:42:0:1 status=natural_truncated
+generate igsm-official-0128-op5 trace-sham:42:1:1
+generate igsm-official-0128-op5 trace-sham:42:1:2
+generate igsm-official-0128-op5 trace-sham:42:2:0
+generate igsm-official-0128-op5 trace-sham:42:2:1
+saved igsm-official-0128-op5 trace-sham:42:1:1 status=natural_truncated
+saved igsm-official-0128-op5 trace-sham:42:2:1 status=natural_truncated
+saved igsm-official-0128-op5 trace-sham:42:1:2 status=natural_truncated
+saved igsm-official-0128-op5 trace-sham:42:2:0 status=natural_truncated
+generate igsm-official-0128-op5 trace-sham:42:2:2
+generate igsm-official-0131-op21 trace-base:43
+generate igsm-official-0131-op21 trace-base:43:seed1
+generate igsm-official-0131-op21 trace-edit:43
+saved igsm-official-0128-op5 trace-sham:42:2:2 status=natural_truncated
+saved igsm-official-0131-op21 trace-base:43:seed1 status=natural_truncated
+saved igsm-official-0131-op21 trace-edit:43 status=natural_truncated
+completed 43/66 problems
+saved igsm-official-0131-op21 trace-base:43 status=natural_truncated
+generate igsm-official-0131-op21 trace-edit:43:seed1
+generate igsm-official-0131-op21 trace-sham:43:0:0
+generate igsm-official-0131-op21 trace-edit:43:seed2
+generate igsm-official-0131-op21 trace-base:43:seed2
+saved igsm-official-0131-op21 trace-base:43:seed2 status=natural_truncated
+saved igsm-official-0131-op21 trace-sham:43:0:0 status=natural_truncated
+saved igsm-official-0131-op21 trace-edit:43:seed2 status=natural_truncatedsaved igsm-official-0131-op21 trace-edit:43:seed1 status=natural_truncated
+
+generate igsm-official-0131-op21 trace-sham:43:0:1
+generate igsm-official-0131-op21 trace-sham:43:0:2
+generate igsm-official-0131-op21 trace-sham:43:1:0
+generate igsm-official-0131-op21 trace-sham:43:1:1
+saved igsm-official-0131-op21 trace-sham:43:0:1 status=natural_truncated
+saved igsm-official-0131-op21 trace-sham:43:1:1 status=natural_truncated
+saved igsm-official-0131-op21 trace-sham:43:0:2 status=natural_truncatedsaved igsm-official-0131-op21 trace-sham:43:1:0 status=natural_truncated
+
+generate igsm-official-0131-op21 trace-sham:43:1:2
+generate igsm-official-0131-op21 trace-sham:43:2:1
+generate igsm-official-0131-op21 trace-sham:43:2:0
+generate igsm-official-0131-op21 trace-sham:43:2:2
+saved igsm-official-0131-op21 trace-sham:43:2:1 status=natural_truncated
+saved igsm-official-0131-op21 trace-sham:43:2:0 status=natural_truncatedsaved igsm-official-0131-op21 trace-sham:43:2:2 status=natural_truncated
+saved igsm-official-0131-op21 trace-sham:43:1:2 status=natural_truncated
+
+completed 44/66 problems
+generate igsm-official-0134-op15 trace-base:44
+generate igsm-official-0134-op15 trace-edit:44:seed1
+generate igsm-official-0134-op15 trace-base:44:seed1
+generate igsm-official-0134-op15 trace-edit:44
+saved igsm-official-0134-op15 trace-edit:44 status=natural_truncated
+saved igsm-official-0134-op15 trace-base:44:seed1 status=natural_truncatedsaved igsm-official-0134-op15 trace-edit:44:seed1 status=natural_truncatedsaved igsm-official-0134-op15 trace-base:44 status=natural_truncated
+
+
+generate igsm-official-0134-op15 trace-base:44:seed2
+generate igsm-official-0134-op15 trace-sham:44:0:0
+generate igsm-official-0134-op15 trace-edit:44:seed2
+generate igsm-official-0134-op15 trace-sham:44:0:1
+saved igsm-official-0134-op15 trace-sham:44:0:1 status=natural_truncated
+saved igsm-official-0134-op15 trace-sham:44:0:0 status=natural_truncated
+saved igsm-official-0134-op15 trace-edit:44:seed2 status=natural_truncated
+saved igsm-official-0134-op15 trace-base:44:seed2 status=natural_truncated
+generate igsm-official-0134-op15 trace-sham:44:0:2
+generate igsm-official-0134-op15 trace-sham:44:1:1
+generate igsm-official-0134-op15 trace-sham:44:1:0
+generate igsm-official-0134-op15 trace-sham:44:1:2
+saved igsm-official-0134-op15 trace-sham:44:0:2 status=natural_truncated
+saved igsm-official-0134-op15 trace-sham:44:1:0 status=natural_truncatedsaved igsm-official-0134-op15 trace-sham:44:1:1 status=natural_truncated
+
+saved igsm-official-0134-op15 trace-sham:44:1:2 status=natural_truncated
+generate igsm-official-0134-op15 trace-sham:44:2:0
+generate igsm-official-0134-op15 trace-sham:44:2:2
+generate igsm-official-0134-op15 trace-sham:44:2:1
+generate igsm-official-0137-op10 trace-base:45
+saved igsm-official-0137-op10 trace-base:45 status=natural_truncated
+saved igsm-official-0134-op15 trace-sham:44:2:1 status=natural_truncated
+saved igsm-official-0134-op15 trace-sham:44:2:0 status=natural_truncated
+saved igsm-official-0134-op15 trace-sham:44:2:2 status=natural_truncated
+completed 45/66 problems
+generate igsm-official-0137-op10 trace-edit:45
+generate igsm-official-0137-op10 trace-base:45:seed1
+generate igsm-official-0137-op10 trace-base:45:seed2
+generate igsm-official-0137-op10 trace-edit:45:seed1
+saved igsm-official-0137-op10 trace-base:45:seed1 status=natural_truncated
+saved igsm-official-0137-op10 trace-base:45:seed2 status=natural_truncated
+saved igsm-official-0137-op10 trace-edit:45:seed1 status=natural_truncated
+saved igsm-official-0137-op10 trace-edit:45 status=natural_truncated
+generate igsm-official-0137-op10 trace-sham:45:0:1
+generate igsm-official-0137-op10 trace-sham:45:0:2
+generate igsm-official-0137-op10 trace-sham:45:0:0
+generate igsm-official-0137-op10 trace-edit:45:seed2
+saved igsm-official-0137-op10 trace-sham:45:0:1 status=natural_truncated
+saved igsm-official-0137-op10 trace-sham:45:0:2 status=natural_truncatedsaved igsm-official-0137-op10 trace-edit:45:seed2 status=parse_failedsaved igsm-official-0137-op10 trace-sham:45:0:0 status=natural_truncated
+
+
+generate igsm-official-0137-op10 trace-sham:45:1:0
+generate igsm-official-0137-op10 trace-sham:45:1:1
+generate igsm-official-0137-op10 trace-sham:45:1:2
+generate igsm-official-0137-op10 trace-sham:45:2:0
+saved igsm-official-0137-op10 trace-sham:45:2:0 status=natural_truncated
+saved igsm-official-0137-op10 trace-sham:45:1:1 status=natural_truncatedsaved igsm-official-0137-op10 trace-sham:45:1:2 status=natural_truncated
+
+saved igsm-official-0137-op10 trace-sham:45:1:0 status=natural_truncated
+generate igsm-official-0137-op10 trace-sham:45:2:1
+generate igsm-official-0137-op10 trace-sham:45:2:2
+generate igsm-official-0140-op5 trace-base:46
+generate igsm-official-0140-op5 trace-edit:46
+saved igsm-official-0140-op5 trace-edit:46 status=natural_truncated
+saved igsm-official-0137-op10 trace-sham:45:2:1 status=natural_complete
+saved igsm-official-0140-op5 trace-base:46 status=natural_truncated
+saved igsm-official-0137-op10 trace-sham:45:2:2 status=natural_truncated
+completed 46/66 problems
+generate igsm-official-0140-op5 trace-base:46:seed1
+generate igsm-official-0140-op5 trace-edit:46:seed1
+generate igsm-official-0140-op5 trace-edit:46:seed2
+generate igsm-official-0140-op5 trace-base:46:seed2
+saved igsm-official-0140-op5 trace-base:46:seed1 status=natural_truncated
+saved igsm-official-0140-op5 trace-edit:46:seed2 status=natural_truncated
+saved igsm-official-0140-op5 trace-edit:46:seed1 status=natural_truncated
+saved igsm-official-0140-op5 trace-base:46:seed2 status=natural_truncated
+generate igsm-official-0140-op5 trace-sham:46:0:0
+generate igsm-official-0140-op5 trace-sham:46:0:1
+generate igsm-official-0140-op5 trace-sham:46:0:2
+generate igsm-official-0140-op5 trace-sham:46:1:0
+saved igsm-official-0140-op5 trace-sham:46:0:0 status=natural_complete
+saved igsm-official-0140-op5 trace-sham:46:0:1 status=natural_truncated
+saved igsm-official-0140-op5 trace-sham:46:0:2 status=natural_truncated
+saved igsm-official-0140-op5 trace-sham:46:1:0 status=natural_truncated
+generate igsm-official-0140-op5 trace-sham:46:1:1
+generate igsm-official-0140-op5 trace-sham:46:2:0
+generate igsm-official-0140-op5 trace-sham:46:2:1
+generate igsm-official-0140-op5 trace-sham:46:1:2
+saved igsm-official-0140-op5 trace-sham:46:2:1 status=natural_truncated
+saved igsm-official-0140-op5 trace-sham:46:2:0 status=natural_truncatedsaved igsm-official-0140-op5 trace-sham:46:1:2 status=natural_completesaved igsm-official-0140-op5 trace-sham:46:1:1 status=natural_truncated
+
+
+generate igsm-official-0140-op5 trace-sham:46:2:2
+generate igsm-official-0143-op21 trace-base:47
+generate igsm-official-0143-op21 trace-edit:47
+generate igsm-official-0140-op5 trace-source:46
+saved igsm-official-0140-op5 trace-sham:46:2:2 status=natural_truncated
+saved igsm-official-0143-op21 trace-edit:47 status=natural_truncated
+saved igsm-official-0143-op21 trace-base:47 status=natural_truncated
+saved igsm-official-0140-op5 trace-source:46 status=natural_truncated
+completed 47/66 problems
+generate igsm-official-0143-op21 trace-base:47:seed1
+generate igsm-official-0143-op21 trace-base:47:seed2
+generate igsm-official-0143-op21 trace-edit:47:seed1
+generate igsm-official-0143-op21 trace-edit:47:seed2
+saved igsm-official-0143-op21 trace-base:47:seed1 status=natural_truncated
+saved igsm-official-0143-op21 trace-edit:47:seed2 status=natural_truncatedsaved igsm-official-0143-op21 trace-base:47:seed2 status=natural_truncated
+saved igsm-official-0143-op21 trace-edit:47:seed1 status=natural_truncated
+
+generate igsm-official-0143-op21 trace-sham:47:0:0
+generate igsm-official-0143-op21 trace-sham:47:0:2
+generate igsm-official-0143-op21 trace-sham:47:0:1
+generate igsm-official-0143-op21 trace-sham:47:1:0
+saved igsm-official-0143-op21 trace-sham:47:0:0 status=natural_truncated
+saved igsm-official-0143-op21 trace-sham:47:1:0 status=natural_truncated
+saved igsm-official-0143-op21 trace-sham:47:0:2 status=natural_truncated
+saved igsm-official-0143-op21 trace-sham:47:0:1 status=natural_truncated
+generate igsm-official-0143-op21 trace-sham:47:1:1
+generate igsm-official-0143-op21 trace-sham:47:2:0
+generate igsm-official-0143-op21 trace-sham:47:1:2
+generate igsm-official-0143-op21 trace-sham:47:2:1
+saved igsm-official-0143-op21 trace-sham:47:2:1 status=natural_truncated
+saved igsm-official-0143-op21 trace-sham:47:2:0 status=natural_truncated
+saved igsm-official-0143-op21 trace-sham:47:1:2 status=natural_truncated
+saved igsm-official-0143-op21 trace-sham:47:1:1 status=natural_truncated
+generate igsm-official-0143-op21 trace-sham:47:2:2
+generate igsm-official-0146-op15 trace-edit:48
+generate igsm-official-0146-op15 trace-base:48
+generate igsm-official-0146-op15 trace-base:48:seed1
+saved igsm-official-0146-op15 trace-edit:48 status=natural_truncated
+saved igsm-official-0143-op21 trace-sham:47:2:2 status=natural_truncated
+saved igsm-official-0146-op15 trace-base:48 status=natural_truncated
+saved igsm-official-0146-op15 trace-base:48:seed1 status=natural_truncated
+completed 48/66 problems
+generate igsm-official-0146-op15 trace-edit:48:seed1
+generate igsm-official-0146-op15 trace-edit:48:seed2
+generate igsm-official-0146-op15 trace-base:48:seed2
+generate igsm-official-0146-op15 trace-sham:48:0:0
+saved igsm-official-0146-op15 trace-sham:48:0:0 status=natural_truncated
+saved igsm-official-0146-op15 trace-edit:48:seed1 status=natural_truncated
+saved igsm-official-0146-op15 trace-base:48:seed2 status=natural_truncated
+saved igsm-official-0146-op15 trace-edit:48:seed2 status=natural_truncated
+generate igsm-official-0146-op15 trace-sham:48:0:1
+generate igsm-official-0146-op15 trace-sham:48:0:2
+generate igsm-official-0146-op15 trace-sham:48:1:0
+generate igsm-official-0146-op15 trace-sham:48:1:1
+saved igsm-official-0146-op15 trace-sham:48:0:1 status=natural_truncated
+saved igsm-official-0146-op15 trace-sham:48:1:1 status=natural_truncated
+saved igsm-official-0146-op15 trace-sham:48:0:2 status=natural_truncated
+saved igsm-official-0146-op15 trace-sham:48:1:0 status=natural_truncated
+generate igsm-official-0146-op15 trace-sham:48:1:2
+generate igsm-official-0146-op15 trace-sham:48:2:2
+generate igsm-official-0146-op15 trace-sham:48:2:0
+generate igsm-official-0146-op15 trace-sham:48:2:1
+saved igsm-official-0146-op15 trace-sham:48:2:1 status=natural_truncated
+saved igsm-official-0146-op15 trace-sham:48:2:0 status=natural_truncated
+saved igsm-official-0146-op15 trace-sham:48:2:2 status=natural_truncated
+saved igsm-official-0146-op15 trace-sham:48:1:2 status=natural_truncated
+generate igsm-official-0149-op10 trace-base:49
+generate igsm-official-0149-op10 trace-edit:49
+generate igsm-official-0149-op10 trace-base:49:seed1
+generate igsm-official-0146-op15 trace-source:48
+saved igsm-official-0146-op15 trace-source:48 status=natural_truncated
+saved igsm-official-0149-op10 trace-base:49 status=natural_truncatedsaved igsm-official-0149-op10 trace-edit:49 status=natural_truncatedsaved igsm-official-0149-op10 trace-base:49:seed1 status=natural_truncated
+
+
+completed 49/66 problems
+generate igsm-official-0149-op10 trace-edit:49:seed1
+generate igsm-official-0149-op10 trace-base:49:seed2
+generate igsm-official-0149-op10 trace-edit:49:seed2
+generate igsm-official-0149-op10 trace-sham:49:0:0
+saved igsm-official-0149-op10 trace-sham:49:0:0 status=natural_truncated
+saved igsm-official-0149-op10 trace-base:49:seed2 status=natural_truncatedsaved igsm-official-0149-op10 trace-edit:49:seed2 status=natural_truncated
+
+saved igsm-official-0149-op10 trace-edit:49:seed1 status=natural_truncated
+generate igsm-official-0149-op10 trace-sham:49:0:1
+generate igsm-official-0149-op10 trace-sham:49:0:2
+generate igsm-official-0149-op10 trace-sham:49:1:0
+generate igsm-official-0149-op10 trace-sham:49:1:1
+saved igsm-official-0149-op10 trace-sham:49:1:0 status=natural_truncated
+saved igsm-official-0149-op10 trace-sham:49:0:2 status=natural_truncatedsaved igsm-official-0149-op10 trace-sham:49:1:1 status=natural_truncated
+
+saved igsm-official-0149-op10 trace-sham:49:0:1 status=natural_truncated
+generate igsm-official-0149-op10 trace-sham:49:1:2
+generate igsm-official-0149-op10 trace-sham:49:2:0
+generate igsm-official-0149-op10 trace-sham:49:2:1
+generate igsm-official-0149-op10 trace-sham:49:2:2
+saved igsm-official-0149-op10 trace-sham:49:2:0 status=natural_truncated
+saved igsm-official-0149-op10 trace-sham:49:1:2 status=natural_truncated
+saved igsm-official-0149-op10 trace-sham:49:2:1 status=natural_truncated
+saved igsm-official-0149-op10 trace-sham:49:2:2 status=natural_truncated
+completed 50/66 problems
+generate igsm-official-0152-op5 trace-edit:50
+generate igsm-official-0152-op5 trace-base:50:seed1
+generate igsm-official-0152-op5 trace-base:50
+generate igsm-official-0152-op5 trace-edit:50:seed1
+saved igsm-official-0152-op5 trace-edit:50:seed1 status=natural_truncated
+saved igsm-official-0152-op5 trace-edit:50 status=natural_truncatedsaved igsm-official-0152-op5 trace-base:50:seed1 status=natural_truncated
+
+saved igsm-official-0152-op5 trace-base:50 status=natural_truncated
+generate igsm-official-0152-op5 trace-base:50:seed2
+generate igsm-official-0152-op5 trace-sham:50:0:0
+generate igsm-official-0152-op5 trace-edit:50:seed2
+generate igsm-official-0152-op5 trace-sham:50:0:1
+saved igsm-official-0152-op5 trace-sham:50:0:1 status=natural_truncatedsaved igsm-official-0152-op5 trace-base:50:seed2 status=natural_truncated
+
+saved igsm-official-0152-op5 trace-sham:50:0:0 status=natural_truncated
+saved igsm-official-0152-op5 trace-edit:50:seed2 status=natural_truncated
+generate igsm-official-0152-op5 trace-sham:50:0:2
+generate igsm-official-0152-op5 trace-sham:50:1:0
+generate igsm-official-0152-op5 trace-sham:50:1:1
+generate igsm-official-0152-op5 trace-sham:50:1:2
+saved igsm-official-0152-op5 trace-sham:50:1:0 status=natural_truncated
+saved igsm-official-0152-op5 trace-sham:50:1:2 status=natural_truncatedsaved igsm-official-0152-op5 trace-sham:50:1:1 status=natural_truncatedsaved igsm-official-0152-op5 trace-sham:50:0:2 status=natural_truncated
+
+
+generate igsm-official-0152-op5 trace-sham:50:2:0
+generate igsm-official-0152-op5 trace-sham:50:2:2
+generate igsm-official-0152-op5 trace-source:50
+generate igsm-official-0152-op5 trace-sham:50:2:1
+saved igsm-official-0152-op5 trace-sham:50:2:1 status=natural_truncatedsaved igsm-official-0152-op5 trace-source:50 status=natural_truncated
+
+saved igsm-official-0152-op5 trace-sham:50:2:2 status=natural_truncated
+saved igsm-official-0152-op5 trace-sham:50:2:0 status=natural_truncated
+completed 51/66 problems
+generate igsm-official-0155-op21 trace-base:51
+generate igsm-official-0155-op21 trace-edit:51
+generate igsm-official-0155-op21 trace-base:51:seed1
+generate igsm-official-0155-op21 trace-edit:51:seed1
+saved igsm-official-0155-op21 trace-base:51 status=natural_truncated
+saved igsm-official-0155-op21 trace-edit:51 status=natural_truncatedsaved igsm-official-0155-op21 trace-base:51:seed1 status=natural_truncated
+
+saved igsm-official-0155-op21 trace-edit:51:seed1 status=natural_truncated
+generate igsm-official-0155-op21 trace-sham:51:0:0
+generate igsm-official-0155-op21 trace-edit:51:seed2
+generate igsm-official-0155-op21 trace-sham:51:0:1
+generate igsm-official-0155-op21 trace-base:51:seed2
+saved igsm-official-0155-op21 trace-base:51:seed2 status=natural_truncatedsaved igsm-official-0155-op21 trace-edit:51:seed2 status=natural_truncated
+
+saved igsm-official-0155-op21 trace-sham:51:0:0 status=natural_truncatedsaved igsm-official-0155-op21 trace-sham:51:0:1 status=natural_truncated
+
+generate igsm-official-0155-op21 trace-sham:51:0:2
+generate igsm-official-0155-op21 trace-sham:51:1:1
+generate igsm-official-0155-op21 trace-sham:51:1:0
+generate igsm-official-0155-op21 trace-sham:51:1:2
+saved igsm-official-0155-op21 trace-sham:51:0:2 status=natural_truncated
+saved igsm-official-0155-op21 trace-sham:51:1:2 status=natural_truncated
+saved igsm-official-0155-op21 trace-sham:51:1:0 status=natural_truncated
+saved igsm-official-0155-op21 trace-sham:51:1:1 status=natural_truncated
+generate igsm-official-0155-op21 trace-sham:51:2:0
+generate igsm-official-0158-op15 trace-base:52
+generate igsm-official-0155-op21 trace-sham:51:2:2
+generate igsm-official-0155-op21 trace-sham:51:2:1
+saved igsm-official-0155-op21 trace-sham:51:2:2 status=natural_truncated
+saved igsm-official-0155-op21 trace-sham:51:2:1 status=natural_complete
+saved igsm-official-0158-op15 trace-base:52 status=parse_failed
+saved igsm-official-0155-op21 trace-sham:51:2:0 status=natural_truncated
+completed 52/66 problems
+generate igsm-official-0158-op15 trace-edit:52
+generate igsm-official-0158-op15 trace-base:52:seed1
+generate igsm-official-0158-op15 trace-edit:52:seed1
+generate igsm-official-0158-op15 trace-base:52:seed2
+saved igsm-official-0158-op15 trace-base:52:seed1 status=natural_truncated
+saved igsm-official-0158-op15 trace-base:52:seed2 status=natural_truncated
+saved igsm-official-0158-op15 trace-edit:52:seed1 status=natural_truncated
+saved igsm-official-0158-op15 trace-edit:52 status=natural_truncated
+generate igsm-official-0158-op15 trace-edit:52:seed2
+generate igsm-official-0158-op15 trace-sham:52:0:1
+generate igsm-official-0158-op15 trace-sham:52:0:2
+generate igsm-official-0158-op15 trace-sham:52:0:0
+saved igsm-official-0158-op15 trace-edit:52:seed2 status=natural_truncated
+saved igsm-official-0158-op15 trace-sham:52:0:2 status=natural_truncated
+saved igsm-official-0158-op15 trace-sham:52:0:0 status=natural_truncated
+saved igsm-official-0158-op15 trace-sham:52:0:1 status=natural_truncated
+generate igsm-official-0158-op15 trace-sham:52:1:1
+generate igsm-official-0158-op15 trace-sham:52:1:2
+generate igsm-official-0158-op15 trace-sham:52:1:0
+generate igsm-official-0158-op15 trace-sham:52:2:0
+saved igsm-official-0158-op15 trace-sham:52:2:0 status=natural_truncated
+saved igsm-official-0158-op15 trace-sham:52:1:1 status=natural_truncated
+saved igsm-official-0158-op15 trace-sham:52:1:0 status=natural_truncated
+saved igsm-official-0158-op15 trace-sham:52:1:2 status=natural_truncated
+generate igsm-official-0158-op15 trace-sham:52:2:1
+generate igsm-official-0158-op15 trace-sham:52:2:2
+generate igsm-official-0161-op10 trace-base:53
+generate igsm-official-0161-op10 trace-edit:53
+saved igsm-official-0161-op10 trace-base:53 status=natural_truncated
+saved igsm-official-0158-op15 trace-sham:52:2:1 status=natural_truncated
+saved igsm-official-0158-op15 trace-sham:52:2:2 status=natural_truncated
+saved igsm-official-0161-op10 trace-edit:53 status=natural_truncated
+completed 53/66 problems
+generate igsm-official-0161-op10 trace-base:53:seed1
+generate igsm-official-0161-op10 trace-base:53:seed2
+generate igsm-official-0161-op10 trace-edit:53:seed1
+generate igsm-official-0161-op10 trace-edit:53:seed2
+saved igsm-official-0161-op10 trace-edit:53:seed2 status=natural_truncated
+saved igsm-official-0161-op10 trace-base:53:seed1 status=natural_truncated
+saved igsm-official-0161-op10 trace-edit:53:seed1 status=natural_truncated
+saved igsm-official-0161-op10 trace-base:53:seed2 status=natural_truncated
+generate igsm-official-0161-op10 trace-sham:53:0:0
+generate igsm-official-0161-op10 trace-sham:53:0:2
+generate igsm-official-0161-op10 trace-sham:53:0:1
+generate igsm-official-0161-op10 trace-sham:53:1:0
+saved igsm-official-0161-op10 trace-sham:53:1:0 status=natural_truncatedsaved igsm-official-0161-op10 trace-sham:53:0:1 status=natural_truncated
+
+saved igsm-official-0161-op10 trace-sham:53:0:0 status=natural_truncated
+saved igsm-official-0161-op10 trace-sham:53:0:2 status=natural_truncated
+generate igsm-official-0161-op10 trace-sham:53:1:1
+generate igsm-official-0161-op10 trace-sham:53:2:0
+generate igsm-official-0161-op10 trace-sham:53:1:2
+generate igsm-official-0161-op10 trace-sham:53:2:1
+saved igsm-official-0161-op10 trace-sham:53:1:1 status=natural_truncated
+saved igsm-official-0161-op10 trace-sham:53:2:1 status=natural_truncatedsaved igsm-official-0161-op10 trace-sham:53:2:0 status=natural_complete
+
+saved igsm-official-0161-op10 trace-sham:53:1:2 status=natural_truncated
+generate igsm-official-0161-op10 trace-sham:53:2:2
+generate igsm-official-0161-op10 trace-source:53
+generate igsm-official-0164-op5 trace-base:54
+generate igsm-official-0164-op5 trace-edit:54
+saved igsm-official-0164-op5 trace-edit:54 status=natural_truncated
+saved igsm-official-0161-op10 trace-source:53 status=natural_truncated
+saved igsm-official-0164-op5 trace-base:54 status=natural_truncatedsaved igsm-official-0161-op10 trace-sham:53:2:2 status=natural_truncated
+
+completed 54/66 problems
+generate igsm-official-0164-op5 trace-base:54:seed1
+generate igsm-official-0164-op5 trace-base:54:seed2
+generate igsm-official-0164-op5 trace-edit:54:seed1
+generate igsm-official-0164-op5 trace-edit:54:seed2
+saved igsm-official-0164-op5 trace-base:54:seed1 status=natural_truncated
+saved igsm-official-0164-op5 trace-edit:54:seed1 status=natural_truncated
+saved igsm-official-0164-op5 trace-edit:54:seed2 status=natural_truncatedsaved igsm-official-0164-op5 trace-base:54:seed2 status=natural_truncated
+
+generate igsm-official-0164-op5 trace-sham:54:0:0
+generate igsm-official-0164-op5 trace-sham:54:0:1
+generate igsm-official-0164-op5 trace-sham:54:1:0
+generate igsm-official-0164-op5 trace-sham:54:0:2
+saved igsm-official-0164-op5 trace-sham:54:0:0 status=natural_truncated
+saved igsm-official-0164-op5 trace-sham:54:0:2 status=natural_truncated
+saved igsm-official-0164-op5 trace-sham:54:1:0 status=natural_truncated
+saved igsm-official-0164-op5 trace-sham:54:0:1 status=natural_truncated
+generate igsm-official-0164-op5 trace-sham:54:1:1
+generate igsm-official-0164-op5 trace-sham:54:1:2
+generate igsm-official-0164-op5 trace-sham:54:2:0
+generate igsm-official-0164-op5 trace-sham:54:2:1
+saved igsm-official-0164-op5 trace-sham:54:2:1 status=natural_truncated
+saved igsm-official-0164-op5 trace-sham:54:2:0 status=natural_truncated
+saved igsm-official-0164-op5 trace-sham:54:1:1 status=natural_truncatedsaved igsm-official-0164-op5 trace-sham:54:1:2 status=natural_truncated
+
+generate igsm-official-0164-op5 trace-sham:54:2:2
+generate igsm-official-0167-op21 trace-edit:55
+generate igsm-official-0167-op21 trace-base:55:seed1
+generate igsm-official-0167-op21 trace-base:55
+saved igsm-official-0167-op21 trace-edit:55 status=natural_truncatedsaved igsm-official-0167-op21 trace-base:55:seed1 status=natural_truncated
+
+saved igsm-official-0167-op21 trace-base:55 status=natural_truncatedsaved igsm-official-0164-op5 trace-sham:54:2:2 status=natural_truncated
+
+completed 55/66 problems
+generate igsm-official-0167-op21 trace-edit:55:seed1
+generate igsm-official-0167-op21 trace-base:55:seed2
+generate igsm-official-0167-op21 trace-edit:55:seed2
+generate igsm-official-0167-op21 trace-sham:55:0:0
+saved igsm-official-0167-op21 trace-edit:55:seed1 status=natural_truncated
+saved igsm-official-0167-op21 trace-edit:55:seed2 status=natural_truncated
+saved igsm-official-0167-op21 trace-sham:55:0:0 status=natural_truncated
+saved igsm-official-0167-op21 trace-base:55:seed2 status=natural_truncated
+generate igsm-official-0167-op21 trace-sham:55:0:2
+generate igsm-official-0167-op21 trace-sham:55:1:0
+generate igsm-official-0167-op21 trace-sham:55:1:1
+generate igsm-official-0167-op21 trace-sham:55:0:1
+saved igsm-official-0167-op21 trace-sham:55:0:1 status=natural_truncated
+saved igsm-official-0167-op21 trace-sham:55:1:1 status=natural_truncated
+saved igsm-official-0167-op21 trace-sham:55:1:0 status=parse_failed
+saved igsm-official-0167-op21 trace-sham:55:0:2 status=natural_truncated
+generate igsm-official-0167-op21 trace-sham:55:2:1
+generate igsm-official-0167-op21 trace-sham:55:2:2
+generate igsm-official-0167-op21 trace-sham:55:2:0
+generate igsm-official-0167-op21 trace-sham:55:1:2
+saved igsm-official-0167-op21 trace-sham:55:2:2 status=natural_truncated
+saved igsm-official-0167-op21 trace-sham:55:1:2 status=natural_truncatedsaved igsm-official-0167-op21 trace-sham:55:2:1 status=natural_truncated
+
+saved igsm-official-0167-op21 trace-sham:55:2:0 status=parse_failed
+completed 56/66 problems
+generate igsm-official-0170-op15 trace-base:56
+generate igsm-official-0170-op15 trace-base:56:seed1
+generate igsm-official-0170-op15 trace-edit:56
+generate igsm-official-0170-op15 trace-edit:56:seed1
+saved igsm-official-0170-op15 trace-base:56 status=natural_complete
+saved igsm-official-0170-op15 trace-edit:56:seed1 status=natural_truncated
+saved igsm-official-0170-op15 trace-edit:56 status=natural_truncated
+saved igsm-official-0170-op15 trace-base:56:seed1 status=natural_truncated
+generate igsm-official-0170-op15 trace-base:56:seed2
+generate igsm-official-0170-op15 trace-sham:56:0:0
+generate igsm-official-0170-op15 trace-edit:56:seed2
+generate igsm-official-0170-op15 trace-sham:56:0:1
+saved igsm-official-0170-op15 trace-base:56:seed2 status=natural_truncated
+saved igsm-official-0170-op15 trace-sham:56:0:0 status=natural_truncated
+saved igsm-official-0170-op15 trace-edit:56:seed2 status=natural_truncated
+saved igsm-official-0170-op15 trace-sham:56:0:1 status=natural_truncated
+generate igsm-official-0170-op15 trace-sham:56:0:2
+generate igsm-official-0170-op15 trace-sham:56:1:0
+generate igsm-official-0170-op15 trace-sham:56:1:2
+generate igsm-official-0170-op15 trace-sham:56:1:1
+saved igsm-official-0170-op15 trace-sham:56:1:1 status=natural_truncated
+saved igsm-official-0170-op15 trace-sham:56:1:2 status=natural_truncatedsaved igsm-official-0170-op15 trace-sham:56:0:2 status=natural_truncatedsaved igsm-official-0170-op15 trace-sham:56:1:0 status=natural_truncated
+
+
+generate igsm-official-0170-op15 trace-sham:56:2:0
+generate igsm-official-0170-op15 trace-sham:56:2:1
+generate igsm-official-0170-op15 trace-sham:56:2:2
+generate igsm-official-0173-op10 trace-base:57
+saved igsm-official-0170-op15 trace-sham:56:2:1 status=natural_truncated
+saved igsm-official-0173-op10 trace-base:57 status=natural_truncated
+saved igsm-official-0170-op15 trace-sham:56:2:0 status=natural_truncated
+saved igsm-official-0170-op15 trace-sham:56:2:2 status=natural_truncated
+completed 57/66 problems
+generate igsm-official-0173-op10 trace-base:57:seed1
+generate igsm-official-0173-op10 trace-edit:57:seed1
+generate igsm-official-0173-op10 trace-base:57:seed2
+generate igsm-official-0173-op10 trace-edit:57
+saved igsm-official-0173-op10 trace-base:57:seed1 status=natural_truncated
+saved igsm-official-0173-op10 trace-edit:57:seed1 status=natural_truncatedsaved igsm-official-0173-op10 trace-base:57:seed2 status=natural_truncated
+
+saved igsm-official-0173-op10 trace-edit:57 status=natural_truncated
+generate igsm-official-0173-op10 trace-sham:57:0:0
+generate igsm-official-0173-op10 trace-sham:57:0:1
+generate igsm-official-0173-op10 trace-sham:57:0:2
+generate igsm-official-0173-op10 trace-edit:57:seed2
+saved igsm-official-0173-op10 trace-sham:57:0:0 status=natural_truncated
+saved igsm-official-0173-op10 trace-edit:57:seed2 status=natural_truncated
+saved igsm-official-0173-op10 trace-sham:57:0:2 status=natural_truncated
+saved igsm-official-0173-op10 trace-sham:57:0:1 status=natural_truncated
+generate igsm-official-0173-op10 trace-sham:57:1:0
+generate igsm-official-0173-op10 trace-sham:57:1:2
+generate igsm-official-0173-op10 trace-sham:57:1:1
+generate igsm-official-0173-op10 trace-sham:57:2:0
+saved igsm-official-0173-op10 trace-sham:57:2:0 status=natural_truncated
+saved igsm-official-0173-op10 trace-sham:57:1:1 status=natural_truncated
+saved igsm-official-0173-op10 trace-sham:57:1:0 status=natural_truncated
+saved igsm-official-0173-op10 trace-sham:57:1:2 status=natural_truncated
+generate igsm-official-0176-op5 trace-base:58
+generate igsm-official-0176-op5 trace-edit:58
+generate igsm-official-0173-op10 trace-sham:57:2:2
+generate igsm-official-0173-op10 trace-sham:57:2:1
+saved igsm-official-0173-op10 trace-sham:57:2:1 status=natural_truncated
+saved igsm-official-0176-op5 trace-base:58 status=natural_truncated
+saved igsm-official-0176-op5 trace-edit:58 status=natural_truncated
+saved igsm-official-0173-op10 trace-sham:57:2:2 status=natural_truncated
+completed 58/66 problems
+generate igsm-official-0176-op5 trace-base:58:seed1
+generate igsm-official-0176-op5 trace-base:58:seed2
+generate igsm-official-0176-op5 trace-edit:58:seed1
+generate igsm-official-0176-op5 trace-edit:58:seed2
+saved igsm-official-0176-op5 trace-base:58:seed2 status=natural_truncated
+saved igsm-official-0176-op5 trace-base:58:seed1 status=parse_failed
+saved igsm-official-0176-op5 trace-edit:58:seed2 status=natural_truncatedsaved igsm-official-0176-op5 trace-edit:58:seed1 status=natural_truncated
+
+generate igsm-official-0176-op5 trace-sham:58:0:0
+generate igsm-official-0176-op5 trace-sham:58:0:2
+generate igsm-official-0176-op5 trace-sham:58:0:1
+generate igsm-official-0176-op5 trace-sham:58:1:0
+saved igsm-official-0176-op5 trace-sham:58:1:0 status=natural_truncated
+saved igsm-official-0176-op5 trace-sham:58:0:0 status=natural_truncated
+saved igsm-official-0176-op5 trace-sham:58:0:1 status=natural_truncated
+saved igsm-official-0176-op5 trace-sham:58:0:2 status=natural_truncated
+generate igsm-official-0176-op5 trace-sham:58:1:2
+generate igsm-official-0176-op5 trace-sham:58:1:1
+generate igsm-official-0176-op5 trace-sham:58:2:0
+generate igsm-official-0176-op5 trace-sham:58:2:1
+saved igsm-official-0176-op5 trace-sham:58:2:1 status=natural_truncated
+saved igsm-official-0176-op5 trace-sham:58:1:1 status=natural_truncated
+saved igsm-official-0176-op5 trace-sham:58:2:0 status=natural_truncatedsaved igsm-official-0176-op5 trace-sham:58:1:2 status=natural_truncated
+
+generate igsm-official-0176-op5 trace-sham:58:2:2
+generate igsm-official-0176-op5 trace-source:58
+generate igsm-official-0179-op21 trace-base:59
+generate igsm-official-0179-op21 trace-edit:59
+saved igsm-official-0179-op21 trace-base:59 status=natural_truncatedsaved igsm-official-0176-op5 trace-source:58 status=natural_truncated
+
+saved igsm-official-0176-op5 trace-sham:58:2:2 status=natural_truncated
+saved igsm-official-0179-op21 trace-edit:59 status=natural_truncated
+completed 59/66 problems
+generate igsm-official-0179-op21 trace-base:59:seed2
+generate igsm-official-0179-op21 trace-edit:59:seed2
+generate igsm-official-0179-op21 trace-edit:59:seed1
+generate igsm-official-0179-op21 trace-base:59:seed1
+saved igsm-official-0179-op21 trace-base:59:seed1 status=parse_failed
+saved igsm-official-0179-op21 trace-base:59:seed2 status=natural_truncated
+saved igsm-official-0179-op21 trace-edit:59:seed2 status=natural_truncated
+saved igsm-official-0179-op21 trace-edit:59:seed1 status=natural_truncated
+generate igsm-official-0179-op21 trace-sham:59:0:0
+generate igsm-official-0179-op21 trace-sham:59:0:1
+generate igsm-official-0179-op21 trace-sham:59:1:0
+generate igsm-official-0179-op21 trace-sham:59:0:2
+saved igsm-official-0179-op21 trace-sham:59:0:1 status=natural_truncatedsaved igsm-official-0179-op21 trace-sham:59:0:2 status=natural_truncatedsaved igsm-official-0179-op21 trace-sham:59:0:0 status=natural_truncated
+
+
+saved igsm-official-0179-op21 trace-sham:59:1:0 status=natural_truncated
+generate igsm-official-0179-op21 trace-sham:59:1:1
+generate igsm-official-0179-op21 trace-sham:59:1:2
+generate igsm-official-0179-op21 trace-sham:59:2:0
+generate igsm-official-0179-op21 trace-sham:59:2:1
+saved igsm-official-0179-op21 trace-sham:59:2:1 status=natural_truncated
+saved igsm-official-0179-op21 trace-sham:59:2:0 status=natural_truncated
+saved igsm-official-0179-op21 trace-sham:59:1:1 status=natural_truncated
+saved igsm-official-0179-op21 trace-sham:59:1:2 status=natural_truncated
+generate igsm-official-0179-op21 trace-sham:59:2:2
+generate igsm-official-0182-op15 trace-edit:60
+generate igsm-official-0182-op15 trace-base:60
+generate igsm-official-0182-op15 trace-base:60:seed1
+saved igsm-official-0182-op15 trace-edit:60 status=natural_truncatedsaved igsm-official-0179-op21 trace-sham:59:2:2 status=natural_truncated
+
+saved igsm-official-0182-op15 trace-base:60 status=natural_truncated
+saved igsm-official-0182-op15 trace-base:60:seed1 status=natural_truncated
+completed 60/66 problems
+generate igsm-official-0182-op15 trace-edit:60:seed1
+generate igsm-official-0182-op15 trace-edit:60:seed2
+generate igsm-official-0182-op15 trace-base:60:seed2
+generate igsm-official-0182-op15 trace-sham:60:0:0
+saved igsm-official-0182-op15 trace-sham:60:0:0 status=natural_truncated
+saved igsm-official-0182-op15 trace-edit:60:seed1 status=natural_truncated
+saved igsm-official-0182-op15 trace-base:60:seed2 status=natural_truncated
+saved igsm-official-0182-op15 trace-edit:60:seed2 status=parse_failed
+generate igsm-official-0182-op15 trace-sham:60:0:1
+generate igsm-official-0182-op15 trace-sham:60:1:1
+generate igsm-official-0182-op15 trace-sham:60:1:0
+generate igsm-official-0182-op15 trace-sham:60:0:2
+saved igsm-official-0182-op15 trace-sham:60:1:1 status=natural_truncated
+saved igsm-official-0182-op15 trace-sham:60:1:0 status=natural_truncated
+saved igsm-official-0182-op15 trace-sham:60:0:1 status=natural_truncated
+saved igsm-official-0182-op15 trace-sham:60:0:2 status=natural_truncated
+generate igsm-official-0182-op15 trace-sham:60:2:1
+generate igsm-official-0182-op15 trace-sham:60:2:0
+generate igsm-official-0182-op15 trace-sham:60:1:2
+generate igsm-official-0182-op15 trace-sham:60:2:2
+saved igsm-official-0182-op15 trace-sham:60:2:1 status=natural_truncated
+saved igsm-official-0182-op15 trace-sham:60:2:0 status=natural_truncated
+saved igsm-official-0182-op15 trace-sham:60:1:2 status=parse_failed
+saved igsm-official-0182-op15 trace-sham:60:2:2 status=natural_truncated
+completed 61/66 problems
+generate igsm-official-0185-op10 trace-base:61
+generate igsm-official-0185-op10 trace-base:61:seed1
+generate igsm-official-0185-op10 trace-edit:61
+generate igsm-official-0185-op10 trace-edit:61:seed1
+saved igsm-official-0185-op10 trace-edit:61:seed1 status=natural_truncated
+saved igsm-official-0185-op10 trace-edit:61 status=natural_truncatedsaved igsm-official-0185-op10 trace-base:61 status=natural_truncated
+
+saved igsm-official-0185-op10 trace-base:61:seed1 status=natural_truncated
+generate igsm-official-0185-op10 trace-edit:61:seed2
+generate igsm-official-0185-op10 trace-sham:61:0:0
+generate igsm-official-0185-op10 trace-sham:61:0:1
+generate igsm-official-0185-op10 trace-base:61:seed2
+saved igsm-official-0185-op10 trace-sham:61:0:0 status=natural_truncated
+saved igsm-official-0185-op10 trace-edit:61:seed2 status=natural_truncated
+saved igsm-official-0185-op10 trace-sham:61:0:1 status=natural_truncatedsaved igsm-official-0185-op10 trace-base:61:seed2 status=natural_truncated
+
+generate igsm-official-0185-op10 trace-sham:61:1:0
+generate igsm-official-0185-op10 trace-sham:61:1:1
+generate igsm-official-0185-op10 trace-sham:61:1:2
+generate igsm-official-0185-op10 trace-sham:61:0:2
+saved igsm-official-0185-op10 trace-sham:61:1:0 status=natural_truncated
+saved igsm-official-0185-op10 trace-sham:61:1:1 status=natural_truncated
+saved igsm-official-0185-op10 trace-sham:61:1:2 status=natural_truncated
+saved igsm-official-0185-op10 trace-sham:61:0:2 status=natural_truncated
+generate igsm-official-0185-op10 trace-sham:61:2:1
+generate igsm-official-0185-op10 trace-sham:61:2:0
+generate igsm-official-0185-op10 trace-source:61
+generate igsm-official-0185-op10 trace-sham:61:2:2
+saved igsm-official-0185-op10 trace-sham:61:2:2 status=natural_truncated
+saved igsm-official-0185-op10 trace-sham:61:2:0 status=natural_truncated
+saved igsm-official-0185-op10 trace-source:61 status=natural_truncated
+saved igsm-official-0185-op10 trace-sham:61:2:1 status=natural_truncated
+completed 62/66 problems
+generate igsm-official-0188-op5 trace-base:62
+generate igsm-official-0188-op5 trace-base:62:seed1
+generate igsm-official-0188-op5 trace-edit:62
+generate igsm-official-0188-op5 trace-edit:62:seed1
+saved igsm-official-0188-op5 trace-edit:62 status=natural_truncated
+saved igsm-official-0188-op5 trace-base:62 status=natural_truncated
+saved igsm-official-0188-op5 trace-base:62:seed1 status=natural_truncated
+saved igsm-official-0188-op5 trace-edit:62:seed1 status=parse_failed
+generate igsm-official-0188-op5 trace-base:62:seed2
+generate igsm-official-0188-op5 trace-edit:62:seed2
+generate igsm-official-0188-op5 trace-sham:62:0:0
+generate igsm-official-0188-op5 trace-sham:62:0:1
+saved igsm-official-0188-op5 trace-base:62:seed2 status=natural_truncated
+saved igsm-official-0188-op5 trace-edit:62:seed2 status=natural_truncated
+saved igsm-official-0188-op5 trace-sham:62:0:0 status=natural_truncated
+saved igsm-official-0188-op5 trace-sham:62:0:1 status=natural_truncated
+generate igsm-official-0188-op5 trace-sham:62:0:2
+generate igsm-official-0188-op5 trace-sham:62:1:1
+generate igsm-official-0188-op5 trace-sham:62:1:0
+generate igsm-official-0188-op5 trace-sham:62:1:2
+saved igsm-official-0188-op5 trace-sham:62:0:2 status=natural_truncated
+saved igsm-official-0188-op5 trace-sham:62:1:0 status=natural_truncated
+saved igsm-official-0188-op5 trace-sham:62:1:1 status=natural_truncated
+saved igsm-official-0188-op5 trace-sham:62:1:2 status=natural_truncated
+generate igsm-official-0188-op5 trace-sham:62:2:0
+generate igsm-official-0188-op5 trace-sham:62:2:2
+generate igsm-official-0188-op5 trace-source:62
+generate igsm-official-0188-op5 trace-sham:62:2:1
+saved igsm-official-0188-op5 trace-sham:62:2:1 status=natural_truncated
+saved igsm-official-0188-op5 trace-sham:62:2:0 status=natural_truncated
+saved igsm-official-0188-op5 trace-sham:62:2:2 status=natural_truncatedsaved igsm-official-0188-op5 trace-source:62 status=natural_truncated
+
+completed 63/66 problems
+generate igsm-official-0191-op21 trace-base:63
+generate igsm-official-0191-op21 trace-base:63:seed1
+generate igsm-official-0191-op21 trace-edit:63
+generate igsm-official-0191-op21 trace-edit:63:seed1
+saved igsm-official-0191-op21 trace-edit:63:seed1 status=natural_truncatedsaved igsm-official-0191-op21 trace-base:63 status=natural_truncated
+
+saved igsm-official-0191-op21 trace-edit:63 status=natural_truncatedsaved igsm-official-0191-op21 trace-base:63:seed1 status=natural_truncated
+
+generate igsm-official-0191-op21 trace-base:63:seed2
+generate igsm-official-0191-op21 trace-edit:63:seed2
+generate igsm-official-0191-op21 trace-sham:63:0:0
+generate igsm-official-0191-op21 trace-sham:63:0:1
+saved igsm-official-0191-op21 trace-base:63:seed2 status=natural_complete
+saved igsm-official-0191-op21 trace-sham:63:0:0 status=natural_truncated
+saved igsm-official-0191-op21 trace-edit:63:seed2 status=natural_truncated
+saved igsm-official-0191-op21 trace-sham:63:0:1 status=natural_truncated
+generate igsm-official-0191-op21 trace-sham:63:0:2
+generate igsm-official-0191-op21 trace-sham:63:1:2
+generate igsm-official-0191-op21 trace-sham:63:1:0
+generate igsm-official-0191-op21 trace-sham:63:1:1
+saved igsm-official-0191-op21 trace-sham:63:1:1 status=natural_truncated
+saved igsm-official-0191-op21 trace-sham:63:1:2 status=natural_truncated
+saved igsm-official-0191-op21 trace-sham:63:1:0 status=natural_truncated
+saved igsm-official-0191-op21 trace-sham:63:0:2 status=natural_truncated
+generate igsm-official-0191-op21 trace-sham:63:2:0
+generate igsm-official-0191-op21 trace-sham:63:2:2
+generate igsm-official-0191-op21 trace-sham:63:2:1
+generate igsm-official-0194-op15 trace-base:64
+saved igsm-official-0194-op15 trace-base:64 status=natural_truncated
+saved igsm-official-0191-op21 trace-sham:63:2:2 status=natural_truncated
+saved igsm-official-0191-op21 trace-sham:63:2:0 status=natural_truncated
+saved igsm-official-0191-op21 trace-sham:63:2:1 status=natural_truncated
+completed 64/66 problems
+generate igsm-official-0194-op15 trace-edit:64
+generate igsm-official-0194-op15 trace-base:64:seed1
+generate igsm-official-0194-op15 trace-edit:64:seed1
+generate igsm-official-0194-op15 trace-base:64:seed2
+saved igsm-official-0194-op15 trace-edit:64 status=natural_truncated
+saved igsm-official-0194-op15 trace-edit:64:seed1 status=natural_truncated
+saved igsm-official-0194-op15 trace-base:64:seed2 status=natural_truncated
+saved igsm-official-0194-op15 trace-base:64:seed1 status=natural_truncated
+generate igsm-official-0194-op15 trace-sham:64:0:0
+generate igsm-official-0194-op15 trace-sham:64:0:1
+generate igsm-official-0194-op15 trace-edit:64:seed2
+generate igsm-official-0194-op15 trace-sham:64:0:2
+saved igsm-official-0194-op15 trace-sham:64:0:0 status=natural_truncatedsaved igsm-official-0194-op15 trace-sham:64:0:2 status=natural_truncated
+
+saved igsm-official-0194-op15 trace-edit:64:seed2 status=natural_truncated
+saved igsm-official-0194-op15 trace-sham:64:0:1 status=natural_truncated
+generate igsm-official-0194-op15 trace-sham:64:1:0
+generate igsm-official-0194-op15 trace-sham:64:1:2
+generate igsm-official-0194-op15 trace-sham:64:1:1
+generate igsm-official-0194-op15 trace-sham:64:2:0
+saved igsm-official-0194-op15 trace-sham:64:1:1 status=natural_truncated
+saved igsm-official-0194-op15 trace-sham:64:1:0 status=natural_truncated
+saved igsm-official-0194-op15 trace-sham:64:1:2 status=natural_truncatedsaved igsm-official-0194-op15 trace-sham:64:2:0 status=natural_truncated
+
+generate igsm-official-0197-op10 trace-base:65
+generate igsm-official-0194-op15 trace-sham:64:2:2
+generate igsm-official-0194-op15 trace-sham:64:2:1
+generate igsm-official-0197-op10 trace-edit:65
+saved igsm-official-0194-op15 trace-sham:64:2:1 status=natural_truncated
+saved igsm-official-0194-op15 trace-sham:64:2:2 status=natural_truncated
+saved igsm-official-0197-op10 trace-base:65 status=natural_truncated
+saved igsm-official-0197-op10 trace-edit:65 status=natural_truncated
+completed 65/66 problems
+generate igsm-official-0197-op10 trace-base:65:seed1
+generate igsm-official-0197-op10 trace-edit:65:seed1
+generate igsm-official-0197-op10 trace-base:65:seed2
+generate igsm-official-0197-op10 trace-edit:65:seed2
+saved igsm-official-0197-op10 trace-base:65:seed1 status=natural_truncated
+saved igsm-official-0197-op10 trace-edit:65:seed2 status=natural_truncated
+saved igsm-official-0197-op10 trace-base:65:seed2 status=natural_truncated
+saved igsm-official-0197-op10 trace-edit:65:seed1 status=natural_truncated
+generate igsm-official-0197-op10 trace-sham:65:0:0
+generate igsm-official-0197-op10 trace-sham:65:0:2
+generate igsm-official-0197-op10 trace-sham:65:0:1
+generate igsm-official-0197-op10 trace-sham:65:1:0
+saved igsm-official-0197-op10 trace-sham:65:0:0 status=natural_truncated
+saved igsm-official-0197-op10 trace-sham:65:0:2 status=natural_truncated
+saved igsm-official-0197-op10 trace-sham:65:1:0 status=natural_truncatedsaved igsm-official-0197-op10 trace-sham:65:0:1 status=natural_truncated
+
+generate igsm-official-0197-op10 trace-sham:65:1:1
+generate igsm-official-0197-op10 trace-sham:65:2:0
+generate igsm-official-0197-op10 trace-sham:65:1:2
+generate igsm-official-0197-op10 trace-sham:65:2:1
+saved igsm-official-0197-op10 trace-sham:65:1:1 status=natural_truncated
+saved igsm-official-0197-op10 trace-sham:65:2:0 status=natural_truncated
+saved igsm-official-0197-op10 trace-sham:65:2:1 status=natural_truncated
+saved igsm-official-0197-op10 trace-sham:65:1:2 status=natural_truncated
+generate igsm-official-0197-op10 trace-sham:65:2:2
+generate igsm-official-0197-op10 trace-source:65
+saved igsm-official-0197-op10 trace-sham:65:2:2 status=natural_truncated
+saved igsm-official-0197-op10 trace-source:65 status=natural_truncated
+completed 66/66 problems

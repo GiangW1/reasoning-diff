@@ -1,0 +1,281 @@
+{
+  "native_id": "igsm-official-0018-op15",
+  "family_id": "igsm-official-0018-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260944,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "12",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Dolphin's Alveoli equals 17 more than each Stingray's Larynx. The number of each Stingray's Bronchi equals the sum of each Stingray's Larynx and each Stingray's Alveoli. The number of each Coral's Larynx equals each Dolphin's Organs. The number of each Dolphin's Larynx equals the difference of each Stingray's Organs and each Stingray's Larynx. The number of each Stingray's Larynx equals 3. The number of each Coral's Bronchi equals 15 more than each Stingray's Alveoli. The number of each Coral's Alveoli equals 20. The number of each Stingray's Alveoli equals 20 more than each Stingray's Larynx. The number of each Dolphin's Bronchi equals the difference of each Stingray's Larynx and each Stingray's Bronchi. How many Organs does Coral have?",
+  "lookup": {
+    "p_0_0_0_0": 20,
+    "p_0_0_2_1": 3,
+    "p_0_0_2_0": 0,
+    "p_0_0_0_2": 15,
+    "p_0_0_2_2": 3,
+    "p_1_0_2_1": 6,
+    "p_0_0_1_0": 20,
+    "p_0_0_1_2": 0,
+    "p_0_0_1_1": 3,
+    "p_1_0_1_1": 0,
+    "p_0_0_0_1": 0,
+    "p_1_0_0_1": 12
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 20,
+        "span": [
+          492,
+          536
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 3,
+        "span": [
+          365,
+          410
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Dolphin's Alveoli"
+        ],
+        "expression": "(17 + p_0_0_2_1)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Stingray's Alveoli"
+        ],
+        "expression": "(20 + p_0_0_2_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Stingray's Bronchi"
+        ],
+        "expression": "(p_0_0_2_1 + p_0_0_2_0)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Stingray's Organs"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Dolphin's Larynx"
+        ],
+        "expression": "(p_1_0_2_1 - p_0_0_2_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Dolphin's Bronchi"
+        ],
+        "expression": "(p_0_0_2_1 - p_0_0_2_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Dolphin's Organs"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_0_1_1) + p_0_0_1_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Coral's Larynx"
+        ],
+        "expression": "p_1_0_1_1",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Coral's Bronchi"
+        ],
+        "expression": "(15 + p_0_0_2_0)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Coral's Organs"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2)",
+        "value": 12
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "native_id": "igsm-official-0112-op5",
+  "family_id": "igsm-official-0112-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261040,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "0",
+  "target": "p_1_0_1_1",
+  "question": "The number of each Presentation Backpack's Crayon equals 15. The number of each Drone Backpack's Erasable Pen equals 22 times as much as the difference of each Presentation Backpack's Stationery and each Presentation Backpack's Crayon. How many Stationery does Drone Backpack have?",
+  "lookup": {
+    "p_0_0_0_1": 15,
+    "p_1_0_0_1": 15,
+    "p_0_0_1_0": 0,
+    "p_1_0_1_1": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 15,
+        "span": [
+          0,
+          59
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Presentation Backpack's Stationery"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Drone Backpack's Erasable Pen"
+        ],
+        "expression": "(22 * (p_1_0_0_1 - p_0_0_0_1))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Drone Backpack's Stationery"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ]
+    ]
+  }
+}

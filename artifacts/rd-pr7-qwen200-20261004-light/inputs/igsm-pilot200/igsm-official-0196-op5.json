@@ -1,0 +1,128 @@
+{
+  "native_id": "igsm-official-0196-op5",
+  "family_id": "igsm-official-0196-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261130,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "13",
+  "target": "p_1_0_1_1",
+  "question": "The number of each Control Systems Lab's Roll-Top Backpack equals 14 times as much as each Linear Algebra Room's Packable Travel Backpack. The number of each Packable Travel Backpack's Diary equals each Expedition Pack's Scrapbooking Paper. The number of each Statistics Lab's Ultralight Backpack equals 12 times as much as each Linear Algebra Room's Stationery. The number of each Statistics Lab's Packable Travel Backpack equals 10. The number of each Expedition Pack's Loose Leaf Paper equals 17. The number of each Packable Travel Backpack's Loose Leaf Paper equals the sum of each Calculus Classroom's Expedition Pack and each Expedition Pack's Scrapbooking Paper. The number of each Expedition Pack's Scrapbooking Paper equals 19. The number of each Ultralight Backpack's Tracing Paper equals 18 times as much as the difference of each Packable Travel Backpack's Diary and each Expedition Pack's Loose Leaf Paper. The number of each Calculus Classroom's Ultralight Backpack equals each Packable Travel Backpack's Loose Leaf Paper. The number of each Linear Algebra Room's Expedition Pack equals 13 times as much as each Linear Algebra Room's Packable Travel Backpack. The number of each Expedition Pack's Diary equals the sum of each Calculus Classroom's Expedition Pack, each Packable Travel Backpack's Tracing Paper and each Packable Travel Backpack's Stationery. The number of each Linear Algebra Room's Packable Travel Backpack equals 7. The number of each Control Systems Lab's Packable Travel Backpack equals 10 more than each Calculus Classroom's Expedition Pack. The number of each Linear Algebra Room's Roll-Top Backpack equals each Linear Algebra Room's Packable Travel Backpack. The number of each Packable Travel Backpack's Tracing Paper equals 12. The number of each Calculus Classroom's Expedition Pack equals 7 more than each Expedition Pack's Scrapbooking Paper. The number of each Control Systems Lab's Ultralight Backpack equals each Expedition Pack's Loose Leaf Paper. How many Backpack does Linear Algebra Room have?",
+  "lookup": {
+    "p_0_0_1_3": 7,
+    "p_0_1_1_0": 17,
+    "p_0_0_2_0": 17,
+    "p_1_1_2_2": 0,
+    "p_0_1_3_3": 12,
+    "p_0_0_1_2": 7,
+    "p_0_1_1_2": 19,
+    "p_0_1_3_1": 19,
+    "p_0_0_3_1": 3,
+    "p_0_0_1_1": 22,
+    "p_0_0_0_3": 10,
+    "p_0_1_0_3": 13,
+    "p_0_1_3_0": 22,
+    "p_0_0_2_2": 6,
+    "p_0_0_3_0": 22,
+    "p_0_0_2_3": 13,
+    "p_1_1_3_2": 7,
+    "p_0_1_1_1": 22,
+    "p_1_1_1_2": 12,
+    "p_1_0_1_2": 14,
+    "p_0_0_0_0": 7,
+    "p_1_0_1_1": 13
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_3",
+        "literal": 7,
+        "span": [
+          1372,
+          1446
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Linear Algebra Room's Expedition Pack"
+        ],
+        "expression": "(13 * p_0_0_1_3)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Linear Algebra Room's Roll-Top Backpack"
+        ],
+        "expression": "p_0_0_1_3",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_1_2",
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Linear Algebra Room's Backpack"
+        ],
+        "expression": "((p_0_0_1_1 + p_0_0_1_2) + p_0_0_1_3)",
+        "value": 13
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_3",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_1_0_1_1"
+      ]
+    ]
+  }
+}

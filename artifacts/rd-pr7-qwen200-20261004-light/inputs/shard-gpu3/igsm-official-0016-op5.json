@@ -1,0 +1,119 @@
+{
+  "native_id": "igsm-official-0016-op5",
+  "family_id": "igsm-official-0016-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260942,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "20",
+  "target": "p_1_0_1_1",
+  "question": "The number of each Ladybug Loft's Squirrel equals 12 more than each Berlin Zoological Garden's Enclosure. The number of each Taronga Zoo's Ladybug Loft equals 5. The number of each Taronga Zoo's Cricket Chorus equals each Berlin Zoological Garden's Cricket Chorus. The number of each Berlin Zoological Garden's Cricket Chorus equals 15. The number of each Ladybug Loft's Hippopotamus equals 11. The number of each Berlin Zoological Garden's Ladybug Loft equals each Cricket Chorus's Hippopotamus. The number of each Cricket Chorus's Squirrel equals each Ladybug Loft's Hippopotamus. The number of each Cricket Chorus's Hippopotamus equals each Taronga Zoo's Ladybug Loft. How many Enclosure does Berlin Zoological Garden have?",
+  "lookup": {
+    "p_0_0_0_1": 5,
+    "p_0_1_1_1": 11,
+    "p_0_0_1_0": 15,
+    "p_0_0_0_0": 15,
+    "p_0_1_0_0": 11,
+    "p_0_1_0_1": 5,
+    "p_0_0_1_1": 5,
+    "p_1_0_1_1": 20,
+    "p_0_1_1_0": 9
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 15,
+        "span": [
+          265,
+          335
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 5,
+        "span": [
+          106,
+          160
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Cricket Chorus's Hippopotamus"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Berlin Zoological Garden's Ladybug Loft"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Berlin Zoological Garden's Enclosure"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_1)",
+        "value": 20
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ]
+    ]
+  }
+}

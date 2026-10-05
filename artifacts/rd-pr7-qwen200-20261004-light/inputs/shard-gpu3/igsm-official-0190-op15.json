@@ -1,0 +1,309 @@
+{
+  "native_id": "igsm-official-0190-op15",
+  "family_id": "igsm-official-0190-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261123,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "14",
+  "target": "p_0_0_3_3",
+  "question": "The number of each New Grand Mart's Milk equals 17 times as much as each New Grand Mart's Coffee. The number of each Valli Produce's Juices equals 10. The number of each 99 Ranch Market's Liquor equals each Arts Campus's Product. The number of each Arts Campus's Seabra Foods equals 22 more than each College Town's Product. The number of each Vocational School District's 99 Ranch Market equals 6. The number of each New Grand Mart's Coffee equals each Valli Produce's Juices. The number of each Vocational School District's Valli Produce equals each Valli Produce's Juices. The number of each 99 Ranch Market's Milk equals 3. The number of each Seabra Foods's Juices equals each Research District's Valli Produce. The number of each Vocational School District's New Grand Mart equals each 99 Ranch Market's Product. The number of each New Grand Mart's Liquor equals the difference of each New Grand Mart's Milk and each Valli Produce's Juices. The number of each Research District's Valli Produce equals the sum of each New Grand Mart's Liquor and each New Grand Mart's Milk. The number of each College Town's Seabra Foods equals 10. How many New Grand Mart does Vocational School District have?",
+  "lookup": {
+    "p_0_1_2_2": 3,
+    "p_0_1_1_0": 10,
+    "p_0_1_3_3": 10,
+    "p_0_0_3_1": 10,
+    "p_0_0_3_2": 6,
+    "p_0_0_2_0": 10,
+    "p_0_1_3_2": 9,
+    "p_0_1_3_1": 22,
+    "p_0_0_1_1": 8,
+    "p_0_1_0_0": 8,
+    "p_1_1_0_2": 8,
+    "p_1_0_2_2": 11,
+    "p_0_0_0_0": 10,
+    "p_1_0_0_2": 11,
+    "p_0_1_2_1": 11,
+    "p_1_1_2_2": 14,
+    "p_0_0_3_3": 14
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_0",
+        "literal": 10,
+        "span": [
+          1078,
+          1134
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_0",
+        "literal": 10,
+        "span": [
+          98,
+          149
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_2",
+        "literal": 3,
+        "span": [
+          576,
+          626
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_3",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_3_3",
+          "New Grand Mart's Coffee"
+        ],
+        "expression": "p_0_1_1_0",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_2",
+        "parents": [
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_0_1_3_2",
+          "New Grand Mart's Milk"
+        ],
+        "expression": "(17 * p_0_1_3_3)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_1",
+        "parents": [
+          "p_0_1_3_2",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_3_1",
+          "New Grand Mart's Liquor"
+        ],
+        "expression": "(p_0_1_3_2 - p_0_1_1_0)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_3_1",
+          "p_0_1_3_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Research District's Valli Produce"
+        ],
+        "expression": "(p_0_1_3_1 + p_0_1_3_2)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Seabra Foods's Juices"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Seabra Foods's Product"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_1_0_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "College Town's Product"
+        ],
+        "expression": "(p_0_0_2_0 * p_1_1_0_2)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Arts Campus's Seabra Foods"
+        ],
+        "expression": "(22 + p_1_0_2_2)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_2",
+        "parents": [
+          "p_0_0_0_0",
+          "p_1_1_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_2",
+          "Arts Campus's Product"
+        ],
+        "expression": "(p_0_0_0_0 * p_1_1_0_2)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_1_0_0_2"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "99 Ranch Market's Liquor"
+        ],
+        "expression": "p_1_0_0_2",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_1",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "99 Ranch Market's Product"
+        ],
+        "expression": "(p_0_1_2_1 + p_0_1_2_2)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_3",
+        "parents": [
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_0_0_3_3",
+          "Vocational School District's New Grand Mart"
+        ],
+        "expression": "p_1_1_2_2",
+        "value": 14
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_0",
+        "p_0_1_3_3"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_0_1_3_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_3_1"
+      ],
+      [
+        "p_0_1_3_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_0_2_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_0_0_2",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_0_3_3"
+      ]
+    ]
+  }
+}

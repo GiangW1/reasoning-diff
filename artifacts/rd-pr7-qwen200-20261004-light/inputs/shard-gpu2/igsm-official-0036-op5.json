@@ -1,0 +1,115 @@
+{
+  "native_id": "igsm-official-0036-op5",
+  "family_id": "igsm-official-0036-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260962,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "9",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Costco's Canned Sauces equals 5. The number of each Costco's Canned Broth equals 13 times as much as each Safeway's Product. The number of each Safeway's Canned Broth equals 18. How many Product does Costco have?",
+  "lookup": {
+    "p_0_0_1_0": 18,
+    "p_0_0_0_1": 5,
+    "p_1_0_1_1": 18,
+    "p_0_0_0_0": 4,
+    "p_1_0_0_1": 9
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 18,
+        "span": [
+          144,
+          195
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 5,
+        "span": [
+          0,
+          50
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Safeway's Product"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Costco's Canned Broth"
+        ],
+        "expression": "(13 * p_1_0_1_1)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Costco's Product"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 9
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

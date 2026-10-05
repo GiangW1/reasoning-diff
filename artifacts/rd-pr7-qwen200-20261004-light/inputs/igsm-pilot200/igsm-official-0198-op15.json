@@ -1,0 +1,258 @@
+{
+  "native_id": "igsm-official-0198-op15",
+  "family_id": "igsm-official-0198-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261132,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "0",
+  "target": "p_1_0_1_3",
+  "question": "The number of each Financial District's Carrefour equals 18 more than each Financial District's Giant Eagle. The number of each Aldi's Bagels equals 20. The number of each Financial District's Aldi equals each Cookies's Banana. The number of each Carrefour's Buns equals 5 times as much as each Giant Eagle's Ingredient. The number of each Cookies's Banana equals 6. The number of each Financial District's Giant Eagle equals 22 times as much as each Asda's Pies. The number of each Giant Eagle's Cookies equals 7 more than the sum of each Cookies's Ingredient and each Giant Eagle's Pies. The number of each Giant Eagle's Pies equals each Cookies's Banana. The number of each Financial District's Asda equals each Carrefour's Ingredient. The number of each Pies's Kiwi equals 4 more than each Cookies's Banana. The number of each Research Park's Carrefour equals each Cookies's Ingredient. The number of each Asda's Pies equals 15. How many Ingredient does Research Park have?",
+  "lookup": {
+    "p_1_2_0_3": 0,
+    "p_0_2_1_0": 6,
+    "p_0_1_2_2": 20,
+    "p_0_2_3_1": 10,
+    "p_0_0_0_2": 6,
+    "p_0_1_3_3": 15,
+    "p_0_0_0_0": 8,
+    "p_0_1_0_3": 6,
+    "p_1_2_3_3": 10,
+    "p_1_2_1_3": 6,
+    "p_0_1_0_1": 19,
+    "p_0_0_0_1": 3,
+    "p_1_1_0_3": 13,
+    "p_0_1_1_0": 19,
+    "p_0_0_1_1": 6,
+    "p_1_1_1_3": 0,
+    "p_0_0_0_3": 0,
+    "p_1_0_1_3": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_1_0",
+        "literal": 6,
+        "span": [
+          321,
+          365
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_0"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Cookies's Ingredient"
+        ],
+        "expression": "p_0_2_1_0",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Research Park's Carrefour"
+        ],
+        "expression": "p_1_2_1_3",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_3",
+        "parents": [
+          "p_0_2_1_0"
+        ],
+        "aliases": [
+          "p_0_1_0_3",
+          "Giant Eagle's Pies"
+        ],
+        "expression": "p_0_2_1_0",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_1_2_1_3",
+          "p_0_1_0_3"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Giant Eagle's Cookies"
+        ],
+        "expression": "(7 + (p_1_2_1_3 + p_0_1_0_3))",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_3_1",
+        "parents": [
+          "p_0_2_1_0"
+        ],
+        "aliases": [
+          "p_0_2_3_1",
+          "Pies's Kiwi"
+        ],
+        "expression": "(4 + p_0_2_1_0)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_3_3",
+        "parents": [
+          "p_0_2_3_1"
+        ],
+        "aliases": [
+          "p_1_2_3_3",
+          "Pies's Ingredient"
+        ],
+        "expression": "p_0_2_3_1",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_1",
+          "p_1_2_1_3",
+          "p_0_1_0_3",
+          "p_1_2_3_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Giant Eagle's Ingredient"
+        ],
+        "expression": "((p_0_1_0_1 * p_1_2_1_3) + (p_0_1_0_3 * p_1_2_3_3))",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Carrefour's Buns"
+        ],
+        "expression": "(5 * p_1_1_0_3)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "Carrefour's Ingredient"
+        ],
+        "expression": "(p_0_1_1_0 * 0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_3",
+        "parents": [
+          "p_0_0_1_1",
+          "p_1_1_1_3"
+        ],
+        "aliases": [
+          "p_1_0_1_3",
+          "Research Park's Ingredient"
+        ],
+        "expression": "(p_0_0_1_1 * p_1_1_1_3)",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_1_0",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_2_3_1"
+      ],
+      [
+        "p_0_2_3_1",
+        "p_1_2_3_3"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_3_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_1_0_1_3"
+      ]
+    ]
+  }
+}

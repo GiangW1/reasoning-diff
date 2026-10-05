@@ -1,0 +1,389 @@
+{
+  "native_id": "igsm-official-0047-op21",
+  "family_id": "igsm-official-0047-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260974,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "22",
+  "target": "p_0_1_1_0",
+  "question": "The number of each Sahara Desert's Walrus equals each Lungs's Cells. The number of each Blue Whale's Trachea equals each Bronchioles's Neutrophils. The number of each Sahara Desert's Manta Ray equals 17. The number of each Manta Ray's Lungs equals each Trachea's Neutrophils. The number of each Dasht-e Lut's Walrus equals 5 more than each Dasht-e Lut's Manta Ray. The number of each Bronchioles's Neutrophils equals 10 more than the sum of each Sahara Desert's Walrus and each Dasht-e Lut's Creatures. The number of each Great Victoria Desert's Blue Whale equals each Dasht-e Lut's Creatures. The number of each Dasht-e Lut's Manta Ray equals 0. The number of each Bronchioles's Dendritic Cells equals 2 times as much as each Dasht-e Lut's Organs. The number of each Lungs's B Cells equals each Great Victoria Desert's Blue Whale. The number of each Trachea's Neutrophils equals 13 times as much as each Blue Whale's Trachea. The number of each Blue Whale's Bronchioles equals the difference of each Bronchioles's Dendritic Cells and each Lungs's Cells. The number of each Walrus's Lungs equals 1 times as much as each Lungs's B Cells. The number of each Great Victoria Desert's Manta Ray equals 18. The number of each Manta Ray's Trachea equals 12 times as much as each Dasht-e Lut's Manta Ray. How many Bronchioles does Blue Whale have?",
+  "lookup": {
+    "p_0_0_2_2": 18,
+    "p_0_0_1_2": 0,
+    "p_0_1_2_2": 0,
+    "p_0_0_1_0": 5,
+    "p_0_0_0_2": 17,
+    "p_1_0_1_1": 5,
+    "p_0_0_2_1": 5,
+    "p_0_2_1_1": 5,
+    "p_0_1_0_1": 5,
+    "p_1_1_0_2": 5,
+    "p_1_2_1_3": 5,
+    "p_0_0_0_0": 5,
+    "p_0_2_0_0": 20,
+    "p_0_1_1_2": 20,
+    "p_0_2_2_0": 7,
+    "p_0_1_2_1": 7,
+    "p_1_1_2_2": 7,
+    "p_1_0_1_2": 2,
+    "p_0_2_0_2": 4,
+    "p_0_1_1_0": 22
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_2",
+        "literal": 0,
+        "span": [
+          594,
+          645
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Dasht-e Lut's Walrus"
+        ],
+        "expression": "(5 + p_0_0_1_2)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Dasht-e Lut's Creatures"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_2)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Great Victoria Desert's Blue Whale"
+        ],
+        "expression": "p_1_0_1_1",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Lungs's B Cells"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Walrus's Lungs"
+        ],
+        "expression": "(1 * p_0_2_1_1)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Walrus's Organs"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Lungs's Cells"
+        ],
+        "expression": "p_0_2_1_1",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Sahara Desert's Walrus"
+        ],
+        "expression": "p_1_2_1_3",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_0_0_0",
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Bronchioles's Neutrophils"
+        ],
+        "expression": "(10 + (p_0_0_0_0 + p_1_0_1_1))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Blue Whale's Trachea"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_0",
+        "parents": [
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_2_2_0",
+          "Trachea's Neutrophils"
+        ],
+        "expression": "(13 * p_0_1_1_2)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_2_2_0"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Manta Ray's Lungs"
+        ],
+        "expression": "p_0_2_2_0",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Manta Ray's Trachea"
+        ],
+        "expression": "(12 * p_0_0_1_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_1",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Manta Ray's Organs"
+        ],
+        "expression": "(p_0_1_2_1 + p_0_1_2_2)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_2",
+          "p_0_0_1_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Dasht-e Lut's Organs"
+        ],
+        "expression": "((p_0_0_1_0 * p_1_1_0_2) + (p_0_0_1_2 * p_1_1_2_2))",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_2",
+        "parents": [
+          "p_1_0_1_2"
+        ],
+        "aliases": [
+          "p_0_2_0_2",
+          "Bronchioles's Dendritic Cells"
+        ],
+        "expression": "(2 * p_1_0_1_2)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_2_0_2",
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Blue Whale's Bronchioles"
+        ],
+        "expression": "(p_0_2_0_2 - p_1_2_1_3)",
+        "value": 22
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_0_1_2",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_0_1_1_0"
+      ]
+    ]
+  }
+}

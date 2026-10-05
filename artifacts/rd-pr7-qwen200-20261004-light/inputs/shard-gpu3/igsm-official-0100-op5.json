@@ -1,0 +1,113 @@
+{
+  "native_id": "igsm-official-0100-op5",
+  "family_id": "igsm-official-0100-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261027,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "21",
+  "target": "p_0_1_1_1",
+  "question": "The number of each Backpacking Pack's Beads equals each Journalism Lab's Carry-On Backpack. The number of each Journalism Lab's Carry-On Backpack equals 5. The number of each Meadowbrook Primary's Marketing Classroom equals each Meadowbrook Primary's Journalism Lab. The number of each Meadowbrook Primary's Journalism Lab equals 6. The number of each Carry-On Backpack's Glitter equals 16. The number of each Marketing Classroom's Backpacking Pack equals 3 more than the sum of each Meadowbrook Primary's Classroom and each Meadowbrook Primary's Marketing Classroom. How many Backpacking Pack does Marketing Classroom have?",
+  "lookup": {
+    "p_0_2_0_0": 16,
+    "p_0_1_0_0": 5,
+    "p_0_0_0_0": 6,
+    "p_0_2_1_1": 5,
+    "p_0_0_0_1": 6,
+    "p_1_0_0_1": 12,
+    "p_0_1_1_1": 21
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 6,
+        "span": [
+          267,
+          331
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Meadowbrook Primary's Marketing Classroom"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Meadowbrook Primary's Classroom"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Marketing Classroom's Backpacking Pack"
+        ],
+        "expression": "(3 + (p_1_0_0_1 + p_0_0_0_1))",
+        "value": 21
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_1_1"
+      ]
+    ]
+  }
+}

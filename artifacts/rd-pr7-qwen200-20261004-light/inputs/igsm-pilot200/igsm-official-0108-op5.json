@@ -1,0 +1,114 @@
+{
+  "native_id": "igsm-official-0108-op5",
+  "family_id": "igsm-official-0108-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261036,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "17",
+  "target": "p_0_0_0_2",
+  "question": "The number of each Euglena's Stomach equals 14. The number of each Tardigrade's Gallbladder equals 11 more than each Spirogyra's Stomach. The number of each Spirogyra's Stomach equals 6. The number of each Spirogyra's Cecum equals the sum of each Tardigrade's Cecum, each Tardigrade's Gallbladder and each Spirogyra's Stomach. The number of each Tardigrade's Cecum equals each Tardigrade's Gallbladder. The number of each Spirogyra's Gallbladder equals 2 times as much as each Tardigrade's Stomach. The number of each Euglena's Gallbladder equals each Spirogyra's Cecum. The number of each Tardigrade's Stomach equals 6. How many Cecum does Spirogyra have?",
+  "lookup": {
+    "p_0_0_2_0": 6,
+    "p_0_0_0_1": 12,
+    "p_0_0_1_0": 14,
+    "p_0_0_0_0": 6,
+    "p_0_0_2_1": 17,
+    "p_0_0_2_2": 17,
+    "p_0_0_0_2": 17,
+    "p_0_0_1_1": 17
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 6,
+        "span": [
+          138,
+          185
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Tardigrade's Gallbladder"
+        ],
+        "expression": "(11 + p_0_0_0_0)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Tardigrade's Cecum"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_2_2",
+          "p_0_0_2_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Spirogyra's Cecum"
+        ],
+        "expression": "((p_0_0_2_2 + p_0_0_2_1) + p_0_0_0_0)",
+        "value": 17
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_2"
+      ]
+    ]
+  }
+}

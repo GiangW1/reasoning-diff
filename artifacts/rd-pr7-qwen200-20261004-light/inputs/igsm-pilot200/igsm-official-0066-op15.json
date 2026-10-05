@@ -1,0 +1,273 @@
+{
+  "native_id": "igsm-official-0066-op15",
+  "family_id": "igsm-official-0066-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260993,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "19",
+  "target": "p_0_1_1_0",
+  "question": "The number of each Lowland Grassland's Condor equals each Pigeon's Salivary Glands. The number of each Lowland Grassland's Stork equals each Lowland Grassland's Peregrine Falcon. The number of each Northern Grassland's Peregrine Falcon equals 6. The number of each Northern Grassland's Stork equals 13. The number of each Peregrine Falcon's Appendix equals the sum of each Northern Grassland's Creatures and each Condor's Pancreas. The number of each Condor's Appendix equals 8 more than each Lowland Grassland's Pigeon. The number of each Condor's Duodenum equals the sum of each Lowland Grassland's Pigeon, each Northern Grassland's Creatures and each Northern Grassland's Pigeon. The number of each Condor's Pancreas equals the difference of each Lowland Grassland's Pigeon and each Northern Grassland's Condor. The number of each Pigeon's Salivary Glands equals 10. The number of each Peregrine Falcon's Pancreas equals 13 more than each Stork's Pancreas. The number of each Pigeon's Appendix equals the sum of each Condor's Organs and each Condor's Pancreas. The number of each Peregrine Falcon's Duodenum equals 6 more than the sum of each Northern Grassland's Condor, each Condor's Pancreas and each Condor's Duodenum. The number of each Pigeon's Pancreas equals 15. The number of each Northern Grassland's Condor equals 19 more than each Northern Grassland's Stork. The number of each Lowland Grassland's Pigeon equals the sum of each Northern Grassland's Creatures and each Northern Grassland's Condor. The number of each Northern Grassland's Pigeon equals 10. The number of each Stork's Pancreas equals each Lowland Grassland's Peregrine Falcon. The number of each Stork's Duodenum equals 18 times as much as the sum of each Peregrine Falcon's Duodenum, each Northern Grassland's Creatures and each Pigeon's Salivary Glands. The number of each Stork's Salivary Glands equals 13 more than each Northern Grassland's Condor. The number of each Pigeon's Duodenum equals 18. The number of each Peregrine Falcon's Salivary Glands equals each Northern Grassland's Stork. The number of each Lowland Grassland's Peregrine Falcon equals each Pigeon's Salivary Glands. How many Appendix does Pigeon have?",
+  "lookup": {
+    "p_0_0_0_1": 10,
+    "p_0_1_1_2": 10,
+    "p_0_0_1_0": 10,
+    "p_0_1_1_3": 15,
+    "p_0_1_2_3": 10,
+    "p_0_0_0_0": 6,
+    "p_0_0_1_3": 10,
+    "p_0_1_1_1": 18,
+    "p_0_1_0_3": 0,
+    "p_0_0_1_2": 10,
+    "p_0_0_0_2": 13,
+    "p_0_0_0_3": 9,
+    "p_1_0_0_1": 15,
+    "p_0_1_0_2": 13,
+    "p_0_1_2_2": 22,
+    "p_0_0_1_1": 1,
+    "p_0_1_3_3": 15,
+    "p_0_1_3_0": 9,
+    "p_0_1_0_0": 7,
+    "p_0_1_3_1": 3,
+    "p_0_1_0_1": 10,
+    "p_1_1_3_2": 4,
+    "p_0_1_2_1": 9,
+    "p_0_1_1_0": 19
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 6,
+        "span": [
+          179,
+          244
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 10,
+        "span": [
+          1512,
+          1568
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_2",
+        "literal": 13,
+        "span": [
+          246,
+          301
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_3",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_3",
+          "Northern Grassland's Condor"
+        ],
+        "expression": "(19 + p_0_0_0_2)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2",
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Northern Grassland's Creatures"
+        ],
+        "expression": "(((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2) + p_0_0_0_3)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Lowland Grassland's Pigeon"
+        ],
+        "expression": "(p_1_0_0_1 + p_0_0_0_3)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_3_0",
+          "Condor's Appendix"
+        ],
+        "expression": "(8 + p_0_0_1_1)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_1",
+        "parents": [
+          "p_0_0_1_1",
+          "p_1_0_0_1",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_3_1",
+          "Condor's Duodenum"
+        ],
+        "expression": "((p_0_0_1_1 + p_1_0_0_1) + p_0_0_0_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_3",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_0_1_3_3",
+          "Condor's Pancreas"
+        ],
+        "expression": "(p_0_0_1_1 - p_0_0_0_3)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_3_2",
+        "parents": [
+          "p_0_1_3_0",
+          "p_0_1_3_1",
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_1_1_3_2",
+          "Condor's Organs"
+        ],
+        "expression": "((p_0_1_3_0 + p_0_1_3_1) + p_0_1_3_3)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_1_1_3_2",
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Pigeon's Appendix"
+        ],
+        "expression": "(p_1_1_3_2 + p_0_1_3_3)",
+        "value": 19
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_3_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_3_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_3_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_3_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_3_3"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_1_3_3"
+      ],
+      [
+        "p_0_1_3_0",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_1_3_1",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_1_1_3_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_0_1_1_0"
+      ]
+    ]
+  }
+}

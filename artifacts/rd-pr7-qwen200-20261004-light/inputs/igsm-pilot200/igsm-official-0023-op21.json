@@ -1,0 +1,362 @@
+{
+  "native_id": "igsm-official-0023-op21",
+  "family_id": "igsm-official-0023-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260949,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "4",
+  "target": "p_0_2_3_0",
+  "question": "The number of each Dragonfly's Parietal Lobe equals the difference of each Tropical Dry Forest's Vulture and each Dragonfly's Frontal Lobe. The number of each Temperate Broadleaf Forest's Hawk equals 11. The number of each Dragonfly's Frontal Lobe equals each Frontal Lobe's Neurons. The number of each Dragonfly's Hypothalamus equals the sum of each Old-growth Forest's Dragonfly and each Hypothalamus's Motor Neurons. The number of each Tropical Dry Forest's Vulture equals 12 times as much as each Hypothalamus's Pyramidal Cells. The number of each Butterfly's Hypothalamus equals 17 times as much as the sum of each Hypothalamus's Motor Neurons and each Old-growth Forest's Butterfly. The number of each Dragonfly's Spinal Nerves equals the sum of each Spinal Nerves's Neurons and each Parietal Lobe's Astrocytes. The number of each Old-growth Forest's Dragonfly equals 5 times as much as each Dragonfly's Frontal Lobe. The number of each Frontal Lobe's Neurons equals 3 more than the sum of each Butterfly's Hypothalamus, each Parietal Lobe's Astrocytes and each Old-growth Forest's Butterfly. The number of each Spinal Nerves's Neurons equals 11 more than the sum of each Old-growth Forest's Butterfly, each Temperate Broadleaf Forest's Hawk and each Parietal Lobe's Astrocytes. The number of each Old-growth Forest's Butterfly equals the sum of each Parietal Lobe's Astrocytes and each Temperate Broadleaf Forest's Hawk. The number of each Tropical Dry Forest's Butterfly equals 6. The number of each Tropical Dry Forest's Hawk equals each Dragonfly's Parietal Lobe. The number of each Parietal Lobe's Neurons equals 7 more than each Tropical Dry Forest's Hawk. The number of each Hypothalamus's Pyramidal Cells equals each Dragonfly's Hypothalamus. The number of each Hypothalamus's Motor Neurons equals 4 more than each Dragonfly's Spinal Nerves. The number of each Parietal Lobe's Astrocytes equals each Temperate Broadleaf Forest's Hawk. How many Neurons does Parietal Lobe have?",
+  "lookup": {
+    "p_0_0_1_0": 11,
+    "p_0_0_3_3": 6,
+    "p_0_2_3_2": 11,
+    "p_0_0_2_3": 22,
+    "p_0_2_1_0": 9,
+    "p_0_1_2_1": 20,
+    "p_0_2_0_3": 1,
+    "p_0_1_3_0": 0,
+    "p_0_2_2_0": 13,
+    "p_0_1_2_2": 13,
+    "p_0_0_2_2": 19,
+    "p_0_1_2_0": 20,
+    "p_0_2_0_1": 20,
+    "p_0_0_3_1": 10,
+    "p_0_1_2_3": 20,
+    "p_0_0_3_0": 20,
+    "p_0_2_3_0": 4
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 11,
+        "span": [
+          140,
+          202
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_3_2",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_2_3_2",
+          "Parietal Lobe's Astrocytes"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_2_3_2",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Old-growth Forest's Butterfly"
+        ],
+        "expression": "(p_0_2_3_2 + p_0_0_1_0)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_0_0_2_3",
+          "p_0_0_1_0",
+          "p_0_2_3_2"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Spinal Nerves's Neurons"
+        ],
+        "expression": "(11 + ((p_0_0_2_3 + p_0_0_1_0) + p_0_2_3_2))",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_2_1_0",
+          "p_0_2_3_2"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Dragonfly's Spinal Nerves"
+        ],
+        "expression": "(p_0_2_1_0 + p_0_2_3_2)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_3",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_2_0_3",
+          "Hypothalamus's Motor Neurons"
+        ],
+        "expression": "(4 + p_0_1_2_1)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_0",
+        "parents": [
+          "p_0_2_0_3",
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_0_1_3_0",
+          "Butterfly's Hypothalamus"
+        ],
+        "expression": "(17 * (p_0_2_0_3 + p_0_0_2_3))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_0",
+        "parents": [
+          "p_0_1_3_0",
+          "p_0_2_3_2",
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_0_2_2_0",
+          "Frontal Lobe's Neurons"
+        ],
+        "expression": "(3 + ((p_0_1_3_0 + p_0_2_3_2) + p_0_0_2_3))",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_2_2_0"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Dragonfly's Frontal Lobe"
+        ],
+        "expression": "p_0_2_2_0",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Old-growth Forest's Dragonfly"
+        ],
+        "expression": "(5 * p_0_1_2_2)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_0_2_2",
+          "p_0_2_0_3"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Dragonfly's Hypothalamus"
+        ],
+        "expression": "(p_0_0_2_2 + p_0_2_0_3)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Hypothalamus's Pyramidal Cells"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "Tropical Dry Forest's Vulture"
+        ],
+        "expression": "(12 * p_0_2_0_1)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_3",
+        "parents": [
+          "p_0_0_3_1",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_1_2_3",
+          "Dragonfly's Parietal Lobe"
+        ],
+        "expression": "(p_0_0_3_1 - p_0_1_2_2)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_0_1_2_3"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Tropical Dry Forest's Hawk"
+        ],
+        "expression": "p_0_1_2_3",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_3_0",
+        "parents": [
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_2_3_0",
+          "Parietal Lobe's Neurons"
+        ],
+        "expression": "(7 + p_0_0_3_0)",
+        "value": 4
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_2_3_2"
+      ],
+      [
+        "p_0_2_3_2",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_3_2",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_2_3_2",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_2_0_3"
+      ],
+      [
+        "p_0_2_0_3",
+        "p_0_1_3_0"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_1_3_0"
+      ],
+      [
+        "p_0_1_3_0",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_2_3_2",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_2_0_3",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_0_1_2_3"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_1_2_3"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_2_3_0"
+      ]
+    ]
+  }
+}

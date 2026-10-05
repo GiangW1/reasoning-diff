@@ -1,0 +1,171 @@
+{
+  "native_id": "igsm-official-0185-op10",
+  "family_id": "igsm-official-0185-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261118,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "0",
+  "target": "p_0_1_1_1",
+  "question": "The number of each Spirogyra's Pelvis equals 6 more than each Lumpini Park in Bangkok's Daphnia. The number of each Nematode's Deltoid equals the sum of each Spirogyra's Triceps, each Lumpini Park in Bangkok's Daphnia and each Spine's Osteoblasts. The number of each Lumpini Park in Bangkok's Gonium equals the sum of each Pelvis's Cells and each Pelvis's Endothelial Cells of Blood Vessels. The number of each Lumpini Park in Bangkok's Daphnia equals 22. The number of each Pelvis's Mesenchymal Cells equals 5. The number of each Spine's Osteoclasts equals 8 times as much as each Spine's Osteoblasts. The number of each Daphnia's Spine equals 5 more than the sum of each Pelvis's Endothelial Cells of Blood Vessels, each Lumpini Park in Bangkok's Daphnia and each Spirogyra's Organs. The number of each Pelvis's Endothelial Cells of Blood Vessels equals 7 more than the sum of each Spirogyra's Organs, each Spirogyra's Triceps and each Spirogyra's Pelvis. The number of each Spirogyra's Triceps equals each Lumpini Park in Bangkok's Daphnia. The number of each Vondelpark in Amsterdam's Spirogyra equals 20 more than the sum of each Ibirapuera Park in S\u00e3o Paulo's Organs, each Triceps's Cells and each Spirogyra's Triceps. The number of each Spine's Osteoblasts equals 9. The number of each Lumpini Park in Bangkok's Nematode equals 16. How many Spine does Daphnia have?",
+  "lookup": {
+    "p_1_0_1_2": 0,
+    "p_1_2_3_3": 0,
+    "p_0_2_1_1": 9,
+    "p_0_0_2_0": 16,
+    "p_0_0_2_1": 22,
+    "p_0_2_2_0": 5,
+    "p_0_2_1_2": 3,
+    "p_0_1_2_3": 22,
+    "p_0_0_0_2": 19,
+    "p_0_1_0_0": 7,
+    "p_0_1_2_2": 5,
+    "p_1_1_2_2": 4,
+    "p_0_2_2_3": 15,
+    "p_1_2_2_3": 20,
+    "p_0_1_1_1": 0,
+    "p_0_0_2_3": 12
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 22,
+        "span": [
+          392,
+          454
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Spirogyra's Pelvis"
+        ],
+        "expression": "(6 + p_0_0_2_1)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_3",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_3",
+          "Spirogyra's Triceps"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_2",
+          "p_0_1_2_3"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Spirogyra's Organs"
+        ],
+        "expression": "(p_0_1_2_2 + p_0_1_2_3)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_3",
+        "parents": [
+          "p_1_1_2_2",
+          "p_0_1_2_3",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_2_2_3",
+          "Pelvis's Endothelial Cells of Blood Vessels"
+        ],
+        "expression": "(7 + ((p_1_1_2_2 + p_0_1_2_3) + p_0_1_2_2))",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_2_2_3",
+          "p_0_0_2_1",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Daphnia's Spine"
+        ],
+        "expression": "(5 + ((p_0_2_2_3 + p_0_0_2_1) + p_1_1_2_2))",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_1",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_2_3"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_2_2_3"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_0_2_2_3"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_2_2_3"
+      ],
+      [
+        "p_0_2_2_3",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_1_1_1"
+      ]
+    ]
+  }
+}

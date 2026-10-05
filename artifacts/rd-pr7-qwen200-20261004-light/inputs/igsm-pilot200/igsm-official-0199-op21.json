@@ -1,0 +1,264 @@
+{
+  "native_id": "igsm-official-0199-op21",
+  "family_id": "igsm-official-0199-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261133,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "21",
+  "target": "p_1_0_0_2",
+  "question": "The number of each Wolf's Aortic Valve equals 21 times as much as the sum of each Arctic Ocean's Wolf and each Wolf's Veins. The number of each Wolf's Veins equals 9. The number of each Coral Reef's Chimpanzee equals the sum of each Chimpanzee's Organs, each Hippopotamus's Aorta and each Aorta's Myocytes. The number of each Coral Reef's Hippopotamus equals 22. The number of each Arctic Ocean's Wolf equals 4 more than each Wolf's Veins. The number of each Aorta's Myocytes equals 21 more than the difference of each Aorta's Skeletal Muscle Cells and each Wolf's Veins. The number of each Aorta's Skeletal Muscle Cells equals 20 more than the sum of each Veins's Intercalated Discs, each Wolf's Aortic Valve and each Arctic Ocean's Wolf. The number of each Hippopotamus's Aorta equals 16 more than the sum of each Aorta's Myocytes and each Wolf's Aortic Valve. The number of each Veins's Intercalated Discs equals 12 times as much as the difference of each Wolf's Aortic Valve and each Arctic Ocean's Wolf. How many Organs does Coral Reef have?",
+  "lookup": {
+    "p_0_0_0_2": 22,
+    "p_0_1_1_2": 9,
+    "p_1_1_0_2": 0,
+    "p_0_0_2_1": 13,
+    "p_0_1_1_1": 2,
+    "p_0_2_2_2": 6,
+    "p_0_2_0_0": 18,
+    "p_0_2_0_1": 7,
+    "p_0_1_2_0": 2,
+    "p_0_0_0_0": 9,
+    "p_1_1_2_2": 2,
+    "p_1_0_0_2": 21
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_2",
+        "literal": 9,
+        "span": [
+          125,
+          165
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_2",
+        "literal": 22,
+        "span": [
+          307,
+          361
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Arctic Ocean's Wolf"
+        ],
+        "expression": "(4 + p_0_1_1_2)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Wolf's Aortic Valve"
+        ],
+        "expression": "(21 * (p_0_0_2_1 + p_0_1_1_2))",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_2",
+        "parents": [
+          "p_0_1_1_1",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_2_2_2",
+          "Veins's Intercalated Discs"
+        ],
+        "expression": "(12 * (p_0_1_1_1 - p_0_0_2_1))",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_2_2_2",
+          "p_0_1_1_1",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Aorta's Skeletal Muscle Cells"
+        ],
+        "expression": "(20 + ((p_0_2_2_2 + p_0_1_1_1) + p_0_0_2_1))",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Aorta's Myocytes"
+        ],
+        "expression": "(21 + (p_0_2_0_0 - p_0_1_1_2))",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_2_0_1",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Hippopotamus's Aorta"
+        ],
+        "expression": "(16 + (p_0_2_0_1 + p_0_1_1_1))",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Coral Reef's Chimpanzee"
+        ],
+        "expression": "((0 + p_0_1_2_0) + p_0_2_0_1)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Hippopotamus's Organs"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_2",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_0_2",
+          "Coral Reef's Organs"
+        ],
+        "expression": "((p_0_0_0_0 * 0) + (p_0_0_0_2 * p_1_1_2_2))",
+        "value": 21
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_0_2"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "native_id": "igsm-official-0034-op15",
+  "family_id": "igsm-official-0034-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260960,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "17",
+  "target": "p_1_0_2_1",
+  "question": "The number of each Sun Basket's Oat Milk equals 15 more than the sum of each Instacart's Product, each Thrive Market's Wine and each Thrive Market's Product. The number of each Instacart's Wine equals 21 times as much as the sum of each Thrive Market's Product and each Thrive Market's Wine. The number of each Instacart's Oat Milk equals 10 times as much as the sum of each Instacart's Smoothies and each Thrive Market's Wine. The number of each Instacart's Smoothies equals 1 more than the sum of each Thrive Market's Wine, each Thrive Market's Product and each Instacart's Wine. The number of each Thrive Market's Wine equals 22. How many Product does Sun Basket have?",
+  "lookup": {
+    "p_0_0_1_2": 22,
+    "p_1_0_1_1": 22,
+    "p_0_0_0_2": 4,
+    "p_0_0_0_0": 3,
+    "p_0_0_0_1": 20,
+    "p_1_0_0_1": 4,
+    "p_0_0_2_1": 17,
+    "p_1_0_2_1": 17
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_2",
+        "literal": 22,
+        "span": [
+          582,
+          631
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Thrive Market's Product"
+        ],
+        "expression": "p_0_0_1_2",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Instacart's Wine"
+        ],
+        "expression": "(21 * (p_1_0_1_1 + p_0_0_1_2))",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_2",
+          "p_1_0_1_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Instacart's Smoothies"
+        ],
+        "expression": "(1 + ((p_0_0_1_2 + p_1_0_1_1) + p_0_0_0_2))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Instacart's Oat Milk"
+        ],
+        "expression": "(10 * (p_0_0_0_0 + p_0_0_1_2))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Instacart's Product"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_1_2",
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Sun Basket's Oat Milk"
+        ],
+        "expression": "(15 + ((p_1_0_0_1 + p_0_0_1_2) + p_1_0_1_1))",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Sun Basket's Product"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 17
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ]
+    ]
+  }
+}

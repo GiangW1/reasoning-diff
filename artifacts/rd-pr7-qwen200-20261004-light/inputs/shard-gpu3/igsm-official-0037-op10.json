@@ -1,0 +1,165 @@
+{
+  "native_id": "igsm-official-0037-op10",
+  "family_id": "igsm-official-0037-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260963,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "17",
+  "target": "p_0_2_2_1",
+  "question": "The number of each Business District's Buford Highway Farmers Market equals the sum of each Buford Highway Farmers Market's Yogurt Covered Raisins, each Business District's Uwajimaya, each Entertainment District's NetCost Market and each NetCost Market's Hummus. The number of each Dried Fruit's Apple equals 8. The number of each Hummus's Apple equals each Buford Highway Farmers Market's Yogurt Covered Raisins. The number of each Business District's Uwajimaya equals the difference of each NetCost Market's Hummus and each NetCost Market's Yogurt Covered Raisins. The number of each Business District's NetCost Market equals 15 more than the difference of each Wall Street's Buford Highway Farmers Market and each Buford Highway Farmers Market's Product. The number of each Buford Highway Farmers Market's Dried Fruit equals 10 times as much as each Dried Fruit's Apple. The number of each Entertainment District's NetCost Market equals each NetCost Market's Hummus. The number of each Wall Street's NetCost Market equals 5. The number of each NetCost Market's Hummus equals 19. The number of each Wall Street's Uwajimaya equals the sum of each NetCost Market's Yogurt Covered Raisins, each Hummus's Kiwi, each Buford Highway Farmers Market's Yogurt Covered Raisins and each Business District's Uwajimaya. The number of each Entertainment District's Uwajimaya equals 13 times as much as each Business District's Uwajimaya. The number of each Hummus's Kiwi equals 19 more than each Entertainment District's NetCost Market. The number of each Yogurt Covered Raisins's Apple equals each Dried Fruit's Ingredient. The number of each Wall Street's Buford Highway Farmers Market equals 22 more than the sum of each Entertainment District's Buford Highway Farmers Market, each Dried Fruit's Apple and each Buford Highway Farmers Market's Dried Fruit. The number of each Yogurt Covered Raisins's Kiwi equals the sum of each Buford Highway Farmers Market's Dried Fruit, each Dried Fruit's Kiwi and each Dried Fruit's Apple. The number of each Uwajimaya's Dried Fruit equals each Hummus's Ingredient. The number of each Yogurt Covered Raisins's Pear equals the sum of each Wall Street's Buford Highway Farmers Market and each Entertainment District's Buford Highway Farmers Market. The number of each NetCost Market's Yogurt Covered Raisins equals 0. The number of each NetCost Market's Dried Fruit equals 11. The number of each Buford Highway Farmers Market's Yogurt Covered Raisins equals 22 more than the sum of each NetCost Market's Hummus, each NetCost Market's Yogurt Covered Raisins and each Business District's Uwajimaya. The number of each Buford Highway Farmers Market's Hummus equals 4 times as much as each NetCost Market's Hummus. The number of each Entertainment District's Buford Highway Farmers Market equals 7 times as much as the difference of each Buford Highway Farmers Market's Dried Fruit and each Dried Fruit's Apple. The number of each Dried Fruit's Pear equals the sum of each Dried Fruit's Kiwi, each Dried Fruit's Apple, each Wall Street's Buford Highway Farmers Market and each Buford Highway Farmers Market's Dried Fruit. The number of each Dried Fruit's Kiwi equals 18 more than the sum of each Wall Street's Buford Highway Farmers Market, each Dried Fruit's Apple and each Entertainment District's Buford Highway Farmers Market. How many Kiwi does Dried Fruit have?",
+  "lookup": {
+    "p_0_1_2_0": 0,
+    "p_0_1_2_1": 19,
+    "p_0_0_0_2": 5,
+    "p_0_2_2_2": 8,
+    "p_0_0_2_2": 19,
+    "p_0_1_2_2": 11,
+    "p_0_0_1_1": 19,
+    "p_0_1_0_2": 11,
+    "p_0_1_0_0": 14,
+    "p_0_0_2_1": 17,
+    "p_0_0_1_0": 2,
+    "p_0_1_0_1": 7,
+    "p_1_1_0_2": 9,
+    "p_0_0_2_0": 21,
+    "p_0_0_0_0": 16,
+    "p_0_2_2_1": 17,
+    "p_0_2_0_0": 14,
+    "p_0_2_1_1": 15,
+    "p_0_2_2_0": 6,
+    "p_0_0_0_1": 2,
+    "p_0_0_1_2": 22,
+    "p_0_2_0_1": 13,
+    "p_0_2_1_2": 14,
+    "p_1_2_2_3": 8,
+    "p_1_2_1_3": 6,
+    "p_0_1_1_2": 6,
+    "p_0_2_0_2": 8
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_2_2",
+        "literal": 8,
+        "span": [
+          263,
+          310
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Buford Highway Farmers Market's Dried Fruit"
+        ],
+        "expression": "(10 * p_0_2_2_2)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_1_0_2",
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Entertainment District's Buford Highway Farmers Market"
+        ],
+        "expression": "(7 * (p_0_1_0_2 - p_0_2_2_2))",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_2_2_2",
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Wall Street's Buford Highway Farmers Market"
+        ],
+        "expression": "(22 + ((p_0_0_2_0 + p_0_2_2_2) + p_0_1_0_2))",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_2_2_2",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_2_2_1",
+          "Dried Fruit's Kiwi"
+        ],
+        "expression": "(18 + ((p_0_0_0_0 + p_0_2_2_2) + p_0_0_2_0))",
+        "value": 17
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_2_2",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_2_2_1"
+      ]
+    ]
+  }
+}

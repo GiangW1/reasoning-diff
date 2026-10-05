@@ -1,0 +1,285 @@
+{
+  "native_id": "igsm-official-0107-op21",
+  "family_id": "igsm-official-0107-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261035,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "16",
+  "target": "p_0_0_1_2",
+  "question": "The number of each Sydney Aquarium's Ant Farm equals 18. The number of each Oceanografic's Spider Web Exhibit equals 19 more than each Sydney Aquarium's Mantis Habitat. The number of each Adventure Aquarium's Spider Web Exhibit equals 19 more than the sum of each Sydney Aquarium's Ant Farm, each Georgia Aquarium's Spider Web Exhibit and each Georgia Aquarium's Mantis Habitat. The number of each Georgia Aquarium's Ant Farm equals each Sydney Aquarium's Ant Farm. The number of each Sydney Aquarium's Spider Web Exhibit equals the difference of each Georgia Aquarium's Mantis Habitat and each Adventure Aquarium's Spider Web Exhibit. The number of each Adventure Aquarium's Worm World equals 14. The number of each Georgia Aquarium's Spider Web Exhibit equals each Sydney Aquarium's Ant Farm. The number of each Sydney Aquarium's Mantis Habitat equals 1 times as much as each Oceanografic's Mantis Habitat. The number of each Georgia Aquarium's Mantis Habitat equals each Sydney Aquarium's Ant Farm. The number of each Georgia Aquarium's Worm World equals 6 times as much as the sum of each Oceanografic's Enclosure and each Sydney Aquarium's Mantis Habitat. The number of each Oceanografic's Ant Farm equals the sum of each Adventure Aquarium's Ant Farm, each Sydney Aquarium's Worm World, each Oceanografic's Mantis Habitat and each Sydney Aquarium's Mantis Habitat. The number of each Oceanografic's Worm World equals 13 more than the sum of each Sydney Aquarium's Worm World and each Sydney Aquarium's Mantis Habitat. The number of each Sydney Aquarium's Worm World equals 17 more than the sum of each Adventure Aquarium's Ant Farm, each Oceanografic's Mantis Habitat and each Sydney Aquarium's Mantis Habitat. The number of each Oceanografic's Mantis Habitat equals 13. The number of each Adventure Aquarium's Mantis Habitat equals the sum of each Georgia Aquarium's Worm World, each Oceanografic's Spider Web Exhibit, each Oceanografic's Mantis Habitat and each Adventure Aquarium's Ant Farm. The number of each Adventure Aquarium's Ant Farm equals 18 times as much as the sum of each Sydney Aquarium's Mantis Habitat and each Oceanografic's Mantis Habitat. How many Mantis Habitat does Adventure Aquarium have?",
+  "lookup": {
+    "p_0_0_0_1": 18,
+    "p_0_0_1_0": 14,
+    "p_0_0_2_2": 18,
+    "p_0_0_2_1": 18,
+    "p_0_0_2_3": 18,
+    "p_0_0_1_3": 4,
+    "p_0_0_0_3": 14,
+    "p_0_0_3_2": 13,
+    "p_0_0_0_2": 13,
+    "p_0_0_1_1": 8,
+    "p_0_0_3_3": 9,
+    "p_0_0_0_0": 5,
+    "p_0_0_3_0": 8,
+    "p_0_0_3_1": 16,
+    "p_1_0_3_1": 0,
+    "p_0_0_2_0": 9,
+    "p_0_0_1_2": 16
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_3_2",
+        "literal": 13,
+        "span": [
+          1717,
+          1775
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_3_2"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Sydney Aquarium's Mantis Habitat"
+        ],
+        "expression": "(1 * p_0_0_3_2)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_0_2",
+          "p_0_0_3_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Adventure Aquarium's Ant Farm"
+        ],
+        "expression": "(18 * (p_0_0_0_2 + p_0_0_3_2))",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_3_2",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Sydney Aquarium's Worm World"
+        ],
+        "expression": "(17 + ((p_0_0_1_1 + p_0_0_3_2) + p_0_0_0_2))",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Oceanografic's Worm World"
+        ],
+        "expression": "(13 + (p_0_0_0_0 + p_0_0_0_2))",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_0_0",
+          "p_0_0_3_2",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "Oceanografic's Ant Farm"
+        ],
+        "expression": "(((p_0_0_1_1 + p_0_0_0_0) + p_0_0_3_2) + p_0_0_0_2)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_3",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_3_3",
+          "Oceanografic's Spider Web Exhibit"
+        ],
+        "expression": "(19 + p_0_0_0_2)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_1",
+        "parents": [
+          "p_0_0_3_0",
+          "p_0_0_3_1",
+          "p_0_0_3_2",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_1_0_3_1",
+          "Oceanografic's Enclosure"
+        ],
+        "expression": "(((p_0_0_3_0 + p_0_0_3_1) + p_0_0_3_2) + p_0_0_3_3)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_1_0_3_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Georgia Aquarium's Worm World"
+        ],
+        "expression": "(6 * (p_1_0_3_1 + p_0_0_0_2))",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_3_3",
+          "p_0_0_3_2",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Adventure Aquarium's Mantis Habitat"
+        ],
+        "expression": "(((p_0_0_2_0 + p_0_0_3_3) + p_0_0_3_2) + p_0_0_1_1)",
+        "value": 16
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_3_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_3_3"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_2"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "native_id": "igsm-official-0102-op15",
+  "family_id": "igsm-official-0102-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261030,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "18",
+  "target": "p_0_1_1_2",
+  "question": "The number of each Owl's Pulmonary Veins equals 5 times as much as the sum of each Pigeon's Venules and each Boreal Forest's Condor. The number of each Boreal Forest's Owl equals 20 times as much as the sum of each Coniferous Forest's Creatures, each Pulmonary Veins's Microglia and each Coniferous Forest's Condor. The number of each Coniferous Forest's Condor equals each Pulmonary Veins's Microglia. The number of each Venules's Interneurons equals each Cloud Forest's Organs. The number of each Pigeon's Venules equals 22. The number of each Venules's Astrocytes equals 13 times as much as the sum of each Pigeon's Pulmonary Veins and each Boreal Forest's Owl. The number of each Condor's Aortic Valve equals 21 more than the sum of each Venules's Astrocytes, each Pulmonary Veins's Microglia and each Boreal Forest's Owl. The number of each Pulmonary Veins's Microglia equals each Cloud Forest's Pigeon. The number of each Cloud Forest's Pigeon equals 11. The number of each Pigeon's Pulmonary Veins equals 16 times as much as the sum of each Boreal Forest's Owl, each Cloud Forest's Pigeon and each Coniferous Forest's Creatures. The number of each Boreal Forest's Condor equals each Pigeon's Venules. How many Aortic Valve does Condor have?",
+  "lookup": {
+    "p_0_0_0_0": 11,
+    "p_0_1_0_0": 22,
+    "p_0_2_1_0": 11,
+    "p_0_0_1_1": 22,
+    "p_0_0_2_1": 11,
+    "p_0_1_2_1": 13,
+    "p_1_0_2_1": 11,
+    "p_0_0_1_2": 16,
+    "p_0_1_0_1": 10,
+    "p_0_2_0_1": 16,
+    "p_0_1_1_2": 18,
+    "p_1_1_0_2": 9,
+    "p_1_0_0_2": 7,
+    "p_0_2_0_2": 7
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 11,
+        "span": [
+          909,
+          959
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Pulmonary Veins's Microglia"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_2_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Coniferous Forest's Condor"
+        ],
+        "expression": "p_0_2_1_0",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Coniferous Forest's Creatures"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_2_1_0",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Boreal Forest's Owl"
+        ],
+        "expression": "(20 * ((p_1_0_2_1 + p_0_2_1_0) + p_0_0_2_1))",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_1_2",
+          "p_0_0_0_0",
+          "p_1_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Pigeon's Pulmonary Veins"
+        ],
+        "expression": "(16 * ((p_0_0_1_2 + p_0_0_0_0) + p_1_0_2_1))",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Venules's Astrocytes"
+        ],
+        "expression": "(13 * (p_0_1_0_1 + p_0_0_1_2))",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_2_0_1",
+          "p_0_2_1_0",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Condor's Aortic Valve"
+        ],
+        "expression": "(21 + ((p_0_2_0_1 + p_0_2_1_0) + p_0_0_1_2))",
+        "value": 18
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_1_1_2"
+      ]
+    ]
+  }
+}

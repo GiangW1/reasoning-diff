@@ -1,0 +1,132 @@
+{
+  "native_id": "igsm-official-0144-op5",
+  "family_id": "igsm-official-0144-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261074,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "5",
+  "target": "p_0_0_3_0",
+  "question": "The number of each Chimera's Spinal Cord equals the difference of each Centaur's Spinal Cord and each Chimera's Pons. The number of each Kraken's Spinal Cord equals the sum of each Chimera's Pons and each Centaur's Organs. The number of each Kraken's Ganglia equals 21 times as much as the difference of each Unicorn's Ganglia and each Unicorn's Organs. The number of each Chimera's Pons equals each Unicorn's Ganglia. The number of each Centaur's Autonomic Nerves equals each Chimera's Pons. The number of each Centaur's Spinal Cord equals the sum of each Centaur's Autonomic Nerves and each Unicorn's Ganglia. The number of each Unicorn's Ganglia equals 5. How many Spinal Cord does Chimera have?",
+  "lookup": {
+    "p_0_0_1_3": 5,
+    "p_1_0_1_1": 5,
+    "p_0_0_0_3": 0,
+    "p_0_0_3_1": 5,
+    "p_0_0_2_2": 5,
+    "p_0_0_2_0": 10,
+    "p_1_0_2_1": 15,
+    "p_0_0_0_0": 20,
+    "p_0_0_3_0": 5
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_3",
+        "literal": 5,
+        "span": [
+          612,
+          657
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "Chimera's Pons"
+        ],
+        "expression": "p_0_0_1_3",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Centaur's Autonomic Nerves"
+        ],
+        "expression": "p_0_0_3_1",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_2_2",
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Centaur's Spinal Cord"
+        ],
+        "expression": "(p_0_0_2_2 + p_0_0_1_3)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Chimera's Spinal Cord"
+        ],
+        "expression": "(p_0_0_2_0 - p_0_0_3_1)",
+        "value": 5
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_3",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_0_0_3_0"
+      ]
+    ]
+  }
+}

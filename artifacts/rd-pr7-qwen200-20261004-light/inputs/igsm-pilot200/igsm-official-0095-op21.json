@@ -1,0 +1,268 @@
+{
+  "native_id": "igsm-official-0095-op21",
+  "family_id": "igsm-official-0095-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261022,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "1",
+  "target": "p_0_0_1_2",
+  "question": "The number of each Aorta's Renal Tubular Cells equals 3 times as much as the sum of each Mitral Valve's Intestinal Absorptive Cells and each Aorta's Intestinal Absorptive Cells. The number of each Aorta's Mucous Cells equals 18 times as much as the difference of each Mitral Valve's Mucous Cells and each Aorta's Renal Tubular Cells. The number of each Heart's Intestinal Absorptive Cells equals 15 times as much as the sum of each Mitral Valve's Renal Tubular Cells and each Heart's Mucous Cells. The number of each Aorta's Intestinal Absorptive Cells equals 16. The number of each Heart's Mucous Cells equals 21 more than the sum of each Mitral Valve's Renal Tubular Cells, each Mitral Valve's Intestinal Absorptive Cells and each Aorta's Intestinal Absorptive Cells. The number of each Mitral Valve's Renal Tubular Cells equals 17 times as much as the difference of each Aorta's Renal Tubular Cells and each Aorta's Intestinal Absorptive Cells. The number of each Heart's Renal Tubular Cells equals 3 times as much as the sum of each Aorta's Renal Tubular Cells, each Mitral Valve's Intestinal Absorptive Cells and each Mitral Valve's Renal Tubular Cells. The number of each Mitral Valve's Mucous Cells equals 18 times as much as the sum of each Heart's Cells, each Heart's Intestinal Absorptive Cells and each Aorta's Intestinal Absorptive Cells. The number of each Mitral Valve's Intestinal Absorptive Cells equals each Aorta's Intestinal Absorptive Cells. How many Mucous Cells does Aorta have?",
+  "lookup": {
+    "p_0_0_1_0": 16,
+    "p_0_0_0_0": 16,
+    "p_0_0_1_1": 4,
+    "p_0_0_0_1": 3,
+    "p_0_0_2_1": 0,
+    "p_0_0_2_2": 10,
+    "p_0_0_2_0": 11,
+    "p_1_0_2_1": 21,
+    "p_0_0_0_2": 13,
+    "p_0_0_1_2": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 16,
+        "span": [
+          498,
+          562
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Mitral Valve's Intestinal Absorptive Cells"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Aorta's Renal Tubular Cells"
+        ],
+        "expression": "(3 * (p_0_0_0_0 + p_0_0_1_0))",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Mitral Valve's Renal Tubular Cells"
+        ],
+        "expression": "(17 * (p_0_0_1_1 - p_0_0_1_0))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_0_0_0",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Heart's Mucous Cells"
+        ],
+        "expression": "(21 + ((p_0_0_0_1 + p_0_0_0_0) + p_0_0_1_0))",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Heart's Intestinal Absorptive Cells"
+        ],
+        "expression": "(15 * (p_0_0_0_1 + p_0_0_2_2))",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Heart's Renal Tubular Cells"
+        ],
+        "expression": "(3 * ((p_0_0_1_1 + p_0_0_0_0) + p_0_0_0_1))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Heart's Cells"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_2_0",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Mitral Valve's Mucous Cells"
+        ],
+        "expression": "(18 * ((p_1_0_2_1 + p_0_0_2_0) + p_0_0_1_0))",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_0_2",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Aorta's Mucous Cells"
+        ],
+        "expression": "(18 * (p_0_0_0_2 - p_0_0_1_1))",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_2"
+      ]
+    ]
+  }
+}

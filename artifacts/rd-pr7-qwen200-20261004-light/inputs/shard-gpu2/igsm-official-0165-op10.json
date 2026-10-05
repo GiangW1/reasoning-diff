@@ -1,0 +1,164 @@
+{
+  "native_id": "igsm-official-0165-op10",
+  "family_id": "igsm-official-0165-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261096,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "10",
+  "target": "p_0_0_2_2",
+  "question": "The number of each Millennium Park in Chicago's Armadillo equals the sum of each Armadillo's Organs, each Leopard's Patella and each Kangaroo's Wrist Joint. The number of each Leopard's Patella equals 1 times as much as each Millennium Park in Chicago's Leopard. The number of each Kangaroo's Wrist Joint equals 10 more than the sum of each Leopard's Patella and each Millennium Park in Chicago's Leopard. The number of each Millennium Park in Chicago's Kangaroo equals 3 times as much as the sum of each Millennium Park in Chicago's Leopard and each Leopard's Organs. The number of each Bukhansan National Park in Seoul's Anteater equals 16. The number of each Armadillo's Elbow Joint equals 20 more than the sum of each Kangaroo's Wrist Joint, each Millennium Park in Chicago's Leopard and each Leopard's Patella. The number of each Millennium Park in Chicago's Leopard equals 22. How many Armadillo does Millennium Park in Chicago have?",
+  "lookup": {
+    "p_0_0_0_0": 16,
+    "p_0_0_2_1": 22,
+    "p_0_1_1_1": 22,
+    "p_0_1_3_0": 8,
+    "p_0_1_2_2": 3,
+    "p_1_1_1_2": 22,
+    "p_1_1_2_2": 3,
+    "p_0_0_2_2": 10,
+    "p_0_0_2_3": 17
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 22,
+        "span": [
+          816,
+          881
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Leopard's Patella"
+        ],
+        "expression": "(1 * p_0_0_2_1)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_0",
+        "parents": [
+          "p_0_1_1_1",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_3_0",
+          "Kangaroo's Wrist Joint"
+        ],
+        "expression": "(10 + (p_0_1_1_1 + p_0_0_2_1))",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_1_3_0",
+          "p_0_0_2_1",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Armadillo's Elbow Joint"
+        ],
+        "expression": "(20 + ((p_0_1_3_0 + p_0_0_2_1) + p_0_1_1_1))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Armadillo's Organs"
+        ],
+        "expression": "p_0_1_2_2",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_1_1_2_2",
+          "p_0_1_1_1",
+          "p_0_1_3_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Millennium Park in Chicago's Armadillo"
+        ],
+        "expression": "((p_1_1_2_2 + p_0_1_1_1) + p_0_1_3_0)",
+        "value": 10
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_3_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_3_0"
+      ],
+      [
+        "p_0_1_3_0",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_1_3_0",
+        "p_0_0_2_2"
+      ]
+    ]
+  }
+}

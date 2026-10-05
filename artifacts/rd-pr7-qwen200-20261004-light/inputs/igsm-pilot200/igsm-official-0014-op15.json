@@ -1,0 +1,306 @@
+{
+  "native_id": "igsm-official-0014-op15",
+  "family_id": "igsm-official-0014-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260940,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "8",
+  "target": "p_0_2_0_1",
+  "question": "The number of each Marketing Classroom's Tech Backpack equals 19. The number of each Modular Backpack's Receipt Organizer equals the sum of each Modular Backpack's Divider Tabs and each Modular Backpack's Accordion File. The number of each Political Science Room's Modular Backpack equals 16 more than each Modular Backpack's Accordion File. The number of each Executive Backpack's Document Box equals 6 times as much as each Summit University's Political Science Room. The number of each Tech Backpack's Divider Tabs equals 16 times as much as each Executive Backpack's Document Box. The number of each Valley Forge University's Marketing Classroom equals 16. The number of each Pinnacle Peak University's Political Science Room equals the sum of each Modular Backpack's Receipt Organizer and each Modular Backpack's Divider Tabs. The number of each Riverstone University's Geography Lab equals 14 times as much as the difference of each Pinnacle Peak University's Stationery and each Tech Backpack's Accordion File. The number of each Geography Lab's Commuter Backpack equals 20 more than each Valley Forge University's Sociology Lab. The number of each Modular Backpack's Accordion File equals 6 times as much as each Tech Backpack's Accordion File. The number of each Tech Backpack's Accordion File equals 7. The number of each Sociology Lab's Executive Backpack equals the sum of each Commuter Backpack's Stationery, each Modular Backpack's Divider Tabs, each Pinnacle Peak University's Political Science Room and each Summit University's Geography Lab. The number of each Modular Backpack's Divider Tabs equals 18 more than each Modular Backpack's Accordion File. The number of each Summit University's Political Science Room equals each Summit University's Geography Lab. The number of each Summit University's Geography Lab equals 3 more than the sum of each Pinnacle Peak University's Stationery and each Political Science Room's Modular Backpack. The number of each Valley Forge University's Political Science Room equals each Summit University's Classroom. The number of each Valley Forge University's Sociology Lab equals 4. How many Divider Tabs does Tech Backpack have?",
+  "lookup": {
+    "p_0_1_3_0": 19,
+    "p_0_0_3_2": 4,
+    "p_1_2_1_3": 0,
+    "p_0_0_3_3": 16,
+    "p_0_2_0_2": 7,
+    "p_0_1_1_1": 1,
+    "p_0_2_3_2": 19,
+    "p_0_1_0_3": 12,
+    "p_0_2_3_1": 14,
+    "p_0_2_3_3": 10,
+    "p_0_0_0_0": 1,
+    "p_1_2_3_3": 20,
+    "p_1_1_0_3": 10,
+    "p_1_0_0_3": 10,
+    "p_0_0_2_1": 2,
+    "p_0_0_2_0": 2,
+    "p_0_0_1_1": 19,
+    "p_0_1_2_2": 17,
+    "p_1_0_2_1": 4,
+    "p_0_2_2_0": 12,
+    "p_0_0_3_0": 4,
+    "p_0_2_0_1": 8
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_2",
+        "literal": 7,
+        "span": [
+          1253,
+          1311
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_3_2",
+        "parents": [
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_0_2_3_2",
+          "Modular Backpack's Accordion File"
+        ],
+        "expression": "(6 * p_0_2_0_2)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_3_1",
+        "parents": [
+          "p_0_2_3_2"
+        ],
+        "aliases": [
+          "p_0_2_3_1",
+          "Modular Backpack's Divider Tabs"
+        ],
+        "expression": "(18 + p_0_2_3_2)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_3_3",
+        "parents": [
+          "p_0_2_3_1",
+          "p_0_2_3_2"
+        ],
+        "aliases": [
+          "p_0_2_3_3",
+          "Modular Backpack's Receipt Organizer"
+        ],
+        "expression": "(p_0_2_3_1 + p_0_2_3_2)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_2_3_3",
+          "p_0_2_3_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Pinnacle Peak University's Political Science Room"
+        ],
+        "expression": "(p_0_2_3_3 + p_0_2_3_1)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_3",
+        "parents": [
+          "p_0_2_3_2"
+        ],
+        "aliases": [
+          "p_0_1_0_3",
+          "Political Science Room's Modular Backpack"
+        ],
+        "expression": "(16 + p_0_2_3_2)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_3_3",
+        "parents": [
+          "p_0_2_3_1",
+          "p_0_2_3_2",
+          "p_0_2_3_3"
+        ],
+        "aliases": [
+          "p_1_2_3_3",
+          "Modular Backpack's Stationery"
+        ],
+        "expression": "((p_0_2_3_1 + p_0_2_3_2) + p_0_2_3_3)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_3",
+          "p_1_2_3_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Political Science Room's Stationery"
+        ],
+        "expression": "(p_0_1_0_3 * p_1_2_3_3)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_3",
+        "parents": [
+          "p_0_0_0_0",
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_1_0_0_3",
+          "Pinnacle Peak University's Stationery"
+        ],
+        "expression": "(p_0_0_0_0 * p_1_1_0_3)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_1_0_0_3",
+          "p_0_1_0_3"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Summit University's Geography Lab"
+        ],
+        "expression": "(3 + (p_1_0_0_3 + p_0_1_0_3))",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Summit University's Political Science Room"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_0",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_2_2_0",
+          "Executive Backpack's Document Box"
+        ],
+        "expression": "(6 * p_0_0_2_0)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_2_2_0"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Tech Backpack's Divider Tabs"
+        ],
+        "expression": "(16 * p_0_2_2_0)",
+        "value": 8
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_0_2",
+        "p_0_2_3_2"
+      ],
+      [
+        "p_0_2_3_2",
+        "p_0_2_3_1"
+      ],
+      [
+        "p_0_2_3_1",
+        "p_0_2_3_3"
+      ],
+      [
+        "p_0_2_3_2",
+        "p_0_2_3_3"
+      ],
+      [
+        "p_0_2_3_3",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_2_3_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_2_3_2",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_0_2_3_1",
+        "p_1_2_3_3"
+      ],
+      [
+        "p_0_2_3_2",
+        "p_1_2_3_3"
+      ],
+      [
+        "p_0_2_3_3",
+        "p_1_2_3_3"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_3_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_1_0_0_3",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_0_2_0_1"
+      ]
+    ]
+  }
+}

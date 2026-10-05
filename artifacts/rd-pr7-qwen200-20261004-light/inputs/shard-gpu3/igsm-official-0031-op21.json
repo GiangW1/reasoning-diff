@@ -1,0 +1,318 @@
+{
+  "native_id": "igsm-official-0031-op21",
+  "family_id": "igsm-official-0031-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260957,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "4",
+  "target": "p_0_0_2_0",
+  "question": "The number of each Insectarium of Seattle's Tiger Territory equals each Insectarium of Chicago's Rhinoceros Pen. The number of each Insectarium of Boston's Bear Den equals 1. The number of each Insectarium of Boston's Primate House equals each Insectarium of Denver's Tiger Territory. The number of each Insectarium of Chicago's Rhinoceros Pen equals each Insectarium of Boston's Enclosure. The number of each Insectarium of Denver's Bear Den equals 18. The number of each Insectarium of Denver's Rhinoceros Pen equals 1 more than each Insectarium of Chicago's Primate House. The number of each Insectarium of Boston's Rhinoceros Pen equals 20. The number of each Insectarium of Seattle's Primate House equals 5. The number of each Insectarium of Denver's Tiger Territory equals the difference of each Insectarium of Chicago's Tiger Territory and each Insectarium of Denver's Bear Den. The number of each Insectarium of Chicago's Tiger Territory equals each Insectarium of Denver's Primate House. The number of each Insectarium of Seattle's Bear Den equals each Insectarium of Boston's Tiger Territory. The number of each Insectarium of Denver's Primate House equals each Insectarium of Denver's Bear Den. The number of each Insectarium of Chicago's Primate House equals 22. The number of each Insectarium of Chicago's Bear Den equals 21 times as much as the sum of each Insectarium of Seattle's Enclosure and each Insectarium of Seattle's Primate House. The number of each Insectarium of Boston's Tiger Territory equals 19. The number of each Insectarium of Seattle's Rhinoceros Pen equals 21. How many Bear Den does Insectarium of Chicago have?",
+  "lookup": {
+    "p_0_0_0_0": 1,
+    "p_0_0_3_2": 5,
+    "p_0_0_2_2": 22,
+    "p_0_0_0_3": 20,
+    "p_0_0_0_1": 19,
+    "p_0_0_1_3": 0,
+    "p_0_0_3_3": 21,
+    "p_0_0_3_0": 19,
+    "p_0_0_1_0": 18,
+    "p_0_0_1_2": 18,
+    "p_0_0_2_1": 18,
+    "p_0_0_1_1": 0,
+    "p_0_0_0_2": 0,
+    "p_1_0_0_1": 17,
+    "p_0_0_2_3": 17,
+    "p_0_0_3_1": 17,
+    "p_1_0_3_1": 16,
+    "p_0_0_2_0": 4
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 19,
+        "span": [
+          1455,
+          1523
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 1,
+        "span": [
+          113,
+          173
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 18,
+        "span": [
+          391,
+          452
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_3",
+        "literal": 20,
+        "span": [
+          576,
+          643
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_3_2",
+        "literal": 5,
+        "span": [
+          645,
+          711
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_3_3",
+        "literal": 21,
+        "span": [
+          1525,
+          1593
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Insectarium of Seattle's Bear Den"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Insectarium of Denver's Primate House"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Insectarium of Chicago's Tiger Territory"
+        ],
+        "expression": "p_0_0_1_2",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Insectarium of Denver's Tiger Territory"
+        ],
+        "expression": "(p_0_0_2_1 - p_0_0_1_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Insectarium of Boston's Primate House"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2",
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Insectarium of Boston's Enclosure"
+        ],
+        "expression": "(((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2) + p_0_0_0_3)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Insectarium of Chicago's Rhinoceros Pen"
+        ],
+        "expression": "p_1_0_0_1",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "Insectarium of Seattle's Tiger Territory"
+        ],
+        "expression": "p_0_0_2_3",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_1",
+        "parents": [
+          "p_0_0_3_0",
+          "p_0_0_3_1",
+          "p_0_0_3_2",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_1_0_3_1",
+          "Insectarium of Seattle's Enclosure"
+        ],
+        "expression": "(((p_0_0_3_0 + p_0_0_3_1) + p_0_0_3_2) + p_0_0_3_3)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_1_0_3_1",
+          "p_0_0_3_2"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Insectarium of Chicago's Bear Den"
+        ],
+        "expression": "(21 * (p_1_0_3_1 + p_0_0_3_2))",
+        "value": 4
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_1",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_0_2_0"
+      ]
+    ]
+  }
+}

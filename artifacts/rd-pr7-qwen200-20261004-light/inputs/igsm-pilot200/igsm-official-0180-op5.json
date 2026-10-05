@@ -1,0 +1,123 @@
+{
+  "native_id": "igsm-official-0180-op5",
+  "family_id": "igsm-official-0180-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261112,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "0",
+  "target": "p_0_0_0_1",
+  "question": "The number of each Coral's Alveoli equals each Manta Ray's Carina. The number of each Manta Ray's Alveoli equals each Coral's Alveoli. The number of each Manta Ray's Carina equals 8. The number of each Coral's Carina equals 7 more than each Manta Ray's Organs. How many Carina does Coral have?",
+  "lookup": {
+    "p_0_0_1_1": 8,
+    "p_0_0_0_0": 8,
+    "p_0_0_1_0": 8,
+    "p_1_0_1_1": 16,
+    "p_0_0_0_1": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 8,
+        "span": [
+          135,
+          181
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Coral's Alveoli"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Manta Ray's Alveoli"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Manta Ray's Organs"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_1)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Coral's Carina"
+        ],
+        "expression": "(7 + p_1_0_1_1)",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_1"
+      ]
+    ]
+  }
+}

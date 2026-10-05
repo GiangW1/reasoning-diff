@@ -1,0 +1,420 @@
+{
+  "native_id": "igsm-official-0071-op21",
+  "family_id": "igsm-official-0071-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260998,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "14",
+  "target": "p_0_1_1_1",
+  "question": "The number of each Oceanografic's Dolphin Lagoon equals each Vancouver Aquarium's Dolphin Lagoon. The number of each Dolphin Lagoon's Alligator equals 11 times as much as each Oceanografic's Seadragon Deep. The number of each National Aquarium's Seadragon Deep equals 10. The number of each Alligator's Cannon Bone equals 10 times as much as each National Aquarium's Dolphin Lagoon. The number of each Oceanografic's Seadragon Deep equals 1. The number of each Tortoise's Metacarpal Bones equals the difference of each Alligator's Cannon Bone and each Oceanografic's Seadragon Deep. The number of each Dolphin Lagoon's Tortoise equals the sum of each National Aquarium's Dolphin Lagoon and each Dolphin Lagoon's Alligator. The number of each Vancouver Aquarium's Seadragon Deep equals 9 more than each Tortoise's Bone. The number of each Seadragon Deep's Alligator equals 3 times as much as each Oceanografic's Dolphin Lagoon. The number of each Seattle Aquarium's Seadragon Deep equals each Alligator's Coffin Bone. The number of each Tortoise's Cannon Bone equals 17 more than each National Aquarium's Seadragon Deep. The number of each Alligator's Metacarpal Bones equals the difference of each Seattle Aquarium's Enclosure and each National Aquarium's Dolphin Lagoon. The number of each Alligator's Coffin Bone equals 9 times as much as each Vancouver Aquarium's Seadragon Deep. The number of each Seattle Aquarium's Dolphin Lagoon equals the difference of each Seadragon Deep's Alligator and each Tortoise's Bone. The number of each Tortoise's Coffin Bone equals each Dolphin Lagoon's Tortoise. The number of each Vancouver Aquarium's Dolphin Lagoon equals the sum of each Dolphin Lagoon's Alligator and each Oceanografic's Seadragon Deep. The number of each Seadragon Deep's Tortoise equals 18 more than each Alligator's Metacarpal Bones. The number of each National Aquarium's Dolphin Lagoon equals 7 more than each Oceanografic's Dolphin Lagoon. How many Tortoise does Seadragon Deep have?",
+  "lookup": {
+    "p_0_0_1_1": 1,
+    "p_0_0_2_1": 10,
+    "p_0_1_0_0": 11,
+    "p_0_0_0_0": 12,
+    "p_0_0_1_0": 12,
+    "p_0_2_1_0": 4,
+    "p_0_1_1_0": 13,
+    "p_0_0_2_0": 19,
+    "p_0_1_0_1": 7,
+    "p_0_2_1_2": 7,
+    "p_0_2_0_0": 6,
+    "p_0_2_1_1": 5,
+    "p_1_2_1_3": 16,
+    "p_0_0_0_1": 2,
+    "p_0_2_0_2": 18,
+    "p_0_0_3_0": 20,
+    "p_0_0_3_1": 18,
+    "p_1_0_3_1": 15,
+    "p_0_2_0_1": 19,
+    "p_0_1_1_1": 14
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 1,
+        "span": [
+          383,
+          440
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 10,
+        "span": [
+          207,
+          270
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Dolphin Lagoon's Alligator"
+        ],
+        "expression": "(11 * p_0_0_1_1)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Vancouver Aquarium's Dolphin Lagoon"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_0_1_1)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Oceanografic's Dolphin Lagoon"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Seadragon Deep's Alligator"
+        ],
+        "expression": "(3 * p_0_0_1_0)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Tortoise's Cannon Bone"
+        ],
+        "expression": "(17 + p_0_0_2_1)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "National Aquarium's Dolphin Lagoon"
+        ],
+        "expression": "(7 + p_0_0_1_0)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Alligator's Cannon Bone"
+        ],
+        "expression": "(10 * p_0_0_2_0)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Tortoise's Metacarpal Bones"
+        ],
+        "expression": "(p_0_2_0_0 - p_0_0_1_1)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Dolphin Lagoon's Tortoise"
+        ],
+        "expression": "(p_0_0_2_0 + p_0_1_0_0)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_2",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_2_1_2",
+          "Tortoise's Coffin Bone"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_0",
+          "p_0_2_1_1",
+          "p_0_2_1_2"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Tortoise's Bone"
+        ],
+        "expression": "((p_0_2_1_0 + p_0_2_1_1) + p_0_2_1_2)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_0_1_1_0",
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Seattle Aquarium's Dolphin Lagoon"
+        ],
+        "expression": "(p_0_1_1_0 - p_1_2_1_3)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Vancouver Aquarium's Seadragon Deep"
+        ],
+        "expression": "(9 + p_1_2_1_3)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_2",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_2",
+          "Alligator's Coffin Bone"
+        ],
+        "expression": "(9 * p_0_0_0_1)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "Seattle Aquarium's Seadragon Deep"
+        ],
+        "expression": "p_0_2_0_2",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_1",
+        "parents": [
+          "p_0_0_3_0",
+          "p_0_0_3_1"
+        ],
+        "aliases": [
+          "p_1_0_3_1",
+          "Seattle Aquarium's Enclosure"
+        ],
+        "expression": "(p_0_0_3_0 + p_0_0_3_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_1_0_3_1",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Alligator's Metacarpal Bones"
+        ],
+        "expression": "(p_1_0_3_1 - p_0_0_2_0)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Seadragon Deep's Tortoise"
+        ],
+        "expression": "(18 + p_0_2_0_1)",
+        "value": 14
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_2_1_2"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_2_1_2",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_1_1_1"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "native_id": "igsm-official-0000-op5",
+  "family_id": "igsm-official-0000-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260926,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "5",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Canned Cherries's Parsley equals 4 times as much as the difference of each Canned Peaches's Dill and each Canned Peaches's Parsley. The number of each Canned Peaches's Dill equals 22. The number of each Canned Cherries's Paprika equals each Canned Beef's Paprika. The number of each Canned Peaches's Paprika equals 13 times as much as each Canned Peaches's Dill. The number of each Canned Peaches's Parsley equals 21 more than each Canned Peaches's Dill. The number of each Canned Cherries's Dill equals the sum of each Canned Peaches's Dill and each Canned Beef's Ingredient. The number of each Canned Beef's Paprika equals 0 more than each Canned Beef's Parsley. The number of each Canned Beef's Dill equals 7. The number of each Canned Beef's Parsley equals 22. How many Ingredient does Canned Beef have?",
+  "lookup": {
+    "p_0_0_1_0": 22,
+    "p_0_0_0_1": 22,
+    "p_0_0_0_0": 7,
+    "p_0_0_1_1": 20,
+    "p_0_0_2_1": 8,
+    "p_0_0_0_2": 22,
+    "p_0_0_2_2": 22,
+    "p_1_0_0_1": 5,
+    "p_0_0_1_2": 10,
+    "p_0_0_2_0": 4
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 7,
+        "span": [
+          684,
+          730
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 22,
+        "span": [
+          732,
+          782
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Canned Beef's Paprika"
+        ],
+        "expression": "(0 + p_0_0_0_1)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Canned Beef's Ingredient"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2)",
+        "value": 5
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

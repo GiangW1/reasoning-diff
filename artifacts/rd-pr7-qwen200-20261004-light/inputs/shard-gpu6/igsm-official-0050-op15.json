@@ -1,0 +1,279 @@
+{
+  "native_id": "igsm-official-0050-op15",
+  "family_id": "igsm-official-0050-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260977,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "4",
+  "target": "p_1_0_2_1",
+  "question": "The number of each Commuter Backpack's Scissors equals the sum of each Office Backpack's Stationery and each Presentation Backpack's Ruler. The number of each Office Backpack's Scissors equals 4 more than each Office Backpack's Laminating Sheets. The number of each Presentation Backpack's Glue Stick equals each Tech Backpack's Ruler. The number of each Commuter Backpack's Ruler equals 4. The number of each Tech Backpack's Ruler equals 10. The number of each Tech Backpack's Laminating Sheets equals each Office Backpack's Scissors. The number of each Tech Backpack's Glue Stick equals 2. The number of each Office Backpack's Laminating Sheets equals 17 more than each Presentation Backpack's Ruler. The number of each Presentation Backpack's Scissors equals each Tech Backpack's Laminating Sheets. The number of each Presentation Backpack's Laminating Sheets equals 5 times as much as each Tech Backpack's Scissors. The number of each Commuter Backpack's Laminating Sheets equals the difference of each Presentation Backpack's Laminating Sheets and each Presentation Backpack's Ruler. The number of each Tech Backpack's Scissors equals 2. The number of each Commuter Backpack's Glue Stick equals 6 times as much as each Office Backpack's Laminating Sheets. The number of each Presentation Backpack's Ruler equals each Presentation Backpack's Glue Stick. How many Stationery does Commuter Backpack have?",
+  "lookup": {
+    "p_0_0_0_0": 2,
+    "p_0_0_2_1": 4,
+    "p_0_0_0_1": 10,
+    "p_0_0_1_0": 10,
+    "p_0_0_1_1": 10,
+    "p_0_0_3_3": 4,
+    "p_0_0_2_0": 1,
+    "p_0_0_0_2": 2,
+    "p_0_0_3_2": 8,
+    "p_0_0_1_3": 10,
+    "p_0_0_0_3": 8,
+    "p_0_0_1_2": 8,
+    "p_0_0_2_3": 0,
+    "p_1_0_3_1": 12,
+    "p_0_0_2_2": 22,
+    "p_1_0_2_1": 4
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 10,
+        "span": [
+          391,
+          441
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 4,
+        "span": [
+          336,
+          389
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_2",
+        "literal": 2,
+        "span": [
+          1089,
+          1141
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Presentation Backpack's Glue Stick"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Presentation Backpack's Ruler"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_3",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_3_3",
+          "Office Backpack's Laminating Sheets"
+        ],
+        "expression": "(17 + p_0_0_1_1)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Commuter Backpack's Glue Stick"
+        ],
+        "expression": "(6 * p_0_0_3_3)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "Office Backpack's Scissors"
+        ],
+        "expression": "(4 + p_0_0_3_3)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_1",
+        "parents": [
+          "p_0_0_3_2",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_1_0_3_1",
+          "Office Backpack's Stationery"
+        ],
+        "expression": "(p_0_0_3_2 + p_0_0_3_3)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_1_0_3_1",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Commuter Backpack's Scissors"
+        ],
+        "expression": "(p_1_0_3_1 + p_0_0_1_1)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Presentation Backpack's Laminating Sheets"
+        ],
+        "expression": "(5 * p_0_0_0_2)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_0_1_3",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Commuter Backpack's Laminating Sheets"
+        ],
+        "expression": "(p_0_0_1_3 - p_0_0_1_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2",
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Commuter Backpack's Stationery"
+        ],
+        "expression": "(((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2) + p_0_0_2_3)",
+        "value": 4
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_3_3"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_1_0_2_1"
+      ]
+    ]
+  }
+}

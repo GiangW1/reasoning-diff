@@ -1,0 +1,120 @@
+{
+  "native_id": "igsm-official-0092-op5",
+  "family_id": "igsm-official-0092-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261019,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "17",
+  "target": "p_1_1_1_2",
+  "question": "The number of each Dolphin's Spinal Cord equals 12 times as much as the sum of each Crab's Parietal Lobe, each Amygdala's Osteoblasts and each Parietal Lobe's Tendon Cells. The number of each Crab's Parietal Lobe equals 5 more than each Crab's Spinal Cord. The number of each Amygdala's Osteoblasts equals 14 more than each Parietal Lobe's Tendon Cells. The number of each Parietal Lobe's Tendon Cells equals 22. The number of each Spinal Cord's Osteoclasts equals 6 times as much as each Spinal Cord's Tendon Cells. The number of each Dolphin's Amygdala equals each Dolphin's Spinal Cord. The number of each Parietal Lobe's Melanocytes equals 10. The number of each Spinal Cord's Osteoblasts equals each Spinal Cord's Osteoclasts. The number of each Crab's Spinal Cord equals 1 times as much as the difference of each Parietal Lobe's Tendon Cells and each Amygdala's Osteoblasts. The number of each Amygdala's Osteoclasts equals the sum of each Spinal Cord's Cells and each Spinal Cord's Osteoblasts. The number of each Seahorse's Spinal Cord equals the sum of each Crab's Parietal Lobe and each Amygdala's Osteoblasts. The number of each Seahorse's Parietal Lobe equals 19 more than the sum of each Spinal Cord's Tendon Cells, each Crab's Spinal Cord and each Amygdala's Osteoclasts. The number of each Spinal Cord's Tendon Cells equals 19. How many Cells does Spinal Cord have?",
+  "lookup": {
+    "p_0_1_1_0": 19,
+    "p_0_1_2_2": 10,
+    "p_0_1_2_0": 22,
+    "p_0_1_1_1": 22,
+    "p_0_1_0_3": 13,
+    "p_0_0_0_1": 9,
+    "p_0_1_1_3": 22,
+    "p_0_0_0_2": 14,
+    "p_0_0_1_1": 13,
+    "p_0_0_2_1": 4,
+    "p_0_0_1_0": 13,
+    "p_1_1_1_2": 17,
+    "p_0_1_0_1": 16,
+    "p_0_0_2_2": 17
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_0",
+        "literal": 19,
+        "span": [
+          1286,
+          1341
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Spinal Cord's Osteoclasts"
+        ],
+        "expression": "(6 * p_0_1_1_0)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_3",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_3",
+          "Spinal Cord's Osteoblasts"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1",
+          "p_0_1_1_3"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Spinal Cord's Cells"
+        ],
+        "expression": "((p_0_1_1_0 + p_0_1_1_1) + p_0_1_1_3)",
+        "value": 17
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_3"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_3",
+        "p_1_1_1_2"
+      ]
+    ]
+  }
+}

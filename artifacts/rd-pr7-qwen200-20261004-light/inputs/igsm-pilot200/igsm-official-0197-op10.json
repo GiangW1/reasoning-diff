@@ -1,0 +1,207 @@
+{
+  "native_id": "igsm-official-0197-op10",
+  "family_id": "igsm-official-0197-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261131,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "22",
+  "target": "p_1_0_0_1",
+  "question": "The number of each WinCo Foods's Canned Meats equals the difference of each Safeway's Canned Tuna and each Costco's Canned Tuna. The number of each Costco's Canned Tuna equals 20 times as much as each Aldi's Product. The number of each WinCo Foods's Canned Tuna equals 21. The number of each Aldi's Canned Meats equals 1. The number of each Safeway's Canned Tuna equals 21 times as much as each Safeway's Canned Meats. The number of each Costco's Canned Meats equals 7. The number of each Safeway's Canned Meats equals 6 times as much as each Costco's Product. How many Product does WinCo Foods have?",
+  "lookup": {
+    "p_0_0_1_0": 7,
+    "p_0_0_0_1": 21,
+    "p_0_0_3_0": 1,
+    "p_1_0_3_1": 1,
+    "p_0_0_1_1": 20,
+    "p_1_0_1_1": 4,
+    "p_0_0_2_0": 1,
+    "p_0_0_2_1": 21,
+    "p_0_0_0_0": 1,
+    "p_1_0_0_1": 22
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 7,
+        "span": [
+          419,
+          468
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_3_0",
+        "literal": 1,
+        "span": [
+          273,
+          320
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 21,
+        "span": [
+          217,
+          271
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_1",
+        "parents": [
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_1_0_3_1",
+          "Aldi's Product"
+        ],
+        "expression": "p_0_0_3_0",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Costco's Canned Tuna"
+        ],
+        "expression": "(20 * p_1_0_3_1)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Costco's Product"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_1)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Safeway's Canned Meats"
+        ],
+        "expression": "(6 * p_1_0_1_1)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Safeway's Canned Tuna"
+        ],
+        "expression": "(21 * p_0_0_2_0)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "WinCo Foods's Canned Meats"
+        ],
+        "expression": "(p_0_0_2_1 - p_0_0_1_1)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "WinCo Foods's Product"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 22
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_3_0",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

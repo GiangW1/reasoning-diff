@@ -1,0 +1,255 @@
+{
+  "native_id": "igsm-official-0134-op15",
+  "family_id": "igsm-official-0134-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261064,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "13",
+  "target": "p_1_0_2_2",
+  "question": "The number of each Chameleon Cage's Carp equals the sum of each Tuna's Caudal Vertebrae 12 and each Tuna's Caudal Vertebrae 11. The number of each Tuna's Caudal Vertebrae 11 equals 9 times as much as each Halibut's Caudal Vertebrae 2. The number of each Chameleon Cage's Tuna equals each Halibut's Caudal Vertebrae 2. The number of each Halibut's Caudal Vertebrae 2 equals 9. The number of each Tuna's Caudal Vertebrae 12 equals 2 times as much as each Halibut's Caudal Vertebrae 2. The number of each Lizard Lounge's Tuna equals each Chameleon Cage's Bone. The number of each Chameleon Cage's Halibut equals 12 times as much as each Chameleon Cage's Tuna. The number of each Toad Abode's Halibut equals 6. The number of each Carp's Caudal Vertebrae 12 equals 15. How many Bone does Chameleon Cage have?",
+  "lookup": {
+    "p_0_1_2_2": 9,
+    "p_0_0_0_2": 6,
+    "p_0_1_0_0": 15,
+    "p_0_0_2_1": 9,
+    "p_1_1_0_2": 15,
+    "p_0_0_2_2": 16,
+    "p_1_1_2_2": 9,
+    "p_0_1_1_1": 12,
+    "p_0_1_1_0": 18,
+    "p_0_0_2_0": 7,
+    "p_1_1_1_2": 7,
+    "p_1_0_2_2": 13,
+    "p_0_0_1_1": 13
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_2",
+        "literal": 9,
+        "span": [
+          318,
+          374
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_0",
+        "literal": 15,
+        "span": [
+          707,
+          762
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Tuna's Caudal Vertebrae 12"
+        ],
+        "expression": "(2 * p_0_1_2_2)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Tuna's Caudal Vertebrae 11"
+        ],
+        "expression": "(9 * p_0_1_2_2)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Chameleon Cage's Carp"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Carp's Bone"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Chameleon Cage's Tuna"
+        ],
+        "expression": "p_0_1_2_2",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Tuna's Bone"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Chameleon Cage's Halibut"
+        ],
+        "expression": "(12 * p_0_0_2_1)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Halibut's Bone"
+        ],
+        "expression": "p_0_1_2_2",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_1_0_2",
+          "p_0_0_2_1",
+          "p_1_1_1_2",
+          "p_0_0_2_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "Chameleon Cage's Bone"
+        ],
+        "expression": "(((p_0_0_2_0 * p_1_1_0_2) + (p_0_0_2_1 * p_1_1_1_2)) + (p_0_0_2_2 * p_1_1_2_2))",
+        "value": 13
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_2_2"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,1352 @@
+{"dim_e": 4096, "dim_h": 4096, "head": "task", "loss": 2.713595669169201, "metrics": {"calibration": {"auc": 0.4675324675324675, "f1": 0.8323699421965318, "groups": 3, "held_out": true, "n_negative": 48, "n_positive": 154, "n_units": 202, "pr_auc": 0.6694910014621087, "precision": 0.75, "recall": 0.935064935064935, "split": "calibration", "status": "ok"}, "dev": {"auc": 0.500825603559655, "f1": 0.8456090651558072, "groups": 10, "held_out": true, "n_negative": 429, "n_positive": 1207, "n_units": 1636, "pr_auc": 0.7357559371833172, "precision": 0.738404452690167, "recall": 0.9892294946147473, "split": "dev", "status": "ok"}, "probe_train": {"auc": 0.824037706205813, "f1": 0.819620253164557, "groups": 25, "held_out": false, "n_negative": 1273, "n_positive": 1036, "n_units": 2309, "pr_auc": 0.7404222721969165, "precision": 0.6943699731903485, "recall": 1.0, "split": "probe_train", "status": "ok"}, "test": {"auc": 0.5, "f1": 0.5859872611464968, "groups": 5, "held_out": true, "n_negative": 65, "n_positive": 46, "n_units": 111, "pr_auc": 0.4768260811676948, "precision": 0.4144144144144144, "recall": 1.0, "split": "test", "status": "ok"}}, "position": "pre_step", "rank": 64, "split": "probe_train"}
+{"dim_e": 4096, "dim_h": 4096, "head": "behavior", "loss": 2.1832851581233297, "metrics": {"calibration": {"auc": 0.6642156862745098, "f1": 0.6666666666666667, "groups": 2, "held_out": true, "n_negative": 51, "n_positive": 36, "n_units": 87, "pr_auc": 0.5491967523610803, "precision": 0.5238095238095238, "recall": 0.9166666666666666, "split": "calibration", "status": "ok"}, "dev": {"auc": 0.8214719210228193, "f1": 0.7184986595174262, "groups": 9, "held_out": true, "n_negative": 334, "n_positive": 148, "n_units": 482, "pr_auc": 0.5594780004222081, "precision": 0.5955555555555555, "recall": 0.9054054054054054, "split": "dev", "status": "ok"}, "probe_train": {"auc": 0.8958243301642178, "f1": 0.8911392405063292, "groups": 22, "held_out": false, "n_negative": 208, "n_positive": 178, "n_units": 386, "pr_auc": 0.8305688916383939, "precision": 0.8110599078341014, "recall": 0.9887640449438202, "split": "probe_train", "status": "ok"}, "test": {"auc": 0.7657657657657657, "f1": 0.888888888888889, "groups": 5, "held_out": true, "n_negative": 9, "n_positive": 37, "n_units": 46, "pr_auc": 0.9026968813133872, "precision": 0.9142857142857143, "recall": 0.8648648648648649, "split": "test", "status": "ok"}}, "position": "pre_step", "rank": 64, "split": "probe_train"}
+{"baseline": "text_predictor", "split": "probe_train", "trained": true}
+{"baseline": "verbalizer", "status": "trained", "target": "dependency_set", "tier": "supervised", "visibility": "prospective"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0000-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0000-op5::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0000-op5::p_0_0_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_0=0"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_0=0"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0000-op5::p_0_0_0_0=0"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_0=1"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_0=1"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0000-op5::p_0_0_0_0=1"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_1=0"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_1=0"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0000-op5::p_0_0_0_1=0"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_1=1"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::p_0_0_0_1=1"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0000-op5::p_0_0_0_1=1"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0003-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0003-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0003-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0003-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0003-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0003-op21::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0006-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0006-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0006-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0006-op15::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0006-op15::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0006-op15::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0009-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0009-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0009-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0009-op10::p_0_0_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0009-op10::p_0_0_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0009-op10::p_0_0_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0012-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0012-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0012-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0012-op5::p_0_1_2_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0012-op5::p_0_1_2_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0012-op5::p_0_1_2_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0015-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0015-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0015-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0015-op21::p_0_0_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0015-op21::p_0_0_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0015-op21::p_0_0_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0018-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0018-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0018-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0018-op15::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0018-op15::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0018-op15::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0021-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0021-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0021-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0021-op10::p_0_0_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0021-op10::p_0_0_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0021-op10::p_0_0_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0024-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0024-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0024-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0024-op5::p_0_2_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0024-op5::p_0_2_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0024-op5::p_0_2_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0027-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0027-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0027-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0027-op21::p_0_0_1_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0027-op21::p_0_0_1_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0027-op21::p_0_0_1_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0030-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0030-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0030-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0030-op15::p_0_0_3_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0030-op15::p_0_0_3_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0030-op15::p_0_0_3_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0033-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0033-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0033-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0033-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0033-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0033-op10::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0036-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0036-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0036-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0036-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0036-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0036-op5::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0036-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0036-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0036-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0039-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0039-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0039-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0039-op21::p_0_0_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0039-op21::p_0_0_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0039-op21::p_0_0_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0042-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0042-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0042-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0042-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0042-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0042-op15::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0045-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0045-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0045-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0045-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0045-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0045-op10::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0048-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0048-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0048-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0048-op5::p_0_1_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0048-op5::p_0_1_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0048-op5::p_0_1_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0051-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0051-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0051-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0051-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0051-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0051-op21::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0054-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0054-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0054-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0054-op15::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0054-op15::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0054-op15::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0057-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0057-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0057-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0057-op10::p_0_2_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0057-op10::p_0_2_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0057-op10::p_0_2_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0060-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0060-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0060-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0060-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0060-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0060-op5::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0063-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0063-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0063-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0063-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0063-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0063-op21::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0063-op21::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0063-op21::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0063-op21::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0066-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0066-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0066-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0066-op15::p_0_0_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0066-op15::p_0_0_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0066-op15::p_0_0_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0069-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0069-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0069-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0069-op10::p_0_0_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0069-op10::p_0_0_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0069-op10::p_0_0_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0072-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0072-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0072-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0072-op5::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0072-op5::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0072-op5::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0075-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0075-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0075-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0075-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0075-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0075-op21::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0078-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0078-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0078-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0078-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0078-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0078-op15::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0081-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0081-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0081-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0081-op10::p_0_0_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0081-op10::p_0_0_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0081-op10::p_0_0_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0084-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0084-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0084-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0084-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0084-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0084-op5::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0087-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0087-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0087-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0087-op21::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0087-op21::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0087-op21::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0090-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0090-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0090-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0090-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0090-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0090-op15::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0090-op15::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0090-op15::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0090-op15::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0093-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0093-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0093-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0093-op10::p_0_0_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0093-op10::p_0_0_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0093-op10::p_0_0_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0093-op10::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0093-op10::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0093-op10::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0096-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0096-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0096-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0096-op5::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0096-op5::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0096-op5::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0099-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0099-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0099-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0099-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0099-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0099-op21::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0099-op21::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0099-op21::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0099-op21::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0102-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0102-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0102-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0102-op15::p_0_0_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0102-op15::p_0_0_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0102-op15::p_0_0_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0105-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0105-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0105-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0105-op10::p_0_1_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0105-op10::p_0_1_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0105-op10::p_0_1_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0108-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0108-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0108-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0108-op5::p_0_0_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0108-op5::p_0_0_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0108-op5::p_0_0_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0108-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0108-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0108-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0111-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0111-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0111-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0111-op21::p_0_0_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0111-op21::p_0_0_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0111-op21::p_0_0_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0111-op21::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0111-op21::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0111-op21::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0114-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0114-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0114-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0114-op15::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0114-op15::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0114-op15::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0117-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0117-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0117-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0117-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0117-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0117-op10::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0120-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0120-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0120-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0120-op5::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0120-op5::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0120-op5::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0123-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0123-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0123-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0123-op21::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0123-op21::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0123-op21::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0126-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0126-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0126-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0126-op15::p_0_0_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0126-op15::p_0_0_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0126-op15::p_0_0_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0129-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0129-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0129-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0129-op10::p_0_1_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0129-op10::p_0_1_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0129-op10::p_0_1_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0132-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0132-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0132-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0132-op5::p_0_0_0_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0132-op5::p_0_0_0_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0132-op5::p_0_0_0_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0135-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0135-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0135-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0135-op21::p_0_1_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0135-op21::p_0_1_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0135-op21::p_0_1_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0138-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0138-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0138-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0138-op15::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0138-op15::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0138-op15::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0141-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0141-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0141-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0141-op10::p_0_0_2_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0141-op10::p_0_0_2_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0141-op10::p_0_0_2_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0144-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0144-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0144-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0144-op5::p_0_0_1_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0144-op5::p_0_0_1_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0144-op5::p_0_0_1_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0147-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0147-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0147-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0147-op21::p_0_1_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0147-op21::p_0_1_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0147-op21::p_0_1_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0150-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0150-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0150-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0150-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0150-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0150-op15::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0150-op15::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0150-op15::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0150-op15::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0153-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0153-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0153-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0153-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0153-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0153-op10::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0153-op10::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0153-op10::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0153-op10::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0156-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0156-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0156-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0156-op5::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0156-op5::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0156-op5::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0156-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0156-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0156-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0159-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0159-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0159-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0159-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0159-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0159-op21::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0162-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0162-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0162-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0162-op15::p_0_2_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0162-op15::p_0_2_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0162-op15::p_0_2_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0165-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0165-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0165-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0165-op10::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0165-op10::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0165-op10::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0168-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0168-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0168-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0168-op5::p_0_0_3_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0168-op5::p_0_0_3_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0168-op5::p_0_0_3_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0171-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0171-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0171-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0171-op21::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0171-op21::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0171-op21::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0174-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0174-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0174-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0174-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0174-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0174-op15::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0177-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0177-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0177-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0177-op10::p_0_1_3_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0177-op10::p_0_1_3_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0177-op10::p_0_1_3_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0180-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0180-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0180-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0180-op5::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0180-op5::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0180-op5::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0183-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0183-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0183-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0183-op21::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0183-op21::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0183-op21::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0186-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0186-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0186-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0186-op15::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0186-op15::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0186-op15::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0189-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0189-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0189-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0189-op10::p_0_0_2_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0189-op10::p_0_0_2_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0189-op10::p_0_0_2_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0192-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0192-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0192-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0192-op5::p_0_0_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0192-op5::p_0_0_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0192-op5::p_0_0_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0195-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0195-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0195-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0195-op21::p_0_1_3_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0195-op21::p_0_1_3_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0195-op21::p_0_1_3_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0198-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0198-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0198-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0198-op15::p_0_2_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0198-op15::p_0_2_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0198-op15::p_0_2_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0000-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0000-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0001-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0001-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0001-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0001-op10::p_0_0_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0001-op10::p_0_0_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0001-op10::p_0_0_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0001-op10::p_0_0_2_2=0"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0001-op10::p_0_0_2_2=0"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0001-op10::p_0_0_2_2=0"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0001-op10::p_0_0_2_2=1"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0001-op10::p_0_0_2_2=1"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0001-op10::p_0_0_2_2=1"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0004-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0004-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0004-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0004-op5::p_0_0_3_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0004-op5::p_0_0_3_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0004-op5::p_0_0_3_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0007-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0007-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0007-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0007-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0007-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0007-op21::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0010-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0010-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0010-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0010-op15::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0010-op15::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0010-op15::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0013-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0013-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0013-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0013-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0013-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0013-op10::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0016-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0016-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0016-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0016-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0016-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0016-op5::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0019-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0019-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0019-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0019-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0019-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0019-op21::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0022-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0022-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0022-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0022-op15::p_0_1_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0022-op15::p_0_1_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0022-op15::p_0_1_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0022-op15::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0022-op15::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0022-op15::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0025-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0025-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0025-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0025-op10::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0025-op10::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0025-op10::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0025-op10::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0025-op10::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0025-op10::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0028-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0028-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0028-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0028-op5::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0028-op5::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0028-op5::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0028-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0028-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0028-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0031-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0031-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0031-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0031-op21::p_0_0_3_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0031-op21::p_0_0_3_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0031-op21::p_0_0_3_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0034-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0034-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0034-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0034-op15::p_0_0_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0034-op15::p_0_0_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0034-op15::p_0_0_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0037-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0037-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0037-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0037-op10::p_0_2_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0037-op10::p_0_2_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0037-op10::p_0_2_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0037-op10::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0037-op10::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0037-op10::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0040-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0040-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0040-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0040-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0040-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0040-op5::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0043-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0043-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0043-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0043-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0043-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0043-op21::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0046-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0046-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0046-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0046-op15::p_0_1_2_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0046-op15::p_0_1_2_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0046-op15::p_0_1_2_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0046-op15::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0046-op15::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0046-op15::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0049-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0049-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0049-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0049-op10::p_0_0_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0049-op10::p_0_0_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0049-op10::p_0_0_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0052-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0052-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0052-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0052-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0052-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0052-op5::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0055-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0055-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0055-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0055-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0055-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0055-op21::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0058-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0058-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0058-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0058-op15::p_0_2_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0058-op15::p_0_2_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0058-op15::p_0_2_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0061-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0061-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0061-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0061-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0061-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0061-op10::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0061-op10::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0061-op10::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0061-op10::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0064-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0064-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0064-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0064-op5::p_0_0_0_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0064-op5::p_0_0_0_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0064-op5::p_0_0_0_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0067-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0067-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0067-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0067-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0067-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0067-op21::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0067-op21::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0067-op21::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0067-op21::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0070-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0070-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0070-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0070-op15::p_0_1_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0070-op15::p_0_1_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0070-op15::p_0_1_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0073-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0073-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0073-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0073-op10::p_0_1_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0073-op10::p_0_1_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0073-op10::p_0_1_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0076-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0076-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0076-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0076-op5::p_0_1_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0076-op5::p_0_1_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0076-op5::p_0_1_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0079-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0079-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0079-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0079-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0079-op21::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0079-op21::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0082-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0082-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0082-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0082-op15::p_0_0_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0082-op15::p_0_0_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0082-op15::p_0_0_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0085-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0085-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0085-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0085-op10::p_0_2_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0085-op10::p_0_2_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0085-op10::p_0_2_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0088-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0088-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0088-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0088-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0088-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0088-op5::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0091-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0091-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0091-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0091-op21::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0091-op21::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0091-op21::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0094-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0094-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0094-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0094-op15::p_0_2_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0094-op15::p_0_2_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0094-op15::p_0_2_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0097-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0097-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0097-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0097-op10::p_0_0_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0097-op10::p_0_0_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0097-op10::p_0_0_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0100-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0100-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0100-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0100-op5::p_0_0_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0100-op5::p_0_0_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0100-op5::p_0_0_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0103-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0103-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0103-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0103-op21::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0103-op21::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0103-op21::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0106-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0106-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0106-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0106-op15::p_0_0_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0106-op15::p_0_0_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0106-op15::p_0_0_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0109-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0109-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0109-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0109-op10::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0109-op10::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0109-op10::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0112-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0112-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0112-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0112-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0112-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0112-op5::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0115-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0115-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0115-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0115-op21::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0115-op21::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0115-op21::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0118-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0118-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0118-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0118-op15::p_0_1_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0118-op15::p_0_1_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0118-op15::p_0_1_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0121-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0121-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0121-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0121-op10::p_0_1_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0121-op10::p_0_1_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0121-op10::p_0_1_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0124-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0124-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0124-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0124-op5::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0124-op5::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0124-op5::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0127-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0127-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0127-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0127-op21::p_0_1_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0127-op21::p_0_1_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0127-op21::p_0_1_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0130-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0130-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0130-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0130-op15::p_0_2_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0130-op15::p_0_2_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0130-op15::p_0_2_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0133-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0133-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0133-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0133-op10::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0133-op10::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0133-op10::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0136-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0136-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0136-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0136-op5::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0136-op5::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0136-op5::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0139-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0139-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0139-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0139-op21::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0139-op21::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0139-op21::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0142-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0142-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0142-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0142-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0142-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0142-op15::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0142-op15::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0142-op15::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0142-op15::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0145-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0145-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0145-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0145-op10::p_0_0_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0145-op10::p_0_0_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0145-op10::p_0_0_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0148-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0148-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0148-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0148-op5::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0148-op5::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0148-op5::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0151-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0151-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0151-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0151-op21::p_0_1_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0151-op21::p_0_1_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0151-op21::p_0_1_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0154-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0154-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0154-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0154-op15::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0154-op15::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0154-op15::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0157-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0157-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0157-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0157-op10::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0157-op10::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0157-op10::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0157-op10::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0157-op10::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0157-op10::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0160-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0160-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0160-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0160-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0160-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0160-op5::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0163-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0163-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0163-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0163-op21::p_0_2_3_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0163-op21::p_0_2_3_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0163-op21::p_0_2_3_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0166-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0166-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0166-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0166-op15::p_0_0_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0166-op15::p_0_0_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0166-op15::p_0_0_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0169-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0169-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0169-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0169-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0169-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0169-op10::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0172-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0172-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0172-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0172-op5::p_0_0_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0172-op5::p_0_0_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0172-op5::p_0_0_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0175-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0175-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0175-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0175-op21::p_0_0_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0175-op21::p_0_0_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0175-op21::p_0_0_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0178-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0178-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0178-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0178-op15::p_0_1_2_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0178-op15::p_0_1_2_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0178-op15::p_0_1_2_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0181-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0181-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0181-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0181-op10::p_0_0_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0181-op10::p_0_0_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0181-op10::p_0_0_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0184-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0184-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0184-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0184-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0184-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0184-op5::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0187-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0187-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0187-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0187-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0187-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0187-op21::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0190-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0190-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0190-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0190-op15::p_0_1_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0190-op15::p_0_1_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0190-op15::p_0_1_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0193-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0193-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0193-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0193-op10::p_0_0_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0193-op10::p_0_0_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0193-op10::p_0_0_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0196-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0196-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0196-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0196-op5::p_0_0_1_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0196-op5::p_0_0_1_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0196-op5::p_0_0_1_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0196-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0196-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0196-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0199-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0199-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0199-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0199-op21::p_0_0_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0199-op21::p_0_0_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0199-op21::p_0_0_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0199-op21::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0199-op21::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0199-op21::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0002-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0002-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0002-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0002-op15::p_0_2_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0002-op15::p_0_2_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0002-op15::p_0_2_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0002-op15::p_0_2_0_1=0"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0002-op15::p_0_2_0_1=0"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0002-op15::p_0_2_0_1=0"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0002-op15::p_0_2_0_1=1"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0002-op15::p_0_2_0_1=1"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0002-op15::p_0_2_0_1=1"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0005-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0005-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0005-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0005-op10::p_0_1_0_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0005-op10::p_0_1_0_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0005-op10::p_0_1_0_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0008-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0008-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0008-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0008-op5::p_0_1_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0008-op5::p_0_1_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0008-op5::p_0_1_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0011-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0011-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0011-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0011-op21::p_0_1_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0011-op21::p_0_1_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0011-op21::p_0_1_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0014-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0014-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0014-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0014-op15::p_0_2_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0014-op15::p_0_2_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0014-op15::p_0_2_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0017-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0017-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0017-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0017-op10::p_0_2_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0017-op10::p_0_2_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0017-op10::p_0_2_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0020-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0020-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0020-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0020-op5::p_0_1_3_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0020-op5::p_0_1_3_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0020-op5::p_0_1_3_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0020-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0020-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0020-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0023-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0023-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0023-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0023-op21::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0023-op21::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0023-op21::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0026-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0026-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0026-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0026-op15::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0026-op15::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0026-op15::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0029-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0029-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0029-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0029-op10::p_0_2_2_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0029-op10::p_0_2_2_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0029-op10::p_0_2_2_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0032-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0032-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0032-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0032-op5::p_0_1_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0032-op5::p_0_1_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0032-op5::p_0_1_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0035-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0035-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0035-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0035-op21::p_0_1_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0035-op21::p_0_1_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0035-op21::p_0_1_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0038-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0038-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0038-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0038-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0038-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0038-op15::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0041-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0041-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0041-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0041-op10::p_0_2_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0041-op10::p_0_2_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0041-op10::p_0_2_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0044-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0044-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0044-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0044-op5::p_0_0_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0044-op5::p_0_0_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0044-op5::p_0_0_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0047-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0047-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0047-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0047-op21::p_0_0_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0047-op21::p_0_0_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0047-op21::p_0_0_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0050-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0050-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0050-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0050-op15::p_0_0_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0050-op15::p_0_0_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0050-op15::p_0_0_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0053-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0053-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0053-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0053-op10::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0053-op10::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0053-op10::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0056-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0056-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0056-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0056-op5::p_0_1_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0056-op5::p_0_1_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0056-op5::p_0_1_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0059-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0059-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0059-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0059-op21::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0059-op21::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0059-op21::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0062-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0062-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0062-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0062-op15::p_0_0_0_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0062-op15::p_0_0_0_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0062-op15::p_0_0_0_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0065-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0065-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0065-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0065-op10::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0065-op10::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0065-op10::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0068-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0068-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0068-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0068-op5::p_0_0_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0068-op5::p_0_0_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0068-op5::p_0_0_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0068-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0068-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0068-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0071-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0071-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0071-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0071-op21::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0071-op21::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0071-op21::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0074-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0074-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0074-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0074-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0074-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0074-op15::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0077-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0077-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0077-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0077-op10::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0077-op10::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0077-op10::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0080-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0080-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0080-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0080-op5::p_0_2_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0080-op5::p_0_2_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0080-op5::p_0_2_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0083-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0083-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0083-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0083-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0083-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0083-op21::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0086-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0086-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0086-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0086-op15::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0086-op15::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0086-op15::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0086-op15::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0086-op15::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0086-op15::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0089-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0089-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0089-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0089-op10::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0089-op10::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0089-op10::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0092-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0092-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0092-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0092-op5::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0092-op5::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0092-op5::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0092-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0092-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0092-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0095-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0095-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0095-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0095-op21::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0095-op21::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0095-op21::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0098-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0098-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0098-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0098-op15::p_0_0_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0098-op15::p_0_0_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0098-op15::p_0_0_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0101-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0101-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0101-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0101-op10::p_0_0_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0101-op10::p_0_0_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0101-op10::p_0_0_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0101-op10::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0101-op10::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0101-op10::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0104-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0104-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0104-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0104-op5::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0104-op5::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0104-op5::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0104-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0104-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0104-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0107-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0107-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0107-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0107-op21::p_0_0_3_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0107-op21::p_0_0_3_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0107-op21::p_0_0_3_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0107-op21::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0107-op21::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0107-op21::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0110-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0110-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0110-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0110-op15::p_0_1_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0110-op15::p_0_1_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0110-op15::p_0_1_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0113-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0113-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0113-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0113-op10::p_0_0_1_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0113-op10::p_0_0_1_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0113-op10::p_0_0_1_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0116-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0116-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0116-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0116-op5::p_0_0_0_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0116-op5::p_0_0_0_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0116-op5::p_0_0_0_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0119-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0119-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0119-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0119-op21::p_0_0_3_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0119-op21::p_0_0_3_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0119-op21::p_0_0_3_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0122-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0122-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0122-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0122-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0122-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0122-op15::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0122-op15::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0122-op15::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0122-op15::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0125-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0125-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0125-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0125-op10::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0125-op10::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0125-op10::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0125-op10::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0125-op10::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0125-op10::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0128-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0128-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0128-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0128-op5::p_0_0_2_3=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0128-op5::p_0_0_2_3=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0128-op5::p_0_0_2_3=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0131-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0131-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0131-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0131-op21::p_0_0_2_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0131-op21::p_0_0_2_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0131-op21::p_0_0_2_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0134-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0134-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0134-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0134-op15::p_0_1_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0134-op15::p_0_1_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0134-op15::p_0_1_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0137-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0137-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0137-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0137-op10::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0137-op10::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0137-op10::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0140-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0140-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0140-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0140-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0140-op5::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0140-op5::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0140-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0140-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0140-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0143-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0143-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0143-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0143-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0143-op21::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0143-op21::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0146-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0146-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0146-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0146-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0146-op15::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0146-op15::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0146-op15::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0146-op15::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0146-op15::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0149-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0149-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0149-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0149-op10::p_0_1_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0149-op10::p_0_1_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0149-op10::p_0_1_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0152-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0152-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0152-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0152-op5::p_0_1_0_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0152-op5::p_0_1_0_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0152-op5::p_0_1_0_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0152-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0152-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0152-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0155-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0155-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0155-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0155-op21::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0155-op21::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0155-op21::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0158-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0158-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0158-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0158-op15::p_0_1_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0158-op15::p_0_1_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0158-op15::p_0_1_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0161-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0161-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0161-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0161-op10::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0161-op10::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0161-op10::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0161-op10::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0161-op10::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0161-op10::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0164-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0164-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0164-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0164-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0164-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0164-op5::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0167-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0167-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0167-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0167-op21::p_0_0_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0167-op21::p_0_0_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0167-op21::p_0_0_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0170-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0170-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0170-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0170-op15::p_0_0_3_2=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0170-op15::p_0_0_3_2=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0170-op15::p_0_0_3_2=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0173-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0173-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0173-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0173-op10::p_0_1_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0173-op10::p_0_1_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0173-op10::p_0_1_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0176-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0176-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0176-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0176-op5::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0176-op5::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0176-op5::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0176-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0176-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0176-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0179-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0179-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0179-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0179-op21::p_0_1_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0179-op21::p_0_1_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0179-op21::p_0_1_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0182-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0182-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0182-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0182-op15::p_0_1_1_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0182-op15::p_0_1_1_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0182-op15::p_0_1_1_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0185-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0185-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0185-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0185-op10::p_0_0_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0185-op10::p_0_0_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0185-op10::p_0_0_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0185-op10::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0185-op10::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0185-op10::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0188-op5"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0188-op5"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0188-op5"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0188-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0188-op5::p_0_0_1_0=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0188-op5::p_0_0_1_0=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0188-op5::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0188-op5::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0188-op5::src"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0191-op21"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0191-op21"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0191-op21"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "parsed", "task_id": "igsm-official-0191-op21::p_0_1_2_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "trained", "task_id": "igsm-official-0191-op21::p_0_1_2_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0191-op21::p_0_1_2_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0194-op15"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0194-op15"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0194-op15"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0194-op15::p_0_1_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0194-op15::p_0_1_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0194-op15::p_0_1_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0197-op10"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0197-op10"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0197-op10"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0197-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0197-op10::p_0_0_0_1=2"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0197-op10::p_0_0_0_1=2"}
+{"baseline": "parser", "input_visibility": "same_prefix_before_event", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0197-op10::src"}
+{"baseline": "next_variable_predictor", "split": "probe_train", "status": "no_event_rows", "task_id": "igsm-official-0197-op10::src"}
+{"baseline": "next_variable_to_dag", "split": "probe_train", "status": "mapped", "task_id": "igsm-official-0197-op10::src"}
+{"baseline": "attention_mean", "reason": "no attention maps", "status": "refused_not_section8"}
+{"baseline": "attention_rollout", "reason": "no attention maps", "status": "refused_not_section8"}
+{"baseline": "attention_threshold", "reason": "no attention maps", "status": "refused_not_section8"}
+{"baseline": "boundary_mlp", "reason": "position names are not supervision", "status": "refused_missing_boundary_labels"}

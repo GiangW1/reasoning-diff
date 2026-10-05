@@ -1,0 +1,354 @@
+{
+  "native_id": "igsm-official-0011-op21",
+  "family_id": "igsm-official-0011-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260937,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "18",
+  "target": "p_1_0_2_2",
+  "question": "The number of each Toy Backpack's Sticky Tape equals the sum of each Civil Engineering Lab's Gaming Backpack and each Control Systems Lab's Backpack. The number of each Mechanical Engineering Lab's Gaming Backpack equals 22 times as much as the sum of each Control Systems Lab's Toy Backpack and each Civil Engineering Lab's Astronomy Gear Backpack. The number of each Toy Backpack's Calculator equals each Control Systems Lab's Gaming Backpack. The number of each Starlight University's Control Systems Lab equals 7 more than each Gaming Backpack's Sticky Tape. The number of each Meadowland University's Mechanical Engineering Lab equals each Civil Engineering Lab's Backpack. The number of each Control Systems Lab's Toy Backpack equals each Control Systems Lab's Gaming Backpack. The number of each Mechanical Engineering Lab's Toy Backpack equals each Toy Backpack's Binder Clip. The number of each Civil Engineering Lab's Toy Backpack equals 17 times as much as each Civil Engineering Lab's Astronomy Gear Backpack. The number of each Gaming Backpack's Binder Clip equals 22. The number of each Civil Engineering Lab's Astronomy Gear Backpack equals 18. The number of each Gaming Backpack's Calculator equals the sum of each Sunnydale University's Civil Engineering Lab and each Gaming Backpack's Sticky Tape. The number of each Control Systems Lab's Gaming Backpack equals 17. The number of each Starlight University's Civil Engineering Lab equals 9 times as much as the difference of each Toy Backpack's Calculator and each Control Systems Lab's Toy Backpack. The number of each Meadowland University's Control Systems Lab equals the difference of each Control Systems Lab's Gaming Backpack and each Civil Engineering Lab's Toy Backpack. The number of each Toy Backpack's Binder Clip equals each Civil Engineering Lab's Astronomy Gear Backpack. The number of each Sunnydale University's Civil Engineering Lab equals 21. The number of each Meadowland University's Civil Engineering Lab equals each Control Systems Lab's Toy Backpack. The number of each Gaming Backpack's Sticky Tape equals 17 more than each Sunnydale University's Civil Engineering Lab. The number of each Civil Engineering Lab's Gaming Backpack equals each Mechanical Engineering Lab's Backpack. The number of each Astronomy Gear Backpack's Sticky Tape equals 7 more than each Civil Engineering Lab's Backpack. How many Backpack does Meadowland University have?",
+  "lookup": {
+    "p_0_0_0_0": 21,
+    "p_0_2_2_1": 15,
+    "p_0_1_0_1": 18,
+    "p_0_1_0_0": 7,
+    "p_0_2_2_0": 22,
+    "p_0_2_0_0": 18,
+    "p_0_1_1_2": 17,
+    "p_0_2_0_2": 17,
+    "p_0_2_2_2": 13,
+    "p_0_1_1_0": 17,
+    "p_0_0_1_0": 0,
+    "p_0_1_2_0": 18,
+    "p_1_1_1_2": 11,
+    "p_0_1_2_2": 11,
+    "p_0_0_1_1": 22,
+    "p_1_1_2_2": 6,
+    "p_0_1_0_2": 6,
+    "p_0_2_0_1": 17,
+    "p_1_1_0_2": 8,
+    "p_0_0_2_0": 17,
+    "p_0_0_2_1": 10,
+    "p_0_0_2_2": 8,
+    "p_0_2_1_1": 15,
+    "p_1_0_2_2": 18
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_2",
+        "literal": 17,
+        "span": [
+          1316,
+          1382
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_1",
+        "literal": 18,
+        "span": [
+          1082,
+          1158
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Control Systems Lab's Toy Backpack"
+        ],
+        "expression": "p_0_1_1_2",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Meadowland University's Civil Engineering Lab"
+        ],
+        "expression": "p_0_1_1_0",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Civil Engineering Lab's Toy Backpack"
+        ],
+        "expression": "(17 * p_0_1_0_1)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Toy Backpack's Binder Clip"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Mechanical Engineering Lab's Toy Backpack"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Mechanical Engineering Lab's Gaming Backpack"
+        ],
+        "expression": "(22 * (p_0_1_1_0 + p_0_1_0_1))",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Mechanical Engineering Lab's Backpack"
+        ],
+        "expression": "(p_0_1_2_0 + p_0_1_2_2)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Civil Engineering Lab's Gaming Backpack"
+        ],
+        "expression": "p_1_1_2_2",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1",
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Civil Engineering Lab's Backpack"
+        ],
+        "expression": "((p_0_1_0_0 + p_0_1_0_1) + p_0_1_0_2)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_1_1_2",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Meadowland University's Control Systems Lab"
+        ],
+        "expression": "(p_0_1_1_2 - p_0_1_0_0)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Control Systems Lab's Backpack"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_2)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_1_1_0_2"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Meadowland University's Mechanical Engineering Lab"
+        ],
+        "expression": "p_1_1_0_2",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_1_0_2",
+          "p_0_0_2_1",
+          "p_1_1_1_2",
+          "p_0_0_2_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "Meadowland University's Backpack"
+        ],
+        "expression": "(((p_0_0_2_0 * p_1_1_0_2) + (p_0_0_2_1 * p_1_1_1_2)) + (p_0_0_2_2 * p_1_1_2_2))",
+        "value": 18
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_2_2"
+      ]
+    ]
+  }
+}

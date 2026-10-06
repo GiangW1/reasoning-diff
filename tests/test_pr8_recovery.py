@@ -157,6 +157,17 @@ def test_new_notation_does_not_inherit_distant_or_rhs_topic(official_task, text)
     assert not any("SF_O" in event.text for event in thinking(text, official_task))
 
 
+def test_saved_bulleted_declaration_pair_resolves_same_operand(official_task):
+    fixture = json.loads((Path(__file__).parent / "fixtures/pr8_bulleted_declaration_pair.json").read_text(encoding="utf-8"))
+    expected = next(n.id for n in official_task.nodes if "Riparian Forest's Seahorse" in n.aliases)
+    traces = [thinking(case["text"], official_task) for case in fixture["cases"]]
+    events = [[event for event in parsed if event.node_id == expected] for parsed in traces]
+    assert all(len(parsed) == 1 for parsed in events)
+    assert events[0][0].expression_signature == events[1][0].expression_signature
+    assert "unresolved:" not in events[0][0].expression_signature
+    assert any(left.node_id == expected for left, right in align_events(*traces)["pairs"])
+
+
 def test_scientific_observations_reject_failed_comparison_boundary(t1_tiny_path):
     from reasoning_diff.edits import apply_value_edit
     task = load_t1_fixture(t1_tiny_path)

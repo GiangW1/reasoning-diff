@@ -209,6 +209,7 @@ def trajectory_table(traces, tasks, observations, splits, scanned_premises=None)
         owner = owners[trace["task_id"]]
         graph = ancestors(owner)
         supported, noise_supported, noise_events, raw, excess = 0, 0, 0, [], []
+        common_raw, common_noise = [], []
         graph.update({p.premise_id: {p.premise_id} for p in owner.premises})
         eligible = 0
         for event in trace.get("events", []):
@@ -241,6 +242,8 @@ def trajectory_table(traces, tasks, observations, splits, scanned_premises=None)
                 raw.append(sum(event_raw) / len(event_raw))
                 if len(event_excess) == len(event_raw):
                     excess.append(sum(event_excess) / len(event_excess))
+                    common_raw.append(sum(event_raw) / len(event_raw))
+                    common_noise.append(rate)
         meta = trace.get("metadata") or {}
         role = roles.get(owner.base_group_id)
         complete = trace.get("status") == "natural_complete"
@@ -254,6 +257,16 @@ def trajectory_table(traces, tasks, observations, splits, scanned_premises=None)
                        "support_cells": supported, "eligible_cells": eligible,
                        "noise_supported_cells": noise_supported, "noise_support_events": noise_events,
                        "observed_events": len(raw), "aggregation": "mean_over_observed_events",
+                       # Expose partial common support without changing the
+                       # registered rho, its missingness, or analysis gates.
+                       "common_support_diagnostic": {
+                           "status": "descriptive_only" if excess else "no_common_support",
+                           "raw": sum(common_raw) / len(common_raw) if common_raw else None,
+                           "noise": sum(common_noise) / len(common_noise) if common_noise else None,
+                           "excess": sum(excess) / len(excess) if excess else None,
+                           "events": len(excess), "observed_events": len(raw), "cells": noise_supported,
+                           "event_coverage": len(excess) / len(raw) if raw else None,
+                           "aggregation": "equal_event_weights_on_identical_edit_and_noise_support"},
                        "support_scope": "all_sentence_facts" if scanned_premises is None else "registered_pilot_facts",
                        "coverage": supported / eligible if eligible else None,
                        "y": int(complete and trace.get("correct") is True), "split": role,

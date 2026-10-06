@@ -120,7 +120,7 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     # paragraph as the introducer; do not inherit topics across narration.
     topics = re.compile(r"(?P<name>" + human_names + r")\s*(?:equals?\b|=|is\b)", re.IGNORECASE) if human_names else None
     introduction = re.compile(r"\b(?:let(?:'s| me| us)?\s+(?:denote|write|note)\s+(?:that|this)\s+as"
-                              r"|so|then|therefore)\s*[:,]?\s*(?P<symbol>" + symbol + r")\s*=", re.IGNORECASE)
+                              r"|so|then|therefore)\s*[:,]?\s*(?:[-*+•][ \t]+)?(?P<symbol>" + symbol + r")\s*=", re.IGNORECASE)
     topic_matches = list(topics.finditer(text)) if topics else []
     for notation in introduction.finditer(text):
         owners = [match for match in topic_matches if match.end() <= notation.start()]

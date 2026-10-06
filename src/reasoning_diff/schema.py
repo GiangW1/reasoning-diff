@@ -262,6 +262,8 @@ class Observation:
     task_id: str = ""
     structure_taxonomy: str = "matched"
     boundary_status: str = "unknown"
+    alignment_method: str = "legacy"
+    alignment_certificate: dict = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if not self.record_id:

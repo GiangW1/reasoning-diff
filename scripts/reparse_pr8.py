@@ -10,9 +10,9 @@ from pathlib import Path
 
 from reasoning_diff import cli
 from reasoning_diff.artifacts import write_manifest, write_run_spec
-from reasoning_diff.events import assign_event_regions, parse_events
+from reasoning_diff.events import ALIGNMENT_POLICY, assign_event_regions, parse_events
 from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
-from reasoning_diff.next_round import measurement_report, trace_labels, trajectory_table
+from reasoning_diff.next_round import cached_paired_screen, measurement_report, trace_labels, trajectory_table
 from reasoning_diff.schema import Edit, Task, Trace
 
 
@@ -88,7 +88,7 @@ def rebuild_observations(traces, tasks, edits, comparisons):
     return observations
 
 
-def remeasure(source, output):
+def remeasure(source, output, *, report_only=False):
     source, output = source.resolve(), output.resolve()
     if output == source or output.is_relative_to(source) or (output.exists() and any(output.iterdir())):
         raise ValueError("use a new output directory outside the original prepare artifacts")
@@ -123,11 +123,14 @@ def remeasure(source, output):
               "source_prepare": str(source), "input_hashes": hashes, "parser_hash": parser_hash,
               "measurement_source_hashes": measurement_hashes,
               "n_traces": len(rows), "n_real_comparisons": len(comparisons),
-              "matching_policy": "region_phase_unique_structure_v2", "coverage_threshold": 0.5,
+              "matching_policy": ALIGNMENT_POLICY, "coverage_threshold": 0.5,
               "before": summary(original["traces.jsonl"], before), "after": summary(rows, table),
               "formal_launch_ready": False, "remaining_checks": "new features, fits and causal smoke required"}
     quality = measurement_report(rows, original["tasks.jsonl"], obs_rows, original["splits.jsonl"])
     report["measurement_quality"] = quality
+    report["cached_paired_screen"] = cached_paired_screen(rows, original["tasks.jsonl"], obs_rows, original["splits.jsonl"])
+    if not quality["passed"] or not report["cached_paired_screen"]["passed"]:
+        report["remaining_checks"] = "saved measurement checks failed; resolve and audit step correspondence before new generation"
     report["matched_cell_gate_passed"] = quality["checks"]["matched_cell_coverage"]
     final = {key: final_commitments(trace) for key, trace in traces.items()}
     final_rows = [trace.to_dict() for trace in final.values()]
@@ -141,18 +144,22 @@ def remeasure(source, output):
     }
     if hashes != {name: file_digest(source / name) for name in filenames}:
         raise ValueError("original prepare artifacts changed during remeasurement")
-    output.mkdir(parents=True)
+    output.mkdir(parents=True, exist_ok=True)
     outputs = {**{name: original[name] for name in ("tasks.jsonl", "edits.jsonl", "splits.jsonl")},
                "traces.jsonl": rows, "observations.jsonl": obs_rows, "p1_table.jsonl": table,
                "final_commitment_p1_table.jsonl": final_table,
                "events.jsonl": [event.to_dict() for trace in traces.values() for event in trace.events],
                "labels.jsonl": [label.to_dict() for label in trace_labels(observations, list(tasks.values()))]}
+    if report_only:
+        outputs = {}
+    report["artifact_scope"] = "measurement_report_only" if report_only else "reparsed_prepare"
     for name, contents in outputs.items():
         write_jsonl(output / name, contents)
     write_json(output / "measurement_report.json", report)
     write_run_spec(output, {"config": {"command": "reparse_pr8", "parser_hash": parser_hash,
                                        "measurement_source_hashes": measurement_hashes,
-                                       "matching_policy": report["matching_policy"], "generation_reused": True},
+                                       "matching_policy": report["matching_policy"], "generation_reused": True,
+                                       "report_only": report_only},
                             "source_kinds": spec.get("source_kinds"), "input_hashes": hashes,
                             "source_prepare": str(source), "upstream_run_specs": spec})
     write_manifest(output, [output / name for name in (*outputs, "measurement_report.json", "run_spec.json")],
@@ -167,8 +174,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--in-dir", type=Path, required=True)
     parser.add_argument("--out-dir", type=Path, required=True)
+    parser.add_argument("--report-only", action="store_true", help="Verify measurements and cached pilot without exporting derived trace files")
     args = parser.parse_args()
-    remeasure(args.in_dir, args.out_dir)
+    remeasure(args.in_dir, args.out_dir, report_only=args.report_only)
 
 
 if __name__ == "__main__":

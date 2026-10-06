@@ -118,6 +118,45 @@ def test_operand_mentions_are_not_assignment_heads(t1_tiny_path, text):
     assert not any(e.node_id == "q" for e in parse_events(text, load_t1_fixture(t1_tiny_path)))
 
 
+@pytest.mark.parametrize("marker", ["- ", "* ", "+ ", "• ", "  - ", "\t* "])
+def test_markdown_bullet_is_not_an_operand_operator(t1_tiny_path, marker):
+    text = marker + "q = 2 * 3 = 6"
+    events = parse_events(text, load_t1_fixture(t1_tiny_path))
+    assert len(events) == 1
+    event = events[0]
+    assert (event.node_id, event.value, event.event_phase) == ("q", "6", "calculation")
+    assert event.start == len(marker) and text[event.value_start:event.end] == "6"
+
+
+@pytest.mark.parametrize("text", [
+    "- Let **SF_O** = Secondary Forest's Organs\n**SF_O** = 9 * 2 = 18.",
+    "- SF_O = number of Secondary Forest's Organs = X * Y\nSF_O = 9 * 2 = 18.",
+    "The number of Secondary Forest's Organs equals a product. Let me write that as:\n\nSF_O = X * Y\nSF_O = 9 * 2 = 18.",
+    "Secondary Forest's Organs = a product. So:\n\nSF_O = X * Y\nSF_O = 9 * 2 = 18.",
+])
+def test_saved_edit_notation_and_markdown_forms(official_task, text):
+    events = thinking(text, official_task)
+    assert events and events[-1].value == "18"
+    expected = next(n.id for n in official_task.nodes if "Secondary Forest's Organs" in n.aliases)
+    assert events[-1].node_id == expected
+    assert text[events[-1].start:events[-1].end] == events[-1].text
+
+
+def test_formatting_mask_preserves_arithmetic_power_operators(t1_tiny_path):
+    text = "q = 2**3**2 = 512"
+    events = thinking(text, load_t1_fixture(t1_tiny_path))
+    assert len(events) == 1 and events[0].value == "512"
+    assert "Pow" in events[0].expression_signature
+
+
+@pytest.mark.parametrize("text", [
+    "Secondary Forest's Organs = a product.\n\nSo SF_O = 18.",
+    "X = Secondary Forest's Organs = 18. So SF_O = 18.",
+])
+def test_new_notation_does_not_inherit_distant_or_rhs_topic(official_task, text):
+    assert not any("SF_O" in event.text for event in thinking(text, official_task))
+
+
 def test_scientific_observations_reject_failed_comparison_boundary(t1_tiny_path):
     from reasoning_diff.edits import apply_value_edit
     task = load_t1_fixture(t1_tiny_path)

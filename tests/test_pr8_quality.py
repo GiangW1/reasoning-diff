@@ -86,6 +86,35 @@ def test_pilot_support_denominator_is_registered_not_all_unscanned_facts(t1_tiny
     assert report["trajectories"][0]["support_scope"] == "registered_pilot_facts"
 
 
+def test_cached_paired_screen_uses_exact_registered_edits(t1_tiny_path):
+    from itertools import permutations
+    from reasoning_diff.next_round import cached_paired_screen, registered_pilot_edits
+    task = sentence_graph_task(load_t1_fixture(t1_tiny_path))
+    bases, observations = [], []
+    for seed in range(3):
+        trace = cli._synthetic_trace(task, "q = 7", f"base{seed}", seed)
+        trace.events = assign_event_regions(parse_events(trace.text, task), trace.text, initial_thinking=True)
+        trace.metadata.update(boundary_status="ok", generated_tokens=100)
+        bases.append(trace)
+    for left, right in permutations(bases, 2):
+        observations.extend(cli._sham_observations(task, left, right, right.seed, "noise"))
+    for edit in registered_pilot_edits(task):
+        changed = cli._synthetic_trace(edit.task, "q = 8", edit.id, 0)
+        changed.events = assign_event_regions(parse_events(changed.text, edit.task), changed.text, initial_thinking=True)
+        observations.extend(cli._observations(task, bases[0], changed, edit, "stream:0", edit.id))
+    rows = [trace.to_dict() for trace in bases]
+    saved = [obs.to_dict() for obs in observations]
+    report = cached_paired_screen(rows, [task.to_dict()], saved, [])
+    assert report["passed"] and report["overall"]["n_traces"] == 1
+    assert report["cache_coverage"]["planned_edits"] == report["cache_coverage"]["cached_edits"] == 3
+    assert report["trajectories"][0]["support_scope"] == "registered_pilot_facts"
+    assert all(obs["alignment_certificate"] for obs in saved if obs["outcome"] in {"changed", "no_change"})
+    missing = [row for row in saved if row["premise_id"] != "unused_a"]
+    assert not cached_paired_screen(rows, [task.to_dict()], missing, [])["checks"]["registered_edit_comparisons"]
+    duplicate = [*saved, {**saved[-1], "comparison_trace": "other-cached-trace"}]
+    assert not cached_paired_screen(rows, [task.to_dict()], duplicate, [])["checks"]["registered_edit_comparisons"]
+
+
 def conditions(kind="same_source_diff_value"):
     return [{"base_task_id": "t", "pair_index": 0, "pair_kind": kind, "condition": condition,
              "status": "prospective_decode", "decode_complete": True, "invalid": 0,
@@ -184,6 +213,7 @@ def test_measurement_failure_stops_before_any_collect_or_fit(tmp_path, t1_tiny_p
     runner = importlib.import_module("run_pr8")
     monkeypatch.setitem(__import__("sys").modules, "fcntl", SimpleNamespace(LOCK_EX=1, LOCK_NB=2, flock=lambda *a: None))
     monkeypatch.setattr(runner, "SERVER", tmp_path)
+    monkeypatch.setattr(runner.shutil, "disk_usage", lambda _: SimpleNamespace(free=10 * 1024**3))
     monkeypatch.setattr(runner, "cohorts", lambda _paths: ([t1_tiny_path], [t1_tiny_path]))
     monkeypatch.setattr(runner.subprocess, "check_output", lambda *a, **k: "/dev/mock\n")
     task = sentence_graph_task(load_t1_fixture(t1_tiny_path))
@@ -225,6 +255,7 @@ def test_runner_carries_c2_and_quality_and_rejects_failed_formal_controls(tmp_pa
     runner = importlib.import_module("run_pr8")
     monkeypatch.setitem(__import__("sys").modules, "fcntl", SimpleNamespace(LOCK_EX=1, LOCK_NB=2, flock=lambda *a: None))
     monkeypatch.setattr(runner, "SERVER", tmp_path)
+    monkeypatch.setattr(runner.shutil, "disk_usage", lambda _: SimpleNamespace(free=10 * 1024**3))
     monkeypatch.setattr(runner, "cohorts", lambda _paths: ([t1_tiny_path], [t1_tiny_path]))
     monkeypatch.setattr(runner.subprocess, "check_output", lambda *a, **k: "/dev/mock\n")
     task = sentence_graph_task(load_t1_fixture(t1_tiny_path))

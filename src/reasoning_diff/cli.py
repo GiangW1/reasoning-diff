@@ -485,6 +485,8 @@ def _scan_run_id(edit):
 
 def _observations(task, base_trace, edit_trace, edit, rng_pair: str, run_id: str) -> list[Observation]:
     aligned = align_events(base_trace.events, edit_trace.events)
+    left_nodes = {e.identity.key(): e.node_id for e in base_trace.events}
+    right_nodes = {e.identity.key(): e.node_id for e in edit_trace.events}
     rows = []
     premise_id = edit.changed_premise_ids[0] if edit.changed_premise_ids else ""
     edit_id = edit.id
@@ -554,7 +556,7 @@ def _observations(task, base_trace, edit_trace, edit, rng_pair: str, run_id: str
                 base_group_id=task.base_group_id,
                 run_id=run_id,
                 record_id=f"{run_id}:{key}:{edit_id}:removed",
-                node_id=key.split(":")[0] if key else "",
+                node_id=left_nodes.get(key, ""),
                 task_id=task.task_id,
             )
         )
@@ -569,18 +571,21 @@ def _observations(task, base_trace, edit_trace, edit, rng_pair: str, run_id: str
                 event_pair=["", key],
                 outcome="structural",
                 raw_values=[None, None],
-                alignment_ref=key,
+                alignment_ref="",
                 rng_pair=rng_pair,
                 scan_state="unscanned",
                 exhaustive=bool(edit.exhaustive),
                 base_group_id=task.base_group_id,
                 run_id=run_id,
                 record_id=f"{run_id}:{key}:{edit_id}:added",
-                node_id=key.split(":")[0] if key else "",
+                node_id=right_nodes.get(key, ""),
                 task_id=task.task_id,
             )
         )
     for row in rows:
+        row.alignment_method = aligned["structural"]["detector"]
+        row.alignment_certificate = next((certificate for certificate in aligned.get("pair_certificates", [])
+                                          if [certificate["left"], certificate["right"]] == row.event_pair), {})
         if row.outcome == "structural":
             row.structure_taxonomy = "removed_or_added"
         elif row.outcome == "unaligned":
@@ -602,7 +607,8 @@ def _sham_observations(task: Task, base_trace: Trace, sham_trace: Trace, seed: i
     rows = []
     if any((trace.metadata or {}).get("boundary_status", "ok") != "ok" for trace in (base_trace, sham_trace)):
         return rows
-    for left, right in align_events(base_trace.events, sham_trace.events)["pairs"]:
+    aligned = align_events(base_trace.events, sham_trace.events)
+    for left, right in aligned["pairs"]:
         key = left.node_id or left.identity.key()
         identity = digest([task.task_id, base_trace.id, sham_trace.id, left.identity.key(), right.identity.key(), seed, run_id])
         rows.append(
@@ -612,7 +618,7 @@ def _sham_observations(task: Task, base_trace: Trace, sham_trace: Trace, seed: i
                 comparison_trace=sham_trace.id,
                 edit_id="sham:no_edit_sampled",
                 premise_id=f"sham:{key}",
-                event_pair=[key, right.node_id or right.identity.key()],
+                event_pair=[left.identity.key(), right.identity.key()],
                 outcome=compare_pair(left, right),
                 raw_values=[left.value, right.value],
                 alignment_ref=left.identity.key(),
@@ -623,6 +629,9 @@ def _sham_observations(task: Task, base_trace: Trace, sham_trace: Trace, seed: i
                 record_id=f"{run_id}:{identity}",
                 node_id=left.node_id,
                 task_id=task.task_id,
+                alignment_method=aligned["structural"]["detector"],
+                alignment_certificate=next((certificate for certificate in aligned.get("pair_certificates", [])
+                                            if certificate["left"] == left.identity.key() and certificate["right"] == right.identity.key()), {}),
             )
         )
     return rows
@@ -2640,7 +2649,7 @@ def _pair_source_value(matrix: np.ndarray, event_rows: list[dict], pair_meta: di
             donor = traces.get(donor_tid)
             if donor is None or donor.metadata.get("boundary_status", "ok") != "ok":
                 continue
-            events = [e for e in donor.events if e.event_region == "thinking" and e.event_kind != "restatement"]
+            events = donor.events
             source_edit = (pair_meta or {}).get(kind, {})
             if kind == "same_value_diff_source" and source_edit.get("kind") == kind:
                 before, after = source_edit.get("before", {}), source_edit.get("after", {})
@@ -2650,8 +2659,9 @@ def _pair_source_value(matrix: np.ndarray, event_rows: list[dict], pair_meta: di
                     # for C2 stage matching; do not remap other operands.
                     events = [replace(e, expression_signature=e.expression_signature.replace(
                         f"id={new!r}", f"id={old!r}")) for e in events]
-            references = [e for e in base.events if e.event_region == "thinking" and e.event_kind != "restatement"]
-            for left, right in align_events(references, events)["pairs"]:
+            for left, right in align_events(base.events, events)["pairs"]:
+                if left.event_region != "thinking" or left.event_kind == "restatement":
+                    continue
                 ii = feature_index.get((base_tid, left.identity.key()), [])
                 jj = feature_index.get((donor_tid, right.identity.key()), [])
                 if len(ii) != 1 or len(jj) != 1:

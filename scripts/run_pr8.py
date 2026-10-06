@@ -18,9 +18,10 @@ import time
 from threading import Lock, local
 
 from reasoning_diff import cli
+from reasoning_diff.events import ALIGNMENT_POLICY
 from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
 from reasoning_diff.next_round import (intervention_coverage, measurement_report, parser_coverage,
-                                       scan_edits, select_dev_layer, smoke_report)
+                                       registered_pilot_edits, select_dev_layer, smoke_report)
 from reasoning_diff.schema import Trace
 from reasoning_diff.splits import DEFAULT_FRACTIONS, split_for_task
 from reasoning_diff.tasks.t1_official import load_igsm_snapshot
@@ -95,13 +96,10 @@ def pilot_worker(args):
         if any(not path.exists() for _, _, _, path in base_requests):
             raise ValueError("paired pilot requires the completed base-only pilot")
         for index, task in enumerate(tasks):
-            relevant = next(p.premise_id for p in task.premises if p.kind != "relation" and p.premise_id not in {"unused_a", "unused_b"})
-            chosen = {relevant, "unused_a", "unused_b"}
-            for edit in scan_edits(task, 1):
+            for edit in registered_pilot_edits(task):
                 pid = edit.changed_premise_ids[0]
-                if pid in chosen:
-                    edits.append((index, edit))
-                    requests.append((f"{index}:{pid}", edit.task, 0, out / f"paired-{index}-{pid}.json"))
+                edits.append((index, edit))
+                requests.append((f"{index}:{pid}", edit.task, 0, out / f"paired-{index}-{pid}.json"))
     missing = [request for request in requests if not request[3].exists()]
     if missing:
         packed = cli._load_frozen_runtime(opts)
@@ -229,7 +227,7 @@ def main(argv=None):
     protocol = {"premise_protocol": "sentence_graph_v1", "noise": "directed_base_seed_pairs_common_cells",
                 "max_new": args.max_new, "context_policy": "budget_clipped_to_remaining_card_context",
                 "seeds": [0, 1, 2], "temperature": 0.6, "top_k": 20, "top_p": 0.95,
-                "matching_policy": "region_phase_unique_structure_v2", "coverage_threshold": 0.5,
+                "matching_policy": ALIGNMENT_POLICY, "coverage_threshold": 0.5,
                 "measurement_checks": "overall_and_each_problem_and_op_before_collection",
                 "paired_pilot": {"edit_seed": 0, "noise_seeds": [1, 2], "facts": "first_relevant_definition_and_two_distractors"},
                 "batch_size": args.batch_size, "gpus": args.gpus, "model": args.model,

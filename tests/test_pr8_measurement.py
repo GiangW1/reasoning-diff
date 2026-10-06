@@ -334,6 +334,7 @@ def test_failed_length_pilot_never_launches_formal_generation(tmp_path, t1_tiny_
     runner = importlib.import_module("run_pr8")
     monkeypatch.setitem(__import__("sys").modules, "fcntl", SimpleNamespace(LOCK_EX=1, LOCK_NB=2, flock=lambda *args: None))
     monkeypatch.setattr(runner, "SERVER", tmp_path)
+    monkeypatch.setattr(runner.shutil, "disk_usage", lambda _: SimpleNamespace(free=10 * 1024**3))
     monkeypatch.setattr(runner, "cohorts", lambda _paths: ([t1_tiny_path], [t1_tiny_path]))
     monkeypatch.setattr(runner.subprocess, "check_output", lambda *a, **k: "/dev/mock\n")
     calls = []
@@ -362,6 +363,7 @@ def test_invalid_c2_control_prevents_formal_generation(tmp_path, t1_tiny_path, m
     runner = importlib.import_module("run_pr8")
     monkeypatch.setitem(__import__("sys").modules, "fcntl", SimpleNamespace(LOCK_EX=1, LOCK_NB=2, flock=lambda *a: None))
     monkeypatch.setattr(runner, "SERVER", tmp_path)
+    monkeypatch.setattr(runner.shutil, "disk_usage", lambda _: SimpleNamespace(free=10 * 1024**3))
     monkeypatch.setattr(runner, "cohorts", lambda _paths: ([t1_tiny_path], [t1_tiny_path]))
     monkeypatch.setattr(runner.subprocess, "check_output", lambda *a, **k: "/dev/mock\n")
     monkeypatch.setattr(runner, "smoke_report", lambda *a: {"checks": {"measurement": True}, "base_traces": 1})

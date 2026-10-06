@@ -101,8 +101,14 @@ def test_remeasure_preserves_raw_manifest_and_rebuilds_missing_noise(runner, tmp
     report = read_json(output / "measurement_report.json")
     assert report["before"]["trajectories_with_rho"] == 0
     assert report["after"]["trajectories_with_rho"] == 1
-    assert report["matching_policy"] == "region_phase_unique_structure_v2"
+    assert report["matching_policy"] == "region_structure_forced_sequence_v3"
     assert not report["formal_launch_ready"]
+    lightweight = tmp_path / "report-only"
+    runner.remeasure(source, lightweight, report_only=True)
+    assert {path.name for path in lightweight.iterdir()} == {"manifest.json", "run_spec.json", "measurement_report.json"}
+    assert read_json(lightweight / "measurement_report.json")["measurement_quality"] == report["measurement_quality"]
+    assert read_json(lightweight / "run_spec.json")["config"]["report_only"]
+    assert hashes == {path.name: file_digest(path) for path in source.iterdir()}
     with pytest.raises(ValueError, match="new output directory"):
         runner.remeasure(source, output)
     write_jsonl(source / "traces.jsonl", [])

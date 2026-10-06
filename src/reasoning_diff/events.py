@@ -10,6 +10,7 @@ from .graphs import ancestors
 from .schema import Event, EventIdentity, Task, canonical_value
 
 NUMBER = r"[+-]?(?:\d[\d,]*(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
+ALIGNMENT_POLICY = "region_structure_forced_sequence_v3"
 
 
 def _entity_name(name: str) -> str:
@@ -58,8 +59,10 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     inline = re.compile(r"(?<!\w)(?P<name>" + "|".join(full_names) + r")\s*\((?P<paren>" + symbol
                         + r")\)\s*(?==|[.,;]|$)", re.IGNORECASE) if full_names else None
     name_pattern = "|".join(full_names)
-    reverse_entity = re.compile(r"^\s*[-*]\s*(?:Let\s+)?(?P<symbol>" + symbol
-                                + r")\s*=\s*(?P<name>" + name_pattern + r")\s*\.?\s*$", re.IGNORECASE) if full_names else None
+    human_names = "|".join(re.escape(alias).replace("'s", "(?:'s)?") for alias, node_id, *_ in entities if alias != node_id)
+    reverse_entity = re.compile(r"^\s*(?:[-*]\s+)?(?:Let\s+)?(?P<symbol>" + symbol
+                                + r")\s*=\s*(?:(?:the\s+)?number of\s+)?(?P<name>" + human_names
+                                + r")(?:\.?\s*$|\s*(?==))", re.IGNORECASE) if human_names else None
     prose = [re.compile(pattern, re.IGNORECASE) for pattern in (
         r"\blet\s+(?:me\s+)?denote\s+(?:the number of\s+)?(?P<name>" + name_pattern + r")\s+as\s+(?P<symbol>" + symbol + r")(?!\w)",
         r"\blet\s+(?P<symbol>" + symbol + r")\s+be\s+(?:the number of\s+)?(?P<name>" + name_pattern + r")(?!\w)",
@@ -74,8 +77,9 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
         if heading:
             candidate = heading.group(1).strip().casefold()
             scope = candidate if candidate in scopes else None
-        match = (declaration.fullmatch(line.rstrip("\r\n")) or reverse.fullmatch(line.rstrip("\r\n"))
-                 or (reverse_entity.fullmatch(line.rstrip("\r\n")) if reverse_entity else None))
+        match = (declaration.fullmatch(line.rstrip("\r\n"))
+                 or (reverse_entity.match(line.rstrip("\r\n")) if reverse_entity else None)
+                 or reverse.fullmatch(line.rstrip("\r\n")))
         matches = ([match] if match else []) + (list(inline.finditer(line)) if inline else [])
         matches.extend(match for pattern in prose for match in pattern.finditer(line))
         # A same-line, explicit sentence subject may introduce a notation in
@@ -111,6 +115,33 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
                 elif prior is not None and prior[0][1] != entity[1]:
                     declared[key] = None
         offset += len(line)
+    # An explicit "write/denote that as:" or "So:" may introduce a
+    # notation on the next line. Its named subject must be in the same
+    # paragraph as the introducer; do not inherit topics across narration.
+    topics = re.compile(r"(?P<name>" + human_names + r")\s*(?:equals?\b|=|is\b)", re.IGNORECASE) if human_names else None
+    introduction = re.compile(r"\b(?:let(?:'s| me| us)?\s+(?:denote|write|note)\s+(?:that|this)\s+as"
+                              r"|so|then|therefore)\s*[:,]?\s*(?P<symbol>" + symbol + r")\s*=", re.IGNORECASE)
+    topic_matches = list(topics.finditer(text)) if topics else []
+    for notation in introduction.finditer(text):
+        owners = [match for match in topic_matches if match.end() <= notation.start()]
+        if not owners:
+            continue
+        owner = owners[-1]
+        if "\n\n" in text[owner.end():notation.start()]:
+            continue
+        # A named entity on another assignment's RHS is not a new topic.
+        before = text[text.rfind("\n", 0, owner.start()) + 1:owner.start()]
+        if "=" in re.split(r"\.(?!\d)|;", before)[-1]:
+            continue
+        candidates = names.get(_entity_name(owner.group("name")), {})
+        if len(candidates) != 1:
+            continue
+        alias = notation.group("symbol")
+        key, entity = alias.casefold(), next(iter(candidates.values()))
+        if key not in declared:
+            declared[key] = ((alias, *entity[1:]), notation.start("symbol"))
+        elif declared[key] is not None and declared[key][0][1] != entity[1]:
+            declared[key] = None
     return {key: value for key, value in declared.items() if value is not None}
 
 
@@ -129,7 +160,7 @@ def _expression_tree(expression: str, entities: list[tuple]):
         if len(names[alias]) != 1:
             continue
         symbol = f"entity_{index}"
-        pattern = rf"(?<!\w){re.escape(alias)}(?!\w)"
+        pattern = rf"(?<!\w)(?:(?:the\s+)?number of\s+)?{re.escape(alias)}(?!\w)"
         expression = re.sub(pattern, symbol, expression, flags=re.IGNORECASE)
         symbols[symbol] = next(iter(names[alias]))
     try:
@@ -196,6 +227,11 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
 
 
 def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Event]:
+    source_text = text
+    # Mask paired inline formatting with spaces of exactly the same length.
+    # Match on rendered words while reporting offsets in the saved raw text.
+    text = re.sub(r"(?<!\w)(\*\*|__|`)(?=\S)([^\n]*?\S)\1(?!\w)",
+                  lambda match: " " * len(match.group(1)) + match.group(2) + " " * len(match.group(1)), text)
     declarations = _declared_aliases(text, entities)
     registered = {(e[0].casefold(), e[1]) for e in entities}
     entities = [*entities, *[entity for entity, _ in declarations.values() if (entity[0].casefold(), entity[1]) not in registered]]
@@ -216,7 +252,13 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
             start = match.start()
             # An entity mentioned inside another assignment's RHS is not a
             # new assignment head (e.g. q = p1 and p2 = 3).
-            preceding = text[max(text.rfind("\n", 0, start), text.rfind(";", 0, start)) + 1:start]
+            line_start = text.rfind("\n", 0, start) + 1
+            clause_start = max(line_start, text.rfind(";", 0, start) + 1)
+            preceding = text[clause_start:start]
+            # A line-leading Markdown marker is layout, not a preceding
+            # operand. Keep offsets in the original text unchanged.
+            if clause_start == line_start:
+                preceding = re.sub(r"^\s*(?:>\s*)?[-*+•]\s+", "", preceding)
             preceding = re.split(r"\.(?!\d)|,\s+(?=[A-Za-z])", preceding)[-1]
             if "=" in preceding:
                 continue
@@ -260,7 +302,7 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 start,
                 end,
                 value_start,
-                text[start:end],
+                source_text[start:end],
                 parents_out,
                 canonical_value(value) == canonical_value(gold) if gold is not None else None,
                 surface_mentions=surface_mentions(text[start:end], task),
@@ -344,7 +386,7 @@ def parse_fixture_events(text: str, task: Task) -> list[Event]:
     return events
 
 
-def align_events(base: list[Event], changed: list[Event]) -> dict:
+def _align_unique_events(base: list[Event], changed: list[Event]) -> dict:
     left_keys = [e.identity.key() for e in base]
     right_keys = [e.identity.key() for e in changed]
     if len(set(left_keys)) != len(base) or len(set(right_keys)) != len(changed):
@@ -421,6 +463,73 @@ def align_events(base: list[Event], changed: list[Event]) -> dict:
             "scanned": False,
         },
     }
+
+
+def align_events(base: list[Event], changed: list[Event]) -> dict:
+    """Retain only correspondences forced by all optimal ordered alignments.
+
+    A correspondence assumes stage order is preserved in this region. The
+    score counts compatible steps, never values, gold answers, or proximity.
+    Multiple optimal partners stay unknown rather than taking a tie-break.
+    """
+    if not any(e.expression_signature for e in base + changed) or all(
+        e.event_phase == "final_assignment" for e in base + changed
+    ):
+        # Legacy fixtures have explicitly enumerated identities. The separate
+        # final-state diagnostic matches entities rather than all-step order.
+        return _align_unique_events(base, changed)
+    for events in (base, changed):
+        if len({e.identity.key() for e in events}) != len(events):
+            raise ValueError("Duplicate event identities cannot be aligned")
+    pairs, certificates = [], []
+    for region in sorted({e.event_region for e in base + changed}):
+        left = sorted([e for e in base if e.event_region == region and e.status == "ok"], key=lambda e: e.start)
+        right = sorted([e for e in changed if e.event_region == region and e.status == "ok"], key=lambda e: e.start)
+        def key(e):
+            return (e.identity.entity_or_expression, e.node_id, e.identity.scope,
+                    e.event_kind, e.event_phase, e.expression_signature)
+        aa, bb = [key(e) for e in left], [key(e) for e in right]
+        n, m = len(aa), len(bb)
+        prefix = [[0] * (m + 1) for _ in range(n + 1)]
+        suffix = [[0] * (m + 1) for _ in range(n + 1)]
+        for i in range(n):
+            for j in range(m):
+                prefix[i + 1][j + 1] = prefix[i][j] + 1 if aa[i] == bb[j] else max(prefix[i][j + 1], prefix[i + 1][j])
+        for i in range(n - 1, -1, -1):
+            for j in range(m - 1, -1, -1):
+                suffix[i][j] = suffix[i + 1][j + 1] + 1 if aa[i] == bb[j] else max(suffix[i + 1][j], suffix[i][j + 1])
+        # Every optimal path has exactly one pair at each matched rank. A
+        # rank with one feasible edge is common to every such path.
+        ranks = defaultdict(list)
+        optimum = prefix[n][m]
+        for i in range(n):
+            for j in range(m):
+                if aa[i] == bb[j] and prefix[i][j] + 1 + suffix[i + 1][j + 1] == optimum:
+                    ranks[prefix[i][j] + 1].append((i, j))
+        forced = [(rank, edges[0]) for rank, edges in ranks.items() if len(edges) == 1]
+        context_entities = {aa[i][:3] for _, (i, j) in forced}
+        left_counts, right_counts = Counter(aa), Counter(bb)
+        for rank, (i, j) in forced:
+            unique = left_counts[aa[i]] == right_counts[bb[j]] == 1
+            # Counts alone do not resolve an isolated run of identical
+            # confirmations; require an independent entity in the context.
+            if not unique and len(context_entities) < 2:
+                continue
+            pairs.append((left[i], right[j]))
+            certificates.append({"left": left[i].identity.key(), "right": right[j].identity.key(),
+                                 "region": region, "matched_rank": rank, "optimal_length": optimum,
+                                 "feasible_edges_at_rank": 1, "independent_context_entities": len(context_entities)})
+    paired_left = {e.identity.key() for e, _ in pairs}
+    paired_right = {e.identity.key() for _, e in pairs}
+    removed = [e.identity.key() for e in base if e.identity.key() not in paired_left]
+    added = [e.identity.key() for e in changed if e.identity.key() not in paired_right]
+    return {"pairs": pairs, "pair_certificates": certificates, "removed": removed, "added": added,
+            "unaligned": removed + added,
+            "structural": {"disappeared": removed, "merged": [],
+                           "strategy_changed": [e.identity.key() for e in base + changed if e.status == "strategy_change"],
+                           "ambiguous": [{"left": removed, "right": added, "reason": "non_forced_or_incompatible_step"}] if removed or added else [],
+                           "detector": ALIGNMENT_POLICY,
+                           "strategy_detector": "status_field_only", "scanned": False}}
 
 
 def align_events_monotonic(base: list[Event], changed: list[Event]) -> dict:

@@ -6,7 +6,7 @@ from collections import defaultdict
 import math
 
 from .edits import apply_value_edit, recompute
-from .events import premise_aliases
+from .events import ALIGNMENT_POLICY, premise_aliases
 from .graphs import ancestors
 from .schema import Edit, EventIdentity, Label, Premise, Task
 
@@ -126,12 +126,19 @@ def scan_edits(task, repeats):
     return edits
 
 
+def registered_pilot_edits(task):
+    sources = ancestors(task).get(task.target, set())
+    relevant = next(p.premise_id for p in task.premises if p.kind != "relation" and p.premise_id in sources)
+    chosen = {relevant, "unused_a", "unused_b"}
+    return [edit for edit in scan_edits(task, 1) if edit.changed_premise_ids[0] in chosen]
+
+
 def trace_labels(observations, tasks):
     """Behavior labels belong to the reference seed, not a pooled event ID."""
     owners = {t.task_id: t for t in tasks}
     grouped = defaultdict(list)
     for obs in observations:
-        if not (obs.rng_pair or "").startswith("sham:"):
+        if not (obs.rng_pair or "").startswith("sham:") and obs.event_pair[0]:
             grouped[(obs.task_id, obs.reference_trace, obs.alignment_ref, obs.premise_id)].append(obs)
     rows = []
     for (tid, trace, event, premise), items in grouped.items():
@@ -292,12 +299,59 @@ def measurement_report(traces, tasks, observations, splits, scanned_premises=Non
     classes = {str(value): sum(r["y"] == value for r in table) for value in (0, 1)}
     return {"passed": not failures, "checks": checks, "failures": failures,
             "overall": overall, "by_op": by_op, "by_problem": by_problem, "trajectories": table,
-            "matching_policy": "region_phase_unique_structure_v2", "coverage_threshold": 0.5,
+            "matching_policy": ALIGNMENT_POLICY, "coverage_threshold": 0.5,
             "coverage_unit": "overall_and_each_problem_and_op",
             "parser_recall": "not_estimated_without_annotated_steps",
             "p1_estimability": {"status": "single_class" if not all(classes.values()) else "requires_held_out_classes",
                                  "class_counts": classes, "blocks_engineering_smoke": False},
             "scientific_conclusion": None}
+
+
+def cached_paired_screen(traces, tasks, observations, splits):
+    """Run the registered small screen on existing exact edit comparisons."""
+    originals = [row for row in tasks if "::" not in row["task_id"] and not row.get("edit_ref")]
+    base = base_trajectories(traces, tasks)
+    by_task = defaultdict(list)
+    for row in base:
+        if row.get("seed") == 0:
+            by_task[row["task_id"]].append(row)
+    references, planned, scanned = [], [], {}
+    for owner in originals:
+        candidates = by_task[owner["task_id"]]
+        if len(candidates) != 1:
+            continue
+        trace = candidates[0]
+        references.append(trace)
+        for edit in registered_pilot_edits(Task.from_dict(owner)):
+            pid = edit.changed_premise_ids[0]
+            planned.append((trace["id"], edit.id))
+            scanned.setdefault(owner["task_id"], []).append(pid)
+    selected, comparisons = [], defaultdict(set)
+    reference_ids = {row["id"] for row in references}
+    trace_ids = {row["id"]: row for row in base}
+    for obs in observations:
+        reference = obs["reference_trace"]
+        if reference not in reference_ids:
+            continue
+        if (obs.get("rng_pair") or "").startswith("sham:"):
+            donor = trace_ids.get(obs["comparison_trace"], {})
+            if donor.get("seed") in (1, 2) and donor.get("task_id") == trace_ids[reference]["task_id"]:
+                selected.append(obs)
+        elif (reference, obs["edit_id"]) in planned:
+            comparisons[reference, obs["edit_id"]].add(obs["comparison_trace"])
+            selected.append(obs)
+    report = measurement_report(references, originals, selected, splits, scanned)
+    report["checks"]["unique_seed0_references"] = len(references) == len(originals) and bool(originals)
+    report["checks"]["registered_edit_comparisons"] = bool(planned) and all(len(comparisons[key]) == 1 for key in planned)
+    report["failures"] = [key for key, value in report["checks"].items() if not value]
+    report["passed"] = not report["failures"]
+    report["cache_coverage"] = {"planned_edits": len(planned), "cached_edits": sum(len(comparisons[key]) == 1 for key in planned),
+                                "missing_edits": [list(key) for key in planned if not comparisons[key]],
+                                "ambiguous_edits": [list(key) for key in planned if len(comparisons[key]) > 1]}
+    report["pilot_protocol"] = {"edit_seed": 0, "noise_seeds": [1, 2], "scanned_premises": scanned,
+                                "scope": "relevant_fact_and_two_distractors", "formal_evidence": False,
+                                "generation_reused": True}
+    return report
 
 
 def smoke_report(traces, tasks, observations, event_rows, probes):

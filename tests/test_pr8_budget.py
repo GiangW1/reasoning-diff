@@ -69,6 +69,7 @@ def test_intervention_shards_keep_all_pairs_and_all_controls(tmp_path, monkeypat
 def test_deadline_is_preserved_on_resume_and_prevents_new_work(runner, tmp_path, t1_tiny_path, monkeypatch):
     monkeypatch.setitem(__import__("sys").modules, "fcntl", SimpleNamespace(LOCK_EX=1, LOCK_NB=2, flock=lambda *_args: None))
     monkeypatch.setattr(runner, "SERVER", tmp_path)
+    monkeypatch.setattr(runner.shutil, "disk_usage", lambda _: SimpleNamespace(free=10 * 1024**3))
     monkeypatch.setattr(runner, "cohorts", lambda _paths: ([t1_tiny_path], [t1_tiny_path]))
     monkeypatch.setattr(runner.subprocess, "check_output", lambda *_a, **_kw: "/dev/mock\n")
     clock = {"now": 100.0}

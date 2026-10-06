@@ -1,0 +1,31 @@
+{
+  "reviewed_baseline_commit": "241cd3165bd84114c849950cdd0f8531c782f466",
+  "measurement_from_modified_working_tree": true,
+  "source_hash_note": "Hashes identify exact files in the Windows checkout, including its line endings.",
+  "pytest": {
+    "command": ".venv/Scripts/python.exe -m pytest -q --tb=line",
+    "passed": 392,
+    "seconds": 108.5
+  },
+  "compileall": {
+    "command": ".venv/Scripts/python.exe -m compileall -q src scripts tests",
+    "passed": true
+  },
+  "diff_check": {
+    "command": "git diff --check",
+    "passed": true
+  },
+  "input_manifest_verified": true,
+  "input_files_unchanged": true,
+  "measurement_source_hashes_match_working_files": true,
+  "published_report_is_exact_offline_copy": true,
+  "offline_output_manifest_verified": true,
+  "offline_output_manifest_digest": "ee30e0cd894fbb9033e927d6e6f27ee475355d6b2bb6164dcf7630c517d4b4e9",
+  "full_measurement_checks_passed": false,
+  "cached_paired_screen_passed": false,
+  "formal_launch_ready": false,
+  "new_model_generation": false,
+  "gpu_smoke_run": false,
+  "formal_experiment_run": false,
+  "semantic_pair_precision_recall": "not_estimated"
+}

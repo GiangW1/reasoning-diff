@@ -19,7 +19,9 @@ from threading import Lock, local
 
 from reasoning_diff import cli
 from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
-from reasoning_diff.next_round import intervention_coverage, select_dev_layer, smoke_report
+from reasoning_diff.next_round import (intervention_coverage, measurement_report, parser_coverage,
+                                       scan_edits, select_dev_layer, smoke_report)
+from reasoning_diff.schema import Trace
 from reasoning_diff.splits import DEFAULT_FRACTIONS, split_for_task
 from reasoning_diff.tasks.t1_official import load_igsm_snapshot
 
@@ -67,22 +69,39 @@ def limit_formal(paths, limit):
 
 
 def pilot_worker(args):
-    """Cheap base-only length/parser check before paying for perturbations."""
+    """Resume base lengths or a registered small paired measurement pilot."""
     from reasoning_diff.models import generate
     from trace_batching import BatchDecoder
     opts = cli.build_parser().parse_args(["prepare", "--fixture", str(args.dataset), "--kind", "igsm",
                                          "--out-dir", str(args.out_root), "--premise-protocol", "sentence_graph",
                                          "--eval-mode", "scientific", "--backend", "frozen", "--model-name", args.model, "--device", "cuda"])
     tasks = cli._load_tasks(opts)
+    paired = getattr(args, "mode", "pilot-worker") == "pair-pilot-worker"
     out = args.out_root
     out.mkdir(parents=True, exist_ok=True)
     spec = {"source": {p.relative_to(REPO).as_posix(): file_digest(p) for directory in ("src", "scripts") for p in sorted((REPO / directory).rglob("*.py"))},
             "tasks": [digest(t.to_dict()) for t in tasks], "model": args.model, "max_new": args.max_new, "seeds": [0, 1, 2],
             "batch_size": args.batch_size}
-    if (out / "pilot_spec.json").exists() and read_json(out / "pilot_spec.json") != spec:
+    spec_name = "paired_pilot_spec.json" if paired else "pilot_spec.json"
+    if paired and (not (out / "pilot_spec.json").exists() or read_json(out / "pilot_spec.json") != spec):
+        raise ValueError("paired pilot base protocol mismatch; use a new output root")
+    if (out / spec_name).exists() and read_json(out / spec_name) != spec:
         raise ValueError("pilot inputs/code changed; use a new output root")
-    write_json(out / "pilot_spec.json", spec)
+    write_json(out / spec_name, spec)
     requests = [(index, task, seed, out / f"trace-{index}-seed{seed}.json") for index, task in enumerate(tasks) for seed in range(3)]
+    base_requests = list(requests)
+    edits = []
+    if paired:
+        if any(not path.exists() for _, _, _, path in base_requests):
+            raise ValueError("paired pilot requires the completed base-only pilot")
+        for index, task in enumerate(tasks):
+            relevant = next(p.premise_id for p in task.premises if p.kind != "relation" and p.premise_id not in {"unused_a", "unused_b"})
+            chosen = {relevant, "unused_a", "unused_b"}
+            for edit in scan_edits(task, 1):
+                pid = edit.changed_premise_ids[0]
+                if pid in chosen:
+                    edits.append((index, edit))
+                    requests.append((f"{index}:{pid}", edit.task, 0, out / f"paired-{index}-{pid}.json"))
     missing = [request for request in requests if not request[3].exists()]
     if missing:
         packed = cli._load_frozen_runtime(opts)
@@ -97,7 +116,8 @@ def pilot_worker(args):
 
         def save(request):
             index, task, seed, path = request
-            trace = generate.generate_task_trace(task, seed=seed, run_id=f"trace-base:{index}:seed{seed}", backend="frozen",
+            run_id = f"trace-pilot-edit:{index}" if "::" in task.task_id else f"trace-base:{index}:seed{seed}"
+            trace = generate.generate_task_trace(task, seed=seed, run_id=run_id, backend="frozen",
                                                  model_name=args.model, packed=packed, device="cuda", max_new=args.max_new,
                                                  temperature=0.6, top_k=20, top_p=0.95, enable_thinking=True, allow_forced_target=False)
             trace.metadata["op"] = task.metadata.get("op")
@@ -112,7 +132,28 @@ def pilot_worker(args):
         finally:
             generate.decode_loop = original_decode
             decoder.close()
-    write_jsonl(out / "traces.jsonl", [read_json(path) for _, _, _, path in requests])
+    rows = [read_json(path) for _, _, _, path in requests]
+    write_jsonl(out / ("paired_traces.jsonl" if paired else "traces.jsonl"), rows)
+    write_jsonl(out / "tasks.jsonl", [task.to_dict() for task in tasks])
+    if paired:
+        from itertools import permutations
+        bases = {(index, seed): Trace.from_dict(read_json(path)) for index, _, seed, path in base_requests}
+        observations = []
+        scanned = {}
+        for index, edit in edits:
+            pid = edit.changed_premise_ids[0]
+            edited = Trace.from_dict(read_json(out / f"paired-{index}-{pid}.json"))
+            observations.extend(cli._observations(tasks[index], bases[index, 0], edited, edit, "stream:0", f"pilot:{index}:{pid}"))
+            scanned.setdefault(tasks[index].task_id, []).append(pid)
+        for index, task in enumerate(tasks):
+            for left, right in permutations([bases[index, seed] for seed in range(3)], 2):
+                observations.extend(cli._sham_observations(task, left, right, right.seed, f"pilot-noise:{index}"))
+        # Only seed 0 is edited in this cheap screen; seeds 1/2 provide noise.
+        references = [bases[index, 0].to_dict() for index in range(len(tasks))]
+        report = measurement_report(references, [task.to_dict() for task in tasks], [o.to_dict() for o in observations], [], scanned)
+        report["pilot_protocol"] = {"edit_seed": 0, "noise_seeds": [1, 2], "scanned_premises": scanned,
+                                    "scope": "relevant_fact_and_two_distractors", "formal_evidence": False}
+        write_json(out / "paired_measurement.json", report)
 
 
 def layer_sweep(stage, work, dataset, prep, labels, model, gpus, layers):
@@ -144,7 +185,7 @@ def layer_sweep(stage, work, dataset, prep, labels, model, gpus, layers):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=("smoke", "full", "pilot-worker"), default="smoke")
+    parser.add_argument("--mode", choices=("smoke", "full", "pilot-worker", "pair-pilot-worker"), default="smoke")
     parser.add_argument("--dataset", type=Path, default=SERVER / "runs/pr7-200-20261004/inputs/igsm-pilot200")
     parser.add_argument("--model-root", type=Path, default=SERVER / "assets/models")
     parser.add_argument("--out-root", type=Path, default=SERVER / "runs/pr8-sentence-facts")
@@ -155,7 +196,7 @@ def main(argv=None):
     parser.add_argument("--formal-limit", type=int, help="Balanced exploratory subset; default uses all remaining problems")
     parser.add_argument("--time-budget-hours", type=float, help="Stop subprocesses at the persisted wall-clock deadline")
     args = parser.parse_args(argv)
-    if args.mode == "pilot-worker":
+    if args.mode in {"pilot-worker", "pair-pilot-worker"}:
         pilot_worker(args)
         return 0
     import fcntl
@@ -188,6 +229,9 @@ def main(argv=None):
     protocol = {"premise_protocol": "sentence_graph_v1", "noise": "directed_base_seed_pairs_common_cells",
                 "max_new": args.max_new, "context_policy": "budget_clipped_to_remaining_card_context",
                 "seeds": [0, 1, 2], "temperature": 0.6, "top_k": 20, "top_p": 0.95,
+                "matching_policy": "region_phase_unique_structure_v2", "coverage_threshold": 0.5,
+                "measurement_checks": "overall_and_each_problem_and_op_before_collection",
+                "paired_pilot": {"edit_seed": 0, "noise_seeds": [1, 2], "facts": "first_relevant_definition_and_two_distractors"},
                 "batch_size": args.batch_size, "gpus": args.gpus, "model": args.model,
                 "formal_limit": args.formal_limit, "cohort_status": "exploratory" if args.formal_limit is not None else "full_available_cohort",
                 "formal_selection": "op_and_persisted_split_stratified_hash_v1" if args.formal_limit is not None else "all_non_smoke_families",
@@ -279,6 +323,28 @@ def main(argv=None):
         write_json(root / "pipeline.json", {"status": "failed", "stage": "length_pilot", "error": "length/parser pilot failed",
                    "scientific_conclusion": None})
         raise RuntimeError("length/parser pilot failed; inspect length_pilot.json and pilot traces before spending on scans")
+    pilot_tasks = [task for gpu, _ in pilot_inputs for task in read_jsonl(root / f"pilot-gpu{gpu}/tasks.jsonl")]
+    parser_rows = parser_coverage(pilot_traces, pilot_tasks)
+    write_json(root / "parser_coverage.json", {"trajectories": parser_rows, "step_recall": "requires_annotated_steps"})
+    by_problem = {}
+    for row in parser_rows:
+        by_problem.setdefault(row["problem_id"], []).append(row)
+    if not by_problem or any(sum(r["variable_coverage"] or 0 for r in rows) / len(rows) < 0.5
+                             or sum(r["target_present"] for r in rows) / len(rows) < 0.5 for rows in by_problem.values()):
+        write_json(root / "pipeline.json", {"status": "failed", "stage": "parser_coverage", "scientific_conclusion": None})
+        raise RuntimeError("parser coverage pilot failed; full premise scans have not started")
+    with ThreadPoolExecutor(max_workers=len(args.gpus)) as pool:
+        jobs = [pool.submit(run, f"paired-pilot-gpu{gpu}", [sys.executable, Path(__file__), "--mode", "pair-pilot-worker",
+                "--dataset", path, "--out-root", root / f"pilot-gpu{gpu}", "--model", args.model,
+                "--max-new", args.max_new, "--batch-size", args.batch_size], gpu) for gpu, path in pilot_inputs]
+        for job in jobs:
+            job.result()
+    paired_reports = [read_json(root / f"pilot-gpu{gpu}/paired_measurement.json") for gpu, _ in pilot_inputs]
+    write_json(root / "paired_pilot.json", {"passed": all(r["passed"] for r in paired_reports), "shards": paired_reports,
+                                          "scientific_conclusion": None})
+    if not all(r["passed"] for r in paired_reports):
+        write_json(root / "pipeline.json", {"status": "failed", "stage": "paired_pilot", "scientific_conclusion": None})
+        raise RuntimeError("paired measurement pilot failed; full premise scans have not started")
 
     def pipeline(paths, name):
         work = root / name
@@ -294,6 +360,12 @@ def main(argv=None):
         prep = work / "prepare"
         run(f"{name}-merge", [sys.executable, REPO / "scripts/merge_pr6_shards.py", "--out-dir", prep, *[work / f"prepare-gpu{g}" for g, _ in inputs]])
         labels = work / "label"
+        measurements = measurement_report(read_jsonl(prep / "traces.jsonl"), read_jsonl(prep / "tasks.jsonl"),
+                                          read_jsonl(prep / "observations.jsonl"), read_jsonl(prep / "splits.jsonl"))
+        write_json(work / "measurement_report.json", measurements)
+        write_jsonl(work / "p1_table.jsonl", measurements["trajectories"])
+        if not measurements["passed"]:
+            raise RuntimeError(f"{name} measurement failed before feature collection: {measurements['failures']}")
         layers = [0, 12, 24, 35] if args.model == "qwen3-8b" else [0, 9, 18, 27]
         layer_sweep(stage, work, args.dataset, prep, labels, args.model, args.gpus, layers)
         scores = []
@@ -318,16 +390,17 @@ def main(argv=None):
         report = smoke_report(read_jsonl(prep / "traces.jsonl"), read_jsonl(prep / "tasks.jsonl"), read_jsonl(prep / "observations.jsonl"),
                               read_jsonl(collect / "event_rows.jsonl"), read_jsonl(fit / "probes.jsonl"))
         p1 = read_jsonl(fit / "p1_table.jsonl")
-        report["checks"]["trajectory_p1"] = len(p1) == report["base_traces"] and len({r["trace_id"] for r in p1}) == len(p1) and any(r["rho"] is not None for r in p1)
-        observed = sum(r["support_cells"] for r in p1)
-        possible = sum(r["eligible_cells"] for r in p1)
-        report["matched_cell_coverage"] = observed / possible if possible else 0
-        report["checks"]["matched_cell_coverage"] = possible > 0 and observed / possible >= 0.5
+        expected = {r["trace_id"]: (r["rho"], r["support_cells"], r["eligible_cells"]) for r in measurements["trajectories"]}
+        actual = {r["trace_id"]: (r["rho"], r["support_cells"], r["eligible_cells"]) for r in p1}
+        report["checks"].update(measurements["checks"])
+        report["checks"]["trajectory_p1"] = len(p1) == report["base_traces"] and len(actual) == len(p1) and actual == expected
+        report["matched_cell_coverage"] = measurements["overall"]["matched_cell_coverage"]
+        report["p1_estimability"] = measurements["p1_estimability"]
         report["failures"] = [k for k, v in report["checks"].items() if not v]
         report["passed"] = not report["failures"]
         write_json(work / "smoke_report.json", report)
-        if name == "smoke" and not report["passed"]:
-            raise RuntimeError("measurement smoke failed; full generation has not started")
+        if not report["passed"]:
+            raise RuntimeError(f"{name} feature/probe checks failed: {report['failures']}")
         if name == "full":
             stage("full-calibrate", "calibrate", "--in-dir", fit, "--features-dir", collect, "--labels-dir", labels, "--out-dir", work / "calibration")
         with ThreadPoolExecutor(max_workers=len(args.gpus)) as pool:
@@ -344,15 +417,11 @@ def main(argv=None):
                          config={"command": "merge_intervention_shards", "n_shards": len(args.gpus),
                                  "shard_hashes": {str(path.relative_to(root)): file_digest(path) for path in intervention_paths}})
         coverage = intervention_coverage(intervention)
-        usable = coverage["usable_main_contrasts"]
+        causal_ready = all(coverage["usable_by_kind"].get(kind, 0) > 0
+                           for kind in ("same_value_diff_source", "same_source_diff_value"))
         write_json(work / "intervention_coverage.json", coverage)
-        if name == "smoke" and not usable:
-            report["checks"]["causal_decode"] = False
-            report["passed"] = False
-            report["failures"].append("causal_decode")
-            write_json(work / "smoke_report.json", report)
-            raise RuntimeError("no usable donor/decode in smoke; full generation has not started")
-        report["checks"]["causal_decode"] = usable > 0
+        report["checks"]["causal_decode"] = causal_ready
+        report["failures"] = [k for k, v in report["checks"].items() if not v]
         report["passed"] = all(report["checks"].values())
         write_json(work / "smoke_report.json", report)
         analysis = work / "analysis-input"
@@ -360,7 +429,11 @@ def main(argv=None):
         for source, filenames in ((prep, ["tasks.jsonl", "traces.jsonl", "splits.jsonl"]), (fit, ["p1_table.jsonl"]), (labels, ["labels.jsonl"])):
             for filename in filenames:
                 shutil.copy2(source / filename, analysis / filename)
+        shutil.copy2(work / "measurement_report.json", analysis / "measurement_report.json")
+        shutil.copy2(work / "intervention/interventions.jsonl", analysis / "interventions.jsonl")
         stage(f"{name}-analyze", "analyze", "--in-dir", analysis, "--out-dir", work / "analysis")
+        if not causal_ready:
+            raise RuntimeError(f"no usable donor/decode for both source-pair kinds in {name}; inspect intervention_coverage.json")
 
     try:
         pipeline(smoke, "smoke")

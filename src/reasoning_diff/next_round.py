@@ -148,7 +148,39 @@ def trace_labels(observations, tasks):
     return rows
 
 
-def trajectory_table(traces, tasks, observations, splits):
+def base_trajectories(traces, tasks):
+    owners = {t["task_id"]: t for t in tasks}
+    return [trace for trace in traces if trace.get("task_id") in owners
+            and not owners[trace["task_id"]].get("edit_ref") and "::" not in trace["task_id"]
+            and not any(kind in trace["id"] for kind in ("sham", "source"))]
+
+
+def parser_coverage(traces, tasks):
+    """DAG-variable coverage is a diagnostic, not annotated step recall."""
+    owners = {t["task_id"]: Task.from_dict(t) for t in tasks}
+    rows = []
+    for trace in base_trajectories(traces, tasks):
+        task = owners[trace["task_id"]]
+        nodes = {node.id: node for node in task.nodes}
+        required, pending = set(), [task.target]
+        while pending:
+            node_id = pending.pop()
+            if node_id in nodes and node_id not in required:
+                required.add(node_id)
+                pending.extend(nodes[node_id].parents)
+        parsed = {e["node_id"] for e in trace.get("events", []) if e.get("event_region") == "thinking"
+                  and e.get("event_kind") != "restatement" and e.get("status", "ok") == "ok"}
+        if (trace.get("metadata") or {}).get("boundary_status", "ok") != "ok":
+            parsed = set()
+        rows.append({"trace_id": trace["id"], "problem_id": task.base_group_id,
+                     "op": task.metadata.get("op", len(task.nodes)), "required_nodes": len(required),
+                     "parsed_required_nodes": len(required & parsed), "missing_nodes": sorted(required - parsed),
+                     "variable_coverage": len(required & parsed) / len(required) if required else None,
+                     "target_present": task.target in parsed})
+    return rows
+
+
+def trajectory_table(traces, tasks, observations, splits, scanned_premises=None):
     """One row per base trajectory. Missing attribution stays missing in ITT.
 
     Raw density is the mean changed fraction on observed non-task cells.
@@ -161,32 +193,34 @@ def trajectory_table(traces, tasks, observations, splits):
     real, noise = defaultdict(list), defaultdict(list)
     for o in observations:
         key = (o["reference_trace"], o.get("alignment_ref", ""))
-        if o.get("outcome") not in {"changed", "no_change"}:
+        if o.get("outcome") not in {"changed", "no_change"} or o.get("boundary_status", "ok") == "failed":
             continue
         bucket = noise if (o.get("rng_pair") or "").startswith("sham:") else real
         bucket[key].append(o)
     result = []
-    for trace in traces:
-        owner = owners.get(trace["task_id"])
-        if owner is None or owner.edit_ref or "::" in trace["task_id"]:
-            continue
-        if "sham" in trace["id"] or "source" in trace["id"]:
-            continue
+    for trace in base_trajectories(traces, tasks):
+        owner = owners[trace["task_id"]]
         graph = ancestors(owner)
-        supported, raw, excess = 0, [], []
+        supported, noise_supported, noise_events, raw, excess = 0, 0, 0, [], []
         graph.update({p.premise_id: {p.premise_id} for p in owner.premises})
         eligible = 0
         for event in trace.get("events", []):
+            if (trace.get("metadata") or {}).get("boundary_status", "ok") != "ok":
+                continue
             if event.get("event_region") != "thinking" or event.get("event_kind") == "restatement" or event.get("status", "ok") != "ok":
                 continue
             key = (trace["id"], EventIdentity(**event["identity"]).key())
             non_task = {p.premise_id for p in owner.premises} - graph.get(event["node_id"], set())
+            if scanned_premises is not None:
+                non_task &= set(scanned_premises.get(owner.task_id, []))
             eligible += len(non_task)
             cells = defaultdict(list)
             for obs in real[key]:
                 if obs["premise_id"] in non_task:
                     cells[obs["premise_id"]].append(obs["outcome"] == "changed")
             n = noise[key]
+            if n:
+                noise_events += 1
             rate = sum(o["outcome"] == "changed" for o in n) / len(n) if n else None
             event_raw, event_excess = [], []
             for values in cells.values():
@@ -195,6 +229,7 @@ def trajectory_table(traces, tasks, observations, splits):
                 supported += 1
                 if rate is not None:
                     event_excess.append(value - rate)
+                    noise_supported += 1
             if event_raw:
                 raw.append(sum(event_raw) / len(event_raw))
                 if len(event_excess) == len(event_raw):
@@ -210,7 +245,9 @@ def trajectory_table(traces, tasks, observations, splits):
                        "rho": sum(excess) / len(excess) if excess and len(excess) == len(raw) else None,
                        "rho_missing_reason": None if raw and len(excess) == len(raw) else "missing_matched_support_or_noise",
                        "support_cells": supported, "eligible_cells": eligible,
+                       "noise_supported_cells": noise_supported, "noise_support_events": noise_events,
                        "observed_events": len(raw), "aggregation": "mean_over_observed_events",
+                       "support_scope": "all_sentence_facts" if scanned_premises is None else "registered_pilot_facts",
                        "coverage": supported / eligible if eligible else None,
                        "y": int(complete and trace.get("correct") is True), "split": role,
                        "held_out": role == "test", "trace_status": trace.get("status"),
@@ -218,8 +255,53 @@ def trajectory_table(traces, tasks, observations, splits):
     return result
 
 
+def measurement_report(traces, tasks, observations, splits, scanned_premises=None):
+    """CPU-only prerequisites evaluated before feature collection or fitting."""
+    table = trajectory_table(traces, tasks, observations, splits, scanned_premises)
+    parsed = {row["trace_id"]: row for row in parser_coverage(traces, tasks)}
+    strata = defaultdict(list)
+    problems = defaultdict(list)
+    for row in table:
+        row.update(parsed[row["trace_id"]])
+        strata[str(row["op"])].append(row)
+        problems[row["problem_id"]].append(row)
+
+    def summarize(rows):
+        possible = sum(r["eligible_cells"] for r in rows)
+        support = sum(r["support_cells"] for r in rows)
+        noise = sum(r["noise_supported_cells"] for r in rows)
+        coverage = [r["variable_coverage"] for r in rows if r["variable_coverage"] is not None]
+        return {"n_traces": len(rows), "n_problems": len({r["problem_id"] for r in rows}),
+                "eligible_cells": possible, "support_cells": support, "noise_supported_cells": noise,
+                "matched_cell_coverage": support / possible if possible else 0,
+                "common_noise_coverage": noise / possible if possible else 0,
+                "rho_coverage": sum(r["rho"] is not None for r in rows) / len(rows) if rows else 0,
+                "variable_coverage": sum(coverage) / len(coverage) if coverage else 0,
+                "target_coverage": sum(r["target_present"] for r in rows) / len(rows) if rows else 0}
+
+    overall = summarize(table)
+    by_op = {op: summarize(rows) for op, rows in strata.items()}
+    by_problem = {problem: summarize(rows) for problem, rows in problems.items()}
+    groups = [overall, *by_op.values(), *by_problem.values()]
+    checks = {"trajectory_rows_unique": bool(table) and len({r["trace_id"] for r in table}) == len(table)}
+    for key in ("matched_cell_coverage", "common_noise_coverage", "rho_coverage", "variable_coverage", "target_coverage"):
+        checks[key] = bool(table) and all(group[key] >= 0.5 for group in groups)
+    checks["exact_boundaries"] = bool(table) and all(
+        (trace.get("metadata") or {}).get("boundary_status") == "ok" for trace in base_trajectories(traces, tasks))
+    failures = [key for key, value in checks.items() if not value]
+    classes = {str(value): sum(r["y"] == value for r in table) for value in (0, 1)}
+    return {"passed": not failures, "checks": checks, "failures": failures,
+            "overall": overall, "by_op": by_op, "by_problem": by_problem, "trajectories": table,
+            "matching_policy": "region_phase_unique_structure_v2", "coverage_threshold": 0.5,
+            "coverage_unit": "overall_and_each_problem_and_op",
+            "parser_recall": "not_estimated_without_annotated_steps",
+            "p1_estimability": {"status": "single_class" if not all(classes.values()) else "requires_held_out_classes",
+                                 "class_counts": classes, "blocks_engineering_smoke": False},
+            "scientific_conclusion": None}
+
+
 def smoke_report(traces, tasks, observations, event_rows, probes):
-    base = [t for t in traces if "trace-base" in t["id"] or "trace-t0p" in t["id"]]
+    base = base_trajectories(traces, tasks)
     complete = sum(t.get("status") == "natural_complete" for t in base) / max(len(base), 1)
     events = [e for t in base for e in t.get("events", []) if e.get("event_region") == "thinking"
               and e.get("event_kind") != "restatement" and e.get("status", "ok") == "ok"]
@@ -257,12 +339,39 @@ def intervention_coverage(rows):
                      and r.get("decode_complete") is True
                      and isinstance(norm, (int, float)) and math.isfinite(norm)
                      and (norm == 0 if condition == "baseline" else norm > 0))
-            if not valid or (condition == "clayer" and r.get("clayer_status") != "dev_weak_layer_decode"):
+            if (sum(row.get("condition") == condition for row in records) != 1 or not valid
+                    or (condition == "clayer" and r.get("clayer_status") != "dev_weak_layer_decode")):
                 failures.append(condition)
         usable += not failures
         contrasts.append({"base_task_id": task, "pair_index": index, "pair_kind": kind,
                           "usable": not failures, "failed_conditions": failures})
-    return {"usable_main_contrasts": usable, "contrasts": contrasts, "P3": "not_evaluated"}
+    by_kind = defaultdict(int)
+    for contrast in contrasts:
+        if contrast["usable"]:
+            by_kind[str(contrast["pair_kind"])] += 1
+    return {"usable_main_contrasts": usable, "usable_by_kind": dict(by_kind), "contrasts": contrasts, "P3": "not_evaluated"}
+
+
+def c2_summary(rows):
+    coverage = intervention_coverage(rows)
+    effects = []
+    for contrast in coverage["contrasts"]:
+        if not contrast["usable"]:
+            continue
+        records = {r["condition"]: r for r in rows if r.get("base_task_id") == contrast["base_task_id"]
+                   and r.get("pair_index") == contrast["pair_index"] and r.get("pair_kind") == contrast["pair_kind"]}
+        main = records["main"]
+        def delta(condition, key):
+            left, right = main.get(key), records[condition].get(key)
+            return left - right if isinstance(left, (int, float)) and isinstance(right, (int, float)) else None
+        effects.append({**contrast, "task_correct_vs_baseline": delta("baseline", "task_correct"),
+                        "task_correct_vs_crand": delta("crand", "task_correct"),
+                        "task_correct_vs_clayer": delta("clayer", "task_correct"),
+                        "target_follow_vs_baseline": delta("baseline", "target"),
+                        "interpretation": "same_value_cannot_identify_source_follow" if contrast["pair_kind"] == "same_value_diff_source"
+                                          else "paired_descriptive_decode_contrast"})
+    return {**coverage, "status": "evaluated_descriptive" if effects else "no_usable_contrast",
+            "effects": effects, "scientific_conclusion": None}
 
 
 def matched_baselines(h, y_task, y_beh, event_keys, feature_rows, tasks, traces, premise_keys, train, roles, position):

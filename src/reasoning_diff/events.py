@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import ast
 from collections import Counter, defaultdict
+from fractions import Fraction
 import re
 
 from .graphs import ancestors
@@ -56,14 +57,45 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     full_names = sorted({re.escape(entity[0]).replace("'s", "(?:'s)?") for entity in entities}, key=len, reverse=True)
     inline = re.compile(r"(?<!\w)(?P<name>" + "|".join(full_names) + r")\s*\((?P<paren>" + symbol
                         + r")\)\s*(?==|[.,;]|$)", re.IGNORECASE) if full_names else None
+    name_pattern = "|".join(full_names)
+    reverse_entity = re.compile(r"^\s*[-*]\s*(?:Let\s+)?(?P<symbol>" + symbol
+                                + r")\s*=\s*(?P<name>" + name_pattern + r")\s*\.?\s*$", re.IGNORECASE) if full_names else None
+    prose = [re.compile(pattern, re.IGNORECASE) for pattern in (
+        r"\blet\s+(?:me\s+)?denote\s+(?:the number of\s+)?(?P<name>" + name_pattern + r")\s+as\s+(?P<symbol>" + symbol + r")(?!\w)",
+        r"\blet\s+(?P<symbol>" + symbol + r")\s+be\s+(?:the number of\s+)?(?P<name>" + name_pattern + r")(?!\w)",
+        r"\blet\s+(?:me\s+)?denote\s+(?P<symbol>" + symbol + r")\s+as\s+(?:the number of\s+)?(?P<name>" + name_pattern + r")(?!\w)",
+    )] if full_names else []
+    subject = re.compile(r"\b(?:the\s+)?number of\s+(?P<name>" + name_pattern + r")\s*(?:equals?\b|=|is\b)", re.IGNORECASE) if full_names else None
+    adjacent = re.compile(r"\b(?:so|then|therefore),?\s+(?:let(?:'s| us| me)?\s+denote this as\s+)?(?P<symbol>" + symbol + r")\s*=", re.IGNORECASE)
+    pronoun = re.compile(r"\blet(?:'s| me| us)?\s+denote this as\s+(?P<symbol>" + symbol + r")(?!\w)", re.IGNORECASE)
     scope, offset, declared = None, 0, {}
     for line in text.splitlines(keepends=True):
         heading = re.fullmatch(r"(?:For\s+)?(.+?):", line.strip().strip("*"), re.IGNORECASE)
         if heading:
             candidate = heading.group(1).strip().casefold()
             scope = candidate if candidate in scopes else None
-        match = declaration.fullmatch(line.rstrip("\r\n")) or reverse.fullmatch(line.rstrip("\r\n"))
+        match = (declaration.fullmatch(line.rstrip("\r\n")) or reverse.fullmatch(line.rstrip("\r\n"))
+                 or (reverse_entity.fullmatch(line.rstrip("\r\n")) if reverse_entity else None))
         matches = ([match] if match else []) + (list(inline.finditer(line)) if inline else [])
+        matches.extend(match for pattern in prose for match in pattern.finditer(line))
+        # A same-line, explicit sentence subject may introduce a notation in
+        # the following clause. Never infer an entity from its numeric value.
+        subjects = list(subject.finditer(line)) if subject else []
+        for notation in [*adjacent.finditer(line), *pronoun.finditer(line)]:
+            prior_subjects = [m for m in subjects if m.end() <= notation.start()]
+            if prior_subjects:
+                owner = prior_subjects[-1]
+                name = _entity_name(owner.group("name"))
+                candidates = names.get(name, {})
+                if len(candidates) == 1:
+                    alias = notation.group("symbol")
+                    entity = next(iter(candidates.values()))
+                    key = alias.casefold()
+                    position = offset + notation.start("symbol")
+                    if key not in declared:
+                        declared[key] = ((alias, *entity[1:]), position)
+                    elif declared[key] is not None and declared[key][0][1] != entity[1]:
+                        declared[key] = None
         for match in matches:
             name = _entity_name(match.group("name").strip().strip("*`$"))
             candidates = names.get(name)
@@ -82,6 +114,87 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     return {key: value for key, value in declared.items() if value is not None}
 
 
+def _expression_tree(expression: str, entities: list[tuple]):
+    """Validate printed arithmetic and derive a value-blind structural key."""
+    expression = expression.strip().strip("$")
+    expression = re.sub(r"([A-Za-z])_\{([A-Za-z0-9]+)\}", r"\1_\2", expression)
+    expression = expression.replace(r"\times", "*").replace(r"\cdot", "*").replace(r"\div", "/")
+    expression = expression.translate(str.maketrans({"×": "*", "÷": "/", "−": "-", "^": "**"}))
+    expression = re.sub(r"\s*(?:\\?mod\b|modulo\b)\s*", " % ", expression, flags=re.IGNORECASE)
+    names = defaultdict(set)
+    for alias, node_id, *_ in entities:
+        names[alias.casefold()].add(node_id)
+    symbols = {}
+    for index, alias in enumerate(sorted(names, key=len, reverse=True)):
+        if len(names[alias]) != 1:
+            continue
+        symbol = f"entity_{index}"
+        pattern = rf"(?<!\w){re.escape(alias)}(?!\w)"
+        expression = re.sub(pattern, symbol, expression, flags=re.IGNORECASE)
+        symbols[symbol] = next(iter(names[alias]))
+    try:
+        tree = ast.parse(expression, mode="eval")
+    except (SyntaxError, ValueError):
+        return None
+    allowed = (ast.Expression, ast.Name, ast.Load, ast.Constant, ast.BinOp, ast.UnaryOp,
+               ast.Add, ast.Sub, ast.Mult, ast.Div, ast.Mod, ast.Pow, ast.UAdd, ast.USub)
+    if any(not isinstance(node, allowed) or (isinstance(node, ast.Constant) and type(node.value) not in (int, float))
+           for node in ast.walk(tree)):
+        return None
+    phase = "reduction" if any(isinstance(node, ast.Mod) for node in ast.walk(tree)) else (
+        "calculation" if isinstance(tree.body, ast.BinOp) else "copy" if isinstance(tree.body, ast.Name) else "commit")
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Constant):
+            node.value = "number"
+        elif isinstance(node, ast.Name):
+            node.id = symbols.get(node.id, "unresolved:" + node.id.casefold())
+    return phase, ast.dump(tree, include_attributes=False)
+
+
+def _numeric_commit(text: str, start: int, entities: list[tuple]):
+    """Accept a terminal printed scalar, never evaluate an unfinished RHS."""
+    line_end = text.find("\n", start)
+    line_end = len(text) if line_end < 0 else line_end
+    rhs = text[start:line_end]
+    number = re.compile(NUMBER)
+    for result in number.finditer(rhs):
+        prefix = rhs[:result.start()].strip().strip("$").strip()
+        scalar = prefix == "" or re.fullmatch(r"\(*\s*", prefix)
+        if not scalar and not prefix.endswith("="):
+            continue
+        suffix = rhs[result.end():]
+        # A close parenthesis or a LaTeX marker cannot hide pending math.
+        rest = re.sub(r"^(?:\s*[)$])*\s*", "", suffix)
+        mod = re.match(r"(?P<open>\()?\s*(?:\\?mod\b|modulo\b)\s*(?P<modulus>" + NUMBER + r")\s*(?(open)\))", rest, re.IGNORECASE)
+        if mod:
+            # "x = 3 mod 23" can annotate an explicitly printed residue.
+            # "x = 25 mod 23" has not printed its reduced result: do not
+            # evaluate it or record the pending reduction as a scalar commit.
+            try:
+                value = Fraction(result.group().replace(",", "").replace(" ", ""))
+                modulus = Fraction(mod.group("modulus").replace(",", "").replace(" ", ""))
+            except (ValueError, ZeroDivisionError):
+                continue
+            if not 0 <= value < modulus:
+                continue
+            rest = rest[mod.end():].lstrip()
+        annotation = re.match(r"\((?:given|as given|from (?:the )?problem)\)", rest, re.IGNORECASE)
+        if annotation:
+            rest = rest[annotation.end():].lstrip()
+        if rest and not re.match(r"[.,;?!]|</", rest):
+            continue
+        expressions = [] if scalar else prefix[:-1].split("=")
+        trees = [_expression_tree(expr, entities) for expr in expressions]
+        if any(tree is None for tree in trees):
+            continue
+        phase, signature = trees[0] if trees else ("commit", "scalar")
+        if any(tree[0] == "reduction" for tree in trees):
+            phase = "reduction"
+        kind = "calculation" if any(tree[0] in {"calculation", "reduction"} for tree in trees) else "commit"
+        return start + result.start(), start + result.end(), result.group(), kind, phase, signature
+    return None
+
+
 def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Event]:
     declarations = _declared_aliases(text, entities)
     registered = {(e[0].casefold(), e[1]) for e in entities}
@@ -91,66 +204,47 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
     for alias, node_id, gold, scope, parents, graph_status in entities:
         if counts[alias.casefold()] != 1:
             continue
-        value_pattern = NUMBER if task.answer_spec.kind == "numeric" else r"[^\n.;]+"
         closing = r"\s*\)?" if alias.casefold() in declarations else ""
         pattern = re.compile(
-            rf"(?<!\w){re.escape(alias)}{closing}\s*(?:=|:|equals?|is|are)\s*\$?\(*\s*(?P<value>{value_pattern})",
+            rf"(?<!\w){re.escape(alias)}{closing}\s*(?:=|:|equals?\b|is\b|are\b)\s*",
             re.IGNORECASE,
         )
-        matches = list(pattern.finditer(text))
-        if task.answer_spec.kind == "numeric":
-            symbolic = re.compile(rf"(?<!\w){re.escape(alias)}{closing}\s*=\s*(?P<expr>[A-Za-z][^=\n;]*?)"
-                                  rf"=\s*\$?(?P<value>{NUMBER})(?=\s*(?:$|[.,;)]|\(?\s*\bmod\b))", re.IGNORECASE)
-            matches.extend(symbolic.finditer(text))
-        for match in matches:
+        for match in pattern.finditer(text):
             declared = declarations.get(alias.casefold())
             if declared is not None and (alias.casefold(), node_id) not in registered and match.start() < declared[1]:
                 continue
             start = match.start()
-            end = match.end()
-            value_start = match.start("value")
-            value = match.group("value")
+            # An entity mentioned inside another assignment's RHS is not a
+            # new assignment head (e.g. q = p1 and p2 = 3).
+            preceding = text[max(text.rfind("\n", 0, start), text.rfind(";", 0, start)) + 1:start]
+            preceding = re.split(r"\.(?!\d)|,\s+(?=[A-Za-z])", preceding)[-1]
+            if "=" in preceding:
+                continue
+            if re.search(r"(?:\b(?:and|plus|minus|times|add|subtract|multiply|divide)|[+*/−-])\s*$", preceding, re.IGNORECASE):
+                continue
             kind = "restatement" if any(p.premise_id == node_id for p in task.premises) else "commit"
-            if "expr" in match.re.groupindex:
-                expression = re.sub(r"([A-Za-z])_\{([A-Za-z0-9]+)\}", r"\1_\2", match.group("expr").strip())
-                try:
-                    tree = ast.parse(expression, mode="eval")
-                except SyntaxError:
-                    continue
-                allowed = (ast.Expression, ast.Name, ast.Load, ast.Constant, ast.BinOp, ast.UnaryOp,
-                           ast.Add, ast.Sub, ast.Mult, ast.Div, ast.Mod, ast.Pow, ast.BitXor, ast.UAdd, ast.USub)
-                if any(not isinstance(node, allowed) or (isinstance(node, ast.Constant) and type(node.value) not in (int, float))
-                       for node in ast.walk(tree)):
-                    continue
-                if isinstance(tree.body, ast.BinOp):
-                    kind = "calculation"
             if task.answer_spec.kind == "numeric":
-                # A leading operand is not a committed result. Read equation
-                # chains through the final numeric RHS, or refuse ambiguity.
-                line_end = text.find("\n", end)
-                line_end = len(text) if line_end < 0 else line_end
-                tail = text[end:line_end]
-                separator = re.search(r";|\.(?!\d)", tail)
-                if separator:
-                    tail = tail[:separator.start()]
-                # Closing parentheses after the first operand do not make
-                # it a committed value when arithmetic still follows.
-                if re.match(r"(?:\s*\))*\s*(?:[+*/%=−×÷^-]|plus\b|minus\b|times\b|divided\b)", tail):
-                    chain = re.match(r"(?P<expr>[^\n;]*?)=\s*\$?(?P<result>" + NUMBER + r")(?=\s*(?:$|[.,;)]|\(?\s*\bmod\b))", tail)
-                    if chain is None:
-                        continue
-                    if re.match(r"(?:\s*\))*\s*(?:[+*/%=−×÷^-]|plus\b|minus\b|times\b|divided\b)", tail[chain.end("result"):]):
-                        continue
-                    value_start = end + chain.start("result")
-                    value = chain.group("result")
-                    end += chain.end("result")
-                    kind = "calculation"
-            found.append((start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind))
+                visible_entities = [entity for entity in entities if entity[0].casefold() not in declarations
+                                    or declarations[entity[0].casefold()][1] <= start
+                                    or (entity[0].casefold(), entity[1]) in registered]
+                result = _numeric_commit(text, match.end(), visible_entities)
+                if result is None:
+                    continue
+                value_start, end, value, parsed_kind, phase, signature = result
+                if kind != "restatement":
+                    kind = parsed_kind
+            else:
+                result = re.match(r"[^\n.;]+", text[match.end():])
+                if result is None:
+                    continue
+                value_start, end, value = match.end(), match.end() + result.end(), result.group()
+                phase, signature = "commit", "text"
+            found.append((start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind, phase, signature))
     found.sort(key=lambda item: (item[0], item[1]))
     line_counts = Counter(item[0] for item in found)
     occurrences: Counter = Counter()
     events = []
-    for start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind in found:
+    for start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind, phase, signature in found:
         key = (node_id, scope)
         occurrences[key] += 1
         identity = EventIdentity(node_id, occurrences[key], scope)
@@ -174,6 +268,8 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 graph_status=graph_status,
                 status=status,
                 event_kind=kind,
+                event_phase=phase,
+                expression_signature=signature,
             )
         )
     return events
@@ -254,10 +350,13 @@ def align_events(base: list[Event], changed: list[Event]) -> dict:
     if len(set(left_keys)) != len(base) or len(set(right_keys)) != len(changed):
         raise ValueError("Duplicate event identities cannot be aligned")
 
-    def group(events: list[Event]) -> dict[tuple[str, str], list[Event]]:
-        grouped: dict[tuple[str, str], list[Event]] = defaultdict(list)
+    def group(events: list[Event]) -> dict[tuple, list[Event]]:
+        grouped = defaultdict(list)
         for event in events:
-            grouped[(event.identity.entity_or_expression, event.identity.scope)].append(event)
+            key = (event.identity.entity_or_expression, event.identity.scope, event.event_region,
+                   event.event_kind if event.expression_signature else "legacy",
+                   event.event_phase, event.expression_signature)
+            grouped[key].append(event)
         return grouped
 
     left = group(base)
@@ -270,9 +369,14 @@ def align_events(base: list[Event], changed: list[Event]) -> dict:
     for key in sorted(set(left) | set(right)):
         left_items = sorted(left.get(key, []), key=lambda e: e.identity.occurrence_version)
         right_items = sorted(right.get(key, []), key=lambda e: e.identity.occurrence_version)
-        if len(left_items) == len(right_items) and all(
+        # Parsed scientific events need a unique value-blind phase/structure
+        # anchor. Repeated indistinguishable confirmations are unresolved,
+        # even when counts happen to agree. Legacy fixture identities retain
+        # their explicitly enumerated occurrence correspondence.
+        unique = not key[-1] or len(left_items) == len(right_items) == 1
+        if unique and len(left_items) == len(right_items) and all(
             a.node_id == b.node_id for a, b in zip(left_items, right_items, strict=True)
-        ):
+        ) and all(e.status == "ok" for e in left_items + right_items):
             pairs.extend(zip(left_items, right_items, strict=True))
         else:
             disappeared.extend(e.identity.key() for e in left_items)
@@ -283,8 +387,25 @@ def align_events(base: list[Event], changed: list[Event]) -> dict:
                 merged = [e.identity.key() for e in right_items]
             else:
                 merged = []
-            ambiguous.append({"entity": key[0], "scope": key[1], "left": len(left_items), "right": len(right_items)})
+            ambiguous.append({"entity": key[0], "scope": key[1], "region": key[2], "phase": key[4],
+                              "left": len(left_items), "right": len(right_items),
+                              "reason": "repeated_anchor" if not unique else "missing_or_incompatible_anchor"})
             structural_merged.extend(merged)
+    # A reordered sequence of anchors inside one entity does not establish
+    # corresponding computation stages. Keep those pairs unknown as well.
+    anchored = defaultdict(list)
+    for a, b in pairs:
+        anchored[(a.identity.entity_or_expression, a.identity.scope, a.event_region)].append((a, b))
+    pairs = []
+    for key, items in anchored.items():
+        items.sort(key=lambda pair: pair[0].identity.occurrence_version)
+        versions = [b.identity.occurrence_version for _, b in items]
+        if versions != sorted(versions):
+            disappeared.extend(a.identity.key() for a, _ in items)
+            added.extend(b.identity.key() for _, b in items)
+            ambiguous.append({"entity": key[0], "scope": key[1], "region": key[2], "reason": "reordered_anchors"})
+        else:
+            pairs.extend(items)
     return {
         "pairs": pairs,
         "removed": disappeared,
@@ -295,7 +416,7 @@ def align_events(base: list[Event], changed: list[Event]) -> dict:
             "merged": structural_merged,
             "strategy_changed": [e.identity.key() for e in base + changed if e.status == "strategy_change"],
             "ambiguous": ambiguous,
-            "detector": "occurrence_count",
+            "detector": "region_phase_unique_structure_v2",
             "strategy_detector": "status_field_only",
             "scanned": False,
         },
@@ -303,7 +424,7 @@ def align_events(base: list[Event], changed: list[Event]) -> dict:
 
 
 def align_events_monotonic(base: list[Event], changed: list[Event]) -> dict:
-    """Keep occurrence-count mismatches ambiguous. Do not rematch by renumbered versions."""
+    """Keep repeated or reordered phase/structure anchors unresolved."""
     grouped = align_events(base, changed)
     if grouped["structural"]["ambiguous"]:
         grouped["structural"] = {**grouped["structural"], "detector": "ambiguous_unresolved"}

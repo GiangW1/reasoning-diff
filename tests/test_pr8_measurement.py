@@ -365,6 +365,11 @@ def test_invalid_c2_control_prevents_formal_generation(tmp_path, t1_tiny_path, m
     monkeypatch.setattr(runner, "cohorts", lambda _paths: ([t1_tiny_path], [t1_tiny_path]))
     monkeypatch.setattr(runner.subprocess, "check_output", lambda *a, **k: "/dev/mock\n")
     monkeypatch.setattr(runner, "smoke_report", lambda *a: {"checks": {"measurement": True}, "base_traces": 1})
+    monkeypatch.setattr(runner, "parser_coverage", lambda *a: [{"problem_id": "t", "variable_coverage": 1, "target_present": True}])
+    monkeypatch.setattr(runner, "measurement_report", lambda *a: {
+        "passed": True, "checks": {"matched_cell_coverage": True}, "failures": [],
+        "overall": {"matched_cell_coverage": 1}, "p1_estimability": {"status": "single_class"},
+        "trajectories": [{"trace_id": "base", "rho": 0, "support_cells": 1, "eligible_cells": 1}]})
     calls = []
     def run(command, **kwargs):
         calls.append(command)
@@ -372,6 +377,10 @@ def test_invalid_c2_control_prevents_formal_generation(tmp_path, t1_tiny_path, m
             output = Path(command[command.index("--out-root") + 1])
             write_jsonl(output / "traces.jsonl", [{"status": "natural_complete", "events": [{"event_region": "thinking", "event_kind": "commit"}],
                         "metadata": {"op": 5, "generated_tokens": 100, "boundary_status": "ok"}}])
+            write_jsonl(output / "tasks.jsonl", [])
+            if "pair-pilot-worker" in command:
+                from reasoning_diff.io import write_json
+                write_json(output / "paired_measurement.json", {"passed": True})
         elif "--out-dir" in command:
             output = Path(command[command.index("--out-dir") + 1])
             output.mkdir(parents=True, exist_ok=True)
@@ -380,6 +389,8 @@ def test_invalid_c2_control_prevents_formal_generation(tmp_path, t1_tiny_path, m
                 write_jsonl(output / "p1_table.jsonl", [{"trace_id": "base", "rho": 0, "support_cells": 1, "eligible_cells": 1}])
             elif "collect" in command:
                 write_jsonl(output / "event_rows.jsonl", [{}])
+            elif "label" in command:
+                write_jsonl(output / "labels.jsonl", [])
             elif "intervene" in command:
                 write_jsonl(output / "interventions.jsonl", [
                     {"base_task_id": "t", "pair_index": 0, "pair_kind": "same_source_diff_value", "condition": c,
@@ -387,7 +398,7 @@ def test_invalid_c2_control_prevents_formal_generation(tmp_path, t1_tiny_path, m
                      "actual_norm": 0 if c == "baseline" else 1, "clayer_status": "dev_weak_layer_decode"}
                     for c in ("baseline", "main", "crand", "clayer")])
             else:
-                for name in ("traces.jsonl", "tasks.jsonl", "observations.jsonl"):
+                for name in ("traces.jsonl", "tasks.jsonl", "observations.jsonl", "splits.jsonl"):
                     write_jsonl(output / name, [])
         return SimpleNamespace(stdout="", returncode=0)
     monkeypatch.setattr(runner.subprocess, "run", run)

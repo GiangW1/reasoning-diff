@@ -1,0 +1,214 @@
+{
+  "source_run": "pr8-12h-20261006-r2/smoke/prepare",
+  "annotation_scope": "Manually checked explicit assignment spans and operand-only negative excerpt; original numeric outputs are preserved.",
+  "evaluation_scope": "Development regressions selected after the failure, not held-out estimates of parser recall.",
+  "cases": [
+    {
+      "id": "pr8-saved-1",
+      "task_id": "igsm-official-0003-op21",
+      "seed": 1,
+      "source_trace_id": "shard0:trace-t0p",
+      "source_trace_text_sha256": "ac273a02f8a1822284708d55bca351c64bf5c6d4d5f46aaa620b6cae5f16dc8e",
+      "source_excerpt_start": 1281,
+      "source_excerpt_end": 1637,
+      "context": "<think>\nOkay, let's try to tackle this problem step by step. It seems like a series of equations with various entities and their quantities, all modulo 23. I need to find the number of Riparian Forest's Organs. Let me start by breaking down each part and keeping track of all the variables.\n\nFirst, let me list out all the given information and assign variables to each quantity to make it easier. Let me note down each statement one by one.\n\n1. The number of Sea Turtle's Lungs equals 2. Let me denote this as S_L = 2.\n\n2. The number of Sea Turtle's Organs equals the number of Sea Turtle's Lungs. So S_O = S_L = 2.\n\n3. The number of Secondary Forest's Sea Turtle equals (the sum of 7 and the number of Sea Turtle's Organs). Let me denote Secondary Forest's Sea Turtle as SF_S. So SF_S = 7 + S_O = 7 + 2 = 9.\n\n4. The number of Secondary Forest's Organs equals (the product of the number of Secondary Forest's Sea Turtle and the number of Sea Turtle's Organs). Let SF_O be Secondary Forest's Organs. Then SF_O = SF_S * S_O = 9 * 2 = 18. Wait, but all arithmetic is modulo 23, so 18 mod 23 is still 18.\n\n5. The number of Temperate Evergreen Forest's Starfish equals the number of Secondary Forest's Organs. Let TEF_S be Temperate Evergreen Forest's Starfish. So TEF_S = SF_O = 18.\n\n",
+      "text": "6. The number of Starfish's Pleural Cavity equals (the product of 3 and (the difference between the number of Secondary Forest's Organs and the number of Sea Turtle's Organs)). Let me denote Starfish's Pleural Cavity as SP_C. So SP_C = 3 * (SF_O - S_O) = 3*(18 - 2) = 3*16 = 48. Now, modulo 23, 48 divided by 23 is 2*23=46, so 48-46=2. Therefore, SP_C = 2.",
+      "expected": [
+        {
+          "node_alias": "Starfish's Pleural Cavity",
+          "value": "48",
+          "event_phase": "calculation",
+          "event_kind": "calculation",
+          "text": "SP_C = 3 * (SF_O - S_O) = 3*(18 - 2) = 3*16 = 48"
+        },
+        {
+          "node_alias": "Starfish's Pleural Cavity",
+          "value": "2",
+          "event_phase": "commit",
+          "event_kind": "commit",
+          "text": "SP_C = 2"
+        }
+      ]
+    },
+    {
+      "id": "pr8-saved-2",
+      "task_id": "igsm-official-0008-op5",
+      "seed": 1,
+      "source_trace_id": "shard0:trace-base:1:seed1",
+      "source_trace_text_sha256": "a99003b0c0447c4362ec1470ff7bb74f427432041358b17ea9fa250080e9e17e",
+      "source_excerpt_start": 1164,
+      "source_excerpt_end": 1210,
+      "context": "<think>\nOkay, let me try to figure out this problem step by step. So, there are several numbers given here, and I need to find the number of Parietal Lobe's T Cells, all calculations done modulo 23. Let me write down each part and see how they connect.\n\nFirst, the number of Crow's Pons equals 10. That seems straightforward. Let me note that down:\n\nCrow's Pons = 10\n\nNext, the number of Swan's Pons equals the sum of 15 and the number of Crow's Pons. So, Swan's Pons = 15 + Crow's Pons. Since Crow's Pons is 10, that would be 15 + 10. Let me calculate that:\n\nSwan's Pons = 15 + 10 = 25\n\nBut wait, all arithmetic is modulo 23. So I need to take that result modulo 23. Let me check 25 divided by 23. 23 goes into 25 once with a remainder of 2. So 25 mod 23 is 2. Therefore, Swan's Pons is 2 mod 23? Wait, but maybe I need to keep track of the intermediate steps or do the modulo at each step? Let me make sure.\n\nThe problem says \"All arithmetic is modulo 23.\" So I think that applies to each operation. So when I add 15 and Crow's Pons, which is 10, I should do that addition modulo 23. So 15 + 10 = 25, then 25 mod 23 is 2. So Swan's Pons is 2. Let me note that:\n\n",
+      "text": "Swan's Pons = (15 + 10) mod 23 = 25 mod 23 = 2",
+      "expected": [
+        {
+          "node_alias": "Swan's Pons",
+          "value": "2",
+          "event_phase": "reduction",
+          "event_kind": "calculation",
+          "text": "Swan's Pons = (15 + 10) mod 23 = 25 mod 23 = 2"
+        }
+      ]
+    },
+    {
+      "id": "pr8-saved-3",
+      "task_id": "igsm-official-0045-op10",
+      "seed": 1,
+      "source_trace_id": "shard0:trace-base:2:seed1",
+      "source_trace_text_sha256": "5a1e103b097a81caa77c714969cca0fdb3f0831b614707c4da39775a60dc9947",
+      "source_excerpt_start": 978,
+      "source_excerpt_end": 1093,
+      "context": "<think>\nOkay, let me try to figure out this problem step by step. It seems a bit complex with all these different items and their relationships, but if I break it down, maybe I can handle it. Let me start by listing out all the given information and then try to assign variables to each quantity so I can write equations based on the problem's statements. Since all arithmetic is modulo 23, I need to remember to take modulo 23 at each step to keep numbers manageable.\n\nFirst, let me note down all the entities and their relationships:\n\nStarting with Aerobics Studio:\n\n1. Number of Aerobics Studio's Mountaineering Backpack = 7. Let me denote this as A_M = 7.\n\n2. Number of Aerobics Studio's Rucksack = product of 7 and the number of Aerobics Studio's Mountaineering Backpack. So, A_R = 7 * A_M. Since A_M is 7, then A_R = 7 * 7 = 49. But since we are working modulo 23, I need to compute 49 mod 23. Let me calculate that: 23*2 = 46, so 49 - 46 = 3. Therefore, A_R = 3 mod 23.\n\n",
+      "text": "3. Number of Aerobics Studio's Backpacking Pack equals the number of Aerobics Studio's Rucksack. So, A_B = A_R = 3.",
+      "expected": [
+        {
+          "node_alias": "Aerobics Studio's Backpacking Pack",
+          "value": "3",
+          "event_phase": "copy",
+          "event_kind": "commit",
+          "text": "A_B = A_R = 3"
+        }
+      ]
+    },
+    {
+      "id": "pr8-saved-4",
+      "task_id": "igsm-official-0004-op5",
+      "seed": 1,
+      "source_trace_id": "shard1:trace-t0p",
+      "source_trace_text_sha256": "b17610a57c05fb25b673ba0e01a5ba32952d2cc7f958820dd62e9799a3c0fa4d",
+      "source_excerpt_start": 415,
+      "source_excerpt_end": 615,
+      "context": "<think>\nOkay, let me try to figure out this problem step by step. So, there are several statements here about different items and their quantities, all modulo 23. The question is asking for the number of Kroger's Muffins. Let me break down each part and see how they connect.\n\nFirst, let me list out all the given information:\n\n1. The number of Carrefour's Muffins equals 1. So, let me note that as C_muffins = 1.\n\n",
+      "text": "2. The number of Carrefour's Bagels equals the product of 6 and the number of Carrefour's Muffins. So, C_bagels = 6 * C_muffins. Since C_muffins is 1, that would be 6 * 1 = 6. Therefore, C_bagels = 6.",
+      "expected": [
+        {
+          "node_alias": "Carrefour's Bagels",
+          "value": "6",
+          "event_phase": "commit",
+          "event_kind": "commit",
+          "text": "C_bagels = 6"
+        }
+      ]
+    },
+    {
+      "id": "pr8-saved-5",
+      "task_id": "igsm-official-0006-op15",
+      "seed": 1,
+      "source_trace_id": "shard1:trace-base:1:seed1",
+      "source_trace_text_sha256": "a8f69cad1f6d12eefde0ebe42999c33daca119233272265bd8bbcf7518c3dcce",
+      "source_excerpt_start": 2640,
+      "source_excerpt_end": 2752,
+      "context": "<think>\nOkay, let's try to tackle this problem step by step. It seems like there are a bunch of variables and relationships between them, all modulo 23. Let me start by listing out all the given information and then try to express each variable in terms of others. Maybe I can create equations and solve them one by one.\n\nFirst, let me note down all the given statements:\n\n1. Deliveroo's Bottled Water = 16\n2. Deliveroo's Kombucha = Deliveroo's Bottled Water\n3. Deliveroo's Product = (Bottled Water + Kombucha)\n4. Administrative District's Boxed = (Deliveroo's Product - Bottled Water)\n5. Consulate District's Boxed = Deliveroo's Kombucha\n6. Consulate District's Deliveroo = (4 + Bottled Water)\n7. Consulate District's Supermarket = (Consulate District's Boxed + Consulate District's Deliveroo)\n8. Boxed's Bottled Water = Consulate District's Supermarket\n9. Boxed's Kombucha = (0 + (Deliveroo's Kombucha - Consulate District's Deliveroo))\n10. Boxed's Product = (Boxed's Bottled Water + Boxed's Kombucha)\n11. Administrative District's Deliveroo = (22 + Consulate District's Deliveroo)\n12. Administrative District's Product = [(Administrative District's Boxed * Boxed's Product) + (Administrative District's Deliveroo * Deliveroo's Product)]\n13. Unrelated blue lanterns = 17\n14. Unrelated green ribbons = 9\n\nWe need to find Administrative District's Product, which is equation 12. All arithmetic is modulo 23.\n\nLet me start by assigning variables to each of these quantities to make it easier. Let me define:\n\nLet’s denote:\n\n- D_BW = Deliveroo's Bottled Water\n- D_K = Deliveroo's Kombucha\n- D_P = Deliveroo's Product\n- A_Box = Administrative District's Boxed\n- C_Box = Consulate District's Boxed\n- C_Del = Consulate District's Deliveroo\n- C_Super = Consulate District's Supermarket\n- B_BW = Boxed's Bottled Water\n- B_K = Boxed's Kombucha\n- B_P = Boxed's Product\n- A_Del = Administrative District's Deliveroo\n- A_P = Administrative District's Product\n\nGiven that all arithmetic is modulo 23, so all operations will be done mod 23.\n\nNow, let me translate each statement into equations:\n\n1. D_BW = 16\n2. D_K = D_BW\n3. D_P = D_BW + D_K\n4. A_Box = D_P - D_BW\n5. C_Box = D_K\n6. C_Del = 4 + D_BW\n7. C_Super = C_Box + C_Del\n8. B_BW = C_Super\n9. B_K = 0 + (D_K - C_Del)\n10. B_P = B_BW + B_K\n11. A_Del = 22 + C_Del\n12. A_P = (A_Box * B_P) + (A_Del * D_P)\n13. Unrelated blue lanterns = 17 (probably irrelevant)\n14. Unrelated green ribbons = 9 (probably irrelevant)\n\nSo, the variables we need to compute are A_P, which depends on A_Box, B_P, A_Del, and D_P. Let me compute each step by step.\n\nStarting with D_BW = 16.\n\nFrom equation 2: D_K = D_BW = 16.\n\n",
+      "text": "From equation 3: D_P = D_BW + D_K = 16 + 16 = 32. But since we are mod 23, 32 mod 23 is 32 - 23 = 9. So D_P = 9.",
+      "expected": [
+        {
+          "node_alias": "Deliveroo's Product",
+          "value": "32",
+          "event_phase": "calculation",
+          "event_kind": "calculation",
+          "text": "D_P = D_BW + D_K = 16 + 16 = 32"
+        },
+        {
+          "node_alias": "Deliveroo's Product",
+          "value": "9",
+          "event_phase": "commit",
+          "event_kind": "commit",
+          "text": "D_P = 9"
+        }
+      ]
+    },
+    {
+      "id": "pr8-saved-6",
+      "task_id": "igsm-official-0007-op21",
+      "seed": 1,
+      "source_trace_id": "shard1:trace-base:2:seed1",
+      "source_trace_text_sha256": "7387a25a2446888db295e0b6b1d76cd38920818e928349d14bb33faa4f8cdc75",
+      "source_excerpt_start": 2966,
+      "source_excerpt_end": 3193,
+      "context": "<think>\nOkay, let's try to tackle this problem step by step. It seems pretty complex with all these variables and relationships, but maybe if I break it down, it'll make more sense. Let me start by listing out all the given information and then try to translate each statement into equations. Since all arithmetic is modulo 23, I'll have to remember to take remainders when necessary.\n\nFirst, let me note down all the variables mentioned:\n\n1. Community College District's New Grand Mart (let's denote this as N)\n2. Community College District's Asia Supermarket (A)\n3. New Grand Mart's Canned Vegetables (NV)\n4. Asia Supermarket's Canned Vegetables (AV)\n5. Asia Supermarket's Canned Corn (AC)\n6. Canned Vegetables's Cinnamon (CVC)\n7. Canned Vegetables's Thyme (CVT)\n8. Canned Vegetables's Ingredient (CVI)\n9. Canned Corn's Cinnamon (CCC)\n10. Asia Supermarket's Product (AP)\n11. Canned Corn's Thyme (CCT)\n12. Canned Corn's Ingredient (CCI)\n13. Asia Supermarket's Ingredient (ASI)\n14. College Town's New Grand Mart (CN)\n15. College Town's Supermarket (CS)\n16. New Grand Mart's Canned Corn (NCC)\n17. Unrelated blue lanterns (BL) = 17\n18. Unrelated green ribbons (GR) = 9\n\nBut the question is asking for the number of New Grand Mart's Canned Corn (NCC). Let me start by assigning variables to each of these and then write equations based on the problem's statements.\n\nStarting with the first statement:\n\n1. The number of Community College District's New Grand Mart equals 1. So, N = 1.\n\n2. The number of Community College District's Asia Supermarket equals (the product of 15 and the number of Community College District's New Grand Mart). So, A = 15 * N. Since N is 1, A = 15 * 1 = 15. But since we are working modulo 23, 15 is already less than 23, so A = 15.\n\n3. The number of New Grand Mart's Canned Vegetables equals the number of Community College District's Asia Supermarket. So, NV = A = 15.\n\n4. The number of Asia Supermarket's Canned Vegetables equals (the sum of 14 and (the difference between the number of New Grand Mart's Canned Vegetables and the number of Community College District's New Grand Mart)). Let's parse this:\n\nAV = 14 + (NV - N). We already have NV = 15 and N = 1, so AV = 14 + (15 - 1) = 14 + 14 = 28. Now, modulo 23, 28 mod 23 is 5. So AV = 5.\n\n5. The number of Asia Supermarket's Canned Corn equals (the sum of 18 and the number of Community College District's New Grand Mart). So, AC = 18 + N = 18 + 1 = 19. Modulo 23, 19 is still 19. So AC = 19.\n\n6. The number of Canned Vegetables's Cinnamon equals the number of Asia Supermarket's Canned Corn. So, CVC = AC = 19. Therefore, CVC = 19.\n\n7. The number of Canned Vegetables's Thyme equals (the sum of 21 and (the sum of the number of Canned Vegetables's Cinnamon and the number of Asia Supermarket's Canned Corn)). Let's parse this:\n\nCVT = 21 + (CVC + AC). Plugging in the values: 21 + (19 + 19) = 21 + 38 = 59. Now, modulo 23. Let's divide 59 by 23: 23*2 = 46, 59 - 46 = 13. So CVT = 13.\n\n",
+      "text": "8. The number of Canned Vegetables's Ingredient equals (the sum of the number of Canned Vegetables's Cinnamon and the number of Canned Vegetables's Thyme). So, CVI = CVC + CVT = 19 + 13 = 32. Modulo 23: 32 - 23 = 9. So CVI = 9.",
+      "expected": [
+        {
+          "node_alias": "Canned Vegetables's Ingredient",
+          "value": "32",
+          "event_phase": "calculation",
+          "event_kind": "calculation",
+          "text": "CVI = CVC + CVT = 19 + 13 = 32"
+        },
+        {
+          "node_alias": "Canned Vegetables's Ingredient",
+          "value": "9",
+          "event_phase": "commit",
+          "event_kind": "commit",
+          "text": "CVI = 9"
+        }
+      ]
+    },
+    {
+      "id": "pr8-saved-7",
+      "task_id": "igsm-official-0001-op10",
+      "seed": 1,
+      "source_trace_id": "shard2:trace-t0p",
+      "source_trace_text_sha256": "d0a571b7f5880de765d428ebca194a520deb29adfb61d5e1bcf8db054e05376f",
+      "source_excerpt_start": 1156,
+      "source_excerpt_end": 1272,
+      "context": "<think>\nOkay, let's try to figure out the number of Bald Eagle's Organs. The problem gives a bunch of relationships between different numbers, and all arithmetic is modulo 23. Let me break it down step by step.\n\nFirst, let me note down all the given information:\n\n1. Peacock's Triceps = 6\n2. Peacock's Cartilage = Peacock's Triceps\n3. Peacock's Organs = (Peacock's Cartilage + Peacock's Triceps)\n4. Kingfisher's Triceps = 15 × ( (Peacock's Organs + Peacock's Triceps) + Peacock's Cartilage )\n5. Kingfisher's Organs = Kingfisher's Triceps\n6. Bald Eagle's Hamstrings = 4 × ( Kingfisher's Organs + Peacock's Cartilage )\n7. Bald Eagle's Organs = Bald Eagle's Hamstrings\n8. Unrelated blue lanterns = 17\n9. Unrelated green ribbons = 9\n\nWe need to find the number of Bald Eagle's Organs, which is equal to Bald Eagle's Hamstrings. So, if I can find the value of Bald Eagle's Hamstrings, that will be the answer. But to get there, I need to work through each of these equations step by step.\n\nStarting with the Peacock's numbers:\n\nFrom point 1: Peacock's Triceps = 6.\n\nFrom point 2: Peacock's Cartilage = Peacock's Triceps = 6. So, Peacock's Cartilage is also 6.\n\n",
+      "text": "From point 3: Peacock's Organs = (Peacock's Cartilage + Peacock's Triceps) = 6 + 6 = 12. So, Peacock's Organs is 12.",
+      "expected": [
+        {
+          "node_alias": "Peacock's Organs",
+          "value": "12",
+          "event_phase": "calculation",
+          "event_kind": "calculation",
+          "text": "Peacock's Organs = (Peacock's Cartilage + Peacock's Triceps) = 6 + 6 = 12"
+        },
+        {
+          "node_alias": "Peacock's Organs",
+          "value": "12",
+          "event_phase": "commit",
+          "event_kind": "commit",
+          "text": "Peacock's Organs is 12"
+        }
+      ]
+    },
+    {
+      "id": "pr8-saved-8",
+      "task_id": "igsm-official-0026-op15",
+      "seed": 1,
+      "source_trace_id": "shard2:trace-base:1:seed1",
+      "source_trace_text_sha256": "4f0448e627956cf28dcb3577bea8f4106753019eb325abf11de45994093f3db1",
+      "source_excerpt_start": 3196,
+      "source_excerpt_end": 3344,
+      "context": "<think>\nOkay, let me try to figure out the number of Ocado's Ingredient. This seems like a problem with a bunch of variables and equations, all modulo 23. Let me take it step by step.\n\nFirst, let me list out all the given information and see how they connect. Maybe I can assign variables to each quantity to make it clearer.\n\nLet me start by noting the given numbers:\n\n1. The number of Gummy Candy's Saffron equals 14. So, let's denote this as GC_Saffron = 14.\n\n2. The number of Hummus's Turmeric equals 2. So, Hummus_Turmeric = 2.\n\nThen, there are several equations:\n\n3. The number of FreshDirect's Gummy Candy equals (the product of 18 and (the sum of 0 and the number of Gummy Candy's Saffron)). Let me parse that. The sum of 0 and GC_Saffron is just GC_Saffron. So, FreshDirect_GummyCandy = 18 * GC_Saffron. Since GC_Saffron is 14, this would be 18*14. But since we are working modulo 23, I need to compute that.\n\n4. The number of Gummy Candy's Garlic Powder equals (the product of 4 and the number of Gummy Candy's Saffron). So, GC_GarlicPowder = 4 * GC_Saffron. Again, modulo 23.\n\n5. The number of Gummy Candy's Ingredient equals (the sum of the number of Gummy Candy's Saffron and the number of Gummy Candy's Garlic Powder). So, GC_Ingredient = GC_Saffron + GC_GarlicPowder.\n\n6. The number of FreshDirect's Ingredient equals (the product of the number of FreshDirect's Gummy Candy and the number of Gummy Candy's Ingredient). So, FD_Ingredient = FreshDirect_GummyCandy * GC_Ingredient.\n\n7. The number of Ocado's Potato Chips equals (the sum of the number of FreshDirect's Ingredient and 0). So, Ocado_PotatoChips = FD_Ingredient + 0 = FD_Ingredient.\n\n8. The number of Ocado's Hummus equals (the difference between the number of FreshDirect's Gummy Candy and the number of Gummy Candy's Ingredient). So, Ocado_Hummus = FreshDirect_GummyCandy - GC_Ingredient.\n\n9. The number of Hummus's Ingredient equals the number of Hummus's Turmeric. So, Hummus_Ingredient = Hummus_Turmeric = 2.\n\n10. The number of Ocado's Ingredient equals (the sum of (the product of the number of Ocado's Potato Chips and 0) and (the product of the number of Ocado's Hummus and the number of Hummus's Ingredient)). So, Ocado_Ingredient = (Ocado_PotatoChips * 0) + (Ocado_Hummus * Hummus_Ingredient). Since anything multiplied by 0 is 0, this simplifies to Ocado_Ingredient = 0 + (Ocado_Hummus * Hummus_Ingredient) = Ocado_Hummus * Hummus_Ingredient.\n\nAdditionally, there are unrelated blue lanterns and green ribbons, but they might not be relevant here. The question is about Ocado's Ingredient, so maybe those are just distractions. Let me focus on the equations.\n\nLet me start calculating each variable step by step, keeping track of modulo 23.\n\nStarting with GC_Saffron = 14.\n\nThen, FreshDirect_GummyCandy = 18 * GC_Saffron = 18 * 14. Let me compute that:\n\n18 * 14 = 252. Now, 252 divided by 23. Let me find 23*10 = 230, 23*11=253. So 252 is 253 -1, which is -1 modulo 23. So 252 ≡ -1 mod 23. But since we usually use positive residues, -1 mod 23 is 22. So FreshDirect_GummyCandy ≡ 22 mod 23.\n\nWait, let me check that again. 23*10 = 230. 252 - 230 = 22. So yes, 252 mod 23 is 22. So FreshDirect_GummyCandy = 22.\n\n",
+      "text": "Next, GC_GarlicPowder = 4 * GC_Saffron = 4*14 = 56. 56 mod 23. Let me compute 23*2=46, 56-46=10. So 56 ≡ 10 mod 23. Therefore, GC_GarlicPowder = 10.",
+      "expected": [
+        {
+          "node_alias": "Gummy Candy's Garlic Powder",
+          "value": "56",
+          "event_phase": "calculation",
+          "event_kind": "calculation",
+          "text": "GC_GarlicPowder = 4 * GC_Saffron = 4*14 = 56"
+        },
+        {
+          "node_alias": "Gummy Candy's Garlic Powder",
+          "value": "10",
+          "event_phase": "commit",
+          "event_kind": "commit",
+          "text": "GC_GarlicPowder = 10"
+        }
+      ]
+    },
+    {
+      "id": "pr8-saved-9",
+      "task_id": "igsm-official-0003-op21",
+      "seed": 1,
+      "source_trace_id": "shard0:trace-t0p",
+      "source_trace_text_sha256": "ac273a02f8a1822284708d55bca351c64bf5c6d4d5f46aaa620b6cae5f16dc8e",
+      "source_excerpt_start": 1972,
+      "source_excerpt_end": 2023,
+      "context": "<think>\nOkay, let's try to tackle this problem step by step. It seems like a series of equations with various entities and their quantities, all modulo 23. I need to find the number of Riparian Forest's Organs. Let me start by breaking down each part and keeping track of all the variables.\n\nFirst, let me list out all the given information and assign variables to each quantity to make it easier. Let me note down each statement one by one.\n\n1. The number of Sea Turtle's Lungs equals 2. Let me denote this as S_L = 2.\n\n2. The number of Sea Turtle's Organs equals the number of Sea Turtle's Lungs. So S_O = S_L = 2.\n\n3. The number of Secondary Forest's Sea Turtle equals (the sum of 7 and the number of Sea Turtle's Organs). Let me denote Secondary Forest's Sea Turtle as SF_S. So SF_S = 7 + S_O = 7 + 2 = 9.\n\n4. The number of Secondary Forest's Organs equals (the product of the number of Secondary Forest's Sea Turtle and the number of Sea Turtle's Organs). Let SF_O be Secondary Forest's Organs. Then SF_O = SF_S * S_O = 9 * 2 = 18. Wait, but all arithmetic is modulo 23, so 18 mod 23 is still 18.\n\n5. The number of Temperate Evergreen Forest's Starfish equals the number of Secondary Forest's Organs. Let TEF_S be Temperate Evergreen Forest's Starfish. So TEF_S = SF_O = 18.\n\n6. The number of Starfish's Pleural Cavity equals (the product of 3 and (the difference between the number of Secondary Forest's Organs and the number of Sea Turtle's Organs)). Let me denote Starfish's Pleural Cavity as SP_C. So SP_C = 3 * (SF_O - S_O) = 3*(18 - 2) = 3*16 = 48. Now, modulo 23, 48 divided by 23 is 2*23=46, so 48-46=2. Therefore, SP_C = 2.\n\n7. The number of Starfish's Nasal Cavity equals (the sum of (the sum of (the sum of the number of Sea Turtle's Organs and the number of Secondary Forest's Organs) and the number of Sea Turtle's Lungs) and the number of Starfish's Pleural Cavity). Let me parse this. Let me denote Starfish's Nasal Cavity as SN_C.\n\nBreaking it down:\n\n",
+      "text": "First inner sum: sum of S_O and SF_O = 2 + 18 = 20.",
+      "expected": []
+    }
+  ]
+}

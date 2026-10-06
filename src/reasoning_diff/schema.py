@@ -211,6 +211,8 @@ class Event:
     status: str = "ok"
     event_region: str = "unknown"
     event_kind: str = "commit"
+    event_phase: str = "unknown"
+    expression_signature: str = ""
 
     def __post_init__(self) -> None:
         if not self.record_id:

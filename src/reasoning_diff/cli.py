@@ -8,7 +8,7 @@ import hashlib
 import json
 import math
 import re
-from dataclasses import fields
+from dataclasses import fields, replace
 from pathlib import Path
 
 import numpy as np
@@ -587,13 +587,21 @@ def _observations(task, base_trace, edit_trace, edit, rng_pair: str, run_id: str
             row.structure_taxonomy = "unaligned"
         else:
             row.structure_taxonomy = "matched"
-        row.boundary_status = "ok" if (base_trace.metadata or {}).get("boundary_status", "ok") == "ok" else "fallback_cursor"
+        boundaries_ok = all((trace.metadata or {}).get("boundary_status", "ok") == "ok"
+                            for trace in (base_trace, edit_trace))
+        row.boundary_status = "ok" if boundaries_ok else "failed"
+        if not boundaries_ok and row.outcome in {"changed", "no_change"}:
+            row.outcome = "unaligned"
+            row.scan_state = "unknown"
+            row.structure_taxonomy = "boundary_failed"
     return rows
 
 
 def _sham_observations(task: Task, base_trace: Trace, sham_trace: Trace, seed: int, run_id: str) -> list[Observation]:
     """Create a matched, semantic-preserving sampled sham comparison."""
     rows = []
+    if any((trace.metadata or {}).get("boundary_status", "ok") != "ok" for trace in (base_trace, sham_trace)):
+        return rows
     for left, right in align_events(base_trace.events, sham_trace.events)["pairs"]:
         key = left.node_id or left.identity.key()
         identity = digest([task.task_id, base_trace.id, sham_trace.id, left.identity.key(), right.identity.key(), seed, run_id])
@@ -1753,7 +1761,13 @@ def cmd_fit(args: argparse.Namespace) -> int:
             if (Path(child.out_dir) / "probe_predictions.jsonl").exists():
                 cell_rows.extend(read_jsonl(Path(child.out_dir) / "probe_predictions.jsonl"))
         # P1 has no feature-position multiplicity: it is a trajectory outcome.
-        p1_rows = list({row["trace_id"]: row for row in p1_rows}.values())
+        unique_p1 = {}
+        for row in p1_rows:
+            prior = unique_p1.get(row["trace_id"])
+            if prior is not None and prior != row:
+                raise ValueError("feature positions disagree on the same trajectory's P1 measurement")
+            unique_p1[row["trace_id"]] = row
+        p1_rows = list(unique_p1.values())
         write_jsonl(out / "p1_table.jsonl", p1_rows)
         write_jsonl(out / "probe_predictions.jsonl", cell_rows)
         supplied_scores = list(getattr(args, "dev_layer_scores", None) or [])
@@ -2606,17 +2620,61 @@ def _load_source_value_pair(src: Path) -> dict | None:
     return next((r for r in read_jsonl(path) if r.get("kind") == "source_value_pair"), None)
 
 
-def _pair_source_value(matrix: np.ndarray, event_rows: list[dict], pair_meta: dict | None):
+def _pair_source_value(matrix: np.ndarray, event_rows: list[dict], pair_meta: dict | None, *, traces=None):
     tids = (pair_meta or {}).get("trace_ids") or {}
     base_tid = tids.get("base")
     if not base_tid or not event_rows:
+        return None
+    if traces is not None:
+        # Align the full parsed traces, before feature filtering can remove a
+        # repeated anchor or hide a reordered phase. Values never match steps.
+        base = traces.get(base_tid)
+        if base is None or base.metadata.get("boundary_status", "ok") != "ok":
+            return None
+        feature_index = {}
+        for i, row in enumerate(event_rows):
+            if i < len(matrix) and np.isfinite(matrix[i]).all():
+                feature_index.setdefault((row.get("trace_id"), row.get("identity_key")), []).append(i)
+        for kind in ("same_value_diff_source", "same_source_diff_value"):
+            donor_tid = tids.get(kind)
+            donor = traces.get(donor_tid)
+            if donor is None or donor.metadata.get("boundary_status", "ok") != "ok":
+                continue
+            events = [e for e in donor.events if e.event_region == "thinking" and e.event_kind != "restatement"]
+            source_edit = (pair_meta or {}).get(kind, {})
+            if kind == "same_value_diff_source" and source_edit.get("kind") == kind:
+                before, after = source_edit.get("before", {}), source_edit.get("after", {})
+                if len(before) == len(after) == 1:
+                    old, new = next(iter(before)), next(iter(after))
+                    # Only this registered source replacement is equivalent
+                    # for C2 stage matching; do not remap other operands.
+                    events = [replace(e, expression_signature=e.expression_signature.replace(
+                        f"id={new!r}", f"id={old!r}")) for e in events]
+            references = [e for e in base.events if e.event_region == "thinking" and e.event_kind != "restatement"]
+            for left, right in align_events(references, events)["pairs"]:
+                ii = feature_index.get((base_tid, left.identity.key()), [])
+                jj = feature_index.get((donor_tid, right.identity.key()), [])
+                if len(ii) != 1 or len(jj) != 1:
+                    continue
+                if (pair_meta or {}).get("targets") and left.node_id not in pair_meta["targets"]:
+                    continue
+                i, j = ii[0], jj[0]
+                if not np.allclose(matrix[i], matrix[j]):
+                    return int(i), int(j), kind
         return None
     index = {}
     for i, row in enumerate(event_rows):
         if i >= len(matrix) or not np.isfinite(matrix[i]).all():
             continue
-        identity = row.get("identity_key") or row.get("node_id") or ""
-        index[(str(identity), row.get("trace_id"))] = i
+        signature = row.get("expression_signature")
+        if signature:
+            identity = (row.get("node_id"), row.get("event_scope", "global"), row.get("event_region"),
+                        row.get("event_kind"), row.get("event_phase"), signature)
+            if row.get("event_region") != "thinking" or row.get("event_status", "ok") != "ok":
+                continue
+        else:
+            identity = (row.get("identity_key") or row.get("node_id") or "",)
+        index.setdefault((identity, row.get("trace_id")), []).append(i)
     for donor_key in ("same_value_diff_source", "same_source_diff_value"):
         donor_tid = tids.get(donor_key)
         if not donor_tid:
@@ -2624,10 +2682,11 @@ def _pair_source_value(matrix: np.ndarray, event_rows: list[dict], pair_meta: di
         for nid, tid in list(index):
             if tid != base_tid:
                 continue
-            j = index.get((nid, donor_tid))
-            i = index.get((nid, tid))
-            if j is None or i is None:
+            donors = index.get((nid, donor_tid), [])
+            references = index[nid, tid]
+            if len(donors) != 1 or len(references) != 1:
                 continue
+            i, j = references[0], donors[0]
             if (pair_meta or {}).get("targets") and event_rows[i].get("node_id") not in pair_meta["targets"]:
                 continue
             if not np.allclose(matrix[i], matrix[j]):
@@ -2641,8 +2700,9 @@ def _expressible_donor(
     pair_meta: dict | None = None,
     *,
     allow_fallback: bool = True,
+    traces=None,
 ):
-    sourced = _pair_source_value(matrix, event_rows or [], pair_meta)
+    sourced = _pair_source_value(matrix, event_rows or [], pair_meta, traces=traces)
     if sourced is not None:
         return sourced
     if not allow_fallback:
@@ -2684,11 +2744,14 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                 raise ValueError("pair shard requires 0 <= index < count")
             indexed_pairs = [(i, pair) for i, pair in indexed_pairs if i % count == index]
         output, collected, runtime = Path(args.out_dir), [], None
+        trace_path = src / "traces.jsonl"
+        alignment_traces = {r["id"]: Trace.from_dict(r) for r in read_jsonl(trace_path)} if trace_path.exists() else None
         for index, pair in indexed_pairs:
             for kind in ("same_value_diff_source", "same_source_diff_value"):
                 child = copy.copy(args)
                 child.all_source_pairs = False
                 child._c2_only = True
+                child._alignment_traces = alignment_traces
                 child._source_pair = {**pair, "trace_ids": {"base": pair["trace_ids"].get("base"), kind: pair["trace_ids"].get(kind)}}
                 child.out_dir = str(output / f"pair-{index}-{kind}")
                 if args.backend == "frozen":
@@ -2794,7 +2857,11 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
         matrix = arrays.get("H", arrays[next(iter(arrays))])
         event_rows = read_jsonl(features_dir / "event_rows.jsonl") if (features_dir / "event_rows.jsonl").exists() else []
         pair_meta = getattr(args, "_source_pair", None) or _load_source_value_pair(features_dir)
-        pair = _expressible_donor(matrix, event_rows, pair_meta, allow_fallback=not scientific)
+        alignment_traces = getattr(args, "_alignment_traces", None)
+        trace_path = features_dir / "traces.jsonl"
+        if alignment_traces is None and trace_path.exists():
+            alignment_traces = {r["id"]: Trace.from_dict(r) for r in read_jsonl(trace_path)}
+        pair = _expressible_donor(matrix, event_rows, pair_meta, allow_fallback=not scientific, traces=alignment_traces)
         if pair is not None:
             i_base, i_donor, donor_kind = pair
             base, donor = np.asarray(matrix[i_base], dtype=float), np.asarray(matrix[i_donor], dtype=float)
@@ -3723,8 +3790,15 @@ def cmd_analyze(args: argparse.Namespace) -> int:
         "densities": dens,
         "appendix": appendix,
         "analysis_protocol": measurements["analysis_protocol"],
+        "p1_coverage": measurements["p1_coverage"],
+        "p1_estimability": {"status": (p1 or {}).get("status", status),
+                            "class_counts": {str(value): sum(row.get("y") == value for row in table) for value in (0, 1)}},
+        "measurement_quality": read_json(src / "measurement_report.json") if (src / "measurement_report.json").exists() else None,
         "scientific_conclusion": None,
     }
+    if (src / "interventions.jsonl").exists():
+        from .next_round import c2_summary
+        report["c2"] = c2_summary(read_jsonl(src / "interventions.jsonl"))
     write_json(out / "report.json", report)
     _write_stage(
         out,

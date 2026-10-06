@@ -113,6 +113,9 @@ def p1_incremental(
         if held_out.all() or not held_out.any():
             return {"auc_base": None, "auc_full": None, "delta_auc": None, "status": "held_out_empty", "held_out": True}
         train = ~held_out
+        if len(np.unique(y[train])) < 2:
+            return {"auc_base": None, "auc_full": None, "delta_auc": None,
+                    "status": "single_class_train", "held_out": True}
         if groups is not None:
             if len(groups) != len(held_out):
                 raise ValueError("p1 groups must cover every row")

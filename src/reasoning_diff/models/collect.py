@@ -143,6 +143,9 @@ def collect_hidden_trace(
                 "timing": "pre_step",
                 "event_region": event_region,
                 "event_kind": getattr(event, "event_kind", "commit"),
+                "event_phase": getattr(event, "event_phase", "unknown"),
+                "expression_signature": getattr(event, "expression_signature", ""),
+                "event_scope": getattr(ident, "scope", "global"),
                 "event_status": getattr(event, "status", "ok"),
                 "analysis_eligibility": {
                     "C1": True,

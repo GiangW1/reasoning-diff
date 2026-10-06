@@ -53,4 +53,58 @@ def test_final_commitments_select_by_position_and_exclude_answer_and_restatement
     assert final.events[0].identity.occurrence_version == 2
     assert len(trace.events) == 3 and final.correct is False
     final.events[0].event_kind = "restatement"
+    assert trace.events[1].event_kind == "commit"
+    trace.events[1].event_kind = "restatement"
     assert [event.value for event in runner.final_commitments(trace).events] == ["7"]
+
+
+def test_remeasure_preserves_raw_manifest_and_rebuilds_missing_noise(runner, tmp_path, t1_tiny_path):
+    from reasoning_diff import cli
+    from reasoning_diff.artifacts import write_manifest, write_run_spec
+    from reasoning_diff.edits import apply_value_edit
+    from reasoning_diff.io import file_digest, read_json, read_jsonl, write_jsonl
+    from reasoning_diff.next_round import sentence_graph_task
+    from reasoning_diff.tasks.t1_fixture import load_t1_fixture
+    task = sentence_graph_task(load_t1_fixture(t1_tiny_path))
+    edit = apply_value_edit(task, "unused_a", "3")
+    traces = []
+    for seed in range(3):
+        trace = cli._synthetic_trace(task, "prompt\nq = 7\n</think>\n7", f"trace-base:seed{seed}", seed)
+        trace.events = []
+        trace.metadata.update(rendered_prompt_text="prompt\n", rendered_prompt_char_len=7,
+                              enable_thinking=True, boundary_status="ok")
+        traces.append(trace.to_dict())
+    donor = cli._synthetic_trace(edit.task, "prompt\nq = 8\n</think>\n8", "trace-edit", 0)
+    donor.events = []
+    donor.metadata.update(traces[0]["metadata"])
+    traces.append(donor.to_dict())
+    source, output = tmp_path / "original", tmp_path / "remeasured"
+    files = {"tasks.jsonl": [task.to_dict(), edit.task.to_dict()], "edits.jsonl": [edit.to_dict()],
+             "splits.jsonl": [], "traces.jsonl": traces,
+             "observations.jsonl": [{"reference_trace": traces[0]["id"], "comparison_trace": donor.id,
+                 "edit_id": edit.id, "rng_pair": "stream:0", "run_id": "saved", "task_id": task.task_id,
+                 "premise_id": "unused_a", "outcome": "structural", "alignment_ref": "", "node_id": "q"}]}
+    for name, rows in files.items():
+        write_jsonl(source / name, rows)
+    write_run_spec(source, {"config": {"noise_reference": "base_pairs"}})
+    write_manifest(source, [source / name for name in (*files, "run_spec.json")], {"success": 1})
+    hashes = {path.name: file_digest(path) for path in source.iterdir()}
+    runner.remeasure(source, output)
+    assert hashes == {path.name: file_digest(path) for path in source.iterdir()}
+    updated = read_jsonl(output / "traces.jsonl")
+    for old, new in zip(traces, updated, strict=True):
+        assert new["events"]
+        for field in ("text", "token_ids", "offsets", "answer", "correct", "status"):
+            assert new[field] == old[field]
+    noise = [row for row in read_jsonl(output / "observations.jsonl") if row["rng_pair"].startswith("sham:")]
+    assert len(noise) == 6 and len({row["observation_id"] for row in noise}) == 6
+    report = read_json(output / "measurement_report.json")
+    assert report["before"]["trajectories_with_rho"] == 0
+    assert report["after"]["trajectories_with_rho"] == 1
+    assert report["matching_policy"] == "region_phase_unique_structure_v2"
+    assert not report["formal_launch_ready"]
+    with pytest.raises(ValueError, match="new output directory"):
+        runner.remeasure(source, output)
+    write_jsonl(source / "traces.jsonl", [])
+    with pytest.raises(ValueError, match="manifest"):
+        runner.remeasure(source, tmp_path / "tampered")

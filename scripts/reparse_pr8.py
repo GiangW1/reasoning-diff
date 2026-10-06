@@ -12,7 +12,7 @@ from reasoning_diff import cli
 from reasoning_diff.artifacts import write_manifest, write_run_spec
 from reasoning_diff.events import assign_event_regions, parse_events
 from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
-from reasoning_diff.next_round import trace_labels, trajectory_table
+from reasoning_diff.next_round import measurement_report, trace_labels, trajectory_table
 from reasoning_diff.schema import Edit, Task, Trace
 
 
@@ -63,7 +63,9 @@ def final_commitments(trace):
     for event in sorted(trace.events, key=lambda event: (event.start, event.end)):
         if event.event_region == "thinking" and event.event_kind != "restatement" and event.status == "ok":
             selected[(event.identity.entity_or_expression, event.identity.scope)] = event
-    return replace(trace, events=sorted(selected.values(), key=lambda event: event.start))
+    events = [replace(event, event_kind="commit", event_phase="final_assignment", expression_signature="entity_final_state")
+              for event in sorted(selected.values(), key=lambda event: event.start)]
+    return replace(trace, events=events)
 
 
 def rebuild_observations(traces, tasks, edits, comparisons):
@@ -121,10 +123,12 @@ def remeasure(source, output):
               "source_prepare": str(source), "input_hashes": hashes, "parser_hash": parser_hash,
               "measurement_source_hashes": measurement_hashes,
               "n_traces": len(rows), "n_real_comparisons": len(comparisons),
-              "matching_policy": "strict_occurrence_counts_unchanged", "coverage_threshold": 0.5,
+              "matching_policy": "region_phase_unique_structure_v2", "coverage_threshold": 0.5,
               "before": summary(original["traces.jsonl"], before), "after": summary(rows, table),
               "formal_launch_ready": False, "remaining_checks": "new features, fits and causal smoke required"}
-    report["matched_cell_gate_passed"] = report["after"]["matched_cell_coverage"] >= report["coverage_threshold"]
+    quality = measurement_report(rows, original["tasks.jsonl"], obs_rows, original["splits.jsonl"])
+    report["measurement_quality"] = quality
+    report["matched_cell_gate_passed"] = quality["checks"]["matched_cell_coverage"]
     final = {key: final_commitments(trace) for key, trace in traces.items()}
     final_rows = [trace.to_dict() for trace in final.values()]
     final_obs = [obs.to_dict() for obs in rebuild_observations(final, tasks, edits, comparisons)]

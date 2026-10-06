@@ -1,6 +1,7 @@
 """Event identity alignment; values never decide correspondence."""
 from __future__ import annotations
 
+import ast
 from collections import Counter, defaultdict
 import re
 
@@ -8,6 +9,10 @@ from .graphs import ancestors
 from .schema import Event, EventIdentity, Task, canonical_value
 
 NUMBER = r"[+-]?(?:\d[\d,]*(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
+
+
+def _entity_name(name: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"'s\b", "", name.casefold())).strip()
 
 
 def premise_aliases(premise) -> list[str]:
@@ -32,23 +37,93 @@ def surface_mentions(text: str, task: Task) -> list[str]:
     return sorted(set(found))
 
 
+def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
+    """Resolve explicit variable declarations under an unambiguous entity heading."""
+    names = defaultdict(dict)
+    for entity in entities:
+        alias, node_id, *_ = entity
+        names[_entity_name(alias)][node_id] = entity
+    scopes = {entity[0].rsplit("'s ", 1)[0].casefold() for entity in entities if "'s " in entity[0]}
+    symbol = r"(?:[A-Za-z]_\{[A-Za-z0-9]+\}|[A-Za-z][A-Za-z0-9_]*)"
+    declaration = re.compile(
+        r"^\s*[-*]\s+(?P<name>.+?)\s*(?:"
+        r"\((?:(?:let's\s+)?denote this as\s+)?(?P<paren>" + symbol + r")\)"
+        r"|:\s*(?:(?:let's\s+)?denote this as\s+)?(?P<colon>" + symbol + r"))\s*(?:=.+)?\s*$",
+        re.IGNORECASE,
+    )
+    reverse = re.compile(r"^\s*[-*]\s*(?:Let\s+)?(?P<symbol>" + symbol
+                         + r")\s*=\s*(?:the\s+)?number of\s+(?P<name>.+?)\.?\s*$", re.IGNORECASE)
+    full_names = sorted({re.escape(entity[0]).replace("'s", "(?:'s)?") for entity in entities}, key=len, reverse=True)
+    inline = re.compile(r"(?<!\w)(?P<name>" + "|".join(full_names) + r")\s*\((?P<paren>" + symbol
+                        + r")\)\s*(?==|[.,;]|$)", re.IGNORECASE) if full_names else None
+    scope, offset, declared = None, 0, {}
+    for line in text.splitlines(keepends=True):
+        heading = re.fullmatch(r"(?:For\s+)?(.+?):", line.strip().strip("*"), re.IGNORECASE)
+        if heading:
+            candidate = heading.group(1).strip().casefold()
+            scope = candidate if candidate in scopes else None
+        match = declaration.fullmatch(line.rstrip("\r\n")) or reverse.fullmatch(line.rstrip("\r\n"))
+        matches = ([match] if match else []) + (list(inline.finditer(line)) if inline else [])
+        for match in matches:
+            name = _entity_name(match.group("name").strip().strip("*`$"))
+            candidates = names.get(name)
+            if not candidates and scope:
+                candidates = names.get(_entity_name(f"{scope}'s {name}"))
+            if candidates and len(candidates) == 1:
+                entity = next(iter(candidates.values()))
+                group, alias = next((key, value) for key, value in match.groupdict().items() if key != "name" and value)
+                key = alias.casefold()
+                prior = declared.get(key)
+                if key not in declared:
+                    declared[key] = ((alias, *entity[1:]), offset + match.start(group))
+                elif prior is not None and prior[0][1] != entity[1]:
+                    declared[key] = None
+        offset += len(line)
+    return {key: value for key, value in declared.items() if value is not None}
+
+
 def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Event]:
+    declarations = _declared_aliases(text, entities)
+    registered = {(e[0].casefold(), e[1]) for e in entities}
+    entities = [*entities, *[entity for entity, _ in declarations.values() if (entity[0].casefold(), entity[1]) not in registered]]
     counts = Counter(alias.casefold() for alias, *_ in entities)
     found = []
     for alias, node_id, gold, scope, parents, graph_status in entities:
         if counts[alias.casefold()] != 1:
             continue
         value_pattern = NUMBER if task.answer_spec.kind == "numeric" else r"[^\n.;]+"
+        closing = r"\s*\)?" if alias.casefold() in declarations else ""
         pattern = re.compile(
-            rf"(?<!\w){re.escape(alias)}\s*(?:=|:|equals?|is|are)\s*\$?\(*\s*(?P<value>{value_pattern})",
+            rf"(?<!\w){re.escape(alias)}{closing}\s*(?:=|:|equals?|is|are)\s*\$?\(*\s*(?P<value>{value_pattern})",
             re.IGNORECASE,
         )
-        for match in pattern.finditer(text):
+        matches = list(pattern.finditer(text))
+        if task.answer_spec.kind == "numeric":
+            symbolic = re.compile(rf"(?<!\w){re.escape(alias)}{closing}\s*=\s*(?P<expr>[A-Za-z][^=\n;]*?)"
+                                  rf"=\s*\$?(?P<value>{NUMBER})(?=\s*(?:$|[.,;)]|\(?\s*\bmod\b))", re.IGNORECASE)
+            matches.extend(symbolic.finditer(text))
+        for match in matches:
+            declared = declarations.get(alias.casefold())
+            if declared is not None and (alias.casefold(), node_id) not in registered and match.start() < declared[1]:
+                continue
             start = match.start()
             end = match.end()
             value_start = match.start("value")
             value = match.group("value")
             kind = "restatement" if any(p.premise_id == node_id for p in task.premises) else "commit"
+            if "expr" in match.re.groupindex:
+                expression = re.sub(r"([A-Za-z])_\{([A-Za-z0-9]+)\}", r"\1_\2", match.group("expr").strip())
+                try:
+                    tree = ast.parse(expression, mode="eval")
+                except SyntaxError:
+                    continue
+                allowed = (ast.Expression, ast.Name, ast.Load, ast.Constant, ast.BinOp, ast.UnaryOp,
+                           ast.Add, ast.Sub, ast.Mult, ast.Div, ast.Mod, ast.Pow, ast.BitXor, ast.UAdd, ast.USub)
+                if any(not isinstance(node, allowed) or (isinstance(node, ast.Constant) and type(node.value) not in (int, float))
+                       for node in ast.walk(tree)):
+                    continue
+                if isinstance(tree.body, ast.BinOp):
+                    kind = "calculation"
             if task.answer_spec.kind == "numeric":
                 # A leading operand is not a committed result. Read equation
                 # chains through the final numeric RHS, or refuse ambiguity.

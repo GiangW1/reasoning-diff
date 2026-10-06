@@ -342,12 +342,13 @@ def test_failed_length_pilot_never_launches_formal_generation(tmp_path, t1_tiny_
         if "pilot-worker" in command:
             output = Path(command[command.index("--out-root") + 1])
             write_jsonl(output / "traces.jsonl", [{"status": "natural_truncated", "events": [], "metadata": {"generated_tokens": 4096, "boundary_status": "ok"}}])
-        return SimpleNamespace(stdout="")
+        return SimpleNamespace(stdout="", returncode=0)
     monkeypatch.setattr(runner.subprocess, "run", run)
     out = tmp_path / "output"
     with pytest.raises(RuntimeError, match="pilot failed"):
         runner.main(["--mode", "full", "--out-root", str(out), "--dataset", str(tmp_path), "--gpus", "2"])
     assert not read_json(out / "length_pilot.json")["passed"]
+    assert read_json(out / "pipeline.json")["stage"] == "length_pilot"
     assert not any(any("prepare_batched.py" in str(v) for v in c) for c in calls)
 
 
@@ -388,7 +389,7 @@ def test_invalid_c2_control_prevents_formal_generation(tmp_path, t1_tiny_path, m
             else:
                 for name in ("traces.jsonl", "tasks.jsonl", "observations.jsonl"):
                     write_jsonl(output / name, [])
-        return SimpleNamespace(stdout="")
+        return SimpleNamespace(stdout="", returncode=0)
     monkeypatch.setattr(runner.subprocess, "run", run)
     out = tmp_path / "output"
     with pytest.raises(RuntimeError, match="no usable donor/decode"):
@@ -398,6 +399,10 @@ def test_invalid_c2_control_prevents_formal_generation(tmp_path, t1_tiny_path, m
     coverage = read_json(out / "smoke/intervention_coverage.json")
     assert coverage["contrasts"][0]["failed_conditions"] == ["clayer"]
     assert not any(str(out / "full/prepare-gpu2") in c for c in calls)
+    fit_calls = [c for c in calls if "fit" in c]
+    assert all(any("fit_cached_inputs.py" in str(v) for v in c) for c in fit_calls)
+    for position in ("pre_step", "pre_value", "post_step"):
+        assert any(str(out / "smoke/fit" / position) in c and position in c for c in fit_calls)
 
 
 @pytest.mark.parametrize("op", [5, 10, 15, 21])

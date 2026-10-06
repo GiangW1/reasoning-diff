@@ -1,0 +1,17 @@
+Run: pr8-12h-20261006-r2
+Last completed stage: smoke-fit-all
+Failure time: 2026-10-06 12:35 Asia/Shanghai
+
+Traceback (most recent call last):
+  File "code/scripts/run_pr8.py", line 378, in <module>
+    raise SystemExit(main())
+  File "code/scripts/run_pr8.py", line 366, in main
+    pipeline(smoke, "smoke")
+  File "code/scripts/run_pr8.py", line 330, in pipeline
+    raise RuntimeError("measurement smoke failed; full generation has not started")
+RuntimeError: measurement smoke failed; full generation has not started
+
+Failed check: matched_cell_coverage
+Original measured coverage: 186 / 1737 = 0.1070811744386874
+Required engineering coverage: >= 0.5
+Formal generation and intervention decoding did not start.

@@ -8,7 +8,7 @@
 
 ```bash
 export PYTHONPATH="$PWD/src"
-PY=/home/wja/reasoning-diff/.venv/bin/python
+PY=/mnt/mydata/zm/projects/RPent/.venv/bin/python
 
 # 只运行 smoke；默认 GPU 2/3/6，batch size 2。
 "$PY" scripts/run_pr8.py --mode smoke \
@@ -24,6 +24,14 @@ PY=/home/wja/reasoning-diff/.venv/bin/python
 预算默认 `--max-new 32768`；实际生成预算取该值与模型卡片剩余上下文的较小值，保存实际预算和长度。输入也占上下文，不强制关闭 thinking。可以指定 `--dataset`、`--model-root`、`--gpus`、`--batch-size`。输入、代码或协议改变后使用新输出目录，不能复用旧结果。DeepSeek 对照使用 `--model r1-distill-qwen-7b` 和自己的已验证权重/上下文预算。
 
 不要使用 PR7 的 PID 接管脚本启动 PR8；两个实验使用独立目录和指纹。
+
+启动器已接入上一轮的并行优化：长度 pilot 与 prepare 均按每卡 batch size 批量解码；四层特征收集分配到三张卡，收集完成即提交 CPU 拟合；同时最多运行两个 CPU 任务，每个任务使用 8 个 BLAS 线程。三个特征位置并行拟合后，`fit --position all --resume` 复用结果并汇总，拟合入口缓存只读 event rows，避免重复解析。层选择、标签、生成预算和 smoke 检查保持原协议。`execution_progress.json` 记录每个阶段的状态，CPU 阶段不访问 GPU。上述环境只用于运行，不向 RPent 环境安装或修改包。
+
+来源对干预也按 `--pair-shard INDEX COUNT` 分配到三卡；同一来源对的两种配置与全部对照保持在同一进程内，合并时保留原始 pair index。`--formal-limit 32` 可选取探索性小集：每个 op 有 4 道 probe_train、1 道 dev、1 道 calibration 和 2 道 test，仍使用既有 split hash，按与模型结果无关的 family hash 选题；8 道 smoke 题及其 family 保持独立。该子集不使用本轮暂缓的 direction_fit/transfer_pairs，不能代表完整论文检验。
+
+12 小时配置示例：`--mode full --gpus 2 3 6 --batch-size 4 --max-new 12288 --formal-limit 32 --time-budget-hours 12`。token 上限控制长尾和 KV 显存，遇到截断仍如实记录；不能强制闭合 thinking 或绕过 smoke。`execution_budget.json` 保存首次启动的预算起点，恢复不延长预算；到期停止当前子进程并标记 `budget_exhausted`，保留检查点，不标记为实验完成。代码、生成预算与样本选择均不同，必须使用新的输出目录。
+
+变量缩写只从生成文本中明确的声明解析，允许已识别实体标题下的项目名与符号对应；不按数值或标准答案猜测实体，不使用后续声明标注较早步骤，冲突声明保持未解析。
 
 ## smoke 内容与停止条件
 
@@ -68,6 +76,16 @@ PY=/home/wja/reasoning-diff/.venv/bin/python
 C2 遍历所选 split 的所有来源对，分别执行同值换来源/同来源换值，使用完整 occurrence identity 和各自前缀。数值来源可经多层 DAG 到达目标，下游自然语言和 DAG 同步换来源。同值条件的数值 target-follow 无法区分来源，保留 null，不能据此声称模型遵循了 donor 来源。
 
 本入口暂不执行旧 P3/INLP 与 C4 repair：前者需要 S 专属、仅在 direction_fit 拟合的消融方向，后者需要真正的旧轨迹增量修复和连续编辑。输出标为未评估，不把 main swap 当 P3 或同槽位 repair 当成功。没有引入 vLLM；继续使用已有 HF 独立 RNG/batched decoder，避免迁移后混用采样语义。
+
+## 保存轨迹的离线重测
+
+`scripts/reparse_pr8.py --in-dir OLD_PREPARE --out-dir NEW_PREPARE` 校验原始 manifest，从保存的精确 prompt 边界之后解析文本，复用原 token IDs、offsets、答案评分和生成状态，重建编辑比较以及所有注册的有向 base-seed 噪声对。不加载模型或生成新 token，要求使用新的输出目录。
+
+`measurement_report.json` 对照修复前后的事件数、匹配格覆盖率和可用 rho 数量。主测量仍使用严格 occurrence-count 对齐，保留原 50% 覆盖率检查，重解析成功不等于正式运行就绪；特征采集、拟合和因果 smoke 仍需重新验证。
+
+附加的 `final_commitment_p1_table.jsonl` 仅用于诊断：按文本位置选每个实体/作用域在 thinking 区域最后一次明确赋值，再重建比较。选择不使用赋值数值或标准答案，但该口径测量实体最终结果，不能替代所有推理步骤的依赖测量，不得用于绕过原 smoke 检查。解析修复支持内联的 `实体名 (变量) = ...` 和带明确数值结果的符号等式链，歧义声明及未给出明确结果的表达式仍不推断。
+
+2026-10-06 真实运行在覆盖率检查失败后停止，正式 32 题未启动。完整故障说明与轻量证据见 [PR8 实验故障报告](../artifacts/rd-pr8-smoke-20261006-light/REPORT.zh-CN.md)。
 
 ## 代码验证
 

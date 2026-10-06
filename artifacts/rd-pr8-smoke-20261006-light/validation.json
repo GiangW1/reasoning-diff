@@ -1,0 +1,13 @@
+{
+  "command": "python -m pytest -q",
+  "passed": 314,
+  "seconds": 85.49,
+  "git_diff_check": "passed",
+  "original_generation_reused": true,
+  "original_run_modified_by_reparse": false,
+  "derived_prepare_manifest_sha256": "verified_all_files",
+  "main_smoke_passed": false,
+  "formal_experiment_started": false,
+  "scientific_conclusion": null,
+  "large_artifacts_included": false
+}

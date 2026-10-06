@@ -2676,8 +2676,15 @@ def cmd_intervene(args: argparse.Namespace) -> int:
         pairs = [r for r in read_jsonl(src / "edits.jsonl") if r.get("kind") == "source_value_pair"]
         roles = {r.get("task_id"): r.get("role") for r in _persisted_splits(src)}
         pairs = [p for p in pairs if roles.get(p.get("base_task_id")) == args.pair_split]
+        indexed_pairs = list(enumerate(pairs))
+        shard = getattr(args, "pair_shard", None)
+        if shard is not None:
+            index, count = shard
+            if count < 1 or not 0 <= index < count:
+                raise ValueError("pair shard requires 0 <= index < count")
+            indexed_pairs = [(i, pair) for i, pair in indexed_pairs if i % count == index]
         output, collected, runtime = Path(args.out_dir), [], None
-        for index, pair in enumerate(pairs):
+        for index, pair in indexed_pairs:
             for kind in ("same_value_diff_source", "same_source_diff_value"):
                 child = copy.copy(args)
                 child.all_source_pairs = False
@@ -2696,7 +2703,8 @@ def cmd_intervene(args: argparse.Namespace) -> int:
             collected = [{"status": "no_source_pairs_in_split", "split": args.pair_split, "analysis_eligibility": {"C2": False, "P3": False}}]
         _write_stage(output, "interventions", collected, in_dir=src,
                      config={"command": "intervene", "all_source_pairs": True, "split": args.pair_split,
-                             "n_pairs": len(pairs), "P3": "deferred_requires_S_specific_direction_fit"})
+                             "n_pairs": len(indexed_pairs), "pair_shard": shard,
+                             "P3": "deferred_requires_S_specific_direction_fit"})
         return 0
     try:
         return _cmd_intervene_impl(args)
@@ -3826,6 +3834,7 @@ def build_parser() -> argparse.ArgumentParser:
             p.add_argument("--doses", nargs="*", type=float),
             p.add_argument("--all-source-pairs", action="store_true"),
             p.add_argument("--pair-split", choices=("dev", "test"), default="test"),
+            p.add_argument("--pair-shard", type=int, nargs=2, metavar=("INDEX", "COUNT")),
         ),
     ).set_defaults(func=cmd_intervene)
     r = stage(

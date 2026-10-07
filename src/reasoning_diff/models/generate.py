@@ -142,7 +142,16 @@ def task_prompt(task) -> str:
             "earlier step. After </think>, give a concise answer and end with exactly one final "
             "answer in the form \\boxed{number}."
         )
-    from ..quantity_steps import prompt_instructions
+    from ..quantity_steps import is_controlled, prompt_instructions
+    if (not is_controlled(task)
+            and (getattr(task, "metadata", None) or {}).get("natural_prompt_policy") == "single_pass_named_results_v1"):
+        prompt += (
+            "\n\nWork through the problem in a single forward derivation. Use the quantity names "
+            "from the question when stating computed results. Apply the stated arithmetic rules "
+            "at each operation. Do not restart, recap, or repeatedly verify the derivation. "
+            "Once the requested quantity is computed, finish thinking naturally and give a concise "
+            "final answer in the form \\boxed{number}."
+        )
     return prompt + prompt_instructions(task)
 
 
@@ -364,6 +373,7 @@ def generate_frozen_trace(
             "evidence_status": "model_generated_registered_quantity_steps" if controlled else "model_generated_natural",
             "protocol_version": PROTOCOL if controlled else "natural_no_finalizer_v1",
             "trajectory_protocol": PROTOCOL if controlled else "natural",
+            "natural_prompt_policy": None if controlled else task.metadata.get("natural_prompt_policy", "legacy"),
             "measurement_estimand": ESTIMAND if controlled else "natural_parsed_steps",
             "quantity_step_format": step_format,
             "trace_status": trace_status,

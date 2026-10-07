@@ -38,10 +38,10 @@ def test_scopes_disambiguate_same_item_and_preserve_entity_identity(task):
 
 
 def test_alias_definition_in_future_does_not_label_earlier_assignment(task):
-    text = "A_R = 3.\nFor Aerobics Studio:\n- Rucksack: A_R\nA_R = 4."
+    text = "X = 3.\nFor Aerobics Studio:\n- Rucksack: X\nX = 4."
     events = parse_events(text, task)
     assert [e.value for e in events] == ["4"]
-    assert events[0].start == text.rfind("A_R")
+    assert events[0].start == text.rfind("X")
 
 
 def test_conflicting_or_undeclared_aliases_remain_unresolved(task):
@@ -71,7 +71,7 @@ def test_inline_alias_declaration_preserves_committed_result_and_offsets(task, d
 
 
 def test_inline_alias_does_not_apply_to_earlier_assignments(task):
-    text = "AS_R = 3.\n- Aerobics Studio Rucksack (AS_R) = M = 4."
+    text = "X = 3.\n- Aerobics Studio Rucksack (X) = M = 4."
     events = parse_events(text, task)
     assert [(e.node_id, e.value) for e in events] == [("p_0_0_0_2", "4")]
     assert events[0].start > text.index("\n")
@@ -92,12 +92,12 @@ def test_possessive_normalization_cannot_choose_between_two_entities(task):
 
 
 @pytest.mark.parametrize("later", [
-    "The number of Aerobics Studio's Rucksack equals a product. So X = 4.",
+    "The number of Aerobics Studio's Rucksack equals a product. Let me denote this as X = 4.",
     "Let X be Aerobics Studio's Rucksack. X = 4.",
     "Aerobics Studio's Rucksack (X) = 4.",
 ])
 def test_repeated_later_declaration_preserves_earliest_explicit_binding(task, later):
-    text = "X = 999.\nThe number of Aerobics Studio's Rucksack equals a product. So:\n\nX = 3.\n" + later
+    text = "X = 999.\nThe number of Aerobics Studio's Rucksack equals a product. Let me write that as:\n\nX = 3.\n" + later
     events = parse_events(text, task)
     assert [e.value for e in events] == ["3", "4"]
     assert events[0].start == text.index("X = 3")

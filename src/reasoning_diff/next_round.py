@@ -76,6 +76,7 @@ def sentence_graph_task(task):
     derived = Task.from_dict({**task.to_dict(), "question": question, "premises": [p.__dict__ for p in premises],
                               "nodes": nodes, "source_kind": "project_derived", "graph_kind": "sentence_fact_dag",
                               "metadata": {**task.metadata, "premise_protocol": "sentence_graph_v1", "names": names,
+                                           "natural_prompt_policy": "single_pass_named_results_v1",
                                            "official_question": task.question, "official_task": task.to_dict()}})
     derived.validate()
     return recompute(derived)
@@ -262,6 +263,7 @@ def trajectory_table(traces, tasks, observations, splits, scanned_premises=None)
         complete = trace.get("status") == "natural_complete"
         result.append({"analysis_unit": "trajectory", "density_protocol": "registered_quantity_step_response_rate_excess_v1" if controlled else "matched_cell_response_rate_excess_v1",
                        "trajectory_protocol": PROTOCOL if controlled else "natural",
+                       "natural_prompt_policy": None if controlled else meta.get("natural_prompt_policy", owner.metadata.get("natural_prompt_policy", "legacy")),
                        "measurement_estimand": ESTIMAND if controlled else "natural_parsed_steps",
                        "head": "behavior", "position": "pre_step", "problem_id": owner.base_group_id,
                        "task_id": owner.task_id, "trace_id": trace["id"], "seed": trace.get("seed"),
@@ -325,6 +327,17 @@ def measurement_report(traces, tasks, observations, splits, scanned_premises=Non
         (trace.get("metadata") or {}).get("boundary_status") == "ok" for trace in base_trajectories(traces, tasks))
     owners = {t["task_id"]: Task.from_dict(t) for t in tasks}
     controlled = any(is_controlled(task) for task in owners.values())
+    # Old trace schemas did not persist the policy. Their saved task metadata
+    # is the fallback; never infer a new policy from today's prompt builder.
+    prompt_policies = sorted({(trace.get("metadata") or {}).get("natural_prompt_policy",
+                              owners[trace["task_id"]].metadata.get("natural_prompt_policy", "legacy"))
+                             for trace in traces if trace.get("task_id") in owners
+                             and not is_controlled(owners[trace["task_id"]])})
+    checks["generation_condition_homogeneous"] = len(prompt_policies) <= 1 and not (controlled and prompt_policies)
+    checks["prompt_policy_matches_task"] = all(
+        (trace.get("metadata") or {}).get("natural_prompt_policy", owner.metadata.get("natural_prompt_policy", "legacy"))
+        == owner.metadata.get("natural_prompt_policy", "legacy")
+        for trace in traces if (owner := owners.get(trace.get("task_id"))) is not None and not is_controlled(owner))
     formats = {trace["id"]: trace_format(trace, owners[trace["task_id"]]) for trace in traces
                if trace.get("task_id") in owners and is_controlled(owners[trace["task_id"]])}
     if controlled:
@@ -335,6 +348,7 @@ def measurement_report(traces, tasks, observations, splits, scanned_premises=Non
             "overall": overall, "by_op": by_op, "by_problem": by_problem, "trajectories": table,
             "matching_policy": MATCHING_POLICY if controlled else ALIGNMENT_POLICY, "coverage_threshold": 0.5,
             "trajectory_protocol": PROTOCOL if controlled else "natural",
+            "natural_prompt_policies": prompt_policies,
             "measurement_estimand": ESTIMAND if controlled else "natural_parsed_steps",
             "registered_step_formats": formats,
             "coverage_unit": "overall_and_each_problem_and_op",

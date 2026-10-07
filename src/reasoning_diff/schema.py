@@ -213,6 +213,8 @@ class Event:
     event_kind: str = "commit"
     event_phase: str = "unknown"
     expression_signature: str = ""
+    expression_views: list[str] = field(default_factory=list)
+    alignment_context: list[str] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         if not self.record_id:

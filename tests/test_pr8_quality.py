@@ -249,8 +249,8 @@ def test_measurement_failure_stops_before_any_collect_or_fit(tmp_path, t1_tiny_p
     assert not any(str(out / "full/prepare-gpu2") in command for command in calls)
 
 
-@pytest.mark.parametrize("bad_full_controls", [False, True])
-def test_runner_carries_c2_and_quality_and_rejects_failed_formal_controls(tmp_path, t1_tiny_path, monkeypatch, bad_full_controls):
+@pytest.mark.parametrize("mode,bad_full_controls", [("pilot", False), ("smoke", False), ("full", True)])
+def test_runner_carries_c2_and_quality_and_rejects_failed_formal_controls(tmp_path, t1_tiny_path, monkeypatch, mode, bad_full_controls):
     monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / "scripts"))
     runner = importlib.import_module("run_pr8")
     monkeypatch.setitem(__import__("sys").modules, "fcntl", SimpleNamespace(LOCK_EX=1, LOCK_NB=2, flock=lambda *a: None))
@@ -302,7 +302,16 @@ def test_runner_carries_c2_and_quality_and_rejects_failed_formal_controls(tmp_pa
 
     monkeypatch.setattr(runner.subprocess, "run", run)
     out = tmp_path / "run"
-    args = ["--mode", "full" if bad_full_controls else "smoke", "--out-root", str(out), "--dataset", str(tmp_path), "--gpus", "2"]
+    args = ["--mode", mode, "--out-root", str(out), "--dataset", str(tmp_path), "--gpus", "2"]
+    if mode == "pilot":
+        assert runner.main(args) == 0
+        assert read_json(out / "pipeline.json")["full_scan_started"] is False
+        assert read_json(out / "paired_pilot.json")["passed"]
+        assert sum("pilot-worker" in command for command in calls) == 1
+        assert sum("pair-pilot-worker" in command for command in calls) == 1
+        assert not any(any("prepare_batched.py" in str(v) for v in command) for command in calls)
+        assert not any("collect" in command or "fit" in command or "intervene" in command for command in calls)
+        return
     if bad_full_controls:
         with pytest.raises(RuntimeError, match="both source-pair kinds in full"):
             runner.main(args)

@@ -111,7 +111,7 @@ def test_real_pr8_prose_declarations_map_without_gold_values(official_task, decl
 
 
 def test_later_answer_alias_does_not_resolve_earlier_thinking(official_task):
-    text = "SF_O = 18.\n</think>\nLet SF_O be Secondary Forest's Organs.\nSF_O = 18."
+    text = "X = 18.\n</think>\nLet X be Secondary Forest's Organs.\nX = 18."
     events = thinking(text, official_task)
     assert events and all(e.event_region == "answer" for e in events)
 
@@ -164,11 +164,11 @@ def test_formatting_mask_preserves_arithmetic_power_operators(t1_tiny_path):
 
 
 @pytest.mark.parametrize("text", [
-    "Secondary Forest's Organs = a product.\n\nSo SF_O = 18.",
-    "X = Secondary Forest's Organs = 18. So SF_O = 18.",
+    "Secondary Forest's Organs = a product.\n\nSo X = 18.",
+    "Y = Secondary Forest's Organs = 18. So X = 18.",
 ])
 def test_new_notation_does_not_inherit_distant_or_rhs_topic(official_task, text):
-    assert not any("SF_O" in event.text for event in thinking(text, official_task))
+    assert not any(event.text.startswith("X") for event in thinking(text, official_task))
 
 
 def test_saved_bulleted_declaration_pair_resolves_same_operand(official_task):

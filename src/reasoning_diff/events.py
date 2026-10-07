@@ -4,17 +4,77 @@ from __future__ import annotations
 import ast
 from collections import Counter, defaultdict
 from fractions import Fraction
+from functools import lru_cache
+import hashlib
 import re
 
 from .graphs import ancestors
 from .schema import Event, EventIdentity, Task, canonical_value
 
 NUMBER = r"[+-]?(?:\d[\d,]*(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
-ALIGNMENT_POLICY = "region_structure_forced_sequence_v3"
+ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v4"
+
+
+def context_entity_token(node_id):
+    """A stable alphabetic identity, unaffected by masking numeric literals."""
+    return 'entity' + hashlib.sha256(node_id.encode()).hexdigest().translate(str.maketrans('0123456789', 'ghijklmnop'))
+
+
+@lru_cache(maxsize=8192)
+def expression_key(signature):
+    """Read ast.dump as data, including after a registered C2 source rename."""
+    def read(node):
+        if isinstance(node, ast.Constant):
+            return node.value
+        if not isinstance(node, ast.Call) or not isinstance(node.func, ast.Name) or node.args:
+            raise ValueError("unsupported expression signature")
+        name = node.func.id
+        fields = {kw.arg: read(kw.value) for kw in node.keywords}
+        if name == "Expression":
+            return fields["body"]
+        if name == "BinOp" and fields["op"] in (("Add", ()), ("Mult", ())):
+            op = fields["op"][0]
+            def terms(child):
+                return list(child[1]) if isinstance(child, tuple) and child[0] == op else [child]
+            return op, tuple(sorted(terms(fields["left"]) + terms(fields["right"]), key=repr))
+        return name, tuple(sorted(fields.items()))
+    try:
+        return read(ast.parse(signature, mode="eval").body)
+    except (SyntaxError, ValueError, KeyError):
+        return "literal", signature
 
 
 def _entity_name(name: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"'s\b", "", name.casefold())).strip()
+
+
+def _abbreviates(symbol: str, name: str) -> bool:
+    """Lexical initials/full words only; no values or task-DAG expressions."""
+    parts = re.findall(r"[A-Z]+(?=[A-Z][a-z]|_|$)|[A-Z]?[a-z]+|[0-9]+", symbol)
+    expanded_name = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
+    words = re.findall(r"[a-z]+|[0-9]+", _entity_name(expanded_name))
+    if not parts or len("".join(parts)) < 2 or not words:
+        return False
+    positions = {0}
+    for part_index, part in enumerate(map(str.casefold, parts)):
+        following = set()
+        starts = positions if part_index == 0 else {start for position in positions for start in range(position, len(words))}
+        for start in starts:
+            if start < len(words) and (part == words[start] or len(part) >= 2 and words[start].startswith(part)):
+                following.add(start + 1)
+            for end in range(start + 1, len(words) + 1):
+                if part == "".join(w[0] for w in words[start:end]):
+                    following.add(end)
+        positions = following
+    # A unique named prefix such as Starfish_Nasal may omit "Cavity".
+    return len(words) in positions or any(i >= 2 for i in positions)
+
+
+def _topic_alias_matches(symbol, name):
+    if _abbreviates(symbol, name):
+        return True
+    local_name = name.rsplit("'s ", 1)[-1]
+    return len(symbol) == 1 and bool(local_name) and symbol.casefold() == local_name[0].casefold()
 
 
 def premise_aliases(premise) -> list[str]:
@@ -71,16 +131,22 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     subject = re.compile(r"\b(?:the\s+)?number of\s+(?P<name>" + name_pattern + r")\s*(?:equals?\b|=|is\b)", re.IGNORECASE) if full_names else None
     adjacent = re.compile(r"\b(?:so|then|therefore),?\s+(?:let(?:'s| us| me)?\s+denote this as\s+)?(?P<symbol>" + symbol + r")\s*=", re.IGNORECASE)
     pronoun = re.compile(r"\blet(?:'s| me| us)?\s+denote this as\s+(?P<symbol>" + symbol + r")(?!\w)", re.IGNORECASE)
-    scope, offset, declared = None, 0, {}
-    def register(alias, entity, position):
+    scope, offset, declared, priorities = None, 0, {}, {}
+    def register(alias, entity, position, priority=2):
         key = alias.casefold()
         prior = declared.get(key)
-        if key not in declared:
+        if key not in declared or priority > priorities[key]:
+            if prior is not None and prior[0][1] == entity[1]:
+                position = min(position, prior[1])
             declared[key] = ((alias, *entity[1:]), position)
+            priorities[key] = priority
         elif prior is not None:
             # Detectors visit lines and cross-line declarations separately;
             # discovery order must not replace the earliest printed binding.
-            declared[key] = ((alias, *entity[1:]), min(position, prior[1])) if prior[0][1] == entity[1] else None
+            if prior[0][1] == entity[1]:
+                declared[key] = ((alias, *entity[1:]), min(position, prior[1]))
+            elif priority == priorities[key]:
+                declared[key] = None
 
     for line in text.splitlines(keepends=True):
         heading = re.fullmatch(r"(?:For\s+)?(.+?):", line.strip().strip("*"), re.IGNORECASE)
@@ -104,8 +170,11 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
                 if len(candidates) == 1:
                     alias = notation.group("symbol")
                     entity = next(iter(candidates.values()))
+                    explicit = bool(re.search(r"\bdenote\b", notation.group(), re.I))
+                    if not explicit and not _topic_alias_matches(alias, entity[0]):
+                        continue
                     position = offset + notation.start("symbol")
-                    register(alias, entity, position)
+                    register(alias, entity, position, priority=2 if explicit else 0)
         for match in matches:
             name = _entity_name(match.group("name").strip().strip("*`$"))
             candidates = names.get(name)
@@ -138,7 +207,22 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
         if len(candidates) != 1:
             continue
         alias = notation.group("symbol")
-        register(alias, next(iter(candidates.values())), notation.start("symbol"))
+        explicit = bool(re.match(r"let\b|let's\b", notation.group(), re.I))
+        if not explicit and not _topic_alias_matches(alias, owner.group("name")):
+            continue
+        register(alias, next(iter(candidates.values())), notation.start("symbol"), priority=2 if explicit else 0)
+    # Recognize unambiguous conventional abbreviations independently of any
+    # later declaration. Generic X/Sum1 cannot inherit a nearby topic.
+    lexical = {}
+    for match in re.finditer(r"(?<!\w)([A-Za-z][A-Za-z0-9_]*)\s*\)?\s*(?:=|is\b|equals?\b)", text):
+        alias = match.group(1)
+        if not ("_" in alias or any(c.isupper() for c in alias)):
+            continue
+        if alias not in lexical:
+            lexical[alias] = {e[1]: e for e in entities if e[0] != e[1] and _abbreviates(alias, e[0])}
+        if len(lexical[alias]) == 1:
+            entity = next(iter(lexical[alias].values()))
+            register(alias, entity, match.start(1), priority=1)
     return {key: value for key, value in declared.items() if value is not None}
 
 
@@ -148,7 +232,7 @@ def _expression_tree(expression: str, entities: list[tuple]):
     expression = re.sub(r"([A-Za-z])_\{([A-Za-z0-9]+)\}", r"\1_\2", expression)
     expression = expression.replace(r"\times", "*").replace(r"\cdot", "*").replace(r"\div", "/")
     expression = expression.translate(str.maketrans({"×": "*", "÷": "/", "−": "-", "^": "**"}))
-    expression = re.sub(r"\s*(?:\\?mod\b|modulo\b)\s*", " % ", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\s*(?:\\?mod(?=\b|\d)|modulo\b)\s*", " % ", expression, flags=re.IGNORECASE)
     names = defaultdict(set)
     for alias, node_id, *_ in entities:
         names[alias.casefold()].add(node_id)
@@ -176,6 +260,21 @@ def _expression_tree(expression: str, entities: list[tuple]):
             node.value = "number"
         elif isinstance(node, ast.Name):
             node.id = symbols.get(node.id, "unresolved:" + node.id.casefold())
+    def canonical(node):
+        if isinstance(node, ast.BinOp):
+            node.left, node.right = canonical(node.left), canonical(node.right)
+            if isinstance(node.op, (ast.Add, ast.Mult)):
+                def terms(child):
+                    return terms(child.left) + terms(child.right) if isinstance(child, ast.BinOp) and type(child.op) is type(node.op) else [child]
+                parts = sorted(terms(node), key=lambda n: ast.dump(n, include_attributes=False))
+                result = parts[0]
+                for part in parts[1:]:
+                    result = ast.BinOp(result, type(node.op)(), part)
+                return result
+        elif isinstance(node, ast.UnaryOp):
+            node.operand = canonical(node.operand)
+        return node
+    tree.body = canonical(tree.body)
     return phase, ast.dump(tree, include_attributes=False)
 
 
@@ -193,7 +292,7 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
         suffix = rhs[result.end():]
         # A close parenthesis or a LaTeX marker cannot hide pending math.
         rest = re.sub(r"^(?:\s*[)$])*\s*", "", suffix)
-        mod = re.match(r"(?P<open>\()?\s*(?:\\?mod\b|modulo\b)\s*(?P<modulus>" + NUMBER + r")\s*(?(open)\))", rest, re.IGNORECASE)
+        mod = re.match(r"(?P<open>\()?\s*(?:\\?mod(?=\b|\d)|modulo\b)\s*(?P<modulus>" + NUMBER + r")\s*(?(open)\))", rest, re.IGNORECASE)
         if mod:
             # "x = 3 mod 23" can annotate an explicitly printed residue.
             # "x = 25 mod 23" has not printed its reduced result: do not
@@ -219,7 +318,9 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
         if any(tree[0] == "reduction" for tree in trees) or re.search(r"≡|\\equiv\b", prefix):
             phase = "reduction"
         kind = "calculation" if phase == "reduction" or any(tree[0] == "calculation" for tree in trees) else "commit"
-        return start + result.start(), start + result.end(), result.group(), kind, phase, signature
+        # Keep only printed operation views, not an inferred DAG expression.
+        views = list(dict.fromkeys(sig for ph, sig in trees if ph != "commit")) or [signature]
+        return start + result.start(), start + result.end(), result.group(), kind, phase, signature, views
     return None
 
 
@@ -259,7 +360,7 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
             preceding = re.split(r"\.(?!\d)|,\s+(?=[A-Za-z])", preceding)[-1]
             if "=" in preceding:
                 continue
-            if re.search(r"(?:\b(?:and|plus|minus|times|add|subtract|multiply|divide)|[+*/−-])\s*$", preceding, re.IGNORECASE):
+            if re.search(r"(?:\b(?:and|plus|minus|times|add|subtract|multiply|divide|with)|[+*/−-])\s*(?:(?:the\s+)?number of\s*)?$", preceding, re.IGNORECASE):
                 continue
             kind = "restatement" if any(p.premise_id == node_id for p in task.premises) else "commit"
             if task.answer_spec.kind == "numeric":
@@ -269,7 +370,7 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 result = _numeric_commit(text, match.end(), visible_entities)
                 if result is None:
                     continue
-                value_start, end, value, parsed_kind, phase, signature = result
+                value_start, end, value, parsed_kind, phase, signature, views = result
                 if kind != "restatement":
                     kind = parsed_kind
             else:
@@ -277,8 +378,8 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 if result is None:
                     continue
                 value_start, end, value = match.end(), match.end() + result.end(), result.group()
-                phase, signature = "commit", "text"
-            found.append((start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind, phase, signature))
+                phase, signature, views = "commit", "text", []
+            found.append((start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind, phase, signature, views))
     found.sort(key=lambda item: (item[0], item[1]))
     # "Entity: X = value" names one printed result twice. Use the innermost
     # assignment's arithmetic, keeping the complete statement's start.
@@ -291,7 +392,29 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
     line_counts = Counter(item[0] for item in found)
     occurrences: Counter = Counter()
     events = []
-    for start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind, phase, signature in found:
+    context_cache = {}
+    stopwords = set(('a an the of to and or is as be so let me we it this that then therefore number mod modulo '
+                     'equals equal all are was with for at in on i my our zero one two three four five six seven '
+                     'eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen '
+                     'twenty thirty forty fifty sixty seventy eighty ninety hundred thousand').split())
+    node_tokens = {e[1]: context_entity_token(e[1]) for e in entities}
+    alias_patterns = [(re.compile(rf'(?<!\w){re.escape(alias)}(?!\w)', re.I), node_tokens[nid])
+                      for alias, nid, *_ in sorted(entities, key=lambda e: -len(e[0])) if counts[alias.casefold()] == 1]
+    def context(start, end, node_id):
+        previous = source_text.rfind('\n\n', 0, start)
+        lo = previous + 2 if previous >= 0 else 0
+        hi = source_text.find('\n\n', end)
+        hi = len(source_text) if hi < 0 else hi
+        key = (lo, hi)
+        if key not in context_cache:
+            block = source_text[lo:hi]
+            for pattern, token in alias_patterns:
+                block = pattern.sub(' ' + token + ' ', block)
+            block = re.sub(r'\b\d+(?:st|nd|rd|th)\b', ' ', block, flags=re.I)
+            block = re.sub(NUMBER, ' ', block)
+            context_cache[key] = sorted(set(re.findall(r'[a-z]+', block.casefold())) - stopwords)
+        return [word for word in context_cache[key] if word != node_tokens[node_id]]
+    for start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind, phase, signature, views in found:
         key = (node_id, scope)
         occurrences[key] += 1
         identity = EventIdentity(node_id, occurrences[key], scope)
@@ -317,6 +440,8 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 event_kind=kind,
                 event_phase=phase,
                 expression_signature=signature,
+                expression_views=views,
+                alignment_context=context(start, end, node_id),
             )
         )
     return events
@@ -500,37 +625,67 @@ def align_events(base: list[Event], changed: list[Event]) -> dict:
         right = sorted([e for e in changed if e.event_region == region and e.status == "ok"], key=lambda e: e.start)
         def key(e):
             return (e.identity.entity_or_expression, e.node_id, e.identity.scope,
-                    e.event_kind, e.event_phase, e.expression_signature)
+                    e.event_kind, e.event_phase, expression_key(e.expression_signature))
         aa, bb = [key(e) for e in left], [key(e) for e in right]
         n, m = len(aa), len(bb)
+        def compatible(a, b):
+            if key(a)[:-1] != key(b)[:-1]:
+                return False
+            if expression_key(a.expression_signature) == expression_key(b.expression_signature):
+                return True
+            av, bv = set(map(expression_key, a.expression_views)), set(map(expression_key, b.expression_views))
+            named_a = {expression_key(v) for v in a.expression_views if "Name(" in v}
+            named_b = {expression_key(v) for v in b.expression_views if "Name(" in v}
+            # Common numeric arithmetic must not hide different named inputs.
+            if named_a and named_b and not named_a & named_b:
+                return False
+            return bool(av & bv)
+        edges = [[compatible(a, b) for b in right] for a in left]
+        def context_score(a, b):
+            x, y = set(a.alignment_context), set(b.alignment_context)
+            common = x & y
+            return 1000 * len(common) // len(x | y) if len(common) >= 2 else 0
+        context_scores = [[context_score(a,b) if edges[i][j] else 0 for j,b in enumerate(right)] for i,a in enumerate(left)]
+        # Lexicographic objective: maximize compatible steps, then lexical
+        # discourse agreement. Neither target values nor position distance
+        # enters the objective; ties across optimal paths remain unresolved.
+        unit = (min(n,m) + 1) * 1001
         prefix = [[0] * (m + 1) for _ in range(n + 1)]
         suffix = [[0] * (m + 1) for _ in range(n + 1)]
         for i in range(n):
             for j in range(m):
-                prefix[i + 1][j + 1] = prefix[i][j] + 1 if aa[i] == bb[j] else max(prefix[i][j + 1], prefix[i + 1][j])
+                prefix[i + 1][j + 1] = max(prefix[i][j + 1], prefix[i + 1][j],
+                    prefix[i][j] + unit + context_scores[i][j] if edges[i][j] else 0)
         for i in range(n - 1, -1, -1):
             for j in range(m - 1, -1, -1):
-                suffix[i][j] = suffix[i + 1][j + 1] + 1 if aa[i] == bb[j] else max(suffix[i + 1][j], suffix[i][j + 1])
+                suffix[i][j] = max(suffix[i + 1][j], suffix[i][j + 1],
+                    suffix[i + 1][j + 1] + unit + context_scores[i][j] if edges[i][j] else 0)
         # Every optimal path has exactly one pair at each matched rank. A
         # rank with one feasible edge is common to every such path.
         ranks = defaultdict(list)
         optimum = prefix[n][m]
         for i in range(n):
             for j in range(m):
-                if aa[i] == bb[j] and prefix[i][j] + 1 + suffix[i + 1][j + 1] == optimum:
-                    ranks[prefix[i][j] + 1].append((i, j))
+                if edges[i][j] and prefix[i][j] + unit + context_scores[i][j] + suffix[i + 1][j + 1] == optimum:
+                    ranks[prefix[i][j] // unit + 1].append((i, j))
         forced = [(rank, edges[0]) for rank, edges in ranks.items() if len(edges) == 1]
         context_entities = {aa[i][:3] for _, (i, j) in forced}
-        left_counts, right_counts = Counter(aa), Counter(bb)
         for rank, (i, j) in forced:
-            unique = left_counts[aa[i]] == right_counts[bb[j]] == 1
+            unique = sum(edges[i]) == sum(row[j] for row in edges) == 1
+            distinguishing_context = (context_scores[i][j] > 0
+                and context_scores[i].count(context_scores[i][j]) == 1
+                and sum(row[j] == context_scores[i][j] for row in context_scores) == 1
+                and context_scores[i][j] == max(context_scores[i]) == max(row[j] for row in context_scores))
             # Counts alone do not resolve an isolated run of identical
             # confirmations; require an independent entity in the context.
-            if not unique and len(context_entities) < 2:
+            if not unique and len(context_entities) < 2 and not distinguishing_context:
                 continue
             pairs.append((left[i], right[j]))
             certificates.append({"left": left[i].identity.key(), "right": right[j].identity.key(),
-                                 "region": region, "matched_rank": rank, "optimal_length": optimum,
+                                 "region": region, "matched_rank": rank, "optimal_length": optimum // unit,
+                                 "context_agreement": context_scores[i][j], "context_distinguishes_repeat": distinguishing_context,
+                                 "objective": "max_compatible_steps_then_value_masked_discourse",
+                                 "expression_evidence": "primary_canonical" if expression_key(left[i].expression_signature) == expression_key(right[j].expression_signature) else "printed_view_intersection",
                                  "feasible_edges_at_rank": 1, "independent_context_entities": len(context_entities)})
     paired_left = {e.identity.key() for e, _ in pairs}
     paired_right = {e.identity.key() for _, e in pairs}

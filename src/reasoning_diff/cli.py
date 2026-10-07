@@ -27,7 +27,7 @@ from .baselines import (
     text_predictor,
     verbalizer,
 )
-from .events import align_events, align_events_monotonic, extract_answer, parse_events, parse_fixture_events, review_export
+from .events import align_events, align_events_monotonic, context_entity_token, extract_answer, parse_events, parse_fixture_events, review_export
 from .probes.boundary import BoundaryMLP
 from .graphs import ancestors
 from .interventions import apply_swap, c_layer_delta, c_rand_delta, ie_z, inlp_remove, intervention_report, orthonormal_basis, rescue_controls, select_weak_layer
@@ -2664,7 +2664,10 @@ def _pair_source_value(matrix: np.ndarray, event_rows: list[dict], pair_meta: di
                     # Only this registered source replacement is equivalent
                     # for C2 stage matching; do not remap other operands.
                     events = [replace(e, expression_signature=e.expression_signature.replace(
-                        f"id={new!r}", f"id={old!r}")) for e in events]
+                        f"id={new!r}", f"id={old!r}"), expression_views=[v.replace(
+                            f"id={new!r}", f"id={old!r}") for v in e.expression_views], alignment_context=[
+                                context_entity_token(old) if token == context_entity_token(new) else token
+                                for token in e.alignment_context]) for e in events]
             for left, right in align_events(base.events, events)["pairs"]:
                 if left.event_region != "thinking" or left.event_kind == "restatement":
                     continue

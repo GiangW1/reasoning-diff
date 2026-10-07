@@ -159,6 +159,8 @@ def pilot_worker(args):
             report["passed"] = not report["failures"]
         report["pilot_protocol"] = {"edit_seed": 0, "noise_seeds": [1, 2], "scanned_premises": scanned,
                                     "scope": "relevant_fact_and_two_distractors", "formal_evidence": False}
+        write_jsonl(out / "paired_observations.jsonl", [o.to_dict() for o in observations])
+        write_jsonl(out / "paired_tasks.jsonl", [task.to_dict() for task in tasks] + [edit.task.to_dict() for _, edit in edits])
         write_json(out / "paired_measurement.json", report)
 
 
@@ -191,7 +193,7 @@ def layer_sweep(stage, work, dataset, prep, labels, model, gpus, layers):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=("smoke", "full", "pilot-worker", "pair-pilot-worker"), default="smoke")
+    parser.add_argument("--mode", choices=("pilot", "smoke", "full", "pilot-worker", "pair-pilot-worker"), default="smoke")
     parser.add_argument("--dataset", type=Path, default=SERVER / "runs/pr7-200-20261004/inputs/igsm-pilot200")
     parser.add_argument("--model-root", type=Path, default=SERVER / "assets/models")
     parser.add_argument("--out-root", type=Path, default=SERVER / "runs/pr8-sentence-facts")
@@ -236,6 +238,7 @@ def main(argv=None):
     protocol = {"premise_protocol": "sentence_graph_v1", "noise": "directed_base_seed_pairs_common_cells",
                 "trajectory_protocol": PROTOCOL if args.trajectory_protocol == "quantity_steps" else "natural",
                 "measurement_estimand": ESTIMAND if args.trajectory_protocol == "quantity_steps" else "natural_parsed_steps",
+                "natural_prompt_policy": None if args.trajectory_protocol == "quantity_steps" else "single_pass_named_results_v1",
                 "max_new": args.max_new, "context_policy": "budget_clipped_to_remaining_card_context",
                 "seeds": [0, 1, 2], "temperature": 0.6, "top_k": 20, "top_p": 0.95,
                 "matching_policy": MATCHING_POLICY if args.trajectory_protocol == "quantity_steps" else ALIGNMENT_POLICY, "coverage_threshold": 0.5,
@@ -365,6 +368,10 @@ def main(argv=None):
     if not all(r["passed"] for r in paired_reports):
         write_json(root / "pipeline.json", {"status": "failed", "stage": "paired_pilot", "scientific_conclusion": None})
         raise RuntimeError("paired measurement pilot failed; full premise scans have not started")
+    if args.mode == "pilot":
+        write_json(root / "pipeline.json", {"status": "complete", "mode": "pilot", "stage": "paired_pilot",
+                   "full_scan_started": False, "scientific_conclusion": None})
+        return 0
 
     def pipeline(paths, name):
         work = root / name

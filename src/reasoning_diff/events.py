@@ -12,7 +12,7 @@ from .graphs import ancestors
 from .schema import Event, EventIdentity, Task, canonical_value
 
 NUMBER = r"[+-]?(?:(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
-ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v6"
+ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v7"
 
 
 def context_entity_token(node_id):
@@ -115,10 +115,13 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
         alias, node_id, *_ = entity
         names[_entity_name(alias)][node_id] = entity
     scopes = {entity[0].rsplit("'s ", 1)[0].casefold() for entity in entities if "'s " in entity[0]}
-    symbol = r"(?:[A-Za-z]_\{[A-Za-z0-9]+\}|[A-Za-z][A-Za-z0-9_]*)"
+    symbol = r"(?:[A-Za-z]_\{[A-Za-z0-9]+\}|[A-Za-z][A-Za-z0-9_]*['′]?)"
+    # Only an explicit parenthesis can introduce a multiword shorthand.
+    # Do not extend free prose/heading guesses to arbitrary word sequences.
+    paren_symbol = symbol + r"(?:[ \t]+" + symbol + r"){0,2}"
     declaration = re.compile(
         r"^\s*(?:[-*]\s+)?(?P<name>.+?)\s*(?:"
-        r"\((?:(?:let's\s+)?denote this as\s+)?(?P<paren>" + symbol + r")\)"
+        r"\((?:(?:let's\s+)?denote this as\s+)?(?P<paren>" + paren_symbol + r")\)"
         r"|:\s*(?:(?:let's\s+)?(?:denote this as|call this)\s+)?(?P<colon>" + symbol + r"))\s*(?:=.+)?\s*$",
         re.IGNORECASE,
     )
@@ -127,7 +130,7 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     full_names = sorted({re.escape(entity[0]).replace("'s", "(?:'s)?") for entity in entities}, key=len, reverse=True)
     inline = re.compile(r"(?<!\w)(?P<name>" + "|".join(full_names) + r")\s*\("
                         r"(?:(?:[^()\n]*?\b)?let(?:'s| me| us)?\s+(?:denote|call)\s+(?:this|it)\s+(?:as\s+)?)?"
-                        r"(?P<paren>" + symbol + r")\)\s*(?==|equals?\b|is\b|[.,;]|$)",
+                        r"(?P<paren>" + paren_symbol + r")\)\s*(?==|equals?\b|is\b|[.,;]|$)",
                         re.IGNORECASE) if full_names else None
     name_pattern = "|".join(full_names)
     human_names = "|".join(re.escape(alias).replace("'s", "(?:'s)?") for alias, node_id, *_ in entities if alias != node_id)
@@ -255,6 +258,11 @@ def _expression_tree(expression: str, entities: list[tuple]):
         pattern = rf"(?<!\w)(?:(?:the\s+)?number of\s+)?{re.escape(alias)}(?!\w)"
         expression = re.sub(pattern, symbol, expression, flags=re.IGNORECASE)
         symbols[symbol] = next(iter(names[alias]))
+    # Replace operators after entity names, so names containing e.g. "Plus"
+    # retain their identity. This translates printed syntax, never computes it.
+    for words, operator in ((r'plus', '+'), (r'minus', '-'),
+                            (r'multiplied by|times', '*'), (r'divided by', '/')):
+        expression = re.sub(r'\b(?:' + words + r')\b', operator, expression, flags=re.I)
     try:
         tree = ast.parse(expression, mode="eval")
     except (SyntaxError, ValueError):
@@ -289,7 +297,7 @@ def _expression_tree(expression: str, entities: list[tuple]):
     return phase, ast.dump(tree, include_attributes=False)
 
 
-def _numeric_commit(text: str, start: int, entities: list[tuple]):
+def _numeric_commit(text: str, start: int, entities: list[tuple], *, target_node=None):
     """Accept a terminal printed scalar, never evaluate an unfinished RHS."""
     line_end = text.find("\n", start)
     line_end = len(text) if line_end < 0 else line_end
@@ -303,7 +311,8 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
             prose_copy = re.fullmatch(
                 r"(?:equal to\s+)?(.+?),\s*(?:which (?:is|we just found to be)|so (?:that's|that is)(?: also)?)\s*",
                 prefix, re.I)
-        if not scalar and not prose_copy and not re.search(r"(?:=|≡|\\equiv)$", prefix):
+        relation = r"=|≡|\\equiv\b|\bis\b|\bequals?\b"
+        if not scalar and not prose_copy and not re.search(r"(?:" + relation + r")$", prefix, re.I):
             continue
         suffix = rhs[result.end():]
         # A close parenthesis or a LaTeX marker cannot hide pending math.
@@ -326,12 +335,18 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
             rest = rest[annotation.end():].lstrip()
         if rest and not re.match(r"[.,;?!→]|</", rest):
             continue
-        expressions = [prose_copy.group(1)] if prose_copy else [] if scalar else re.split(r"=|≡|\\equiv\b", prefix)[:-1]
+        expressions = [prose_copy.group(1)] if prose_copy else [] if scalar else re.split(relation, prefix, flags=re.I)[:-1]
         trees = [_expression_tree(expr, entities) for expr in expressions]
         if any(tree is None for tree in trees):
             continue
         if prose_copy and (trees[0][0] != "copy" or "unresolved:" in trees[0][1]):
             continue
+        # X = Full name = expression = value repeats the destination label.
+        # Preserve other-entity copies and arithmetic involving X itself.
+        self_name = ('copy', ast.dump(ast.Expression(body=ast.Name(id=target_node, ctx=ast.Load())),
+                                     include_attributes=False)) if target_node is not None else None
+        while not prose_copy and trees and trees[0] == self_name:
+            trees.pop(0)
         phase, signature = trees[0] if trees else ("commit", "scalar")
         if any(tree[0] == "reduction" for tree in trees) or re.search(r"≡|\\equiv\b", prefix):
             phase = "reduction"
@@ -362,6 +377,80 @@ def _substitution_shape(signature, *, before_reduction=False):
             return node[0], tuple(sorted((mask(child) for child in node[1]), key=repr))
         return tuple(mask(child) for child in node)
     return mask(key)
+
+
+def _adjacent_substitution(text, start, entities):
+    """A printed formula followed by its explicit local operand substitution."""
+    # Stay within a single line; a new paragraph/region cannot supply the work.
+    line = text[start:].split('\n', 1)[0]
+    follow = re.match(r'(?P<formula>.+?)\.[ \t]+', line)
+    formula = _expression_tree(follow.group('formula'), entities) if follow else None
+    if formula is None or formula[0] not in {'calculation', 'reduction', 'copy'}:
+        return None
+    offset = follow.end()
+    direct = re.match(r'(?:So[ \t]+)?(?P<work>[+\-(\d])', line[offset:], re.I)
+    operand = None if direct else re.match(r'(?:Since[ \t]+)?(?P<name>[^.,;!?=]+?)[ \t]+(?:is|equals?)[ \t]+'
+                       + NUMBER + r'(?P<connector>,[ \t]*(?:so[ \t]+)?|\.[ \t]+So[ \t]+)',
+                       line[offset:], re.I)
+    if operand:
+        named = _expression_tree(operand.group('name'), entities)
+        if not named or named[0] != 'copy' or 'unresolved:' in named[1]:
+            return None
+        # Require an explicitly printed operand of THIS formula. A new
+        # destination/topic may not lend its following arithmetic backwards.
+        name_key = expression_key(named[1])
+        def contains(key):
+            return key == name_key or isinstance(key, tuple) and any(contains(k) for k in key)
+        if not contains(expression_key(formula[1])):
+            return None
+        offset += operand.end()
+        expanded = re.match(r'that would be[ \t]+(?P<expr>.+?)\.[ \t]+Let me compute that[:.][ \t]+',
+                            line[offset:], re.I)
+        if expanded:
+            view = _expression_tree(expanded.group('expr'), [])
+            if not view or 'Name(' in view[1] or _substitution_shape(formula[1], before_reduction=True) != _substitution_shape(view[1]):
+                return None
+            offset += expanded.end()
+    elif direct:
+        offset += direct.start('work')
+    if not re.match(r'[+\-(\d]', line[offset:]):
+        return None
+    printed = _numeric_commit(text, start + offset, [])
+    if (not printed or printed[3] != 'calculation' or any('Name(' in v for v in printed[6])
+            or _substitution_shape(formula[1], before_reduction=printed[4] != 'reduction')
+            != _substitution_shape(printed[5])):
+        return None
+    value_start, end, value, kind, phase, signature, views = printed
+    if formula[0] == phase:
+        signature, views = formula[1], list(dict.fromkeys([formula[1], *views]))
+    return value_start, end, value, kind, phase, signature, views
+
+
+def _split_printed_reduction(text, start, result, entities, node_id):
+    """Retain an explicit raw result before its reduction in an equation chain."""
+    if result[4] != 'reduction':
+        return None
+    pattern = re.compile(r'(?P<raw>' + NUMBER + r')[ \t]*(?P<op>(?:\\?mod(?=\b|\d)|modulo\b)|≡|\\equiv\b)', re.I)
+    for match in pattern.finditer(text, start, result[0]):
+        raw = _numeric_commit(text[:match.end('raw')], start, entities, target_node=node_id)
+        # The prefix must print the result of a complete raw calculation.
+        # An operand inside (a+b) mod m or q=25 mod m is not another result.
+        if not raw or raw[4] != 'calculation' or raw[0] != match.start('raw'):
+            continue
+        reduced = _numeric_commit(text, match.start('raw'), entities)
+        if not reduced or reduced[1] != result[1]:
+            continue
+        if match.group('op') in {'≡', r'\equiv'}:
+            modulus = re.match(r'[ \t]*\(?[ \t]*(?:\\?mod(?=\b|\d)|modulo\b)[ \t]*(' + NUMBER + r')',
+                               text[result[1]:], re.I)
+            if modulus is None:
+                continue
+            # "25 ≡ 2 mod 23" explicitly states the same reduction as
+            # "25 mod 23 = 2". No arithmetic or value-based binding is used.
+            _, signature = _expression_tree(match.group('raw') + ' mod ' + modulus.group(1), [])
+            reduced = (*reduced[:5], signature, [signature])
+        return raw, match.start('raw'), reduced
+    return None
 
 
 def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Event]:
@@ -420,27 +509,19 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                     owner = next(iter(owners)) + "'s "
                     visible_entities += [(a[len(owner):], *entity[1:]) for entity in visible_entities
                                          if (a := entity[0]).startswith(owner)]
-                result = _numeric_commit(text, match.end(), visible_entities)
+                result = _numeric_commit(text, match.end(), visible_entities, target_node=node_id)
                 if result is None:
-                    # Natural derivations often split a symbolic formula and
-                    # its substitution with a period. Accept only immediately
-                    # adjacent, explicitly printed numeric work on this line.
-                    # No DAG evaluation, value equality, or cross-topic search.
-                    follow = re.match(r"(?P<formula>[^\n]+?)\.[ \t]+(?:So[ \t]+)?(?P<work>[+\-(\d])",
-                                      text[match.end():], re.I)
-                    formula = _expression_tree(follow.group('formula'), visible_entities) if follow else None
-                    if formula and formula[0] in {'calculation', 'reduction', 'copy'}:
-                        work_start = match.end() + follow.start('work')
-                        printed = _numeric_commit(text, work_start, [])
-                        if (printed and printed[3] == 'calculation' and all('Name(' not in v for v in printed[6])
-                                and _substitution_shape(formula[1], before_reduction=printed[4] != 'reduction')
-                                == _substitution_shape(printed[5])):
-                            value_start, end, value, parsed_kind, phase, signature, views = printed
-                            if formula[0] == phase:
-                                signature, views = formula[1], list(dict.fromkeys([formula[1], *views]))
-                            result = value_start, end, value, parsed_kind, phase, signature, views
+                    result = _adjacent_substitution(text, match.end(), visible_entities)
                 if result is None:
                     continue
+                split = _split_printed_reduction(text, match.end(), result, visible_entities, node_id)
+                if split:
+                    raw, reduced_start, result = split
+                    raw_value_start, raw_end, raw_value, raw_kind, raw_phase, raw_sig, raw_views = raw
+                    found.append((start, raw_end, raw_value_start, node_id, gold, scope, parents, graph_status,
+                                  raw_value, 'restatement' if kind == 'restatement' else raw_kind,
+                                  raw_phase, raw_sig, raw_views))
+                    start = reduced_start
                 value_start, end, value, parsed_kind, phase, signature, views = result
                 if kind != "restatement":
                     kind = parsed_kind
@@ -456,8 +537,8 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 # named calculation. Keep BOTH printed stages: the raw result
                 # must not silently become the residue or leave the denominator.
                 continuation = re.match(
-                    r"[ \t]*(?:\.[ \t]*(?:Then[ \t]+)?|,[ \t]*then[ \t]+|→[ \t]*)(?P<expr>"
-                    + NUMBER + r"[ \t]+(?:mod|modulo)[ \t]*" + NUMBER + r"[ \t]*=)",
+                    r"[ \t]*(?:\.[ \t]*(?:Then[ \t]+)?|,[ \t]*(?:then[ \t]+)?|→[ \t]*)(?P<expr>"
+                    + NUMBER + r"[ \t]*(?:mod(?=\b|\d)|modulo)[ \t]*" + NUMBER + r"[ \t]*(?:=|is\b|equals?\b))",
                     text[end:], re.I)
                 if continuation:
                     reduction_start = end + continuation.start("expr")
@@ -486,11 +567,19 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
     node_tokens = {e[1]: context_entity_token(e[1]) for e in entities}
     alias_patterns = [(re.compile(rf'(?<!\w){re.escape(alias)}(?!\w)', re.I), node_tokens[nid])
                       for alias, nid, *_ in sorted(entities, key=lambda e: -len(e[0])) if counts[alias.casefold()] == 1]
+    region_markers = list(re.finditer(r'</?think>', source_text))
     def context(start, end, node_id):
         previous = source_text.rfind('\n\n', 0, start)
         lo = previous + 2 if previous >= 0 else 0
         hi = source_text.find('\n\n', end)
         hi = len(source_text) if hi < 0 else hi
+        # Paragraph layout is independent of the thinking/answer boundary.
+        # Answer prose must never resolve a repeated thinking assignment.
+        for marker in region_markers:
+            if marker.end() <= start:
+                lo = max(lo, marker.end())
+            elif marker.start() >= end:
+                hi = min(hi, marker.start())
         key = (lo, hi)
         if key not in context_cache:
             block = source_text[lo:hi]

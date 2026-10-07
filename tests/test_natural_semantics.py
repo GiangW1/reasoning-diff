@@ -20,9 +20,9 @@ def events(text, task):
 ])
 def test_spaced_and_adjacent_modulus_keep_explicit_residue(t1_tiny_path, text):
     parsed = events(text, load_t1_fixture(t1_tiny_path))
-    assert len(parsed) == 1
-    assert parsed[0].value == '2' and parsed[0].event_phase == 'reduction'
-    assert text[parsed[0].value_start:parsed[0].end] == '2'
+    assert [(e.value, e.event_phase) for e in parsed] == (
+        [('48', 'calculation'), ('2', 'reduction')] if '8 * 6' in text else [('2', 'reduction')])
+    assert text[parsed[-1].value_start:parsed[-1].end] == '2'
 
 
 @pytest.mark.parametrize('left,right', [

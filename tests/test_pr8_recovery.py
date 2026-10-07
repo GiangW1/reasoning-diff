@@ -78,7 +78,9 @@ def test_printed_residue_annotation_remains_scalar_commit(t1_tiny_path, text):
 @pytest.mark.parametrize("relation", ["≡", r"\equiv"])
 def test_explicit_congruence_chain_reads_printed_residue(t1_tiny_path, relation):
     text = f"q = 20 * 5 = 100 {relation} 8 (mod 23)."
-    event = parse_events(text, load_t1_fixture(t1_tiny_path))[0]
+    parsed = parse_events(text, load_t1_fixture(t1_tiny_path))
+    assert [(e.value, e.event_phase) for e in parsed] == [('100', 'calculation'), ('8', 'reduction')]
+    event = parsed[-1]
     assert (event.value, event.event_kind, event.event_phase) == ("8", "calculation", "reduction")
     assert text[event.value_start:event.end] == "8"
     assert text[event.start:event.end] == event.text

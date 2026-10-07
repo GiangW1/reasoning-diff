@@ -1,0 +1,44 @@
+{
+  "base_commit": "a76ea64cf01ba8a38e36b253364faece7d35adff",
+  "checked_at_utc": "2026-10-07T10:41:54.493399+00:00",
+  "scope": "CPU regressions and immutable saved natural-trajectory remeasurement",
+  "pytest": {
+    "tests": 442,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "new_regressions": 12,
+    "reported_elapsed_seconds": 81.9
+  },
+  "compileall_passed": true,
+  "diff_check_passed": true,
+  "matching_coverage_issue_resolved": false,
+  "new_model_generation_run": false,
+  "real_model_smoke_run": false,
+  "formal_launch_ready": false,
+  "natural_measurement_passed": false,
+  "natural_cached_pilot_passed": false,
+  "scientific_conclusion": null,
+  "original_input_hashes_verified": {
+    "edits.jsonl": "ce093b9e18e8db3339ca8ad0a87d567114ef35d3ceb33848c754ef65c35b083a",
+    "observations.jsonl": "9514aee6f2c0fbcc20d19e89030406a9d007de16ce8eb0005cbf4d3dcf7da85b",
+    "splits.jsonl": "152db10a66a21d26360278cef31e8145c62292e54c1013bd569849887d9dfa89",
+    "tasks.jsonl": "4b6231a7ecc2414617ab0cc6ce24a9f6ae2ea38083aa974409a905f7900ae138",
+    "traces.jsonl": "d8b8b8beefd79b3ed7b5528526927d3e6d0e5873323aebf31a08a0c8628688f3"
+  },
+  "source_hash_scope": "SHA256 of canonical Git index blobs",
+  "source_git_blob_sha256": {
+    "src/reasoning_diff/events.py": "d72330253302ce8fc2fda13cabd85737bddda15f01ea9b7b338fe20d8265cd31",
+    "src/reasoning_diff/cli.py": "27b0c4834441216aa4f77e836bbc1c639e279f24a5b16daa61ca112e03f82093",
+    "src/reasoning_diff/next_round.py": "d0c11382830d0fb440c7412cc44b87cbe6b6b2843ae652f21c72ba804d8b5cb5",
+    "scripts/reparse_pr8.py": "576930f13ab2b4a21a6e7ee105b93561f255d3c36ba50ae3d736191d37e91624",
+    "tests/test_declared_aliases.py": "95f6224bf4995e5d6f83eafe9bb87b9b60ddf377ed7796dadc47a58bbba64fb0",
+    "tests/test_pr8_recovery.py": "8b320c5ae3604066ac0e44ad004f76bf7fc50e6e0e16d09973742cd07bc95d22",
+    "docs/PR8_RUNBOOK.md": "b5f75524da724ed7c740194b2dbd14dc6d0a200f9e97bd12aae3b82f16090c88"
+  },
+  "remaining": [
+    "Natural step correspondence still lacks enough identifiable matches and common noise support",
+    "Shared-prefix conditional dependence is a different experiment; scope decision pending",
+    "Controlled quantity steps still require actual server pilot/smoke validation"
+  ]
+}

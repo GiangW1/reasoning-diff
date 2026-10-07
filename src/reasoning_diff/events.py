@@ -48,9 +48,9 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     scopes = {entity[0].rsplit("'s ", 1)[0].casefold() for entity in entities if "'s " in entity[0]}
     symbol = r"(?:[A-Za-z]_\{[A-Za-z0-9]+\}|[A-Za-z][A-Za-z0-9_]*)"
     declaration = re.compile(
-        r"^\s*[-*]\s+(?P<name>.+?)\s*(?:"
+        r"^\s*(?:[-*]\s+)?(?P<name>.+?)\s*(?:"
         r"\((?:(?:let's\s+)?denote this as\s+)?(?P<paren>" + symbol + r")\)"
-        r"|:\s*(?:(?:let's\s+)?denote this as\s+)?(?P<colon>" + symbol + r"))\s*(?:=.+)?\s*$",
+        r"|:\s*(?:(?:let's\s+)?(?:denote this as|call this)\s+)?(?P<colon>" + symbol + r"))\s*(?:=.+)?\s*$",
         re.IGNORECASE,
     )
     reverse = re.compile(r"^\s*[-*]\s*(?:Let\s+)?(?P<symbol>" + symbol
@@ -72,6 +72,16 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     adjacent = re.compile(r"\b(?:so|then|therefore),?\s+(?:let(?:'s| us| me)?\s+denote this as\s+)?(?P<symbol>" + symbol + r")\s*=", re.IGNORECASE)
     pronoun = re.compile(r"\blet(?:'s| me| us)?\s+denote this as\s+(?P<symbol>" + symbol + r")(?!\w)", re.IGNORECASE)
     scope, offset, declared = None, 0, {}
+    def register(alias, entity, position):
+        key = alias.casefold()
+        prior = declared.get(key)
+        if key not in declared:
+            declared[key] = ((alias, *entity[1:]), position)
+        elif prior is not None:
+            # Detectors visit lines and cross-line declarations separately;
+            # discovery order must not replace the earliest printed binding.
+            declared[key] = ((alias, *entity[1:]), min(position, prior[1])) if prior[0][1] == entity[1] else None
+
     for line in text.splitlines(keepends=True):
         heading = re.fullmatch(r"(?:For\s+)?(.+?):", line.strip().strip("*"), re.IGNORECASE)
         if heading:
@@ -94,12 +104,8 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
                 if len(candidates) == 1:
                     alias = notation.group("symbol")
                     entity = next(iter(candidates.values()))
-                    key = alias.casefold()
                     position = offset + notation.start("symbol")
-                    if key not in declared:
-                        declared[key] = ((alias, *entity[1:]), position)
-                    elif declared[key] is not None and declared[key][0][1] != entity[1]:
-                        declared[key] = None
+                    register(alias, entity, position)
         for match in matches:
             name = _entity_name(match.group("name").strip().strip("*`$"))
             candidates = names.get(name)
@@ -108,12 +114,7 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
             if candidates and len(candidates) == 1:
                 entity = next(iter(candidates.values()))
                 group, alias = next((key, value) for key, value in match.groupdict().items() if key != "name" and value)
-                key = alias.casefold()
-                prior = declared.get(key)
-                if key not in declared:
-                    declared[key] = ((alias, *entity[1:]), offset + match.start(group))
-                elif prior is not None and prior[0][1] != entity[1]:
-                    declared[key] = None
+                register(alias, entity, offset + match.start(group))
         offset += len(line)
     # An explicit "write/denote that as:" or "So:" may introduce a
     # notation on the next line. Its named subject must be in the same
@@ -137,11 +138,7 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
         if len(candidates) != 1:
             continue
         alias = notation.group("symbol")
-        key, entity = alias.casefold(), next(iter(candidates.values()))
-        if key not in declared:
-            declared[key] = ((alias, *entity[1:]), notation.start("symbol"))
-        elif declared[key] is not None and declared[key][0][1] != entity[1]:
-            declared[key] = None
+        register(alias, next(iter(candidates.values())), notation.start("symbol"))
     return {key: value for key, value in declared.items() if value is not None}
 
 
@@ -191,7 +188,7 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
     for result in number.finditer(rhs):
         prefix = rhs[:result.start()].strip().strip("$").strip()
         scalar = prefix == "" or re.fullmatch(r"\(*\s*", prefix)
-        if not scalar and not prefix.endswith("="):
+        if not scalar and not re.search(r"(?:=|≡|\\equiv)$", prefix):
             continue
         suffix = rhs[result.end():]
         # A close parenthesis or a LaTeX marker cannot hide pending math.
@@ -214,14 +211,14 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
             rest = rest[annotation.end():].lstrip()
         if rest and not re.match(r"[.,;?!]|</", rest):
             continue
-        expressions = [] if scalar else prefix[:-1].split("=")
+        expressions = [] if scalar else re.split(r"=|≡|\\equiv\b", prefix)[:-1]
         trees = [_expression_tree(expr, entities) for expr in expressions]
         if any(tree is None for tree in trees):
             continue
         phase, signature = trees[0] if trees else ("commit", "scalar")
-        if any(tree[0] == "reduction" for tree in trees):
+        if any(tree[0] == "reduction" for tree in trees) or re.search(r"≡|\\equiv\b", prefix):
             phase = "reduction"
-        kind = "calculation" if any(tree[0] in {"calculation", "reduction"} for tree in trees) else "commit"
+        kind = "calculation" if phase == "reduction" or any(tree[0] == "calculation" for tree in trees) else "commit"
         return start + result.start(), start + result.end(), result.group(), kind, phase, signature
     return None
 
@@ -283,6 +280,14 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 phase, signature = "commit", "text"
             found.append((start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind, phase, signature))
     found.sort(key=lambda item: (item[0], item[1]))
+    # "Entity: X = value" names one printed result twice. Use the innermost
+    # assignment's arithmetic, keeping the complete statement's start.
+    distinct = {}
+    for item in found:
+        key = (item[3], item[5], item[2], item[1])
+        previous = distinct.get(key, item)
+        distinct[key] = (min(previous[0], item[0]), *item[1:])
+    found = sorted(distinct.values(), key=lambda item: (item[0], item[1]))
     line_counts = Counter(item[0] for item in found)
     occurrences: Counter = Counter()
     events = []

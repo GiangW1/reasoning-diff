@@ -89,3 +89,30 @@ def test_possessive_normalization_cannot_choose_between_two_entities(task):
     next(node for node in altered["nodes"] if node["id"] != "p_0_0_0_2")["aliases"] = ["Aerobics Studio Rucksack"]
     ambiguous = Task.from_dict(altered)
     assert parse_events("- Aerobics Studio Rucksack (X) = 3.", ambiguous) == []
+
+
+@pytest.mark.parametrize("later", [
+    "The number of Aerobics Studio's Rucksack equals a product. So X = 4.",
+    "Let X be Aerobics Studio's Rucksack. X = 4.",
+    "Aerobics Studio's Rucksack (X) = 4.",
+])
+def test_repeated_later_declaration_preserves_earliest_explicit_binding(task, later):
+    text = "X = 999.\nThe number of Aerobics Studio's Rucksack equals a product. So:\n\nX = 3.\n" + later
+    events = parse_events(text, task)
+    assert [e.value for e in events] == ["3", "4"]
+    assert events[0].start == text.index("X = 3")
+
+
+@pytest.mark.parametrize("intro", ["", "Let's call this ", "Let's denote this as "])
+def test_entity_colon_declarations_without_bullets(task, intro):
+    text = f"Aerobics Studio's Rucksack: {intro}X = 3.\nX = 4."
+    events = parse_events(text, task)
+    assert [(e.node_id, e.value) for e in events] == [("p_0_0_0_2", "3"), ("p_0_0_0_2", "4")]
+    assert all(text[e.start:e.end] == e.text and text[e.value_start:e.end] == e.value for e in events)
+
+
+def test_two_aliases_for_one_printed_result_are_one_event(task):
+    text = "- Aerobics Studio's Rucksack: X = 3."
+    events = parse_events(text, task)
+    assert len(events) == 1 and events[0].value == "3"
+    assert events[0].start == text.index("Aerobics")

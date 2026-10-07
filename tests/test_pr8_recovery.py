@@ -75,6 +75,20 @@ def test_printed_residue_annotation_remains_scalar_commit(t1_tiny_path, text):
     assert (event.value, event.event_kind, event.event_phase) == ("3", "commit", "commit")
 
 
+@pytest.mark.parametrize("relation", ["≡", r"\equiv"])
+def test_explicit_congruence_chain_reads_printed_residue(t1_tiny_path, relation):
+    text = f"q = 20 * 5 = 100 {relation} 8 (mod 23)."
+    event = parse_events(text, load_t1_fixture(t1_tiny_path))[0]
+    assert (event.value, event.event_kind, event.event_phase) == ("8", "calculation", "reduction")
+    assert text[event.value_start:event.end] == "8"
+    assert text[event.start:event.end] == event.text
+
+
+@pytest.mark.parametrize("rhs", ["100 ≡ 3 + 5", r"100 \equiv 3 + 5", "100 ≡ 31 mod 23"])
+def test_congruence_never_computes_an_unprinted_residue(t1_tiny_path, rhs):
+    assert parse_events("q = " + rhs, load_t1_fixture(t1_tiny_path)) == []
+
+
 @pytest.fixture
 def official_task():
     root = Path(__file__).resolve().parents[1]

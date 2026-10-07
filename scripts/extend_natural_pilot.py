@@ -211,7 +211,7 @@ def worker(root, index):
         decoder.close()
 
 
-def measure(tasks, rows, reference_seeds=PAIRED_SEEDS, noise_seeds=NOISE_SEEDS):
+def measure(tasks, rows, reference_seeds=PAIRED_SEEDS, noise_seeds=NOISE_SEEDS, *, edits_for=registered_pilot_edits):
     traces = {(row['task_id'], row['seed']): Trace.from_dict(row) for row in rows}
     if len(traces) != len(rows):
         raise ValueError('duplicate task/seed request')
@@ -220,8 +220,8 @@ def measure(tasks, rows, reference_seeds=PAIRED_SEEDS, noise_seeds=NOISE_SEEDS):
         bases = {seed: traces[task.task_id, seed] for seed in noise_seeds}
         selected.update({t.id: t.to_dict() for t in bases.values()})
         owners.append(task.to_dict())
-        edits = registered_pilot_edits(task)
-        scanned[task.task_id] = [e.changed_premise_ids[0] for e in edits]
+        edits = edits_for(task)
+        scanned[task.task_id] = list(dict.fromkeys(e.changed_premise_ids[0] for e in edits))
         owners.extend(e.task.to_dict() for e in edits)
         for seed in reference_seeds:
             base = bases[seed]
@@ -275,12 +275,12 @@ def summarize(root):
     print(report['overall'], flush=True)
 
 
-def run(root):
+def run(root, reporter=summarize):
     protocol, registered = verified_plan(root)
     with (root / 'run.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         if all(checkpoint(root, protocol, r) is not None for r in registered['requests']):
-            summarize(root)
+            reporter(root)
             return
         for directory in ('logs', 'tmp', 'cache', 'responses'):
             (root / directory).mkdir(exist_ok=True)
@@ -327,7 +327,7 @@ def run(root):
                         process.wait()
             for handle in handles:
                 handle.close()
-        summarize(root)
+        reporter(root)
 
 
 def main():

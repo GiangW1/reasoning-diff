@@ -4,6 +4,10 @@
 
 三卡补充实验（GPU 2/3/6、每卡 batch 4）复用 46 个检查点并完成剩余 34 个请求，全部 80 个新增请求自然结束。128 条轨迹在 v9 下的匹配覆盖 `907/1758=51.59%`、共同噪声 `886/1758=50.40%`、完整 rho `12/24`；分题检查仍失败。结果与 v8/v9 对照位于服务器 `/mnt/mydata/wja/reasoning-diff/runs/pr8-v9-recovery-20261008/`。旧自然匹配尚未解决，正式实验尚未启动。
 
+**固定 reference 的采样验证**：`scripts/extend_natural_coverage.py` 复用上述 v9 的 128 条轨迹，保留 24 条 reference 和全部 1758 个原测量格。仍只扫描原登记的三个前提；按 `scan_edits(task, 3)` 的确定规则使用三个合法改值，配对种子固定 0/1/2；base 噪声种子固定 0–23。新登记 144 条编辑和 136 条噪声，共 280 条请求，生成前一次锁定，完成/失败均不重抽。报告分别比较只加编辑值、只加噪声、两者都加与原 128 条条件，不能混淆分母或抽样改变的作用。它是在上一 pilot 失败后设计的探索性采样扩展，不能改写旧匹配已解决。
+
+从源码目录运行 `scripts/extend_natural_coverage.py --mode plan --source /mnt/mydata/wja/reasoning-diff/runs/pr8-v9-recovery-20261008/extension-r1 --out-root <new-server-directory> --gpus 2 3 6 --batch-size 4`，再以相同输出目录运行 `--mode run`。沿用原预算文件的起点和 12 小时上限，到期保存检查点，恢复不重新计时。汇总仍按原门槛逐题检查，不自动启动正式拟合或干预。
+
 **v8 CPU 复核（2026-10-08）**：进一步识别实际打印的 `sum of` / `product of` / `difference between`、明确操作数数值注释、完整简化式后的数字计算及紧邻的余数描述。固定新 pilot 匹配 `302/561=53.83%`、共同噪声 `249/561=44.39%`、完整 ρ `2/8`；旧数据匹配 `5000/10309=48.50%`、共同噪声 `4094/10309=39.71%`、完整 ρ `0/24`。原有合格结果位置均保留。605 项测试通过，测量门槛仍失败，见服务器 `/mnt/mydata/wja/reasoning-diff/runs/pr8-v8-recovery-20261008/`。
 
 另有独立的自然采样扩展 `scripts/extend_natural_pilot.py`：从已验证的 CPU pilot 导出登记同题同提示的 seed 1/2 配对编辑和 seed 3–6 噪声轨迹，复用原始 48 条、新增 80 条，固定 24 个配对基准。`--mode plan --source <reparsed-pilot> --out-root <new-server-directory> --gpus 2 3 6 --batch-size 4 --time-budget-hours 12` 在生成前锁定请求、输入与源码；`--mode run --out-root <directory>` 按登记的三卡、每卡 batch 4 和持久化预算运行。逐请求哈希检查点支持恢复，失败样本不重抽，缺失请求不得汇总。输出同时保留原 seed0/原噪声条件、seed0/扩展噪声条件、全部配对/原噪声条件，分离两种采样变化的影响。这是探索性扩展，不能据此改写旧自然结果已解决，也不自动启动正式实验。

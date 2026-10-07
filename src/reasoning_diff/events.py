@@ -12,7 +12,7 @@ from .graphs import ancestors
 from .schema import Event, EventIdentity, Task, canonical_value
 
 NUMBER = r"[+-]?(?:(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
-ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v8"
+ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v9"
 
 
 def context_entity_token(node_id):
@@ -534,6 +534,30 @@ def _adjacent_reduction(text, end, entities):
     return start, (*result[:3], 'calculation', 'reduction', signature, [signature])
 
 
+def _concludes_local_reduction(text, previous, start, node_id, scope):
+    """A 'therefore' commit inherits an explicitly stated local modulo stage.
+
+    Require the immediately preceding event to calculate the same quantity.
+    Only anonymous arithmetic and narrow connective prose may intervene; a
+    different entity, conditional, region marker or new topic breaks the link.
+    Printed numbers are never checked for equality or arithmetic correctness.
+    """
+    if (previous.node_id != node_id or previous.identity.scope != scope
+            or previous.event_kind != 'calculation' or previous.event_phase not in {'calculation', 'reduction'}):
+        return False
+    between = text[previous.end:start]
+    if not re.search(r'\b(?:so|therefore|thus|hence|then)\s*[:,]?\s*(?:the\s+number\s+of\s*)?$', between, re.I):
+        return False
+    if previous.event_phase != 'reduction' and not re.search(r'\b(?:mod|modulo)\s*' + NUMBER, between, re.I):
+        return False
+    masked = re.sub(NUMBER, ' ', between).casefold()
+    allowed = set(('now applying working modulo mod let s me compute divide divided by is equals equal to '
+                   'so therefore thus hence then the result remainder of with a since but we re number').split())
+    if not set(re.findall(r'[a-z]+', masked)) <= allowed:
+        return False
+    return re.fullmatch(r"[\s.,:;'’()+*/=×÷−\-]*", re.sub(r'[a-z]+', '', masked)) is not None
+
+
 def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Event]:
     source_text = text
     # Mask paired inline formatting with spaces of exactly the same length.
@@ -666,6 +690,9 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
             context_cache[key] = sorted(set(re.findall(r'[a-z]+', block.casefold())) - stopwords)
         return [word for word in context_cache[key] if word != node_tokens[node_id]]
     for start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind, phase, signature, views in found:
+        if (kind == 'commit' and phase == 'commit' and events
+                and _concludes_local_reduction(source_text, events[-1], start, node_id, scope)):
+            phase = 'residue_commit'
         key = (node_id, scope)
         occurrences[key] += 1
         identity = EventIdentity(node_id, occurrences[key], scope)

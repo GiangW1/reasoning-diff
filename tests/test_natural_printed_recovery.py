@@ -111,4 +111,4 @@ def test_later_prose_does_not_hide_immediate_printed_substitution(t1_tiny_path, 
     text = 'q = p1 + p2. ' + work + ' 25 mod 23 is 2. So q is 2.'
     parsed = parse_events(text, load_t1_fixture(t1_tiny_path))
     assert [(e.value, e.event_phase) for e in parsed] == [
-        ('25', 'calculation'), ('2', 'reduction'), ('2', 'commit')]
+        ('25', 'calculation'), ('2', 'reduction'), ('2', 'residue_commit')]

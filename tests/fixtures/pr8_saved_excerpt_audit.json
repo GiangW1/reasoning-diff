@@ -2,6 +2,7 @@
   "source_run": "pr8-12h-20261006-r2/smoke/prepare",
   "annotation_scope": "Manually checked explicit assignment spans and operand-only negative excerpt; original numeric outputs are preserved.",
   "evaluation_scope": "Development regressions selected after the failure, not held-out estimates of parser recall.",
+  "phase_annotation_revision": "v9: SP_C = 2 in pr8-saved-1 and CVI = 9 in pr8-saved-6 explicitly conclude local modulo work, so their phase is residue_commit; original text, values and spans are unchanged.",
   "cases": [
     {
       "id": "pr8-saved-1",
@@ -24,7 +25,7 @@
         {
           "node_alias": "Starfish's Pleural Cavity",
           "value": "2",
-          "event_phase": "commit",
+          "event_phase": "residue_commit",
           "event_kind": "commit",
           "text": "SP_C = 2"
         }
@@ -147,7 +148,7 @@
         {
           "node_alias": "Canned Vegetables's Ingredient",
           "value": "9",
-          "event_phase": "commit",
+          "event_phase": "residue_commit",
           "event_kind": "commit",
           "text": "CVI = 9"
         }

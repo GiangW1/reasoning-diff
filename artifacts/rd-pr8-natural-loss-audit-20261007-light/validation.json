@@ -1,0 +1,24 @@
+{
+  "source_commit": "4a96263c495b30c61a2241cde7e24fa948c1bb71",
+  "tests": {
+    "command": ".venv/Scripts/python.exe -m pytest -q",
+    "passed": 539,
+    "seconds": 83.82
+  },
+  "compileall_passed": true,
+  "diff_check_passed": true,
+  "committed_measurement_source_hashes_verified": true,
+  "original_pilot_input_hashes_verified": true,
+  "all_event_spans_verified": true,
+  "n_traces": 48,
+  "generation_reused": true,
+  "additional_gpu_runs": 0,
+  "formal_experiment_started": false,
+  "artifact_sha256": {
+    "measurement_report.json": "8a55180f432db493b4583cad4356f999559e0235dcf8bf6a011fe26420b02cb5",
+    "old_data_measurement_report.json": "5c87779d5626be4b434744aa9f2ca36f8bb41d6a8cd624b6fb51f31dcdfb0d68",
+    "reparsed-pilot.tar.gz": "79e4c36aa00601f3185f20240dc697a7be924bfc4f9e864702d337d51cc88cef",
+    "REPORT.zh-CN.md": "1227df150fb1b42fe7ec8ec071df1baf3c78967db80f89c8fe8cf484afbbfe19",
+    "run_spec.json": "c4806911d4a8f661fde64416de0509ebc923623ab5549c11f6fcaf9cb0aebe33"
+  }
+}

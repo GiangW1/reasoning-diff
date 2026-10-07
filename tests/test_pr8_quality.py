@@ -347,7 +347,8 @@ def test_paired_pilot_reuses_base_generations_and_resumes(tmp_path, t1_tiny_path
         trace = cli._synthetic_trace(owner, "q = 7", kwargs["run_id"], kwargs["seed"])
         trace.events = assign_event_regions(parse_events(trace.text, owner), trace.text, initial_thinking=True)
         trace.status, trace.correct = "natural_complete", True
-        trace.metadata.update(boundary_status="ok", generated_tokens=100)
+        trace.metadata.update(boundary_status="ok", generated_tokens=100,
+                              rendered_prompt_text="", rendered_prompt_char_len=0, enable_thinking=True)
         return trace
     monkeypatch.setattr(generate, "generate_task_trace", generate_trace)
     args = SimpleNamespace(dataset=t1_tiny_path, out_root=tmp_path, model="qwen3-8b", max_new=32768, batch_size=2, mode="pilot-worker")
@@ -364,3 +365,35 @@ def test_paired_pilot_reuses_base_generations_and_resumes(tmp_path, t1_tiny_path
     assert file_digest(tmp_path / "traces.jsonl") == original
     runner.pilot_worker(args)
     assert len(calls) == 6
+    # The standalone CPU recovery entry point must reuse every request and
+    # preserve the generation files, including failed measurements.
+    raw = tmp_path / "raw"
+    shard = raw / "pilot-gpu2"
+    shard.mkdir(parents=True)
+    for path in list(tmp_path.glob("*.json*")):
+        path.rename(shard / path.name)
+    write_json(raw / "protocol.json", {"gpus": [2], "trajectory_protocol": "natural",
+                                      "smoke_inputs": {task.task_id + ".json": "fixture"}})
+    before = {p.name: file_digest(p) for p in shard.iterdir()}
+    reparse = importlib.import_module("reparse_pr8")
+    output = tmp_path / "reparsed"
+    report = reparse.remeasure_pilot(raw, output)
+    assert report["passed"] and report["posthoc_reparse"]
+    assert report["n_generated_traces"] == 6 and len(calls) == 6
+    assert before == {p.name: file_digest(p) for p in shard.iterdir()}
+    with pytest.raises(ValueError, match="new output directory"):
+        reparse.remeasure_pilot(raw, output)
+    paired_path = next(shard.glob("paired-*.json"))
+    original_pair = read_json(paired_path)
+    write_json(paired_path, {**original_pair, "seed": 2})
+    with pytest.raises(ValueError, match="seed mismatch"):
+        reparse.remeasure_pilot(raw, tmp_path / "wrong-seed")
+    write_json(paired_path, {**original_pair, "text": original_pair["text"] + "tampered"})
+    with pytest.raises(ValueError, match="saved generation table"):
+        reparse.remeasure_pilot(raw, tmp_path / "wrong-text")
+    write_json(paired_path, original_pair)
+    protocol = read_json(raw / "protocol.json")
+    protocol["smoke_inputs"]["missing-problem.json"] = "fixture"
+    write_json(raw / "protocol.json", protocol)
+    with pytest.raises(ValueError, match="registered pilot problems"):
+        reparse.remeasure_pilot(raw, tmp_path / "missing-problem")

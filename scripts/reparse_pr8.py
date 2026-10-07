@@ -12,7 +12,7 @@ from reasoning_diff import cli
 from reasoning_diff.artifacts import write_manifest, write_run_spec
 from reasoning_diff.events import assign_event_regions, parse_events
 from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
-from reasoning_diff.next_round import cached_paired_screen, measurement_report, trace_labels, trajectory_table
+from reasoning_diff.next_round import cached_paired_screen, measurement_report, registered_pilot_edits, trace_labels, trajectory_table
 from reasoning_diff.schema import Edit, Task, Trace
 from reasoning_diff.quantity_steps import PROTOCOL
 
@@ -178,13 +178,103 @@ def remeasure(source, output, *, report_only=False):
     return report
 
 
+def remeasure_pilot(source, output):
+    """Reparse all completed pilot requests, without loading or calling a model."""
+    source, output = source.resolve(), output.resolve()
+    if output == source or output.is_relative_to(source) or (output.exists() and any(output.iterdir())):
+        raise ValueError("use a new output directory outside the original pilot")
+    hashes = {}
+    def read(path, lines=False):
+        hashes[str(path.relative_to(source))] = file_digest(path)
+        return read_jsonl(path) if lines else read_json(path)
+    protocol = read(source / "protocol.json")
+    if protocol["trajectory_protocol"] != "natural":
+        raise ValueError("this reparse entry point requires the natural pilot condition")
+    parser_hash = file_digest(Path(cli.__file__).with_name("events.py"))
+    tasks, traces, references, observations, scanned = [], [], [], [], {}
+    for gpu in protocol["gpus"]:
+        shard = source / f"pilot-gpu{gpu}"
+        if not shard.exists():
+            continue  # More GPUs than selected problems can leave empty shards.
+        owners = [Task.from_dict(row) for row in read(shard / "tasks.jsonl", True)]
+        spec = read(shard / "pilot_spec.json")
+        if read(shard / "paired_pilot_spec.json") != spec or spec["tasks"] != [digest(t.to_dict()) for t in owners]:
+            raise ValueError("pilot task/spec mismatch")
+        saved_tasks = {row["task_id"]: row for row in read(shard / "paired_tasks.jsonl", True)}
+        saved_traces = read(shard / "paired_traces.jsonl", True)
+        saved_hashes = {row["id"]: digest(row) for row in saved_traces}
+        if len(saved_hashes) != len(saved_traces) or len(saved_traces) != 6 * len(owners):
+            raise ValueError("unexpected or duplicate paired pilot requests")
+        def load(path, task, seed):
+            row = read(path)
+            if row["task_id"] != task.task_id or row["seed"] != seed or digest(saved_tasks.get(task.task_id)) != digest(task.to_dict()):
+                raise ValueError("pilot request/task/seed mismatch")
+            if saved_hashes.get(row["id"]) != digest(row):
+                raise ValueError("pilot checkpoint disagrees with the saved generation table")
+            trace = reparse_trace(row, task, parser_hash)
+            # IDs are worker-local. Namespace before building observations.
+            trace.id = f"{shard.name}:{trace.id}"
+            trace.run_id = f"{shard.name}:{trace.run_id}"
+            trace.record_id = f"{shard.name}:{trace.record_id}"
+            for event in trace.events:
+                event.run_id = trace.run_id
+                event.record_id = f"{trace.id}:{event.identity.key()}"
+            traces.append(trace.to_dict())
+            return trace
+        for index, task in enumerate(owners):
+            if task.task_id in scanned:
+                raise ValueError("duplicate pilot task across shards")
+            tasks.append(task.to_dict())
+            bases = [load(shard / f"trace-{index}-seed{seed}.json", task, seed) for seed in range(3)]
+            references.append(bases[0].to_dict())
+            scanned[task.task_id] = []
+            for edit in registered_pilot_edits(task):
+                pid = edit.changed_premise_ids[0]
+                donor = load(shard / f"paired-{index}-{pid}.json", edit.task, 0)
+                tasks.append(edit.task.to_dict())
+                scanned[task.task_id].append(pid)
+                observations.extend(cli._observations(task, bases[0], donor, edit, "stream:0", f"reparse-pilot:{task.task_id}:{pid}"))
+            for left, right in permutations(bases, 2):
+                observations.extend(cli._sham_observations(task, left, right, right.seed, f"reparse-pilot-noise:{task.task_id}"))
+    if set(scanned) != {Path(name).stem for name in protocol["smoke_inputs"]}:
+        raise ValueError("missing or unexpected registered pilot problems")
+    if not references or len({row['id'] for row in traces}) != len(traces):
+        raise ValueError("empty pilot or duplicate trace identities")
+    obs = [row.to_dict() for row in observations]
+    report = measurement_report(references, tasks, obs, [], scanned)
+    report.update(posthoc_reparse=True, generation_reused=True, formal_launch_ready=False,
+                  input_hashes=hashes, parser_hash=parser_hash, generation_protocol=protocol,
+                  n_generated_traces=len(traces), n_complete=sum(t["status"] == "natural_complete" for t in traces),
+                  pilot_protocol={"edit_seed": 0, "noise_seeds": [1, 2], "scanned_premises": scanned,
+                                  "scope": "relevant_fact_and_two_distractors", "formal_evidence": False})
+    if any(file_digest(source / name) != value for name, value in hashes.items()):
+        raise ValueError("pilot files changed during remeasurement")
+    for name, rows in (("tasks.jsonl", tasks), ("traces.jsonl", traces), ("observations.jsonl", obs)):
+        write_jsonl(output / name, rows)
+    write_json(output / "measurement_report.json", report)
+    write_run_spec(output, {"config": {"command": "reparse_pr8_pilot", "generation_reused": True}, "input_hashes": hashes,
+                           "measurement_source_hashes": {p.name: file_digest(p) for p in (
+                               Path(__file__), Path(cli.__file__), Path(cli.__file__).with_name("events.py"),
+                               Path(cli.__file__).with_name("next_round.py"))}})
+    write_manifest(output, [output / name for name in ("tasks.jsonl", "traces.jsonl", "observations.jsonl", "measurement_report.json", "run_spec.json")],
+                   {"traces": len(traces), "success": 1})
+    print(report["overall"], flush=True)
+    return report
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--in-dir", type=Path, required=True)
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--report-only", action="store_true", help="Verify measurements and cached pilot without exporting derived trace files")
+    parser.add_argument("--pilot", action="store_true", help="Reparse a completed run_pr8 paired pilot instead of a prepare directory")
     args = parser.parse_args()
-    remeasure(args.in_dir, args.out_dir, report_only=args.report_only)
+    if args.pilot:
+        if args.report_only:
+            parser.error("--pilot exports its auditable measurement tables; omit --report-only")
+        remeasure_pilot(args.in_dir, args.out_dir)
+    else:
+        remeasure(args.in_dir, args.out_dir, report_only=args.report_only)
 
 
 if __name__ == "__main__":

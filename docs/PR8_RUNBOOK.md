@@ -1,5 +1,9 @@
 # PR8：先验证测量链路，再跑正式数据
 
+最新自然条件修订增加了独立的 `--mode pilot`：仅运行 24 条 base 和 24 条预登记编辑，配对检查后退出，不进入全前提扫描、特征、拟合或干预。新派生题目使用 `single_pass_named_results_v1` 提示，要求按题目名称陈述结果、单次向前推导并自然结束；没有给定步骤 ID、计算顺序、答案或共享历史。旧保存任务保留原提示。新旧提示版本分别记录，不能混合测量。
+
+自然匹配使用 `printed_expression_views_forced_sequence_v5`：识别唯一的词汇缩写和明确的括号声明，保留等式链中实际打印的多种表达式，规范化加法/乘法的结合与交换顺序。匹配先最大化兼容步骤数，再比较屏蔽数值的段落词汇；只保留所有最优路径共同包含的配对，未消除的歧义仍是未知。明确标注的模余数与未标注标量分开。该规则是可审计的匹配算法，路径唯一性不是人工确认的语义正确率。
+
 2026-10-06 的真实 smoke 因测量覆盖不足而停止，正式 32 题未启动。对 `241cd31` 的复核确认：373 项测试通过，但保存轨迹仍不满足测量检查，行首项目符号还会漏解析。本次修订修复这些代码问题；全量旧轨迹离线复测和缓存配对检查**仍失败，不建议重启正式实验**。没有重新运行真实 Qwen smoke 或正式实验，见 [本次离线复核](../artifacts/rd-pr8-sequence-audit-20261007-light/REPORT.zh-CN.md)。
 
 后续补丁修复了 `So:` 换行后接项目符号的声明遗漏，避免同一操作数在 base/edit 中得到不同身份；并增加部分共同支持的描述统计。最新数值和具体修复路径见 [后续复核](../artifacts/rd-pr8-support-followup-20261007-light/REPORT.zh-CN.md)，主测量依然失败。
@@ -17,6 +21,16 @@
 ```bash
 export PYTHONPATH="$PWD/src"
 PY=/mnt/mydata/zm/projects/RPent/.venv/bin/python
+
+# 新自然提示：只跑有时限的小规模 pilot。按空闲情况显式选择 GPU。
+"$PY" scripts/run_pr8.py --mode pilot --trajectory-protocol natural \
+  --gpus 2 3 --batch-size 2 --max-new 12288 --time-budget-hours 0.5 \
+  --out-root /mnt/mydata/wja/reasoning-diff/runs/pr8-natural-v5
+
+# 已完成 pilot 的解析/匹配修复只需 CPU 重算，不能覆盖原目录。
+"$PY" scripts/reparse_pr8.py --pilot \
+  --in-dir /mnt/mydata/wja/reasoning-diff/runs/pr8-natural-v5 \
+  --out-dir /mnt/mydata/wja/reasoning-diff/runs/pr8-natural-v5-reparsed
 
 # 新受控条件：先运行长度/格式、配对、特征和干预 smoke。
 "$PY" scripts/run_pr8.py --mode smoke \
@@ -41,7 +55,7 @@ PY=/mnt/mydata/zm/projects/RPent/.venv/bin/python
 
 12 小时配置示例：`--mode full --gpus 2 3 6 --batch-size 4 --max-new 12288 --formal-limit 32 --time-budget-hours 12`。token 上限控制长尾和 KV 显存，遇到截断仍如实记录；不能强制闭合 thinking 或绕过 smoke。`execution_budget.json` 保存首次启动的预算起点，恢复不延长预算；到期停止当前子进程并标记 `budget_exhausted`，保留检查点，不标记为实验完成。代码、生成预算与样本选择均不同，必须使用新的输出目录。
 
-变量缩写只从生成文本中的声明解析：支持实体标题下的项目、`Let X be ENTITY`、`Let me denote ENTITY as X`、反向声明，以及明确实体主语后的 `So/Then/Therefore X = ...` 或跨行的 `Let me write that as:`。跨行主语与引入语必须在同一段落内，不继承另一赋值 RHS 中的实体。行首项目符号和配对粗体/代码标记按版式处理，原文跨度保持不变。不按数值或标准答案猜测实体，不使用后续声明标注较早步骤，冲突声明保持未解析。等式链只读取明确打印出的末端数值；不替模型计算尚未写出结果的表达式，不将 RHS 中的操作数误当新赋值。
+变量缩写优先使用生成文本中的明确声明：支持实体标题下的项目、`Let X be ENTITY`、`Let me denote ENTITY as X`、反向声明、`ENTITY (let's denote this as X) equals ...`，以及跨行的 `Let me write that as:`。无明确声明时，仅允许唯一对应的名称缩写；泛用 `X`、`Sum1` 不能继承附近话题。普通 `So/Then/Therefore` 引入的名称还必须与话题实体词汇对应。跨行主语与引入语必须在同一段落内，不继承另一赋值 RHS 中的实体。行首项目符号和配对粗体/代码标记按版式处理，原文跨度保持不变。不按数值或标准答案猜测实体，不使用后续声明赋予较早泛用变量身份，冲突声明保持未解析。等式链只读取明确打印出的末端数值；不替模型计算尚未写出结果的表达式，不将 RHS 中的操作数误当新赋值。
 
 ## smoke 内容与停止条件
 
@@ -65,7 +79,7 @@ smoke 失败保留诊断、不启动正式生成。正式 cohort 也执行上述
 
 ## 数据与测量协议
 
-`--trajectory-protocol natural` 是默认的旧自然条件。新条件必须显式指定 `quantity_steps`，同时使用 `--premise-protocol sentence_graph`；启动器已经传递这两个参数。`protocol.json`、任务/轨迹 metadata、prepare 配置、检查点指纹和测量报告分别记录条件、匹配规则与测量对象，混合条件不能共用测量表。
+`--trajectory-protocol natural` 仍是默认的完整自然生成；本次新派生句子题使用单独登记的新提示版本，不能把它的结果回填为旧提示结果。受控条件必须显式指定 `quantity_steps`，同时使用 `--premise-protocol sentence_graph`；启动器已经传递这两个参数。`protocol.json`、任务/轨迹 metadata、prepare 配置、检查点指纹和测量报告分别记录条件、匹配规则与测量对象，混合条件不能共用测量表。
 
 受控条件的格式为 `<step node="登记ID">自由推理 <commit>整数</commit></step>`。提示提供任务 DAG 中已有数量的 ID、名称和计算顺序，不提供节点数值、标准答案或依赖集合；顺序来自已知任务结构，属于显式控制，不是自然条件中模型自行发现的步骤。每个节点一次提交，块内可以推敲和修改。匹配对象是这次明确提交的数量结果，不包含每个算术微步骤、复述或反复确认。C1 需要和同样知道节点计划的文本/任务成员基线比较；本条件不能单独证明自由推理中的潜在依赖可解码。
 

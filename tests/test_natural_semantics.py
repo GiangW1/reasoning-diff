@@ -145,3 +145,26 @@ def test_measurement_rejects_mixed_natural_prompt_conditions(t1_tiny_path):
     assert not report['checks']['generation_condition_homogeneous']
     assert not report['checks']['prompt_policy_matches_task']
     assert report['natural_prompt_policies'] == ['legacy', 'single_pass_named_results_v1']
+
+
+def test_scalar_residue_annotation_is_not_a_raw_value_stage(t1_tiny_path):
+    task = load_t1_fixture(t1_tiny_path)
+    raw = events('q is 32.', task)
+    residue = events('q = 9 mod 23.', task)
+    assert align_events(raw, residue)['pairs'] == []
+    # Stage selection depends on printed notation, not whether the value
+    # happens to be in the residue range.
+    assert align_events(events('q is 9.', task), residue)['pairs'] == []
+    assert len(align_events(events('q = 8 (mod 23).', task), residue)['pairs']) == 1
+
+
+@pytest.mark.parametrize('declaration', [
+    "(let's denote this as X)", "(let's call this X)",
+    "(which is the quantity we need to find, let's denote this as X)",
+])
+def test_inline_parenthetical_alias_before_prose_predicate(forest_task, declaration):
+    text = f"The number of Starfish's Nasal Cavity {declaration} equals a sum.\nX = 8 mod 23."
+    parsed = events(text, forest_task)
+    expected = next(n.id for n in forest_task.nodes if "Starfish's Nasal Cavity" in n.aliases)
+    assert [(e.node_id, e.value) for e in parsed] == [(expected, '8')]
+    assert all(text[e.value_start:e.end] == e.value for e in parsed)

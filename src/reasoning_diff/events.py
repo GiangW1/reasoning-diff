@@ -12,7 +12,7 @@ from .graphs import ancestors
 from .schema import Event, EventIdentity, Task, canonical_value
 
 NUMBER = r"[+-]?(?:\d[\d,]*(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
-ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v4"
+ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v5"
 
 
 def context_entity_token(node_id):
@@ -116,8 +116,10 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     reverse = re.compile(r"^\s*[-*]\s*(?:Let\s+)?(?P<symbol>" + symbol
                          + r")\s*=\s*(?:the\s+)?number of\s+(?P<name>.+?)\.?\s*$", re.IGNORECASE)
     full_names = sorted({re.escape(entity[0]).replace("'s", "(?:'s)?") for entity in entities}, key=len, reverse=True)
-    inline = re.compile(r"(?<!\w)(?P<name>" + "|".join(full_names) + r")\s*\((?P<paren>" + symbol
-                        + r")\)\s*(?==|[.,;]|$)", re.IGNORECASE) if full_names else None
+    inline = re.compile(r"(?<!\w)(?P<name>" + "|".join(full_names) + r")\s*\("
+                        r"(?:(?:[^()\n]*?\b)?let(?:'s| me| us)?\s+(?:denote|call)\s+(?:this|it)\s+(?:as\s+)?)?"
+                        r"(?P<paren>" + symbol + r")\)\s*(?==|equals?\b|is\b|[.,;]|$)",
+                        re.IGNORECASE) if full_names else None
     name_pattern = "|".join(full_names)
     human_names = "|".join(re.escape(alias).replace("'s", "(?:'s)?") for alias, node_id, *_ in entities if alias != node_id)
     reverse_entity = re.compile(r"^\s*(?:[-*]\s+)?(?:Let\s+)?(?P<symbol>" + symbol
@@ -318,6 +320,10 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
         if any(tree[0] == "reduction" for tree in trees) or re.search(r"≡|\\equiv\b", prefix):
             phase = "reduction"
         kind = "calculation" if phase == "reduction" or any(tree[0] == "calculation" for tree in trees) else "commit"
+        # A printed residue is a different stage from an unannotated raw
+        # scalar, even when their numbers happen to coincide.
+        if mod and phase in {"commit", "copy"}:
+            phase = "residue_" + phase
         # Keep only printed operation views, not an inferred DAG expression.
         views = list(dict.fromkeys(sig for ph, sig in trees if ph != "commit")) or [signature]
         return start + result.start(), start + result.end(), result.group(), kind, phase, signature, views

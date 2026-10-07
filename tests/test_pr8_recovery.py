@@ -72,7 +72,7 @@ def test_uncommitted_or_unsupported_expression_is_not_guessed(t1_tiny_path, text
 @pytest.mark.parametrize("text", ["q = 3 mod 23", "q = 3 (mod 23)"])
 def test_printed_residue_annotation_remains_scalar_commit(t1_tiny_path, text):
     event = parse_events(text, load_t1_fixture(t1_tiny_path))[0]
-    assert (event.value, event.event_kind, event.event_phase) == ("3", "commit", "commit")
+    assert (event.value, event.event_kind, event.event_phase) == ("3", "commit", "residue_commit")
 
 
 @pytest.mark.parametrize("relation", ["≡", r"\equiv"])

@@ -134,6 +134,8 @@ C2 遍历所选 split 的所有来源对，分别执行同值换来源/同来源
 
 ## 代码验证
 
+新增独立的 `shared_prefix_assignment_v1` 条件：在保存的自然赋值数值之前固定历史，配对续写 baseline/edit，直接登记局部响应的比较起点。其生成、噪声对照、覆盖报告和检查点均独立，不替换原自然轨迹匹配结果或旧 P1/C1/C2。服务器 plan/pilot/scan 命令、成本及解释限制见 [共享前缀续写运行说明](SHARED_PREFIX_RUNBOOK.md)。
+
 ```bash
 "$PY" -m pytest -q --tb=line
 "$PY" -m compileall -q src scripts tests

@@ -328,9 +328,11 @@ def main(argv=None):
     if args.trajectory_protocol == "quantity_steps":
         pilot_tasks = [task for gpu, _ in pilot_inputs for task in read_jsonl(root / f"pilot-gpu{gpu}/tasks.jsonl")]
         owners = {t["task_id"]: Task.from_dict(t) for t in pilot_tasks}
-        formats = {t["id"]: trace_format(t, owners[t["task_id"]]) for t in pilot_traces}
+        # Trace IDs are worker-local; preserve every shard's result, including failures.
+        formats = [{"task_id": t["task_id"], "trace_id": t["id"], "seed": t["seed"],
+                    **trace_format(t, owners[t["task_id"]])} for t in pilot_traces]
         write_json(root / "registered_step_formats.json", formats)
-        pilot_checks["registered_step_format"] = bool(formats) and all(row["passed"] for row in formats.values())
+        pilot_checks["registered_step_format"] = bool(formats) and all(row["passed"] for row in formats)
     write_json(root / "length_pilot.json", {"checks": pilot_checks, "passed": all(pilot_checks.values()),
                "n_traces": len(pilot_traces), "completion_by_op": completions,
                "generated_lengths": [t["metadata"]["generated_tokens"] for t in pilot_traces],

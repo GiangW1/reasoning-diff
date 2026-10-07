@@ -1,6 +1,7 @@
 """CPU fixtures exercise protocol wiring; these are not model evidence."""
 from itertools import permutations
 import importlib
+import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -168,6 +169,31 @@ def test_intervention_continuation_inherits_natural_alias_declarations(t1_tiny_p
     cut = text.index("X = 4")
     body, events = cli._parse_intervention_events(task, text, cut)
     assert body == text and [(e.node_id, e.value) for e in events] == [("q", "0")]
+
+
+QWEN_BOUNDARIES = json.loads((Path(__file__).parent / "fixtures/pr8_qwen_step_boundaries.json").read_text(encoding="utf-8"))
+
+
+@pytest.mark.parametrize("case", QWEN_BOUNDARIES["cases"], ids=["adjacent", "newline", "space"])
+def test_intervention_excludes_prior_commit_with_regenerated_closing_tag(t1_tiny_path, case):
+    from reasoning_diff.models.features import select_prefix_index
+    task = controlled(t1_tiny_path, multiple=True)
+    text = case["text"]
+    feature = select_prefix_index(case["offsets"], case["step_start"], "pre_step")
+    cut = case["offsets"][feature["token_index"]][1]
+    assert "<commit>4</commit>" in text[:cut]
+    assert format_report(text, task)["passed"]
+    _, events = cli._parse_intervention_events(task, text, cut)
+    assert [event.node_id for event in events] == ["q"]
+
+
+@pytest.mark.parametrize("consumed_value_chars,expected", [(0, ["r", "q"]), (1, ["q"])])
+def test_intervention_requires_value_to_start_in_continuation(t1_tiny_path, consumed_value_chars, expected):
+    task = controlled(t1_tiny_path, multiple=True)
+    text = transcript(task)
+    cut = text.index("<commit>4") + len("<commit>") + consumed_value_chars
+    _, events = cli._parse_intervention_events(task, text, cut)
+    assert [event.node_id for event in events] == expected
 
 
 @pytest.mark.parametrize("op", [5, 10, 15, 21])
@@ -344,8 +370,63 @@ def test_server_rejects_malformed_base_before_paired_scan(t1_tiny_path, tmp_path
         runner.main(["--mode", "full", "--trajectory-protocol", "quantity_steps", "--dataset", str(tmp_path),
                      "--out-root", str(out), "--gpus", "2"])
     assert not read_json(out / "length_pilot.json")["checks"]["registered_step_format"]
-    assert read_json(out / "registered_step_formats.json")["base0"]["answer_steps"] == 1
+    formats = read_json(out / "registered_step_formats.json")
+    assert len(formats) == 1 and formats[0]["trace_id"] == "base0"
+    assert formats[0]["answer_steps"] == 1
     assert len(calls) == 1
+
+
+@pytest.mark.parametrize("invalid_gpu", [2, 3, 6])
+def test_multigpu_pilot_retains_every_format_failure(t1_tiny_path, tmp_path, monkeypatch, invalid_gpu):
+    from reasoning_diff.io import read_json, write_json, write_jsonl
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / "scripts"))
+    runner = importlib.import_module("run_pr8")
+    monkeypatch.setitem(__import__("sys").modules, "fcntl", SimpleNamespace(LOCK_EX=1, LOCK_NB=2, flock=lambda *a: None))
+    monkeypatch.setattr(runner, "SERVER", tmp_path)
+    monkeypatch.setattr(runner.shutil, "disk_usage", lambda _: SimpleNamespace(free=10 * 1024**3))
+    monkeypatch.setattr(runner.subprocess, "check_output", lambda *a, **k: "/dev/mock\n")
+    original = controlled(t1_tiny_path)
+    tasks, inputs = {}, []
+    for gpu in (2, 3, 6):
+        tid = f"pilot-{gpu}"
+        tasks[gpu] = Task.from_dict({**original.to_dict(), "task_id": tid, "base_group_id": tid})
+        path = tmp_path / f"input-{gpu}.json"
+        write_json(path, tasks[gpu].to_dict())
+        inputs.append(path)
+    monkeypatch.setattr(runner, "cohorts", lambda _: (inputs, inputs))
+    paired = []
+    def run(command, **kwargs):
+        if command[0] == "quota":
+            return SimpleNamespace(returncode=0, stdout="")
+        gpu = int(kwargs["env"]["CUDA_VISIBLE_DEVICES"])
+        if "pair-pilot-worker" in command:
+            paired.append(gpu)
+            raise AssertionError("invalid base reached paired generation")
+        assert "pilot-worker" in command
+        dest = Path(command[command.index("--out-root") + 1])
+        owner = tasks[gpu]
+        rows = []
+        for seed in range(3):
+            text = transcript(owner)
+            if gpu == invalid_gpu and seed == 0:
+                text += '<step node="unlisted"><commit>9</commit></step>'
+            # Worker-local indices deliberately repeat across GPU shards.
+            rows.append(trace(owner, text, f"trace-base:0:seed{seed}", seed).to_dict())
+        write_jsonl(dest / "traces.jsonl", rows)
+        write_jsonl(dest / "tasks.jsonl", [owner.to_dict()])
+        return SimpleNamespace(returncode=0)
+    monkeypatch.setattr(runner.subprocess, "run", run)
+    out = tmp_path / "run"
+    with pytest.raises(RuntimeError, match="length/parser pilot failed"):
+        runner.main(["--mode", "full", "--trajectory-protocol", "quantity_steps", "--dataset", str(tmp_path),
+                     "--out-root", str(out), "--gpus", "2", "3", "6"])
+    report = read_json(out / "length_pilot.json")
+    assert report["n_traces"] == 9 and not report["checks"]["registered_step_format"]
+    formats = read_json(out / "registered_step_formats.json")
+    assert len(formats) == 9
+    failed = [row for row in formats if not row["passed"]]
+    assert [(row["task_id"], row["trace_id"]) for row in failed] == [(f"pilot-{invalid_gpu}", "trace-base:0:seed0")]
+    assert not paired
 
 
 @pytest.mark.parametrize("invalid_format", [False, True])

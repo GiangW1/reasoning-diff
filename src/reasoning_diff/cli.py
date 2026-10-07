@@ -2755,7 +2755,9 @@ def _parse_intervention_events(task, text, prefix_char_len, rendered_prompt=""):
     if cut < 0 or cut > len(body):
         raise ValueError("intervention prefix falls outside generated text")
     events = assign_event_regions(parse_events(body, task), body, initial_thinking=True)
-    return body, [e for e in events if e.end > cut and e.event_region == "thinking" and e.status == "ok"]
+    # Closing tags can cross the token cut after a value was already committed.
+    # Count only values that begin in the continuation, not regenerated syntax.
+    return body, [e for e in events if e.value_start >= cut and e.event_region == "thinking" and e.status == "ok"]
 
 
 def cmd_intervene(args: argparse.Namespace) -> int:

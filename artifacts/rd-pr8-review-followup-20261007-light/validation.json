@@ -1,0 +1,43 @@
+{
+  "base_commit": "920668517845239fe9771f9a356dd668114fa1eb",
+  "checked_at_utc": "2026-10-07T05:49:16.153038+00:00",
+  "scope": "CPU regression tests, read-only saved server reproductions and local Qwen tokenizer offsets; no model inference",
+  "regressions_before_fix": {
+    "tests": 8,
+    "failures": 5,
+    "passed": 3
+  },
+  "quantity_steps_after_fix": {
+    "tests": 35,
+    "passed": 35
+  },
+  "pytest": {
+    "command": "python -m pytest -q --junitxml=../../outputs/pr8-review-followup-20261007.junit.xml",
+    "tests": 430,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "reported_elapsed_seconds": 67.92,
+    "new_regressions": 8
+  },
+  "compileall_passed": true,
+  "diff_check_passed": true,
+  "real_model_smoke_run": false,
+  "new_model_generation_run": false,
+  "formal_launch_ready": false,
+  "scientific_conclusion": null,
+  "source_hash_scope": "SHA256 of canonical Git index blobs for changed source, test and runbook files",
+  "source_git_blob_sha256": {
+    "scripts/run_pr8.py": "d9de4ef610d42eded92ff3cd3019dd1e010c373de6b98dae34f0e3de56ede27f",
+    "src/reasoning_diff/cli.py": "27b0c4834441216aa4f77e836bbc1c639e279f24a5b16daa61ca112e03f82093",
+    "tests/test_quantity_steps.py": "3576ffe30cb843146947ef94030f883437c81c0cbde2174b05cb7d4592c2b4ee",
+    "tests/fixtures/pr8_qwen_step_boundaries.json": "6356840a9fef9f6acb94dfdf978a2a38ddc51c8dc328ec4e4da00c4488a2e88b",
+    "docs/PR8_RUNBOOK.md": "0e3d67471a83b11ffb3cedc8e020d299f4533865773e7f2eebb044a8ac67001b"
+  },
+  "remaining": [
+    "Natural saved trajectories still fail measurement checks",
+    "Controlled quantity steps require real server pilot/smoke validation",
+    "Controlled quantity-step results cannot validate the natural all-step claim",
+    "P3 and genuine incremental C4 remain deferred"
+  ]
+}

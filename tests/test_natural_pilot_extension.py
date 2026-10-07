@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from reasoning_diff import cli
-from reasoning_diff.io import digest, write_json
+from reasoning_diff.io import digest, read_json, write_json
 from reasoning_diff.next_round import registered_pilot_edits, sentence_graph_task
 from reasoning_diff.tasks.t1_fixture import load_t1_fixture
 
@@ -80,3 +80,55 @@ def test_checkpoint_cannot_change_seed_or_trajectory_content(extension, tmp_path
     write_json(path, payload)
     with pytest.raises(ValueError, match='provenance'):
         extension.checkpoint(tmp_path, protocol, request)
+
+
+def migration_fixture(tmp_path):
+    parent, child = tmp_path / 'parent', tmp_path / 'child'
+    old = {'revision': 'pinned', 'max_new': 12288, 'gpus': [2, 3], 'batch_size': 2,
+           'seconds': 3600, 'source_hashes': {'src/model.py': 'same', 'scripts/extend_natural_pilot.py': 'old'}}
+    new = {**old, 'gpus': [2, 3, 6], 'batch_size': 4, 'seconds': 43200,
+           'source_hashes': {**old['source_hashes'], 'scripts/extend_natural_pilot.py': 'new'}}
+    requests = [{'id': 'request', 'task_id': 't', 'seed': 1}, {'id': 'pending', 'task_id': 't', 'seed': 2}]
+    trace = {'task_id': 't', 'seed': 1, 'metadata': {'revision': 'pinned'}, 'text': 'q = 7'}
+    write_json(parent / 'protocol.json', old)
+    write_json(parent / 'plan.json', {'protocol_digest': digest(old), 'requests': requests})
+    write_json(parent / 'budget.json', {'started': 1234, 'seconds': 3600})
+    write_json(parent / 'responses/request.json', {'protocol_digest': digest(old),
+        'request_digest': digest(requests[0]), 'trace_digest': digest(trace), 'trace': trace})
+    return parent, child, new, requests, trace
+
+
+def test_execution_migration_preserves_original_checkpoint_and_budget_origin(extension, tmp_path):
+    parent, child, new, requests, trace = migration_fixture(tmp_path)
+    extension.import_completed(parent, child, new, requests)
+    assert (parent / 'responses/request.json').read_bytes() == (child / 'responses/request.json').read_bytes()
+    assert extension.checkpoint(child, new, requests[0]) == trace
+    assert extension.checkpoint(child, new, requests[1]) is None
+    assert read_json(child / 'budget.json') == {'started': 1234, 'seconds': 43200}
+    payload = read_json(child / 'responses/request.json')
+    payload['trace']['text'] = 'q = 9'
+    payload['trace_digest'] = digest(payload['trace'])
+    write_json(child / 'responses/request.json', payload)
+    with pytest.raises(ValueError, match='provenance'):
+        extension.checkpoint(child, new, requests[0])
+
+
+@pytest.mark.parametrize('change', ['science', 'decoder', 'requests', 'parent_plan', 'checkpoint'])
+def test_execution_migration_rejects_scientific_changes_or_corruption(extension, tmp_path, change):
+    parent, child, new, requests, _ = migration_fixture(tmp_path)
+    if change == 'science':
+        new['max_new'] = 4096
+    elif change == 'decoder':
+        new['source_hashes']['src/model.py'] = 'different'
+    elif change == 'requests':
+        requests[0]['seed'] = 3
+    elif change == 'parent_plan':
+        saved = read_json(parent / 'protocol.json')
+        saved['seconds'] = 1
+        write_json(parent / 'protocol.json', saved)
+    else:
+        saved = read_json(parent / 'responses/request.json')
+        saved['trace']['text'] = 'q = 9'
+        write_json(parent / 'responses/request.json', saved)
+    with pytest.raises(ValueError):
+        extension.import_completed(parent, child, new, requests)

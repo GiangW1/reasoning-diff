@@ -12,6 +12,7 @@ from concurrent.futures import ThreadPoolExecutor
 import fcntl
 import os
 from pathlib import Path
+import shutil
 import signal
 import subprocess
 import sys
@@ -81,8 +82,8 @@ def plan(args):
     root, source = args.out_root.resolve(), args.source.resolve()
     if not root.is_relative_to(SERVER) or root == source or root.is_relative_to(source):
         raise ValueError('use a separate output directory under server storage')
-    if not args.gpus or len(set(args.gpus)) != len(args.gpus) or args.batch_size < 1:
-        raise ValueError('invalid GPU list or batch size')
+    if not args.gpus or len(set(args.gpus)) != len(args.gpus) or args.batch_size < 1 or args.time_budget_hours <= 0:
+        raise ValueError('invalid GPU list, batch size or time budget')
     if root.exists() and any(root.iterdir()):
         raise ValueError('plan requires an empty output directory; run resumes an existing plan')
     tasks, rows, report, revision = load_source(source)
@@ -94,9 +95,11 @@ def plan(args):
                 'max_new': generation['max_new'], 'sampling': {k: generation[k] for k in ('temperature', 'top_k', 'top_p')},
                 'natural_prompt_policy': generation['natural_prompt_policy'], 'paired_seeds': list(PAIRED_SEEDS),
                 'noise_seeds': list(NOISE_SEEDS), 'batch_size': args.batch_size, 'gpus': args.gpus,
-                'seconds': 3600, 'formal_evidence': False, 'original_natural_matching_resolved': False}
-    write_json(root / 'protocol.json', protocol)
+                'seconds': args.time_budget_hours * 3600, 'formal_evidence': False, 'original_natural_matching_resolved': False}
     requests = requests_for(tasks)
+    if args.resume_from is not None:
+        import_completed(args.resume_from.resolve(), root, protocol, requests)
+    write_json(root / 'protocol.json', protocol)
     write_json(root / 'plan.json', {'protocol_digest': digest(protocol), 'requests': requests})
     write_json(root / 'plan_summary.json', {'problems': len(tasks), 'reused_traces': len(rows),
         'additional_edit_traces': sum(r['kind'] == 'edit' for r in requests),
@@ -104,6 +107,44 @@ def plan(args):
         'reference_traces': len(tasks) * len(PAIRED_SEEDS), 'new_token_ceiling': len(requests) * protocol['max_new'],
         'scientific_conclusion': None})
     print(read_json(root / 'plan_summary.json'), flush=True)
+
+
+def import_completed(parent, root, protocol, requests):
+    """Copy verified checkpoints unchanged, permitting only scheduler changes.
+
+    Freeze the previous protocol and each imported payload digest inside the
+    new protocol. The generation/parser source files and registered requests
+    must be identical; only this orchestration script may have changed.
+    """
+    with (parent / 'run.lock').open('a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        old, registered = read_json(parent / 'protocol.json'), read_json(parent / 'plan.json')
+        execution = {'gpus', 'batch_size', 'seconds', 'source_hashes', 'resume_provenance'}
+        scientific = lambda p: {k: v for k, v in p.items() if k not in execution}
+        code = lambda p: {k: v for k, v in p['source_hashes'].items() if k != 'scripts/extend_natural_pilot.py'}
+        if (registered['protocol_digest'] != digest(old) or registered['requests'] != requests
+                or scientific(old) != scientific(protocol) or code(old) != code(protocol)):
+            raise ValueError('migration changes scientific protocol, requests or generation/parser code')
+        completed = [r for r in requests if checkpoint(parent, old, r) is not None]
+        payloads = {r['id']: read_json(parent / 'responses' / (r['id'] + '.json')) for r in completed}
+        budget_path = parent / 'budget.json'
+        budget = read_json(budget_path) if budget_path.exists() else {'started': time.time()}
+        protocol['resume_provenance'] = {'parent_root': str(parent), 'protocol': old,
+            'plan_digest': digest(registered), 'checkpoint_digests': {key: digest(value) for key, value in payloads.items()}}
+        (root / 'responses').mkdir(parents=True, exist_ok=True)
+        for request in completed:
+            name = request['id'] + '.json'
+            shutil.copyfile(parent / 'responses' / name, root / 'responses' / name)
+        write_json(root / 'imported_plan.json', registered)
+        write_json(root / 'budget.json', {'started': budget['started'], 'seconds': protocol['seconds']})
+
+
+def checkpoint_protocol_valid(saved, protocol, request):
+    if saved['protocol_digest'] == digest(protocol):
+        return True
+    lineage = protocol.get('resume_provenance')
+    return bool(lineage and lineage['checkpoint_digests'].get(request['id']) == digest(saved)
+                and checkpoint_protocol_valid(saved, lineage['protocol'], request))
 
 
 def verified_plan(root):
@@ -122,7 +163,7 @@ def checkpoint(root, protocol, request):
         return None
     saved = read_json(path)
     row = saved['trace']
-    if (saved['protocol_digest'] != digest(protocol) or saved['request_digest'] != digest(request)
+    if (not checkpoint_protocol_valid(saved, protocol, request) or saved['request_digest'] != digest(request)
             or saved['trace_digest'] != digest(row) or row['task_id'] != request['task_id']
             or row['seed'] != request['seed'] or row['metadata']['revision'] != protocol['revision']):
         raise ValueError('checkpoint provenance mismatch')
@@ -296,6 +337,8 @@ def main():
     parser.add_argument('--out-root', type=Path, required=True)
     parser.add_argument('--gpus', nargs='+', type=int, default=[2, 3])
     parser.add_argument('--batch-size', type=int, default=2)
+    parser.add_argument('--time-budget-hours', type=float, default=1)
+    parser.add_argument('--resume-from', type=Path, help='import completed requests into a new plan; preserve budget start')
     parser.add_argument('--worker-index', type=int, default=0)
     args = parser.parse_args()
     if args.mode == 'plan':

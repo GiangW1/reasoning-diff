@@ -80,7 +80,16 @@
       "source_excerpt_end": 615,
       "context": "<think>\nOkay, let me try to figure out this problem step by step. So, there are several statements here about different items and their quantities, all modulo 23. The question is asking for the number of Kroger's Muffins. Let me break down each part and see how they connect.\n\nFirst, let me list out all the given information:\n\n1. The number of Carrefour's Muffins equals 1. So, let me note that as C_muffins = 1.\n\n",
       "text": "2. The number of Carrefour's Bagels equals the product of 6 and the number of Carrefour's Muffins. So, C_bagels = 6 * C_muffins. Since C_muffins is 1, that would be 6 * 1 = 6. Therefore, C_bagels = 6.",
+      "annotation_note": "Comma-tokenization repair recovers the explicit premise restatement 'Since C_muffins is 1,'. The original annotation omitted it; it is not a computed Bagels result.",
       "expected": [
+        {
+          "node_alias": "Carrefour's Muffins",
+          "premise_id": "p_0_0_3_0",
+          "value": "1",
+          "event_phase": "commit",
+          "event_kind": "restatement",
+          "text": "C_muffins is 1"
+        },
         {
           "node_alias": "Carrefour's Bagels",
           "value": "6",

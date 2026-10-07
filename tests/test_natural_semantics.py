@@ -208,3 +208,91 @@ def test_printed_copy_value_uses_named_subject_scope():
     assert aa[0].event_phase=='copy' and aa[0].expression_signature==bb[0].expression_signature
     assert len(align_events(aa,bb)['pairs']) == 1
     assert text[aa[0].value_start:aa[0].end] == '3'
+
+
+@pytest.mark.parametrize('rhs', [
+    "equal to p1, which we just found to be 3",
+    "p1, so that's also 3",
+    "p1, which is 3",
+])
+def test_prose_copy_preserves_printed_source(t1_tiny_path, rhs):
+    task = load_t1_fixture(t1_tiny_path)
+    text = 'q is ' + rhs + '.'
+    aa = [e for e in events(text, task) if e.node_id == 'q']
+    bb = events('q = p1 = 4.', task)
+    assert len(aa) == 1 and aa[0].value == '3'
+    assert len(align_events(aa, bb)['pairs']) == 1
+    assert text[aa[0].value_start:aa[0].end] == '3'
+    assert not align_events(aa, events('q = p2 = 3.', task))['pairs']
+
+
+@pytest.mark.parametrize('separator', ['. ', '. Then ', ' → '])
+def test_anonymous_reduction_immediately_continues_named_calculation(t1_tiny_path, separator):
+    task = load_t1_fixture(t1_tiny_path)
+    text = 'q = 15 + 10 = 25' + separator + '25 mod 23 = 2. Correct.'
+    parsed = events(text, task)
+    assert [(e.node_id, e.value, e.event_phase) for e in parsed] == [
+        ('q', '25', 'calculation'), ('q', '2', 'reduction')]
+    assert all(e.status == 'ok' and text[e.start:e.end] == e.text for e in parsed)
+    assert all(text[e.value_start:e.end] == e.value for e in parsed)
+    assert len(align_events(parsed, events('q = 28 mod 23 = 5.', task))['pairs']) == 1
+
+
+@pytest.mark.parametrize('gap', ['\n\n', '. p1 = 25. ', '. Another calculation: '])
+def test_reduction_cannot_inherit_owner_across_topic_change(t1_tiny_path, gap):
+    task = load_t1_fixture(t1_tiny_path)
+    text = 'q = 15 + 10 = 25' + gap + '25 mod 23 = 2.'
+    assert not any(e.node_id == 'q' and e.event_phase == 'reduction' for e in events(text, task))
+
+
+@pytest.mark.parametrize('left,right,reason', [
+    ('q = 2.', 'p1 = 2.', 'no_same_entity'),
+    ('q = 2.', 'q = p1 = 2.', 'phase_incompatible'),
+    ('q = p1 + p2 = 2.', 'q = p1 * p2 = 2.', 'expression_incompatible'),
+    ('q = 2.', 'q = 2.\n\nq = 2.', 'ambiguous_repeated_step'),
+])
+def test_unmatched_events_have_value_blind_loss_certificates(t1_tiny_path, left, right, reason):
+    task = load_t1_fixture(t1_tiny_path)
+    aa, bb = events(left, task), events(right, task)
+    aligned = align_events(aa, bb)
+    assert not aligned['pairs']
+    assert aligned['unmatched_left'][0]['reason'] == reason
+    altered = [replace(e, value='99999', correct=False, task_parents=['wrong']) for e in bb]
+    assert align_events(aa, altered)['unmatched_left'] == aligned['unmatched_left']
+
+
+@pytest.mark.parametrize('formula,phase', [('p1 + p2', 'calculation'), ('(p1 + p2) mod 23', 'calculation')])
+def test_symbolic_formula_followed_by_printed_numeric_work(t1_tiny_path, formula, phase):
+    task = load_t1_fixture(t1_tiny_path)
+    text = f'q = {formula}. So 15 + 10 = 25, then 25 mod 23 = 2.'
+    aa = events(text, task)
+    assert [(e.value, e.event_phase) for e in aa] == [('25', phase), ('2', 'reduction')]
+    assert all(e.status == 'ok' and text[e.start:e.end] == e.text for e in aa)
+    assert len(align_events(aa, events('q = 16 + 10 = 26. 26 mod 23 = 3.', task))['pairs']) == 2
+
+
+@pytest.mark.parametrize('gap', ['\n', '. Another calculation: ', '. p1 = 15. '])
+def test_symbolic_formula_cannot_claim_unrelated_arithmetic(t1_tiny_path, gap):
+    text = 'q = p1 + p2' + gap + '15 + 10 = 25.'
+    assert not any(e.node_id == 'q' for e in events(text, load_t1_fixture(t1_tiny_path)))
+
+
+@pytest.mark.parametrize('text', [
+    'q = (12 * 0) + (18 * 13) mod 23. 12 * 0 = 0. 18 * 13 = 234.',
+    'p1 × q = 19 * 9. 19 * 9 = 171.',
+    'q = p1 + p2. So 15 * 10 = 150.',
+])
+def test_partial_substitution_and_operand_are_not_destination_results(t1_tiny_path, text):
+    assert not any(e.node_id == 'q' for e in events(text, load_t1_fixture(t1_tiny_path)))
+
+
+@pytest.mark.parametrize('text,value', [('q = 25, then stop.', '25'), ('q = 1,234.', '1234')])
+def test_numeric_separator_is_not_a_thousands_separator(t1_tiny_path, text, value):
+    parsed = events(text, load_t1_fixture(t1_tiny_path))
+    assert len(parsed) == 1 and parsed[0].value == value
+    assert text[parsed[0].value_start:parsed[0].end].replace(',', '') == value
+
+
+@pytest.mark.parametrize('text', ['So if q is 10, then p1 is 3.', 'What if the number of q is 10?'])
+def test_conditional_antecedent_is_not_an_asserted_value(t1_tiny_path, text):
+    assert events(text, load_t1_fixture(t1_tiny_path)) == []

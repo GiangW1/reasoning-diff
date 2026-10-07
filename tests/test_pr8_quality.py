@@ -362,6 +362,8 @@ def test_paired_pilot_reuses_base_generations_and_resumes(tmp_path, t1_tiny_path
     assert report["passed"] and report["overall"]["n_traces"] == 1
     assert report["pilot_protocol"]["edit_seed"] == 0
     assert report["overall"]["eligible_cells"] == 2
+    assert report["alignment_audit"]["eligible_cells"] == 2
+    assert report["alignment_audit"]["cells_by_outcome"] == {"matched": 2}
     assert file_digest(tmp_path / "traces.jsonl") == original
     runner.pilot_worker(args)
     assert len(calls) == 6
@@ -380,6 +382,8 @@ def test_paired_pilot_reuses_base_generations_and_resumes(tmp_path, t1_tiny_path
     report = reparse.remeasure_pilot(raw, output)
     assert report["passed"] and report["posthoc_reparse"]
     assert report["n_generated_traces"] == 6 and len(calls) == 6
+    assert report["alignment_audit"]["cells_by_outcome"] == {"matched": 2}
+    assert len(report["alignment_audit"]["pair_diagnostics"]) == 4
     assert before == {p.name: file_digest(p) for p in shard.iterdir()}
     with pytest.raises(ValueError, match="new output directory"):
         reparse.remeasure_pilot(raw, output)

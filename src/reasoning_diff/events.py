@@ -11,8 +11,8 @@ import re
 from .graphs import ancestors
 from .schema import Event, EventIdentity, Task, canonical_value
 
-NUMBER = r"[+-]?(?:\d[\d,]*(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
-ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v5"
+NUMBER = r"[+-]?(?:(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
+ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v6"
 
 
 def context_entity_token(node_id):
@@ -299,6 +299,10 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
         prefix = rhs[:result.start()].strip().strip("$").strip()
         scalar = prefix == "" or re.fullmatch(r"(?:(?:also|still|equal to)\b\s*)?\(*\s*", prefix, re.I)
         prose_copy = re.fullmatch(r"(?:the )?same as\s+(.+?),\s*(?:so\s*)?", prefix, re.I)
+        if prose_copy is None:
+            prose_copy = re.fullmatch(
+                r"(?:equal to\s+)?(.+?),\s*(?:which (?:is|we just found to be)|so (?:that's|that is)(?: also)?)\s*",
+                prefix, re.I)
         if not scalar and not prose_copy and not re.search(r"(?:=|≡|\\equiv)$", prefix):
             continue
         suffix = rhs[result.end():]
@@ -320,13 +324,13 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
         annotation = re.match(r"\((?:given|as given|from (?:the )?problem)\)", rest, re.IGNORECASE)
         if annotation:
             rest = rest[annotation.end():].lstrip()
-        if rest and not re.match(r"[.,;?!]|</", rest):
+        if rest and not re.match(r"[.,;?!→]|</", rest):
             continue
         expressions = [prose_copy.group(1)] if prose_copy else [] if scalar else re.split(r"=|≡|\\equiv\b", prefix)[:-1]
         trees = [_expression_tree(expr, entities) for expr in expressions]
         if any(tree is None for tree in trees):
             continue
-        if prose_copy and trees[0][0] != "copy":
+        if prose_copy and (trees[0][0] != "copy" or "unresolved:" in trees[0][1]):
             continue
         phase, signature = trees[0] if trees else ("commit", "scalar")
         if any(tree[0] == "reduction" for tree in trees) or re.search(r"≡|\\equiv\b", prefix):
@@ -340,6 +344,24 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
         views = list(dict.fromkeys(sig for ph, sig in trees if ph != "commit")) or [signature]
         return start + result.start(), start + result.end(), result.group(), kind, phase, signature, views
     return None
+
+
+def _substitution_shape(signature, *, before_reduction=False):
+    """Check complete printed substitution, never a partial term's value."""
+    key = expression_key(signature)
+    if before_reduction and key[0] == 'BinOp':
+        fields = dict(key[1])
+        if fields.get('op') == ('Mod', ()):
+            key = fields['left']
+    def mask(node):
+        if not isinstance(node, tuple):
+            return node
+        if node and node[0] == 'Name':
+            return 'Constant', (('value', 'number'),)
+        if node and node[0] in ('Add', 'Mult'):
+            return node[0], tuple(sorted((mask(child) for child in node[1]), key=repr))
+        return tuple(mask(child) for child in node)
+    return mask(key)
 
 
 def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Event]:
@@ -371,6 +393,12 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
             line_start = text.rfind("\n", 0, start) + 1
             clause_start = max(line_start, text.rfind(";", 0, start) + 1)
             preceding = text[clause_start:start]
+            sentence_prefix = re.split(r"[.!?](?!\d)", preceding)[-1]
+            if (re.search(r"\bif\s+(?:(?:the\s+)?number of\s*)?$", sentence_prefix, re.I)
+                    or re.search(r"\bif\b.*(?:=|\bis\b|\bequals?\b)", sentence_prefix, re.I)):
+                # An if-clause and its same-sentence consequent describe a
+                # conditional, not a committed value in the current derivation.
+                continue
             # A line-leading Markdown marker is layout, not a preceding
             # operand. Keep offsets in the original text unchanged.
             if clause_start == line_start:
@@ -378,7 +406,7 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
             preceding = re.split(r"\.(?!\d)|,\s+(?=[A-Za-z])", preceding)[-1]
             if "=" in preceding:
                 continue
-            if re.search(r"(?:\b(?:and|plus|minus|times|add|subtract|multiply|divide|with)|[+*/−-])\s*(?:(?:the\s+)?number of\s*)?$", preceding, re.IGNORECASE):
+            if re.search(r"(?:\b(?:and|plus|minus|times|add|subtract|multiply|divide|with)|[+*/×÷−-])\s*(?:(?:the\s+)?number of\s*)?$", preceding, re.IGNORECASE):
                 continue
             kind = "restatement" if any(p.premise_id == node_id for p in task.premises) else "commit"
             if task.answer_spec.kind == "numeric":
@@ -394,6 +422,24 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                                          if (a := entity[0]).startswith(owner)]
                 result = _numeric_commit(text, match.end(), visible_entities)
                 if result is None:
+                    # Natural derivations often split a symbolic formula and
+                    # its substitution with a period. Accept only immediately
+                    # adjacent, explicitly printed numeric work on this line.
+                    # No DAG evaluation, value equality, or cross-topic search.
+                    follow = re.match(r"(?P<formula>[^\n]+?)\.[ \t]+(?:So[ \t]+)?(?P<work>[+\-(\d])",
+                                      text[match.end():], re.I)
+                    formula = _expression_tree(follow.group('formula'), visible_entities) if follow else None
+                    if formula and formula[0] in {'calculation', 'reduction', 'copy'}:
+                        work_start = match.end() + follow.start('work')
+                        printed = _numeric_commit(text, work_start, [])
+                        if (printed and printed[3] == 'calculation' and all('Name(' not in v for v in printed[6])
+                                and _substitution_shape(formula[1], before_reduction=printed[4] != 'reduction')
+                                == _substitution_shape(printed[5])):
+                            value_start, end, value, parsed_kind, phase, signature, views = printed
+                            if formula[0] == phase:
+                                signature, views = formula[1], list(dict.fromkeys([formula[1], *views]))
+                            result = value_start, end, value, parsed_kind, phase, signature, views
+                if result is None:
                     continue
                 value_start, end, value, parsed_kind, phase, signature, views = result
                 if kind != "restatement":
@@ -405,6 +451,21 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 value_start, end, value = match.end(), match.end() + result.end(), result.group()
                 phase, signature, views = "commit", "text", []
             found.append((start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind, phase, signature, views))
+            if task.answer_spec.kind == "numeric" and kind == "calculation" and phase == "calculation":
+                # A directly adjacent anonymous reduction continues this
+                # named calculation. Keep BOTH printed stages: the raw result
+                # must not silently become the residue or leave the denominator.
+                continuation = re.match(
+                    r"[ \t]*(?:\.[ \t]*(?:Then[ \t]+)?|,[ \t]*then[ \t]+|→[ \t]*)(?P<expr>"
+                    + NUMBER + r"[ \t]+(?:mod|modulo)[ \t]*" + NUMBER + r"[ \t]*=)",
+                    text[end:], re.I)
+                if continuation:
+                    reduction_start = end + continuation.start("expr")
+                    reduced = _numeric_commit(text, reduction_start, visible_entities)
+                    if reduced and reduced[4] == "reduction":
+                        rvalue_start, rend, rvalue, rkind, rphase, rsig, rviews = reduced
+                        found.append((reduction_start, rend, rvalue_start, node_id, gold, scope,
+                                      parents, graph_status, rvalue, rkind, rphase, rsig, rviews))
     found.sort(key=lambda item: (item[0], item[1]))
     # "Entity: X = value" names one printed result twice. Use the innermost
     # assignment's arithmetic, keeping the complete statement's start.
@@ -623,6 +684,25 @@ def _align_unique_events(base: list[Event], changed: list[Event]) -> dict:
     }
 
 
+def _alignment_key(event):
+    return (event.identity.entity_or_expression, event.node_id, event.identity.scope,
+            event.event_kind, event.event_phase, expression_key(event.expression_signature))
+
+
+def _compatible_events(a, b):
+    if _alignment_key(a)[:-1] != _alignment_key(b)[:-1]:
+        return False
+    if expression_key(a.expression_signature) == expression_key(b.expression_signature):
+        return True
+    av, bv = set(map(expression_key, a.expression_views)), set(map(expression_key, b.expression_views))
+    named_a = {expression_key(v) for v in a.expression_views if "Name(" in v}
+    named_b = {expression_key(v) for v in b.expression_views if "Name(" in v}
+    # Common numeric arithmetic must not hide different named inputs.
+    if named_a and named_b and not named_a & named_b:
+        return False
+    return bool(av & bv)
+
+
 def align_events(base: list[Event], changed: list[Event]) -> dict:
     """Retain only correspondences forced by all optimal ordered alignments.
 
@@ -644,28 +724,13 @@ def align_events(base: list[Event], changed: list[Event]) -> dict:
     for events in (base, changed):
         if len({e.identity.key() for e in events}) != len(events):
             raise ValueError("Duplicate event identities cannot be aligned")
-    pairs, certificates = [], []
+    pairs, certificates, unmatched = [], [], []
     for region in sorted({e.event_region for e in base + changed}):
         left = sorted([e for e in base if e.event_region == region and e.status == "ok"], key=lambda e: e.start)
         right = sorted([e for e in changed if e.event_region == region and e.status == "ok"], key=lambda e: e.start)
-        def key(e):
-            return (e.identity.entity_or_expression, e.node_id, e.identity.scope,
-                    e.event_kind, e.event_phase, expression_key(e.expression_signature))
-        aa, bb = [key(e) for e in left], [key(e) for e in right]
+        aa, bb = [_alignment_key(e) for e in left], [_alignment_key(e) for e in right]
         n, m = len(aa), len(bb)
-        def compatible(a, b):
-            if key(a)[:-1] != key(b)[:-1]:
-                return False
-            if expression_key(a.expression_signature) == expression_key(b.expression_signature):
-                return True
-            av, bv = set(map(expression_key, a.expression_views)), set(map(expression_key, b.expression_views))
-            named_a = {expression_key(v) for v in a.expression_views if "Name(" in v}
-            named_b = {expression_key(v) for v in b.expression_views if "Name(" in v}
-            # Common numeric arithmetic must not hide different named inputs.
-            if named_a and named_b and not named_a & named_b:
-                return False
-            return bool(av & bv)
-        edges = [[compatible(a, b) for b in right] for a in left]
+        edges = [[_compatible_events(a, b) for b in right] for a in left]
         def context_score(a, b):
             x, y = set(a.alignment_context), set(b.alignment_context)
             common = x & y
@@ -712,11 +777,28 @@ def align_events(base: list[Event], changed: list[Event]) -> dict:
                                  "objective": "max_compatible_steps_then_value_masked_discourse",
                                  "expression_evidence": "primary_canonical" if expression_key(left[i].expression_signature) == expression_key(right[j].expression_signature) else "printed_view_intersection",
                                  "feasible_edges_at_rank": 1, "independent_context_entities": len(context_entities)})
+        matched = {e.identity.key() for e, _ in pairs}
+        optimal_edges = {edge for group in ranks.values() for edge in group}
+        for i, event in enumerate(left):
+            if event.identity.key() in matched:
+                continue
+            entity = [j for j in range(m) if aa[i][:3] == bb[j][:3]]
+            phase = [j for j in entity if aa[i][3:5] == bb[j][3:5]]
+            compatible = [j for j in phase if edges[i][j]]
+            feasible = [j for j in compatible if (i, j) in optimal_edges]
+            reason = ("no_same_entity" if not entity else "phase_incompatible" if not phase else
+                      "expression_incompatible" if not compatible else "order_or_context_conflict" if not feasible
+                      else "ambiguous_repeated_step")
+            unmatched.append({"left": event.identity.key(), "region": region, "reason": reason,
+                              "same_entity_candidates": len(entity), "same_phase_candidates": len(phase),
+                              "compatible_candidates": [right[j].identity.key() for j in compatible],
+                              "optimal_candidates": [right[j].identity.key() for j in feasible],
+                              "interpretation": "parsed_event_sets_only_not_proof_of_model_omission"})
     paired_left = {e.identity.key() for e, _ in pairs}
     paired_right = {e.identity.key() for _, e in pairs}
     removed = [e.identity.key() for e in base if e.identity.key() not in paired_left]
     added = [e.identity.key() for e in changed if e.identity.key() not in paired_right]
-    return {"pairs": pairs, "pair_certificates": certificates, "removed": removed, "added": added,
+    return {"pairs": pairs, "pair_certificates": certificates, "unmatched_left": unmatched, "removed": removed, "added": added,
             "unaligned": removed + added,
             "structural": {"disappeared": removed, "merged": [],
                            "strategy_changed": [e.identity.key() for e in base + changed if e.status == "strategy_change"],

@@ -9,6 +9,7 @@ from itertools import permutations
 from pathlib import Path
 
 from reasoning_diff import cli
+from reasoning_diff.alignment_audit import alignment_audit
 from reasoning_diff.artifacts import write_manifest, write_run_spec
 from reasoning_diff.events import assign_event_regions, parse_events
 from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
@@ -247,6 +248,7 @@ def remeasure_pilot(source, output):
                   n_generated_traces=len(traces), n_complete=sum(t["status"] == "natural_complete" for t in traces),
                   pilot_protocol={"edit_seed": 0, "noise_seeds": [1, 2], "scanned_premises": scanned,
                                   "scope": "relevant_fact_and_two_distractors", "formal_evidence": False})
+    report["alignment_audit"] = alignment_audit(traces, tasks, obs, report)
     if any(file_digest(source / name) != value for name, value in hashes.items()):
         raise ValueError("pilot files changed during remeasurement")
     for name, rows in (("tasks.jsonl", tasks), ("traces.jsonl", traces), ("observations.jsonl", obs)):
@@ -255,7 +257,8 @@ def remeasure_pilot(source, output):
     write_run_spec(output, {"config": {"command": "reparse_pr8_pilot", "generation_reused": True}, "input_hashes": hashes,
                            "measurement_source_hashes": {p.name: file_digest(p) for p in (
                                Path(__file__), Path(cli.__file__), Path(cli.__file__).with_name("events.py"),
-                               Path(cli.__file__).with_name("next_round.py"))}})
+                               Path(cli.__file__).with_name("next_round.py"),
+                               Path(cli.__file__).with_name("alignment_audit.py"))}})
     write_manifest(output, [output / name for name in ("tasks.jsonl", "traces.jsonl", "observations.jsonl", "measurement_report.json", "run_spec.json")],
                    {"traces": len(traces), "success": 1})
     print(report["overall"], flush=True)

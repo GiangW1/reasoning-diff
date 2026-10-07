@@ -593,6 +593,9 @@ def _observations(task, base_trace, edit_trace, edit, rng_pair: str, run_id: str
                                           if [certificate["left"], certificate["right"]] == row.event_pair), {})
         if row.outcome == "structural":
             row.structure_taxonomy = "removed_or_added"
+            if row.event_pair[0] and not row.event_pair[1]:
+                row.alignment_certificate = next((loss for loss in aligned.get("unmatched_left", [])
+                                                  if loss["left"] == row.event_pair[0]), {})
         elif row.outcome == "unaligned":
             row.structure_taxonomy = "unaligned"
         else:

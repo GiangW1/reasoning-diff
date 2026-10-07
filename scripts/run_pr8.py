@@ -18,6 +18,7 @@ import time
 from threading import Lock, local
 
 from reasoning_diff import cli
+from reasoning_diff.alignment_audit import alignment_audit
 from reasoning_diff.events import ALIGNMENT_POLICY
 from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
 from reasoning_diff.next_round import (intervention_coverage, measurement_report, parser_coverage,
@@ -159,6 +160,9 @@ def pilot_worker(args):
             report["passed"] = not report["failures"]
         report["pilot_protocol"] = {"edit_seed": 0, "noise_seeds": [1, 2], "scanned_premises": scanned,
                                     "scope": "relevant_fact_and_two_distractors", "formal_evidence": False}
+        if not any(is_controlled(task) for task in tasks):
+            report["alignment_audit"] = alignment_audit(rows, [task.to_dict() for task in tasks],
+                                                        [o.to_dict() for o in observations], report)
         write_jsonl(out / "paired_observations.jsonl", [o.to_dict() for o in observations])
         write_jsonl(out / "paired_tasks.jsonl", [task.to_dict() for task in tasks] + [edit.task.to_dict() for _, edit in edits])
         write_json(out / "paired_measurement.json", report)

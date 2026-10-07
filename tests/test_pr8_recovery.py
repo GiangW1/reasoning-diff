@@ -213,7 +213,7 @@ def test_manually_annotated_saved_pr8_excerpts(case):
                                                 / f"{case['task_id']}.json"))
     text = case["context"] + case["text"]
     events = [event for event in thinking(text, task) if event.start >= len(case["context"])]
-    expected = [(next(n.id for n in task.nodes if annotation["node_alias"] in n.aliases),
+    expected = [(annotation.get("premise_id") or next(n.id for n in task.nodes if annotation["node_alias"] in n.aliases),
                  annotation["value"], annotation["event_phase"], annotation["event_kind"], annotation["text"])
                 for annotation in case["expected"]]
     assert [(e.node_id, e.value, e.event_phase, e.event_kind, e.text) for e in events] == expected

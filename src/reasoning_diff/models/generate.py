@@ -142,7 +142,8 @@ def task_prompt(task) -> str:
             "earlier step. After </think>, give a concise answer and end with exactly one final "
             "answer in the form \\boxed{number}."
         )
-    return prompt
+    from ..quantity_steps import prompt_instructions
+    return prompt + prompt_instructions(task)
 
 
 def generate_frozen_trace(
@@ -301,6 +302,9 @@ def generate_frozen_trace(
         if pred is None
         else "natural_complete"
     )
+    from ..quantity_steps import PROTOCOL, ESTIMAND, is_controlled, format_report
+    controlled = is_controlled(task)
+    step_format = format_report(gen_text, task) if controlled else None
     return Trace(
         id=rid,
         task_id=task.task_id,
@@ -357,8 +361,11 @@ def generate_frozen_trace(
             "special_token_count": sum(int(token) in special_ids for token in full_ids),
             "boundary_status": "ok" if not offset_failures else "fallback_cursor",
             "forced_target": False,
-            "evidence_status": "model_generated_natural",
-            "protocol_version": "natural_no_finalizer_v1",
+            "evidence_status": "model_generated_registered_quantity_steps" if controlled else "model_generated_natural",
+            "protocol_version": PROTOCOL if controlled else "natural_no_finalizer_v1",
+            "trajectory_protocol": PROTOCOL if controlled else "natural",
+            "measurement_estimand": ESTIMAND if controlled else "natural_parsed_steps",
+            "quantity_step_format": step_format,
             "trace_status": trace_status,
             "answer_status": answer_status,
             "analysis_eligibility": {

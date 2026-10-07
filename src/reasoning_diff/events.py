@@ -319,6 +319,9 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
 
 def parse_events(text: str, task: Task) -> list[Event]:
     """Premises and nodes. Used by scientific generate; values never decide identity."""
+    from .quantity_steps import is_controlled, parse_steps
+    if is_controlled(task):
+        return parse_steps(text, task)
     entities = []
     seen_alias = Counter()
     for premise in task.premises:
@@ -472,6 +475,11 @@ def align_events(base: list[Event], changed: list[Event]) -> dict:
     score counts compatible steps, never values, gold answers, or proximity.
     Multiple optimal partners stay unknown rather than taking a tie-break.
     """
+    from .quantity_steps import PHASE, align_steps
+    if any(e.event_phase == PHASE for e in base + changed):
+        # align_steps accepts only registered steps, including when the
+        # counterpart is empty; natural and controlled units never match.
+        return align_steps(base, changed)
     if not any(e.expression_signature for e in base + changed) or all(
         e.event_phase == "final_assignment" for e in base + changed
     ):

@@ -9,6 +9,7 @@ from .edits import apply_value_edit, recompute
 from .events import ALIGNMENT_POLICY, premise_aliases
 from .graphs import ancestors
 from .schema import Edit, EventIdentity, Label, Premise, Task
+from .quantity_steps import ESTIMAND, MATCHING_POLICY, PHASE, PROTOCOL, is_controlled, trace_format
 
 
 def select_dev_layer(layers, scores):
@@ -196,6 +197,8 @@ def trajectory_table(traces, tasks, observations, splits, scanned_premises=None)
     spurious dependency. Unaligned cells never become negative labels.
     """
     owners = {t["task_id"]: Task.from_dict(t) for t in tasks}
+    if len({is_controlled(task) for task in owners.values()}) > 1:
+        raise ValueError("different trajectory conditions require separate measurement reports")
     roles = {r.get("base_group_id"): r["role"] for r in splits}
     real, noise = defaultdict(list), defaultdict(list)
     for o in observations:
@@ -211,17 +214,27 @@ def trajectory_table(traces, tasks, observations, splits, scanned_premises=None)
         supported, noise_supported, noise_events, raw, excess = 0, 0, 0, [], []
         common_raw, common_noise = [], []
         graph.update({p.premise_id: {p.premise_id} for p in owner.premises})
-        eligible = 0
+        controlled = is_controlled(owner)
+        planned = {slot["node_id"] for slot in owner.metadata.get("quantity_step_plan", [])}
+        def non_task_cells(node_id):
+            cells = {p.premise_id for p in owner.premises} - graph.get(node_id, set())
+            if scanned_premises is not None:
+                cells &= set(scanned_premises.get(owner.task_id, []))
+            return cells
+        # Missing/ambiguous commits remain in the registered denominator.
+        eligible = sum(len(non_task_cells(nid)) for nid in planned) if controlled else 0
         for event in trace.get("events", []):
             if (trace.get("metadata") or {}).get("boundary_status", "ok") != "ok":
                 continue
             if event.get("event_region") != "thinking" or event.get("event_kind") == "restatement" or event.get("status", "ok") != "ok":
                 continue
+            if controlled and (event.get("node_id") not in planned or event.get("event_phase") != PHASE
+                               or event.get("expression_signature") != PROTOCOL):
+                continue
             key = (trace["id"], EventIdentity(**event["identity"]).key())
-            non_task = {p.premise_id for p in owner.premises} - graph.get(event["node_id"], set())
-            if scanned_premises is not None:
-                non_task &= set(scanned_premises.get(owner.task_id, []))
-            eligible += len(non_task)
+            non_task = non_task_cells(event["node_id"])
+            if not controlled:
+                eligible += len(non_task)
             cells = defaultdict(list)
             for obs in real[key]:
                 if obs["premise_id"] in non_task:
@@ -247,7 +260,9 @@ def trajectory_table(traces, tasks, observations, splits, scanned_premises=None)
         meta = trace.get("metadata") or {}
         role = roles.get(owner.base_group_id)
         complete = trace.get("status") == "natural_complete"
-        result.append({"analysis_unit": "trajectory", "density_protocol": "matched_cell_response_rate_excess_v1",
+        result.append({"analysis_unit": "trajectory", "density_protocol": "registered_quantity_step_response_rate_excess_v1" if controlled else "matched_cell_response_rate_excess_v1",
+                       "trajectory_protocol": PROTOCOL if controlled else "natural",
+                       "measurement_estimand": ESTIMAND if controlled else "natural_parsed_steps",
                        "head": "behavior", "position": "pre_step", "problem_id": owner.base_group_id,
                        "task_id": owner.task_id, "trace_id": trace["id"], "seed": trace.get("seed"),
                        "length": int(meta.get("generated_tokens", (trace.get("cost") or {}).get("decode_tokens", 0))),
@@ -308,11 +323,20 @@ def measurement_report(traces, tasks, observations, splits, scanned_premises=Non
         checks[key] = bool(table) and all(group[key] >= 0.5 for group in groups)
     checks["exact_boundaries"] = bool(table) and all(
         (trace.get("metadata") or {}).get("boundary_status") == "ok" for trace in base_trajectories(traces, tasks))
+    owners = {t["task_id"]: Task.from_dict(t) for t in tasks}
+    controlled = any(is_controlled(task) for task in owners.values())
+    formats = {trace["id"]: trace_format(trace, owners[trace["task_id"]]) for trace in traces
+               if trace.get("task_id") in owners and is_controlled(owners[trace["task_id"]])}
+    if controlled:
+        checks["registered_step_format"] = bool(formats) and all(row["passed"] for row in formats.values())
     failures = [key for key, value in checks.items() if not value]
     classes = {str(value): sum(r["y"] == value for r in table) for value in (0, 1)}
     return {"passed": not failures, "checks": checks, "failures": failures,
             "overall": overall, "by_op": by_op, "by_problem": by_problem, "trajectories": table,
-            "matching_policy": ALIGNMENT_POLICY, "coverage_threshold": 0.5,
+            "matching_policy": MATCHING_POLICY if controlled else ALIGNMENT_POLICY, "coverage_threshold": 0.5,
+            "trajectory_protocol": PROTOCOL if controlled else "natural",
+            "measurement_estimand": ESTIMAND if controlled else "natural_parsed_steps",
+            "registered_step_formats": formats,
             "coverage_unit": "overall_and_each_problem_and_op",
             "parser_recall": "not_estimated_without_annotated_steps",
             "p1_estimability": {"status": "single_class" if not all(classes.values()) else "requires_held_out_classes",

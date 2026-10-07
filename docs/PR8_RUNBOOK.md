@@ -4,6 +4,8 @@
 
 后续补丁修复了 `So:` 换行后接项目符号的声明遗漏，避免同一操作数在 base/edit 中得到不同身份；并增加部分共同支持的描述统计。最新数值和具体修复路径见 [后续复核](../artifacts/rd-pr8-support-followup-20261007-light/REPORT.zh-CN.md)，主测量依然失败。
 
+2026-10-07 增加独立的受控条件 `--trajectory-protocol quantity_steps`，可使用下方入口先验证。它让模型在预先登记的数量步骤内自由计算，每个数量明确提交一次结果，解决自由文本中重复确认和表达式变化导致的单位身份不确定。旧数据保持原自然条件；不能重新贴上新条件的标签，也不能把新条件的结果解释为原自然全步骤实验已成功。422 项 CPU 回归通过，见 [代码验证记录](../artifacts/rd-pr8-quantity-steps-codecheck-20261007-light/REPORT.zh-CN.md)。真实模型是否遵循格式、以及实际测量和 C2 能否通过，仍由服务器 pilot/smoke 判定。
+
 ## 服务器命令
 
 使用 PR7 已有的 Python 环境、200 题输入和固定 revision 的 Qwen3-8B 权重。源码放 `/home/wja`，所有模型、输出、日志、检查点和缓存放 `/mnt/mydata/wja`。从此 PR 的源码 checkout 执行：
@@ -12,14 +14,15 @@
 export PYTHONPATH="$PWD/src"
 PY=/mnt/mydata/zm/projects/RPent/.venv/bin/python
 
-# 以下生成命令仅在步骤对应问题解决并验证后使用。
-# 只运行 smoke；默认 GPU 2/3/6，batch size 2。
+# 新受控条件：先运行长度/格式、配对、特征和干预 smoke。
 "$PY" scripts/run_pr8.py --mode smoke \
-  --out-root /mnt/mydata/wja/reasoning-diff/runs/pr8-phase-recovery
+  --trajectory-protocol quantity_steps \
+  --out-root /mnt/mydata/wja/reasoning-diff/runs/pr8-quantity-steps-v1
 
 # 正式运行：先自动执行/恢复同协议的 smoke，通过后才启动剩余题目。
 "$PY" scripts/run_pr8.py --mode full \
-  --out-root /mnt/mydata/wja/reasoning-diff/runs/pr8-phase-recovery
+  --trajectory-protocol quantity_steps \
+  --out-root /mnt/mydata/wja/reasoning-diff/runs/pr8-quantity-steps-v1
 ```
 
 默认数据目录为 `/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/inputs/igsm-pilot200`，权重根目录为 `/mnt/mydata/wja/reasoning-diff/assets/models`，需包含 `Qwen3-8B/verified.json`。
@@ -28,7 +31,7 @@ PY=/mnt/mydata/zm/projects/RPent/.venv/bin/python
 
 不要使用 PR7 的 PID 接管脚本启动 PR8；两个实验使用独立目录和指纹。
 
-启动器保留上一轮的并行优化：长度/配对 pilot 与 prepare 均按每卡 batch size 批量解码；四层特征收集分配到三张卡，收集完成即提交 CPU 拟合；同时最多运行两个 CPU 任务，每个任务使用 8 个 BLAS 线程。三个特征位置并行拟合后，`fit --position all --resume` 复用结果并汇总，拟合入口缓存只读 event rows，避免重复解析。层选择、标签和自然生成协议不变，测量质量检查提前并按题目/难度分层。`execution_progress.json` 记录每个阶段的状态，CPU 阶段不访问 GPU。上述环境只用于运行，不向 RPent 环境安装或修改包。
+启动器保留上一轮的并行优化：长度/配对 pilot 与 prepare 均按每卡 batch size 批量解码；四层特征收集分配到三张卡，收集完成即提交 CPU 拟合；同时最多运行两个 CPU 任务，每个任务使用 8 个 BLAS 线程。三个特征位置并行拟合后，`fit --position all --resume` 复用结果并汇总，拟合入口缓存只读 event rows，避免重复解析。层选择和标签规则保持不变，所选生成条件贯穿 pilot、prepare、解析与干预，测量质量检查提前并按题目/难度分层。`execution_progress.json` 记录每个阶段的状态，CPU 阶段不访问 GPU。上述环境只用于运行，不向 RPent 环境安装或修改包。
 
 来源对干预也按 `--pair-shard INDEX COUNT` 分配到三卡；同一来源对的两种配置与全部对照保持在同一进程内，合并时保留原始 pair index。`--formal-limit 32` 可选取探索性小集：每个 op 有 4 道 probe_train、1 道 dev、1 道 calibration 和 2 道 test，仍使用既有 split hash，按与模型结果无关的 family hash 选题；8 道 smoke 题及其 family 保持独立。该子集不使用本轮暂缓的 direction_fit/transfer_pairs，不能代表完整论文检验。
 
@@ -57,6 +60,14 @@ smoke 失败保留诊断、不启动正式生成。正式 cohort 也执行上述
 依次查看 `length_pilot.json`、`parser_coverage.json`、`paired_pilot.json`、`smoke/measurement_report.json`、`smoke/smoke_report.json`、`smoke/layer_selection.json`、`smoke/intervention_coverage.json` 和 `logs/`。相同源码和参数可以恢复；本次修订改变解析和匹配协议，旧运行目录不能直接 resume，必须使用新输出根目录。
 
 ## 数据与测量协议
+
+`--trajectory-protocol natural` 是默认的旧自然条件。新条件必须显式指定 `quantity_steps`，同时使用 `--premise-protocol sentence_graph`；启动器已经传递这两个参数。`protocol.json`、任务/轨迹 metadata、prepare 配置、检查点指纹和测量报告分别记录条件、匹配规则与测量对象，混合条件不能共用测量表。
+
+受控条件的格式为 `<step node="登记ID">自由推理 <commit>整数</commit></step>`。提示提供任务 DAG 中已有数量的 ID、名称和计算顺序，不提供节点数值、标准答案或依赖集合；顺序来自已知任务结构，属于显式控制，不是自然条件中模型自行发现的步骤。每个节点一次提交，块内可以推敲和修改。匹配对象是这次明确提交的数量结果，不包含每个算术微步骤、复述或反复确认。C1 需要和同样知道节点计划的文本/任务成员基线比较；本条件不能单独证明自由推理中的潜在依赖可解码。
+
+匹配使用 `registered_quantity_steps_v1`，按登记节点、作用域和区域配对，不依赖结果值、标准答案、表达式形式或位置距离。重复提交保持歧义，缺失步骤保留在登记支持分母；不会因模型少输出步骤而提高覆盖率。格式检查从生成文本重算，排除提示中的示例标签；未登记 ID、重复、缺失、乱序、损坏标签或 answer 区域中的 step 都记录为失败。24 条 base 的格式检查在新增配对生成之前执行，写入 `registered_step_formats.json`；配对 pilot 和全扫描也检查编辑及噪声轨迹。原有覆盖和 C2 检查不降低。
+
+受控条件的 `rho` 是“每个登记数量一次提交”的响应率超额，保留有符号噪声扣除、共同支持及缺失状态；不替换旧自然轨迹的 `rho`。`pre_step` 在整个 step 开始之前，`pre_value` 在提交整数之前；不把已经生成的算术推理误当成步骤之前的信息。C2 使用精确 token 前缀续写，解析时恢复完整已生成上下文并剥离提示，解决缩写声明和跨切点标签丢失；只把切点后新提交的节点用于 donor-follow 判定，完整上下文用于格式检查。解码答案虽存在但格式无效时仍标记 invalid。受控条件的非目标集合改为编辑脏锥之外的计算节点；`nontarget_observable_nodes` 记录切点后实际观察到的节点，没有观测时 `nontarget=null`，不能用提示前提或已经固定在前缀中的结果虚构保留率。
 
 `--premise-protocol sentence_graph` 从官方模板 DAG 重建自然语言题：每个数值事实、每个运算关系各占一个句子，并加入两个不在目标 DAG 中的数值事实。隐含聚合关系显式化，真值从独立表达式重算，原题和模板保留在 metadata。
 

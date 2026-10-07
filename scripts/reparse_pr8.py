@@ -10,10 +10,11 @@ from pathlib import Path
 
 from reasoning_diff import cli
 from reasoning_diff.artifacts import write_manifest, write_run_spec
-from reasoning_diff.events import ALIGNMENT_POLICY, assign_event_regions, parse_events
+from reasoning_diff.events import assign_event_regions, parse_events
 from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
 from reasoning_diff.next_round import cached_paired_screen, measurement_report, trace_labels, trajectory_table
 from reasoning_diff.schema import Edit, Task, Trace
+from reasoning_diff.quantity_steps import PROTOCOL
 
 
 def reparse_trace(row, task, parser_hash):
@@ -107,7 +108,7 @@ def remeasure(source, output, *, report_only=False):
     parser_hash = file_digest(Path(cli.__file__).with_name("events.py"))
     measurement_hashes = {path.name: file_digest(path) for path in (
         Path(__file__), Path(cli.__file__), Path(cli.__file__).with_name("events.py"),
-        Path(cli.__file__).with_name("next_round.py"))}
+        Path(cli.__file__).with_name("next_round.py"), Path(cli.__file__).with_name("quantity_steps.py"))}
     traces = {row["id"]: reparse_trace(row, tasks[row["task_id"]], parser_hash) for row in original["traces.jsonl"]}
     comparisons = {}
     for row in original["observations.jsonl"]:
@@ -123,25 +124,32 @@ def remeasure(source, output, *, report_only=False):
               "source_prepare": str(source), "input_hashes": hashes, "parser_hash": parser_hash,
               "measurement_source_hashes": measurement_hashes,
               "n_traces": len(rows), "n_real_comparisons": len(comparisons),
-              "matching_policy": ALIGNMENT_POLICY, "coverage_threshold": 0.5,
+              "coverage_threshold": 0.5,
               "before": summary(original["traces.jsonl"], before), "after": summary(rows, table),
               "formal_launch_ready": False, "remaining_checks": "new features, fits and causal smoke required"}
     quality = measurement_report(rows, original["tasks.jsonl"], obs_rows, original["splits.jsonl"])
+    report["matching_policy"] = quality["matching_policy"]
+    report["trajectory_protocol"] = quality["trajectory_protocol"]
+    report["measurement_estimand"] = quality["measurement_estimand"]
     report["measurement_quality"] = quality
     report["cached_paired_screen"] = cached_paired_screen(rows, original["tasks.jsonl"], obs_rows, original["splits.jsonl"])
     if not quality["passed"] or not report["cached_paired_screen"]["passed"]:
         report["remaining_checks"] = "saved measurement checks failed; resolve and audit step correspondence before new generation"
     report["matched_cell_gate_passed"] = quality["checks"]["matched_cell_coverage"]
-    final = {key: final_commitments(trace) for key, trace in traces.items()}
-    final_rows = [trace.to_dict() for trace in final.values()]
-    final_obs = [obs.to_dict() for obs in rebuild_observations(final, tasks, edits, comparisons)]
-    final_table = trajectory_table(final_rows, original["tasks.jsonl"], final_obs, original["splits.jsonl"])
-    report["final_commitment_diagnostic"] = {
-        **summary(final_rows, final_table), "status": "diagnostic_only",
-        "estimand": "last_explicit_thinking_assignment_per_entity_and_scope",
-        "selection": "text_position_independent_of_answer_values",
-        "limitation": "entity-level results do not replace all-step reasoning dependency measurements",
-    }
+    final_table = []
+    if quality["trajectory_protocol"] == PROTOCOL:
+        report["final_commitment_diagnostic"] = {"status": "not_applicable_registered_steps"}
+    else:
+        final = {key: final_commitments(trace) for key, trace in traces.items()}
+        final_rows = [trace.to_dict() for trace in final.values()]
+        final_obs = [obs.to_dict() for obs in rebuild_observations(final, tasks, edits, comparisons)]
+        final_table = trajectory_table(final_rows, original["tasks.jsonl"], final_obs, original["splits.jsonl"])
+        report["final_commitment_diagnostic"] = {
+            **summary(final_rows, final_table), "status": "diagnostic_only",
+            "estimand": "last_explicit_thinking_assignment_per_entity_and_scope",
+            "selection": "text_position_independent_of_answer_values",
+            "limitation": "entity-level results do not replace all-step reasoning dependency measurements",
+        }
     if hashes != {name: file_digest(source / name) for name in filenames}:
         raise ValueError("original prepare artifacts changed during remeasurement")
     output.mkdir(parents=True, exist_ok=True)

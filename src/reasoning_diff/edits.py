@@ -318,6 +318,11 @@ def make_source_value_pair(task: Task, premise_id: str, new_literal: str) -> dic
     value_edit = apply_value_edit(task, premise_id, new_literal)
     source_edit = apply_alt_source_same_value(task, premise_id)
     nontargets = [p.premise_id for p in task.premises if p.premise_id != premise_id]
+    from .quantity_steps import is_controlled
+    if is_controlled(task):
+        from .graphs import dirty_cone
+        changed = dirty_cone(task, {premise_id})
+        nontargets = [n.id for n in task.nodes if n.id not in changed]
     return {
         "same_source_diff_value": value_edit,
         "same_value_diff_source": source_edit,

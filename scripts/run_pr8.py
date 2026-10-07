@@ -22,7 +22,8 @@ from reasoning_diff.events import ALIGNMENT_POLICY
 from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
 from reasoning_diff.next_round import (intervention_coverage, measurement_report, parser_coverage,
                                        registered_pilot_edits, select_dev_layer, smoke_report)
-from reasoning_diff.schema import Trace
+from reasoning_diff.schema import Task, Trace
+from reasoning_diff.quantity_steps import ESTIMAND, MATCHING_POLICY, PROTOCOL, is_controlled, trace_format
 from reasoning_diff.splits import DEFAULT_FRACTIONS, split_for_task
 from reasoning_diff.tasks.t1_official import load_igsm_snapshot
 
@@ -75,6 +76,7 @@ def pilot_worker(args):
     from trace_batching import BatchDecoder
     opts = cli.build_parser().parse_args(["prepare", "--fixture", str(args.dataset), "--kind", "igsm",
                                          "--out-dir", str(args.out_root), "--premise-protocol", "sentence_graph",
+                                         "--trajectory-protocol", getattr(args, "trajectory_protocol", "natural"),
                                          "--eval-mode", "scientific", "--backend", "frozen", "--model-name", args.model, "--device", "cuda"])
     tasks = cli._load_tasks(opts)
     paired = getattr(args, "mode", "pilot-worker") == "pair-pilot-worker"
@@ -82,7 +84,7 @@ def pilot_worker(args):
     out.mkdir(parents=True, exist_ok=True)
     spec = {"source": {p.relative_to(REPO).as_posix(): file_digest(p) for directory in ("src", "scripts") for p in sorted((REPO / directory).rglob("*.py"))},
             "tasks": [digest(t.to_dict()) for t in tasks], "model": args.model, "max_new": args.max_new, "seeds": [0, 1, 2],
-            "batch_size": args.batch_size}
+            "batch_size": args.batch_size, "trajectory_protocol": getattr(args, "trajectory_protocol", "natural")}
     spec_name = "paired_pilot_spec.json" if paired else "pilot_spec.json"
     if paired and (not (out / "pilot_spec.json").exists() or read_json(out / "pilot_spec.json") != spec):
         raise ValueError("paired pilot base protocol mismatch; use a new output root")
@@ -149,6 +151,12 @@ def pilot_worker(args):
         # Only seed 0 is edited in this cheap screen; seeds 1/2 provide noise.
         references = [bases[index, 0].to_dict() for index in range(len(tasks))]
         report = measurement_report(references, [task.to_dict() for task in tasks], [o.to_dict() for o in observations], [], scanned)
+        if any(is_controlled(task) for task in tasks):
+            formats = {row["id"]: trace_format(row, task) for row, (_, task, _, _) in zip(rows, requests)}
+            report["registered_step_formats"] = formats
+            report["checks"]["registered_step_format"] = all(row["passed"] for row in formats.values())
+            report["failures"] = [key for key, passed in report["checks"].items() if not passed]
+            report["passed"] = not report["failures"]
         report["pilot_protocol"] = {"edit_seed": 0, "noise_seeds": [1, 2], "scanned_premises": scanned,
                                     "scope": "relevant_fact_and_two_distractors", "formal_evidence": False}
         write_json(out / "paired_measurement.json", report)
@@ -190,6 +198,7 @@ def main(argv=None):
     parser.add_argument("--model", choices=("qwen3-8b", "r1-distill-qwen-7b"), default="qwen3-8b")
     parser.add_argument("--gpus", type=int, nargs="+", default=[2, 3, 6])
     parser.add_argument("--batch-size", type=int, default=2)
+    parser.add_argument("--trajectory-protocol", choices=("natural", "quantity_steps"), default="natural")
     parser.add_argument("--max-new", type=int, default=32768)
     parser.add_argument("--formal-limit", type=int, help="Balanced exploratory subset; default uses all remaining problems")
     parser.add_argument("--time-budget-hours", type=float, help="Stop subprocesses at the persisted wall-clock deadline")
@@ -225,9 +234,11 @@ def main(argv=None):
     smoke, full = cohorts(args.dataset.glob("igsm-official-*.json"))
     full = limit_formal(full, args.formal_limit)
     protocol = {"premise_protocol": "sentence_graph_v1", "noise": "directed_base_seed_pairs_common_cells",
+                "trajectory_protocol": PROTOCOL if args.trajectory_protocol == "quantity_steps" else "natural",
+                "measurement_estimand": ESTIMAND if args.trajectory_protocol == "quantity_steps" else "natural_parsed_steps",
                 "max_new": args.max_new, "context_policy": "budget_clipped_to_remaining_card_context",
                 "seeds": [0, 1, 2], "temperature": 0.6, "top_k": 20, "top_p": 0.95,
-                "matching_policy": ALIGNMENT_POLICY, "coverage_threshold": 0.5,
+                "matching_policy": MATCHING_POLICY if args.trajectory_protocol == "quantity_steps" else ALIGNMENT_POLICY, "coverage_threshold": 0.5,
                 "measurement_checks": "overall_and_each_problem_and_op_before_collection",
                 "paired_pilot": {"edit_seed": 0, "noise_seeds": [1, 2], "facts": "first_relevant_definition_and_two_distractors"},
                 "batch_size": args.batch_size, "gpus": args.gpus, "model": args.model,
@@ -300,10 +311,11 @@ def main(argv=None):
     with ThreadPoolExecutor(max_workers=len(args.gpus)) as pool:
         jobs = [pool.submit(run, f"pilot-gpu{gpu}", [sys.executable, Path(__file__), "--mode", "pilot-worker", "--dataset", path,
                      "--out-root", root / f"pilot-gpu{gpu}", "--model", args.model, "--max-new", args.max_new,
-                     "--batch-size", args.batch_size], gpu) for gpu, path in pilot_inputs]
+                     "--batch-size", args.batch_size, "--trajectory-protocol", args.trajectory_protocol], gpu) for gpu, path in pilot_inputs]
         for job in jobs:
             job.result()
     pilot_traces = [t for gpu, _ in pilot_inputs for t in read_jsonl(root / f"pilot-gpu{gpu}/traces.jsonl")]
+    pilot_tasks = None
     by_op = {}
     for trace in pilot_traces:
         op = str(trace["metadata"].get("op"))
@@ -313,6 +325,12 @@ def main(argv=None):
                     "exact_boundaries": all(t["metadata"].get("boundary_status") == "ok" for t in pilot_traces),
                     "thinking_events": all(any(e.get("event_region") == "thinking" and e.get("event_kind") != "restatement" for e in t["events"]) for t in pilot_traces)}
     pilot_checks["completion_each_op"] = bool(completions) and all(rate >= 0.5 for rate in completions.values())
+    if args.trajectory_protocol == "quantity_steps":
+        pilot_tasks = [task for gpu, _ in pilot_inputs for task in read_jsonl(root / f"pilot-gpu{gpu}/tasks.jsonl")]
+        owners = {t["task_id"]: Task.from_dict(t) for t in pilot_tasks}
+        formats = {t["id"]: trace_format(t, owners[t["task_id"]]) for t in pilot_traces}
+        write_json(root / "registered_step_formats.json", formats)
+        pilot_checks["registered_step_format"] = bool(formats) and all(row["passed"] for row in formats.values())
     write_json(root / "length_pilot.json", {"checks": pilot_checks, "passed": all(pilot_checks.values()),
                "n_traces": len(pilot_traces), "completion_by_op": completions,
                "generated_lengths": [t["metadata"]["generated_tokens"] for t in pilot_traces],
@@ -321,7 +339,8 @@ def main(argv=None):
         write_json(root / "pipeline.json", {"status": "failed", "stage": "length_pilot", "error": "length/parser pilot failed",
                    "scientific_conclusion": None})
         raise RuntimeError("length/parser pilot failed; inspect length_pilot.json and pilot traces before spending on scans")
-    pilot_tasks = [task for gpu, _ in pilot_inputs for task in read_jsonl(root / f"pilot-gpu{gpu}/tasks.jsonl")]
+    if pilot_tasks is None:
+        pilot_tasks = [task for gpu, _ in pilot_inputs for task in read_jsonl(root / f"pilot-gpu{gpu}/tasks.jsonl")]
     parser_rows = parser_coverage(pilot_traces, pilot_tasks)
     write_json(root / "parser_coverage.json", {"trajectories": parser_rows, "step_recall": "requires_annotated_steps"})
     by_problem = {}
@@ -334,7 +353,8 @@ def main(argv=None):
     with ThreadPoolExecutor(max_workers=len(args.gpus)) as pool:
         jobs = [pool.submit(run, f"paired-pilot-gpu{gpu}", [sys.executable, Path(__file__), "--mode", "pair-pilot-worker",
                 "--dataset", path, "--out-root", root / f"pilot-gpu{gpu}", "--model", args.model,
-                "--max-new", args.max_new, "--batch-size", args.batch_size], gpu) for gpu, path in pilot_inputs]
+                "--max-new", args.max_new, "--batch-size", args.batch_size,
+                "--trajectory-protocol", args.trajectory_protocol], gpu) for gpu, path in pilot_inputs]
         for job in jobs:
             job.result()
     paired_reports = [read_json(root / f"pilot-gpu{gpu}/paired_measurement.json") for gpu, _ in pilot_inputs]
@@ -351,7 +371,8 @@ def main(argv=None):
             jobs = [pool.submit(run, f"{name}-prepare-gpu{gpu}", [sys.executable, REPO / "scripts/prepare_batched.py", "--batch-size", args.batch_size,
                     "prepare", "--fixture", path, "--out-dir", work / f"prepare-gpu{gpu}", "--kind", "igsm", "--backend", "frozen",
                     "--model-name", args.model, "--device", "cuda", "--max-new", args.max_new, "--eval-mode", "scientific",
-                    "--premise-protocol", "sentence_graph", "--noise-reference", "base_pairs", "--n-seeds", "3", "--behavior-repeats", "3",
+                    "--premise-protocol", "sentence_graph", "--trajectory-protocol", args.trajectory_protocol,
+                    "--noise-reference", "base_pairs", "--n-seeds", "3", "--behavior-repeats", "3",
                     "--split-fractions", *DEFAULT_FRACTIONS, "--checkpoint-traces", "--resume"], gpu) for gpu, path in inputs]
             for job in jobs:
                 job.result()

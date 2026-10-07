@@ -390,6 +390,11 @@ def _default_edit(task: Task) -> tuple[str, str]:
 
 
 def _load_tasks(args) -> list[Task]:
+    if getattr(args, "trajectory_protocol", "natural") == "quantity_steps":
+        from .quantity_steps import controlled_task
+        legacy = copy.copy(args)
+        legacy.trajectory_protocol = "natural"
+        return [controlled_task(task) for task in _load_tasks(legacy)]
     if getattr(args, "premise_protocol", "leaf") == "sentence_graph":
         from .next_round import sentence_graph_task
         legacy = copy.copy(args)
@@ -666,6 +671,7 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         "eval_mode": eval_mode,
         "kind": getattr(args, "kind", "t1_fixture"),
         "premise_protocol": getattr(args, "premise_protocol", "leaf"),
+        "trajectory_protocol": getattr(args, "trajectory_protocol", "natural"),
         "noise_reference": getattr(args, "noise_reference", "independent_sham"),
         "split_seed": args.split_seed,
         "split_fractions": list(fractions),
@@ -2739,6 +2745,19 @@ def _expressible_donor(
     return None
 
 
+def _parse_intervention_events(task, text, prefix_char_len, rendered_prompt=""):
+    """Resolve aliases/partial tags using context, score only newly emitted steps."""
+    from .events import assign_event_regions
+    if rendered_prompt and not text.startswith(rendered_prompt):
+        raise ValueError("intervention does not preserve the rendered prompt")
+    body = text[len(rendered_prompt):]
+    cut = prefix_char_len - len(rendered_prompt)
+    if cut < 0 or cut > len(body):
+        raise ValueError("intervention prefix falls outside generated text")
+    events = assign_event_regions(parse_events(body, task), body, initial_thinking=True)
+    return body, [e for e in events if e.end > cut and e.event_region == "thinking" and e.status == "ok"]
+
+
 def cmd_intervene(args: argparse.Namespace) -> int:
     """Run intervention and persist scientific prerequisite failures as rows."""
     if getattr(args, "all_source_pairs", False):
@@ -3017,6 +3036,8 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                 if task_path.exists():
                     task_data = next(row for row in read_jsonl(task_path) if row.get("task_id") == base_row.get("task_id"))
                     base_task = Task.from_dict(task_data)
+                    hook_meta["trajectory_protocol"] = base_task.metadata.get("trajectory_protocol", "natural")
+                    hook_meta["measurement_estimand"] = base_task.metadata.get("measurement_estimand", "natural_parsed_steps")
                     gold = base_task.answer_spec.value
                     answer_kind = base_task.answer_spec.kind
                     answer_aliases = base_task.answer_spec.aliases
@@ -3128,14 +3149,27 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                         return None
                     return extract_answer(text, answer_kind)
 
-                def _parse_nodes(text: str) -> dict[str, str]:
-                    return {e.node_id: e.value for e in parse_events(text, base_task)}
-
                 def _outcomes(decoded):
                     text = _decode_text(decoded)
                     ans = _extract_intervention_answer(text)
                     score = answer_score(ans, gold, answer_kind, answer_aliases)
-                    parsed = _parse_nodes(text)
+                    from .quantity_steps import is_controlled, format_report
+                    if (scientific and backend == "frozen") or is_controlled(base_task):
+                        prefix_text = _decode_text({"generated_ids": ids})
+                        full_text = _decode_text({"generated_ids": ids + list(decoded.get("generated_ids") or [])})
+                        if not full_text.startswith(prefix_text):
+                            raise ValueError("scientific intervene refuses an inexact continuation prefix")
+                        try:
+                            body, continued = _parse_intervention_events(base_task, full_text, len(prefix_text),
+                                                                       (base_row.get("metadata") or {}).get("rendered_prompt_text", ""))
+                        except ValueError as exc:
+                            raise ValueError(f"scientific intervene refuses invalid continuation boundaries: {exc}") from exc
+                    else:
+                        # Tiny/non-scientific fixtures do not have a faithful
+                        # tokenizer round trip or an authenticated prompt.
+                        body, continued = _parse_intervention_events(base_task, text, 0)
+                    parsed = {e.node_id: e.value for e in continued}
+                    step_format = format_report(body, base_task) if is_controlled(base_task) else None
                     def _match(value, expected):
                         result = answer_score(value, expected, answer_kind)
                         return None if result.get("correct") is None else float(result["correct"])
@@ -3152,6 +3186,8 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                         truth.update({p.premise_id: p.value for p in base_task.premises if p.kind != "relation"})
                         observed = [n for n in pair_nontargets if n in parsed and n in truth]
                         nontarget = float(all(_match(parsed[n], truth[n]) == 1.0 for n in observed)) if observed else None
+                    elif is_controlled(base_task):
+                        nontarget = None
                     elif equivalent:
                         nontarget = None
                     else:
@@ -3161,7 +3197,9 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                         "target": target,
                         "nontarget": nontarget,
                         "task_correct": None if score["correct"] is None else float(score["correct"]),
-                        "invalid": 1.0 if ans is None else 0.0,
+                        "invalid": float(ans is None or (step_format is not None and not step_format["passed"])),
+                        "quantity_step_format": step_format,
+                        "nontarget_observable_nodes": sorted(n for n in pair_nontargets if n in parsed),
                         "decode_stop_reason": decoded.get("stop_reason"),
                         "decode_complete": decoded.get("stop_reason") in {"eos", "stop_condition"},
                         "answer": ans,
@@ -3277,6 +3315,10 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
             "nontarget": item.get("nontarget"),
             "task_correct": item.get("task_correct"),
             "invalid": item.get("invalid"),
+            "quantity_step_format": item.get("quantity_step_format"),
+            "nontarget_observable_nodes": item.get("nontarget_observable_nodes"),
+            "trajectory_protocol": (report or {}).get("trajectory_protocol"),
+            "measurement_estimand": (report or {}).get("measurement_estimand"),
             "decode_stop_reason": item.get("decode_stop_reason"),
             "decode_complete": item.get("decode_complete"),
             "actual_norm": item.get("actual_norm"),
@@ -3854,6 +3896,7 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--require-valid-traces", action="store_true", help=argparse.SUPPRESS)
     prepare.add_argument("--behavior-repeats", type=int, default=None)
     prepare.add_argument("--premise-protocol", choices=("leaf", "sentence_graph"), default="leaf")
+    prepare.add_argument("--trajectory-protocol", choices=("natural", "quantity_steps"), default="natural")
     prepare.add_argument("--noise-reference", choices=("independent_sham", "base_pairs"), default="independent_sham")
     prepare.set_defaults(func=cmd_prepare)
 

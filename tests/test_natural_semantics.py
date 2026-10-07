@@ -168,3 +168,43 @@ def test_inline_parenthetical_alias_before_prose_predicate(forest_task, declarat
     expected = next(n.id for n in forest_task.nodes if "Starfish's Nasal Cavity" in n.aliases)
     assert [(e.node_id, e.value) for e in parsed] == [(expected, '8')]
     assert all(text[e.value_start:e.end] == e.value for e in parsed)
+
+
+@pytest.mark.parametrize('head', ['Substituting the value of q:', 'q ='])
+def test_assignment_head_cannot_capture_another_line(t1_tiny_path, head):
+    task = load_t1_fixture(t1_tiny_path)
+    parsed = events(head + '\n\np1 = 3.', task)
+    assert not any(e.node_id == 'q' for e in parsed)
+    assert all('\n' not in e.text for e in parsed)
+
+
+@pytest.mark.parametrize('name,symbol', [
+    ("New Grand Mart's Canned Vegetables", 'Cnv'),
+    ("Asia Supermarket's Canned Vegetables", 'Cvas'),
+    ("Asia Supermarket's Canned Corn", 'Cc'),
+])
+def test_named_topic_supports_quantity_first_initials(name, symbol):
+    path = Path(__file__).resolve().parents[1] / 'artifacts/rd-pr7-qwen200-20261004-light/inputs/igsm-pilot200/igsm-official-0007-op21.json'
+    task = sentence_graph_task(load_igsm_snapshot(path))
+    text = f'The number of {name} equals a sum. So, {symbol} = 5.'
+    expected = next(n.id for n in task.nodes if name in n.aliases)
+    assert [(e.node_id,e.value) for e in events(text,task)] == [(expected,'5')]
+    assert events(f'{symbol} = 5.',task) == []
+
+
+@pytest.mark.parametrize('text', ['q is also 3.', 'q is still 3.', 'q is equal to 3.'])
+def test_explicit_prose_scalar_is_a_commit(t1_tiny_path, text):
+    parsed = events(text, load_t1_fixture(t1_tiny_path))
+    assert [(e.node_id,e.value,e.event_kind) for e in parsed] == [('q','3','commit')]
+
+
+def test_printed_copy_value_uses_named_subject_scope():
+    path = Path(__file__).resolve().parents[1] / 'artifacts/rd-pr7-qwen200-20261004-light/inputs/igsm-pilot200/igsm-official-0045-op10.json'
+    task = sentence_graph_task(load_igsm_snapshot(path))
+    text = "Aerobics Studio's Backpacking Pack: same as Rucksack, 3."
+    other = "Aerobics Studio's Backpacking Pack = Aerobics Studio's Rucksack = 4."
+    aa,bb=events(text,task),events(other,task)
+    assert len(aa)==len(bb)==1
+    assert aa[0].event_phase=='copy' and aa[0].expression_signature==bb[0].expression_signature
+    assert len(align_events(aa,bb)['pairs']) == 1
+    assert text[aa[0].value_start:aa[0].end] == '3'

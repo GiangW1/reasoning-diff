@@ -74,6 +74,15 @@ def _topic_alias_matches(symbol, name):
     if _abbreviates(symbol, name):
         return True
     local_name = name.rsplit("'s ", 1)[-1]
+    if _abbreviates(symbol, local_name):
+        return True
+    # An explicit named topic can introduce quantity-first initials (Cvas
+    # for Asia Supermarket's Canned Vegetables), including omitted words.
+    # This is context-scoped, never a global alias guess.
+    letters = symbol.replace('_', '').casefold()
+    initials = Counter(word[0] for word in re.findall(r'[a-z]+', _entity_name(name)))
+    if len(letters) >= 2 and letters.isalpha() and not (Counter(letters) - initials):
+        return True
     return len(symbol) == 1 and bool(local_name) and symbol.casefold() == local_name[0].casefold()
 
 
@@ -288,8 +297,9 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
     number = re.compile(NUMBER)
     for result in number.finditer(rhs):
         prefix = rhs[:result.start()].strip().strip("$").strip()
-        scalar = prefix == "" or re.fullmatch(r"\(*\s*", prefix)
-        if not scalar and not re.search(r"(?:=|≡|\\equiv)$", prefix):
+        scalar = prefix == "" or re.fullmatch(r"(?:(?:also|still|equal to)\b\s*)?\(*\s*", prefix, re.I)
+        prose_copy = re.fullmatch(r"(?:the )?same as\s+(.+?),\s*(?:so\s*)?", prefix, re.I)
+        if not scalar and not prose_copy and not re.search(r"(?:=|≡|\\equiv)$", prefix):
             continue
         suffix = rhs[result.end():]
         # A close parenthesis or a LaTeX marker cannot hide pending math.
@@ -312,9 +322,11 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
             rest = rest[annotation.end():].lstrip()
         if rest and not re.match(r"[.,;?!]|</", rest):
             continue
-        expressions = [] if scalar else re.split(r"=|≡|\\equiv\b", prefix)[:-1]
+        expressions = [prose_copy.group(1)] if prose_copy else [] if scalar else re.split(r"=|≡|\\equiv\b", prefix)[:-1]
         trees = [_expression_tree(expr, entities) for expr in expressions]
         if any(tree is None for tree in trees):
+            continue
+        if prose_copy and trees[0][0] != "copy":
             continue
         phase, signature = trees[0] if trees else ("commit", "scalar")
         if any(tree[0] == "reduction" for tree in trees) or re.search(r"≡|\\equiv\b", prefix):
@@ -344,9 +356,9 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
     for alias, node_id, gold, scope, parents, graph_status in entities:
         if counts[alias.casefold()] != 1:
             continue
-        closing = r"\s*\)?" if alias.casefold() in declarations else ""
+        closing = r"[ \t]*\)?" if alias.casefold() in declarations else ""
         pattern = re.compile(
-            rf"(?<!\w){re.escape(alias)}{closing}\s*(?:=|:|equals?\b|is\b|are\b)\s*",
+            rf"(?<!\w){re.escape(alias)}{closing}[ \t]*(?:=|:|equals?\b|is\b|are\b)[ \t]*",
             re.IGNORECASE,
         )
         for match in pattern.finditer(text):
@@ -373,6 +385,13 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 visible_entities = [entity for entity in entities if entity[0].casefold() not in declarations
                                     or declarations[entity[0].casefold()][1] <= start
                                     or (entity[0].casefold(), entity[1]) in registered]
+                # A named destination supplies the lexical namespace for a
+                # shortened RHS (Studio's Pack: same as Rucksack, 3).
+                owners = {a.rsplit("'s ", 1)[0] for a, nid, *_ in visible_entities if nid == node_id and "'s " in a}
+                if len(owners) == 1:
+                    owner = next(iter(owners)) + "'s "
+                    visible_entities += [(a[len(owner):], *entity[1:]) for entity in visible_entities
+                                         if (a := entity[0]).startswith(owner)]
                 result = _numeric_commit(text, match.end(), visible_entities)
                 if result is None:
                     continue

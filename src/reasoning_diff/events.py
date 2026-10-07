@@ -12,7 +12,7 @@ from .graphs import ancestors
 from .schema import Event, EventIdentity, Task, canonical_value
 
 NUMBER = r"[+-]?(?:(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
-ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v7"
+ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v8"
 
 
 def context_entity_token(node_id):
@@ -240,6 +240,42 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     return {key: value for key, value in declared.items() if value is not None}
 
 
+def _prose_arithmetic(expression):
+    """Translate explicitly grouped binary arithmetic prose, without evaluation."""
+    pieces, index = [], 0
+    while index < len(expression):
+        if expression[index] != '(':
+            pieces.append(expression[index])
+            index += 1
+            continue
+        end, depth = index + 1, 1
+        while end < len(expression) and depth:
+            depth += (expression[end] == '(') - (expression[end] == ')')
+            end += 1
+        if depth:
+            raise ValueError('unclosed prose expression')
+        pieces.append('(' + _prose_arithmetic(expression[index + 1:end - 1]) + ')')
+        index = end
+    rendered = ''.join(pieces).strip()
+    operation = re.match(r'(?:the\s+)?(sum of|product of|difference between)\s+', rendered, re.I)
+    if not operation:
+        return rendered
+    body = rendered[operation.end():]
+    depth, separators = 0, []
+    for match in re.finditer(r'[()]|\band\b', body, re.I):
+        if match.group() == '(':
+            depth += 1
+        elif match.group() == ')':
+            depth -= 1
+        elif depth == 0:
+            separators.append(match)
+    if len(separators) != 1:
+        raise ValueError('ambiguous prose operands')
+    sep = separators[0]
+    operator = {'sum of': '+', 'product of': '*', 'difference between': '-'}[operation.group(1).lower()]
+    return '(' + _prose_arithmetic(body[:sep.start()]) + operator + _prose_arithmetic(body[sep.end():]) + ')'
+
+
 def _expression_tree(expression: str, entities: list[tuple]):
     """Validate printed arithmetic and derive a value-blind structural key."""
     expression = expression.strip().strip("$")
@@ -256,6 +292,11 @@ def _expression_tree(expression: str, entities: list[tuple]):
             continue
         symbol = f"entity_{index}"
         pattern = rf"(?<!\w)(?:(?:the\s+)?number of\s+)?{re.escape(alias)}(?!\w)"
+        # Printed scalar annotations on names are not function calls or
+        # multiplication. Bare numeric annotations require a human name;
+        # p1(22) remains unsupported rather than silently changing its meaning.
+        annotation = r'which\s+is\s+' if not re.search(r"\s|'s", alias) else r'(?:which\s+is\s+)?'
+        pattern += r'(?:[ \t]*\(' + annotation + NUMBER + r'\))?'
         expression = re.sub(pattern, symbol, expression, flags=re.IGNORECASE)
         symbols[symbol] = next(iter(names[alias]))
     # Replace operators after entity names, so names containing e.g. "Plus"
@@ -264,6 +305,8 @@ def _expression_tree(expression: str, entities: list[tuple]):
                             (r'multiplied by|times', '*'), (r'divided by', '/')):
         expression = re.sub(r'\b(?:' + words + r')\b', operator, expression, flags=re.I)
     try:
+        if re.search(r'\b(?:sum of|product of|difference between)\b', expression, re.I):
+            expression = _prose_arithmetic(expression)
         tree = ast.parse(expression, mode="eval")
     except (SyntaxError, ValueError):
         return None
@@ -302,6 +345,9 @@ def _numeric_commit(text: str, start: int, entities: list[tuple], *, target_node
     line_end = text.find("\n", start)
     line_end = len(text) if line_end < 0 else line_end
     rhs = text[start:line_end]
+    # Keep source offsets while preventing an operand annotation's "is"
+    # from being mistaken for another relation in the equation chain.
+    rhs = re.sub(r'\(which\s+is\s+' + NUMBER + r'\)', lambda m: ' ' * len(m.group()), rhs, flags=re.I)
     number = re.compile(NUMBER)
     for result in number.finditer(rhs):
         prefix = rhs[:result.start()].strip().strip("$").strip()
@@ -384,11 +430,12 @@ def _adjacent_substitution(text, start, entities):
     # Stay within a single line; a new paragraph/region cannot supply the work.
     line = text[start:].split('\n', 1)[0]
     follow = re.match(r'(?P<formula>.+?)\.[ \t]+', line)
-    formula = _expression_tree(follow.group('formula'), entities) if follow else None
-    if formula is None or formula[0] not in {'calculation', 'reduction', 'copy'}:
+    formulas = [_expression_tree(part, entities) for part in follow.group('formula').split('=')] if follow else []
+    if not formulas or any(f is None or f[0] not in {'calculation', 'reduction', 'copy'} for f in formulas):
         return None
+    formula = formulas[0]
     offset = follow.end()
-    direct = re.match(r'(?:So[ \t]+)?(?P<work>[+\-(\d])', line[offset:], re.I)
+    direct = re.match(r'(?:(?:So|That\x27s|That is)[ \t]+|Let me compute that[.:][ \t]+)?(?P<work>[+\-(\d])', line[offset:], re.I)
     operand = None if direct else re.match(r'(?:Since[ \t]+)?(?P<name>[^.,;!?=]+?)[ \t]+(?:is|equals?)[ \t]+'
                        + NUMBER + r'(?P<connector>,[ \t]*(?:so[ \t]+)?|\.[ \t]+So[ \t]+)',
                        line[offset:], re.I)
@@ -417,12 +464,12 @@ def _adjacent_substitution(text, start, entities):
         return None
     printed = _numeric_commit(text, start + offset, [])
     if (not printed or printed[3] != 'calculation' or any('Name(' in v for v in printed[6])
-            or _substitution_shape(formula[1], before_reduction=printed[4] != 'reduction')
-            != _substitution_shape(printed[5])):
+            or not any(_substitution_shape(f[1], before_reduction=printed[4] != 'reduction')
+                       == _substitution_shape(printed[5]) for f in formulas)):
         return None
     value_start, end, value, kind, phase, signature, views = printed
     if formula[0] == phase:
-        signature, views = formula[1], list(dict.fromkeys([formula[1], *views]))
+        signature, views = formula[1], list(dict.fromkeys([f[1] for f in formulas if f[0] == phase] + views))
     return value_start, end, value, kind, phase, signature, views
 
 
@@ -451,6 +498,40 @@ def _split_printed_reduction(text, start, result, entities, node_id):
             reduced = (*reduced[:5], signature, [signature])
         return raw, match.start('raw'), reduced
     return None
+
+
+def _adjacent_reduction(text, end, entities):
+    """Read an explicitly printed local reduction; never compute a residue."""
+    separator = re.match(r'[ \t]*(?:\.[ \t]*(?:(?:Then|Since|So(?: that\x27s)?)[ \t]+)?'
+                         r'|,[ \t]*(?:then[ \t]+)?|→[ \t]*)', text[end:], re.I)
+    if separator is None:
+        return None
+    start = end + separator.end()
+    direct = re.match(NUMBER + r'[ \t]*(?:mod(?=\b|\d)|modulo)[ \t]*' + NUMBER
+                      + r'[ \t]*(?:=|is\b|equals?\b)', text[start:], re.I)
+    if direct:
+        result = _numeric_commit(text, start, entities)
+        return (start, result) if result and result[4] == 'reduction' else None
+    division = re.match(r'(?P<raw>' + NUMBER + r')[ \t]+divided by[ \t]+(?P<mod>' + NUMBER
+                        + r')[ \t]+is[ \t]+' + NUMBER + r'[ \t]+with[ \t]+(?:a[ \t]+)?remainder[ \t]+(?:of[ \t]+)?',
+                        text[start:], re.I)
+    heading = re.match(r'(?:modulo|mod)[ \t]*(?P<mod>' + NUMBER + r'),[ \t]*(?P<raw>' + NUMBER + r')(?=[ \t]*-)',
+                       text[start:], re.I)
+    if division:
+        result = _numeric_commit(text, start + division.end(), [])
+        match = division
+        if not result or result[4] != 'commit':
+            return None
+    elif heading:
+        result = _numeric_commit(text, start + heading.start('raw'), [])
+        match = heading
+        shapes = {_expression_tree(expr, [])[1] for expr in ('1 - 1', '1 - 1 * 1')}
+        if not result or result[5] not in shapes:
+            return None
+    else:
+        return None
+    _, signature = _expression_tree(match.group('raw') + ' mod ' + match.group('mod'), [])
+    return start, (*result[:3], 'calculation', 'reduction', signature, [signature])
 
 
 def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Event]:
@@ -536,17 +617,12 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
                 # A directly adjacent anonymous reduction continues this
                 # named calculation. Keep BOTH printed stages: the raw result
                 # must not silently become the residue or leave the denominator.
-                continuation = re.match(
-                    r"[ \t]*(?:\.[ \t]*(?:Then[ \t]+)?|,[ \t]*(?:then[ \t]+)?|→[ \t]*)(?P<expr>"
-                    + NUMBER + r"[ \t]*(?:mod(?=\b|\d)|modulo)[ \t]*" + NUMBER + r"[ \t]*(?:=|is\b|equals?\b))",
-                    text[end:], re.I)
+                continuation = _adjacent_reduction(text, end, visible_entities)
                 if continuation:
-                    reduction_start = end + continuation.start("expr")
-                    reduced = _numeric_commit(text, reduction_start, visible_entities)
-                    if reduced and reduced[4] == "reduction":
-                        rvalue_start, rend, rvalue, rkind, rphase, rsig, rviews = reduced
-                        found.append((reduction_start, rend, rvalue_start, node_id, gold, scope,
-                                      parents, graph_status, rvalue, rkind, rphase, rsig, rviews))
+                    reduction_start, reduced = continuation
+                    rvalue_start, rend, rvalue, rkind, rphase, rsig, rviews = reduced
+                    found.append((reduction_start, rend, rvalue_start, node_id, gold, scope,
+                                  parents, graph_status, rvalue, rkind, rphase, rsig, rviews))
     found.sort(key=lambda item: (item[0], item[1]))
     # "Entity: X = value" names one printed result twice. Use the innermost
     # assignment's arithmetic, keeping the complete statement's start.

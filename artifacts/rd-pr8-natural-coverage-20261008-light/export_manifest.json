@@ -1,30 +1,6 @@
 {
   "excluded": [
     {
-      "bytes": 1900,
-      "path": "logs/pytest-r2.log",
-      "reason": "cache_temporary_test_or_checkpoint_copy",
-      "run": "pr8-v7-recovery-20261007"
-    },
-    {
-      "bytes": 671,
-      "path": "logs/pytest-r3.log",
-      "reason": "cache_temporary_test_or_checkpoint_copy",
-      "run": "pr8-v7-recovery-20261007"
-    },
-    {
-      "bytes": 671,
-      "path": "logs/pytest-r4.log",
-      "reason": "cache_temporary_test_or_checkpoint_copy",
-      "run": "pr8-v7-recovery-20261007"
-    },
-    {
-      "bytes": 1914,
-      "path": "logs/pytest.log",
-      "reason": "cache_temporary_test_or_checkpoint_copy",
-      "run": "pr8-v7-recovery-20261007"
-    },
-    {
       "bytes": 30107393,
       "path": "old-data/events.jsonl",
       "reason": "expanded_generation_data_or_binary",
@@ -186,18 +162,6 @@
       "sha256": "3974362ba982ce7255b88d8e06ea0200b2fde47ec43ae0ceb18c3155c541ac29"
     },
     {
-      "bytes": 751,
-      "path": "logs/pytest-final.log",
-      "reason": "cache_temporary_test_or_checkpoint_copy",
-      "run": "pr8-v8-recovery-20261008"
-    },
-    {
-      "bytes": 751,
-      "path": "logs/pytest-r1.log",
-      "reason": "cache_temporary_test_or_checkpoint_copy",
-      "run": "pr8-v8-recovery-20261008"
-    },
-    {
       "bytes": 33495849,
       "path": "old-data-r1/events.jsonl",
       "reason": "expanded_generation_data_or_binary",
@@ -252,30 +216,6 @@
       "reason": "expanded_generation_data_or_binary",
       "run": "pr8-v9-recovery-20261008",
       "sha256": "62d775819f483dc1f691fe282a56d5e8c975a2b39355a4d8e6080e1d5124be52"
-    },
-    {
-      "bytes": 751,
-      "path": "logs/pytest-coverage-full.log",
-      "reason": "cache_temporary_test_or_checkpoint_copy",
-      "run": "pr8-v9-recovery-20261008"
-    },
-    {
-      "bytes": 751,
-      "path": "logs/pytest-final.log",
-      "reason": "cache_temporary_test_or_checkpoint_copy",
-      "run": "pr8-v9-recovery-20261008"
-    },
-    {
-      "bytes": 751,
-      "path": "logs/pytest-full.log",
-      "reason": "cache_temporary_test_or_checkpoint_copy",
-      "run": "pr8-v9-recovery-20261008"
-    },
-    {
-      "bytes": 1920,
-      "path": "logs/pytest-residue.log",
-      "reason": "cache_temporary_test_or_checkpoint_copy",
-      "run": "pr8-v9-recovery-20261008"
     },
     {
       "bytes": 33500297,
@@ -48354,6 +48294,66 @@
       "path": "tasks.jsonl",
       "run": "pr8-natural-coverage-3gpu-20261008",
       "sha256": "c6d1bd40fd4def87a7d8e9832c91bcb34fd07481fb38ecf4f0aba84a67dd1b39"
+    },
+    {
+      "bytes": 1900,
+      "path": "logs/pytest-r2.log",
+      "run": "pr8-v7-recovery-20261007",
+      "sha256": "94510f2e1b19846b3fa169a70ac4c00c4bb68b0650367e2953488f67055569bc"
+    },
+    {
+      "bytes": 671,
+      "path": "logs/pytest-r3.log",
+      "run": "pr8-v7-recovery-20261007",
+      "sha256": "a0316b56399851d521f363fd5e7727d36d38da6376132016d5f4f947373ffdc5"
+    },
+    {
+      "bytes": 671,
+      "path": "logs/pytest-r4.log",
+      "run": "pr8-v7-recovery-20261007",
+      "sha256": "b128e77b510188b95336fc2e66ffbe4db70b42e92c1d9fbfbe37ccd256a500d0"
+    },
+    {
+      "bytes": 1914,
+      "path": "logs/pytest.log",
+      "run": "pr8-v7-recovery-20261007",
+      "sha256": "e25aa5f3248ba37e380f34ce5269037c4a287372d7ad2acacc0251a170e86692"
+    },
+    {
+      "bytes": 751,
+      "path": "logs/pytest-final.log",
+      "run": "pr8-v8-recovery-20261008",
+      "sha256": "6f52c7ba4b2a438e3d4745eaf4cc9e9eaae523a71cef3df80e90be76182800b6"
+    },
+    {
+      "bytes": 751,
+      "path": "logs/pytest-r1.log",
+      "run": "pr8-v8-recovery-20261008",
+      "sha256": "db27782b1e604af8a51fec69b64c76af597d265afb5496d1878caa9bc0abf362"
+    },
+    {
+      "bytes": 751,
+      "path": "logs/pytest-coverage-full.log",
+      "run": "pr8-v9-recovery-20261008",
+      "sha256": "23c5c9efaa05d57ace68af03ab20c5ec89c57591235dba9ca25de6ac6d422ff4"
+    },
+    {
+      "bytes": 751,
+      "path": "logs/pytest-final.log",
+      "run": "pr8-v9-recovery-20261008",
+      "sha256": "daaaa5a38dea850fc5d1e9c295254c333ec6f150c553cc5fb57b96ea63af3b10"
+    },
+    {
+      "bytes": 751,
+      "path": "logs/pytest-full.log",
+      "run": "pr8-v9-recovery-20261008",
+      "sha256": "69bff01926d86944471b659acd0df7ac072100e8ed3ad81c325199dc53bc18fe"
+    },
+    {
+      "bytes": 1920,
+      "path": "logs/pytest-residue.log",
+      "run": "pr8-v9-recovery-20261008",
+      "sha256": "d2188e9c0ce1bb5da7797aa55c2672a46eb8c63ab82d9648cb4028d94535aa6e"
     }
   ],
   "note": "Original run manifests refer to omitted full artifacts; SHA256SUMS verifies this lightweight export. Expanded generation data is represented by summaries and checkpoint indexes.",

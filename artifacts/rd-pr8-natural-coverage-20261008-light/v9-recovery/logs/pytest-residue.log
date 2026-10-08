@@ -1,0 +1,24 @@
+........................................................................ [ 11%]
+.............................FF......................................... [ 23%]
+........................................................................ [ 34%]
+........................................................................ [ 46%]
+........................................................................ [ 57%]
+........................................................................ [ 69%]
+........................................................................ [ 80%]
+........................................................................ [ 92%]
+.................................................                        [100%]
+=================================== FAILURES ===================================
+E   AssertionError: assert [('25', 'calc...idue_commit')] == [('25', 'calc...2', 'commit')]
+      
+      At index 2 diff: ('2', 'residue_commit') != ('2', 'commit')
+      Use -v to get more diff
+/home/wja/reasoning-diff-pr8-residue-recovery/tests/test_natural_printed_recovery.py:113: AssertionError: assert [('25', 'calc...idue_commit')] == [('25', 'calc...2', 'commit')]
+E   AssertionError: assert [('25', 'calc...idue_commit')] == [('25', 'calc...2', 'commit')]
+      
+      At index 2 diff: ('2', 'residue_commit') != ('2', 'commit')
+      Use -v to get more diff
+/home/wja/reasoning-diff-pr8-residue-recovery/tests/test_natural_printed_recovery.py:113: AssertionError: assert [('25', 'calc...idue_commit')] == [('25', 'calc...2', 'commit')]
+=========================== short test summary info ============================
+FAILED tests/test_natural_printed_recovery.py::test_later_prose_does_not_hide_immediate_printed_substitution[So 15 + 10 = 25.]
+FAILED tests/test_natural_printed_recovery.py::test_later_prose_does_not_hide_immediate_printed_substitution[15 + 10 = 25.]
+2 failed, 623 passed in 70.26s (0:01:10)

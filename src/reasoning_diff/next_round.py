@@ -527,7 +527,7 @@ def matched_baselines(h, y_task, y_beh, event_keys, feature_rows, tasks, traces,
         for i, j in zip(ii, jj):
             tid, identity, node, _record, owner = event_keys[i]
             task = tasks[owner]
-            pid = str(premise_keys[j]).split("::", 1)[-1]
+            pid = str(premise_keys[j]).removeprefix(owner + "::")
             premise = next(p for p in task.premises if p.premise_id == pid)
             row = feature_rows[i]
             boundary = boundaries[i]
@@ -545,7 +545,7 @@ def matched_baselines(h, y_task, y_beh, event_keys, feature_rows, tasks, traces,
         }
         if variable_model is not None:
             predictions["next_variable_to_dag"] = np.array([
-                float(str(premise_keys[j]).split("::", 1)[-1] in ancestors(tasks[event_keys[i][-1]]).get(winners.get(i, (0, ""))[1], set()))
+                float(str(premise_keys[j]).removeprefix(event_keys[i][-1] + "::") in ancestors(tasks[event_keys[i][-1]]).get(winners.get(i, (0, ""))[1], set()))
                 for i, j in zip(ii, jj)])
         for name, scores in predictions.items():
             metrics = {}

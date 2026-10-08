@@ -8,7 +8,7 @@ import numpy as np
 from .events import align_events, extract_answer
 from .measure import compare_pair
 from .formal import cluster_interval
-from .graphs import ancestors, dirty_cone
+from .graphs import ancestors
 from .io import digest
 from .schema import Task
 from .protocol import answer_score
@@ -176,7 +176,10 @@ def run_p3(traces, tasks, event_rows, hidden, direction, weak_layer, weak_direct
             _, future = cli._parse_intervention_events(task, full, len(prefix), trace['metadata']['rendered_prompt_text'])
             if condition == 'baseline':
                 baseline_events = future
-            excluded = dirty_cone(task, {event['node_id']})
+            excluded = {event['node_id']}
+            for node in task.nodes:
+                if excluded.intersection(node.parents):
+                    excluded.add(node.id)
             pairs = align_events(baseline_events or [], future)['pairs']
             others = [(a, b) for a, b in pairs if a.node_id not in excluded and a.event_kind != 'restatement']
             nontarget = sum(compare_pair(a, b) == 'changed' for a, b in others) / len(others) if others else None

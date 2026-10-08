@@ -320,6 +320,8 @@ def test_c2_primary_includes_invalid_generation_as_incorrect():
             'condition': condition, 'status': 'prospective_decode', 'invalid': int(condition == 'main'),
             'decode_complete': condition != 'main', 'task_correct': None if condition == 'main' else 1,
             'actual_norm': 0 if condition == 'baseline' else 1, 'clayer_status': 'dev_weak_layer_decode',
+            'norm_source': 'unmodified_baseline' if condition == 'baseline' else 'resid_post_hook',
+            'hook_fired': condition != 'baseline', 'prefix_boundary_verified': True,
             'target': None, 'nontarget': None})
     report = c2_report(rows, [{'task_id': 'a', 'base_group_id': 'problem'}])
     assert report['usable_main_contrasts'] == 0  # complete-answer diagnostic

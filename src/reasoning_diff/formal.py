@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 import numpy as np
 
 from .analysis import _auc, _fit_scores, classification_metrics
-from .edits import _rewrite_ids, apply_value_edit, recompute
+from .edits import C2_PAIR_KINDS, _rewrite_ids, apply_value_edit, recompute
 from .events import align_events, premise_aliases
 from .graphs import ancestors, dirty_cone
 from .io import digest
@@ -45,8 +45,8 @@ def source_factorial(task, premise_id, alternate):
     """Both equal-valued source facts appear in both route conditions.
 
     Downstream rule text and the independent graph change together. Physical
-    ordering is counterbalanced by family; unequal-value companions make
-    output changes identifiable instead of claiming routing from equal values.
+    ordering is counterbalanced by family. These equal-value strata control
+    route changes; build_design adds unequal fixed-fact route contrasts.
     """
     found = next(p for p in task.premises if p.premise_id == premise_id)
     alias = premise_aliases(found)[-1]
@@ -146,6 +146,30 @@ def build_design(tasks, *, seeds=(0, 1, 2), noise_seeds=(3, 4, 5), edit_values=2
                         'trace_ids': {'base': ids[left.task_id], 'same_value_diff_source': ids[right.task_id],
                                       'same_source_diff_value': ids[changed.task.task_id]}, 'unequal_source_companion': ids[bv.task.task_id],
                         'source_value_stratum': value})
+                # Hold both physical facts fixed, with distinct values. Switch
+                # only the downstream route, in both directions and assignments.
+                for changed_id in ('src_b', source.premise_id):
+                    left = apply_value_edit(a, changed_id, alt).task
+                    right = apply_value_edit(b, changed_id, alt).task
+                    facts = lambda t: [(p.premise_id, p.text, p.value) for p in t.premises if p.kind == 'definition']
+                    if facts(left) != facts(right) or left.answer_spec.value == right.answer_spec.value:
+                        raise ValueError('fixed-fact routes must have identical facts and different gold answers')
+                    for item in (left, right):
+                        ids[item.task_id] = request(item, seeds[0], 'source')
+                    for recipient, donor, old, new, direction in (
+                        (left, right, source.premise_id, 'src_b', 'a_to_b'),
+                        (right, left, 'src_b', source.premise_id, 'b_to_a'),
+                    ):
+                        values = {p.premise_id: p.value for p in recipient.premises}
+                        changed = [p.premise_id for p, q in zip(recipient.premises, donor.premises, strict=True)
+                                   if p.text != q.text]
+                        source_edit = Edit('fixed-route:' + recipient.task_id, recipient.task_id, changed, donor,
+                            kind='fixed_values_diff_source', before={old: values[old]}, after={new: values[new]},
+                            validity='valid', metadata={'source_value_mode': 'unequal_fixed_facts'})
+                        edits.append({'kind': 'source_value_pair', 'base_task_id': recipient.task_id,
+                            'fixed_values_diff_source': source_edit.to_dict(), 'routing_direction': direction,
+                            'targets': [owner.target], 'nontargets': nontargets,
+                            'trace_ids': {'base': ids[recipient.task_id], 'fixed_values_diff_source': ids[donor.task_id]}})
     for owner in owners.values():
         splits.append({'task_id': owner['task_id'], 'base_group_id': owner['base_group_id'],
                        'role': split_for_task(Task.from_dict(owner), seed=split_seed, fractions=DEFAULT_FRACTIONS)})
@@ -338,7 +362,8 @@ def c2_report(rows, tasks):
     cannot remove a condition selectively from the primary effect.
     """
     from .next_round import c2_summary
-    result = c2_summary(rows)
+    empty_shards = [r for r in rows if r.get('status') == 'no_source_pairs_in_split']
+    rows = [r for r in rows if r.get('status') != 'no_source_pairs_in_split']
     families = {t['task_id']: t['base_group_id'] for t in tasks}
     buckets = defaultdict(dict)
     for row in rows:
@@ -346,7 +371,7 @@ def c2_report(rows, tasks):
         if row.get('condition') in buckets[key]:
             raise ValueError('duplicate C2 condition in a registered contrast')
         buckets[key][row.get('condition')] = row
-    effects, unavailable = [], []
+    effects, unavailable, verified = [], [], set()
     required = {'baseline', 'main', 'crand', 'clayer'}
     for (task_id, index, kind), conditions in buckets.items():
         if not required <= conditions.keys() or any(conditions[c].get('status') != 'prospective_decode' for c in required):
@@ -355,20 +380,40 @@ def c2_report(rows, tasks):
         main_norm = conditions['main'].get('actual_norm')
         norms = [conditions[c].get('actual_norm') for c in ('main', 'crand', 'clayer')]
         matched = (isinstance(main_norm, (int, float)) and main_norm > 0
-                   and all(isinstance(v, (int, float)) and np.isclose(v, main_norm, rtol=.02, atol=1e-4) for v in norms)
+                   and all(isinstance(v, (int, float)) and np.isfinite(v) and v > 0
+                           and np.isclose(v, main_norm, rtol=.02, atol=0) for v in norms)
+                   and all(conditions[c].get('norm_source') == 'resid_post_hook'
+                           and conditions[c].get('hook_fired') is True
+                           and conditions[c].get('prefix_boundary_verified') is True for c in ('main', 'crand', 'clayer'))
+                   and conditions['baseline'].get('norm_source') == 'unmodified_baseline'
+                   and conditions['baseline'].get('actual_norm') == 0
                    and conditions['clayer'].get('clayer_status') == 'dev_weak_layer_decode')
         if not matched:
             unavailable.append({'base_task_id': task_id, 'pair_index': index, 'pair_kind': kind, 'reason': 'control_norm_or_layer_invalid'})
             continue
-        correct = {c: float(conditions[c].get('decode_complete') is True and conditions[c].get('task_correct') == 1) for c in required}
+        verified.add((task_id, index, kind))
+        correct = {c: float(conditions[c].get('decode_complete') is True and conditions[c].get('invalid') == 0
+                            and conditions[c].get('task_correct') == 1) for c in required}
+        follow = {c: (None if conditions[c].get('target') is None else
+                      float(conditions[c].get('decode_complete') is True and conditions[c].get('invalid') == 0
+                            and conditions[c]['target'] == 1)) for c in required}
         effects.append({'problem_id': families[task_id], 'pair_kind': kind, 'base_task_id': task_id, 'pair_index': index,
             **{f'main_minus_{c}': correct['main'] - correct[c] for c in ('baseline', 'crand', 'clayer')},
+            **{f'target_follow_main_minus_{c}': None if follow['main'] is None or follow[c] is None
+               else follow['main'] - follow[c] for c in ('baseline', 'crand', 'clayer')},
             'conditions': {c: {'correct': correct[c], 'invalid': conditions[c].get('invalid'),
+                               'target_follow': follow[c],
                                'nontarget': conditions[c].get('nontarget')} for c in required}})
+    # Secondary complete-answer effects must obey the same measured-hook
+    # requirements. Keep unavailable contrasts in coverage with failed status.
+    result = c2_summary([r if (r.get('base_task_id'), r.get('pair_index'), r.get('pair_kind')) in verified
+                         else {**r, 'status': 'unverified_control_cohort'} for r in rows])
+    metrics = ('main_minus_baseline', 'main_minus_crand', 'main_minus_clayer',
+               'target_follow_main_minus_baseline', 'target_follow_main_minus_crand', 'target_follow_main_minus_clayer')
     result['paired_ITT'] = {kind: {metric: cluster_interval([r[metric] for r in effects if r['pair_kind'] == kind],
-        [r['problem_id'] for r in effects if r['pair_kind'] == kind]) for metric in ('main_minus_baseline', 'main_minus_crand', 'main_minus_clayer')}
-        for kind in ('same_value_diff_source', 'same_source_diff_value')}
-    result.update(executed_ITT_effects=effects, unavailable=unavailable,
+        [r['problem_id'] for r in effects if r['pair_kind'] == kind]) for metric in metrics}
+        for kind in C2_PAIR_KINDS}
+    result.update(executed_ITT_effects=effects, unavailable=unavailable, empty_shards=empty_shards,
                   generation_failures='incorrect_within_complete_executed_hook_cohorts',
                   donor_failures='unknown_retained_in_coverage', complete_answer_effects='secondary_descriptive_only')
     return result

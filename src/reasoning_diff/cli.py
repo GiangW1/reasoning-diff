@@ -15,7 +15,7 @@ import numpy as np
 
 from .analysis import classification_metrics, cone_fit, p1_incremental, p2_from_rows, p3_from_rows, retrieval_scatter, week8_decision
 from .artifacts import completed_shard_ok, write_manifest, write_run_spec
-from .edits import apply_value_edit, make_source_value_pair
+from .edits import C2_PAIR_KINDS, apply_value_edit, make_source_value_pair
 from .baselines import (
     attention_mean,
     attention_rollout,
@@ -1952,7 +1952,8 @@ def cmd_fit(args: argparse.Namespace) -> int:
             candidates = [
                 j
                 for j, key in enumerate(unique)
-                if key == pid or (str(key).endswith(f"::{pid}") and (not task_id or str(key).startswith(f"{task_id}::")))
+                if key == pid or key == f"{task_id}::{pid}"
+                or (not task_id and str(key).endswith(f"::{pid}"))
             ]
             if not candidates:
                 continue
@@ -2563,8 +2564,8 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
                 truth_i = []
                 known_i = False
                 for j, pid in enumerate(unique):
-                    premise_id = str(pid).split("::", 1)[-1]
-                    premise_task_id = str(pid).split("::", 1)[0] if "::" in str(pid) else ""
+                    premise_id = str(pid).rsplit("::", 1)[-1]
+                    premise_task_id = str(pid).rsplit("::", 1)[0] if "::" in str(pid) else ""
                     hits = [
                         r
                         for r in labs
@@ -2662,14 +2663,14 @@ def _pair_source_value(matrix: np.ndarray, event_rows: list[dict], pair_meta: di
         for i, row in enumerate(event_rows):
             if i < len(matrix) and np.isfinite(matrix[i]).all():
                 feature_index.setdefault((row.get("trace_id"), row.get("identity_key")), []).append(i)
-        for kind in ("same_value_diff_source", "same_source_diff_value"):
+        for kind in C2_PAIR_KINDS:
             donor_tid = tids.get(kind)
             donor = traces.get(donor_tid)
             if donor is None or donor.metadata.get("boundary_status", "ok") != "ok":
                 continue
             events = donor.events
             source_edit = (pair_meta or {}).get(kind, {})
-            if kind == "same_value_diff_source" and source_edit.get("kind") == kind:
+            if kind in {"same_value_diff_source", "fixed_values_diff_source"} and source_edit.get("kind") == kind:
                 before, after = source_edit.get("before", {}), source_edit.get("after", {})
                 if len(before) == len(after) == 1:
                     old, new = next(iter(before)), next(iter(after))
@@ -2706,7 +2707,7 @@ def _pair_source_value(matrix: np.ndarray, event_rows: list[dict], pair_meta: di
         else:
             identity = (row.get("identity_key") or row.get("node_id") or "",)
         index.setdefault((identity, row.get("trace_id")), []).append(i)
-    for donor_key in ("same_value_diff_source", "same_source_diff_value"):
+    for donor_key in C2_PAIR_KINDS:
         donor_tid = tids.get(donor_key)
         if not donor_tid:
             continue
@@ -2793,7 +2794,9 @@ def cmd_intervene(args: argparse.Namespace) -> int:
         trace_path = src / "traces.jsonl"
         alignment_traces = {r["id"]: Trace.from_dict(r) for r in read_jsonl(trace_path)} if trace_path.exists() else None
         for index, pair in indexed_pairs:
-            for kind in ("same_value_diff_source", "same_source_diff_value"):
+            for kind in C2_PAIR_KINDS:
+                if kind not in pair['trace_ids']:
+                    continue
                 child = copy.copy(args)
                 child.all_source_pairs = False
                 child._c2_only = True
@@ -2809,7 +2812,8 @@ def cmd_intervene(args: argparse.Namespace) -> int:
                     collected.append({**row, "pair_index": index, "pair_kind": kind, "base_task_id": pair["base_task_id"],
                                       "split": args.pair_split, "analysis_eligibility": {"C2": row.get("status") == "prospective_decode", "P3": False}})
         if not collected:
-            collected = [{"status": "no_source_pairs_in_split", "split": args.pair_split, "analysis_eligibility": {"C2": False, "P3": False}}]
+            collected = [{"status": "no_source_pairs_in_split", "split": args.pair_split, "pair_shard": shard,
+                          "analysis_eligibility": {"C2": False, "P3": False}}]
         _write_stage(output, "interventions", collected, in_dir=src,
                      config={"command": "intervene", "all_source_pairs": True, "split": args.pair_split,
                              "n_pairs": len(indexed_pairs), "pair_shard": shard,
@@ -3074,6 +3078,13 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                     donor_event = next((e for e in donor_events if EventIdentity(**e["identity"]).key() == donor_feature.get("identity_key")), None)
                 donor_src = donor_event.get("value") if donor_event else donor_row.get("answer")
                 base_event = ev.get("value") if ev else base_row.get("answer")
+                if donor_kind == 'fixed_values_diff_source':
+                    donor_src = pair_meta[donor_kind]['task']['answer_spec']['value']
+                    base_event = gold
+                    hook_meta['target_value_source'] = 'independent_graph_gold'
+                else:
+                    hook_meta['target_value_source'] = 'observed_donor_event'
+                hook_meta['target_value'] = donor_src
                 pair_targets = set((pair_meta or {}).get("targets") or [])
                 pair_nontargets = set((pair_meta or {}).get("nontargets") or [])
                 ids = list(base_row.get("token_ids") or []) or _tiny_prefix_ids(prefix)
@@ -3198,6 +3209,8 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                     equivalent = donor_src is not None and base_event is not None and donor_src == base_event
                     if equivalent:
                         target = None
+                    elif donor_kind == 'fixed_values_diff_source':
+                        target = float(_match(ans, donor_src) == 1.0)
                     elif pair_targets:
                         target = 1.0 if any(_match(parsed.get(n), donor_src) == 1.0 for n in pair_targets) else 0.0
                     else:
@@ -3210,6 +3223,8 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                     elif is_controlled(base_task):
                         nontarget = None
                     elif equivalent:
+                        nontarget = None
+                    elif donor_kind == 'fixed_values_diff_source':
                         nontarget = None
                     else:
                         main_match = _match(ans, gold) if gold is not None else None
@@ -3226,6 +3241,13 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                         "answer": ans,
                         **score,
                     }
+
+                def _hook_fields(decoded, planned_norm):
+                    return {'actual_norm': decoded.get('hook_delta_norm'), 'planned_norm': planned_norm,
+                            'norm_source': 'resid_post_hook', 'hook_fired': decoded.get('hook_fired'),
+                            'prefix_boundary_verified': decoded.get('prefix_boundary_verified'),
+                            'hook_token_position': decoded.get('hook_token_position'),
+                            'hook_sequence_length': decoded.get('hook_sequence_length')}
 
                 main_out = _outcomes(hooked)
                 base_ans = _extract_intervention_answer(_decode_text({"generated_ids": hooked.get("baseline_generated_ids") or []}))
@@ -3245,6 +3267,7 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                 crand_out = _outcomes(crand_hooked)
                 hook_meta["crand_transform"] = crand_hooked["transform"]
                 clayer_out = {"target": None, "nontarget": None, "task_correct": None, "invalid": None}
+                clayer_hooked = {}
                 if weak is not None and weak != main_layer:
                     if runtime_model is not None:
                         layer_model = runtime_model
@@ -3260,6 +3283,7 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                     weak_vec = weak_base[min(len(weak_base) - 1, max(len(ids) - 1, 0))]
                     weak_dvec = weak_donor[-1]
                     cl = c_layer_delta(weak_vec, weak_dvec, layer_basis, main_norm)
+                    clayer_norm = float(np.linalg.norm(cl['delta']))
                     clayer_hooked = intervene_hidden_decode(model_kind, ids, weak, mode="add_delta", delta=cl["delta"], **decode_kw)
                     clayer_out = _outcomes(clayer_hooked)
                     hook_meta["clayer_token_changed"] = clayer_hooked["followed_donor"]
@@ -3291,9 +3315,7 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                         {
                             "dose": float(dose),
                             "condition": "dose",
-                            "actual_norm": float(np.linalg.norm(dose_delta)),
-                            "hook_token_position": dose_hooked.get("hook_token_position"),
-                            "hook_sequence_length": dose_hooked.get("hook_sequence_length"),
+                            **_hook_fields(dose_hooked, float(np.linalg.norm(dose_delta))),
                             **dose_out,
                         }
                     )
@@ -3307,15 +3329,17 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                     "dose_curve": dose_curve,
                     "condition_records": [
                         {"condition": "baseline", **_outcomes({"generated_ids": hooked.get("baseline_generated_ids") or [],
-                                                              "stop_reason": hooked.get("baseline_stop_reason")}), "actual_norm": 0.0},
-                        {"condition": "main", **main_out, "actual_norm": main_norm},
-                        {"condition": "crand", **crand_out, "actual_norm": crand_norm},
-                        {"condition": "clayer", **clayer_out, "actual_norm": clayer_norm},
+                                                              "stop_reason": hooked.get("baseline_stop_reason")}),
+                         'actual_norm': 0.0, 'planned_norm': 0.0, 'norm_source': 'unmodified_baseline',
+                         'hook_fired': False, 'prefix_boundary_verified': hooked.get('prefix_boundary_verified')},
+                        {"condition": "main", **main_out, **_hook_fields(hooked, main_norm)},
+                        {"condition": "crand", **crand_out, **_hook_fields(crand_hooked, crand_norm)},
+                        {"condition": "clayer", **clayer_out, **_hook_fields(clayer_hooked, clayer_norm)},
                     ] + ([] if getattr(args, "_c2_only", False) else [
-                        {"condition": "inlp", **inlp_out, "actual_norm": float(np.linalg.norm(base - ablated))},
-                        {"condition": "rescue_matched", **_outcomes(rescue_matched), "actual_norm": rescued["matched_norm"]},
-                        {"condition": "rescue_error_source", **_outcomes(rescue_error), "actual_norm": float(np.linalg.norm(rescued["error_source"] - ablated))},
-                        {"condition": "rescue_random", **_outcomes(rescue_rand), "actual_norm": rescued["random_norm"]},
+                        {"condition": "inlp", **inlp_out, **_hook_fields(inlp_hooked, float(np.linalg.norm(base - ablated)))},
+                        {"condition": "rescue_matched", **_outcomes(rescue_matched), **_hook_fields(rescue_matched, float(np.linalg.norm(rescued['matched'] - base)))},
+                        {"condition": "rescue_error_source", **_outcomes(rescue_error), **_hook_fields(rescue_error, float(np.linalg.norm(rescued['error_source'] - base)))},
+                        {"condition": "rescue_random", **_outcomes(rescue_rand), **_hook_fields(rescue_rand, float(np.linalg.norm(rescued['random'] - base)))},
                     ]),
                 }
                 if hooked.get("hook_fired"):
@@ -3343,6 +3367,9 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
             "decode_stop_reason": item.get("decode_stop_reason"),
             "decode_complete": item.get("decode_complete"),
             "actual_norm": item.get("actual_norm"),
+            **{key: item.get(key) for key in ('planned_norm', 'norm_source', 'hook_fired',
+                'prefix_boundary_verified', 'hook_token_position', 'hook_sequence_length')},
+            'target_value_source': (report or {}).get('target_value_source'),
             "status": status,
             "clayer_status": clayer_status,
             "timing": timing,
@@ -3360,7 +3387,8 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
             "nontarget": main_outcomes.get("nontarget"),
             "task_correct": main_outcomes.get("task_correct"),
             "invalid": main_outcomes.get("invalid"),
-            "actual_norm": main_norm,
+            "actual_norm": None,
+            "planned_norm": main_norm,
             "status": status,
             "clayer_status": clayer_status,
             "timing": timing,

@@ -1,0 +1,4952 @@
+{
+  "before": "/mnt/mydata/wja/reasoning-diff/runs/pr8-v7-recovery-20261007/pilot-r3",
+  "after": "/mnt/mydata/wja/reasoning-diff/runs/pr8-v8-recovery-20261008/pilot-r1",
+  "all_saved_generation_fields_unchanged": true,
+  "prior_eligible_result_spans_removed": 0,
+  "prior_eligible_cells_removed": 0,
+  "before_overall": {
+    "common_noise_coverage": 0.42568807339449544,
+    "eligible_cells": 545,
+    "matched_cell_coverage": 0.5119266055045871,
+    "n_problems": 8,
+    "n_traces": 8,
+    "noise_supported_cells": 232,
+    "rho_coverage": 0.25,
+    "support_cells": 279,
+    "target_coverage": 1.0,
+    "variable_coverage": 1.0
+  },
+  "after_overall": {
+    "common_noise_coverage": 0.44385026737967914,
+    "eligible_cells": 561,
+    "matched_cell_coverage": 0.5383244206773619,
+    "n_problems": 8,
+    "n_traces": 8,
+    "noise_supported_cells": 249,
+    "rho_coverage": 0.25,
+    "support_cells": 302,
+    "target_coverage": 1.0,
+    "variable_coverage": 1.0
+  },
+  "original_denominator_diagnostic": {
+    "eligible_cells": 545,
+    "before_support": 279,
+    "after_support": 299,
+    "before_common_noise": 232,
+    "after_common_noise": 247,
+    "gained_support": 23,
+    "lost_support": 3,
+    "note": "Diagnostic only; full production denominator includes all recovered steps."
+  },
+  "new_cells": {
+    "eligible": 16,
+    "supported": 3,
+    "common_noise": 2
+  },
+  "new_events": [
+    {
+      "trace": "pilot-gpu2:trace-base:0:seed1",
+      "event": {
+        "alignment_context": [
+          "bald",
+          "by",
+          "correct",
+          "divided",
+          "eagle",
+          "entitydgaelgnnhoielkpmelkhpnmohanohiieedghccbbbbfmgoaidnidepbonhfkbpgo",
+          "entitylpbbjcippdjljglogbajfbnhcemmdfpgkbflnmdmclhcpdkfndippaidggkgdjhn",
+          "hamstrings",
+          "organs",
+          "product"
+        ],
+        "base_group_id": "igsm-official-0001-op10",
+        "correct": false,
+        "end": 5089,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Name(id='p_0_0_2_1', ctx=Load()), op=Add(), right=Name(id='p_1_0_1_1', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Name(id='p_0_0_2_1', ctx=Load()), op=Add(), right=Name(id='p_1_0_1_1', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')), op=Mult(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 4,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "pilot-gpu2:trace-base:0:seed1:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:0:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4983,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_0"
+        ],
+        "task_parents": [
+          "p_0_0_2_2",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_1_2",
+          "relation_p_0_0_2_1",
+          "relation_p_1_0_1_1",
+          "relation_p_1_0_2_1"
+        ],
+        "text": "Bald Eagle's Hamstrings: product of 4 and (Kingfisher_Organs + Peacock_Cartilage) = 4*(15 + 6) = 4*21 = 84",
+        "value": "84",
+        "value_start": 5087
+      }
+    },
+    {
+      "trace": "pilot-gpu2:trace-base:2:seed0",
+      "event": {
+        "alignment_context": [
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "equation"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4531,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_0_1",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_0_1",
+        "record_id": "pilot-gpu2:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_0_0_1\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4508,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_1_0_0_1"
+        ],
+        "text": "Modulo 23, 36 - 23 = 13",
+        "value": "13",
+        "value_start": 4529
+      }
+    },
+    {
+      "trace": "pilot-gpu2:trace-pilot-edit:2:unused_a",
+      "event": {
+        "alignment_context": [
+          "add",
+          "compute",
+          "convert",
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "negative",
+          "now",
+          "numbers"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": false,
+        "end": 4432,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_1_1_1_2', ctx=Load()), op=Sub(), right=Name(id='p_0_1_1_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_1_1_1_2', ctx=Load()), op=Sub(), right=Name(id='p_0_1_1_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Sub(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_1_0",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_1_0",
+        "record_id": "pilot-gpu2:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_0_0_1_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4306,
+        "status": "ok",
+        "surface_mentions": [
+          "p_0_1_1_0",
+          "relation_p_0_0_1_0",
+          "relation_p_1_1_1_2"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_1_0",
+          "relation_p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "Administrative District's Boxed = (Deliveroo's Product - Deliveroo's Bottled Water) = 9 - 16. Let me compute that. 9 - 16 = -7",
+        "value": "-7",
+        "value_start": 4430
+      }
+    },
+    {
+      "trace": "pilot-gpu2:trace-pilot-edit:2:unused_b",
+      "event": {
+        "alignment_context": [
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": false,
+        "end": 4980,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_1_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_1_1",
+        "record_id": "pilot-gpu2:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4925,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_1_1"
+        ],
+        "text": "AD_Deliveroo) = sum of 22 and C_Deliveroo. 22 + 20 = 42",
+        "value": "42",
+        "value_start": 4978
+      }
+    },
+    {
+      "trace": "pilot-gpu2:trace-pilot-edit:2:unused_b",
+      "event": {
+        "alignment_context": [
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4358,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu2:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4310,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_1"
+        ],
+        "text": "C_Deliveroo) = sum of 4 and D_BW. So 4 + 16 = 20",
+        "value": "20",
+        "value_start": 4356
+      }
+    },
+    {
+      "trace": "pilot-gpu2:trace-base:3:seed2",
+      "event": {
+        "alignment_context": [
+          "by",
+          "correct",
+          "divided",
+          "remainder",
+          "yes"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 3611,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_1_1",
+          "occurrence_version": 5,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_1_1",
+        "record_id": "pilot-gpu2:trace-base:3:seed2:{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 5, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:3:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3568,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "25 divided by 23 is 1 with a remainder of 2",
+        "value": "2",
+        "value_start": 3610
+      }
+    },
+    {
+      "trace": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+      "event": {
+        "alignment_context": [
+          "by",
+          "correct",
+          "divided",
+          "remainder"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 6273,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_1_1",
+          "occurrence_version": 8,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_1_1",
+        "record_id": "pilot-gpu2:trace-pilot-edit:3:unused_b:{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 8, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6235,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "25 divided by 23 is 1 with remainder 2",
+        "value": "2",
+        "value_start": 6272
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:0:seed0",
+      "event": {
+        "alignment_context": [
+          "between",
+          "by",
+          "compute",
+          "difference",
+          "divide",
+          "entityeodaheflbnhofickpfdgocifnjcecoklaaddcjeahelbibphdikahilnhjnmgdem",
+          "entitymbmfbcpaodhbgkjbldnpiclghaclcakfhabcebdnjdnenfjmadjklaplmionjheb",
+          "find",
+          "multiply",
+          "next",
+          "now",
+          "parse",
+          "product",
+          "remainder"
+        ],
+        "base_group_id": "igsm-official-0004-op5",
+        "correct": false,
+        "end": 2042,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Name(id='p_0_0_3_3', ctx=Load()), op=Sub(), right=Name(id='p_0_0_3_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Name(id='p_0_0_3_3', ctx=Load()), op=Sub(), right=Name(id='p_0_0_3_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu3:trace-base:0:seed0:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:0:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 1940,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_3_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_3_3"
+        ],
+        "text": "Kroger_Cakes = 20 * (Carrefour_Bagels - Carrefour_Muffins) = 20 * 5. Let me compute that. 20 * 5 = 100",
+        "value": "100",
+        "value_start": 2039
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:1:seed1",
+      "event": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 6942,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_0_3",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_0_3",
+        "record_id": "pilot-gpu3:trace-base:1:seed1:{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:1:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6920,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_0_2_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2",
+          "relation_p_1_1_0_3",
+          "relation_p_1_2_0_3",
+          "relation_p_1_2_1_3"
+        ],
+        "text": "Modulo 23, 26 - 23 = 3",
+        "value": "3",
+        "value_start": 6941
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:1:p_0_0_0_1",
+      "event": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": false,
+        "end": 7933,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_1_1",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_1_1",
+        "record_id": "pilot-gpu3:trace-pilot-edit:1:p_0_0_0_1:{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:1:p_0_0_0_1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7898,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_1_1",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_0_2_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2",
+          "relation_p_1_1_0_3",
+          "relation_p_1_2_0_3",
+          "relation_p_1_2_1_3"
+        ],
+        "text": "CT_NGM = 11 * 7 = 77 mod23. 23*3=69",
+        "value": "69",
+        "value_start": 7931
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:1:p_0_0_0_1",
+      "event": {
+        "alignment_context": [
+          "by",
+          "compute",
+          "divide"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": false,
+        "end": 5754,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_2_1_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_2_1_1",
+        "record_id": "pilot-gpu3:trace-pilot-edit:1:p_0_0_0_1:{\"entity_or_expression\": \"p_0_2_1_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:1:p_0_0_0_1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5706,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2"
+        ],
+        "text": "CC_Thyme = 17 * 9. Let me compute that. 17*9=153",
+        "value": "153",
+        "value_start": 5751
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:1:unused_a",
+      "event": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": false,
+        "end": 7221,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_0_3",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_0_3",
+        "record_id": "pilot-gpu3:trace-pilot-edit:1:unused_a:{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:1:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7199,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_0_2_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2",
+          "relation_p_1_1_0_3",
+          "relation_p_1_2_0_3",
+          "relation_p_1_2_1_3"
+        ],
+        "text": "Modulo 23, 24 - 23 = 1",
+        "value": "1",
+        "value_start": 7220
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed0",
+      "event": {
+        "alignment_context": [
+          "by",
+          "compute",
+          "divide",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "now"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3375,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_2_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_2_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3293,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FD_GummyCandy = 18 * (0 + GC_Saffron) = 18 * 14. Let me compute that. 18*14 is 252",
+        "value": "252",
+        "value_start": 3372
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed0",
+      "event": {
+        "alignment_context": [
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "s"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4107,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4093,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "22 mod 23 = 22",
+        "value": "22",
+        "value_start": 4105
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed0",
+      "event": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3793,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3772,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Modulo 23, 24 -23 = 1",
+        "value": "1",
+        "value_start": 3792
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed0",
+      "event": {
+        "alignment_context": [
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "since"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3952,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3937,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "22 mod 23 is 22",
+        "value": "22",
+        "value_start": 3950
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed1",
+      "event": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "next",
+          "product",
+          "s"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3680,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed1:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3593,
+        "status": "ok",
+        "surface_mentions": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "Gummy Candy's Garlic Powder is product of 4 and Gummy Candy's Saffron. That's 4*14 = 56",
+        "value": "56",
+        "value_start": 3678
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed1",
+      "event": {
+        "alignment_context": [
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "s",
+          "still",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4183,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_1_0_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_1_0_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "pilot-gpu3:trace-base:2:seed1:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4106,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_0",
+          "relation_p_1_0_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado's Potato Chips is sum of FreshDirect's Ingredient and 0. So 22 + 0 = 22",
+        "value": "22",
+        "value_start": 4181
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed1",
+      "event": {
+        "alignment_context": [
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "next",
+          "product",
+          "which"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4069,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed1:{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4054,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "22 mod 23 is 22",
+        "value": "22",
+        "value_start": 4067
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed1",
+      "event": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "garlic",
+          "powder",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3852,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed1:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3761,
+        "status": "ok",
+        "surface_mentions": [
+          "p_0_1_2_0",
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Gummy Candy's Ingredient is sum of Gummy Candy's Saffron and Garlic Powder. So 14 + 10 = 24",
+        "value": "24",
+        "value_start": 3850
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed1",
+      "event": {
+        "alignment_context": [
+          "arithmetic",
+          "compute",
+          "need",
+          "since"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3391,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed1:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3321,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FreshDirect's Gummy Candy = 18 * 14. Let me compute that. 18*14 is 252",
+        "value": "252",
+        "value_start": 3388
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed1",
+      "event": {
+        "alignment_context": [
+          "between",
+          "difference",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4360,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Sub(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu3:trace-base:2:seed1:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4244,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado's Hummus is difference between FreshDirect's Gummy Candy (22) and Gummy Candy's Ingredient (1). So 22 - 1 = 21",
+        "value": "21",
+        "value_start": 4358
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed1",
+      "event": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "garlic",
+          "powder",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3868,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed1:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3854,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "24 mod 23 is 1",
+        "value": "1",
+        "value_start": 3867
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed1",
+      "event": {
+        "alignment_context": [
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "next",
+          "product",
+          "which"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4052,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Mult(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Mult(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed1:{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3918,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "FreshDirect's Ingredient is product of FreshDirect's Gummy Candy (which is 22) and Gummy Candy's Ingredient (which is 1). So 22*1 = 22",
+        "value": "22",
+        "value_start": 4050
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed1",
+      "event": {
+        "alignment_context": [
+          "between",
+          "difference",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4377,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu3:trace-base:2:seed1:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4362,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "21 mod 23 is 21",
+        "value": "21",
+        "value_start": 4375
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed2",
+      "event": {
+        "alignment_context": [
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4279,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_1_0_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_1_0_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "pilot-gpu3:trace-base:2:seed2:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4209,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_0"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado's Potato Chips is the sum of FD_Ingredient and 0. So 22 + 0 = 22",
+        "value": "22",
+        "value_start": 4277
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed2",
+      "event": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3972,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed2:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3886,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Gummy Candy's Ingredient is the sum of GC_Saffron and GC_GarlicPowder. So 14 + 10 = 24",
+        "value": "24",
+        "value_start": 3970
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed2",
+      "event": {
+        "alignment_context": [
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4296,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "pilot-gpu3:trace-base:2:seed2:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4281,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "22 mod 23 is 22",
+        "value": "22",
+        "value_start": 4294
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:2:seed2",
+      "event": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3988,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed2:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3974,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "24 mod 23 is 1",
+        "value": "1",
+        "value_start": 3987
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:2:p_0_1_2_0",
+      "event": {
+        "alignment_context": [
+          "between",
+          "correct",
+          "difference",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "step",
+          "which"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 5481,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Sub(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 4,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:p_0_1_2_0:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:p_0_1_2_0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5351,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado's Hummus = difference between FreshDirect's Gummy Candy (which is 0) and Gummy Candy's Ingredient (which is 0). So 0 - 0 = 0",
+        "value": "0",
+        "value_start": 5480
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "event": {
+        "alignment_context": [
+          "between",
+          "difference",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "s",
+          "step"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4472,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Sub(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4357,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado's Hummus = difference between FreshDirect's Gummy Candy (22) and Gummy Candy's Ingredient (1). So 22 - 1 = 21",
+        "value": "21",
+        "value_start": 4470
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "event": {
+        "alignment_context": [
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "product",
+          "s",
+          "step",
+          "still",
+          "which"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4123,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Mult(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Mult(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3988,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "FreshDirect's Ingredient = product of FreshDirect's Gummy Candy (which is 22) and Gummy Candy's Ingredient (which is 1). So 22 * 1 = 22",
+        "value": "22",
+        "value_start": 4121
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "event": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "garlic",
+          "powder",
+          "step",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3912,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3822,
+        "status": "ok",
+        "surface_mentions": [
+          "p_0_1_2_0",
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Gummy Candy's Ingredient = sum of Gummy Candy's Saffron and Garlic Powder. So 14 + 10 = 24",
+        "value": "24",
+        "value_start": 3910
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "event": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "garlic",
+          "powder",
+          "step",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3936,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3914,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Modulo 23, 24 - 23 = 1",
+        "value": "1",
+        "value_start": 3935
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "event": {
+        "alignment_context": [
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "remains",
+          "step",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4285,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_1_0_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_1_0_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4204,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_0",
+          "relation_p_1_0_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado's Potato Chips = sum of FreshDirect's Ingredient (22) and 0. So 22 + 0 = 22",
+        "value": "22",
+        "value_start": 4283
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "event": {
+        "alignment_context": [
+          "by",
+          "compute",
+          "divided",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "next",
+          "s",
+          "step"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3677,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3604,
+        "status": "ok",
+        "surface_mentions": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "Gummy Candy's Garlic Powder = 4 * Gummy Candy's Saffron. That's 4*14 = 56",
+        "value": "56",
+        "value_start": 3675
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "event": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3070,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3008,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "GCIngredient = GCSaffron + GCGarlicPowder. That's 14 + 10 = 24",
+        "value": "24",
+        "value_start": 3068
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "event": {
+        "alignment_context": [
+          "by",
+          "correct",
+          "divided",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 4984,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_2_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_2_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4932,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FDGummyCandy = 18*(0 + GCSaffron) = 18*14. 18*14=252",
+        "value": "252",
+        "value_start": 4981
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "event": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3086,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3072,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "24 mod 23 is 1",
+        "value": "1",
+        "value_start": 3085
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:3:seed0",
+      "event": {
+        "alignment_context": [
+          "answer",
+          "backpack",
+          "backpacking",
+          "badminton",
+          "between",
+          "difference",
+          "entitydgaelgnnhoielkpmelkhpnmohanohiieedghccbbbbfmgoaidnidepbonhfkbpgo",
+          "entityinffddkckedkjcncpbeofnofkimbkchpjbgohciadijeooeglkdikndjgihgepgd",
+          "entitylnanhdcgipihlkfblnnpcepocjkomknbohlngfjhedpmigbifcgdbkmlmidhnbfc",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "mountaineering",
+          "pack",
+          "rucksack",
+          "s",
+          "same",
+          "still",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": true,
+        "end": 4505,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_1_1', ctx=Load()), op=Add(), right=Name(id='p_1_0_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_1_1', ctx=Load()), op=Add(), right=Name(id='p_1_0_0_1', ctx=Load())))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_1_1",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_1_1",
+        "record_id": "pilot-gpu3:trace-base:3:seed0:{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:3:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4385,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_1_1",
+          "relation_p_1_0_0_1"
+        ],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_0_2",
+          "relation_p_0_0_1_1",
+          "relation_p_1_0_0_1"
+        ],
+        "text": "Badminton Court's Mountaineering Backpack is sum of Aerobics Studio's Backpack (13) and Mountaineering Backpack (7) = 20",
+        "value": "20",
+        "value_start": 4503
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:3:seed0",
+      "event": {
+        "alignment_context": [
+          "backpack",
+          "correct",
+          "entityinffddkckedkjcncpbeofnofkimbkchpjbgohciadijeooeglkdikndjgihgepgd",
+          "mountaineering",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": true,
+        "end": 7352,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_1_1', ctx=Load()), op=Add(), right=Name(id='p_1_0_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_1_1', ctx=Load()), op=Add(), right=Name(id='p_1_0_0_1', ctx=Load())))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_1_1",
+          "occurrence_version": 4,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_1_1",
+        "record_id": "pilot-gpu3:trace-base:3:seed0:{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:3:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7232,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_1_1",
+          "relation_p_1_0_0_1"
+        ],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_0_2",
+          "relation_p_0_0_1_1",
+          "relation_p_1_0_0_1"
+        ],
+        "text": "Badminton Court's Mountaineering Backpack is sum of Aerobics Studio's Backpack (13) and Mountaineering Backpack (7) = 20",
+        "value": "20",
+        "value_start": 7350
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:3:seed2",
+      "event": {
+        "alignment_context": [
+          "entityinffddkckedkjcncpbeofnofkimbkchpjbgohciadijeooeglkdikndjgihgepgd",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": true,
+        "end": 6015,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_0_1', ctx=Load()), op=Add(), right=Name(id='p_1_0_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_0_1', ctx=Load()), op=Add(), right=Name(id='p_1_0_0_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_1_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_1_1",
+        "record_id": "pilot-gpu3:trace-base:3:seed2:{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:3:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5982,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_0_2",
+          "relation_p_0_0_1_1",
+          "relation_p_1_0_0_1"
+        ],
+        "text": "M = sum of Ba and A = 13 + 7 = 20",
+        "value": "20",
+        "value_start": 6013
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-base:3:seed2",
+      "event": {
+        "alignment_context": [
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": false,
+        "end": 7539,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_2",
+          "occurrence_version": 5,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_2",
+        "record_id": "pilot-gpu3:trace-base:3:seed2:{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 5, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:3:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7505,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_2"
+        ],
+        "text": "R = 7*A = 7*7 = 49 mod 23. 23*2=46",
+        "value": "46",
+        "value_start": 7537
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:3:p_0_0_0_1",
+      "event": {
+        "alignment_context": [
+          "backpack",
+          "backpacking",
+          "correct",
+          "mountaineering",
+          "pack",
+          "rucksack",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": true,
+        "end": 11258,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Name(id='p_0_0_0_0', ctx=Load()), op=Add(), right=Name(id='p_0_0_0_1', ctx=Load())), op=Add(), right=Name(id='p_0_0_0_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Name(id='p_0_0_0_0', ctx=Load()), op=Add(), right=Name(id='p_0_0_0_1', ctx=Load())), op=Add(), right=Name(id='p_0_0_0_2', ctx=Load())))",
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_0_1",
+        "record_id": "pilot-gpu3:trace-pilot-edit:3:p_0_0_0_1:{\"entity_or_expression\": \"p_1_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:3:p_0_0_0_1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 11129,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_0_0_1"
+        ],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_0_2",
+          "relation_p_1_0_0_1"
+        ],
+        "text": "Aerobics Studio's Backpack equals (sum of (sum of Backpacking Pack and Mountaineering Backpack) and Rucksack). So (0 + 0) + 0 = 0",
+        "value": "0",
+        "value_start": 11257
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:3:unused_a",
+      "event": {
+        "alignment_context": [
+          "correct",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": false,
+        "end": 4097,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:3:unused_a:{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:3:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4057,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_2"
+        ],
+        "text": "AS_R = 7 * AS_MB = 7*7=49 mod23. 23*2=46",
+        "value": "46",
+        "value_start": 4095
+      }
+    },
+    {
+      "trace": "pilot-gpu3:trace-pilot-edit:3:unused_b",
+      "event": {
+        "alignment_context": [
+          "correct"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": false,
+        "end": 7116,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_2",
+          "occurrence_version": 5,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:3:unused_b:{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 5, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:3:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7083,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_2"
+        ],
+        "text": "AS_R = 7 * 7 = 49 mod 23. 23*2=46",
+        "value": "46",
+        "value_start": 7114
+      }
+    }
+  ],
+  "new_or_reassigned_pairs": [
+    {
+      "reference": "pilot-gpu2:trace-base:2:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb",
+          "equation"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4410,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu2:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4360,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_1"
+        ],
+        "text": "C_Deliveroo = 4 + D_BW. D_BW is 16, so 4 + 16 = 20",
+        "value": "20",
+        "value_start": 4408
+      },
+      "right": {
+        "alignment_context": [
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4358,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu2:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4310,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_1"
+        ],
+        "text": "C_Deliveroo) = sum of 4 and D_BW. So 4 + 16 = 20",
+        "value": "20",
+        "value_start": 4356
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 14,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 9,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 35,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:2:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "equation"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": false,
+        "end": 4944,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_1_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_1_1",
+        "record_id": "pilot-gpu2:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4878,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_1_1"
+        ],
+        "text": "A_Deliveroo = 22 + C_Deliveroo. C_Deliveroo is 20, so 22 + 20 = 42",
+        "value": "42",
+        "value_start": 4942
+      },
+      "right": {
+        "alignment_context": [
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": false,
+        "end": 4980,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_1_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_1_1",
+        "record_id": "pilot-gpu2:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4925,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_1_1"
+        ],
+        "text": "AD_Deliveroo) = sum of 22 and C_Deliveroo. 22 + 20 = 42",
+        "value": "42",
+        "value_start": 4978
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 14,
+        "left": "{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 17,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 35,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:3:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entityldmbbflbmhbfhkcfggipleoedaflmjjaambpkbabhcppdgkgmledlkdpkjgfahpg"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": false,
+        "end": 5736,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_0_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_1_1",
+          "occurrence_version": 8,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_1_1",
+        "record_id": "pilot-gpu2:trace-base:3:seed0:{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 8, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:3:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5695,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "Swan_Pons = 15 + Crow_Pons = 15 + 10 = 25",
+        "value": "25",
+        "value_start": 5734
+      },
+      "right": {
+        "alignment_context": [
+          "by",
+          "correct",
+          "divided",
+          "remainder"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": false,
+        "end": 6233,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_1_1",
+          "occurrence_version": 7,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_1_1",
+        "record_id": "pilot-gpu2:trace-pilot-edit:3:unused_b:{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 7, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6208,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_1_1_1"
+        ],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "Swan's Pons: 15 + 10 = 25",
+        "value": "25",
+        "value_start": 6231
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 8, \"scope\": \"global\"}",
+        "matched_rank": 18,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 27,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 7, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:3:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entityldmbbflbmhbfhkcfggipleoedaflmjjaambpkbabhcppdgkgmledlkdpkjgfahpg"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 5752,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_1_1",
+          "occurrence_version": 9,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_1_1",
+        "record_id": "pilot-gpu2:trace-base:3:seed0:{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 9, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:3:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5739,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "25 mod 23 = 2",
+        "value": "2",
+        "value_start": 5751
+      },
+      "right": {
+        "alignment_context": [
+          "by",
+          "correct",
+          "divided",
+          "remainder"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 6273,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_1_1",
+          "occurrence_version": 8,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_1_1",
+        "record_id": "pilot-gpu2:trace-pilot-edit:3:unused_b:{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 8, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6235,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "25 divided by 23 is 1 with remainder 2",
+        "value": "2",
+        "value_start": 6272
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 9, \"scope\": \"global\"}",
+        "matched_rank": 19,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 27,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 8, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:3:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": false,
+        "end": 5798,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_1",
+          "occurrence_version": 11,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_1",
+        "record_id": "pilot-gpu2:trace-base:3:seed0:{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 11, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:3:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5755,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_0_1_2_1"
+        ],
+        "text": "Peacock_Pons = 21 + Swan_Pons = 21 + 2 = 23",
+        "value": "23",
+        "value_start": 5796
+      },
+      "right": {
+        "alignment_context": [
+          "correct"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": false,
+        "end": 6331,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_1",
+          "occurrence_version": 7,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_1",
+        "record_id": "pilot-gpu2:trace-pilot-edit:3:unused_b:{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 7, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6304,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_1_2_1"
+        ],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_0_1_2_1"
+        ],
+        "text": "Peacock's Pons: 21 + 2 = 23",
+        "value": "23",
+        "value_start": 6329
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 11, \"scope\": \"global\"}",
+        "matched_rank": 20,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 27,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 7, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:3:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 5814,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_1",
+          "occurrence_version": 12,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_1",
+        "record_id": "pilot-gpu2:trace-base:3:seed0:{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 12, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:3:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5801,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_0_1_2_1"
+        ],
+        "text": "23 mod 23 = 0",
+        "value": "0",
+        "value_start": 5813
+      },
+      "right": {
+        "alignment_context": [
+          "correct"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 6347,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_1",
+          "occurrence_version": 8,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_1",
+        "record_id": "pilot-gpu2:trace-pilot-edit:3:unused_b:{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 8, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6333,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_0_1_2_1"
+        ],
+        "text": "23 mod 23 is 0",
+        "value": "0",
+        "value_start": 6346
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 12, \"scope\": \"global\"}",
+        "matched_rank": 21,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 27,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 8, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:3:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "add",
+          "alternatively",
+          "computing",
+          "do",
+          "each",
+          "entitygpdhblciiekkagoafdhfjalfbninhcjpgongejmiophilgielhiomfghdaihjfdo",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entitylnapahijaehnlnmakaelcemannipoodmpbhkhkfnhaicbfibocdgnpgjpkpicfkb",
+          "example",
+          "expects",
+          "get",
+          "maybe",
+          "multiply",
+          "problem",
+          "step",
+          "take",
+          "when",
+          "you"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 6737,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_2_2_2",
+          "occurrence_version": 7,
+          "scope": "global"
+        },
+        "node_id": "p_0_2_2_2",
+        "record_id": "pilot-gpu2:trace-base:3:seed0:{\"entity_or_expression\": \"p_0_2_2_2\", \"occurrence_version\": 7, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:3:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6716,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_0_1_2_1",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_2_2"
+        ],
+        "text": "Parietal_T_Cells is 0",
+        "value": "0",
+        "value_start": 6736
+      },
+      "right": {
+        "alignment_context": [
+          "answer",
+          "final",
+          "just",
+          "s",
+          "solid",
+          "think",
+          "which"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 6869,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_2_2_2",
+          "occurrence_version": 4,
+          "scope": "global"
+        },
+        "node_id": "p_0_2_2_2",
+        "record_id": "pilot-gpu2:trace-pilot-edit:3:unused_b:{\"entity_or_expression\": \"p_0_2_2_2\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6841,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_2_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_0_1_2_1",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_2_2"
+        ],
+        "text": "Parietal Lobe's T Cells is 0",
+        "value": "0",
+        "value_start": 6868
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_2_2_2\", \"occurrence_version\": 7, \"scope\": \"global\"}",
+        "matched_rank": 23,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 27,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_2_2_2\", \"occurrence_version\": 4, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:3:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 7913,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_1_1",
+          "occurrence_version": 11,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_1_1",
+        "record_id": "pilot-gpu2:trace-base:3:seed0:{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 11, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:3:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7888,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "Swan_Pons = 25 mod 23 = 2",
+        "value": "2",
+        "value_start": 7912
+      },
+      "right": {
+        "alignment_context": [
+          "entityldmbbflbmhbfhkcfggipleoedaflmjjaambpkbabhcppdgkgmledlkdpkjgfahpg"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 7068,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_0_1', ctx=Load())), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_0_1', ctx=Load())), op=Mod(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')), op=Mod(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_1_1",
+          "occurrence_version": 9,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_1_1",
+        "record_id": "pilot-gpu2:trace-pilot-edit:3:unused_b:{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 9, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6994,
+        "status": "ok",
+        "surface_mentions": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1"
+        ],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "Swan's Pons = (15 + Crow's Pons) mod 23 = (15 + 10) mod 23 = 25 mod 23 = 2",
+        "value": "2",
+        "value_start": 7067
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 11, \"scope\": \"global\"}",
+        "matched_rank": 25,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 27,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_1_1\", \"occurrence_version\": 9, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:3:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 7953,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_1",
+          "occurrence_version": 16,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_1",
+        "record_id": "pilot-gpu2:trace-base:3:seed0:{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 16, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:3:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7940,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_0_1_2_1"
+        ],
+        "text": "23 mod 23 = 0",
+        "value": "0",
+        "value_start": 7952
+      },
+      "right": {
+        "alignment_context": [
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 7150,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_1', ctx=Load())), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_1', ctx=Load())), op=Mod(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')), op=Mod(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_1",
+          "occurrence_version": 9,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_1",
+        "record_id": "pilot-gpu2:trace-pilot-edit:3:unused_b:{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 9, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7074,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_1_1_1",
+          "relation_p_0_1_2_1"
+        ],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_0_1_2_1"
+        ],
+        "text": "Peacock's Pons = (21 + Swan's Pons) mod 23 = (21 + 2) mod 23 = 23 mod 23 = 0",
+        "value": "0",
+        "value_start": 7149
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 16, \"scope\": \"global\"}",
+        "matched_rank": 26,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 27,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_2_1\", \"occurrence_version\": 9, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:3:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 7997,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_2_0_0",
+          "occurrence_version": 12,
+          "scope": "global"
+        },
+        "node_id": "p_0_2_0_0",
+        "record_id": "pilot-gpu2:trace-base:3:seed0:{\"entity_or_expression\": \"p_0_2_0_0\", \"occurrence_version\": 12, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:3:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7985,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_0_1_2_1",
+          "relation_p_0_2_0_0"
+        ],
+        "text": "0 mod 23 = 0",
+        "value": "0",
+        "value_start": 7996
+      },
+      "right": {
+        "alignment_context": [
+          "entitygpdhblciiekkagoafdhfjalfbninhcjpgongejmiophilgielhiomfghdaihjfdo"
+        ],
+        "base_group_id": "igsm-official-0008-op5",
+        "correct": true,
+        "end": 7244,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_1', ctx=Load())), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_1', ctx=Load())), op=Mod(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')), op=Mod(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_2_0_0",
+          "occurrence_version": 6,
+          "scope": "global"
+        },
+        "node_id": "p_0_2_0_0",
+        "record_id": "pilot-gpu2:trace-pilot-edit:3:unused_b:{\"entity_or_expression\": \"p_0_2_0_0\", \"occurrence_version\": 6, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:3:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7156,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_1_2_1",
+          "relation_p_0_2_0_0"
+        ],
+        "task_parents": [
+          "p_0_1_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_0_1_2_1",
+          "relation_p_0_2_0_0"
+        ],
+        "text": "Frontal Lobe's Monocytes = (22 * Peacock's Pons) mod 23 = (22 * 0) mod 23 = 0 mod 23 = 0",
+        "value": "0",
+        "value_start": 7243
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_2_0_0\", \"occurrence_version\": 12, \"scope\": \"global\"}",
+        "matched_rank": 27,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 27,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_2_0_0\", \"occurrence_version\": 6, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:0:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:0:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "between",
+          "by",
+          "compute",
+          "difference",
+          "divide",
+          "entityeodaheflbnhofickpfdgocifnjcecoklaaddcjeahelbibphdikahilnhjnmgdem",
+          "entitymbmfbcpaodhbgkjbldnpiclghaclcakfhabcebdnjdnenfjmadjklaplmionjheb",
+          "find",
+          "multiply",
+          "next",
+          "now",
+          "parse",
+          "product",
+          "remainder"
+        ],
+        "base_group_id": "igsm-official-0004-op5",
+        "correct": false,
+        "end": 2042,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Name(id='p_0_0_3_3', ctx=Load()), op=Sub(), right=Name(id='p_0_0_3_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Name(id='p_0_0_3_3', ctx=Load()), op=Sub(), right=Name(id='p_0_0_3_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu3:trace-base:0:seed0:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:0:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 1940,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_3_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_3_3"
+        ],
+        "text": "Kroger_Cakes = 20 * (Carrefour_Bagels - Carrefour_Muffins) = 20 * 5. Let me compute that. 20 * 5 = 100",
+        "value": "100",
+        "value_start": 2039
+      },
+      "right": {
+        "alignment_context": [
+          "entityeodaheflbnhofickpfdgocifnjcecoklaaddcjeahelbibphdikahilnhjnmgdem",
+          "entitymbmfbcpaodhbgkjbldnpiclghaclcakfhabcebdnjdnenfjmadjklaplmionjheb"
+        ],
+        "base_group_id": "igsm-official-0004-op5",
+        "correct": false,
+        "end": 2082,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Name(id='p_0_0_3_3', ctx=Load()), op=Sub(), right=Name(id='p_0_0_3_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Name(id='p_0_0_3_3', ctx=Load()), op=Sub(), right=Name(id='p_0_0_3_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Sub(), right=Constant(value='number')), op=Mult(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu3:trace-pilot-edit:0:unused_b:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:0:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 1997,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_3_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_3_3"
+        ],
+        "text": "KrogerCakes = 20 * (CarrefourBagels - CarrefourMuffins) = 20 * (6 - 1) = 20 * 5 = 100",
+        "value": "100",
+        "value_start": 2079
+      },
+      "certificate": {
+        "context_agreement": 142,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 4,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 5,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 12,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3601,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3557,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "GC_GarlicPowder = 4 * GC_Saffron = 4*14 = 56",
+        "value": "56",
+        "value_start": 3599
+      },
+      "right": {
+        "alignment_context": [
+          "by",
+          "compute",
+          "divided",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "next",
+          "s",
+          "step"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3677,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3604,
+        "status": "ok",
+        "surface_mentions": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "Gummy Candy's Garlic Powder = 4 * Gummy Candy's Saffron. That's 4*14 = 56",
+        "value": "56",
+        "value_start": 3675
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 8,
+        "left": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 5,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 29,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3770,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3711,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "GC_Ingredient = GC_Saffron + GC_GarlicPowder = 14 + 10 = 24",
+        "value": "24",
+        "value_start": 3768
+      },
+      "right": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "garlic",
+          "powder",
+          "step",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3912,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3822,
+        "status": "ok",
+        "surface_mentions": [
+          "p_0_1_2_0",
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Gummy Candy's Ingredient = sum of Gummy Candy's Saffron and Garlic Powder. So 14 + 10 = 24",
+        "value": "24",
+        "value_start": 3910
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 8,
+        "left": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 7,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 29,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3793,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3772,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Modulo 23, 24 -23 = 1",
+        "value": "1",
+        "value_start": 3792
+      },
+      "right": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "garlic",
+          "powder",
+          "step",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3936,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3914,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Modulo 23, 24 - 23 = 1",
+        "value": "1",
+        "value_start": 3935
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 8,
+        "left": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 8,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 29,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "since"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3929,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Mult(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Mult(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3870,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "FD_Ingredient = FD_GummyCandy * GC_Ingredient = 22 * 1 = 22",
+        "value": "22",
+        "value_start": 3927
+      },
+      "right": {
+        "alignment_context": [
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "product",
+          "s",
+          "step",
+          "still",
+          "which"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4123,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Mult(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Mult(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3988,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "FreshDirect's Ingredient = product of FreshDirect's Gummy Candy (which is 22) and Gummy Candy's Ingredient (which is 1). So 22 * 1 = 22",
+        "value": "22",
+        "value_start": 4121
+      },
+      "certificate": {
+        "context_agreement": 250,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 8,
+        "left": "{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 10,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 29,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "s"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4081,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_1_0_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_1_0_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4030,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado_PotatoChips = FD_Ingredient + 0 = 22 + 0 = 22",
+        "value": "22",
+        "value_start": 4079
+      },
+      "right": {
+        "alignment_context": [
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "remains",
+          "step",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4285,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_1_0_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_1_0_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4204,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_0",
+          "relation_p_1_0_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado's Potato Chips = sum of FreshDirect's Ingredient (22) and 0. So 22 + 0 = 22",
+        "value": "22",
+        "value_start": 4283
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 8,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 12,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 29,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "still"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4203,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Sub(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4145,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado_Hummus = FD_GummyCandy - GC_Ingredient = 22 - 1 = 21",
+        "value": "21",
+        "value_start": 4201
+      },
+      "right": {
+        "alignment_context": [
+          "between",
+          "difference",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "s",
+          "step"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4472,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Sub(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4357,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado's Hummus = difference between FreshDirect's Gummy Candy (22) and Gummy Candy's Ingredient (1). So 22 - 1 = 21",
+        "value": "21",
+        "value_start": 4470
+      },
+      "certificate": {
+        "context_agreement": 285,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 8,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 13,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 29,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3770,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3711,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "GC_Ingredient = GC_Saffron + GC_GarlicPowder = 14 + 10 = 24",
+        "value": "24",
+        "value_start": 3768
+      },
+      "right": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3070,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3008,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "GCIngredient = GCSaffron + GCGarlicPowder. That's 14 + 10 = 24",
+        "value": "24",
+        "value_start": 3068
+      },
+      "certificate": {
+        "context_agreement": 50,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 5,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 16,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3793,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3772,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Modulo 23, 24 -23 = 1",
+        "value": "1",
+        "value_start": 3792
+      },
+      "right": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3086,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3072,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "24 mod 23 is 1",
+        "value": "1",
+        "value_start": 3085
+      },
+      "certificate": {
+        "context_agreement": 50,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 6,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 16,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "since"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3975,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_2_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3957,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "FD_Ingredient = 22",
+        "value": "22",
+        "value_start": 3973
+      },
+      "right": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3399,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3382,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "FDIngredient = 22",
+        "value": "22",
+        "value_start": 3397
+      },
+      "certificate": {
+        "context_agreement": 75,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "matched_rank": 7,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 16,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "by",
+          "correct",
+          "divided"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 6249,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')), op=Mult(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 4,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6213,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FD_GummyCandy: 18*(0 + 14)=18*14=252",
+        "value": "252",
+        "value_start": 6246
+      },
+      "right": {
+        "alignment_context": [
+          "by",
+          "correct",
+          "divided",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 4984,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_2_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_2_0', ctx=Load())), op=Mult(), right=Constant(value='number')))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4932,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FDGummyCandy = 18*(0 + GCSaffron) = 18*14. 18*14=252",
+        "value": "252",
+        "value_start": 4981
+      },
+      "certificate": {
+        "context_agreement": 750,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "matched_rank": 11,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 16,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "correct"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 6327,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 5,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 5, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6303,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "GC_GarlicPowder: 4*14=56",
+        "value": "56",
+        "value_start": 6325
+      },
+      "right": {
+        "alignment_context": [
+          "correct",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 5096,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5058,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "GCGarlicPowder = 4*GCSaffron = 4*14=56",
+        "value": "56",
+        "value_start": 5094
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 5, \"scope\": \"global\"}",
+        "matched_rank": 12,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 16,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "correct"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 6391,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 6,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 6, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6368,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "GC_Ingredient: 14+10=24",
+        "value": "24",
+        "value_start": 6389
+      },
+      "right": {
+        "alignment_context": [
+          "correct",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 5189,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_1_2_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 5,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 5, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5137,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "GCIngredient = GCSaffron + GCGarlicPowder =14 +10=24",
+        "value": "24",
+        "value_start": 5187
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 6, \"scope\": \"global\"}",
+        "matched_rank": 13,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 16,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 5, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "correct"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 6399,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 7,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 7, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6389,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "24 mod23=1",
+        "value": "1",
+        "value_start": 6398
+      },
+      "right": {
+        "alignment_context": [
+          "correct",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 5197,
+        "event_kind": "calculation",
+        "event_phase": "reduction",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mod(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 6,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 6, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5187,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "24 mod23=1",
+        "value": "1",
+        "value_start": 5196
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 7, \"scope\": \"global\"}",
+        "matched_rank": 14,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 16,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 6, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "correct"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 6433,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_2_2",
+          "occurrence_version": 5,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 5, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6411,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "FD_Ingredient: 22*1=22",
+        "value": "22",
+        "value_start": 6431
+      },
+      "right": {
+        "alignment_context": [
+          "correct",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 5260,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Mult(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Mult(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5209,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "FDIngredient = FDGummyCandy * GCIngredient =22*1=22",
+        "value": "22",
+        "value_start": 5258
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 5, \"scope\": \"global\"}",
+        "matched_rank": 15,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 16,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "correct"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 6505,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Sub(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Sub(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 4,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6483,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado_Hummus: 22 -1=21",
+        "value": "21",
+        "value_start": 6503
+      },
+      "right": {
+        "alignment_context": [
+          "correct",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 5366,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_2_2', ctx=Load()), op=Sub(), right=Name(id='p_1_1_2_2', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Sub(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5318,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "OCHummus = FDGummyCandy - GCIngredient =22 -1=21",
+        "value": "21",
+        "value_start": 5364
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "matched_rank": 16,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 16,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    }
+  ],
+  "pair_audit_note": "Algorithmic certificates and raw evidence; not a human precision estimate."
+}

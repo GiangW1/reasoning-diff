@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/wja/reasoning-diff-pr8-v6-recovery/scripts/extend_natural_pilot.py", line 314, in <module>
+    main()
+  File "/home/wja/reasoning-diff-pr8-v6-recovery/scripts/extend_natural_pilot.py", line 308, in main
+    run(args.out_root)
+  File "/home/wja/reasoning-diff-pr8-v6-recovery/scripts/extend_natural_pilot.py", line 272, in run
+    time.sleep(2)
+KeyboardInterrupt

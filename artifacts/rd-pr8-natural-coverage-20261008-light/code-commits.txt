@@ -1,0 +1,5 @@
+91b87d0bf1271794ff0f26e88f801624a3c781c9 Register fixed-reference natural coverage acquisition with sampling ablations
+9989ca164f7362f99d49e142d21038ecd482edd6 Preserve explicit local modulo stage in concluding natural assignments
+be7e5de849911ad92d11e9019a2798fb4c622538 Resume natural pilot on three GPUs with verified checkpoint lineage
+8c900c201072a34fb5164b084756c6bbe524e038 Recover prose arithmetic and register balanced natural pilot extension
+5aff43af56809f7057ab87b4d415855630e61317 Recover printed natural steps and isolate alignment context

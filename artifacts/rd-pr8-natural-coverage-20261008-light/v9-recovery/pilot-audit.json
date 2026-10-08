@@ -1,0 +1,903 @@
+{
+  "before": "/mnt/mydata/wja/reasoning-diff/runs/pr8-v8-recovery-20261008/pilot-r1",
+  "after": "/mnt/mydata/wja/reasoning-diff/runs/pr8-v9-recovery-20261008/pilot-r1",
+  "all_saved_generation_fields_unchanged": true,
+  "prior_eligible_result_spans_removed": 0,
+  "prior_eligible_cells_removed": 0,
+  "before_overall": {
+    "common_noise_coverage": 0.44385026737967914,
+    "eligible_cells": 561,
+    "matched_cell_coverage": 0.5383244206773619,
+    "n_problems": 8,
+    "n_traces": 8,
+    "noise_supported_cells": 249,
+    "rho_coverage": 0.25,
+    "support_cells": 302,
+    "target_coverage": 1.0,
+    "variable_coverage": 1.0
+  },
+  "after_overall": {
+    "common_noise_coverage": 0.42780748663101603,
+    "eligible_cells": 561,
+    "matched_cell_coverage": 0.5294117647058824,
+    "n_problems": 8,
+    "n_traces": 8,
+    "noise_supported_cells": 240,
+    "rho_coverage": 0.125,
+    "support_cells": 297,
+    "target_coverage": 1.0,
+    "variable_coverage": 1.0
+  },
+  "original_denominator_diagnostic": {
+    "eligible_cells": 561,
+    "before_support": 302,
+    "after_support": 297,
+    "before_common_noise": 249,
+    "after_common_noise": 240,
+    "gained_support": 7,
+    "lost_support": 12,
+    "note": "Diagnostic only; full production denominator includes all recovered steps."
+  },
+  "new_cells": {
+    "eligible": 0,
+    "supported": 0,
+    "common_noise": 0
+  },
+  "new_events": [],
+  "new_or_reassigned_pairs": [
+    {
+      "reference": "pilot-gpu2:trace-base:2:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:2:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "arithmetic",
+          "both",
+          "but",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb",
+          "equation",
+          "since"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4058,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "pilot-gpu2:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4045,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "D_Product = 9",
+        "value": "9",
+        "value_start": 4057
+      },
+      "right": {
+        "alignment_context": [
+          "by",
+          "divided",
+          "remainder",
+          "wait",
+          "yes"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4300,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "pilot-gpu2:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4276,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_1_1_2"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "Deliveroo's Product is 9",
+        "value": "9",
+        "value_start": 4299
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 13,
+        "left": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 6,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 31,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 3, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:1:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:1:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "by",
+          "calculate",
+          "compute",
+          "denote",
+          "divided",
+          "each",
+          "entitycjjikblgpmmekmhhekmonkgajfahjjnghgmojoflonlcphnanjedaechaokgpndo",
+          "entitygmifamddgglgmajnljafnafdfobmndadeddccahnoagbclapiojpojdjfncchhmg",
+          "entityldmbbflbmhbfhkcfggipleoedaflmjjaambpkbabhcppdgkgmledlkdpkjgfahpg",
+          "entityoidmfiibdgfplkcciaopagfkgnahlbbppkmeclmeblbgnfmbdgpdpaipcffndlaa",
+          "now",
+          "numbers",
+          "plugging",
+          "product",
+          "s",
+          "see",
+          "sum",
+          "term"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 7318,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_0_3",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_0_3",
+        "record_id": "pilot-gpu3:trace-base:1:seed0:{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:1:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7311,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_0_2_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2",
+          "relation_p_1_1_0_3",
+          "relation_p_1_2_0_3",
+          "relation_p_1_2_1_3"
+        ],
+        "text": "AsI = 3",
+        "value": "3",
+        "value_start": 7317
+      },
+      "right": {
+        "alignment_context": [
+          "entityclkppghgdgfochofaooaaimhbindmnfgpnefiamcgdagpgjoifkhkmhoknfhgemf",
+          "equation"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": false,
+        "end": 7274,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_0_3",
+          "occurrence_version": 4,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_0_3",
+        "record_id": "pilot-gpu3:trace-pilot-edit:1:unused_a:{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:1:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7266,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_0_2_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2",
+          "relation_p_1_1_0_3",
+          "relation_p_1_2_0_3",
+          "relation_p_1_2_1_3"
+        ],
+        "text": "I_A is 1",
+        "value": "1",
+        "value_start": 7273
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 11,
+        "left": "{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 9,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 21,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 4, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "by",
+          "compute",
+          "divide",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "now"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3497,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3479,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FD_GummyCandy = 22",
+        "value": "22",
+        "value_start": 3495
+      },
+      "right": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3580,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3550,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FreshDirect's Gummy Candy = 22",
+        "value": "22",
+        "value_start": 3578
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 9,
+        "left": "{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 5,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 29,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "by",
+          "compute",
+          "divide",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "now"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3497,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3479,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FD_GummyCandy = 22",
+        "value": "22",
+        "value_start": 3495
+      },
+      "right": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 2612,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 2595,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FDGummyCandy = 22",
+        "value": "22",
+        "value_start": 2610
+      },
+      "certificate": {
+        "context_agreement": 125,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 4,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 18,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3601,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3557,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "GC_GarlicPowder = 4 * GC_Saffron = 4*14 = 56",
+        "value": "56",
+        "value_start": 3599
+      },
+      "right": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 2797,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 2736,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "GCGarlicPowder = 4 * GCSaffron. GCSaffron is 14, so 4*14 = 56",
+        "value": "56",
+        "value_start": 2795
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 5,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 18,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3656,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3636,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "GC_GarlicPowder = 10",
+        "value": "10",
+        "value_start": 3654
+      },
+      "right": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 2851,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 2832,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "GCGarlicPowder = 10",
+        "value": "10",
+        "value_start": 2849
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 6,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 18,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3815,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3798,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "GC_Ingredient = 1",
+        "value": "1",
+        "value_start": 3814
+      },
+      "right": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3107,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3091,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "GCIngredient = 1",
+        "value": "1",
+        "value_start": 3106
+      },
+      "certificate": {
+        "context_agreement": 50,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "matched_rank": 9,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 18,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}"
+      }
+    }
+  ],
+  "pair_audit_note": "Algorithmic certificates and raw evidence; not a human precision estimate."
+}

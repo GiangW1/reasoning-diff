@@ -1,0 +1,1 @@
+{"batch_size": 4, "code_commit": "be7e5de", "deadline_china": "2026-10-08T12:39:43.284037+08:00", "gpus": [2, 3, 6], "imported_requests": 46, "new_requests": 80, "parent_stop_reason": "User requested three GPUs and a twelve-hour budget; controller received SIGINT; old failed/empty-error state is this planned migration."}

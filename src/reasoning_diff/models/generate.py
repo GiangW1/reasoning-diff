@@ -142,7 +142,17 @@ def task_prompt(task) -> str:
             "earlier step. After </think>, give a concise answer and end with exactly one final "
             "answer in the form \\boxed{number}."
         )
-    return prompt
+    from ..quantity_steps import is_controlled, prompt_instructions
+    if (not is_controlled(task)
+            and (getattr(task, "metadata", None) or {}).get("natural_prompt_policy") == "single_pass_named_results_v1"):
+        prompt += (
+            "\n\nWork through the problem in a single forward derivation. Use the quantity names "
+            "from the question when stating computed results. Apply the stated arithmetic rules "
+            "at each operation. Do not restart, recap, or repeatedly verify the derivation. "
+            "Once the requested quantity is computed, finish thinking naturally and give a concise "
+            "final answer in the form \\boxed{number}."
+        )
+    return prompt + prompt_instructions(task)
 
 
 def generate_frozen_trace(
@@ -213,6 +223,10 @@ def generate_frozen_trace(
         return re.search(r"\\boxed\{[^{}\n]+\}", answer_text) is not None
 
     thinking_budget = max_new
+    if limit:
+        thinking_budget = min(max_new, int(limit) - len(prompt_ids))
+        if thinking_budget < 1:
+            raise ValueError("no generation space remains in the model context")
     decoded = decode_loop(
         model,
         prompt_tensor,
@@ -242,10 +256,10 @@ def generate_frozen_trace(
         offsets, offset_failures = offsets_from_tokenizer(tokenizer, full_ids, text, return_failures=True)
     except Exception as exc:
         offset_failures = [{"error": type(exc).__name__, "message": str(exc)}]
-        offsets = [[i, i + 1] for i in range(len(full_ids))]
+        offsets = [[0, 0] for _ in full_ids]
     rid = run_id or f"trace:{task.task_id}:{seed}"
     events = parse_events(gen_text, task)
-    assign_event_regions(events, gen_text)
+    assign_event_regions(events, gen_text, initial_thinking=enable_thinking)
     identity_keys = [event.identity.key() for event in events]
     target = getattr(task, "target", None) or (task.nodes[-1].id if task.nodes else None)
     target_present = target is None or any(event.node_id == target for event in events)
@@ -267,7 +281,7 @@ def generate_frozen_trace(
     )
     prompt_n = len(prompt_ids)
     if prompt_n < len(offsets):
-        gen_char_start = offsets[prompt_n][0]
+        gen_char_start = len(rendered_prompt_text)
     elif offsets:
         gen_char_start = offsets[-1][1]
     else:
@@ -297,6 +311,9 @@ def generate_frozen_trace(
         if pred is None
         else "natural_complete"
     )
+    from ..quantity_steps import PROTOCOL, ESTIMAND, is_controlled, format_report
+    controlled = is_controlled(task)
+    step_format = format_report(gen_text, task) if controlled else None
     return Trace(
         id=rid,
         task_id=task.task_id,
@@ -353,8 +370,12 @@ def generate_frozen_trace(
             "special_token_count": sum(int(token) in special_ids for token in full_ids),
             "boundary_status": "ok" if not offset_failures else "fallback_cursor",
             "forced_target": False,
-            "evidence_status": "model_generated_natural",
-            "protocol_version": "natural_no_finalizer_v1",
+            "evidence_status": "model_generated_registered_quantity_steps" if controlled else "model_generated_natural",
+            "protocol_version": PROTOCOL if controlled else "natural_no_finalizer_v1",
+            "trajectory_protocol": PROTOCOL if controlled else "natural",
+            "natural_prompt_policy": None if controlled else task.metadata.get("natural_prompt_policy", "legacy"),
+            "measurement_estimand": ESTIMAND if controlled else "natural_parsed_steps",
+            "quantity_step_format": step_format,
             "trace_status": trace_status,
             "answer_status": answer_status,
             "analysis_eligibility": {

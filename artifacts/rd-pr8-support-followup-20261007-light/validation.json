@@ -1,0 +1,22 @@
+{
+  "tested_base_commit": "7208b708ff7898a8f361b3b5af74500777f4cfd3",
+  "tested_with_working_changes": true,
+  "source_hash_note": "Exact Windows working files including line endings",
+  "pytest": {
+    "passed": 395,
+    "seconds": 67.82
+  },
+  "compileall_passed": true,
+  "git_diff_check_passed": true,
+  "input_manifest_and_hashes_verified": true,
+  "input_files_unchanged": true,
+  "measurement_source_hashes_verified": true,
+  "output_manifest_verified": true,
+  "published_report_is_exact_offline_copy": true,
+  "real_excerpt_provenance_verified": true,
+  "full_checks_passed": false,
+  "cached_paired_checks_passed": false,
+  "formal_launch_ready": false,
+  "gpu_generation_run": false,
+  "main_rho_or_threshold_changed": false
+}

@@ -1,5 +1,7 @@
 # Reasoning Diff
 
+下一轮入口：[PR8 服务器运行说明](docs/PR8_RUNBOOK.md)。先跑长度/解析 pilot 与测量 smoke，通过后才开始正式 cohort；本 PR 不包含新模型实验结果。
+
 论文实验项目。本机代码验收：`CODE_PATHS_PARTIALLY_VERIFIED / SCIENTIFIC_VALIDITY_BLOCKED`。**真实模型/GPU、官方数据和独立任务图结果仍待服务器。**
 
 ## 从这里开始

@@ -415,6 +415,24 @@ def _density_null(reason: str) -> dict:
 def event_density_sets(task, labels, sham_protocol: dict | None = None) -> dict:
     from .graphs import ancestors
 
+    labels = list(labels)
+    by_trace = {}
+    for lab in labels:
+        by_trace.setdefault(lab.trace_id, []).append(lab)
+    if len(by_trace) > 1:
+        # Event identities repeat across seeds. Compute each trajectory's
+        # density before averaging; an OR across seeds inflates dependencies.
+        rows = [{"trace_id": trace, "densities": event_density_sets(task, local, sham_protocol)}
+                for trace, local in sorted(by_trace.items())]
+        out = {"per_trace": rows, "aggregation": "mean_over_observed_trajectories", "n_trajectories": len(rows),
+               "observed_trajectories": {},
+               "noise_reference_rate": {r["trace_id"]: r["densities"].get("noise_reference_rate", {}) for r in rows}}
+        for key in ("rho_S_raw", "rho_M_raw", "rho_S_noise", "rho_M_noise", "rho_S_excess", "rho_M_excess"):
+            values = [r["densities"][key] for r in rows if r["densities"].get(key) is not None]
+            out[key] = float(np.mean(values)) if values else None
+            out["observed_trajectories"][key] = len(values)
+        return out
+
     sham_reference = {
         event_id: float(np.mean([rate for lab in labels if lab.event_id == event_id for rate in [lab.noise_reference_rate if lab.noise_reference_rate is not None else lab.noise_ref] if rate is not None]))
         for event_id in sorted({lab.event_id for lab in labels if lab.noise_reference_rate is not None or lab.noise_ref is not None})

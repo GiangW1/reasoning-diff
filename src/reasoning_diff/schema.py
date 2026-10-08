@@ -210,6 +210,11 @@ class Event:
     base_group_id: str = ""
     status: str = "ok"
     event_region: str = "unknown"
+    event_kind: str = "commit"
+    event_phase: str = "unknown"
+    expression_signature: str = ""
+    expression_views: list[str] = field(default_factory=list)
+    alignment_context: list[str] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         if not self.record_id:
@@ -259,6 +264,8 @@ class Observation:
     task_id: str = ""
     structure_taxonomy: str = "matched"
     boundary_status: str = "unknown"
+    alignment_method: str = "legacy"
+    alignment_certificate: dict = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if not self.record_id:
@@ -292,6 +299,7 @@ class Label:
     noise_status: str = "unavailable"
     noise_reference_rate: float | None = None
     row_key: str = ""
+    trace_id: str = ""
 
     def __post_init__(self) -> None:
         if not self.record_id:

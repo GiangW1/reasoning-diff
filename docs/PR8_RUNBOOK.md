@@ -1,0 +1,183 @@
+# PR8：先验证测量链路，再跑正式数据
+
+**2026-10-08 三卡覆盖验证已完成**：GPU 2/3/6、每卡 batch 4，在约 42 分钟内完成全部 280 条新增自然轨迹，复用 128 条，共 408 条。保留 24 条 reference 和原 1758 个测量格，三个改值/前提、24 个噪声种子的条件下，匹配 `1406/1758=79.98%`、共同噪声 `1396/1758=79.41%`、完整 rho `20/24`。所有题目的匹配和共同噪声检查通过；0007 题完整 rho 仅 `1/3`，逐题 rho 检查仍失败。正式特征、拟合、干预尚未启动，旧自然匹配没有标记为已解决。代码和轻量结果见 [本轮结果包](../artifacts/rd-pr8-natural-coverage-20261008-light/README.md)及[最终报告](../artifacts/rd-pr8-natural-coverage-20261008-light/REPORT.zh-CN.md)，627 项回归通过。
+
+**v9 阶段识别及三卡验证（2026-10-08）**：明确的局部取模运算之后，若同一数量以 `So/Therefore` 再次提交数值，该提交标为 `residue_commit`。其他实体、条件句、话题切换和 thinking 边界会中断继承；不检查数值是否正确。原始计算结果和重复提交均保留。固定 48 条 pilot 匹配 `297/561=52.94%`、共同噪声 `240/561=42.78%`；335 条旧轨迹匹配 `4946/10309=47.98%`、共同噪声 `3985/10309=38.66%`。更严格的阶段区分排除了一些此前的配对，覆盖没有提高。625 项测试通过，原有结果跨度和分母全部保留。
+
+三卡补充实验（GPU 2/3/6、每卡 batch 4）复用 46 个检查点并完成剩余 34 个请求，全部 80 个新增请求自然结束。128 条轨迹在 v9 下的匹配覆盖 `907/1758=51.59%`、共同噪声 `886/1758=50.40%`、完整 rho `12/24`；分题检查仍失败。结果与 v8/v9 对照位于服务器 `/mnt/mydata/wja/reasoning-diff/runs/pr8-v9-recovery-20261008/`。旧自然匹配尚未解决，正式实验尚未启动。
+
+**固定 reference 的采样验证**：`scripts/extend_natural_coverage.py` 复用上述 v9 的 128 条轨迹，保留 24 条 reference 和全部 1758 个原测量格。仍只扫描原登记的三个前提；按 `scan_edits(task, 3)` 的确定规则使用三个合法改值，配对种子固定 0/1/2；base 噪声种子固定 0–23。新登记 144 条编辑和 136 条噪声，共 280 条请求，生成前一次锁定，完成/失败均不重抽。报告分别比较只加编辑值、只加噪声、两者都加与原 128 条条件，不能混淆分母或抽样改变的作用。它是在上一 pilot 失败后设计的探索性采样扩展，不能改写旧匹配已解决。
+
+从源码目录运行 `scripts/extend_natural_coverage.py --mode plan --source /mnt/mydata/wja/reasoning-diff/runs/pr8-v9-recovery-20261008/extension-r1 --out-root <new-server-directory> --gpus 2 3 6 --batch-size 4`，再以相同输出目录运行 `--mode run`。沿用原预算文件的起点和 12 小时上限，到期保存检查点，恢复不重新计时。汇总仍按原门槛逐题检查，不自动启动正式拟合或干预。
+
+**v8 CPU 复核（2026-10-08）**：进一步识别实际打印的 `sum of` / `product of` / `difference between`、明确操作数数值注释、完整简化式后的数字计算及紧邻的余数描述。固定新 pilot 匹配 `302/561=53.83%`、共同噪声 `249/561=44.39%`、完整 ρ `2/8`；旧数据匹配 `5000/10309=48.50%`、共同噪声 `4094/10309=39.71%`、完整 ρ `0/24`。原有合格结果位置均保留。605 项测试通过，测量门槛仍失败，见服务器 `/mnt/mydata/wja/reasoning-diff/runs/pr8-v8-recovery-20261008/`。
+
+另有独立的自然采样扩展 `scripts/extend_natural_pilot.py`：从已验证的 CPU pilot 导出登记同题同提示的 seed 1/2 配对编辑和 seed 3–6 噪声轨迹，复用原始 48 条、新增 80 条，固定 24 个配对基准。`--mode plan --source <reparsed-pilot> --out-root <new-server-directory> --gpus 2 3 6 --batch-size 4 --time-budget-hours 12` 在生成前锁定请求、输入与源码；`--mode run --out-root <directory>` 按登记的三卡、每卡 batch 4 和持久化预算运行。逐请求哈希检查点支持恢复，失败样本不重抽，缺失请求不得汇总。输出同时保留原 seed0/原噪声条件、seed0/扩展噪声条件、全部配对/原噪声条件，分离两种采样变化的影响。这是探索性扩展，不能据此改写旧自然结果已解决，也不自动启动正式实验。
+
+改卡数/并发时，先停止旧控制进程，再在上述新 plan 命令添加 `--resume-from <old-extension-directory>`。仅允许执行参数与该调度脚本变化，生成/解析代码、题目、提示、采样、token 上限及全部请求必须一致。已完成检查点原字节复制，新协议锁定父协议和逐检查点摘要，保留原始生成元数据与首次启动时间；新的小时预算从原起点算起。不要直接修改旧目录的协议或重写检查点摘要。
+
+**v7 CPU 复核（2026-10-08）**：在同一批保存文本上，新自然 pilot 匹配从 `234/483=48.45%` 提升到 `279/545=51.19%`，共同噪声支持 `232/545=42.57%`，完整 ρ 仍为 `2/8`；旧自然数据匹配从 `4212/9064=46.47%` 提升到 `4956/10246=48.37%`，共同噪声支持 `4050/10246=39.53%`，完整 ρ 仍为 `0/24`。恢复的结果全部进入分母，原先合格的结果位置与测量单元没有删除。572 项回归通过，分题及噪声门槛仍失败；本轮仅重算已保存的 383 条轨迹，未启动正式实验。报告与逐项审计位于 `/mnt/mydata/wja/reasoning-diff/runs/pr8-v7-recovery-20261007/REPORT.zh-CN.md`。
+
+**v6 CPU 复核（2026-10-07）**：复用已经完成的 48 条自然 pilot，v6 补全解析并排除误绑定后，匹配 `234/483=48.45%`、共同噪声支持 `200/483=41.41%`、完整 ρ `2/8`。新增自动损失审计，539 项回归通过；分题测量检查仍未全部通过，未新增 GPU 生成或启动正式扫描。分母变化、结构瓶颈及可复现结果见 [v6 报告](../artifacts/rd-pr8-natural-loss-audit-20261007-light/REPORT.zh-CN.md)。原始 18 分 30 秒 pilot 及 v5 历史结果见 [生成报告](../artifacts/rd-pr8-natural-pilot-20261007-light/REPORT.zh-CN.md)。
+
+最新自然条件修订增加了独立的 `--mode pilot`：仅运行 24 条 base 和 24 条预登记编辑，配对检查后退出，不进入全前提扫描、特征、拟合或干预。新派生题目使用 `single_pass_named_results_v1` 提示，要求按题目名称陈述结果、单次向前推导并自然结束；没有给定步骤 ID、计算顺序、答案或共享历史。旧保存任务保留原提示。新旧提示版本分别记录，不能混合测量。
+
+自然匹配使用 `printed_expression_views_forced_sequence_v9`：识别唯一的词汇缩写和明确的括号声明，保留等式链中实际打印的多种表达式，规范化加法/乘法的结合与交换顺序；补全明确的文字赋值、完整数字代入和紧邻取模。匹配先最大化兼容步骤数，再比较屏蔽数值的段落词汇；只保留所有最优路径共同包含的配对，未消除的歧义仍是未知。原始值、取模值分阶段保留，未匹配项输出候选与损失证据。`paired_measurement.json` 和 CPU pilot 重算报告自动包含 `alignment_audit`。路径唯一性不是人工确认的语义正确率。
+
+v7 将词汇上下文限制在同一思考/回答区域，避免最终回答文字选择思考阶段的重复步骤；补全显式多词/撇号别名、重复目标名称、文字运算符和同句操作数代入。`q = 15 + 10 = 25 mod 23 = 2` 与分句写法一致，保留原文中的原始结果 25 和取模结果 2；`q = (15 + 10) mod 23 = 2` 没有打印原始结果，仍只有一步。恢复的步骤进入完整分母，不过滤重复步骤，也不修改 50% 门槛。原始文本、token、答案与生成状态不变，旧提示和新提示条件分别重算；服务器验证输出位于 `/mnt/mydata/wja/reasoning-diff/runs/pr8-v7-recovery-20261007/`。
+
+2026-10-06 的真实 smoke 因测量覆盖不足而停止，正式 32 题未启动。对 `241cd31` 的复核确认：373 项测试通过，但保存轨迹仍不满足测量检查，行首项目符号还会漏解析。本次修订修复这些代码问题；全量旧轨迹离线复测和缓存配对检查**仍失败，不建议重启正式实验**。没有重新运行真实 Qwen smoke 或正式实验，见 [本次离线复核](../artifacts/rd-pr8-sequence-audit-20261007-light/REPORT.zh-CN.md)。
+
+后续补丁修复了 `So:` 换行后接项目符号的声明遗漏，避免同一操作数在 base/edit 中得到不同身份；并增加部分共同支持的描述统计。最新数值和具体修复路径见 [后续复核](../artifacts/rd-pr8-support-followup-20261007-light/REPORT.zh-CN.md)，主测量依然失败。
+
+2026-10-07 增加独立的受控条件 `--trajectory-protocol quantity_steps`，可使用下方入口先验证。它让模型在预先登记的数量步骤内自由计算，每个数量明确提交一次结果，解决自由文本中重复确认和表达式变化导致的单位身份不确定。旧数据保持原自然条件；不能重新贴上新条件的标签，也不能把新条件的结果解释为原自然全步骤实验已成功。422 项 CPU 回归通过，见 [代码验证记录](../artifacts/rd-pr8-quantity-steps-codecheck-20261007-light/REPORT.zh-CN.md)。真实模型是否遵循格式、以及实际测量和 C2 能否通过，仍由服务器 pilot/smoke 判定。
+
+同日对 `9206685` 的复核发现多卡格式检查覆盖失败记录、C2 跨 token 切点重复计入旧结果两个问题，现已修复。新增 8 项回归后全量 430 项通过，见 [复核修复记录](../artifacts/rd-pr8-review-followup-20261007-light/REPORT.zh-CN.md)。这仍是代码验证，没有新的真实模型实验结果；更新源码后使用全新输出目录。
+
+后续针对匹配覆盖的排查又修复了声明发现顺序、无项目符号的变量定义、同一数值跨度被别名重复计数及同余等式解析。442 项回归通过，但保存数据的匹配与共同噪声支持仍不通过，不能称为匹配覆盖问题已解决，见 [匹配排查与未解决项](../artifacts/rd-pr8-match-parser-audit-20261007-light/REPORT.zh-CN.md)。
+
+## 服务器命令
+
+使用 PR7 已有的 Python 环境、200 题输入和固定 revision 的 Qwen3-8B 权重。源码放 `/home/wja`，所有模型、输出、日志、检查点和缓存放 `/mnt/mydata/wja`。从此 PR 的源码 checkout 执行：
+
+```bash
+export PYTHONPATH="$PWD/src"
+PY=/mnt/mydata/zm/projects/RPent/.venv/bin/python
+
+# 新自然提示：只跑有时限的小规模 pilot。按空闲情况显式选择 GPU。
+"$PY" scripts/run_pr8.py --mode pilot --trajectory-protocol natural \
+  --gpus 2 3 --batch-size 2 --max-new 12288 --time-budget-hours 0.5 \
+  --out-root /mnt/mydata/wja/reasoning-diff/runs/pr8-natural-v5
+
+# 已完成 pilot 的解析/匹配修复只需 CPU 重算，不能覆盖原目录。
+"$PY" scripts/reparse_pr8.py --pilot \
+  --in-dir /mnt/mydata/wja/reasoning-diff/runs/pr8-natural-v5 \
+  --out-dir /mnt/mydata/wja/reasoning-diff/runs/pr8-natural-v5-reparsed
+
+# 新受控条件：先运行长度/格式、配对、特征和干预 smoke。
+"$PY" scripts/run_pr8.py --mode smoke \
+  --trajectory-protocol quantity_steps \
+  --out-root /mnt/mydata/wja/reasoning-diff/runs/pr8-quantity-steps-v1
+
+# 正式运行：先自动执行/恢复同协议的 smoke，通过后才启动剩余题目。
+"$PY" scripts/run_pr8.py --mode full \
+  --trajectory-protocol quantity_steps \
+  --out-root /mnt/mydata/wja/reasoning-diff/runs/pr8-quantity-steps-v1
+```
+
+默认数据目录为 `/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/inputs/igsm-pilot200`，权重根目录为 `/mnt/mydata/wja/reasoning-diff/assets/models`，需包含 `Qwen3-8B/verified.json`。
+
+预算默认 `--max-new 32768`；实际生成预算取该值与模型卡片剩余上下文的较小值，保存实际预算和长度。输入也占上下文，不强制关闭 thinking。可以指定 `--dataset`、`--model-root`、`--gpus`、`--batch-size`。输入、代码或协议改变后使用新输出目录，不能复用旧结果。DeepSeek 对照使用 `--model r1-distill-qwen-7b` 和自己的已验证权重/上下文预算。
+
+不要使用 PR7 的 PID 接管脚本启动 PR8；两个实验使用独立目录和指纹。
+
+启动器保留上一轮的并行优化：长度/配对 pilot 与 prepare 均按每卡 batch size 批量解码；四层特征收集分配到三张卡，收集完成即提交 CPU 拟合；同时最多运行两个 CPU 任务，每个任务使用 8 个 BLAS 线程。三个特征位置并行拟合后，`fit --position all --resume` 复用结果并汇总，拟合入口缓存只读 event rows，避免重复解析。层选择和标签规则保持不变，所选生成条件贯穿 pilot、prepare、解析与干预，测量质量检查提前并按题目/难度分层。`execution_progress.json` 记录每个阶段的状态，CPU 阶段不访问 GPU。上述环境只用于运行，不向 RPent 环境安装或修改包。
+
+来源对干预也按 `--pair-shard INDEX COUNT` 分配到三卡；同一来源对的两种配置与全部对照保持在同一进程内，合并时保留原始 pair index。`--formal-limit 32` 可选取探索性小集：每个 op 有 4 道 probe_train、1 道 dev、1 道 calibration 和 2 道 test，仍使用既有 split hash，按与模型结果无关的 family hash 选题；8 道 smoke 题及其 family 保持独立。该子集不使用本轮暂缓的 direction_fit/transfer_pairs，不能代表完整论文检验。
+
+12 小时配置示例：`--mode full --gpus 2 3 6 --batch-size 4 --max-new 12288 --formal-limit 32 --time-budget-hours 12`。token 上限控制长尾和 KV 显存，遇到截断仍如实记录；不能强制闭合 thinking 或绕过 smoke。`execution_budget.json` 保存首次启动的预算起点，恢复不延长预算；到期停止当前子进程并标记 `budget_exhausted`，保留检查点，不标记为实验完成。代码、生成预算与样本选择均不同，必须使用新的输出目录。
+
+变量缩写优先使用生成文本中的明确声明：支持实体标题下的项目、`Let X be ENTITY`、`Let me denote ENTITY as X`、反向声明、`ENTITY (let's denote this as X) equals ...`，以及跨行的 `Let me write that as:`。无明确声明时，仅允许唯一对应的名称缩写；泛用 `X`、`Sum1` 不能继承附近话题。普通 `So/Then/Therefore` 引入的名称还必须与话题实体词汇对应。跨行主语与引入语必须在同一段落内，不继承另一赋值 RHS 中的实体。行首项目符号和配对粗体/代码标记按版式处理，原文跨度保持不变。不按数值或标准答案猜测实体，不使用后续声明赋予较早泛用变量身份，冲突声明保持未解析。等式链只读取明确打印出的末端数值；不替模型计算尚未写出结果的表达式，不将 RHS 中的操作数误当新赋值。
+
+## smoke 内容与停止条件
+
+按固定 split hash，在 op5/10/15/21 各选一个 probe_train 和一个 dev 题，共 8 题；选题发生在生成前，不看准确率。这些题的整个 family 从正式 cohort 排除，正式运行剩余 192 题。
+
+第一阶段只生成 24 条 base 轨迹，用正式预算检查长度和解析。每个 op 的自然完成率至少 50%，每条轨迹需要精确 token 边界和可解析的 thinking calculation/commit 事件。此外，每题跨 seed 的目标变量覆盖率和目标 DAG 中间变量覆盖率均至少 50%，避免“仅解析到一个事件”就通过。缺失变量逐条写入 `parser_coverage.json`。DAG 变量覆盖是工程诊断，不是经过全句人工标注的步骤召回率。
+
+第二阶段复用 base pilot 检查点，每题只对预先选定的第一个相关数值事实和两个无关事实各编辑一次（seed 0），共新增 24 条轨迹；seed 1/2 的 base 作为匹配噪声参照。CPU 上检查事件匹配、共同噪声支持、rho 和解析变量覆盖，不采集隐状态、不拟合探针。`paired_pilot.json` 保存各卡检查结果，配对 pilot 的支持分母仅包含登记的三个事实，不把尚未扫描的事实算作缺失或已观测。失败就停止全前提扫描。
+
+第三阶段对 smoke 的全部句子前提扫描，先在 CPU 上写 `measurement_report.json` 和轨迹表，测量检查通过后才采集四层特征并拟合。扫描 0/12/24/35 层，在 dev 上选 behavior AUC 最高的层（并列选低层）；最终 fit、calibrate、intervention 使用该层。检查：
+
+- 全前提有扫描记录，截断 thinking 前缀没有误丢弃。
+- train/dev 有两类有效 behavior 标签，至少两个 dev 层有可用 AUC。
+- P1 每条 base 轨迹一行，没有三种位置重复或零长度哨兵。
+- 已观察非任务格、带共同噪声支持的格、可用 rho 轨迹、目标 DAG 变量和目标变量的覆盖率均至少 50%，同时检查总体、每个 op 和每道题。单个有 rho 的 seed 不能掩盖其余缺失。
+- 两类来源对各至少有一个可用 contrast，其 baseline、main、随机对照和 C-layer 对照全部自然结束且有有效答案；三种干预范数均有限且非零。每个条件恰好一行，按同一来源对核对，不能跨对拼接或重复计数。
+
+smoke 失败保留诊断、不启动正式生成。正式 cohort 也执行上述检查；C2 不可用时先保存分析中的失败/缺失记录，再将 pipeline 标记失败。50% 是防止大面积截断/无法测量的工程检查，**不是论文验收阈值**；本修订没有降低阈值，但新增按题检查及共同噪声/rho/变量覆盖检查，已登记在 `protocol.json`。没有“必须准确”“AUC 必须高”“效应必须正”的门槛。48 条小 pilot 仍消耗算力，但能在全前提扫描之前暴露配对测量问题。
+
+依次查看 `length_pilot.json`、`parser_coverage.json`、`paired_pilot.json`、`smoke/measurement_report.json`、`smoke/smoke_report.json`、`smoke/layer_selection.json`、`smoke/intervention_coverage.json` 和 `logs/`。相同源码和参数可以恢复；本次修订改变解析和匹配协议，旧运行目录不能直接 resume，必须使用新输出根目录。
+
+## 数据与测量协议
+
+`--trajectory-protocol natural` 仍是默认的完整自然生成；本次新派生句子题使用单独登记的新提示版本，不能把它的结果回填为旧提示结果。受控条件必须显式指定 `quantity_steps`，同时使用 `--premise-protocol sentence_graph`；启动器已经传递这两个参数。`protocol.json`、任务/轨迹 metadata、prepare 配置、检查点指纹和测量报告分别记录条件、匹配规则与测量对象，混合条件不能共用测量表。
+
+受控条件的格式为 `<step node="登记ID">自由推理 <commit>整数</commit></step>`。提示提供任务 DAG 中已有数量的 ID、名称和计算顺序，不提供节点数值、标准答案或依赖集合；顺序来自已知任务结构，属于显式控制，不是自然条件中模型自行发现的步骤。每个节点一次提交，块内可以推敲和修改。匹配对象是这次明确提交的数量结果，不包含每个算术微步骤、复述或反复确认。C1 需要和同样知道节点计划的文本/任务成员基线比较；本条件不能单独证明自由推理中的潜在依赖可解码。
+
+匹配使用 `registered_quantity_steps_v1`，按登记节点、作用域和区域配对，不依赖结果值、标准答案、表达式形式或位置距离。重复提交保持歧义，缺失步骤保留在登记支持分母；不会因模型少输出步骤而提高覆盖率。格式检查从生成文本重算，排除提示中的示例标签；未登记 ID、重复、缺失、乱序、损坏标签或 answer 区域中的 step 都记录为失败。24 条 base 的格式检查在新增配对生成之前执行，写入 `registered_step_formats.json`；配对 pilot 和全扫描也检查编辑及噪声轨迹。原有覆盖和 C2 检查不降低。
+
+根目录的 `registered_step_formats.json` 按轨迹保存为列表，每行带 `task_id`、`trace_id`、`seed`。不同 GPU 的 worker-local trace ID 可以相同，因此不以该 ID 覆盖汇总结果；所有行都必须通过检查，任一分片的失败都会阻止配对生成。
+
+受控条件的 `rho` 是“每个登记数量一次提交”的响应率超额，保留有符号噪声扣除、共同支持及缺失状态；不替换旧自然轨迹的 `rho`。`pre_step` 在整个 step 开始之前，`pre_value` 在提交整数之前；不把已经生成的算术推理误当成步骤之前的信息。C2 使用精确 token 前缀续写，解析时恢复完整已生成上下文并剥离提示，解决缩写声明和跨切点标签丢失；只把切点后新提交的节点用于 donor-follow 判定，完整上下文用于格式检查。解码答案虽存在但格式无效时仍标记 invalid。受控条件的非目标集合改为编辑脏锥之外的计算节点；`nontarget_observable_nodes` 记录切点后实际观察到的节点，没有观测时 `nontarget=null`，不能用提示前提或已经固定在前缀中的结果虚构保留率。
+
+续写评分要求数值的首字符位于切点或之后。只续写了前一步的闭合标签，或者数值已有部分字符进入前缀，都不算新结果；例如相邻 `</step><step` 的 `><` 共用一个 token 时，重生成这个 token 不能把前一步计入非目标保留率。
+
+`--premise-protocol sentence_graph` 从官方模板 DAG 重建自然语言题：每个数值事实、每个运算关系各占一个句子，并加入两个不在目标 DAG 中的数值事实。隐含聚合关系显式化，真值从独立表达式重算，原题和模板保留在 metadata。
+
+这是新的 **project_derived** 条件，不能冒充原始官方题或与 PR7 混池。它先检验明确事实/关系层面的归因测量。
+
+每题每个前提扫描 3 次，使用不同合法数值；关系事实使用非零增量，同时修改自然语言和表达式。edit 与对应 base 共享 seed。扫描不是穷尽枚举，未对齐仍未知。`--noise-reference base_pairs` 用已有 base seeds 的有向比较，不额外生成 sham；共享轨迹的 pairs 不能当独立样本，推断按 problem 聚类。
+
+解析区分 restatement/calculation/commit，科学主探针排除 restatement 和边界失败轨迹，原始轨迹全部保留。Unicode 跨 token 时按原始 bytes 对齐；重编码或 byte round trip 失败就保留失败，不能回退到虚构游标。
+
+事件匹配使用 `region_structure_forced_sequence_v3`：thinking/answer 分开，兼容条件仍要求相同实体、作用域、事件类型、阶段和不含数值的表达式结构。先在各区域的完整事件序列上求最优单调匹配，只保留所有最优匹配共有的事件对。重复结构还需要另一个实体的共有对应作为上下文；孤立的重复确认、多个最优对应、阶段/结构不兼容继续保持未知。记录 `alignment_method` 和 `alignment_certificate`（事件身份、匹配序号、最优长度及上下文实体数量）；主比较、跨 seed 噪声和 C2 使用相同规则。
+
+该规则**假设同一区域内步骤次序保持**。在此假设下对应唯一，不等于语义步骤身份已经经过人工验证；模型可以改变策略或重复确认的含义。开发回归验证了算法没有任选并列对应，没有估计真实步骤配对 precision/recall。主测量不切换到最后一次赋值，不按数值、标准答案、位置距离或删除表达式结构来补配。不能匹配的 reference 事件仍进入缺失分母，已知任务依赖标签保留，行为标签保持未知。
+
+行为标签绑定 reference trace/seed，不把一个 seed 的变化传播到所有 seeds。只收集主 probe 和来源对 donor 特征，避免所有扫描变体形成无标签的大矩阵。文本基线、预测下一变量后映射 DAG 的基线、`restatement + R_task` 诊断基线均只用 probe_train 拟合，并在与 probe 相同的格子上报告 dev/test。
+
+标签文件的密度摘要先逐轨迹计算，再取有观测轨迹的平均，保留 `per_trace` 和观测分母；跨 seed 的正例不取并集。噪声记录 ID 包含题目、两条轨迹及完整事件身份。`intervention_coverage.json` 记录每个来源对未通过的具体条件，预算耗尽的解码不算自然完成。
+
+## P1 的解释范围与暂未执行的检验
+
+`probe_predictions.jsonl` 保存事件 × 前提格的预测/依赖标签，只用于 C1。`p1_table.jsonl` 保存 base 轨迹的正确性和密度，三个特征位置不重复写入，位置间结果必须一致。P1 回归仅用 probe_train 和 test，按 problem 聚类；dev 用于选层。smoke 全部答对/全部答错时记录 `single_class` 和类别数量，只能检查测量链路，不能检验密度对正确率的预测；训练集单一类别也不输出有效回归结果。工程 smoke 不为制造正误两类而改 prompt 或采样结果。
+
+密度协议是 `matched_cell_response_rate_excess_v1`：每个事件的已观察非任务前提格上，计算编辑引发值变化的比例，减去相同 reference/event 上 base seeds 的噪声比例，再对事件取平均。负 excess 保留，表中同时记录 raw 密度、支持格数和覆盖率。
+
+这是有限扫描、共同支持集上的**描述性响应率 excess**，不证明整个前提全集上的因果虚假依赖。未观察格不当成 0；缺少匹配噪声时 rho=null。失败/截断在 ITT 正确率计为 0，但缺失 rho 无法进入归因回归，报告缺失分母；不能将该回归称作完整 ITT 因果效应。
+
+原有 `rho` 在任一已观测事件缺噪声时将整条轨迹置空。`common_support_diagnostic` 另报 edit/noise 同时支持的子集：raw、noise、signed excess 使用完全相同的事件和权重，保留事件/格数及覆盖率。其状态为 `descriptive_only` 或 `no_common_support`，不替换 P1 的 rho，也不改变运行检查；非空诊断不能视为整条轨迹满足分析条件。
+
+C2 遍历所选 split 的所有来源对，分别执行同值换来源/同来源换值，使用各自前缀。donor 先在完整原始事件上使用与主测量相同的区域、阶段、表达式结构和序列匹配，再筛选 thinking 计算/提交事件并定位特征行；特征过滤后看似唯一的重复步骤不算可用。同值换来源时，只将已登记的来源替换映射用于对应计算阶段的结构比较，不改写输出、不按结果寻找 donor、不任意替换其他操作数。数值来源可经多层 DAG 到达目标，下游自然语言和 DAG 同步换来源。同值条件的数值 target-follow 无法区分来源，保留 null，不能据此声称模型遵循了 donor 来源。最终分析输入包含干预记录与测量质量报告，分别报告两类来源对的可用/失败数量及同对的描述性对照差值；不把 C2 记录计入 P3。
+
+本入口暂不执行旧 P3/INLP 与 C4 repair：前者需要 S 专属、仅在 direction_fit 拟合的消融方向，后者需要真正的旧轨迹增量修复和连续编辑。输出标为未评估，不把 main swap 当 P3 或同槽位 repair 当成功。没有引入 vLLM；继续使用已有 HF 独立 RNG/batched decoder，避免迁移后混用采样语义。
+
+## 保存轨迹的离线重测
+
+`scripts/reparse_pr8.py --in-dir OLD_PREPARE --out-dir NEW_PREPARE` 校验原始 manifest，从保存的精确 prompt 边界之后解析文本，复用原 token IDs、offsets、答案评分和生成状态，重建编辑比较以及所有注册的有向 base-seed 噪声对。不加载模型或生成新 token，要求使用新的输出目录。
+
+先复核服务器上原始保存数据，可只导出报告，避免复制大体积轨迹和标签：
+
+```bash
+"$PY" scripts/reparse_pr8.py \
+  --in-dir /mnt/mydata/wja/reasoning-diff/runs/pr8-12h-20261006-r2/smoke/prepare \
+  --out-dir /mnt/mydata/wja/reasoning-diff/runs/pr8-sequence-audit/prepare \
+  --report-only
+```
+
+`measurement_report.json` 对照原始测量与当前测量的事件数、支持格及可用 rho，并保存按题/难度的检查。`cached_paired_screen` 从旧比较中精确选取每题 seed 0 的登记相关事实及两个无关事实，使用 seed 1/2 噪声；缺少或重复的编辑比较也记为失败，不重新生成。报告模式只输出测量报告、来源 spec 和 manifest，不能用作 collect 的 prepare 输入。命令成功只代表重测成功，是否满足测量门槛看报告中的 `passed`，`formal_launch_ready` 仍为 false。
+
+`9206685` 的全量复核：335 条保存轨迹、24 条 base，匹配 1955/5965（32.77%），共同噪声支持 1458/5965（24.44%），原有 rho 1/24。缓存配对检查：8 条 base、24 个编辑均存在，匹配 193/567（34.04%），共同噪声支持 147/567（25.93%），原有 rho 0/8，另有一题变量覆盖不足。共同支持描述统计分别在 23/24、7/8 条上非空；两项主测量仍未通过 50% 检查。
+
+修复声明与同余解析后的最新全量结果：匹配 2169/6822（31.79%），共同噪声支持 1652/6822（24.22%），rho 0/24，目标 DAG 变量覆盖率 96.15%。缓存配对检查匹配 241/749（32.18%），共同支持 185/749（24.70%），rho 0/8，变量覆盖检查现已通过。解析到更多事件同时扩大了分母，不能把新旧百分比直接解释成同口径性能升降；也不能丢掉新发现的缺失格来恢复 rho 或通过检查。匹配、共同噪声和 rho 检查均仍失败，正式实验不可启动。
+
+主测量保留 50% 阈值；重解析成功不等于正式运行就绪。必须先解决步骤对应的可识别性并人工审查配对，再验证登记的小检查；通过后才能重新验证特征采集、拟合和因果 smoke。这是新的测量版本，旧结果保留在故障报告中，不能静默覆盖或混池。
+
+附加的 `final_commitment_p1_table.jsonl` 仅用于诊断：按文本位置选每个实体/作用域在 thinking 区域最后一次明确赋值，再重建比较。选择不使用赋值数值或标准答案，但该口径测量实体最终结果，不能替代所有推理步骤的依赖测量，不得用于绕过原 smoke 检查。解析修复支持内联的 `实体名 (变量) = ...` 和带明确数值结果的符号等式链，歧义声明及未给出明确结果的表达式仍不推断。
+
+2026-10-06 真实运行在覆盖率检查失败后停止，正式 32 题未启动。完整故障说明与轻量证据见 [PR8 实验故障报告](../artifacts/rd-pr8-smoke-20261006-light/REPORT.zh-CN.md)。
+
+## 代码验证
+
+新增独立的 `shared_prefix_assignment_v1` 条件：在保存的自然赋值数值之前固定历史，配对续写 baseline/edit，直接登记局部响应的比较起点。其生成、噪声对照、覆盖报告和检查点均独立，不替换原自然轨迹匹配结果或旧 P1/C1/C2。服务器 plan/pilot/scan 命令、成本及解释限制见 [共享前缀续写运行说明](SHARED_PREFIX_RUNBOOK.md)。
+
+```bash
+"$PY" -m pytest -q --tb=line
+"$PY" -m compileall -q src scripts tests
+git diff --check
+```
+
+回归覆盖截断区域、操作数误解析、最后层误选、P1 哨兵混入，以及逐 seed 标签、全题扫描/批量计划、Unicode 边界、校准位置、来源对遍历、四个 op 层的事实转换与 pilot 失败时不启动正式生成。
+
+本次新增的 `tests/fixtures/pr8_saved_excerpt_audit.json` 包含 8 道真实 smoke 题的 9 个原文片段（四个 op），保存原有声明上下文、来源轨迹 ID、文本哈希和逐条检查的 13 个明确赋值跨度，以及一个操作数负例。测试核对实体、值、阶段和 offsets，并验证修改标准答案不会改变提取或匹配。它们是发现故障后选取的开发回归，**不是独立标注的整批解析 precision/recall 估计**；报告将未经人工全句标注的步骤召回率保留为未评估。模型自然重述和策略变化可能仍然造成不可识别的步骤对，新的配对 pilot 应如实停止，不能通过最后赋值口径或将未知置零绕过。

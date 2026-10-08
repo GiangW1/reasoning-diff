@@ -1,0 +1,24 @@
+........................................................................ [ 12%]
+........................................................................ [ 25%]
+........................................................................ [ 38%]
+........................................................F............... [ 51%]
+........................................................................ [ 64%]
+........................................................................ [ 77%]
+........................................................................ [ 89%]
+.........................................................                [100%]
+=================================== FAILURES ===================================
+_______ test_remeasure_preserves_raw_manifest_and_rebuilds_missing_noise _______
+tests/test_pr8_reparse.py:104: in test_remeasure_preserves_raw_manifest_and_rebuilds_missing_noise
+    assert report["matching_policy"] == "printed_expression_views_forced_sequence_v6"
+E   AssertionError: assert 'printed_expr...d_sequence_v7' == 'printed_expr...d_sequence_v6'
+E     
+E     - printed_expression_views_forced_sequence_v6
+E     ?                                           ^
+E     + printed_expression_views_forced_sequence_v7
+E     ?                                           ^
+----------------------------- Captured stdout call -----------------------------
+{'base_traces': 3, 'matched_cells': 0, 'eligible_cells': 0, 'matched_cell_coverage': 0, 'trajectories_with_rho': 0, 'thinking_calculation_events': 0}
+{'base_traces': 3, 'matched_cells': 1, 'eligible_cells': 6, 'matched_cell_coverage': 0.16666666666666666, 'trajectories_with_rho': 1, 'thinking_calculation_events': 3}
+=========================== short test summary info ============================
+FAILED tests/test_pr8_reparse.py::test_remeasure_preserves_raw_manifest_and_rebuilds_missing_noise
+1 failed, 560 passed in 79.13s (0:01:19)

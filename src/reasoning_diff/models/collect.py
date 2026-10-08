@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import inspect
 import numpy as np
 import torch
 
@@ -62,7 +63,8 @@ def _hidden_at_layer(model, token_ids: list[int], layer: int) -> np.ndarray:
         raise ValueError(f"trace length {len(token_ids)} exceeds model context {cap}")
     model.eval()
     with torch.inference_mode():
-        _fwd, hidden = _capture_forward_output(model, token_ids, layer=layer, use_cache=False)
+        options = {"logits_to_keep": 1} if "logits_to_keep" in inspect.signature(model.forward).parameters else {}
+        _fwd, hidden = _capture_forward_output(model, token_ids, layer=layer, use_cache=False, **options)
     return hidden[0].float().detach().cpu().numpy()
 
 
@@ -102,6 +104,8 @@ def collect_hidden_trace(
         # raw trace retains answer-region events for audit; they do not enter
         # the hidden-state matrix used by the scientific probe.
         c1_eligible = include_nonthinking_events or event_region in {"thinking", "unknown"}
+        if not include_nonthinking_events and (getattr(event, "status", "ok") != "ok" or getattr(event, "event_kind", "commit") == "restatement"):
+            c1_eligible = False
         if not c1_eligible:
             continue
         start = event.start
@@ -138,6 +142,10 @@ def collect_hidden_trace(
                 "node_id": getattr(event, "node_id", None),
                 "timing": "pre_step",
                 "event_region": event_region,
+                "event_kind": getattr(event, "event_kind", "commit"),
+                "event_phase": getattr(event, "event_phase", "unknown"),
+                "expression_signature": getattr(event, "expression_signature", ""),
+                "event_scope": getattr(ident, "scope", "global"),
                 "event_status": getattr(event, "status", "ok"),
                 "analysis_eligibility": {
                     "C1": True,
@@ -403,6 +411,11 @@ def intervene_hidden_decode(
 
     g = torch.Generator(device=model_device(model)).manual_seed(seed)
     prompt = as_input_ids(prompt_ids, model)
+    context = int(getattr(model.config, "max_position_embeddings", 0) or 0)
+    if context:
+        max_new = min(max_new, context - int(prompt.shape[1]))
+        if max_new < 1:
+            raise ValueError("no intervention generation space remains in the model context")
     if event_aligned:
         if target_prefix_len is None:
             raise ValueError("event-aligned intervention requires target_prefix_len")
@@ -417,6 +430,7 @@ def intervene_hidden_decode(
     return {
         **decoded,
         "baseline_generated_ids": baseline["generated_ids"],
+        "baseline_stop_reason": baseline["stop_reason"],
         "followed_donor": decoded["generated_ids"] != baseline["generated_ids"],
         "hook": "resid_post",
         "transform": mode,

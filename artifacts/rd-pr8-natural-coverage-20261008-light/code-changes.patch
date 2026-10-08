@@ -1,0 +1,1516 @@
+diff --git a/docs/PR8_RUNBOOK.md b/docs/PR8_RUNBOOK.md
+index 3f921a2..aae47fe 100644
+--- a/docs/PR8_RUNBOOK.md
++++ b/docs/PR8_RUNBOOK.md
+@@ -1,10 +1,28 @@
+ # PR8：先验证测量链路，再跑正式数据
+ 
+-**最新 CPU 复核（2026-10-07）**：复用已经完成的 48 条自然 pilot，v6 补全解析并排除误绑定后，匹配 `234/483=48.45%`、共同噪声支持 `200/483=41.41%`、完整 ρ `2/8`。新增自动损失审计，539 项回归通过；分题测量检查仍未全部通过，未新增 GPU 生成或启动正式扫描。分母变化、结构瓶颈及可复现结果见 [最新报告](../artifacts/rd-pr8-natural-loss-audit-20261007-light/REPORT.zh-CN.md)。原始 18 分 30 秒 pilot 及 v5 历史结果见 [生成报告](../artifacts/rd-pr8-natural-pilot-20261007-light/REPORT.zh-CN.md)。
++**v9 阶段识别及三卡验证（2026-10-08）**：明确的局部取模运算之后，若同一数量以 `So/Therefore` 再次提交数值，该提交标为 `residue_commit`。其他实体、条件句、话题切换和 thinking 边界会中断继承；不检查数值是否正确。原始计算结果和重复提交均保留。固定 48 条 pilot 匹配 `297/561=52.94%`、共同噪声 `240/561=42.78%`；335 条旧轨迹匹配 `4946/10309=47.98%`、共同噪声 `3985/10309=38.66%`。更严格的阶段区分排除了一些此前的配对，覆盖没有提高。625 项测试通过，原有结果跨度和分母全部保留。
++
++三卡补充实验（GPU 2/3/6、每卡 batch 4）复用 46 个检查点并完成剩余 34 个请求，全部 80 个新增请求自然结束。128 条轨迹在 v9 下的匹配覆盖 `907/1758=51.59%`、共同噪声 `886/1758=50.40%`、完整 rho `12/24`；分题检查仍失败。结果与 v8/v9 对照位于服务器 `/mnt/mydata/wja/reasoning-diff/runs/pr8-v9-recovery-20261008/`。旧自然匹配尚未解决，正式实验尚未启动。
++
++**固定 reference 的采样验证**：`scripts/extend_natural_coverage.py` 复用上述 v9 的 128 条轨迹，保留 24 条 reference 和全部 1758 个原测量格。仍只扫描原登记的三个前提；按 `scan_edits(task, 3)` 的确定规则使用三个合法改值，配对种子固定 0/1/2；base 噪声种子固定 0–23。新登记 144 条编辑和 136 条噪声，共 280 条请求，生成前一次锁定，完成/失败均不重抽。报告分别比较只加编辑值、只加噪声、两者都加与原 128 条条件，不能混淆分母或抽样改变的作用。它是在上一 pilot 失败后设计的探索性采样扩展，不能改写旧匹配已解决。
++
++从源码目录运行 `scripts/extend_natural_coverage.py --mode plan --source /mnt/mydata/wja/reasoning-diff/runs/pr8-v9-recovery-20261008/extension-r1 --out-root <new-server-directory> --gpus 2 3 6 --batch-size 4`，再以相同输出目录运行 `--mode run`。沿用原预算文件的起点和 12 小时上限，到期保存检查点，恢复不重新计时。汇总仍按原门槛逐题检查，不自动启动正式拟合或干预。
++
++**v8 CPU 复核（2026-10-08）**：进一步识别实际打印的 `sum of` / `product of` / `difference between`、明确操作数数值注释、完整简化式后的数字计算及紧邻的余数描述。固定新 pilot 匹配 `302/561=53.83%`、共同噪声 `249/561=44.39%`、完整 ρ `2/8`；旧数据匹配 `5000/10309=48.50%`、共同噪声 `4094/10309=39.71%`、完整 ρ `0/24`。原有合格结果位置均保留。605 项测试通过，测量门槛仍失败，见服务器 `/mnt/mydata/wja/reasoning-diff/runs/pr8-v8-recovery-20261008/`。
++
++另有独立的自然采样扩展 `scripts/extend_natural_pilot.py`：从已验证的 CPU pilot 导出登记同题同提示的 seed 1/2 配对编辑和 seed 3–6 噪声轨迹，复用原始 48 条、新增 80 条，固定 24 个配对基准。`--mode plan --source <reparsed-pilot> --out-root <new-server-directory> --gpus 2 3 6 --batch-size 4 --time-budget-hours 12` 在生成前锁定请求、输入与源码；`--mode run --out-root <directory>` 按登记的三卡、每卡 batch 4 和持久化预算运行。逐请求哈希检查点支持恢复，失败样本不重抽，缺失请求不得汇总。输出同时保留原 seed0/原噪声条件、seed0/扩展噪声条件、全部配对/原噪声条件，分离两种采样变化的影响。这是探索性扩展，不能据此改写旧自然结果已解决，也不自动启动正式实验。
++
++改卡数/并发时，先停止旧控制进程，再在上述新 plan 命令添加 `--resume-from <old-extension-directory>`。仅允许执行参数与该调度脚本变化，生成/解析代码、题目、提示、采样、token 上限及全部请求必须一致。已完成检查点原字节复制，新协议锁定父协议和逐检查点摘要，保留原始生成元数据与首次启动时间；新的小时预算从原起点算起。不要直接修改旧目录的协议或重写检查点摘要。
++
++**v7 CPU 复核（2026-10-08）**：在同一批保存文本上，新自然 pilot 匹配从 `234/483=48.45%` 提升到 `279/545=51.19%`，共同噪声支持 `232/545=42.57%`，完整 ρ 仍为 `2/8`；旧自然数据匹配从 `4212/9064=46.47%` 提升到 `4956/10246=48.37%`，共同噪声支持 `4050/10246=39.53%`，完整 ρ 仍为 `0/24`。恢复的结果全部进入分母，原先合格的结果位置与测量单元没有删除。572 项回归通过，分题及噪声门槛仍失败；本轮仅重算已保存的 383 条轨迹，未启动正式实验。报告与逐项审计位于 `/mnt/mydata/wja/reasoning-diff/runs/pr8-v7-recovery-20261007/REPORT.zh-CN.md`。
++
++**v6 CPU 复核（2026-10-07）**：复用已经完成的 48 条自然 pilot，v6 补全解析并排除误绑定后，匹配 `234/483=48.45%`、共同噪声支持 `200/483=41.41%`、完整 ρ `2/8`。新增自动损失审计，539 项回归通过；分题测量检查仍未全部通过，未新增 GPU 生成或启动正式扫描。分母变化、结构瓶颈及可复现结果见 [v6 报告](../artifacts/rd-pr8-natural-loss-audit-20261007-light/REPORT.zh-CN.md)。原始 18 分 30 秒 pilot 及 v5 历史结果见 [生成报告](../artifacts/rd-pr8-natural-pilot-20261007-light/REPORT.zh-CN.md)。
+ 
+ 最新自然条件修订增加了独立的 `--mode pilot`：仅运行 24 条 base 和 24 条预登记编辑，配对检查后退出，不进入全前提扫描、特征、拟合或干预。新派生题目使用 `single_pass_named_results_v1` 提示，要求按题目名称陈述结果、单次向前推导并自然结束；没有给定步骤 ID、计算顺序、答案或共享历史。旧保存任务保留原提示。新旧提示版本分别记录，不能混合测量。
+ 
+-自然匹配使用 `printed_expression_views_forced_sequence_v6`：识别唯一的词汇缩写和明确的括号声明，保留等式链中实际打印的多种表达式，规范化加法/乘法的结合与交换顺序；补全明确的文字赋值、完整数字代入和紧邻取模。匹配先最大化兼容步骤数，再比较屏蔽数值的段落词汇；只保留所有最优路径共同包含的配对，未消除的歧义仍是未知。原始值、取模值分阶段保留，未匹配项输出候选与损失证据。`paired_measurement.json` 和 CPU pilot 重算报告自动包含 `alignment_audit`。路径唯一性不是人工确认的语义正确率。
++自然匹配使用 `printed_expression_views_forced_sequence_v9`：识别唯一的词汇缩写和明确的括号声明，保留等式链中实际打印的多种表达式，规范化加法/乘法的结合与交换顺序；补全明确的文字赋值、完整数字代入和紧邻取模。匹配先最大化兼容步骤数，再比较屏蔽数值的段落词汇；只保留所有最优路径共同包含的配对，未消除的歧义仍是未知。原始值、取模值分阶段保留，未匹配项输出候选与损失证据。`paired_measurement.json` 和 CPU pilot 重算报告自动包含 `alignment_audit`。路径唯一性不是人工确认的语义正确率。
++
++v7 将词汇上下文限制在同一思考/回答区域，避免最终回答文字选择思考阶段的重复步骤；补全显式多词/撇号别名、重复目标名称、文字运算符和同句操作数代入。`q = 15 + 10 = 25 mod 23 = 2` 与分句写法一致，保留原文中的原始结果 25 和取模结果 2；`q = (15 + 10) mod 23 = 2` 没有打印原始结果，仍只有一步。恢复的步骤进入完整分母，不过滤重复步骤，也不修改 50% 门槛。原始文本、token、答案与生成状态不变，旧提示和新提示条件分别重算；服务器验证输出位于 `/mnt/mydata/wja/reasoning-diff/runs/pr8-v7-recovery-20261007/`。
+ 
+ 2026-10-06 的真实 smoke 因测量覆盖不足而停止，正式 32 题未启动。对 `241cd31` 的复核确认：373 项测试通过，但保存轨迹仍不满足测量检查，行首项目符号还会漏解析。本次修订修复这些代码问题；全量旧轨迹离线复测和缓存配对检查**仍失败，不建议重启正式实验**。没有重新运行真实 Qwen smoke 或正式实验，见 [本次离线复核](../artifacts/rd-pr8-sequence-audit-20261007-light/REPORT.zh-CN.md)。
+ 
+diff --git a/scripts/extend_natural_coverage.py b/scripts/extend_natural_coverage.py
+new file mode 100644
+index 0000000..f4b1148
+--- /dev/null
++++ b/scripts/extend_natural_coverage.py
+@@ -0,0 +1,159 @@
++#!/usr/bin/env python3
++"""Fixed natural coverage acquisition: three edit values, 24 base seeds.
++
++Keep the 24 existing reference trajectories, extend only their pre-registered
++three premises, and report edit/noise sampling ablations. This exploratory
++acquisition does not repair the original cohort or authorize formal analysis.
++"""
++from __future__ import annotations
++
++import argparse
++from pathlib import Path
++
++import extend_natural_pilot as engine
++from reasoning_diff import events
++from reasoning_diff.artifacts import write_manifest
++from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
++from reasoning_diff.next_round import registered_pilot_edits, scan_edits
++from reasoning_diff.schema import Task
++
++NOISE_SEEDS = tuple(range(24))
++
++
++def expanded_edits(task):
++    chosen = {e.changed_premise_ids[0] for e in registered_pilot_edits(task)}
++    return [e for e in scan_edits(task, 3) if e.changed_premise_ids[0] in chosen]
++
++
++def expected_source_requests(tasks):
++    return ({(t.task_id, s) for t in tasks for s in engine.NOISE_SEEDS}
++            | {(e.task.task_id, s) for t in tasks for e in registered_pilot_edits(t) for s in engine.PAIRED_SEEDS})
++
++
++def additional_requests(tasks, reused):
++    requests = []
++    for task in tasks:
++        for owner, seeds, kind in [(task, NOISE_SEEDS, 'noise'),
++                                  *[(e.task, engine.PAIRED_SEEDS, 'edit') for e in expanded_edits(task)]]:
++            for seed in seeds:
++                if (owner.task_id, seed) in reused:
++                    continue
++                identity = {'task_id': owner.task_id, 'seed': seed, 'kind': kind}
++                requests.append({**identity, 'id': 'coverage-' + digest(identity)[:20], 'task': owner.to_dict()})
++    return requests
++
++
++def load_source(source):
++    manifest = read_json(source / 'manifest.json')
++    for name, checksum in manifest['file_hashes'].items():
++        if file_digest(source / name) != checksum:
++            raise ValueError('source manifest mismatch')
++    report = read_json(source / 'measurement_report.json')
++    if (not report.get('posthoc_reparse') or report['n_new'] != 80
++            or not report['checks']['extension_generation_complete']
++            or report['parser_hash'] != file_digest(Path(events.__file__))):
++        raise ValueError('require completed 80-request extension measured with this parser')
++    rows = read_jsonl(source / 'traces.jsonl')
++    owners = {r['task_id']: Task.from_dict(r) for r in read_jsonl(source / 'tasks.jsonl')}
++    tasks = [owners[key] for key in sorted(report['by_problem'])]
++    expected = expected_source_requests(tasks)
++    if len(rows) != len(expected) or {(r['task_id'], r['seed']) for r in rows} != expected:
++        raise ValueError('missing or duplicate reused source request')
++    generation = report['generation_protocol']
++    for row in rows:
++        meta = row['metadata']
++        if (meta['revision'] != generation['revision'] or meta['sampling'] != generation['sampling']
++                or meta['natural_prompt_policy'] != generation['natural_prompt_policy']
++                or meta.get('boundary_status') != 'ok' or not meta.get('enable_thinking')
++                or meta.get('finalizer_used') or meta.get('thinking_forced_close')):
++            raise ValueError('reused generation conditions differ')
++    return tasks, rows, report
++
++
++def plan(args):
++    root, source = args.out_root.resolve(), args.source.resolve()
++    if not root.is_relative_to(engine.SERVER) or root == source or root.is_relative_to(source):
++        raise ValueError('use separate server output storage')
++    if root.exists() and any(root.iterdir()):
++        raise ValueError('plan requires an empty directory')
++    if not args.gpus or len(set(args.gpus)) != len(args.gpus) or min(args.gpus) < 0 or args.batch_size < 1:
++        raise ValueError('invalid GPU list or batch size')
++    tasks, rows, source_report = load_source(source)
++    previous = source_report['generation_protocol']
++    budget_path = Path(source_report['source_extension']) / 'budget.json'
++    budget = read_json(budget_path)
++    protocol = {key: previous[key] for key in ('model', 'revision', 'model_root', 'max_new', 'sampling', 'natural_prompt_policy')}
++    protocol.update(protocol='natural_fixed_reference_three_value_extension_v1', source=str(source),
++        source_files=read_json(source / 'manifest.json')['file_hashes'], source_hashes=engine.source_hashes(),
++        matching_policy=events.ALIGNMENT_POLICY, gpus=args.gpus, batch_size=args.batch_size,
++        paired_seeds=list(engine.PAIRED_SEEDS), noise_seeds=list(NOISE_SEEDS), edit_values_per_premise=3,
++        seconds=budget['seconds'], budget_origin={'file': str(budget_path), 'sha256': file_digest(budget_path), **budget},
++        formal_evidence=False, original_natural_matching_resolved=False,
++        acquisition_reason='After the 80-request pilot failed per-problem support gates; all 280 requests fixed before acquisition, no outcome-based resampling.')
++    requests = additional_requests(tasks, expected_source_requests(tasks))
++    write_json(root / 'protocol.json', protocol)
++    write_json(root / 'plan.json', {'protocol_digest': digest(protocol), 'requests': requests})
++    write_json(root / 'budget.json', budget)
++    summary = {'problems': len(tasks), 'reference_traces': len(tasks) * 3, 'reused_traces': len(rows),
++        'new_requests': len(requests), 'new_edits': sum(r['kind'] == 'edit' for r in requests),
++        'new_noise': sum(r['kind'] == 'noise' for r in requests), 'new_token_ceiling': len(requests) * protocol['max_new'],
++        'measurement_denominator': source_report['overall']['eligible_cells'], 'scientific_conclusion': None}
++    write_json(root / 'plan_summary.json', summary)
++    print(summary, flush=True)
++
++
++def summarize(root):
++    protocol, registered = engine.verified_plan(root)
++    tasks, original, old_report = load_source(Path(protocol['source']))
++    added = [engine.checkpoint(root, protocol, r) for r in registered['requests']]
++    if any(row is None for row in added):
++        raise ValueError('registered requests missing; cannot summarize')
++    rows = original + added
++    report, observations, owners = engine.measure(tasks, rows, noise_seeds=NOISE_SEEDS, edits_for=expanded_edits)
++    ablations = {}
++    for name, noise, edits in [('previous_acquisition', engine.NOISE_SEEDS, registered_pilot_edits),
++                               ('extra_noise_only', NOISE_SEEDS, registered_pilot_edits),
++                               ('extra_values_only', engine.NOISE_SEEDS, expanded_edits)]:
++        ablations[name] = engine.measure(tasks, rows, noise_seeds=noise, edits_for=edits)[0]
++    if ablations['previous_acquisition']['overall'] != old_report['overall']:
++        raise ValueError('previous acquisition measurement changed')
++    if report['overall']['eligible_cells'] != old_report['overall']['eligible_cells']:
++        raise ValueError('fixed reference denominator changed')
++    report.update(protocol=protocol, ablations=ablations, n_reused=len(original), n_new=len(added),
++        formal_launch_ready=False, original_natural_matching_resolved=False, scientific_conclusion=None,
++        new_completion_count=sum(t['status'] == 'natural_complete' for t in added))
++    report['checks']['extension_generation_complete'] = all(
++        t['status'] == 'natural_complete' and t['metadata'].get('boundary_status') == 'ok' for t in added)
++    report['failures'] = [key for key, passed in report['checks'].items() if not passed]
++    report['passed'] = not report['failures']
++    for name, data in [('tasks.jsonl', owners), ('traces.jsonl', rows), ('observations.jsonl', observations)]:
++        write_jsonl(root / name, data)
++    write_json(root / 'measurement_report.json', report)
++    files = ['tasks.jsonl', 'traces.jsonl', 'observations.jsonl', 'measurement_report.json', 'protocol.json', 'plan.json']
++    write_manifest(root, [root / name for name in files], {'traces': len(rows), 'new_requests': len(added)})
++    write_json(root / 'pipeline.json', {'status': 'complete', 'measurement_passed': report['passed'],
++        'formal_launch_ready': False, 'scientific_conclusion': None})
++    print(report['overall'], flush=True)
++    print(report['checks'], flush=True)
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--mode', choices=('plan', 'run', 'report'), required=True)
++    parser.add_argument('--source', type=Path)
++    parser.add_argument('--out-root', type=Path, required=True)
++    parser.add_argument('--gpus', nargs='+', type=int, default=[2, 3, 6])
++    parser.add_argument('--batch-size', type=int, default=4)
++    args = parser.parse_args()
++    if args.mode == 'plan':
++        if args.source is None:
++            parser.error('--source is required for plan')
++        plan(args)
++    elif args.mode == 'run':
++        engine.run(args.out_root, reporter=summarize)
++    else:
++        summarize(args.out_root)
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/scripts/extend_natural_pilot.py b/scripts/extend_natural_pilot.py
+new file mode 100644
+index 0000000..ab841ed
+--- /dev/null
++++ b/scripts/extend_natural_pilot.py
+@@ -0,0 +1,357 @@
++#!/usr/bin/env python3
++"""Balanced natural pilot extension: paired seeds 0..2, noise seeds 0..6.
++
++Reuses a verified reparse_pr8 --pilot export, registers every additional
++request before generation, and reports the original seed-0 condition too.
++This is exploratory acquisition, not a repair of the original saved cohort.
++"""
++from __future__ import annotations
++
++import argparse
++from concurrent.futures import ThreadPoolExecutor
++import fcntl
++import os
++from pathlib import Path
++import shutil
++import signal
++import subprocess
++import sys
++from threading import local
++import time
++
++from reasoning_diff import cli
++from reasoning_diff.alignment_audit import alignment_audit
++from reasoning_diff.artifacts import write_manifest
++from reasoning_diff.events import ALIGNMENT_POLICY
++from reasoning_diff.io import digest, file_digest, read_json, read_jsonl, write_json, write_jsonl
++from reasoning_diff.next_round import measurement_report, registered_pilot_edits
++from reasoning_diff.schema import Task, Trace
++
++REPO = Path(__file__).resolve().parents[1]
++SERVER = Path('/mnt/mydata/wja/reasoning-diff')
++PAIRED_SEEDS = (0, 1, 2)
++NOISE_SEEDS = tuple(range(7))
++
++
++def source_hashes():
++    return {p.relative_to(REPO).as_posix(): file_digest(p)
++            for folder in ('src', 'scripts') for p in sorted((REPO / folder).rglob('*.py'))}
++
++
++def requests_for(tasks):
++    requests = []
++    for task in tasks:
++        for owner, seeds, kind in [(task, range(3, 7), 'noise'),
++                                   *[(e.task, (1, 2), 'edit') for e in registered_pilot_edits(task)]]:
++            for seed in seeds:
++                identity = {'task_id': owner.task_id, 'seed': seed, 'kind': kind}
++                requests.append({**identity, 'id': 'extension-' + digest(identity)[:20], 'task': owner.to_dict()})
++    return requests
++
++
++def load_source(source):
++    manifest = read_json(source / 'manifest.json')
++    for name, checksum in manifest['file_hashes'].items():
++        if file_digest(source / name) != checksum:
++            raise ValueError('source manifest mismatch')
++    report = read_json(source / 'measurement_report.json')
++    if not report.get('posthoc_reparse') or report['trajectory_protocol'] != 'natural':
++        raise ValueError('source must be a verified natural pilot reparse')
++    rows = read_jsonl(source / 'traces.jsonl')
++    all_tasks = {r['task_id']: Task.from_dict(r) for r in read_jsonl(source / 'tasks.jsonl')}
++    base_ids = {r['task_id'] for r in rows if ':trace-base:' in r['id']}
++    tasks = [all_tasks[key] for key in sorted(base_ids)]
++    expected = {(task.task_id, seed) for task in tasks for seed in PAIRED_SEEDS}
++    expected |= {(e.task.task_id, 0) for task in tasks for e in registered_pilot_edits(task)}
++    if len(rows) != len(expected) or {(r['task_id'], r['seed']) for r in rows} != expected:
++        raise ValueError('missing or duplicate source pilot request')
++    generation = report['generation_protocol']
++    for row in rows:
++        meta = row['metadata']
++        if (meta.get('sampling') != {k: generation[k] for k in ('temperature', 'top_k', 'top_p')}
++                or not meta.get('enable_thinking') or meta.get('finalizer_used')
++                or meta.get('thinking_forced_close') or meta.get('boundary_status') != 'ok'):
++            raise ValueError('source generation conditions differ')
++    revisions = {row['metadata']['revision'] for row in rows}
++    if len(revisions) != 1:
++        raise ValueError('mixed model revisions')
++    return tasks, rows, report, next(iter(revisions))
++
++
++def plan(args):
++    root, source = args.out_root.resolve(), args.source.resolve()
++    if not root.is_relative_to(SERVER) or root == source or root.is_relative_to(source):
++        raise ValueError('use a separate output directory under server storage')
++    if not args.gpus or len(set(args.gpus)) != len(args.gpus) or args.batch_size < 1 or args.time_budget_hours <= 0:
++        raise ValueError('invalid GPU list, batch size or time budget')
++    if root.exists() and any(root.iterdir()):
++        raise ValueError('plan requires an empty output directory; run resumes an existing plan')
++    tasks, rows, report, revision = load_source(source)
++    generation = report['generation_protocol']
++    protocol = {'protocol': 'natural_balanced_seed_extension_v1', 'source': str(source),
++                'source_files': read_json(source / 'manifest.json')['file_hashes'],
++                'source_hashes': source_hashes(), 'matching_policy': ALIGNMENT_POLICY,
++                'model': generation['model'], 'revision': revision, 'model_root': generation['model_root'],
++                'max_new': generation['max_new'], 'sampling': {k: generation[k] for k in ('temperature', 'top_k', 'top_p')},
++                'natural_prompt_policy': generation['natural_prompt_policy'], 'paired_seeds': list(PAIRED_SEEDS),
++                'noise_seeds': list(NOISE_SEEDS), 'batch_size': args.batch_size, 'gpus': args.gpus,
++                'seconds': args.time_budget_hours * 3600, 'formal_evidence': False, 'original_natural_matching_resolved': False}
++    requests = requests_for(tasks)
++    if args.resume_from is not None:
++        import_completed(args.resume_from.resolve(), root, protocol, requests)
++    write_json(root / 'protocol.json', protocol)
++    write_json(root / 'plan.json', {'protocol_digest': digest(protocol), 'requests': requests})
++    write_json(root / 'plan_summary.json', {'problems': len(tasks), 'reused_traces': len(rows),
++        'additional_edit_traces': sum(r['kind'] == 'edit' for r in requests),
++        'additional_noise_traces': sum(r['kind'] == 'noise' for r in requests),
++        'reference_traces': len(tasks) * len(PAIRED_SEEDS), 'new_token_ceiling': len(requests) * protocol['max_new'],
++        'scientific_conclusion': None})
++    print(read_json(root / 'plan_summary.json'), flush=True)
++
++
++def import_completed(parent, root, protocol, requests):
++    """Copy verified checkpoints unchanged, permitting only scheduler changes.
++
++    Freeze the previous protocol and each imported payload digest inside the
++    new protocol. The generation/parser source files and registered requests
++    must be identical; only this orchestration script may have changed.
++    """
++    with (parent / 'run.lock').open('a') as lock:
++        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
++        old, registered = read_json(parent / 'protocol.json'), read_json(parent / 'plan.json')
++        execution = {'gpus', 'batch_size', 'seconds', 'source_hashes', 'resume_provenance'}
++        scientific = lambda p: {k: v for k, v in p.items() if k not in execution}
++        code = lambda p: {k: v for k, v in p['source_hashes'].items() if k != 'scripts/extend_natural_pilot.py'}
++        if (registered['protocol_digest'] != digest(old) or registered['requests'] != requests
++                or scientific(old) != scientific(protocol) or code(old) != code(protocol)):
++            raise ValueError('migration changes scientific protocol, requests or generation/parser code')
++        completed = [r for r in requests if checkpoint(parent, old, r) is not None]
++        payloads = {r['id']: read_json(parent / 'responses' / (r['id'] + '.json')) for r in completed}
++        budget_path = parent / 'budget.json'
++        budget = read_json(budget_path) if budget_path.exists() else {'started': time.time()}
++        protocol['resume_provenance'] = {'parent_root': str(parent), 'protocol': old,
++            'plan_digest': digest(registered), 'checkpoint_digests': {key: digest(value) for key, value in payloads.items()}}
++        (root / 'responses').mkdir(parents=True, exist_ok=True)
++        for request in completed:
++            name = request['id'] + '.json'
++            shutil.copyfile(parent / 'responses' / name, root / 'responses' / name)
++        write_json(root / 'imported_plan.json', registered)
++        write_json(root / 'budget.json', {'started': budget['started'], 'seconds': protocol['seconds']})
++
++
++def checkpoint_protocol_valid(saved, protocol, request):
++    if saved['protocol_digest'] == digest(protocol):
++        return True
++    lineage = protocol.get('resume_provenance')
++    return bool(lineage and lineage['checkpoint_digests'].get(request['id']) == digest(saved)
++                and checkpoint_protocol_valid(saved, lineage['protocol'], request))
++
++
++def verified_plan(root):
++    protocol, registered = read_json(root / 'protocol.json'), read_json(root / 'plan.json')
++    if registered['protocol_digest'] != digest(protocol) or protocol['source_hashes'] != source_hashes():
++        raise ValueError('registered protocol/source changed')
++    for name, checksum in protocol['source_files'].items():
++        if file_digest(Path(protocol['source']) / name) != checksum:
++            raise ValueError('upstream source changed')
++    return protocol, registered
++
++
++def checkpoint(root, protocol, request):
++    path = root / 'responses' / (request['id'] + '.json')
++    if not path.exists():
++        return None
++    saved = read_json(path)
++    row = saved['trace']
++    if (not checkpoint_protocol_valid(saved, protocol, request) or saved['request_digest'] != digest(request)
++            or saved['trace_digest'] != digest(row) or row['task_id'] != request['task_id']
++            or row['seed'] != request['seed'] or row['metadata']['revision'] != protocol['revision']):
++        raise ValueError('checkpoint provenance mismatch')
++    return row
++
++
++def worker(root, index):
++    from reasoning_diff.models import generate
++    from trace_batching import BatchDecoder
++    protocol, registered = verified_plan(root)
++    requests = registered['requests'][index::len(protocol['gpus'])]
++    missing = [r for r in requests if checkpoint(root, protocol, r) is None]
++    if not missing:
++        return
++    opts = cli.build_parser().parse_args(['prepare', '--fixture', protocol['source'], '--kind', 'igsm',
++        '--out-dir', str(root), '--eval-mode', 'scientific', '--backend', 'frozen', '--model-name', protocol['model'], '--device', 'cuda'])
++    packed = cli._load_frozen_runtime(opts)
++    decoder = BatchDecoder(protocol['batch_size'])
++    original_decode, state = generate.decode_loop, local()
++    def decode(*args, **kwargs):
++        result = decoder(*args, **kwargs)
++        state.execution = result['batch_execution']
++        return result
++    def save(request):
++        task = Task.from_dict(request['task'])
++        row = generate.generate_task_trace(task, seed=request['seed'], run_id=request['id'], backend='frozen',
++            model_name=protocol['model'], packed=packed, device='cuda', max_new=protocol['max_new'],
++            enable_thinking=True, allow_forced_target=False, **protocol['sampling']).to_dict()
++        if row['metadata']['revision'] != protocol['revision']:
++            raise ValueError('model revision differs from source')
++        row['metadata'].update(execution=state.execution, op=task.metadata.get('op'), extension_protocol=protocol['protocol'])
++        payload = {'protocol_digest': digest(protocol), 'request_digest': digest(request), 'trace_digest': digest(row), 'trace': row}
++        path = root / 'responses' / (request['id'] + '.json')
++        temporary = path.with_suffix('.tmp')
++        write_json(temporary, payload)
++        temporary.replace(path)
++        print(request['id'], request['kind'], request['seed'], row['status'], row['metadata']['generated_tokens'], flush=True)
++    generate.decode_loop = decode
++    try:
++        with ThreadPoolExecutor(max_workers=protocol['batch_size']) as pool:
++            for offset in range(0, len(missing), protocol['batch_size']):
++                list(pool.map(save, missing[offset:offset + protocol['batch_size']]))
++    finally:
++        generate.decode_loop = original_decode
++        decoder.close()
++
++
++def measure(tasks, rows, reference_seeds=PAIRED_SEEDS, noise_seeds=NOISE_SEEDS, *, edits_for=registered_pilot_edits):
++    traces = {(row['task_id'], row['seed']): Trace.from_dict(row) for row in rows}
++    if len(traces) != len(rows):
++        raise ValueError('duplicate task/seed request')
++    selected, references, owners, observations, scanned = {}, [], [], [], {}
++    for task in tasks:
++        bases = {seed: traces[task.task_id, seed] for seed in noise_seeds}
++        selected.update({t.id: t.to_dict() for t in bases.values()})
++        owners.append(task.to_dict())
++        edits = edits_for(task)
++        scanned[task.task_id] = list(dict.fromkeys(e.changed_premise_ids[0] for e in edits))
++        owners.extend(e.task.to_dict() for e in edits)
++        for seed in reference_seeds:
++            base = bases[seed]
++            references.append(base.to_dict())
++            for edit in edits:
++                donor = traces[edit.task.task_id, seed]
++                selected[donor.id] = donor.to_dict()
++                observations.extend(cli._observations(task, base, donor, edit, f'stream:{seed}',
++                    f'extension:{task.task_id}:{edit.changed_premise_ids[0]}:seed{seed}'))
++            for other_seed, other in bases.items():
++                if other_seed != seed:
++                    observations.extend(cli._sham_observations(task, base, other, other_seed,
++                        f'extension-noise:{task.task_id}:seed{seed}:{other_seed}'))
++    obs = [o.to_dict() for o in observations]
++    report = measurement_report(references, owners, obs, [], scanned)
++    report['alignment_audit'] = alignment_audit(list(selected.values()), owners, obs, report)
++    report['pilot_protocol'] = {'reference_seeds': list(reference_seeds), 'noise_seeds': list(noise_seeds),
++        'edit_seed_rule': 'same_seed_as_reference', 'scanned_premises': scanned, 'formal_evidence': False}
++    return report, obs, owners
++
++
++def summarize(root):
++    protocol, registered = verified_plan(root)
++    tasks, original, old_report, _ = load_source(Path(protocol['source']))
++    added = [checkpoint(root, protocol, request) for request in registered['requests']]
++    if any(row is None for row in added):
++        raise ValueError('registered requests missing; cannot summarize an incomplete extension')
++    rows = original + added
++    report, observations, owners = measure(tasks, rows)
++    ablations = {}
++    for name, refs, noise in [('original_seed0', (0,), PAIRED_SEEDS),
++                              ('seed0_extended_noise', (0,), NOISE_SEEDS),
++                              ('all_paired_original_noise', PAIRED_SEEDS, PAIRED_SEEDS)]:
++        ablations[name] = measure(tasks, rows, refs, noise)[0]
++    if ablations['original_seed0']['overall'] != old_report['overall']:
++        raise ValueError('original seed-0 measurement changed')
++    report.update(protocol=protocol, ablations=ablations, n_reused=len(original), n_new=len(added),
++                  formal_launch_ready=False, original_natural_matching_resolved=False,
++                  new_completion_count=sum(t['status'] == 'natural_complete' for t in added), scientific_conclusion=None)
++    complete = all(t['status'] == 'natural_complete' and t['metadata'].get('boundary_status') == 'ok' for t in added)
++    report['checks']['extension_generation_complete'] = complete
++    report['failures'] = [key for key, passed in report['checks'].items() if not passed]
++    report['passed'] = not report['failures']
++    for name, data in [('tasks.jsonl', owners), ('traces.jsonl', rows), ('observations.jsonl', observations)]:
++        write_jsonl(root / name, data)
++    write_json(root / 'measurement_report.json', report)
++    files = ['tasks.jsonl', 'traces.jsonl', 'observations.jsonl', 'measurement_report.json', 'protocol.json', 'plan.json']
++    write_manifest(root, [root / name for name in files], {'traces': len(rows), 'new_requests': len(added)})
++    write_json(root / 'pipeline.json', {'status': 'complete', 'measurement_passed': report['passed'],
++                                      'formal_launch_ready': False, 'scientific_conclusion': None})
++    print(report['overall'], flush=True)
++
++
++def run(root, reporter=summarize):
++    protocol, registered = verified_plan(root)
++    with (root / 'run.lock').open('a') as lock:
++        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
++        if all(checkpoint(root, protocol, r) is not None for r in registered['requests']):
++            reporter(root)
++            return
++        for directory in ('logs', 'tmp', 'cache', 'responses'):
++            (root / directory).mkdir(exist_ok=True)
++        budget_path = root / 'budget.json'
++        budget = read_json(budget_path) if budget_path.exists() else {'started': time.time(), 'seconds': protocol['seconds']}
++        write_json(budget_path, budget)
++        deadline = budget['started'] + budget['seconds']
++        processes, handles = [], []
++        try:
++            if time.time() >= deadline:
++                raise TimeoutError('persisted generation deadline exhausted')
++            for index, gpu in enumerate(protocol['gpus']):
++                handle = (root / 'logs' / f'gpu{gpu}.log').open('a')
++                handles.append(handle)
++                env = {**os.environ, 'PYTHONPATH': str(REPO / 'src'), 'PYTHONDONTWRITEBYTECODE': '1',
++                    'CUDA_DEVICE_ORDER': 'PCI_BUS_ID', 'CUDA_VISIBLE_DEVICES': str(gpu), 'PYTHONUNBUFFERED': '1',
++                    'RD_MODEL_ROOT': protocol['model_root'], 'RD_LOCAL_FILES_ONLY': '1', 'HF_HUB_OFFLINE': '1',
++                    'HF_HOME': str(root / 'cache'), 'TMPDIR': str(root / 'tmp'),
++                    'OMP_NUM_THREADS': '4', 'OPENBLAS_NUM_THREADS': '4', 'MKL_NUM_THREADS': '4'}
++                processes.append(subprocess.Popen([sys.executable, __file__, '--mode', 'worker', '--out-root', str(root),
++                    '--worker-index', str(index)], cwd=REPO, env=env, stdout=handle, stderr=subprocess.STDOUT, start_new_session=True))
++            while any(p.poll() is None for p in processes):
++                if any(p.poll() not in (None, 0) for p in processes):
++                    raise RuntimeError('generation worker failed; see GPU logs')
++                if time.time() >= deadline:
++                    raise TimeoutError('persisted generation deadline exhausted')
++                count = len(list((root / 'responses').glob('*.json')))
++                write_json(root / 'pipeline.json', {'status': 'running', 'completed': count, 'planned': len(registered['requests']),
++                                                  'elapsed_seconds': time.time() - budget['started']})
++                time.sleep(2)
++            if any(p.returncode != 0 for p in processes):
++                raise RuntimeError('generation worker failed; see GPU logs')
++        except BaseException as exc:
++            write_json(root / 'pipeline.json', {'status': 'failed', 'error': str(exc), 'scientific_conclusion': None})
++            raise
++        finally:
++            for process in processes:
++                if process.poll() is None:
++                    os.killpg(process.pid, signal.SIGTERM)
++                    try:
++                        process.wait(timeout=10)
++                    except subprocess.TimeoutExpired:
++                        os.killpg(process.pid, signal.SIGKILL)
++                        process.wait()
++            for handle in handles:
++                handle.close()
++        reporter(root)
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--mode', choices=('plan', 'run', 'worker', 'report'), required=True)
++    parser.add_argument('--source', type=Path)
++    parser.add_argument('--out-root', type=Path, required=True)
++    parser.add_argument('--gpus', nargs='+', type=int, default=[2, 3])
++    parser.add_argument('--batch-size', type=int, default=2)
++    parser.add_argument('--time-budget-hours', type=float, default=1)
++    parser.add_argument('--resume-from', type=Path, help='import completed requests into a new plan; preserve budget start')
++    parser.add_argument('--worker-index', type=int, default=0)
++    args = parser.parse_args()
++    if args.mode == 'plan':
++        if args.source is None:
++            parser.error('--source is required to plan')
++        plan(args)
++    elif args.mode == 'worker':
++        worker(args.out_root, args.worker_index)
++    elif args.mode == 'run':
++        run(args.out_root)
++    else:
++        summarize(args.out_root)
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/src/reasoning_diff/events.py b/src/reasoning_diff/events.py
+index eed99fd..74f1d7c 100644
+--- a/src/reasoning_diff/events.py
++++ b/src/reasoning_diff/events.py
+@@ -12,7 +12,7 @@ from .graphs import ancestors
+ from .schema import Event, EventIdentity, Task, canonical_value
+ 
+ NUMBER = r"[+-]?(?:(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
+-ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v6"
++ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v9"
+ 
+ 
+ def context_entity_token(node_id):
+@@ -115,10 +115,13 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
+         alias, node_id, *_ = entity
+         names[_entity_name(alias)][node_id] = entity
+     scopes = {entity[0].rsplit("'s ", 1)[0].casefold() for entity in entities if "'s " in entity[0]}
+-    symbol = r"(?:[A-Za-z]_\{[A-Za-z0-9]+\}|[A-Za-z][A-Za-z0-9_]*)"
++    symbol = r"(?:[A-Za-z]_\{[A-Za-z0-9]+\}|[A-Za-z][A-Za-z0-9_]*['′]?)"
++    # Only an explicit parenthesis can introduce a multiword shorthand.
++    # Do not extend free prose/heading guesses to arbitrary word sequences.
++    paren_symbol = symbol + r"(?:[ \t]+" + symbol + r"){0,2}"
+     declaration = re.compile(
+         r"^\s*(?:[-*]\s+)?(?P<name>.+?)\s*(?:"
+-        r"\((?:(?:let's\s+)?denote this as\s+)?(?P<paren>" + symbol + r")\)"
++        r"\((?:(?:let's\s+)?denote this as\s+)?(?P<paren>" + paren_symbol + r")\)"
+         r"|:\s*(?:(?:let's\s+)?(?:denote this as|call this)\s+)?(?P<colon>" + symbol + r"))\s*(?:=.+)?\s*$",
+         re.IGNORECASE,
+     )
+@@ -127,7 +130,7 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
+     full_names = sorted({re.escape(entity[0]).replace("'s", "(?:'s)?") for entity in entities}, key=len, reverse=True)
+     inline = re.compile(r"(?<!\w)(?P<name>" + "|".join(full_names) + r")\s*\("
+                         r"(?:(?:[^()\n]*?\b)?let(?:'s| me| us)?\s+(?:denote|call)\s+(?:this|it)\s+(?:as\s+)?)?"
+-                        r"(?P<paren>" + symbol + r")\)\s*(?==|equals?\b|is\b|[.,;]|$)",
++                        r"(?P<paren>" + paren_symbol + r")\)\s*(?==|equals?\b|is\b|[.,;]|$)",
+                         re.IGNORECASE) if full_names else None
+     name_pattern = "|".join(full_names)
+     human_names = "|".join(re.escape(alias).replace("'s", "(?:'s)?") for alias, node_id, *_ in entities if alias != node_id)
+@@ -237,6 +240,42 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
+     return {key: value for key, value in declared.items() if value is not None}
+ 
+ 
++def _prose_arithmetic(expression):
++    """Translate explicitly grouped binary arithmetic prose, without evaluation."""
++    pieces, index = [], 0
++    while index < len(expression):
++        if expression[index] != '(':
++            pieces.append(expression[index])
++            index += 1
++            continue
++        end, depth = index + 1, 1
++        while end < len(expression) and depth:
++            depth += (expression[end] == '(') - (expression[end] == ')')
++            end += 1
++        if depth:
++            raise ValueError('unclosed prose expression')
++        pieces.append('(' + _prose_arithmetic(expression[index + 1:end - 1]) + ')')
++        index = end
++    rendered = ''.join(pieces).strip()
++    operation = re.match(r'(?:the\s+)?(sum of|product of|difference between)\s+', rendered, re.I)
++    if not operation:
++        return rendered
++    body = rendered[operation.end():]
++    depth, separators = 0, []
++    for match in re.finditer(r'[()]|\band\b', body, re.I):
++        if match.group() == '(':
++            depth += 1
++        elif match.group() == ')':
++            depth -= 1
++        elif depth == 0:
++            separators.append(match)
++    if len(separators) != 1:
++        raise ValueError('ambiguous prose operands')
++    sep = separators[0]
++    operator = {'sum of': '+', 'product of': '*', 'difference between': '-'}[operation.group(1).lower()]
++    return '(' + _prose_arithmetic(body[:sep.start()]) + operator + _prose_arithmetic(body[sep.end():]) + ')'
++
++
+ def _expression_tree(expression: str, entities: list[tuple]):
+     """Validate printed arithmetic and derive a value-blind structural key."""
+     expression = expression.strip().strip("$")
+@@ -253,9 +292,21 @@ def _expression_tree(expression: str, entities: list[tuple]):
+             continue
+         symbol = f"entity_{index}"
+         pattern = rf"(?<!\w)(?:(?:the\s+)?number of\s+)?{re.escape(alias)}(?!\w)"
++        # Printed scalar annotations on names are not function calls or
++        # multiplication. Bare numeric annotations require a human name;
++        # p1(22) remains unsupported rather than silently changing its meaning.
++        annotation = r'which\s+is\s+' if not re.search(r"\s|'s", alias) else r'(?:which\s+is\s+)?'
++        pattern += r'(?:[ \t]*\(' + annotation + NUMBER + r'\))?'
+         expression = re.sub(pattern, symbol, expression, flags=re.IGNORECASE)
+         symbols[symbol] = next(iter(names[alias]))
++    # Replace operators after entity names, so names containing e.g. "Plus"
++    # retain their identity. This translates printed syntax, never computes it.
++    for words, operator in ((r'plus', '+'), (r'minus', '-'),
++                            (r'multiplied by|times', '*'), (r'divided by', '/')):
++        expression = re.sub(r'\b(?:' + words + r')\b', operator, expression, flags=re.I)
+     try:
++        if re.search(r'\b(?:sum of|product of|difference between)\b', expression, re.I):
++            expression = _prose_arithmetic(expression)
+         tree = ast.parse(expression, mode="eval")
+     except (SyntaxError, ValueError):
+         return None
+@@ -289,11 +340,14 @@ def _expression_tree(expression: str, entities: list[tuple]):
+     return phase, ast.dump(tree, include_attributes=False)
+ 
+ 
+-def _numeric_commit(text: str, start: int, entities: list[tuple]):
++def _numeric_commit(text: str, start: int, entities: list[tuple], *, target_node=None):
+     """Accept a terminal printed scalar, never evaluate an unfinished RHS."""
+     line_end = text.find("\n", start)
+     line_end = len(text) if line_end < 0 else line_end
+     rhs = text[start:line_end]
++    # Keep source offsets while preventing an operand annotation's "is"
++    # from being mistaken for another relation in the equation chain.
++    rhs = re.sub(r'\(which\s+is\s+' + NUMBER + r'\)', lambda m: ' ' * len(m.group()), rhs, flags=re.I)
+     number = re.compile(NUMBER)
+     for result in number.finditer(rhs):
+         prefix = rhs[:result.start()].strip().strip("$").strip()
+@@ -303,7 +357,8 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
+             prose_copy = re.fullmatch(
+                 r"(?:equal to\s+)?(.+?),\s*(?:which (?:is|we just found to be)|so (?:that's|that is)(?: also)?)\s*",
+                 prefix, re.I)
+-        if not scalar and not prose_copy and not re.search(r"(?:=|≡|\\equiv)$", prefix):
++        relation = r"=|≡|\\equiv\b|\bis\b|\bequals?\b"
++        if not scalar and not prose_copy and not re.search(r"(?:" + relation + r")$", prefix, re.I):
+             continue
+         suffix = rhs[result.end():]
+         # A close parenthesis or a LaTeX marker cannot hide pending math.
+@@ -326,12 +381,18 @@ def _numeric_commit(text: str, start: int, entities: list[tuple]):
+             rest = rest[annotation.end():].lstrip()
+         if rest and not re.match(r"[.,;?!→]|</", rest):
+             continue
+-        expressions = [prose_copy.group(1)] if prose_copy else [] if scalar else re.split(r"=|≡|\\equiv\b", prefix)[:-1]
++        expressions = [prose_copy.group(1)] if prose_copy else [] if scalar else re.split(relation, prefix, flags=re.I)[:-1]
+         trees = [_expression_tree(expr, entities) for expr in expressions]
+         if any(tree is None for tree in trees):
+             continue
+         if prose_copy and (trees[0][0] != "copy" or "unresolved:" in trees[0][1]):
+             continue
++        # X = Full name = expression = value repeats the destination label.
++        # Preserve other-entity copies and arithmetic involving X itself.
++        self_name = ('copy', ast.dump(ast.Expression(body=ast.Name(id=target_node, ctx=ast.Load())),
++                                     include_attributes=False)) if target_node is not None else None
++        while not prose_copy and trees and trees[0] == self_name:
++            trees.pop(0)
+         phase, signature = trees[0] if trees else ("commit", "scalar")
+         if any(tree[0] == "reduction" for tree in trees) or re.search(r"≡|\\equiv\b", prefix):
+             phase = "reduction"
+@@ -364,6 +425,139 @@ def _substitution_shape(signature, *, before_reduction=False):
+     return mask(key)
+ 
+ 
++def _adjacent_substitution(text, start, entities):
++    """A printed formula followed by its explicit local operand substitution."""
++    # Stay within a single line; a new paragraph/region cannot supply the work.
++    line = text[start:].split('\n', 1)[0]
++    follow = re.match(r'(?P<formula>.+?)\.[ \t]+', line)
++    formulas = [_expression_tree(part, entities) for part in follow.group('formula').split('=')] if follow else []
++    if not formulas or any(f is None or f[0] not in {'calculation', 'reduction', 'copy'} for f in formulas):
++        return None
++    formula = formulas[0]
++    offset = follow.end()
++    direct = re.match(r'(?:(?:So|That\x27s|That is)[ \t]+|Let me compute that[.:][ \t]+)?(?P<work>[+\-(\d])', line[offset:], re.I)
++    operand = None if direct else re.match(r'(?:Since[ \t]+)?(?P<name>[^.,;!?=]+?)[ \t]+(?:is|equals?)[ \t]+'
++                       + NUMBER + r'(?P<connector>,[ \t]*(?:so[ \t]+)?|\.[ \t]+So[ \t]+)',
++                       line[offset:], re.I)
++    if operand:
++        named = _expression_tree(operand.group('name'), entities)
++        if not named or named[0] != 'copy' or 'unresolved:' in named[1]:
++            return None
++        # Require an explicitly printed operand of THIS formula. A new
++        # destination/topic may not lend its following arithmetic backwards.
++        name_key = expression_key(named[1])
++        def contains(key):
++            return key == name_key or isinstance(key, tuple) and any(contains(k) for k in key)
++        if not contains(expression_key(formula[1])):
++            return None
++        offset += operand.end()
++        expanded = re.match(r'that would be[ \t]+(?P<expr>.+?)\.[ \t]+Let me compute that[:.][ \t]+',
++                            line[offset:], re.I)
++        if expanded:
++            view = _expression_tree(expanded.group('expr'), [])
++            if not view or 'Name(' in view[1] or _substitution_shape(formula[1], before_reduction=True) != _substitution_shape(view[1]):
++                return None
++            offset += expanded.end()
++    elif direct:
++        offset += direct.start('work')
++    if not re.match(r'[+\-(\d]', line[offset:]):
++        return None
++    printed = _numeric_commit(text, start + offset, [])
++    if (not printed or printed[3] != 'calculation' or any('Name(' in v for v in printed[6])
++            or not any(_substitution_shape(f[1], before_reduction=printed[4] != 'reduction')
++                       == _substitution_shape(printed[5]) for f in formulas)):
++        return None
++    value_start, end, value, kind, phase, signature, views = printed
++    if formula[0] == phase:
++        signature, views = formula[1], list(dict.fromkeys([f[1] for f in formulas if f[0] == phase] + views))
++    return value_start, end, value, kind, phase, signature, views
++
++
++def _split_printed_reduction(text, start, result, entities, node_id):
++    """Retain an explicit raw result before its reduction in an equation chain."""
++    if result[4] != 'reduction':
++        return None
++    pattern = re.compile(r'(?P<raw>' + NUMBER + r')[ \t]*(?P<op>(?:\\?mod(?=\b|\d)|modulo\b)|≡|\\equiv\b)', re.I)
++    for match in pattern.finditer(text, start, result[0]):
++        raw = _numeric_commit(text[:match.end('raw')], start, entities, target_node=node_id)
++        # The prefix must print the result of a complete raw calculation.
++        # An operand inside (a+b) mod m or q=25 mod m is not another result.
++        if not raw or raw[4] != 'calculation' or raw[0] != match.start('raw'):
++            continue
++        reduced = _numeric_commit(text, match.start('raw'), entities)
++        if not reduced or reduced[1] != result[1]:
++            continue
++        if match.group('op') in {'≡', r'\equiv'}:
++            modulus = re.match(r'[ \t]*\(?[ \t]*(?:\\?mod(?=\b|\d)|modulo\b)[ \t]*(' + NUMBER + r')',
++                               text[result[1]:], re.I)
++            if modulus is None:
++                continue
++            # "25 ≡ 2 mod 23" explicitly states the same reduction as
++            # "25 mod 23 = 2". No arithmetic or value-based binding is used.
++            _, signature = _expression_tree(match.group('raw') + ' mod ' + modulus.group(1), [])
++            reduced = (*reduced[:5], signature, [signature])
++        return raw, match.start('raw'), reduced
++    return None
++
++
++def _adjacent_reduction(text, end, entities):
++    """Read an explicitly printed local reduction; never compute a residue."""
++    separator = re.match(r'[ \t]*(?:\.[ \t]*(?:(?:Then|Since|So(?: that\x27s)?)[ \t]+)?'
++                         r'|,[ \t]*(?:then[ \t]+)?|→[ \t]*)', text[end:], re.I)
++    if separator is None:
++        return None
++    start = end + separator.end()
++    direct = re.match(NUMBER + r'[ \t]*(?:mod(?=\b|\d)|modulo)[ \t]*' + NUMBER
++                      + r'[ \t]*(?:=|is\b|equals?\b)', text[start:], re.I)
++    if direct:
++        result = _numeric_commit(text, start, entities)
++        return (start, result) if result and result[4] == 'reduction' else None
++    division = re.match(r'(?P<raw>' + NUMBER + r')[ \t]+divided by[ \t]+(?P<mod>' + NUMBER
++                        + r')[ \t]+is[ \t]+' + NUMBER + r'[ \t]+with[ \t]+(?:a[ \t]+)?remainder[ \t]+(?:of[ \t]+)?',
++                        text[start:], re.I)
++    heading = re.match(r'(?:modulo|mod)[ \t]*(?P<mod>' + NUMBER + r'),[ \t]*(?P<raw>' + NUMBER + r')(?=[ \t]*-)',
++                       text[start:], re.I)
++    if division:
++        result = _numeric_commit(text, start + division.end(), [])
++        match = division
++        if not result or result[4] != 'commit':
++            return None
++    elif heading:
++        result = _numeric_commit(text, start + heading.start('raw'), [])
++        match = heading
++        shapes = {_expression_tree(expr, [])[1] for expr in ('1 - 1', '1 - 1 * 1')}
++        if not result or result[5] not in shapes:
++            return None
++    else:
++        return None
++    _, signature = _expression_tree(match.group('raw') + ' mod ' + match.group('mod'), [])
++    return start, (*result[:3], 'calculation', 'reduction', signature, [signature])
++
++
++def _concludes_local_reduction(text, previous, start, node_id, scope):
++    """A 'therefore' commit inherits an explicitly stated local modulo stage.
++
++    Require the immediately preceding event to calculate the same quantity.
++    Only anonymous arithmetic and narrow connective prose may intervene; a
++    different entity, conditional, region marker or new topic breaks the link.
++    Printed numbers are never checked for equality or arithmetic correctness.
++    """
++    if (previous.node_id != node_id or previous.identity.scope != scope
++            or previous.event_kind != 'calculation' or previous.event_phase not in {'calculation', 'reduction'}):
++        return False
++    between = text[previous.end:start]
++    if not re.search(r'\b(?:so|therefore|thus|hence|then)\s*[:,]?\s*(?:the\s+number\s+of\s*)?$', between, re.I):
++        return False
++    if previous.event_phase != 'reduction' and not re.search(r'\b(?:mod|modulo)\s*' + NUMBER, between, re.I):
++        return False
++    masked = re.sub(NUMBER, ' ', between).casefold()
++    allowed = set(('now applying working modulo mod let s me compute divide divided by is equals equal to '
++                   'so therefore thus hence then the result remainder of with a since but we re number').split())
++    if not set(re.findall(r'[a-z]+', masked)) <= allowed:
++        return False
++    return re.fullmatch(r"[\s.,:;'’()+*/=×÷−\-]*", re.sub(r'[a-z]+', '', masked)) is not None
++
++
+ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Event]:
+     source_text = text
+     # Mask paired inline formatting with spaces of exactly the same length.
+@@ -420,27 +614,19 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
+                     owner = next(iter(owners)) + "'s "
+                     visible_entities += [(a[len(owner):], *entity[1:]) for entity in visible_entities
+                                          if (a := entity[0]).startswith(owner)]
+-                result = _numeric_commit(text, match.end(), visible_entities)
++                result = _numeric_commit(text, match.end(), visible_entities, target_node=node_id)
+                 if result is None:
+-                    # Natural derivations often split a symbolic formula and
+-                    # its substitution with a period. Accept only immediately
+-                    # adjacent, explicitly printed numeric work on this line.
+-                    # No DAG evaluation, value equality, or cross-topic search.
+-                    follow = re.match(r"(?P<formula>[^\n]+?)\.[ \t]+(?:So[ \t]+)?(?P<work>[+\-(\d])",
+-                                      text[match.end():], re.I)
+-                    formula = _expression_tree(follow.group('formula'), visible_entities) if follow else None
+-                    if formula and formula[0] in {'calculation', 'reduction', 'copy'}:
+-                        work_start = match.end() + follow.start('work')
+-                        printed = _numeric_commit(text, work_start, [])
+-                        if (printed and printed[3] == 'calculation' and all('Name(' not in v for v in printed[6])
+-                                and _substitution_shape(formula[1], before_reduction=printed[4] != 'reduction')
+-                                == _substitution_shape(printed[5])):
+-                            value_start, end, value, parsed_kind, phase, signature, views = printed
+-                            if formula[0] == phase:
+-                                signature, views = formula[1], list(dict.fromkeys([formula[1], *views]))
+-                            result = value_start, end, value, parsed_kind, phase, signature, views
++                    result = _adjacent_substitution(text, match.end(), visible_entities)
+                 if result is None:
+                     continue
++                split = _split_printed_reduction(text, match.end(), result, visible_entities, node_id)
++                if split:
++                    raw, reduced_start, result = split
++                    raw_value_start, raw_end, raw_value, raw_kind, raw_phase, raw_sig, raw_views = raw
++                    found.append((start, raw_end, raw_value_start, node_id, gold, scope, parents, graph_status,
++                                  raw_value, 'restatement' if kind == 'restatement' else raw_kind,
++                                  raw_phase, raw_sig, raw_views))
++                    start = reduced_start
+                 value_start, end, value, parsed_kind, phase, signature, views = result
+                 if kind != "restatement":
+                     kind = parsed_kind
+@@ -455,17 +641,12 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
+                 # A directly adjacent anonymous reduction continues this
+                 # named calculation. Keep BOTH printed stages: the raw result
+                 # must not silently become the residue or leave the denominator.
+-                continuation = re.match(
+-                    r"[ \t]*(?:\.[ \t]*(?:Then[ \t]+)?|,[ \t]*then[ \t]+|→[ \t]*)(?P<expr>"
+-                    + NUMBER + r"[ \t]+(?:mod|modulo)[ \t]*" + NUMBER + r"[ \t]*=)",
+-                    text[end:], re.I)
++                continuation = _adjacent_reduction(text, end, visible_entities)
+                 if continuation:
+-                    reduction_start = end + continuation.start("expr")
+-                    reduced = _numeric_commit(text, reduction_start, visible_entities)
+-                    if reduced and reduced[4] == "reduction":
+-                        rvalue_start, rend, rvalue, rkind, rphase, rsig, rviews = reduced
+-                        found.append((reduction_start, rend, rvalue_start, node_id, gold, scope,
+-                                      parents, graph_status, rvalue, rkind, rphase, rsig, rviews))
++                    reduction_start, reduced = continuation
++                    rvalue_start, rend, rvalue, rkind, rphase, rsig, rviews = reduced
++                    found.append((reduction_start, rend, rvalue_start, node_id, gold, scope,
++                                  parents, graph_status, rvalue, rkind, rphase, rsig, rviews))
+     found.sort(key=lambda item: (item[0], item[1]))
+     # "Entity: X = value" names one printed result twice. Use the innermost
+     # assignment's arithmetic, keeping the complete statement's start.
+@@ -486,11 +667,19 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
+     node_tokens = {e[1]: context_entity_token(e[1]) for e in entities}
+     alias_patterns = [(re.compile(rf'(?<!\w){re.escape(alias)}(?!\w)', re.I), node_tokens[nid])
+                       for alias, nid, *_ in sorted(entities, key=lambda e: -len(e[0])) if counts[alias.casefold()] == 1]
++    region_markers = list(re.finditer(r'</?think>', source_text))
+     def context(start, end, node_id):
+         previous = source_text.rfind('\n\n', 0, start)
+         lo = previous + 2 if previous >= 0 else 0
+         hi = source_text.find('\n\n', end)
+         hi = len(source_text) if hi < 0 else hi
++        # Paragraph layout is independent of the thinking/answer boundary.
++        # Answer prose must never resolve a repeated thinking assignment.
++        for marker in region_markers:
++            if marker.end() <= start:
++                lo = max(lo, marker.end())
++            elif marker.start() >= end:
++                hi = min(hi, marker.start())
+         key = (lo, hi)
+         if key not in context_cache:
+             block = source_text[lo:hi]
+@@ -501,6 +690,9 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
+             context_cache[key] = sorted(set(re.findall(r'[a-z]+', block.casefold())) - stopwords)
+         return [word for word in context_cache[key] if word != node_tokens[node_id]]
+     for start, end, value_start, node_id, gold, scope, parents, graph_status, value, kind, phase, signature, views in found:
++        if (kind == 'commit' and phase == 'commit' and events
++                and _concludes_local_reduction(source_text, events[-1], start, node_id, scope)):
++            phase = 'residue_commit'
+         key = (node_id, scope)
+         occurrences[key] += 1
+         identity = EventIdentity(node_id, occurrences[key], scope)
+diff --git a/tests/fixtures/pr8_saved_excerpt_audit.json b/tests/fixtures/pr8_saved_excerpt_audit.json
+index dc88cc7..c929acd 100644
+--- a/tests/fixtures/pr8_saved_excerpt_audit.json
++++ b/tests/fixtures/pr8_saved_excerpt_audit.json
+@@ -2,6 +2,7 @@
+   "source_run": "pr8-12h-20261006-r2/smoke/prepare",
+   "annotation_scope": "Manually checked explicit assignment spans and operand-only negative excerpt; original numeric outputs are preserved.",
+   "evaluation_scope": "Development regressions selected after the failure, not held-out estimates of parser recall.",
++  "phase_annotation_revision": "v9: SP_C = 2 in pr8-saved-1 and CVI = 9 in pr8-saved-6 explicitly conclude local modulo work, so their phase is residue_commit; original text, values and spans are unchanged.",
+   "cases": [
+     {
+       "id": "pr8-saved-1",
+@@ -24,7 +25,7 @@
+         {
+           "node_alias": "Starfish's Pleural Cavity",
+           "value": "2",
+-          "event_phase": "commit",
++          "event_phase": "residue_commit",
+           "event_kind": "commit",
+           "text": "SP_C = 2"
+         }
+@@ -147,7 +148,7 @@
+         {
+           "node_alias": "Canned Vegetables's Ingredient",
+           "value": "9",
+-          "event_phase": "commit",
++          "event_phase": "residue_commit",
+           "event_kind": "commit",
+           "text": "CVI = 9"
+         }
+diff --git a/tests/test_natural_coverage_extension.py b/tests/test_natural_coverage_extension.py
+new file mode 100644
+index 0000000..cb02cbe
+--- /dev/null
++++ b/tests/test_natural_coverage_extension.py
+@@ -0,0 +1,48 @@
++import importlib
++from pathlib import Path
++
++import pytest
++
++from reasoning_diff.next_round import sentence_graph_task, registered_pilot_edits
++from reasoning_diff.tasks.t1_fixture import load_t1_fixture
++
++
++@pytest.fixture
++def coverage(monkeypatch):
++    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / 'scripts'))
++    return importlib.import_module('extend_natural_coverage')
++
++
++def test_expansion_registers_all_values_and_noise_before_outcomes(coverage, t1_tiny_path):
++    task = sentence_graph_task(load_t1_fixture(t1_tiny_path))
++    old = coverage.expected_source_requests([task])
++    requests = coverage.additional_requests([task], old)
++    assert len(old) == 16
++    assert len(requests) == 35
++    assert len({r['id'] for r in requests}) == len(requests)
++    assert {r['seed'] for r in requests if r['kind'] == 'noise'} == set(range(7, 24))
++    assert {(r['task_id'], r['seed']) for r in requests}.isdisjoint(old)
++    edits = coverage.expanded_edits(task)
++    assert len(edits) == 9
++    assert {e.changed_premise_ids[0] for e in edits} == {e.changed_premise_ids[0] for e in registered_pilot_edits(task)}
++    for edit in edits:
++        for seed in range(3):
++            assert (edit.task.task_id, seed) in old or any(r['task_id'] == edit.task.task_id and r['seed'] == seed for r in requests)
++
++
++def test_repeat_measurement_preserves_denominator_and_unique_observations(coverage, t1_tiny_path):
++    from reasoning_diff import cli
++    task = sentence_graph_task(load_t1_fixture(t1_tiny_path))
++    rows = [cli._synthetic_trace(task, 'q = 7', f'trace-base:{s}', s).to_dict() for s in range(24)]
++    rows += [cli._synthetic_trace(e.task, 'q = 8', f'edit:{e.id}:{s}', s).to_dict()
++             for e in coverage.expanded_edits(task) for s in range(3)]
++    report, observations, _ = coverage.engine.measure([task], rows, noise_seeds=range(24), edits_for=coverage.expanded_edits)
++    original, _, _ = coverage.engine.measure([task], rows)
++    assert report['overall']['eligible_cells'] == original['overall']['eligible_cells']
++    assert len({o['observation_id'] for o in observations}) == len(observations)
++    lookup = {r['id']: r for r in rows}
++    for obs in observations:
++        left, right = lookup[obs['reference_trace']], lookup[obs['comparison_trace']]
++        assert left['seed'] != right['seed'] if obs['rng_pair'].startswith('sham:') else left['seed'] == right['seed']
++    with pytest.raises(KeyError):
++        coverage.engine.measure([task], rows[:-1], noise_seeds=range(24), edits_for=coverage.expanded_edits)
+diff --git a/tests/test_natural_pilot_extension.py b/tests/test_natural_pilot_extension.py
+new file mode 100644
+index 0000000..afdd5c7
+--- /dev/null
++++ b/tests/test_natural_pilot_extension.py
+@@ -0,0 +1,134 @@
++import importlib
++from pathlib import Path
++
++import pytest
++
++from reasoning_diff import cli
++from reasoning_diff.io import digest, read_json, write_json
++from reasoning_diff.next_round import registered_pilot_edits, sentence_graph_task
++from reasoning_diff.tasks.t1_fixture import load_t1_fixture
++
++
++@pytest.fixture
++def extension(monkeypatch):
++    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / 'scripts'))
++    return importlib.import_module('extend_natural_pilot')
++
++
++def test_plan_is_balanced_and_independent_of_trace_outcomes(extension, t1_tiny_path):
++    task = sentence_graph_task(load_t1_fixture(t1_tiny_path))
++    requests = extension.requests_for([task])
++    assert len(requests) == len({r['id'] for r in requests}) == 10
++    assert {r['seed'] for r in requests if r['kind'] == 'noise'} == {3, 4, 5, 6}
++    assert {r['seed'] for r in requests if r['kind'] == 'edit'} == {1, 2}
++    assert all(sum(r['task_id'] == e.task.task_id for r in requests) == 2 for e in registered_pilot_edits(task))
++
++
++def synthetic_rows(task):
++    rows = []
++    for seed in range(7):
++        rows.append(cli._synthetic_trace(task, 'q = 7', f'trace-base:seed{seed}', seed).to_dict())
++    for e in registered_pilot_edits(task):
++        for seed in range(3):
++            rows.append(cli._synthetic_trace(e.task, 'q = 8', f'trace-edit:{e.id}:seed{seed}', seed).to_dict())
++    return rows
++
++
++def test_extension_pairs_same_seed_and_never_uses_edits_as_noise(extension, t1_tiny_path):
++    task = sentence_graph_task(load_t1_fixture(t1_tiny_path))
++    rows = synthetic_rows(task)
++    report, observations, _ = extension.measure([task], rows)
++    assert report['overall']['n_traces'] == 3
++    lookup = {r['id']: r for r in rows}
++    for obs in observations:
++        left, right = lookup[obs['reference_trace']], lookup[obs['comparison_trace']]
++        if obs['rng_pair'].startswith('sham:'):
++            assert right['task_id'] == left['task_id'] == task.task_id
++            assert right['seed'] != left['seed']
++        else:
++            assert left['seed'] == right['seed']
++    original = extension.measure([task], rows, (0,), (0, 1, 2))[0]
++    assert original['overall']['n_traces'] == 1
++    changed = [r for r in rows if r['seed'] < 3]
++    assert extension.measure([task], changed, (0,), (0, 1, 2))[0]['overall'] == original['overall']
++
++
++def test_missing_or_duplicate_requests_cannot_be_silently_dropped(extension, t1_tiny_path):
++    task = sentence_graph_task(load_t1_fixture(t1_tiny_path))
++    rows = synthetic_rows(task)
++    with pytest.raises(KeyError):
++        extension.measure([task], rows[:-1])
++    with pytest.raises(ValueError, match='duplicate'):
++        extension.measure([task], rows + rows[:1])
++
++
++def test_checkpoint_cannot_change_seed_or_trajectory_content(extension, tmp_path):
++    request = {'id': 'request', 'task_id': 't', 'seed': 1}
++    protocol = {'revision': 'pinned'}
++    trace = {'task_id': 't', 'seed': 1, 'metadata': {'revision': 'pinned'}, 'text': 'q = 7'}
++    payload = {'protocol_digest': digest(protocol), 'request_digest': digest(request), 'trace_digest': digest(trace), 'trace': trace}
++    path = tmp_path / 'responses/request.json'
++    write_json(path, payload)
++    assert extension.checkpoint(tmp_path, protocol, request) == trace
++    payload['trace']['seed'] = 2
++    payload['trace_digest'] = digest(payload['trace'])
++    write_json(path, payload)
++    with pytest.raises(ValueError, match='provenance'):
++        extension.checkpoint(tmp_path, protocol, request)
++    payload['trace']['seed'] = 1
++    payload['trace']['text'] = 'q = 9'
++    write_json(path, payload)
++    with pytest.raises(ValueError, match='provenance'):
++        extension.checkpoint(tmp_path, protocol, request)
++
++
++def migration_fixture(tmp_path):
++    parent, child = tmp_path / 'parent', tmp_path / 'child'
++    old = {'revision': 'pinned', 'max_new': 12288, 'gpus': [2, 3], 'batch_size': 2,
++           'seconds': 3600, 'source_hashes': {'src/model.py': 'same', 'scripts/extend_natural_pilot.py': 'old'}}
++    new = {**old, 'gpus': [2, 3, 6], 'batch_size': 4, 'seconds': 43200,
++           'source_hashes': {**old['source_hashes'], 'scripts/extend_natural_pilot.py': 'new'}}
++    requests = [{'id': 'request', 'task_id': 't', 'seed': 1}, {'id': 'pending', 'task_id': 't', 'seed': 2}]
++    trace = {'task_id': 't', 'seed': 1, 'metadata': {'revision': 'pinned'}, 'text': 'q = 7'}
++    write_json(parent / 'protocol.json', old)
++    write_json(parent / 'plan.json', {'protocol_digest': digest(old), 'requests': requests})
++    write_json(parent / 'budget.json', {'started': 1234, 'seconds': 3600})
++    write_json(parent / 'responses/request.json', {'protocol_digest': digest(old),
++        'request_digest': digest(requests[0]), 'trace_digest': digest(trace), 'trace': trace})
++    return parent, child, new, requests, trace
++
++
++def test_execution_migration_preserves_original_checkpoint_and_budget_origin(extension, tmp_path):
++    parent, child, new, requests, trace = migration_fixture(tmp_path)
++    extension.import_completed(parent, child, new, requests)
++    assert (parent / 'responses/request.json').read_bytes() == (child / 'responses/request.json').read_bytes()
++    assert extension.checkpoint(child, new, requests[0]) == trace
++    assert extension.checkpoint(child, new, requests[1]) is None
++    assert read_json(child / 'budget.json') == {'started': 1234, 'seconds': 43200}
++    payload = read_json(child / 'responses/request.json')
++    payload['trace']['text'] = 'q = 9'
++    payload['trace_digest'] = digest(payload['trace'])
++    write_json(child / 'responses/request.json', payload)
++    with pytest.raises(ValueError, match='provenance'):
++        extension.checkpoint(child, new, requests[0])
++
++
++@pytest.mark.parametrize('change', ['science', 'decoder', 'requests', 'parent_plan', 'checkpoint'])
++def test_execution_migration_rejects_scientific_changes_or_corruption(extension, tmp_path, change):
++    parent, child, new, requests, _ = migration_fixture(tmp_path)
++    if change == 'science':
++        new['max_new'] = 4096
++    elif change == 'decoder':
++        new['source_hashes']['src/model.py'] = 'different'
++    elif change == 'requests':
++        requests[0]['seed'] = 3
++    elif change == 'parent_plan':
++        saved = read_json(parent / 'protocol.json')
++        saved['seconds'] = 1
++        write_json(parent / 'protocol.json', saved)
++    else:
++        saved = read_json(parent / 'responses/request.json')
++        saved['trace']['text'] = 'q = 9'
++        write_json(parent / 'responses/request.json', saved)
++    with pytest.raises(ValueError):
++        extension.import_completed(parent, child, new, requests)
+diff --git a/tests/test_natural_printed_recovery.py b/tests/test_natural_printed_recovery.py
+new file mode 100644
+index 0000000..023d318
+--- /dev/null
++++ b/tests/test_natural_printed_recovery.py
+@@ -0,0 +1,114 @@
++import pytest
++
++from reasoning_diff.events import align_events, parse_events
++from reasoning_diff.tasks.t1_fixture import load_t1_fixture
++
++
++def test_repeated_destination_name_is_a_label_in_an_equation_chain(t1_tiny_path):
++    task = load_t1_fixture(t1_tiny_path)
++    next(n for n in task.nodes if n.id == 'q').aliases.append("Example's Quantity")
++    text = "q = Example's Quantity = p1 * p2 = 4 * 0 = 0"
++    left = parse_events(text, task)
++    right = parse_events('q = p1 * p2 = 9 * 2 = 18', task)
++    assert len(left) == 1 and left[0].event_phase == 'calculation'
++    assert left[0].expression_signature == right[0].expression_signature
++    assert len(align_events(left, right)['pairs']) == 1
++    assert left[0].text == text
++
++
++def test_other_entity_and_self_reference_are_not_labels(t1_tiny_path):
++    task = load_t1_fixture(t1_tiny_path)
++    copy = parse_events('q = p1 = 2 * 2 = 4', task)[0]
++    assert copy.event_phase == 'copy' and "id='p1'" in copy.expression_signature
++    calc = parse_events('q = q + 1 = 5', task)[0]
++    assert calc.event_phase == 'calculation' and "id='q'" in calc.expression_signature
++
++
++def test_explicit_multiword_and_primed_aliases(t1_tiny_path):
++    task = load_t1_fixture(t1_tiny_path)
++    text = "p1 (AMS MB) = 7\np2 (R') = 2\nq (AS Rucksack) = AMS MB - R'\nAS Rucksack = AMS MB - R' = 7 - 2 = 5"
++    parsed = parse_events(text, task)
++    assert [(e.node_id, e.value) for e in parsed] == [('p1', '7'), ('p2', '2'), ('q', '5')]
++    assert 'unresolved:' not in parsed[-1].expression_signature
++    assert "id='p1'" in parsed[-1].expression_signature and "id='p2'" in parsed[-1].expression_signature
++
++
++def test_multiword_alias_conflict_abstains(t1_tiny_path):
++    task = load_t1_fixture(t1_tiny_path)
++    assert parse_events('q (AS Item) = p1 * p2\np1 (AS Item) = 4\nAS Item = 4', task) == []
++
++
++@pytest.mark.parametrize('expression', ['15 plus 10 is 25', '15 + 10 equals 25', '15 multiplied by 10 is 150'])
++def test_explicit_arithmetic_with_prose_operators(t1_tiny_path, expression):
++    task = load_t1_fixture(t1_tiny_path)
++    parsed = parse_events('q is ' + expression + '.', task)
++    assert len(parsed) == 1 and parsed[0].event_phase == 'calculation'
++
++
++@pytest.mark.parametrize('text', [
++    'q = 21 + p1. p1 is 2. So 21 + 2 = 23.',
++    'q = 21 + p1. p1 is 2, so 21 + 2 = 23.',
++    'q = 22 * p1. Since p1 is 0, 22 * 0 is 0.',
++    'q is 15 plus p1. Since p1 is 10, that would be 15 + 10. Let me compute that: 15 + 10 = 25.',
++    'q = 15 + p1. Since p1 is 10, that would be 15 + 10. Let me compute that. 15 + 10 is 25.',
++])
++def test_explicit_operand_substitution_keeps_named_destination(t1_tiny_path, text):
++    task = load_t1_fixture(t1_tiny_path)
++    parsed = [e for e in parse_events(text, task) if e.node_id == 'q']
++    assert len(parsed) == 1 and parsed[0].event_phase == 'calculation'
++    assert "id='p1'" in parsed[0].expression_signature
++    assert all(text[e.start:e.end] == e.text for e in parsed)
++    # Correspondence depends on the printed whole operation, not its answer.
++    other = parse_events('q = 19 * 4 = 76.' if '*' in text else 'q = 19 + 4 = 23.', task)
++    assert len(align_events(parsed, other)['pairs']) == 1
++    other[0].value, other[0].correct = '999', False
++    assert len(align_events(parsed, other)['pairs']) == 1
++
++
++@pytest.mark.parametrize('text', [
++    'q = 21 + p1. p2 is 2, so 21 + 2 = 23.',
++    'q = 21 + p1. p1 is 2. Another calculation: 21 + 2 = 23.',
++    'q = 21 + p1. p1 is 2, so 21 * 2 = 42.',
++    'q = (p1 * 2) + p2. p1 is 2, so 2 * 2 = 4.',
++    'q = 21 + p1. Since p1 is 2, that would be 21 * 2. Let me compute that: 21 + 2 = 23.',
++    'q = 21 + p1. Since p1 is 2, that would be 21 + 2.\n\nLet me compute that: 21 + 2 = 23.',
++    'q = 21 + p1. Since p1 is 2, that would be 21 + 2.</think>\n21 + 2 = 23.',
++])
++def test_substitution_cannot_claim_other_topic_or_partial_term(t1_tiny_path, text):
++    assert not any(e.node_id == 'q' for e in parse_events(text, load_t1_fixture(t1_tiny_path)))
++
++
++@pytest.mark.parametrize('text', [
++    'q = p1 + p2 = 15 + 10 = 25 mod23=2.',
++    'q = p1 + p2 = 15 + 10 = 25, 25 mod 23 = 2.',
++    'q = p1 + p2 = 15 + 10 = 25. 25 mod 23 is 2.',
++    'q = p1 + p2 = 15 + 10 = 25 ≡ 2 mod 23.',
++])
++def test_raw_and_reduced_printed_results_survive_equation_layout(t1_tiny_path, text):
++    task = load_t1_fixture(t1_tiny_path)
++    parsed = parse_events(text, task)
++    assert [(e.value, e.event_phase) for e in parsed] == [('25', 'calculation'), ('2', 'reduction')]
++    assert all(e.status == 'ok' and text[e.start:e.end] == e.text for e in parsed)
++    assert len({e.value_start for e in parsed}) == 2
++    separate = parse_events('q = p1 + p2 = 16 + 10 = 26. 26 mod 23 = 3.', task)
++    assert len(align_events(parsed, separate)['pairs']) == 2
++
++
++@pytest.mark.parametrize('text', [
++    'q = (15 + 10) mod 23 = 2.',
++    'q = 25 mod 23 = 2.',
++    'q = 2 (mod 23).',
++    'q = 15 + 10 mod 23.',
++    'q = 48 mod23=48-2*23=48-46=2.',
++])
++def test_raw_stage_requires_a_printed_complete_arithmetic_result(t1_tiny_path, text):
++    parsed = parse_events(text, load_t1_fixture(t1_tiny_path))
++    assert not any(e.event_phase == 'calculation' for e in parsed)
++
++
++@pytest.mark.parametrize('work', ['So 15 + 10 = 25.', '15 + 10 = 25.'])
++def test_later_prose_does_not_hide_immediate_printed_substitution(t1_tiny_path, work):
++    text = 'q = p1 + p2. ' + work + ' 25 mod 23 is 2. So q is 2.'
++    parsed = parse_events(text, load_t1_fixture(t1_tiny_path))
++    assert [(e.value, e.event_phase) for e in parsed] == [
++        ('25', 'calculation'), ('2', 'reduction'), ('2', 'residue_commit')]
+diff --git a/tests/test_natural_prose_recovery.py b/tests/test_natural_prose_recovery.py
+new file mode 100644
+index 0000000..1418727
+--- /dev/null
++++ b/tests/test_natural_prose_recovery.py
+@@ -0,0 +1,91 @@
++import pytest
++
++from reasoning_diff.events import align_events, parse_events
++from reasoning_diff.tasks.t1_fixture import load_t1_fixture
++
++
++@pytest.mark.parametrize('formula, symbolic', [
++    ('sum of p1 and p2', 'p1 + p2'),
++    ('the product of p1 and p2', 'p1 * p2'),
++    ('difference between p1 and p2', 'p1 - p2'),
++    ('product of 18 and (sum of 0 and p1)', '18 * (0 + p1)'),
++    ('(product of p1 and 0) + (product of p2 and 2)', '(p1 * 0) + (p2 * 2)'),
++    ('sum of (product of p1 and 0) and (product of p2 and 2)', '(p1 * 0) + (p2 * 2)'),
++    ('product of p1 (which is 22) and p2 (which is 1)', 'p1 * p2'),
++])
++def test_printed_prose_formula_has_same_structure_as_symbolic_formula(t1_tiny_path, formula, symbolic):
++    task = load_t1_fixture(t1_tiny_path)
++    prose = parse_events('q = ' + formula + ' = 17.', task)
++    arithmetic = parse_events('q = ' + symbolic + ' = 999.', task)
++    assert len(prose) == 1
++    assert prose[0].expression_signature == arithmetic[0].expression_signature
++    assert len(align_events(prose, arithmetic)['pairs']) == 1
++
++
++def test_numeric_annotation_after_full_quantity_name_is_not_multiplication(t1_tiny_path):
++    task = load_t1_fixture(t1_tiny_path)
++    task.premises[0].text = "The number of Example's Value equals 2."
++    task.premises[0].kind = 'sentence'
++    task.premises[0].end = len(task.premises[0].text)
++    text = "q = sum of Example's Value (22) and 0. So 22 + 0 = 22."
++    parsed = parse_events(text, task)
++    assert len(parsed) == 1 and parsed[0].value == '22'
++    assert "id='p1'" in parsed[0].expression_signature
++    assert not parse_events('q = p1(22) + 0 = 22.', task)
++
++
++@pytest.mark.parametrize('text', [
++    'q = 4 * p1. That\'s 4*14 = 56.',
++    'q = product of p1 and p2. So 22 * 1 = 22.',
++    'q = 18 * (0 + p1) = 18 * 14. Let me compute that. 18*14 is 252.',
++    'q = sum of p1 and p2. That is 14 + 10 = 24.',
++])
++def test_adjacent_numeric_work_can_use_an_explicit_simplified_formula(t1_tiny_path, text):
++    task = load_t1_fixture(t1_tiny_path)
++    parsed = parse_events(text, task)
++    assert len(parsed) == 1 and parsed[0].event_phase == 'calculation'
++    assert "id='p1'" in parsed[0].expression_signature
++    assert text[parsed[0].start:parsed[0].end] == parsed[0].text
++
++
++@pytest.mark.parametrize('text', [
++    'q = product of p1 and p2. So 22 + 1 = 23.',
++    'q = sum of (product of p1 and 2) and p2. So 22 * 2 = 44.',
++    'q = 18 * (0 + p1). Let me compute that. 18 * 14 = 252.',
++    'q = sum of p1 and p2 and p3 = 20.',
++    'q = product of p1 and unknown(p2) = 2.',
++    'q = product of p1 and p2.\n\nThat is 22 * 1 = 22.',
++])
++def test_prose_formula_does_not_infer_missing_structure(t1_tiny_path, text):
++    assert not parse_events(text, load_t1_fixture(t1_tiny_path))
++
++
++@pytest.mark.parametrize('continuation', [
++    'Since 25 mod 23 is 2.',
++    "So that's 25 mod 23 = 2.",
++    '25 divided by 23 is 1 with remainder 2.',
++    '25 divided by 23 is 1 with a remainder of 2.',
++    'Modulo 23, 25 - 23 = 2.',
++])
++def test_explicit_remainder_continues_named_raw_calculation(t1_tiny_path, continuation):
++    text = 'q = 15 + 10 = 25. ' + continuation
++    task = load_t1_fixture(t1_tiny_path)
++    parsed = parse_events(text, task)
++    assert [(e.value, e.event_phase) for e in parsed] == [('25', 'calculation'), ('2', 'reduction')]
++    assert all(text[e.start:e.end] == e.text for e in parsed)
++    assert all(text[e.value_start:e.end] == e.value for e in parsed)
++    other = parse_events('q = 16 + 10 = 26. 26 mod 23 = 3.', task)
++    assert len(align_events(parsed, other)['pairs']) == 2
++
++
++@pytest.mark.parametrize('continuation', [
++    '25 divided by 23 is 1.',
++    'p1 = 25. 25 divided by 23 is 1 with remainder 2.',
++    '\n\n25 divided by 23 is 1 with remainder 2.',
++    '25 divided by 23 is 1 with remainder 2 + 3.',
++    'Modulo 23, 23 * 1 = 23.',
++    'Another calculation: 25 divided by 23 is 1 with remainder 2.',
++])
++def test_remainder_requires_explicit_local_complete_result(t1_tiny_path, continuation):
++    parsed = parse_events('q = 15 + 10 = 25. ' + continuation, load_t1_fixture(t1_tiny_path))
++    assert not any(e.event_phase == 'reduction' for e in parsed)
+diff --git a/tests/test_natural_region_context.py b/tests/test_natural_region_context.py
+new file mode 100644
+index 0000000..f6512cb
+--- /dev/null
++++ b/tests/test_natural_region_context.py
+@@ -0,0 +1,31 @@
++from reasoning_diff.events import align_events, assign_event_regions, parse_events
++from reasoning_diff.tasks.t1_fixture import load_t1_fixture
++
++
++def events(text, task):
++    return assign_event_regions(parse_events(text, task), text, initial_thinking=True)
++
++
++def test_answer_only_words_cannot_select_a_thinking_occurrence(t1_tiny_path):
++    task = load_t1_fixture(t1_tiny_path)
++    right = events('Checking multiplication again.\nq = 6.\n\n'
++                   'Reviewing subtraction carefully.\nq = 9.', task)
++    for answer in ('Checking multiplication again.', 'Reviewing subtraction carefully.', ''):
++        left = events('q = 6.\n</think>\n' + answer + ' Answer: 6.', task)
++        assert not align_events(left, right)['pairs']
++
++
++def test_thinking_context_survives_clipping_at_region_boundary(t1_tiny_path):
++    task = load_t1_fixture(t1_tiny_path)
++    left = events('Checking multiplication again.\nq = 6.\n</think>\nReviewing subtraction carefully.', task)
++    right = events('Checking multiplication again.\nq = 8.\n\nReviewing subtraction carefully.\nq = 9.', task)
++    assert [(a.value, b.value) for a, b in align_events(left, right)['pairs']] == [('6', '8')]
++    assert 'reviewing' not in left[0].alignment_context
++
++
++def test_answer_context_cannot_inherit_thinking_words(t1_tiny_path):
++    task = load_t1_fixture(t1_tiny_path)
++    parsed = events('Checking multiplication again.\n</think>\nq = 6.', task)
++    assert parsed[0].event_region == 'answer'
++    assert 'checking' not in parsed[0].alignment_context
++    assert 'multiplication' not in parsed[0].alignment_context
+diff --git a/tests/test_natural_residue_context.py b/tests/test_natural_residue_context.py
+new file mode 100644
+index 0000000..a0c7343
+--- /dev/null
++++ b/tests/test_natural_residue_context.py
+@@ -0,0 +1,44 @@
++import pytest
++
++from reasoning_diff.events import align_events, parse_events
++from reasoning_diff.tasks.t1_fixture import load_t1_fixture
++
++
++@pytest.mark.parametrize('middle', [
++    ' Now, modulo 23: 48 divided by 23 is 2*23=46, so 48-46=2. So ',
++    '\n\nNow, compute 48 modulo 23. Let\'s divide 48 by 23: 23*2=46, so 48-46=2. Therefore, ',
++    '\n\nNow, applying modulo 23. Let me divide 48 by 23. 23*2=46, so 48-46=2. Therefore, 48 mod 23 is 2. So:\n\n',
++    ' But since we\'re working modulo 23, let\'s compute 48 mod 23. 23*2=46, so 48-46=2. Therefore, ',
++    ' 48 mod 23 = 2. So ',
++])
++def test_local_modular_work_marks_concluding_commit_without_dropping_raw_result(t1_tiny_path, middle):
++    task = load_t1_fixture(t1_tiny_path)
++    text = 'q = 3 * 16 = 48.' + middle + 'q = 2.'
++    parsed = parse_events(text, task)
++    assert parsed[0].value == '48' and parsed[0].event_phase == 'calculation'
++    assert parsed[-1].event_phase == 'residue_commit'
++    assert all(text[e.start:e.end] == e.text and text[e.value_start:e.end] == e.value for e in parsed)
++    explicit = parse_events('q = 3 * 16 = 48. q = 7 mod 23.', task)
++    assert (parsed[-1], explicit[-1]) in align_events(parsed, explicit)['pairs']
++
++
++@pytest.mark.parametrize('text', [
++    'q = 3 * 16 = 48. So q = 2.',
++    'q = 3 * 16 = 48. p1 = 2 mod 23. So q = 2.',
++    'q = 3 * 16 = 48. Now reduce p1 modulo 23. Therefore, q = 2.',
++    'q = 3 * 16 = 48. If 48 mod 23 = 2, then q = 2.',
++    'q = 3 * 16 = 48. We will reduce modulo 23 later. So q = 48.',
++    'q = 3 * 16 = 48. 48 mod 23 = 2. Rechecking without modulo: so q = 48.',
++    'q = 3 * 16 = 48. 48 mod 23 = 2. </think> Therefore, q = 2.',
++    'q = 3 * 16 = 48. 48 mod 23 = 2. Here is an independent calculation. So q = 2.',
++])
++def test_modular_context_does_not_cross_entities_boundaries_or_scope(t1_tiny_path, text):
++    parsed = parse_events(text, load_t1_fixture(t1_tiny_path))
++    assert not any(e.node_id == 'q' and e.event_phase == 'residue_commit' for e in parsed)
++
++
++def test_modular_context_uses_words_not_arithmetic_correctness(t1_tiny_path):
++    task = load_t1_fixture(t1_tiny_path)
++    # An explicitly claimed (wrong) residue keeps its printed stage and value.
++    parsed = parse_events('q = 3 * 16 = 99. Now, modulo 23: 48-46=2. So q = 800.', task)
++    assert (parsed[-1].value, parsed[-1].event_phase) == ('800', 'residue_commit')
+diff --git a/tests/test_natural_semantics.py b/tests/test_natural_semantics.py
+index 62a47ed..429e7b8 100644
+--- a/tests/test_natural_semantics.py
++++ b/tests/test_natural_semantics.py
+@@ -20,9 +20,9 @@ def events(text, task):
+ ])
+ def test_spaced_and_adjacent_modulus_keep_explicit_residue(t1_tiny_path, text):
+     parsed = events(text, load_t1_fixture(t1_tiny_path))
+-    assert len(parsed) == 1
+-    assert parsed[0].value == '2' and parsed[0].event_phase == 'reduction'
+-    assert text[parsed[0].value_start:parsed[0].end] == '2'
++    assert [(e.value, e.event_phase) for e in parsed] == (
++        [('48', 'calculation'), ('2', 'reduction')] if '8 * 6' in text else [('2', 'reduction')])
++    assert text[parsed[-1].value_start:parsed[-1].end] == '2'
+ 
+ 
+ @pytest.mark.parametrize('left,right', [
+diff --git a/tests/test_pr8_recovery.py b/tests/test_pr8_recovery.py
+index 6657b9d..7c885ea 100644
+--- a/tests/test_pr8_recovery.py
++++ b/tests/test_pr8_recovery.py
+@@ -78,7 +78,9 @@ def test_printed_residue_annotation_remains_scalar_commit(t1_tiny_path, text):
+ @pytest.mark.parametrize("relation", ["≡", r"\equiv"])
+ def test_explicit_congruence_chain_reads_printed_residue(t1_tiny_path, relation):
+     text = f"q = 20 * 5 = 100 {relation} 8 (mod 23)."
+-    event = parse_events(text, load_t1_fixture(t1_tiny_path))[0]
++    parsed = parse_events(text, load_t1_fixture(t1_tiny_path))
++    assert [(e.value, e.event_phase) for e in parsed] == [('100', 'calculation'), ('8', 'reduction')]
++    event = parsed[-1]
+     assert (event.value, event.event_kind, event.event_phase) == ("8", "calculation", "reduction")
+     assert text[event.value_start:event.end] == "8"
+     assert text[event.start:event.end] == event.text
+diff --git a/tests/test_pr8_reparse.py b/tests/test_pr8_reparse.py
+index a6d21ef..b90b6b4 100644
+--- a/tests/test_pr8_reparse.py
++++ b/tests/test_pr8_reparse.py
+@@ -101,7 +101,7 @@ def test_remeasure_preserves_raw_manifest_and_rebuilds_missing_noise(runner, tmp
+     report = read_json(output / "measurement_report.json")
+     assert report["before"]["trajectories_with_rho"] == 0
+     assert report["after"]["trajectories_with_rho"] == 1
+-    assert report["matching_policy"] == "printed_expression_views_forced_sequence_v6"
++    assert report["matching_policy"] == "printed_expression_views_forced_sequence_v9"
+     assert not report["formal_launch_ready"]
+     lightweight = tmp_path / "report-only"
+     runner.remeasure(source, lightweight, report_only=True)

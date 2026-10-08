@@ -1,0 +1,27 @@
+........................................................................ [ 12%]
+........................................................................ [ 25%]
+........................................................................ [ 37%]
+.....................FF................................................. [ 50%]
+........................................................................ [ 63%]
+........................................................................ [ 75%]
+........................................................................ [ 88%]
+..................................................................       [100%]
+=================================== FAILURES ===================================
+_________ test_explicit_congruence_chain_reads_printed_residue[\u2261] _________
+tests/test_pr8_recovery.py:82: in test_explicit_congruence_chain_reads_printed_residue
+    assert (event.value, event.event_kind, event.event_phase) == ("8", "calculation", "reduction")
+E   AssertionError: assert ('100', 'calc...'calculation') == ('8', 'calcul..., 'reduction')
+E     
+E     At index 0 diff: '100' != '8'
+E     Use -v to get more diff
+________ test_explicit_congruence_chain_reads_printed_residue[\\equiv] _________
+tests/test_pr8_recovery.py:82: in test_explicit_congruence_chain_reads_printed_residue
+    assert (event.value, event.event_kind, event.event_phase) == ("8", "calculation", "reduction")
+E   AssertionError: assert ('100', 'calc...'calculation') == ('8', 'calcul..., 'reduction')
+E     
+E     At index 0 diff: '100' != '8'
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/test_pr8_recovery.py::test_explicit_congruence_chain_reads_printed_residue[\u2261]
+FAILED tests/test_pr8_recovery.py::test_explicit_congruence_chain_reads_printed_residue[\\equiv]
+2 failed, 568 passed in 76.56s (0:01:16)

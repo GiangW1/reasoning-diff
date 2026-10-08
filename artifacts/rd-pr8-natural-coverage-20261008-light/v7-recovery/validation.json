@@ -1,0 +1,19 @@
+{
+  "code_commit": "5aff43af56809f7057ab87b4d415855630e61317",
+  "source_repository": "/home/wja/reasoning-diff-pr8-v6-recovery",
+  "alignment_policy": "printed_expression_views_forced_sequence_v7",
+  "parser_sha256": "3aab6d981dad8794844cd6043a66000d7cdb37a5c7b01803b95ec7e3fa57b835",
+  "tests": "572 passed in 79.05s",
+  "artifacts_sha256": {
+    "REPORT.zh-CN.md": "21fd4c912915f50de51245b11f0fac632cb613b738d4c3ce926be5f138db75aa",
+    "audit_recovery.py": "cf61a2e89a82bd82acb4aa65bb208f414634fc2f504ad10b1419802834d49b06",
+    "pilot-r3/measurement_report.json": "7a42b78244b09bbb8e133c31fe3b36d10de6dd1d9b18b905aeaff1de6013afe7",
+    "old-data-r3/measurement_report.json": "909b46b1f6332581a138b0b5bd6d78f4b829e606455043ada90d7233c7648195",
+    "pilot-final-audit.json": "703ab25bcd1f4e773c82ee1d06796d1c190c17fcfc66a575e6cf96a1a5afc60e",
+    "old-data-final-audit.json": "2613ed84354d1519b2a11788344c4104c260a66bb728628784a567d8594bd89b",
+    "logs/pytest-r4.log": "b128e77b510188b95336fc2e66ffbe4db70b42e92c1d9fbfbe37ccd256a500d0"
+  },
+  "formal_launch_ready": false,
+  "new_gpu_generation": false,
+  "remote_pushed": false
+}

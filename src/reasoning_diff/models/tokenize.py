@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import math
+from bisect import bisect_left, bisect_right
 
 TINY_VOCAB = 64
 
@@ -27,18 +28,49 @@ def readout_layer_index(n_layers: int) -> int:
 
 
 def offsets_from_tokenizer(tokenizer, token_ids: list[int], text: str, return_failures: bool = False):
-    offsets = []
-    failures = []
-    cursor = 0
-    for index, tid in enumerate(token_ids):
-        piece = tokenizer.decode([tid], skip_special_tokens=True)
-        loc = text.find(piece, cursor) if piece else cursor
-        if loc < 0:
-            failures.append({"token_index": index, "token_id": int(tid), "piece": piece, "cursor": cursor})
-            loc = cursor
-        end = loc + max(len(piece), 0)
-        offsets.append([loc, end if end > loc else loc])
-        cursor = max(end, cursor)
+    """Exact round trip only; never search ahead or invent cursor offsets."""
+    offsets = None
+    if getattr(tokenizer, "is_fast", False):
+        encoded = tokenizer(text, add_special_tokens=False, return_offsets_mapping=True)
+        if list(encoded["input_ids"]) == list(token_ids):
+            offsets = [list(pair) for pair in encoded["offset_mapping"]]
+    if offsets is None and hasattr(tokenizer, "convert_ids_to_tokens"):
+        # Byte-level BPE can split a UTF-8 character across tokens. Mapping
+        # the original bytes keeps those tokens straddling the same character.
+        bs = list(range(33, 127)) + list(range(161, 173)) + list(range(174, 256))
+        cs = list(bs)
+        extra = 0
+        for byte in range(256):
+            if byte not in bs:
+                bs.append(byte)
+                cs.append(256 + extra)
+                extra += 1
+        decoder = dict(zip(map(chr, cs), bs))
+        special = set(getattr(tokenizer, "all_special_ids", []))
+        try:
+            pieces = [tokenizer.convert_ids_to_tokens(int(tid)).encode("utf-8") if tid in special else
+                      bytes(decoder[ch] for ch in tokenizer.convert_ids_to_tokens(int(tid))) for tid in token_ids]
+            if b"".join(pieces) == text.encode("utf-8"):
+                boundaries = [0]
+                for char in text:
+                    boundaries.append(boundaries[-1] + len(char.encode("utf-8")))
+                cursor, offsets = 0, []
+                for piece in pieces:
+                    end = cursor + len(piece)
+                    offsets.append([bisect_right(boundaries, cursor) - 1, bisect_left(boundaries, end)])
+                    cursor = end
+        except (KeyError, TypeError, AttributeError):
+            pass
+    if offsets is None:
+        pieces = [tokenizer.decode([int(tid)], skip_special_tokens=False) for tid in token_ids]
+        if "".join(pieces) == text:
+            offsets, cursor = [], 0
+            for piece in pieces:
+                offsets.append([cursor, cursor + len(piece)])
+                cursor += len(piece)
+    failures = [] if offsets is not None else [{"error": "offset_roundtrip_failed", "n_tokens": len(token_ids)}]
+    if offsets is None:
+        offsets = [[0, 0] for _ in token_ids]
     return (offsets, failures) if return_failures else offsets
 
 

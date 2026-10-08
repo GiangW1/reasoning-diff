@@ -218,8 +218,7 @@ def apply_rename_edit(task: Task, mapping: dict[str, str], edit_id: str | None =
 
 
 def _target_parents(task: Task) -> set[str]:
-    node = next((item for item in task.nodes if item.id == task.target), None)
-    return set(node.parents) if node else set()
+    return set(ancestors(task).get(task.target, set()))
 
 
 def apply_alt_source_same_value(task: Task, premise_id: str, edit_id: str | None = None) -> Edit:
@@ -233,14 +232,31 @@ def apply_alt_source_same_value(task: Task, premise_id: str, edit_id: str | None
     value = found.value or ""
     new_text = f"{new_id} = {value}"
     mapping = {premise_id: new_id}
-    question = task.question[: found.end] + f" {new_text}" + _rewrite_ids(task.question[found.end :], mapping)
+    # Natural questions name quantities by aliases rather than graph IDs.
+    # Change every downstream reference while retaining the original fact.
+    from .events import premise_aliases
+    aliases = [a for a in premise_aliases(found) if a != premise_id]
+    for node in task.nodes:
+        if node.id == premise_id:
+            aliases.extend(a for a in node.aliases if a != premise_id)
+    new_surface = "alternate reserve quantity"
+    natural = found.text.startswith("The number of ")
+    if aliases or natural:
+        new_text = f"The number of {new_surface} equals {value}."
+    before, after = task.question[:found.start], task.question[found.end:]
+    surface_mapping = {**mapping, **{alias: new_surface for alias in aliases}}
+    if natural:
+        surface_mapping[premise_id] = new_surface
+    question = _rewrite_ids(before, surface_mapping) + found.text + f" {new_text}" + _rewrite_ids(after, surface_mapping)
     premises = []
     for premise in task.premises:
-        start = question.find(premise.text)
+        ptext = premise.text if premise.premise_id == premise_id else _rewrite_ids(premise.text, surface_mapping)
+        pvalue = _rewrite_ids(premise.value, mapping) if premise.kind == "relation" else premise.value
+        start = question.find(ptext)
         if start < 0:
             raise ValueError(f"premise {premise.premise_id} missing after source swap")
         premises.append(
-            Premise(premise.premise_id, premise.text, start, start + len(premise.text), premise.value, premise.kind)
+            Premise(premise.premise_id, ptext, start, start + len(ptext), pvalue, premise.kind)
         )
     start = question.find(new_text)
     if start < 0:
@@ -270,7 +286,7 @@ def apply_alt_source_same_value(task: Task, premise_id: str, edit_id: str | None
             "nodes": [n.__dict__ for n in nodes],
         }
     )
-    swapped = Task.from_dict(data)
+    swapped = recompute(Task.from_dict(data))
     if _target_parents(swapped) == _target_parents(task):
         raise ValueError("same_value_diff_source must change required sources")
     if swapped.answer_spec.value != task.answer_spec.value:
@@ -302,6 +318,11 @@ def make_source_value_pair(task: Task, premise_id: str, new_literal: str) -> dic
     value_edit = apply_value_edit(task, premise_id, new_literal)
     source_edit = apply_alt_source_same_value(task, premise_id)
     nontargets = [p.premise_id for p in task.premises if p.premise_id != premise_id]
+    from .quantity_steps import is_controlled
+    if is_controlled(task):
+        from .graphs import dirty_cone
+        changed = dirty_cone(task, {premise_id})
+        nontargets = [n.id for n in task.nodes if n.id not in changed]
     return {
         "same_source_diff_value": value_edit,
         "same_value_diff_source": source_edit,

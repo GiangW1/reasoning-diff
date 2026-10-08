@@ -24,7 +24,8 @@ REPO = Path(__file__).resolve().parents[1]
 
 
 def source_hash():
-    files = [*sorted((REPO / 'src').rglob('*.py')), Path(__file__), Path(__file__).with_name('trace_batching.py')]
+    files = [*sorted((REPO / 'src').rglob('*.py')), Path(__file__),
+             Path(__file__).with_name('trace_batching.py'), Path(__file__).with_name('fit_cached_inputs.py')]
     return digest({p.relative_to(REPO).as_posix(): file_digest(p) for p in files})
 
 
@@ -256,6 +257,8 @@ def execute(root, name, command, gpu=None):
     protocol, _ = verified_plan(root)
     config = protocol['config']
     env = dict(os.environ, PYTHONUNBUFFERED='1', RD_MODEL_ROOT=config['model_root'], RD_LOCAL_FILES_ONLY='1')
+    threads = '1' if gpu is not None else '8'
+    env.update({key: threads for key in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS')})
     if gpu is not None:
         env['CUDA_VISIBLE_DEVICES'] = str(gpu)
     timeout = None
@@ -316,7 +319,8 @@ def fit(root):
     config, prepare, labels = protocol['config'], root / 'prepare', root / 'labels'
 
     def stage(name, *args, gpu=None):
-        execute(root, name, [sys.executable, '-m', 'reasoning_diff', *args, '--eval-mode', 'scientific', '--resume'], gpu)
+        entry = [sys.executable, REPO / 'scripts/fit_cached_inputs.py'] if args[0] == 'fit' else [sys.executable, '-m', 'reasoning_diff']
+        execute(root, name, [*entry, *args, '--eval-mode', 'scientific', '--resume'], gpu)
 
     stage('label', 'label', '--in-dir', prepare, '--out-dir', labels)
 
@@ -345,8 +349,15 @@ def fit(root):
                key=lambda l: (scores[config['layers'].index(l)], l))
     write_json(root / 'layer_selection.json', {'status': 'ready', 'main': selected, 'weak': weak,
         'layers': config['layers'], 'dev_behavior_auc': scores})
-    stage('fit-all', 'fit', '--in-dir', root / f'collect-layer{selected}', '--labels-dir', labels, '--out-dir', root / 'fit',
-          '--position', 'all', '--dev-layer-ids', *[l for l, _ in usable], '--dev-layer-scores', *[s for _, s in usable])
+    fit_options = ['--in-dir', root / f'collect-layer{selected}', '--labels-dir', labels,
+                   '--dev-layer-ids', *[l for l, _ in usable], '--dev-layer-scores', *[s for _, s in usable]]
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        jobs = [pool.submit(stage, f'fit-{position}', 'fit', *fit_options,
+                            '--out-dir', root / 'fit' / position, '--position', position)
+                for position in ('pre_step', 'pre_value', 'post_step')]
+        for job in jobs:
+            job.result()
+    stage('fit-all', 'fit', *fit_options, '--out-dir', root / 'fit', '--position', 'all')
     stage('calibrate', 'calibrate', '--in-dir', root / 'fit', '--features-dir', root / f'collect-layer{selected}',
           '--labels-dir', labels, '--out-dir', root / 'calibration', '--alpha', '0.1', '--head', 'behavior')
     for layer in (selected, weak):

@@ -369,6 +369,48 @@ def test_unestimable_dev_curve_is_saved_before_interventions(monkeypatch, formal
     assert not (root / 's_direction-layer12.json').exists()
 
 
+def test_formal_source_freeze_includes_cached_fit_helper(monkeypatch, formal_runner):
+    original = formal_runner.file_digest
+    before = formal_runner.source_hash()
+    monkeypatch.setattr(formal_runner, 'file_digest',
+                        lambda path: 'modified-fit-helper' if Path(path).name == 'fit_cached_inputs.py' else original(path))
+    assert formal_runner.source_hash() != before
+
+
+def test_formal_subprocess_threads_follow_cpu_or_gpu_work(monkeypatch, formal_runner, planned_formal):
+    root, _ = planned_formal
+    calls = []
+    monkeypatch.setattr(formal_runner.subprocess, 'run', lambda command, **kw: calls.append(kw['env']))
+    formal_runner.execute(root, 'cpu', ['unused'])
+    formal_runner.execute(root, 'gpu', ['unused'], gpu=2)
+    for key in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS'):
+        assert calls[0][key] == '8'
+        assert calls[1][key] == '1'
+    assert calls[1]['CUDA_VISIBLE_DEVICES'] == '2'
+
+
+def test_formal_fit_uses_cached_parallel_positions_before_aggregation(monkeypatch, formal_runner, planned_formal):
+    root, _ = planned_formal
+    calls = []
+    def execute(output, name, command, gpu=None):
+        calls.append((name, command))
+        if name.startswith('fit-') and name[4:].isdigit():
+            layer = int(name[4:])
+            write_jsonl(output / f'fit-layer{layer}/probes.jsonl',
+                        [{'head': 'behavior', 'U': [[1]], 'metrics': {'dev': {'auc': .8 if layer == 12 else .6}}}])
+    monkeypatch.setattr(formal_runner, 'execute', execute)
+    monkeypatch.setattr(formal_runner, 'read_npz', lambda path: {'H': np.zeros((0, 2))})
+    monkeypatch.setattr(formal_runner, 'read_jsonl', lambda path: read_jsonl(path) if Path(path).name == 'probes.jsonl' else [])
+    monkeypatch.setattr(formal_runner, 'fit_direction', lambda *args: {'status': 'insufficient_direction_classes'})
+    assert formal_runner.fit(root) is True
+    names = [name for name, command in calls]
+    for position in ('pre_step', 'pre_value', 'post_step'):
+        assert names.index(f'fit-{position}') < names.index('fit-all')
+    fits = [(name, command) for name, command in calls if name.startswith('fit-')]
+    assert all(Path(command[1]).name == 'fit_cached_inputs.py' for name, command in fits)
+    assert all('--resume' in command for name, command in fits)
+
+
 @pytest.mark.integration
 def test_p3_real_tiny_hook_and_control_decode_path(t1_tiny_path, request):
     import torch

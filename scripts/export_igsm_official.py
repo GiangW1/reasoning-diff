@@ -188,6 +188,7 @@ def main() -> int:
     parser.add_argument("--source-root", type=Path, default=SOURCE_ROOT)
     parser.add_argument("--n", type=int, default=500)
     parser.add_argument("--seed", type=int, default=20260926)
+    parser.add_argument("--id-prefix", default="igsm-official")
     parser.add_argument("--ops", type=int, nargs="+", default=[5, 10, 15, 21])
     args = parser.parse_args()
 
@@ -198,7 +199,10 @@ def main() -> int:
     from reasoning_diff.tasks.t1_official import load_igsm_snapshot
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    manifest = {"revision": REVISION, "seed": args.seed, "n": args.n, "ops": args.ops, "files": []}
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", args.id_prefix):
+        raise ValueError("id-prefix must be a nonempty filename-safe identifier")
+    manifest = {"revision": REVISION, "seed": args.seed, "n": args.n, "ops": args.ops,
+                "id_prefix": args.id_prefix, "files": []}
     index = 0
     attempt = 0
     while index < args.n:
@@ -208,7 +212,7 @@ def main() -> int:
         op = args.ops[index % len(args.ops)]
         generator = IdGen(max_op=21, max_edge=28, op=op, perm_level=5, detail_level=0)
         generator.gen_prob(list(range(23)), p_format="pq")
-        native_id = f"igsm-official-{index:04d}-op{op}"
+        native_id = f"{args.id_prefix}-{index:04d}-op{op}"
         try:
             payload = _snapshot(generator, native_id, seed, op)
         except _SkipTask:

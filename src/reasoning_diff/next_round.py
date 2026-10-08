@@ -160,8 +160,10 @@ def trace_labels(observations, tasks):
 def base_trajectories(traces, tasks):
     owners = {t["task_id"]: t for t in tasks}
     return [trace for trace in traces if trace.get("task_id") in owners
-            and not owners[trace["task_id"]].get("edit_ref") and "::" not in trace["task_id"]
-            and not any(kind in trace["id"] for kind in ("sham", "source"))]
+            and ((trace.get("metadata") or {}).get("formal_role") == "reference"
+                 or ((trace.get("metadata") or {}).get("formal_role") is None
+                     and not owners[trace["task_id"]].get("edit_ref") and "::" not in trace["task_id"]
+                     and not any(kind in trace["id"] for kind in ("sham", "source"))))]
 
 
 def parser_coverage(traces, tasks):

@@ -401,6 +401,11 @@ def _load_tasks(args) -> list[Task]:
         legacy.premise_protocol = "leaf"
         return [sentence_graph_task(task) for task in _load_tasks(legacy)]
     kind = getattr(args, "kind", "t1_fixture")
+    if kind == "task_jsonl":
+        tasks = [Task.from_dict(row) for row in read_jsonl(args.fixture)]
+        for task in tasks:
+            task.validate()
+        return tasks
     if kind in {None, "t1_fixture"}:
         return [load_t1_fixture(args.fixture)]
     path = getattr(args, "snapshot", None) or args.fixture
@@ -1308,7 +1313,11 @@ def cmd_collect(args: argparse.Namespace) -> int:
                 token_ids, offsets = encode_text(trace.text or "")
             owner = tasks_by_id.get(trace.task_id, task)
             sentence_protocol = owner.metadata.get("premise_protocol") == "sentence_graph_v1"
-            if sentence_protocol and not any(name in trace.id for name in ("trace-base", "trace-t0p", "trace-edit:", "trace-edit", "trace-source")):
+            formal_role = (trace.metadata or {}).get("formal_role")
+            if formal_role is not None and formal_role not in {"reference", "source"}:
+                skipped_cohort.append(trace.id)
+                continue
+            if formal_role is None and sentence_protocol and not any(name in trace.id for name in ("trace-base", "trace-t0p", "trace-edit:", "trace-edit", "trace-source")):
                 skipped_cohort.append(trace.id)
                 continue
             if sentence_protocol and "trace-edit:" in trace.id and "seed" in trace.id:
@@ -1341,7 +1350,7 @@ def cmd_collect(args: argparse.Namespace) -> int:
             h_blocks.append(packed["H"])
             embedding_pairs = zip(owner.premises, packed["E"], packed.get("premise_records") or [], strict=True)
             for premise, vector, premise_row in embedding_pairs:
-                if sentence_protocol and "::" in owner.task_id:
+                if sentence_protocol and "::" in owner.task_id and formal_role is None:
                     continue
                 embed_blocks.append(np.asarray(vector, dtype=float))
                 embed_keys.append((trace.id, trace.task_id, trace.base_group_id, premise.premise_id))
@@ -2840,6 +2849,8 @@ def cmd_intervene(args: argparse.Namespace) -> int:
 
 def _cmd_intervene_impl(args: argparse.Namespace) -> int:
     out = Path(args.out_dir)
+    sampling = {"temperature": getattr(args, "temperature", 0.6),
+                "top_k": getattr(args, "top_k", 20), "top_p": getattr(args, "top_p", 0.95)}
     if _resume(
         out,
         getattr(args, "resume", False),
@@ -2850,6 +2861,7 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
             "model_name": getattr(args, "model_name", None),
             "device": getattr(args, "device", None),
             "dev_layer_scores": list(getattr(args, "dev_layer_scores", None) or []),
+            "sampling": sampling,
         },
     ):
         return 0
@@ -3111,6 +3123,7 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                     "model": runtime_model,
                     "max_new": _resolved_max_new(args, 4, 4096 if scientific else 32),
                     "eos_id": getattr(tokenizer, "eos_token_id", None),
+                    **sampling,
                 }
                 hooked = intervene_hidden_decode(
                     model_kind,
@@ -3369,7 +3382,7 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
             "dev_layer_scores": list(getattr(args, "dev_layer_scores", None) or []),
             "dev_layer_selection": dev_score_source,
             "rng_seeds": rng_seeds,
-            "sampling": {"temperature": 0.6, "top_k": 20, "top_p": 0.95},
+            "sampling": sampling,
         },
     )
     return 0
@@ -3961,6 +3974,9 @@ def build_parser() -> argparse.ArgumentParser:
             p.add_argument("--model-name"),
             p.add_argument("--device"),
             p.add_argument("--max-new", type=int),
+            p.add_argument("--temperature", type=float, default=0.6),
+            p.add_argument("--top-k", type=int, default=20),
+            p.add_argument("--top-p", type=float, default=0.95),
             p.add_argument("--features-dir"),
             p.add_argument("--probes-dir"),
             p.add_argument("--labels-dir"),

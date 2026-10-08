@@ -588,6 +588,11 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
             clause_start = max(line_start, text.rfind(";", 0, start) + 1)
             preceding = text[clause_start:start]
             sentence_prefix = re.split(r"[.!?](?!\d)", preceding)[-1]
+            # In "substituting the value for Swan: 21 + 2 = 23", Swan
+            # is an operand. The printed result belongs to the prior head.
+            if (re.search(r"\b(?:substitut\w*|replac\w*)\b", sentence_prefix, re.I)
+                    and re.search(r"\b(?:for|of)\s*(?:(?:the\s+)?number of\s*)?$", sentence_prefix, re.I)):
+                continue
             if (re.search(r"\bif\s+(?:(?:the\s+)?number of\s*)?$", sentence_prefix, re.I)
                     or re.search(r"\bif\b.*(?:=|\bis\b|\bequals?\b)", sentence_prefix, re.I)):
                 # An if-clause and its same-sentence consequent describe a

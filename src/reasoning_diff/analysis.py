@@ -43,12 +43,15 @@ def classification_metrics(scores: np.ndarray, labels: np.ndarray, *, split: str
     precision = tp / (tp + fp) if tp + fp else 0.0
     recall = tp / (tp + fn) if tp + fn else 0.0
     f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
-    order = np.argsort(-scores[known])
+    order = np.argsort(-scores[known], kind="stable")
     ranked = truth[order]
     positives = max(int((truth == 1).sum()), 1)
     cumulative = np.cumsum(ranked == 1)
-    precision_at_k = cumulative / np.arange(1, len(ranked) + 1)
-    pr_auc = float(np.sum(precision_at_k[ranked == 1]) / positives) if (truth == 1).any() else None
+    # A score threshold includes the entire tie bucket. Ranking ties by row
+    # order otherwise turns a constant baseline into an arbitrary AP value.
+    ends = np.r_[np.flatnonzero(np.diff(scores[known][order]) != 0), len(ranked) - 1]
+    bucket_positives = np.diff(np.r_[0, cumulative[ends]])
+    pr_auc = float(np.sum(cumulative[ends] / (ends + 1) * bucket_positives) / positives) if (truth == 1).any() else None
     known_groups = None
     if groups is not None:
         if len(groups) != len(scores):

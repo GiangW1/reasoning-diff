@@ -96,7 +96,10 @@ def source_factorial(task, premise_id, alternate):
     return a, b, av, bv
 
 
-def build_design(tasks, *, seeds=(0, 1, 2), noise_seeds=(3, 4, 5), edit_values=2, split_seed=0):
+def build_design(tasks, *, seeds=(0, 1, 2), noise_seeds=(3, 4, 5), edit_values=2, split_seed=0,
+                 trajectory_protocol='natural'):
+    if trajectory_protocol not in {'natural', 'quantity_steps'}:
+        raise ValueError('unknown trajectory protocol')
     if len(set(seeds)) != len(seeds) or not seeds or len(set(noise_seeds)) != len(noise_seeds):
         raise ValueError('generation seeds must be nonempty and unique')
     if not noise_seeds or set(seeds) & set(noise_seeds) or edit_values < 1 or edit_values > 22:
@@ -170,6 +173,14 @@ def build_design(tasks, *, seeds=(0, 1, 2), noise_seeds=(3, 4, 5), edit_values=2
                             'fixed_values_diff_source': source_edit.to_dict(), 'routing_direction': direction,
                             'targets': [owner.target], 'nontargets': nontargets,
                             'trace_ids': {'base': ids[recipient.task_id], 'fixed_values_diff_source': ids[donor.task_id]}})
+    if trajectory_protocol == 'quantity_steps':
+        from .quantity_steps import controlled_task
+        owners = {tid: controlled_task(Task.from_dict(row)).to_dict() for tid, row in owners.items()}
+        for edit in edits:
+            nested = ([edit] if edit['kind'] != 'source_value_pair' else
+                      [v for v in edit.values() if isinstance(v, dict) and 'task' in v])
+            for item in nested:
+                item['task'] = owners[item['task']['task_id']]
     for owner in owners.values():
         splits.append({'task_id': owner['task_id'], 'base_group_id': owner['base_group_id'],
                        'role': split_for_task(Task.from_dict(owner), seed=split_seed, fractions=DEFAULT_FRACTIONS)})
@@ -229,6 +240,9 @@ def cluster_interval(values, groups, *, seed=0, n_boot=500):
 def p1_report(table, n_boot=500, conditions=('base',), answered_only=False):
     """Fit on probe_train only; evaluate test. Missing rho has its own audit."""
     table = [r for r in table if r.get('condition') in conditions]
+    estimands = {r.get('density_protocol', 'matched_cell_response_rate_excess_v1') for r in table}
+    if len(estimands) > 1:
+        raise ValueError('different measurement estimands require separate P1 reports')
     if answered_only:
         table = [{**r, 'y': int(r['answer_correct'])} for r in table if r.get('answer_completed')]
     counts = dict(Counter(str(r['y']) for r in table))
@@ -236,10 +250,10 @@ def p1_report(table, n_boot=500, conditions=('base',), answered_only=False):
               'outcome': 'answered_task_correctness' if answered_only else 'ITT_failures_as_incorrect',
               'missing_by_outcome': dict(Counter(str(r['y']) for r in table if r['rho'] is None)),
               'missing_by_split': dict(Counter(r['split'] for r in table if r['rho'] is None)),
-              'estimand': 'matched_cell_response_rate_excess_v1', 'future_information': 'full_trajectory_diagnostic',
+              'estimand': next(iter(estimands), 'matched_cell_response_rate_excess_v1'), 'future_information': 'full_trajectory_diagnostic',
               'missing_policy': 'no_imputation_complete_case_attribution_with_ITT_accounting'}
     rows = [r for r in table if r['split'] in {'probe_train', 'test'} and r['rho'] is not None]
-    train = np.array([r['split'] == 'probe_train' for r in rows])
+    train = np.array([r['split'] == 'probe_train' for r in rows], dtype=bool)
     labels = np.array([1 - r['y'] for r in rows], dtype=int)
     for mask, name in ((train, 'train'), (~train, 'test')):
         if not mask.any() or len(set(labels[mask])) < 2:

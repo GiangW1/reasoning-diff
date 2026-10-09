@@ -90,6 +90,95 @@ def test_formal_variant_references_and_noise_are_accounted_separately(t1_tiny_pa
     assert all(r['three_arm_common_cells'] > 0 for r in p2['contrasts'])
 
 
+def test_controlled_formal_design_registers_every_variant_without_extra_samples(t1_tiny_path):
+    from reasoning_diff.quantity_steps import PROTOCOL
+    from reasoning_diff.splits import split_for_task
+    task = load_t1_fixture(t1_tiny_path)
+    seed = next(s for s in range(100) if split_for_task(task, seed=s) == 'test')
+    kwargs = dict(seeds=(0,), noise_seeds=(3,), edit_values=1, split_seed=seed)
+    natural = build_design([task], **kwargs)
+    controlled = build_design([task], trajectory_protocol='quantity_steps', **kwargs)
+    assert controlled['requests'] == natural['requests']
+    assert controlled['splits'] == natural['splits']
+    assert any(e['kind'] == 'source_value_pair' for e in controlled['edits'])
+    owners = {t['task_id']: t for t in controlled['tasks']}
+    for row in controlled['tasks']:
+        assert row['metadata']['trajectory_protocol'] == PROTOCOL
+        assert [s['node_id'] for s in row['metadata']['quantity_step_plan']] == [n['id'] for n in row['nodes']]
+    for edit in controlled['edits']:
+        nested = [edit] if edit['kind'] != 'source_value_pair' else [v for v in edit.values() if isinstance(v, dict) and 'task' in v]
+        for item in nested:
+            assert item['task'] == owners[item['task']['task_id']]
+    with pytest.raises(ValueError, match='trajectory protocol'):
+        build_design([task], trajectory_protocol='unknown', **kwargs)
+
+
+def test_controlled_formal_plan_records_estimand_and_rejects_bad_format_before_scan(
+        formal_runner, planned_formal, tmp_path, monkeypatch):
+    _, config_path = planned_formal
+    config = read_json(config_path)
+    config.update(trajectory_protocol='quantity_steps', purpose='engineering_pilot',
+                  allow_single_class_measurement=True, reference_seeds=[0], noise_seeds=[3])
+    write_json(config_path, config)
+    root = tmp_path / 'controlled'
+    calls = []
+    def generate(output, reference_only=False):
+        calls.append(reference_only)
+        save_fixture_responses(output, formal_runner, {'reference'})  # No registered tags.
+    monkeypatch.setattr(formal_runner, 'generate', generate)
+    formal_runner.main(['--mode', 'all', '--config', str(config_path), '--out-root', str(root)])
+    assert calls == [True]
+    assert read_json(root / 'pipeline.json')['stage'] == 'registered_step_format'
+    assert read_json(root / 'registered_step_formats-reference.json')['passed'] is False
+    assert read_json(root / 'protocol.json')['measurement_estimand'] == 'registered_quantity_step_response_rate_excess_v1'
+
+
+def test_controlled_formal_measurement_retains_complete_single_pass_denominator(
+        formal_runner, planned_formal, tmp_path):
+    from reasoning_diff import cli
+    _, config_path = planned_formal
+    config = read_json(config_path)
+    config.update(trajectory_protocol='quantity_steps', reference_seeds=[0], noise_seeds=[3])
+    write_json(config_path, config)
+    root = tmp_path / 'controlled-valid'
+    formal_runner.main(['--config', str(config_path), '--out-root', str(root)])
+    protocol, design = formal_runner.verified_plan(root)
+    owners = {t['task_id']: Task.from_dict(t) for t in design['tasks']}
+    roles = {r['task_id']: r['role'] for r in design['splits']}
+    for request in design['requests']:
+        task = owners[request['task_id']]
+        text = '\n'.join(f'<step node="{n.id}">calculation <commit>{n.value}</commit></step>' for n in task.nodes)
+        text += '\n</think>\n' + str(task.answer_spec.value)
+        trace = cli._synthetic_trace(task, text, request['id'], request['seed'])
+        from reasoning_diff.events import assign_event_regions
+        trace.events = assign_event_regions(parse_events(text, task), text, initial_thinking=True)
+        trace.metadata.update(revision=protocol['revision'], formal_condition=task.metadata['formal_condition'],
+            formal_role=request['role'], formal_split=roles[task.task_id], rendered_prompt_text='', stop_reason='eos',
+            boundary_status='ok')
+        row = trace.to_dict()
+        write_json(root / 'responses' / (request['id'].replace(':', '_') + '.json'),
+            {'protocol_digest': digest(protocol), 'request_digest': digest(request), 'trace_digest': digest(row), 'trace': row})
+    assert formal_runner.registered_format_screen(root)
+    assert formal_runner.measure(root)
+    table = read_jsonl(root / 'p1_table.jsonl')
+    assert len(table) == 6
+    assert all(r['density_protocol'] == 'registered_quantity_step_response_rate_excess_v1' for r in table)
+    assert all(r['support_cells'] == r['noise_supported_cells'] == r['eligible_cells'] > 0 for r in table)
+    assert read_json(root / 'controlled_measurement_gate.json')['passed']
+    assert read_json(root / 'p1.json')['primary_base']['estimand'] == 'registered_quantity_step_response_rate_excess_v1'
+
+
+def test_p1_all_missing_reports_unestimable_without_crashing_or_relabelling():
+    row = {'condition': 'base', 'rho': None, 'y': 1, 'split': 'probe_train',
+           'density_protocol': 'registered_quantity_step_response_rate_excess_v1'}
+    result = p1_report([row])
+    assert result['status'] == 'insufficient_classes_train'
+    assert result['estimand'] == row['density_protocol']
+    assert result['missing_by_outcome'] == {'1': 1}
+    with pytest.raises(ValueError, match='different measurement'):
+        p1_report([row, {**row, 'density_protocol': 'matched_cell_response_rate_excess_v1'}])
+
+
 def test_p2_three_arm_contrast_does_not_compare_different_support(t1_tiny_path):
     design = build_design([load_t1_fixture(t1_tiny_path)], edit_values=1)
     owners = {t['task_id']: Task.from_dict(t) for t in design['tasks']}

@@ -84,12 +84,17 @@ def plan(args):
     opts = cli.build_parser().parse_args(['prepare', '--fixture', str(dataset), '--kind', config.get('kind', 'igsm'), '--out-dir', str(root)])
     selected = select_tasks(cli._load_tasks(opts), config['n_problems'], set(config.get('exclude_groups', [])), config['split_seed'])
     design = build_design(selected, seeds=config['reference_seeds'], noise_seeds=config['noise_seeds'],
-                          edit_values=config['edit_values'], split_seed=config['split_seed'])
+                          edit_values=config['edit_values'], split_seed=config['split_seed'],
+                          trajectory_protocol=config.get('trajectory_protocol', 'natural'))
     protocol = {'version': 'formal_c3_v1', 'config': config, 'revision': model_card['revision'],
                 'source_hash': source_hash(), 'dataset_hash': file_digest(dataset), 'design_digest': digest(design),
                 'frozen_at': time.time(), 'scientific_gates': 'not_preregistered',
                 'registration': 'local_prospectively_frozen_design_not_external_registration',
-                'measurement_estimand': 'matched_cell_response_rate_excess_v1',
+                'measurement_estimand': ('registered_quantity_step_response_rate_excess_v1'
+                    if config.get('trajectory_protocol') == 'quantity_steps' else 'matched_cell_response_rate_excess_v1'),
+                'controlled_engineering_gate': ({'format': 'every_registered_trace_passes', 'minimum_coverage': .95,
+                    'grouping': ['condition', 'difficulty', 'problem'], 'semantic_audit': 'pending',
+                    'not_a_scientific_success_criterion': True} if config.get('trajectory_protocol') == 'quantity_steps' else None),
                 'family_split_fractions': DEFAULT_FRACTIONS, 'conditions': ['base', 'related_noop', 'neutral_noop'],
                 'known_development_exclusions': config.get('exclude_groups', []),
                 'dataset_exposure': config.get('dataset_exposure', 'unknown'),
@@ -255,6 +260,15 @@ def measure(root):
         'independent_semantic_noop': None, 'annotator': None} for t in design['tasks']
         if t['metadata']['formal_condition'] != 'base' and t['task_id'] in reference_tasks])
     print({c: r['overall'] for c, r in reports.items()}, flush=True)
+    if protocol['config'].get('trajectory_protocol') == 'quantity_steps':
+        checks = {c: r['passed'] and all(
+            group[key] >= .95 for group in [r['overall'], *r['by_op'].values(), *r['by_problem'].values()]
+            for key in ('matched_cell_coverage', 'common_noise_coverage', 'rho_coverage'))
+            for c, r in reports.items()}
+        write_json(root / 'controlled_measurement_gate.json', {'passed': all(checks.values()),
+            'checks': checks, 'minimum_coverage': .95, 'semantic_audit': 'pending',
+            'scientific_conclusion': None})
+        return all(checks.values())
 
 
 def parallel_jobs(jobs, max_workers):
@@ -373,6 +387,29 @@ def answer_screen(root):
     write_json(root / 'answer_screen.json', result)
     print(result, flush=True)
     return result
+
+
+def registered_format_screen(root, reference_only=False):
+    protocol, design = verified_plan(root)
+    if protocol['config'].get('trajectory_protocol') != 'quantity_steps':
+        return True
+    from reasoning_diff.quantity_steps import trace_format
+    owners = {t['task_id']: Task.from_dict(t) for t in design['tasks']}
+    rows = []
+    for request in design['requests']:
+        if reference_only and request['role'] != 'reference':
+            continue
+        trace = saved_response(root, protocol, request)
+        if trace is None:
+            raise ValueError('format screen missing registered response')
+        rows.append({'trace_id': request['id'], 'role': request['role'], 'task_id': request['task_id'],
+                     **trace_format(trace, owners[request['task_id']])})
+    result = {'passed': bool(rows) and all(r['passed'] for r in rows), 'traces': rows,
+              'n_passed': sum(r['passed'] for r in rows), 'n_registered': len(rows),
+              'missing_or_duplicate_is_failure': True, 'semantic_audit': 'pending'}
+    suffix = 'reference' if reference_only else 'all'
+    write_json(root / f'registered_step_formats-{suffix}.json', result)
+    return result['passed']
 
 
 def fit(root):
@@ -538,6 +575,10 @@ def main(argv=None):
         if args.mode in {'answers', 'all'}:
             generate(root, reference_only=True)
             screen = answer_screen(root)
+            if not registered_format_screen(root, reference_only=True):
+                write_json(root / 'pipeline.json', {'status': 'stopped_unmeasurable', 'stage': 'registered_step_format',
+                    'reason': 'missing_duplicate_or_malformed_reference_steps', 'scientific_conclusion': None})
+                return 0
             if (args.mode == 'all' and screen['status'] == 'single_class'
                     and not protocol['config'].get('allow_single_class_measurement', False)):
                 write_json(root / 'pipeline.json', {'status': 'stopped_unestimable', 'stage': 'answer_screen',
@@ -545,11 +586,17 @@ def main(argv=None):
                 return 0
         if args.mode in {'generate', 'all'}:
             generate(root)
+            if not registered_format_screen(root):
+                measure(root)  # Preserve measured missingness before stopping expensive fitting.
+                write_json(root / 'pipeline.json', {'status': 'stopped_unmeasurable', 'stage': 'registered_step_format',
+                    'reason': 'missing_duplicate_or_malformed_comparison_steps', 'scientific_conclusion': None})
+                return 0
         for mode, function in [('measure', measure), ('fit', fit), ('intervene', intervene), ('report', report)]:
             if args.mode == mode or (args.mode == 'all' and mode != 'report'):
                 if function(root) is False:
                     write_json(root / 'pipeline.json', {'status': 'stopped_unestimable', 'stage': mode,
-                        'reason': 'cannot_identify_main_and_weak_dev_layers', 'scientific_conclusion': None})
+                        'reason': 'controlled_measurement_below_registered_threshold' if mode == 'measure'
+                            else 'cannot_identify_main_and_weak_dev_layers', 'scientific_conclusion': None})
                     return 0
         write_json(root / 'pipeline.json', {'status': 'complete', 'mode': args.mode, 'scientific_conclusion': None})
     except Exception as exc:

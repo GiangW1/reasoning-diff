@@ -158,7 +158,9 @@ def run_p3(traces, tasks, event_rows, hidden, direction, weak_layer, weak_direct
             layer = weak_layer if condition == 'clayer' else main_layer
             decoded = intervene_hidden_decode(model_kind, ids, layer, mode='add_delta', delta=delta,
                 seed=stable_seed, model=runtime['model'], max_new=max_new, event_aligned=True,
-                target_prefix_len=len(ids), eos_id=runtime['tokenizer'].eos_token_id, **sampling)
+                target_prefix_len=len(ids), eos_id=runtime['tokenizer'].eos_token_id,
+                target_delta_norm=deltas['norms']['main'] if condition in {'main', 'crand', 'clayer', 'wrong_direction'} else None,
+                **sampling)
             if not decoded['hook_fired'] or not decoded['prefix_boundary_verified']:
                 raise RuntimeError('P3 hook did not fire at the requested boundary')
             actual = float(decoded['hook_delta_norm'])
@@ -173,6 +175,10 @@ def run_p3(traces, tasks, event_rows, hidden, direction, weak_layer, weak_direct
             complete = decoded['stop_reason'] != 'max_new' and '</think>' in full
             answer = extract_answer(full[full.rfind('</think>') + len('</think>'):], task.answer_spec.kind) if complete else None
             score = answer_score(answer, task.answer_spec.value, task.answer_spec.kind, task.answer_spec.aliases)
+            from .quantity_steps import is_controlled, trace_format
+            step_format = (trace_format({'text': full, 'metadata': trace['metadata']}, task)
+                           if is_controlled(task) else None)
+            format_valid = step_format is None or step_format['passed']
             _, future = cli._parse_intervention_events(task, full, len(prefix), trace['metadata']['rendered_prompt_text'])
             if condition == 'baseline':
                 baseline_events = future
@@ -183,9 +189,11 @@ def run_p3(traces, tasks, event_rows, hidden, direction, weak_layer, weak_direct
             pairs = align_events(baseline_events or [], future)['pairs']
             others = [(a, b) for a, b in pairs if a.node_id not in excluded and a.event_kind != 'restatement']
             nontarget = sum(compare_pair(a, b) == 'changed' for a, b in others) / len(others) if others else None
-            outputs[condition] = {'correct': int(complete and score['correct'] is True),
-                'invalid': int(answer is None), 'complete': complete, 'stop_reason': decoded['stop_reason'],
+            outputs[condition] = {'correct': int(complete and format_valid and score['correct'] is True),
+                'invalid': int(answer is None or not format_valid), 'complete': complete, 'stop_reason': decoded['stop_reason'],
+                'quantity_step_format': step_format,
                 'actual_norm': actual, 'planned_norm': float(np.linalg.norm(delta)), 'layer': layer,
+                'norm_calibration': decoded.get('norm_calibration'),
                 'nontarget_change_rate': nontarget, 'nontarget_matched_events': len(others),
                 'generated_ids': decoded['generated_ids'], 'continuation_text': text,
                 'hook_token_position': decoded['hook_token_position'], 'hook_sequence_length': decoded['hook_sequence_length']}

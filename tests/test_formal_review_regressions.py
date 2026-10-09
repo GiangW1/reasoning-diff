@@ -218,7 +218,8 @@ def test_bfloat16_rounded_away_patch_is_not_an_executed_c2_effect(request):
     assert not result['executed_ITT_effects'] and not result['effects']
 
 
-def test_p3_excludes_selected_node_and_descendants(monkeypatch, t1_tiny_path):
+@pytest.mark.parametrize('controlled', [False, True])
+def test_p3_excludes_selected_node_and_descendants(monkeypatch, t1_tiny_path, controlled):
     from reasoning_diff.spurious_intervention import run_p3
     from reasoning_diff.models import collect
     task = load_t1_fixture(t1_tiny_path).to_dict()
@@ -227,6 +228,9 @@ def test_p3_excludes_selected_node_and_descendants(monkeypatch, t1_tiny_path):
         {'id': 'u', 'parents': ['p1'], 'value': '7', 'expression': 'p1 + 3', 'aliases': ['u']}])
     task['target'], task['answer_spec']['value'] = 'r', '1'
     task = condition_tasks(Task.from_dict(task))[0]
+    if controlled:
+        from reasoning_diff.quantity_steps import controlled_task
+        task = controlled_task(task)
     text = {0: 'q = 0.\nr = 1.\nu = 7.\n</think>\n1', 1: 'q = 1.\nr = 2.\nu = 7.\n</think>\n2'}
     class Tokenizer:
         eos_token_id = 99
@@ -248,5 +252,9 @@ def test_p3_excludes_selected_node_and_descendants(monkeypatch, t1_tiny_path):
                  'score_intercept': 1., 'decision_threshold': .5}
     result = run_p3([trace], [task.to_dict()], [event], np.array([[2., 3.]]), direction, 0, direction,
                     {'model': None, 'tokenizer': Tokenizer()}, 1, max_new=10, sampling={})[0]
-    assert result['conditions']['main']['nontarget_matched_events'] == 1
-    assert result['conditions']['main']['nontarget_change_rate'] == 0
+    if controlled:
+        assert result['conditions']['main']['invalid'] == 1
+        assert not result['conditions']['main']['quantity_step_format']['passed']
+    else:
+        assert result['conditions']['main']['nontarget_matched_events'] == 1
+        assert result['conditions']['main']['nontarget_change_rate'] == 0

@@ -341,6 +341,48 @@ def intervene_tiny(kind: str, prompt_ids: list[int], layer: int = 1, donor: np.n
     }
 
 
+def quantized_norm_matched_add(tensor, delta, target):
+    """Scale one direction before casting; verify the actual residual change.
+
+    The norm is monotone in the positive scale, including quantization steps.
+    Some targets are unrepresentable: retain the 2% check rather than hiding
+    a zero or oversized intervention. No model forward or decode is repeated.
+    """
+    target = float(target)
+    step = np.asarray(delta, dtype=float).reshape(-1)
+    original = tensor.detach().cpu()
+    vector = original.float().numpy().reshape(-1).astype(float)
+    if not np.isfinite(target) or target < 0 or step.shape != vector.shape or not np.isfinite(step).all():
+        raise ValueError('invalid norm calibration target or direction')
+
+    def candidate(scale):
+        changed = torch.as_tensor(vector + scale * step, dtype=original.dtype).view_as(original)
+        actual = float((changed.float() - original.float()).norm())
+        return changed, {'scale': scale, 'actual_norm': actual, 'target_norm': target}
+
+    if target == 0:
+        return tensor.clone(), {'scale': 0.0, 'actual_norm': 0.0, 'target_norm': 0.0}
+    low, high = 0.0, 1.0
+    best = candidate(high)
+    for _ in range(16):
+        if best[1]['actual_norm'] >= target:
+            break
+        high *= 2
+        best = candidate(high)
+    for _ in range(40):
+        scale = (low + high) / 2
+        item = candidate(scale)
+        if abs(item[1]['actual_norm'] - target) < abs(best[1]['actual_norm'] - target):
+            best = item
+        if item[1]['actual_norm'] < target:
+            low = scale
+        else:
+            high = scale
+    if best[1]['actual_norm'] <= 0 or not np.isclose(best[1]['actual_norm'], target, rtol=.02, atol=1e-4):
+        raise ValueError('no representable norm-matched delta at the model dtype')
+    return best[0].to(tensor.device), best[1]
+
+
 def intervene_hidden_decode(
     kind: str,
     prompt_ids: list[int],
@@ -361,6 +403,7 @@ def intervene_hidden_decode(
     delta: np.ndarray | None = None,
     target_prefix_len: int | None = None,
     model=None,
+    target_delta_norm: float | None = None,
 ) -> dict:
     if model is None:
         with torch.random.fork_rng(devices=[]):
@@ -369,6 +412,9 @@ def intervene_hidden_decode(
     donor_vec = np.asarray(donor, dtype=float) if donor is not None else None
     rng = np.random.default_rng(1 if basis_seed is None else int(basis_seed))
     fitted_basis = None if basis is None else np.asarray(basis, dtype=float)
+    norm_calibration = {}
+    if target_delta_norm is not None and mode != 'add_delta':
+        raise ValueError('norm calibration requires add_delta mode')
     if mode == "pi_z_swap":
         if donor_vec is None:
             raise ValueError("pi_z_swap requires donor")
@@ -397,6 +443,10 @@ def intervene_hidden_decode(
         step = np.asarray(delta, dtype=float)
 
         def transform(t):
+            if target_delta_norm is not None:
+                changed, calibration = quantized_norm_matched_add(t, step, target_delta_norm)
+                norm_calibration.update(calibration)
+                return changed
             vec = t.detach().float().cpu().numpy().reshape(-1)
             return torch.as_tensor(vec + step, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -440,6 +490,7 @@ def intervene_hidden_decode(
         "hook_sequence_length": record.sequence_length,
         "hook_input_norm": record.input_norm,
         "hook_delta_norm": record.delta_norm,
+        "norm_calibration": norm_calibration or None,
         "basis_hash": None if basis is None else hashlib.sha256(np.ascontiguousarray(basis).tobytes()).hexdigest(),
         "basis_rank": None if basis is None else int(basis.shape[1]),
         "basis_norm": None if basis is None else float(np.linalg.norm(basis)),

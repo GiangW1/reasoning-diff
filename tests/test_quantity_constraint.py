@@ -95,3 +95,33 @@ def test_batched_and_single_decoding_keep_independent_constraint_state(monkeypat
     clone = requests[0].constraint.fork()
     clone.forced.append(-1)
     assert -1 not in requests[0].constraint.forced
+
+
+def test_static_vocabulary_size_is_not_requeried_at_every_decode_token():
+    class ExpensiveLength(CharacterTokenizer):
+        calls = 0
+        def __len__(self):
+            self.calls += 1
+            return 128
+    tokenizer = ExpensiveLength()
+    constraint = QuantityConstraint(tokenizer, ['a'])
+    calls = tokenizer.calls
+    advance(constraint)
+    assert tokenizer.calls == calls
+
+
+def test_model_close_request_ends_reasoning_without_forcing_repetition_to_cap():
+    class ClosingTokenizer(CharacterTokenizer):
+        def decode(self, ids, **kw):
+            return '</' if ids == [126] else super().decode(ids, **kw)
+    constraint = QuantityConstraint(ClosingTokenizer(), ['a'], reasoning_limit=10)
+    while constraint.phase != 'reasoning':
+        constraint.accept(int(constraint.mask(torch.zeros(1, 128)).argmax()))
+    logits = torch.zeros(1, 128)
+    logits[0, 126] = 100
+    logits[0, ord('x')] = 90
+    selected = int(constraint.mask(logits).argmax())
+    assert selected == ord('<')
+    constraint.accept(selected)
+    assert constraint.report()['reasoning_budget_forced_commits'] == 0
+    assert constraint.phase == 'forced' and constraint.after == 'integer'

@@ -90,7 +90,7 @@ def test_formal_variant_references_and_noise_are_accounted_separately(t1_tiny_pa
     assert all(r['three_arm_common_cells'] > 0 for r in p2['contrasts'])
 
 
-@pytest.mark.parametrize('decoding', [None, 'registered_quantity_constrained_v1'])
+@pytest.mark.parametrize('decoding', [None, 'registered_quantity_constrained_v2'])
 def test_controlled_formal_design_registers_every_variant_without_extra_samples(t1_tiny_path, decoding):
     from reasoning_diff.quantity_steps import PROTOCOL
     from reasoning_diff.splits import split_for_task

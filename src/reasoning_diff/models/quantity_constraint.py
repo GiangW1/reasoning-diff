@@ -5,7 +5,7 @@ import re
 
 import torch
 
-PROTOCOL = 'registered_quantity_constrained_v1'
+PROTOCOL = 'registered_quantity_constrained_v2'
 
 
 @lru_cache(maxsize=4)
@@ -14,7 +14,9 @@ def vocabulary(tokenizer):
     blocked = {i for i, text in pieces.items() if '<' in text} | set(tokenizer.all_special_ids)
     digits = {i: text for i, text in pieces.items() if re.fullmatch(r'[0-9]+', text)}
     minus = {i for i, text in pieces.items() if text == '-'}
-    return blocked, digits, minus
+    endings = {i for i, text in pieces.items() if text.lstrip().startswith('</')}
+    endings.add(tokenizer.eos_token_id)
+    return blocked, digits, minus, endings
 
 
 class QuantityConstraint:
@@ -28,8 +30,10 @@ class QuantityConstraint:
         if not node_ids or len(set(node_ids)) != len(node_ids) or reasoning_limit < 1:
             raise ValueError('invalid registered quantity schedule')
         self.tokenizer, self.nodes, self.limit = tokenizer, list(node_ids), reasoning_limit
-        self.blocked, self.digits, self.minus = vocabulary(tokenizer)
+        self.vocab_size = len(tokenizer)
+        self.blocked, self.digits, self.minus, endings = vocabulary(tokenizer)
         self.commit = tokenizer.encode('<commit>', add_special_tokens=False)
+        self.termination_ids = sorted(endings | {self.commit[0]})
         self.close = tokenizer.encode('</commit></step>\n', add_special_tokens=False)
         self.final_close = tokenizer.encode('}', add_special_tokens=False)
         self.index, self.reasoning_tokens, self.number = 0, 0, ''
@@ -91,9 +95,12 @@ class QuantityConstraint:
         if self.phase == 'forced':
             out[..., self.queue[0]] = 0
         elif self.phase == 'reasoning':
-            out[..., :len(self.tokenizer)] = logits[..., :len(self.tokenizer)]
+            out[..., :self.vocab_size] = logits[..., :self.vocab_size]
             out[..., list(self.blocked)] = -float('inf')
-            out[..., self.commit[0]] = logits[..., self.commit[0]]
+            # A request to close a step/thinking region is a request to
+            # commit this registered quantity. Pool the closing logits
+            # before sampling instead of inducing endless prose.
+            out[..., self.commit[0]] = torch.logsumexp(logits[..., self.termination_ids], dim=-1)
         elif self.phase in {'integer', 'answer'}:
             allowed = self._numeric_allowed()
             out[..., allowed] = logits[..., allowed]
@@ -115,7 +122,7 @@ class QuantityConstraint:
                 self._force('<commit>', 'integer')
                 self.queue.popleft()
                 self._advance_forced()
-            elif token in self.blocked or token >= len(self.tokenizer):
+            elif token in self.blocked or token >= self.vocab_size:
                 raise ValueError('prefix violates reasoning region constraint')
             else:
                 self.reasoning_tokens += 1
@@ -140,6 +147,7 @@ class QuantityConstraint:
                 'structural_token_positions': list(self.forced), 'sampled_numeric_tokens': self.numeric,
                 'reasoning_budget_per_node': self.limit, 'integer_max_digits': 12,
                 'reasoning_budget_forced_commits': self.capped,
+                'termination_policy': 'pool_step_close_think_close_eos_into_commit_action',
                 'generation_retries': 0, 'format_coverage_is_by_construction': True}
 
     def fork(self):

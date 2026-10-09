@@ -90,20 +90,22 @@ def test_formal_variant_references_and_noise_are_accounted_separately(t1_tiny_pa
     assert all(r['three_arm_common_cells'] > 0 for r in p2['contrasts'])
 
 
-def test_controlled_formal_design_registers_every_variant_without_extra_samples(t1_tiny_path):
+@pytest.mark.parametrize('decoding', [None, 'registered_quantity_constrained_v1'])
+def test_controlled_formal_design_registers_every_variant_without_extra_samples(t1_tiny_path, decoding):
     from reasoning_diff.quantity_steps import PROTOCOL
     from reasoning_diff.splits import split_for_task
     task = load_t1_fixture(t1_tiny_path)
     seed = next(s for s in range(100) if split_for_task(task, seed=s) == 'test')
     kwargs = dict(seeds=(0,), noise_seeds=(3,), edit_values=1, split_seed=seed)
     natural = build_design([task], **kwargs)
-    controlled = build_design([task], trajectory_protocol='quantity_steps', **kwargs)
+    controlled = build_design([task], trajectory_protocol='quantity_steps', quantity_decoding_protocol=decoding, **kwargs)
     assert controlled['requests'] == natural['requests']
     assert controlled['splits'] == natural['splits']
     assert any(e['kind'] == 'source_value_pair' for e in controlled['edits'])
     owners = {t['task_id']: t for t in controlled['tasks']}
     for row in controlled['tasks']:
         assert row['metadata']['trajectory_protocol'] == PROTOCOL
+        assert row['metadata'].get('quantity_decoding_protocol') == decoding
         assert [s['node_id'] for s in row['metadata']['quantity_step_plan']] == [n['id'] for n in row['nodes']]
     for edit in controlled['edits']:
         nested = [edit] if edit['kind'] != 'source_value_pair' else [v for v in edit.values() if isinstance(v, dict) and 'task' in v]

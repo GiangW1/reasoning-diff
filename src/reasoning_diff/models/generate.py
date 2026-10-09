@@ -40,6 +40,7 @@ def decode_loop(
     top_k: int = 0,
     top_p: float = 1.0,
     stop_condition=None,
+    constraint=None,
 ) -> dict:
     model.eval()
     tokens = as_input_ids(prompt_ids, model)
@@ -63,9 +64,13 @@ def decode_loop(
                 transfer_started = time.perf_counter()
                 logits = logits.to(gen_device)
                 transfer_seconds += time.perf_counter() - transfer_started
+            if constraint is not None:
+                logits = constraint.mask(logits)
             nxt = sample_next(logits, generator, temperature=temperature, top_k=top_k, top_p=top_p)
             nxt = nxt.to(tokens.device)
             produced.append(int(nxt.item()))
+            if constraint is not None:
+                constraint.accept(produced[-1])
             tokens = torch.cat([tokens, nxt], dim=-1)
             if eos_id is not None and int(nxt.item()) == eos_id:
                 stop_reason = "eos"
@@ -81,6 +86,7 @@ def decode_loop(
         "sampling": sampling,
         "device": str(model_device(model)),
         "device_transfer_seconds": transfer_seconds,
+        "quantity_constraint": constraint.report() if constraint is not None else None,
     }
 
 
@@ -227,6 +233,8 @@ def generate_frozen_trace(
         thinking_budget = min(max_new, int(limit) - len(prompt_ids))
         if thinking_budget < 1:
             raise ValueError("no generation space remains in the model context")
+    from .quantity_constraint import for_task
+    constraint = for_task(task, tokenizer)
     decoded = decode_loop(
         model,
         prompt_tensor,
@@ -237,6 +245,7 @@ def generate_frozen_trace(
         top_k=top_k,
         top_p=top_p,
         stop_condition=boxed_answer_complete,
+        **({'constraint': constraint} if constraint is not None else {}),
     )
     forced_think_close = False
     finalizer_used = False
@@ -376,6 +385,8 @@ def generate_frozen_trace(
             "natural_prompt_policy": None if controlled else task.metadata.get("natural_prompt_policy", "legacy"),
             "measurement_estimand": ESTIMAND if controlled else "natural_parsed_steps",
             "quantity_step_format": step_format,
+            "quantity_constraint": decoded.get('quantity_constraint'),
+            "quantity_decoding_protocol": task.metadata.get('quantity_decoding_protocol'),
             "trace_status": trace_status,
             "answer_status": answer_status,
             "analysis_eligibility": {

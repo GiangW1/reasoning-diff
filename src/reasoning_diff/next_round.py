@@ -344,6 +344,13 @@ def measurement_report(traces, tasks, observations, splits, scanned_premises=Non
                if trace.get("task_id") in owners and is_controlled(owners[trace["task_id"]])}
     if controlled:
         checks["registered_step_format"] = bool(formats) and all(row["passed"] for row in formats.values())
+        decoders = {owners[trace['task_id']].metadata.get('quantity_decoding_protocol') for trace in traces
+                    if trace.get('task_id') in owners}
+        checks['quantity_decoder_homogeneous'] = len(decoders) <= 1
+        checks['quantity_decoder_matches_task'] = all(
+            (trace.get('metadata') or {}).get('quantity_decoding_protocol')
+            == owners[trace['task_id']].metadata.get('quantity_decoding_protocol')
+            for trace in traces if trace.get('task_id') in owners)
     failures = [key for key, value in checks.items() if not value]
     classes = {str(value): sum(r["y"] == value for r in table) for value in (0, 1)}
     return {"passed": not failures, "checks": checks, "failures": failures,

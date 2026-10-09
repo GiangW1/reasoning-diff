@@ -156,10 +156,13 @@ def run_p3(traces, tasks, event_rows, hidden, direction, weak_layer, weak_direct
         for condition in CONDITIONS:
             delta = np.zeros_like(deltas['main']) if condition == 'baseline' else deltas[condition]
             layer = weak_layer if condition == 'clayer' else main_layer
+            from .models.quantity_constraint import for_task
+            constraint = for_task(task, runtime['tokenizer'], ids[trace['metadata'].get('prompt_len', len(ids)):])
             decoded = intervene_hidden_decode(model_kind, ids, layer, mode='add_delta', delta=delta,
                 seed=stable_seed, model=runtime['model'], max_new=max_new, event_aligned=True,
                 target_prefix_len=len(ids), eos_id=runtime['tokenizer'].eos_token_id,
                 target_delta_norm=deltas['norms']['main'] if condition in {'main', 'crand', 'clayer', 'wrong_direction'} else None,
+                **({'constraint': constraint} if constraint is not None else {}),
                 **sampling)
             if not decoded['hook_fired'] or not decoded['prefix_boundary_verified']:
                 raise RuntimeError('P3 hook did not fire at the requested boundary')
@@ -192,6 +195,7 @@ def run_p3(traces, tasks, event_rows, hidden, direction, weak_layer, weak_direct
             outputs[condition] = {'correct': int(complete and format_valid and score['correct'] is True),
                 'invalid': int(answer is None or not format_valid), 'complete': complete, 'stop_reason': decoded['stop_reason'],
                 'quantity_step_format': step_format,
+                'quantity_constraint': decoded.get('quantity_constraint'),
                 'actual_norm': actual, 'planned_norm': float(np.linalg.norm(delta)), 'layer': layer,
                 'norm_calibration': decoded.get('norm_calibration'),
                 'nontarget_change_rate': nontarget, 'nontarget_matched_events': len(others),

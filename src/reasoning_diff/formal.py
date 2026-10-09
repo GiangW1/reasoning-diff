@@ -97,9 +97,13 @@ def source_factorial(task, premise_id, alternate):
 
 
 def build_design(tasks, *, seeds=(0, 1, 2), noise_seeds=(3, 4, 5), edit_values=2, split_seed=0,
-                 trajectory_protocol='natural'):
+                 trajectory_protocol='natural', quantity_decoding_protocol=None):
     if trajectory_protocol not in {'natural', 'quantity_steps'}:
         raise ValueError('unknown trajectory protocol')
+    if quantity_decoding_protocol is not None:
+        from .models.quantity_constraint import PROTOCOL as CONSTRAINED
+        if quantity_decoding_protocol != CONSTRAINED or trajectory_protocol != 'quantity_steps':
+            raise ValueError('quantity decoding requires its registered controlled trajectory protocol')
     if len(set(seeds)) != len(seeds) or not seeds or len(set(noise_seeds)) != len(noise_seeds):
         raise ValueError('generation seeds must be nonempty and unique')
     if not noise_seeds or set(seeds) & set(noise_seeds) or edit_values < 1 or edit_values > 22:
@@ -176,6 +180,9 @@ def build_design(tasks, *, seeds=(0, 1, 2), noise_seeds=(3, 4, 5), edit_values=2
     if trajectory_protocol == 'quantity_steps':
         from .quantity_steps import controlled_task
         owners = {tid: controlled_task(Task.from_dict(row)).to_dict() for tid, row in owners.items()}
+        if quantity_decoding_protocol is not None:
+            for row in owners.values():
+                row['metadata']['quantity_decoding_protocol'] = quantity_decoding_protocol
         for edit in edits:
             nested = ([edit] if edit['kind'] != 'source_value_pair' else
                       [v for v in edit.values() if isinstance(v, dict) and 'task' in v])

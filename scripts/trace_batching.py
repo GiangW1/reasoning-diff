@@ -25,6 +25,7 @@ class DecodeRequest:
     top_k: int = 0
     top_p: float = 1.0
     stop_condition: object = None
+    constraint: object = None
 
 
 def decode_batch(requests: list[DecodeRequest]) -> list[dict]:
@@ -57,10 +58,15 @@ def decode_batch(requests: list[DecodeRequest]) -> list[dict]:
                 if not active[index]:
                     next_tokens.append(torch.tensor([[pad]], device=device))
                     continue
-                nxt = sample_next(out.logits[index:index + 1, -1, :], request.generator,
+                logits = out.logits[index:index + 1, -1, :]
+                if request.constraint is not None:
+                    logits = request.constraint.mask(logits)
+                nxt = sample_next(logits, request.generator,
                                   temperature=request.temperature, top_k=request.top_k, top_p=request.top_p)
                 token = int(nxt.item())
                 generated[index].append(token)
+                if request.constraint is not None:
+                    request.constraint.accept(token)
                 next_tokens.append(nxt)
                 if request.eos_id is not None and token == request.eos_id:
                     reasons[index], active[index] = "eos", False
@@ -85,6 +91,7 @@ def decode_batch(requests: list[DecodeRequest]) -> list[dict]:
         "sampling": {"temperature": request.temperature, "top_k": request.top_k, "top_p": request.top_p},
         "device": str(device), "device_transfer_seconds": 0.0,
         "batch_execution": {**execution, "batch_index": index},
+        "quantity_constraint": request.constraint.report() if request.constraint is not None else None,
     } for index, (prompt, produced, reason, request) in enumerate(zip(prompts, generated, reasons, requests, strict=True))]
 
 

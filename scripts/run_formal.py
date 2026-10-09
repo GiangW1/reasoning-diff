@@ -85,7 +85,8 @@ def plan(args):
     selected = select_tasks(cli._load_tasks(opts), config['n_problems'], set(config.get('exclude_groups', [])), config['split_seed'])
     design = build_design(selected, seeds=config['reference_seeds'], noise_seeds=config['noise_seeds'],
                           edit_values=config['edit_values'], split_seed=config['split_seed'],
-                          trajectory_protocol=config.get('trajectory_protocol', 'natural'))
+                          trajectory_protocol=config.get('trajectory_protocol', 'natural'),
+                          quantity_decoding_protocol=config.get('quantity_decoding_protocol'))
     protocol = {'version': 'formal_c3_v1', 'config': config, 'revision': model_card['revision'],
                 'source_hash': source_hash(), 'dataset_hash': file_digest(dataset), 'design_digest': digest(design),
                 'frozen_at': time.time(), 'scientific_gates': 'not_preregistered',

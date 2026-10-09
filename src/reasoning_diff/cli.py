@@ -3136,6 +3136,10 @@ def _cmd_intervene_impl(args: argparse.Namespace) -> int:
                     "eos_id": getattr(tokenizer, "eos_token_id", None),
                     **sampling,
                 }
+                from .models.quantity_constraint import for_task
+                constraint = for_task(base_task, tokenizer, ids[(base_row.get('metadata') or {}).get('prompt_len', len(ids)):])
+                if constraint is not None:
+                    decode_kw['constraint'] = constraint
                 hooked = intervene_hidden_decode(
                     model_kind,
                     ids,

@@ -380,13 +380,89 @@ def test_formal_source_freeze_includes_cached_fit_helper(monkeypatch, formal_run
 def test_formal_subprocess_threads_follow_cpu_or_gpu_work(monkeypatch, formal_runner, planned_formal):
     root, _ = planned_formal
     calls = []
-    monkeypatch.setattr(formal_runner.subprocess, 'run', lambda command, **kw: calls.append(kw['env']))
+    class Completed:
+        def wait(self, timeout=None):
+            return 0
+        def poll(self):
+            return 0
+    def start(command, **kw):
+        calls.append(kw['env'])
+        return Completed()
+    monkeypatch.setattr(formal_runner.subprocess, 'Popen', start)
     formal_runner.execute(root, 'cpu', ['unused'])
     formal_runner.execute(root, 'gpu', ['unused'], gpu=2)
     for key in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS'):
         assert calls[0][key] == '8'
         assert calls[1][key] == '1'
     assert calls[1]['CUDA_VISIBLE_DEVICES'] == '2'
+
+
+def test_later_lane_failure_terminates_running_subprocess(formal_runner, planned_formal, monkeypatch):
+    import subprocess
+    import sys
+    import threading
+    import time
+    root, _ = planned_formal
+    started = threading.Event()
+    children = []
+    original = subprocess.Popen
+    def start(*args, **kwargs):
+        child = original(*args, **kwargs)
+        children.append(child)
+        started.set()
+        return child
+    monkeypatch.setattr(formal_runner.subprocess, 'Popen', start)
+    def fail():
+        assert started.wait(timeout=5)
+        raise RuntimeError('second GPU failed')
+    before = time.monotonic()
+    with pytest.raises(RuntimeError, match='second GPU failed'):
+        formal_runner.parallel_jobs([
+            lambda: formal_runner.execute(root, 'slow', [sys.executable, '-c', 'import time; time.sleep(60)']),
+            fail,
+        ], 2)
+    assert time.monotonic() - before < 10
+    assert children and all(child.poll() is not None for child in children)
+
+
+def test_busy_gpu_is_rejected_before_loading_model(formal_runner, planned_formal, monkeypatch):
+    root, _ = planned_formal
+    protocol, _ = formal_runner.verified_plan(root)
+    protocol['config']['gpu_min_free_mib'] = 27500
+    monkeypatch.setattr(formal_runner, 'verified_plan', lambda _: (protocol, {}))
+    monkeypatch.setattr(formal_runner.subprocess, 'check_output', lambda *a, **kw: '20000\n')
+    monkeypatch.setattr(formal_runner.subprocess, 'Popen', lambda *a, **kw: pytest.fail('occupied GPU launched'))
+    with pytest.raises(RuntimeError, match='GPU 2 has 20000 MiB free'):
+        formal_runner.execute(root, 'gpu', ['unused'], gpu=2)
+
+
+def test_single_class_continuation_requires_explicit_pilot(formal_runner, planned_formal, tmp_path):
+    _, config_path = planned_formal
+    config = read_json(config_path)
+    config['allow_single_class_measurement'] = True
+    write_json(config_path, config)
+    with pytest.raises(ValueError, match='declared engineering pilot'):
+        formal_runner.main(['--config', str(config_path), '--out-root', str(tmp_path / 'new')])
+
+
+def test_engineering_pilot_runs_measurement_after_single_class_screen(
+        formal_runner, planned_formal, monkeypatch, tmp_path):
+    _, config_path = planned_formal
+    config = read_json(config_path)
+    config.update(purpose='engineering_pilot', allow_single_class_measurement=True)
+    write_json(config_path, config)
+    root = tmp_path / 'pilot'
+    calls = []
+    def generate(output, reference_only=False):
+        calls.append('answers' if reference_only else 'generate')
+        save_fixture_responses(output, formal_runner, roles={'reference'} if reference_only else None)
+    monkeypatch.setattr(formal_runner, 'generate', generate)
+    for name in ('measure', 'fit', 'intervene'):
+        monkeypatch.setattr(formal_runner, name, lambda output, name=name: calls.append(name))
+    assert formal_runner.main(['--mode', 'all', '--config', str(config_path), '--out-root', str(root)]) == 0
+    assert read_json(root / 'answer_screen.json')['status'] == 'single_class'
+    assert calls == ['answers', 'generate', 'measure', 'fit', 'intervene']
+    assert read_json(root / 'protocol.json')['confirmatory_claim_ready'] is False
 
 
 def test_formal_fit_uses_cached_parallel_positions_before_aggregation(monkeypatch, formal_runner, planned_formal):

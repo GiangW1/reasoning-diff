@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 import argparse
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import CancelledError, ThreadPoolExecutor, as_completed
 import math
 import os
 from pathlib import Path
 import subprocess
 import sys
-from threading import local
+from threading import Event, local
 import time
 
 from reasoning_diff import cli
@@ -21,6 +21,7 @@ from reasoning_diff.spurious_intervention import fit_direction, p3_report, run_p
 from reasoning_diff.splits import DEFAULT_FRACTIONS
 
 REPO = Path(__file__).resolve().parents[1]
+EXECUTION = local()
 
 
 def source_hash():
@@ -62,10 +63,13 @@ def plan(args):
         config['layers'] = [0, 12, 24, 35] if args.model == 'qwen3-8b' else [0, 9, 18, 27]
     from reasoning_diff.models.adapters import card
     model_card = card(config['model'])
+    if config.get('allow_single_class_measurement', False) and config.get('purpose') != 'engineering_pilot':
+        raise ValueError('single-class continuation is restricted to a declared engineering pilot')
     if (not config['gpus'] or len(set(config['gpus'])) != len(config['gpus']) or min(config['gpus']) < 0
             or config['batch_size'] < 1 or config['max_new'] < 1
             or len(config['layers']) < 2 or len(set(config['layers'])) != len(config['layers'])
             or min(config['layers']) < 0 or max(config['layers']) >= model_card['layers']
+            or config.get('gpu_min_free_mib', 0) < 0
             or (config.get('time_budget_hours') is not None and config['time_budget_hours'] <= 0)):
         raise ValueError('invalid GPU, batch, generation, layer, or time budget configuration')
     root = args.out_root.resolve()
@@ -89,7 +93,7 @@ def plan(args):
                 'family_split_fractions': DEFAULT_FRACTIONS, 'conditions': ['base', 'related_noop', 'neutral_noop'],
                 'known_development_exclusions': config.get('exclude_groups', []),
                 'dataset_exposure': config.get('dataset_exposure', 'unknown'),
-                'confirmatory_claim_ready': False}
+                'confirmatory_claim_ready': False, 'purpose': config.get('purpose', 'formal_exploratory')}
     write_json(root / 'protocol.json', protocol)
     write_json(root / 'design.json', design)
     write_jsonl(root / 'tasks.jsonl', design['tasks'])
@@ -253,6 +257,31 @@ def measure(root):
     print({c: r['overall'] for c, r in reports.items()}, flush=True)
 
 
+def parallel_jobs(jobs, max_workers):
+    """Cancel sibling subprocesses when any lane fails, including later lanes."""
+    stop = Event()
+
+    def run(job):
+        EXECUTION.stop = stop
+        try:
+            if stop.is_set():
+                raise CancelledError('another formal lane failed')
+            return job()
+        finally:
+            del EXECUTION.stop
+
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        futures = [pool.submit(run, job) for job in jobs]
+        try:
+            for future in as_completed(futures):
+                future.result()
+        except BaseException:
+            stop.set()
+            for future in futures:
+                future.cancel()
+            raise
+
+
 def execute(root, name, command, gpu=None):
     protocol, _ = verified_plan(root)
     config = protocol['config']
@@ -261,6 +290,12 @@ def execute(root, name, command, gpu=None):
     env.update({key: threads for key in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS')})
     if gpu is not None:
         env['CUDA_VISIBLE_DEVICES'] = str(gpu)
+        minimum = config.get('gpu_min_free_mib', 0)
+        if minimum:
+            free = int(subprocess.check_output(['nvidia-smi', f'--id={gpu}', '--query-gpu=memory.free',
+                                               '--format=csv,noheader,nounits'], text=True).strip())
+            if free < minimum:
+                raise RuntimeError(f'GPU {gpu} has {free} MiB free; {minimum} MiB required before {name}')
     timeout = None
     if config.get('time_budget_hours') is not None:
         budget = root / 'budget.json'
@@ -273,19 +308,45 @@ def execute(root, name, command, gpu=None):
     logs = root / 'logs'
     logs.mkdir(exist_ok=True)
     print(name, flush=True)
+    stop = getattr(EXECUTION, 'stop', None)
+    if stop is not None and stop.is_set():
+        raise CancelledError('another formal lane failed')
     with (logs / f'{name}.log').open('a', encoding='utf-8') as log:
-        subprocess.run([str(x) for x in command], env=env, stdout=log, stderr=subprocess.STDOUT,
-                       cwd=REPO, check=True, timeout=timeout)
+        process = subprocess.Popen([str(x) for x in command], env=env, stdout=log,
+                                   stderr=subprocess.STDOUT, cwd=REPO)
+        started = time.monotonic()
+        try:
+            while True:
+                if stop is not None and stop.is_set():
+                    raise CancelledError('another formal lane failed')
+                remaining = None if timeout is None else timeout - (time.monotonic() - started)
+                if remaining is not None and remaining <= 0:
+                    raise subprocess.TimeoutExpired(command, timeout)
+                try:
+                    rc = process.wait(timeout=1 if remaining is None else min(1, remaining))
+                except subprocess.TimeoutExpired:
+                    continue
+                if rc:
+                    raise subprocess.CalledProcessError(rc, command)
+                break
+        finally:
+            if process.poll() is None:
+                process.terminate()
+                try:
+                    process.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    process.wait()
 
 
 def generate(root, reference_only=False):
     protocol, _ = verified_plan(root)
-    with ThreadPoolExecutor(max_workers=len(protocol['config']['gpus'])) as pool:
-        for job in [pool.submit(execute, root, f"{'answers' if reference_only else 'generate'}-{i}",
-                    [sys.executable, Path(__file__), '--mode', 'worker', '--out-root', root, '--worker-index', i,
-                     *(['--reference-only'] if reference_only else [])], gpu)
-                    for i, gpu in enumerate(protocol['config']['gpus'])]:
-            job.result()
+    def lane(index, gpu):
+        execute(root, f"{'answers' if reference_only else 'generate'}-{index}",
+                [sys.executable, Path(__file__), '--mode', 'worker', '--out-root', root, '--worker-index', index,
+                 *(['--reference-only'] if reference_only else [])], gpu)
+    parallel_jobs([lambda i=i, gpu=gpu: lane(i, gpu) for i, gpu in enumerate(protocol['config']['gpus'])],
+                  len(protocol['config']['gpus']))
 
 
 def answer_screen(root):
@@ -332,9 +393,7 @@ def fit(root):
                 '--device', 'cuda', '--hidden-layer', layer, gpu=gpu)
             stage(f'fit-{layer}', 'fit', '--in-dir', features, '--labels-dir', labels, '--out-dir', probes)
 
-    with ThreadPoolExecutor(max_workers=len(config['gpus'])) as pool:
-        for job in [pool.submit(lane, i, g) for i, g in enumerate(config['gpus'])]:
-            job.result()
+    parallel_jobs([lambda i=i, g=g: lane(i, g) for i, g in enumerate(config['gpus'])], len(config['gpus']))
     scores = []
     for layer in config['layers']:
         row = next((r for r in read_jsonl(root / f'fit-layer{layer}/probes.jsonl') if r.get('head') == 'behavior' and 'U' in r), {})
@@ -351,12 +410,9 @@ def fit(root):
         'layers': config['layers'], 'dev_behavior_auc': scores})
     fit_options = ['--in-dir', root / f'collect-layer{selected}', '--labels-dir', labels,
                    '--dev-layer-ids', *[l for l, _ in usable], '--dev-layer-scores', *[s for _, s in usable]]
-    with ThreadPoolExecutor(max_workers=2) as pool:
-        jobs = [pool.submit(stage, f'fit-{position}', 'fit', *fit_options,
-                            '--out-dir', root / 'fit' / position, '--position', position)
-                for position in ('pre_step', 'pre_value', 'post_step')]
-        for job in jobs:
-            job.result()
+    parallel_jobs([lambda position=position: stage(f'fit-{position}', 'fit', *fit_options,
+                  '--out-dir', root / 'fit' / position, '--position', position)
+                  for position in ('pre_step', 'pre_value', 'post_step')], 2)
     stage('fit-all', 'fit', *fit_options, '--out-dir', root / 'fit', '--position', 'all')
     stage('calibrate', 'calibrate', '--in-dir', root / 'fit', '--features-dir', root / f'collect-layer{selected}',
           '--labels-dir', labels, '--out-dir', root / 'calibration', '--alpha', '0.1', '--head', 'behavior')
@@ -430,9 +486,7 @@ def intervene(root):
             '--all-source-pairs', '--pair-split', 'test', '--pair-shard', index, len(config['gpus']),
             '--eval-mode', 'scientific', '--resume'], gpu)
 
-    with ThreadPoolExecutor(max_workers=len(config['gpus'])) as pool:
-        for job in [pool.submit(lane, i, g) for i, g in enumerate(config['gpus'])]:
-            job.result()
+    parallel_jobs([lambda i=i, g=g: lane(i, g) for i, g in enumerate(config['gpus'])], len(config['gpus']))
     report(root)
 
 
@@ -484,7 +538,8 @@ def main(argv=None):
         if args.mode in {'answers', 'all'}:
             generate(root, reference_only=True)
             screen = answer_screen(root)
-            if args.mode == 'all' and screen['status'] == 'single_class':
+            if (args.mode == 'all' and screen['status'] == 'single_class'
+                    and not protocol['config'].get('allow_single_class_measurement', False)):
                 write_json(root / 'pipeline.json', {'status': 'stopped_unestimable', 'stage': 'answer_screen',
                     'reason': 'answered_references_have_fewer_than_two_correctness_classes', 'scientific_conclusion': None})
                 return 0

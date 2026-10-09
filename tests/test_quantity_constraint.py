@@ -110,10 +110,11 @@ def test_static_vocabulary_size_is_not_requeried_at_every_decode_token():
     assert tokenizer.calls == calls
 
 
-def test_model_close_request_ends_reasoning_without_forcing_repetition_to_cap():
+@pytest.mark.parametrize('marker', ['</', ' <', '\n<', '.</'])
+def test_model_close_request_ends_reasoning_without_forcing_repetition_to_cap(marker):
     class ClosingTokenizer(CharacterTokenizer):
         def decode(self, ids, **kw):
-            return '</' if ids == [126] else super().decode(ids, **kw)
+            return marker if ids == [126] else super().decode(ids, **kw)
     constraint = QuantityConstraint(ClosingTokenizer(), ['a'], reasoning_limit=10)
     while constraint.phase != 'reasoning':
         constraint.accept(int(constraint.mask(torch.zeros(1, 128)).argmax()))

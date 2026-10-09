@@ -5,7 +5,7 @@ import re
 
 import torch
 
-PROTOCOL = 'registered_quantity_constrained_v2'
+PROTOCOL = 'registered_quantity_constrained_v3'
 
 
 @lru_cache(maxsize=4)
@@ -14,7 +14,9 @@ def vocabulary(tokenizer):
     blocked = {i for i, text in pieces.items() if '<' in text} | set(tokenizer.all_special_ids)
     digits = {i: text for i, text in pieces.items() if re.fullmatch(r'[0-9]+', text)}
     minus = {i for i, text in pieces.items() if text == '-'}
-    endings = {i for i, text in pieces.items() if text.lstrip().startswith('</')}
+    # BPE often combines preceding whitespace/punctuation with a markup
+    # opener. Every such boundary requests a commit, not more prose.
+    endings = {i for i, text in pieces.items() if '<' in text}
     endings.add(tokenizer.eos_token_id)
     return blocked, digits, minus, endings
 
@@ -147,7 +149,7 @@ class QuantityConstraint:
                 'structural_token_positions': list(self.forced), 'sampled_numeric_tokens': self.numeric,
                 'reasoning_budget_per_node': self.limit, 'integer_max_digits': 12,
                 'reasoning_budget_forced_commits': self.capped,
-                'termination_policy': 'pool_step_close_think_close_eos_into_commit_action',
+                'termination_policy': 'pool_markup_boundaries_and_eos_into_commit_action',
                 'generation_retries': 0, 'format_coverage_is_by_construction': True}
 
     def fork(self):

@@ -1,0 +1,234 @@
+{
+  "native_id": "igsm-pr9-20261008-0014-op15",
+  "family_id": "igsm-pr9-20261008-0014-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100814,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "0",
+  "target": "p_0_0_1_1",
+  "question": "The number of each Liver's Osteoclasts equals 6. The number of each Jejunum's Osteoclasts equals 14 times as much as each Liver's Osteoclasts. The number of each Duodenum's Mast Cells equals the sum of each Walrus's Jejunum and each Dolphin's Gallbladder. The number of each Gallbladder's Melanocytes equals 22. The number of each Jejunum's Mast Cells equals 18 times as much as the sum of each Dolphin's Gallbladder, each Duodenum's Melanocytes and each Blue Whale's Duodenum. The number of each Walrus's Liver equals each Blue Whale's Gallbladder. The number of each Manta Ray's Jejunum equals each Jejunum's Melanocytes. The number of each Dolphin's Liver equals 4. The number of each Blue Whale's Duodenum equals each Duodenum's Melanocytes. The number of each Duodenum's Fibroblasts equals the difference of each Jejunum's Melanocytes and each Jejunum's Fibroblasts. The number of each Gallbladder's Mast Cells equals 2 more than each Liver's Osteoclasts. The number of each Duodenum's Melanocytes equals 21. The number of each Jejunum's Melanocytes equals 20 times as much as each Jejunum's Fibroblasts. The number of each Walrus's Jejunum equals 19 times as much as the difference of each Walrus's Liver and each Blue Whale's Gallbladder. The number of each Duodenum's Osteoclasts equals 9 more than each Jejunum's Fibroblasts. The number of each Liver's Melanocytes equals 1 times as much as the sum of each Jejunum's Mast Cells and each Dolphin's Gallbladder. The number of each Jejunum's Fibroblasts equals 11. The number of each Blue Whale's Gallbladder equals 22 more than the difference of each Liver's Fibroblasts and each Blue Whale's Duodenum. The number of each Dolphin's Gallbladder equals 17 more than the difference of each Blue Whale's Duodenum and each Duodenum's Melanocytes. The number of each Liver's Mast Cells equals 5. The number of each Manta Ray's Liver equals each Duodenum's Fibroblasts. The number of each Liver's Fibroblasts equals each Liver's Melanocytes. The number of each Walrus's Duodenum equals each Manta Ray's Jejunum. How many Jejunum does Walrus have?",
+  "lookup": {
+    "p_0_1_3_3": 6,
+    "p_0_1_2_2": 21,
+    "p_0_1_3_1": 5,
+    "p_0_0_0_3": 4,
+    "p_0_1_1_0": 11,
+    "p_0_1_0_1": 8,
+    "p_0_0_3_2": 21,
+    "p_0_0_0_0": 17,
+    "p_0_1_1_2": 13,
+    "p_0_1_2_3": 20,
+    "p_0_1_0_2": 22,
+    "p_0_1_1_1": 4,
+    "p_0_0_2_1": 13,
+    "p_0_1_2_0": 2,
+    "p_0_0_1_2": 13,
+    "p_0_1_3_2": 21,
+    "p_0_1_1_3": 15,
+    "p_0_0_2_3": 2,
+    "p_0_1_3_0": 21,
+    "p_0_0_3_0": 22,
+    "p_0_0_1_3": 22,
+    "p_0_0_1_1": 0,
+    "p_0_1_2_1": 17
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_2",
+        "literal": 21,
+        "span": [
+          961,
+          1012
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "Blue Whale's Duodenum"
+        ],
+        "expression": "p_0_1_2_2",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_3_2",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Dolphin's Gallbladder"
+        ],
+        "expression": "(17 + (p_0_0_3_2 - p_0_1_2_2))",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_1_2_2",
+          "p_0_0_3_2"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Jejunum's Mast Cells"
+        ],
+        "expression": "(18 * ((p_0_0_0_0 + p_0_1_2_2) + p_0_0_3_2))",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_2",
+        "parents": [
+          "p_0_1_1_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_3_2",
+          "Liver's Melanocytes"
+        ],
+        "expression": "(1 * (p_0_1_1_1 + p_0_0_0_0))",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_0",
+        "parents": [
+          "p_0_1_3_2"
+        ],
+        "aliases": [
+          "p_0_1_3_0",
+          "Liver's Fibroblasts"
+        ],
+        "expression": "p_0_1_3_2",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_0_1_3_0",
+          "p_0_0_3_2"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Blue Whale's Gallbladder"
+        ],
+        "expression": "(22 + (p_0_1_3_0 - p_0_0_3_2))",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Walrus's Liver"
+        ],
+        "expression": "p_0_0_3_0",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_1_3",
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Walrus's Jejunum"
+        ],
+        "expression": "(19 * (p_0_0_1_3 - p_0_0_3_0))",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_2",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_0_1_3_0"
+      ],
+      [
+        "p_0_1_3_0",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_0_1_1"
+      ]
+    ]
+  }
+}

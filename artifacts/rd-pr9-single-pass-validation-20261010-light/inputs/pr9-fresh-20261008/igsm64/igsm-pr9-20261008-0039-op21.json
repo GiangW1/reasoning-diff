@@ -1,0 +1,352 @@
+{
+  "native_id": "igsm-pr9-20261008-0039-op21",
+  "family_id": "igsm-pr9-20261008-0039-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100839,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "2",
+  "target": "p_1_0_2_2",
+  "question": "The number of each Monument Zone's Lazy Acres Natural Market equals each Cottage Cheese's Kale. The number of each Fresh Thyme Market's Cottage Cheese equals 14. The number of each New Seasons Market's Cottage Cheese equals 15 times as much as the sum of each Lazy Acres Natural Market's Cottage Cheese and each Monument Zone's New Seasons Market. The number of each Ice Cream's Kale equals each Historic Industrial District's Fresh Thyme Market. The number of each Fresh Thyme Market's Ice Cream equals 8 more than each Monument Zone's Lazy Acres Natural Market. The number of each Milk's Kale equals each Historic Industrial District's Fresh Thyme Market. The number of each Milk's Cabbage equals the sum of each Colonial District's Lazy Acres Natural Market and each Lazy Acres Natural Market's Cottage Cheese. The number of each Monument Zone's Fresh Thyme Market equals the sum of each Fresh Thyme Market's Milk and each Monument Zone's Lazy Acres Natural Market. The number of each Ice Cream's Spinach equals 19. The number of each Historic Industrial District's Fresh Thyme Market equals 2. The number of each Cottage Cheese's Kale equals 4 times as much as each Ice Cream's Spinach. The number of each Lazy Acres Natural Market's Ice Cream equals each Monument Zone's New Seasons Market. The number of each Monument Zone's New Seasons Market equals 15 times as much as each Ice Cream's Spinach. The number of each Lazy Acres Natural Market's Cottage Cheese equals the difference of each Monument Zone's Lazy Acres Natural Market and each Cottage Cheese's Kale. The number of each Historic Industrial District's New Seasons Market equals 15 times as much as the sum of each Lazy Acres Natural Market's Cottage Cheese, each Cottage Cheese's Kale and each Ice Cream's Kale. The number of each Colonial District's Lazy Acres Natural Market equals 8. The number of each Fresh Thyme Market's Milk equals 11 more than each Lazy Acres Natural Market's Product. The number of each Cottage Cheese's Cabbage equals 16. How many Product does Monument Zone have?",
+  "lookup": {
+    "p_0_0_1_0": 8,
+    "p_0_2_2_1": 16,
+    "p_0_2_0_0": 19,
+    "p_0_0_0_2": 2,
+    "p_0_1_2_2": 14,
+    "p_0_2_1_2": 2,
+    "p_0_0_2_1": 9,
+    "p_0_2_2_2": 7,
+    "p_0_0_2_0": 7,
+    "p_0_2_0_2": 2,
+    "p_0_1_0_0": 9,
+    "p_0_1_2_0": 15,
+    "p_0_1_0_2": 0,
+    "p_1_1_0_2": 9,
+    "p_0_1_1_2": 20,
+    "p_0_0_0_1": 20,
+    "p_1_1_1_2": 20,
+    "p_0_2_1_1": 8,
+    "p_0_1_2_1": 20,
+    "p_1_1_2_2": 3,
+    "p_0_0_2_2": 4,
+    "p_1_0_2_2": 2
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_0",
+        "literal": 19,
+        "span": [
+          969,
+          1017
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_2",
+        "literal": 14,
+        "span": [
+          96,
+          160
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_2",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_2_2_2",
+          "Cottage Cheese's Kale"
+        ],
+        "expression": "(4 * p_0_2_0_0)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Monument Zone's Lazy Acres Natural Market"
+        ],
+        "expression": "p_0_2_2_2",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Monument Zone's New Seasons Market"
+        ],
+        "expression": "(15 * p_0_2_0_0)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Lazy Acres Natural Market's Ice Cream"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Lazy Acres Natural Market's Cottage Cheese"
+        ],
+        "expression": "(p_0_0_2_0 - p_0_2_2_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Lazy Acres Natural Market's Product"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_2)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_1_0_2",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "New Seasons Market's Cottage Cheese"
+        ],
+        "expression": "(15 * (p_0_1_0_2 + p_0_0_2_1))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "New Seasons Market's Product"
+        ],
+        "expression": "p_0_1_1_2",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_1_1_0_2"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Fresh Thyme Market's Milk"
+        ],
+        "expression": "(11 + p_1_1_0_2)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_1_2_1",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Monument Zone's Fresh Thyme Market"
+        ],
+        "expression": "(p_0_1_2_1 + p_0_0_2_0)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Fresh Thyme Market's Ice Cream"
+        ],
+        "expression": "(8 + p_0_0_2_0)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_1",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Fresh Thyme Market's Product"
+        ],
+        "expression": "((p_0_1_2_0 + p_0_1_2_1) + p_0_1_2_2)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_1_0_2",
+          "p_0_0_2_1",
+          "p_1_1_1_2",
+          "p_0_0_2_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "Monument Zone's Product"
+        ],
+        "expression": "(((p_0_0_2_0 * p_1_1_0_2) + (p_0_0_2_1 * p_1_1_1_2)) + (p_0_0_2_2 * p_1_1_2_2))",
+        "value": 2
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_0_0",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_2_2"
+      ]
+    ]
+  }
+}

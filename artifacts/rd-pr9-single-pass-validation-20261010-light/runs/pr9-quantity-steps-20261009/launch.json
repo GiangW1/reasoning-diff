@@ -1,0 +1,21 @@
+{
+  "pid": 1454317,
+  "command": [
+    "/mnt/mydata/zm/projects/RPent/.venv/bin/python",
+    "/home/wja/reasoning-diff-pr9-matching/scripts/run_formal.py",
+    "--mode",
+    "all",
+    "--config",
+    "/mnt/mydata/wja/reasoning-diff/configs/pr9-controlled-20261009.json",
+    "--out-root",
+    "/mnt/mydata/wja/reasoning-diff/runs/pr9-quantity-steps-20261009"
+  ],
+  "source_commit": "db884f9ab52eeeaf8e108759aadfff133f3a52d4",
+  "started_at": "2026-10-09T19:01:56.274206+08:00",
+  "gpu": [
+    1
+  ],
+  "batch_size": 1,
+  "budget_hours": 12,
+  "condition": "quantity_steps_v1"
+}

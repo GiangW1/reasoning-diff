@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "time_budget_hours": null,
+  "deadline": null,
+  "requested_at": "2026-10-10T11:35:46.717927+08:00",
+  "requested_by_user": "去掉预算截至",
+  "original_budget": {
+    "seconds": 43200,
+    "started": 1791563124.6082475
+  },
+  "frozen_protocol_unchanged": true
+}

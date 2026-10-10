@@ -1,0 +1,107 @@
+{
+  "generation_calls": 0,
+  "prefix_tokens": 465,
+  "prefix_end": " Cells equals the number of Sloth's Cranial Nerves, we directly assign the value. Applying modulo 23, 11 is already less than 23, so the result is 11. The value for p_0_2_0_0 is 11. The integer is 11.",
+  "next_token_logits": [
+    {
+      "id": 366,
+      "text": " <",
+      "logit": 27.5
+    },
+    {
+      "id": 576,
+      "text": " The",
+      "logit": 27.0
+    },
+    {
+      "id": 690,
+      "text": " </",
+      "logit": 25.0
+    },
+    {
+      "id": 9205,
+      "text": " Commit",
+      "logit": 24.0
+    },
+    {
+      "id": 715,
+      "text": " \n",
+      "logit": 23.5
+    },
+    {
+      "id": 4710,
+      "text": " \n\n",
+      "logit": 23.375
+    },
+    {
+      "id": 1096,
+      "text": " This",
+      "logit": 23.125
+    },
+    {
+      "id": 2009,
+      "text": " All",
+      "logit": 23.125
+    },
+    {
+      "id": 358,
+      "text": " I",
+      "logit": 23.0
+    },
+    {
+      "id": 220,
+      "text": " ",
+      "logit": 23.0
+    },
+    {
+      "id": 15277,
+      "text": " Therefore",
+      "logit": 22.375
+    },
+    {
+      "id": 2055,
+      "text": " So",
+      "logit": 22.0
+    },
+    {
+      "id": 1205,
+      "text": " We",
+      "logit": 21.625
+    },
+    {
+      "id": 5650,
+      "text": " Mod",
+      "logit": 21.375
+    },
+    {
+      "id": 2303,
+      "text": "  \n",
+      "logit": 21.25
+    },
+    {
+      "id": 9211,
+      "text": " Because",
+      "logit": 21.125
+    },
+    {
+      "id": 2619,
+      "text": " There",
+      "logit": 21.0
+    },
+    {
+      "id": 2308,
+      "text": " No",
+      "logit": 21.0
+    },
+    {
+      "id": 13824,
+      "text": " Wait",
+      "logit": 20.875
+    },
+    {
+      "id": 1988,
+      "text": " But",
+      "logit": 20.75
+    }
+  ]
+}

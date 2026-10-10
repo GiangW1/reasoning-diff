@@ -1,0 +1,21 @@
+{'all_comparisons': 486, 'existing_parser_fixed_pairs_preserved': True, 'all_certificates_one_to_one': True, 'structural_pair_checks_comparisons': 220, 'recovered_pairs': 322, 'recovered_by_role': {'probe_train': 76, 'direction_fit': 75, 'test': 111, 'dev': 42, 'calibration': 18}, 'noise': {'reference_steps': 1389, 'matched_steps': 601, 'compatible_unordered_maximum': 804, 'same_entity_capacity_maximum': 994}, 'noise_references_with_unavoidable_parsed_capacity_gap': 30, 'scope': 'ceilings for parsed event sets only; no semantic precision claim; no new generations'}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': "Leopard's Cells = Leopard's Pons * Pons's Cells = 11 * 11 = 121", 'right_text': 'LC = 12 * 12. Let me compute that. 12*12 is 144'}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': "Leopard's Cells = Leopard's Pons * Pons's Cells = 11 * 11 = 121", 'right_text': "Leopard's Cells is 12 * 11 = 132"}
+{'family_role': 'probe_train', 'phase': 'copy', 'left_text': "Leopard's Pons = Pons's Bipolar Cells = 11", 'right_text': 'Leopard_Pons = Pons_Bipolar_Cells = 11'}
+{'family_role': 'probe_train', 'phase': 'copy', 'left_text': "Pons's Bipolar Cells = Sloth's Cranial Nerves = 11", 'right_text': 'Pons_Bipolar_Cells = Sloth_Cranial_Nerves = 11'}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': "Leopard's Cells = Leopard's Pons * Pons's Cells = 11 * 11 = 121", 'right_text': 'Leopard_Cells = 11 * 11. Let me compute that. 11 * 11 is 121'}
+{'family_role': 'probe_train', 'phase': 'copy', 'left_text': "Pons's Cells = Pons's Bipolar Cells = 11", 'right_text': 'Pons_Cells = Pons_Bipolar_Cells = 11'}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': 'M_Ulna = 22 * B_Ulna = 22 * 6 = 132', 'right_text': 'Monkey_Ulna = 22 * Bear_Ulna = 0'}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': 'T_Ulna = 19 * 0 = 0', 'right_text': 'Tiger_Ulna = 19 * 1 = 19'}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': 'T_Alula = 13 * 0 = 0', 'right_text': 'Tiger_Alula = 13 * 0 = 0'}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': 'M_Ulna = 22 * B_Ulna = 22 * 6 = 132', 'right_text': 'M_Ulna = 22 * B_Ulna. B_Ulna is 6. So 22*6 is 132'}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': 'T_Ulna = 19 * 0 = 0', 'right_text': 'T_Ulna = 19 * 0 = 0'}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': 'M_Ulna = 22 * B_Ulna = 22 * 6 = 132', 'right_text': "Monkey's Ulna = 22 × Bear's Ulna = 22 × 6 = 132"}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': 'T_Alula = 13 * 0 = 0', 'right_text': "Tiger's Alula = 13 * 0 = 0"}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': 'TigerUlna is 19*TigerAlula = 19*0=0', 'right_text': 'TigerUlna=19*TigerAlula=19*1=19'}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': 'HC_CB) = 16 + PSHB. PSHB is 0, so 16 + 0 = 16', 'right_text': 'HC_CC = 16 + 0 = 16'}
+{'family_role': 'probe_train', 'phase': 'calculation', 'left_text': 'HB_CT = 21 * 5 = 105', 'right_text': 'HB_CT: 21*5 is 105'}
+{'family_role': 'probe_train', 'phase': 'copy', 'left_text': 'CC_S) = CC_CT = 5', 'right_text': 'CCS) equals CC_CT, which is 5'}
+{'family_role': 'probe_train', 'phase': 'copy', 'left_text': 'EUS) = HB_CT = 13', 'right_text': 'E_Study_Photo_Studio = Hunting_Correction_Tape = 13'}
+{'family_role': 'probe_train', 'phase': 'copy', 'left_text': 'PSHB) = PSCC = 0', 'right_text': 'Photo_Studio_Hunting_Backpack = Photo_Studio_CC_Backpack = 1'}
+{'family_role': 'probe_train', 'phase': 'copy', 'left_text': 'CC_S) = CC_CT = 5', 'right_text': 'CC_Stationery = CC_Correction_Tape = 5'}

@@ -1,0 +1,52 @@
+{
+  "allow_single_class_measurement": true,
+  "batch_size": 1,
+  "dataset": "/mnt/mydata/wja/reasoning-diff/inputs/pr9-constrained-v3-extra12-20261009/tasks.jsonl",
+  "dataset_exposure": "previous_formal_cohort_development_exposed; disjoint_from_current_12; not_confirmatory",
+  "edit_values": 1,
+  "exclude_groups": [
+    "igsm-pr9-20261008-0004-op5",
+    "igsm-pr9-20261008-0012-op5",
+    "igsm-pr9-20261008-0015-op21",
+    "igsm-pr9-20261008-0021-op10",
+    "igsm-pr9-20261008-0025-op10",
+    "igsm-pr9-20261008-0026-op15",
+    "igsm-pr9-20261008-0039-op21",
+    "igsm-pr9-20261008-0041-op10",
+    "igsm-pr9-20261008-0052-op5",
+    "igsm-pr9-20261008-0054-op15",
+    "igsm-pr9-20261008-0059-op21",
+    "igsm-pr9-20261008-0062-op15"
+  ],
+  "gpu_min_free_mib": 21000,
+  "gpus": [
+    1
+  ],
+  "kind": "task_jsonl",
+  "layers": [
+    0,
+    12,
+    24,
+    35
+  ],
+  "max_new": 32768,
+  "model": "qwen3-8b",
+  "model_root": "/mnt/mydata/wja/reasoning-diff/assets/models",
+  "n_problems": 12,
+  "noise_seeds": [
+    3
+  ],
+  "purpose": "engineering_pilot",
+  "reference_seeds": [
+    0
+  ],
+  "sampling": {
+    "temperature": 0.6,
+    "top_k": 20,
+    "top_p": 0.95
+  },
+  "split_seed": 7319,
+  "time_budget_hours": 12,
+  "trajectory_protocol": "quantity_steps",
+  "quantity_decoding_protocol": "registered_quantity_constrained_v3"
+}

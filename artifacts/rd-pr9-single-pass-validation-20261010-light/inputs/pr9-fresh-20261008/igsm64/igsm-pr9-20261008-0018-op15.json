@@ -1,0 +1,208 @@
+{
+  "native_id": "igsm-pr9-20261008-0018-op15",
+  "family_id": "igsm-pr9-20261008-0018-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100818,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "7",
+  "target": "p_0_0_2_1",
+  "question": "The number of each Cloud Forest's Crab equals 22 times as much as the sum of each Temperate Evergreen Forest's Moray Eel, each Tropical Dry Forest's Moray Eel and each Cloud Forest's Moray Eel. The number of each Cloud Forest's Blue Whale equals 20 more than the sum of each Temperate Evergreen Forest's Moray Eel and each Tropical Dry Forest's Moray Eel. The number of each Temperate Evergreen Forest's Blue Whale equals the sum of each Cloud Forest's Crab, each Tropical Dry Forest's Crab, each Cloud Forest's Moray Eel and each Temperate Evergreen Forest's Moray Eel. The number of each Cloud Forest's Moray Eel equals 13 more than the sum of each Tropical Dry Forest's Moray Eel, each Temperate Evergreen Forest's Moray Eel and each Cloud Forest's Blue Whale. The number of each Temperate Evergreen Forest's Crab equals the sum of each Cloud Forest's Moray Eel, each Tropical Dry Forest's Creatures and each Temperate Evergreen Forest's Moray Eel. The number of each Temperate Evergreen Forest's Moray Eel equals each Tropical Dry Forest's Moray Eel. The number of each Tropical Dry Forest's Moray Eel equals 7. The number of each Tropical Dry Forest's Blue Whale equals the sum of each Cloud Forest's Blue Whale, each Cloud Forest's Moray Eel, each Temperate Evergreen Forest's Moray Eel and each Temperate Evergreen Forest's Blue Whale. The number of each Tropical Dry Forest's Crab equals the sum of each Cloud Forest's Creatures, each Cloud Forest's Blue Whale, each Temperate Evergreen Forest's Moray Eel and each Cloud Forest's Moray Eel. How many Crab does Tropical Dry Forest have?",
+  "lookup": {
+    "p_0_0_2_2": 7,
+    "p_0_0_1_2": 7,
+    "p_0_0_0_0": 11,
+    "p_0_0_0_2": 15,
+    "p_0_0_0_1": 17,
+    "p_1_0_0_1": 20,
+    "p_0_0_2_1": 7,
+    "p_0_0_1_0": 0,
+    "p_0_0_2_0": 10,
+    "p_1_0_2_1": 1,
+    "p_0_0_1_1": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_2",
+        "literal": 7,
+        "span": [
+          1055,
+          1114
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Temperate Evergreen Forest's Moray Eel"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_2",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Cloud Forest's Blue Whale"
+        ],
+        "expression": "(20 + (p_0_0_1_2 + p_0_0_2_2))",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_2_2",
+          "p_0_0_1_2",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Cloud Forest's Moray Eel"
+        ],
+        "expression": "(13 + ((p_0_0_2_2 + p_0_0_1_2) + p_0_0_0_0))",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_1_2",
+          "p_0_0_2_2",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Cloud Forest's Crab"
+        ],
+        "expression": "(22 * ((p_0_0_1_2 + p_0_0_2_2) + p_0_0_0_2))",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Cloud Forest's Creatures"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_0",
+          "p_0_0_1_2",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Tropical Dry Forest's Crab"
+        ],
+        "expression": "(((p_1_0_0_1 + p_0_0_0_0) + p_0_0_1_2) + p_0_0_0_2)",
+        "value": 7
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_2",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_2_1"
+      ]
+    ]
+  }
+}

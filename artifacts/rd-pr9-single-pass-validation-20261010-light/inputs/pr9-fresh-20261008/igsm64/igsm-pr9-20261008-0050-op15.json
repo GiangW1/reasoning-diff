@@ -1,0 +1,271 @@
+{
+  "native_id": "igsm-pr9-20261008-0050-op15",
+  "family_id": "igsm-pr9-20261008-0050-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100850,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "4",
+  "target": "p_0_1_1_1",
+  "question": "The number of each Haddock's Ulnar Carpal equals 14. The number of each Beetle Bungalow's Haddock equals 16. The number of each Spider Web Exhibit's Shark equals 3 times as much as the sum of each The Deep's Beetle Bungalow and each The Florida Aquarium's Spider Web Exhibit. The number of each The Deep's Beetle Bungalow equals each Beetle Bungalow's Haddock. The number of each Shark's Accessory Carpal equals 12 more than each Haddock's Ulnar Carpal. The number of each The Florida Aquarium's Spider Web Exhibit equals each The Deep's Bone. The number of each Beetle Bungalow's Shark equals 7 more than each Beetle Bungalow's Haddock. The number of each Seattle Aquarium's Beetle Bungalow equals 12. The number of each Haddock's Accessory Carpal equals 18. The number of each Shark's Ulnar Carpal equals 5. The number of each Seattle Aquarium's Spider Web Exhibit equals 19 more than each The Florida Aquarium's Spider Web Exhibit. The number of each Spider Web Exhibit's Haddock equals each The Florida Aquarium's Spider Web Exhibit. How many Haddock does Spider Web Exhibit have?",
+  "lookup": {
+    "p_0_0_0_0": 12,
+    "p_0_2_0_1": 5,
+    "p_0_1_0_1": 16,
+    "p_0_2_1_0": 18,
+    "p_0_2_1_1": 14,
+    "p_1_2_1_3": 9,
+    "p_0_2_0_0": 3,
+    "p_0_0_2_0": 16,
+    "p_1_2_0_3": 8,
+    "p_0_1_0_0": 0,
+    "p_1_1_0_3": 6,
+    "p_1_0_2_3": 4,
+    "p_0_0_1_1": 4,
+    "p_0_0_0_1": 0,
+    "p_0_1_1_1": 4,
+    "p_0_1_1_0": 14
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_1",
+        "literal": 16,
+        "span": [
+          53,
+          107
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_1_1",
+        "literal": 14,
+        "span": [
+          0,
+          51
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_1",
+        "literal": 5,
+        "span": [
+          760,
+          808
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_1_0",
+        "literal": 18,
+        "span": [
+          703,
+          758
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "The Deep's Beetle Bungalow"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Beetle Bungalow's Shark"
+        ],
+        "expression": "(7 + p_0_1_0_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Shark's Accessory Carpal"
+        ],
+        "expression": "(12 + p_0_2_1_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Shark's Bone"
+        ],
+        "expression": "(p_0_2_0_0 + p_0_2_0_1)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_0",
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Haddock's Bone"
+        ],
+        "expression": "(p_0_2_1_0 + p_0_2_1_1)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_0",
+          "p_1_2_0_3",
+          "p_0_1_0_1",
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Beetle Bungalow's Bone"
+        ],
+        "expression": "((p_0_1_0_0 * p_1_2_0_3) + (p_0_1_0_1 * p_1_2_1_3))",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_3",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_1_0_2_3",
+          "The Deep's Bone"
+        ],
+        "expression": "(p_0_0_2_0 * p_1_1_0_3)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_0_2_3"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "The Florida Aquarium's Spider Web Exhibit"
+        ],
+        "expression": "p_1_0_2_3",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Spider Web Exhibit's Haddock"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 4
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_1_0_2_3"
+      ],
+      [
+        "p_1_0_2_3",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_1"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "native_id": "igsm-pr9-20261008-0053-op10",
+  "family_id": "igsm-pr9-20261008-0053-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100853,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "19",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Bronx Zoo's Millipede Meadow equals 20. The number of each Insect House's Gecko equals each Insect House's Frilled Lizard. The number of each Ladybug Loft's Frilled Lizard equals the sum of each Philadelphia Zoo's Insect House, each Bronx Zoo's Enclosure, each Berlin Zoological Garden's Millipede Meadow and each Insect House's Frilled Lizard. The number of each Ladybug Loft's Gecko equals 17 times as much as the sum of each Insect House's Frilled Lizard, each Berlin Zoological Garden's Ladybug Loft and each Insect House's Gecko. The number of each Philadelphia Zoo's Insect House equals 10 more than each Bronx Zoo's Insect House. The number of each Millipede Meadow's Gecko equals the sum of each Philadelphia Zoo's Ladybug Loft and each Bronx Zoo's Enclosure. The number of each Philadelphia Zoo's Ladybug Loft equals 5 more than each Bronx Zoo's Enclosure. The number of each Berlin Zoological Garden's Insect House equals each Bronx Zoo's Millipede Meadow. The number of each Berlin Zoological Garden's Millipede Meadow equals 7. The number of each Bronx Zoo's Insect House equals 0 more than each Bronx Zoo's Millipede Meadow. The number of each Millipede Meadow's Frilled Lizard equals 17. The number of each Berlin Zoological Garden's Ladybug Loft equals 19 times as much as each Insect House's Frilled Lizard. The number of each Philadelphia Zoo's Millipede Meadow equals each Philadelphia Zoo's Insect House. The number of each Ladybug Loft's Turtle equals each Ladybug Loft's Gecko. The number of each Bronx Zoo's Ladybug Loft equals 9 more than each Bronx Zoo's Millipede Meadow. The number of each Insect House's Turtle equals 6. The number of each Insect House's Frilled Lizard equals 3. How many Enclosure does Philadelphia Zoo have?",
+  "lookup": {
+    "p_0_1_1_2": 3,
+    "p_0_0_2_2": 7,
+    "p_0_0_1_2": 20,
+    "p_0_0_1_1": 20,
+    "p_0_1_1_0": 3,
+    "p_0_0_0_1": 7,
+    "p_0_1_2_2": 17,
+    "p_0_0_2_1": 20,
+    "p_0_0_0_2": 7,
+    "p_0_0_2_0": 11,
+    "p_0_1_1_1": 6,
+    "p_0_1_0_0": 13,
+    "p_0_0_1_0": 6,
+    "p_0_1_0_1": 13,
+    "p_1_0_1_1": 0,
+    "p_0_1_0_2": 17,
+    "p_0_0_0_0": 5,
+    "p_0_1_2_0": 5,
+    "p_1_0_0_1": 19
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_2",
+        "literal": 20,
+        "span": [
+          0,
+          57
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Bronx Zoo's Ladybug Loft"
+        ],
+        "expression": "(9 + p_0_0_1_2)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Bronx Zoo's Insect House"
+        ],
+        "expression": "(0 + p_0_0_1_2)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Bronx Zoo's Enclosure"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_0_1_1) + p_0_0_1_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Philadelphia Zoo's Ladybug Loft"
+        ],
+        "expression": "(5 + p_1_0_1_1)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Philadelphia Zoo's Insect House"
+        ],
+        "expression": "(10 + p_0_0_1_1)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Philadelphia Zoo's Millipede Meadow"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Philadelphia Zoo's Enclosure"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2)",
+        "value": 19
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

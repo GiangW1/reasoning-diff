@@ -1,0 +1,350 @@
+{
+  "native_id": "igsm-pr9-20261008-0015-op21",
+  "family_id": "igsm-pr9-20261008-0015-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100815,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "11",
+  "target": "p_0_0_3_0",
+  "question": "The number of each Beef Jerky's Teff equals 21 more than the sum of each Tortilla Chips's Ingredient and each Tortilla Chips's Millet. The number of each Trail Mix's Millet equals the difference of each Rice Cakes's Ingredient and each Beef Jerky's Teff. The number of each Tortilla Chips's Corn equals 6 more than each Trail Mix's Teff. The number of each Beef Jerky's Millet equals the difference of each Beef Jerky's Corn and each Trail Mix's Teff. The number of each Trail Mix's Teff equals each Trail Mix's Corn. The number of each Beef Jerky's Quinoa equals the sum of each Tortilla Chips's Corn, each Tortilla Chips's Ingredient and each Trail Mix's Corn. The number of each Rice Cakes's Corn equals each Beef Jerky's Ingredient. The number of each Trail Mix's Corn equals 21. The number of each Beef Jerky's Corn equals each Tortilla Chips's Ingredient. The number of each Tortilla Chips's Millet equals 1. The number of each Rice Cakes's Millet equals each Beef Jerky's Teff. The number of each Tortilla Chips's Quinoa equals 10 times as much as the sum of each Tortilla Chips's Corn and each Trail Mix's Teff. How many Millet does Trail Mix have?",
+  "lookup": {
+    "p_0_0_0_0": 1,
+    "p_0_0_3_1": 21,
+    "p_0_0_3_3": 21,
+    "p_0_0_0_1": 4,
+    "p_0_0_0_2": 20,
+    "p_1_0_0_1": 2,
+    "p_0_0_1_2": 4,
+    "p_0_0_1_1": 2,
+    "p_0_0_1_3": 1,
+    "p_0_0_2_0": 1,
+    "p_0_0_1_0": 4,
+    "p_1_0_1_1": 11,
+    "p_0_0_2_1": 11,
+    "p_1_0_2_1": 12,
+    "p_0_0_3_0": 11
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 1,
+        "span": [
+          862,
+          913
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_3_1",
+        "literal": 21,
+        "span": [
+          737,
+          782
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_3",
+        "parents": [
+          "p_0_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_3_3",
+          "Trail Mix's Teff"
+        ],
+        "expression": "p_0_0_3_1",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Tortilla Chips's Corn"
+        ],
+        "expression": "(6 + p_0_0_3_3)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Tortilla Chips's Quinoa"
+        ],
+        "expression": "(10 * (p_0_0_0_1 + p_0_0_3_3))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Tortilla Chips's Ingredient"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Beef Jerky's Teff"
+        ],
+        "expression": "(21 + (p_1_0_0_1 + p_0_0_0_0))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Rice Cakes's Millet"
+        ],
+        "expression": "p_0_0_1_3",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Beef Jerky's Corn"
+        ],
+        "expression": "p_1_0_0_1",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Beef Jerky's Millet"
+        ],
+        "expression": "(p_0_0_1_1 - p_0_0_3_3)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_0_1",
+          "p_1_0_0_1",
+          "p_0_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Beef Jerky's Quinoa"
+        ],
+        "expression": "((p_0_0_0_1 + p_1_0_0_1) + p_0_0_3_1)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1",
+          "p_0_0_1_2",
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Beef Jerky's Ingredient"
+        ],
+        "expression": "(((p_0_0_1_0 + p_0_0_1_1) + p_0_0_1_2) + p_0_0_1_3)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Rice Cakes's Corn"
+        ],
+        "expression": "p_1_0_1_1",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Rice Cakes's Ingredient"
+        ],
+        "expression": "(p_0_0_2_0 + p_0_0_2_1)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Trail Mix's Millet"
+        ],
+        "expression": "(p_1_0_2_1 - p_0_0_1_3)",
+        "value": 11
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_3_1",
+        "p_0_0_3_3"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_3_0"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 181.55it/s]
+trace-reference:68c40166ebc546866eed53b5 prospective_decode
+Traceback (most recent call last):
+  File "/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py", line 563, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py", line 535, in main
+    p3_worker(root, args.worker_index)
+  File "/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py", line 462, in p3_worker
+    result = run_p3([trace], tasks, event_rows, hidden, direction,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/wja/reasoning-diff-pr9-pilot/src/reasoning_diff/spurious_intervention.py", line 166, in run_p3
+    raise RuntimeError('P3 actual hook norms do not match the control protocol')
+RuntimeError: P3 actual hook norms do not match the control protocol

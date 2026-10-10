@@ -1,0 +1,52 @@
+{
+  "created_at": 1791562915.3486676,
+  "run": "/mnt/mydata/wja/reasoning-diff/runs/pr9-quantity-constrained-v3-20261009",
+  "n_traces": 554,
+  "by_role": {
+    "reference": {
+      "traces": 36,
+      "correct": 31,
+      "format_pass": 36,
+      "steps": 309,
+      "placeholder_steps": 21,
+      "placeholder_rate": 0.06796116504854369,
+      "forced_commit_traces": 0
+    },
+    "noise": {
+      "traces": 36,
+      "correct": 28,
+      "format_pass": 36,
+      "steps": 309,
+      "placeholder_steps": 33,
+      "placeholder_rate": 0.10679611650485436,
+      "forced_commit_traces": 0
+    },
+    "edit": {
+      "traces": 450,
+      "correct": 392,
+      "format_pass": 450,
+      "steps": 4472,
+      "placeholder_steps": 214,
+      "placeholder_rate": 0.04785330948121646,
+      "forced_commit_traces": 9
+    },
+    "source": {
+      "traces": 32,
+      "correct": 27,
+      "format_pass": 32,
+      "steps": 328,
+      "placeholder_steps": 24,
+      "placeholder_rate": 0.07317073170731707,
+      "forced_commit_traces": 0
+    }
+  },
+  "all_format_pass": true,
+  "reference_placeholder_rate": 0.06796116504854369,
+  "reference_accuracy": 0.8611111111111112,
+  "gate_thresholds": {
+    "reference_placeholder_rate_max": 0.1,
+    "all_format_pass_required": true
+  },
+  "gate_passed": true,
+  "interpretation": "Engineering semantic screen; no trace was regenerated or excluded."
+}

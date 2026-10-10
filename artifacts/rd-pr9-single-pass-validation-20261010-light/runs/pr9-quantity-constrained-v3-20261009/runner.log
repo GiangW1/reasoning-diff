@@ -1,0 +1,20 @@
+answers-0
+{'n_references': 36, 'n_problems': 12, 'class_counts_by_condition_and_split': {'base/probe_train': {'1': 3, '0': 1}, 'base/dev': {'1': 2}, 'base/direction_fit': {'1': 2}, 'base/test': {'0': 1, '1': 2}, 'related_noop/probe_train': {'1': 4}, 'related_noop/dev': {'1': 2}, 'related_noop/direction_fit': {'0': 1, '1': 1}, 'related_noop/test': {'1': 3}, 'neutral_noop/probe_train': {'1': 3, '0': 1}, 'neutral_noop/dev': {'1': 2}, 'neutral_noop/direction_fit': {'0': 1, '1': 1}, 'neutral_noop/test': {'1': 3}}, 'answered_class_counts': {'1': 31, '0': 5}, 'failure_counts': {}, 'status': 'two_outcomes_observed', 'parser_and_budget_failures_are_not_genuine_reasoning_errors': True, 'failure_as_incorrect': True, 'correctness_does_not_change_cohort': True, 'scientific_conclusion': None}
+generate-0
+{'base': {'n_traces': 12, 'n_problems': 12, 'eligible_cells': 783, 'support_cells': 783, 'noise_supported_cells': 783, 'matched_cell_coverage': 1.0, 'common_noise_coverage': 1.0, 'rho_coverage': 1.0, 'variable_coverage': 1.0, 'target_coverage': 1.0}, 'related_noop': {'n_traces': 12, 'n_problems': 12, 'eligible_cells': 886, 'support_cells': 886, 'noise_supported_cells': 886, 'matched_cell_coverage': 1.0, 'common_noise_coverage': 1.0, 'rho_coverage': 1.0, 'variable_coverage': 1.0, 'target_coverage': 1.0}, 'neutral_noop': {'n_traces': 12, 'n_problems': 12, 'eligible_cells': 886, 'support_cells': 886, 'noise_supported_cells': 886, 'matched_cell_coverage': 1.0, 'common_noise_coverage': 1.0, 'rho_coverage': 1.0, 'variable_coverage': 1.0, 'target_coverage': 1.0}}
+label
+collect-0
+fit-0
+collect-12
+fit-12
+collect-24
+fit-24
+collect-35
+fit-35
+fit-pre_value
+fit-pre_step
+fit-post_step
+fit-all
+calibrate
+p3-0
+c2-0

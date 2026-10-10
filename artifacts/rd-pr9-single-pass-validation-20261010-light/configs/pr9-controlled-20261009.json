@@ -1,0 +1,38 @@
+{
+  "allow_single_class_measurement": true,
+  "batch_size": 1,
+  "dataset": "/mnt/mydata/wja/reasoning-diff/inputs/pr9-pilot-20261009/tasks.jsonl",
+  "dataset_exposure": "same_12_development_exposed_families_as_natural_pilot; controlled_prompt_condition; not_confirmatory",
+  "edit_values": 1,
+  "exclude_groups": [],
+  "gpu_min_free_mib": 22000,
+  "gpus": [
+    1
+  ],
+  "kind": "task_jsonl",
+  "layers": [
+    0,
+    12,
+    24,
+    35
+  ],
+  "max_new": 32768,
+  "model": "qwen3-8b",
+  "model_root": "/mnt/mydata/wja/reasoning-diff/assets/models",
+  "n_problems": 12,
+  "noise_seeds": [
+    3
+  ],
+  "purpose": "engineering_pilot",
+  "reference_seeds": [
+    0
+  ],
+  "sampling": {
+    "temperature": 0.6,
+    "top_k": 20,
+    "top_p": 0.95
+  },
+  "split_seed": 7319,
+  "time_budget_hours": 12,
+  "trajectory_protocol": "quantity_steps"
+}

@@ -1,0 +1,196 @@
+{
+  "native_id": "igsm-pr9-20261008-0029-op10",
+  "family_id": "igsm-pr9-20261008-0029-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100829,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "22",
+  "target": "p_1_2_0_3",
+  "question": "The number of each Camera Backpack's Legal Pad equals 13 more than the sum of each Film Studio's Backpack and each Riverside College's Film Studio. The number of each Riverside College's Film Studio equals 9 times as much as each Riverside College's Graphic Design Studio. The number of each Riverside College's Graphic Design Studio equals 13. The number of each Graphic Design Studio's Drone Backpack equals 2 times as much as the difference of each Drone Backpack's Post-it Notes and each Pine Valley College's Film Studio. The number of each Drone Backpack's Post-it Notes equals 8. The number of each Pine Valley College's Film Studio equals 2 times as much as each Drone Backpack's Post-it Notes. The number of each Drone Backpack's Legal Pad equals 21. The number of each Film Studio's Camera Backpack equals 9 times as much as the sum of each Riverside College's Classroom and each Riverside College's Film Studio. The number of each Film Studio's Drone Backpack equals 10 times as much as each Riverside College's Graphic Design Studio. How many Stationery does Camera Backpack have?",
+  "lookup": {
+    "p_0_0_0_0": 13,
+    "p_0_2_1_0": 8,
+    "p_0_2_1_1": 21,
+    "p_0_1_1_1": 15,
+    "p_0_0_0_1": 2,
+    "p_1_0_0_1": 15,
+    "p_0_1_1_0": 15,
+    "p_0_0_1_1": 16,
+    "p_0_1_0_1": 7,
+    "p_1_1_1_2": 7,
+    "p_0_2_0_1": 22,
+    "p_1_2_0_3": 22
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 13,
+        "span": [
+          273,
+          343
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Riverside College's Film Studio"
+        ],
+        "expression": "(9 * p_0_0_0_0)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Riverside College's Classroom"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Film Studio's Camera Backpack"
+        ],
+        "expression": "(9 * (p_1_0_0_1 + p_0_0_0_1))",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Film Studio's Drone Backpack"
+        ],
+        "expression": "(10 * p_0_0_0_0)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Film Studio's Backpack"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_1_1_1_2",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Camera Backpack's Legal Pad"
+        ],
+        "expression": "(13 + (p_1_1_1_2 + p_0_0_0_1))",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Camera Backpack's Stationery"
+        ],
+        "expression": "p_0_2_0_1",
+        "value": 22
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ]
+    ]
+  }
+}

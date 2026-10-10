@@ -1,0 +1,386 @@
+{
+  "native_id": "igsm-pr9-20261008-0031-op21",
+  "family_id": "igsm-pr9-20261008-0031-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100831,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "11",
+  "target": "p_0_0_1_1",
+  "question": "The number of each Chimpanzee's Pulmonary Arteries equals 11 more than the sum of each Ibirapuera Park in S\u00e3o Paulo's Gorilla and each Hampstead Heath in London's Gorilla. The number of each Gorilla's Pulmonary Arteries equals each Ibirapuera Park in S\u00e3o Paulo's Gorilla. The number of each Pulmonary Arteries's Cerebral Cortex Neurons equals the sum of each Gorilla's Organs and each Ibirapuera Park in S\u00e3o Paulo's Gorilla. The number of each Hampstead Heath in London's Gorilla equals 21. The number of each Ibirapuera Park in S\u00e3o Paulo's Chimpanzee equals the difference of each Hampstead Heath in London's Gorilla and each Chimpanzee's Coronary Arteries. The number of each Hampstead Heath in London's Chimpanzee equals each Gorilla's Cells. The number of each Gorilla's Coronary Arteries equals 6 times as much as the sum of each Chimpanzee's Organs and each Ibirapuera Park in S\u00e3o Paulo's Chimpanzee. The number of each Pulmonary Arteries's Motor Neurons equals the difference of each Pulmonary Arteries's Cerebral Cortex Neurons and each Chimpanzee's Pulmonary Arteries. The number of each Coronary Arteries's Cerebral Cortex Neurons equals 5 times as much as each Ibirapuera Park in S\u00e3o Paulo's Chimpanzee. The number of each Chimpanzee's Coronary Arteries equals 12 more than each Hampstead Heath in London's Gorilla. The number of each Ibirapuera Park in S\u00e3o Paulo's Gorilla equals 17 more than each Hampstead Heath in London's Gorilla. The number of each Coronary Arteries's Motor Neurons equals 7. How many Chimpanzee does Hampstead Heath in London have?",
+  "lookup": {
+    "p_0_0_1_0": 21,
+    "p_0_1_1_1": 10,
+    "p_0_0_0_1": 11,
+    "p_0_0_0_0": 15,
+    "p_0_1_0_0": 15,
+    "p_0_2_1_1": 9,
+    "p_0_2_1_0": 7,
+    "p_1_2_1_3": 16,
+    "p_0_1_1_0": 1,
+    "p_1_1_1_2": 11,
+    "p_0_1_0_1": 17,
+    "p_1_1_0_2": 9,
+    "p_0_2_0_1": 1,
+    "p_0_2_0_0": 0,
+    "p_1_2_0_3": 1,
+    "p_1_1_0_3": 11,
+    "p_0_0_1_1": 11
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 21,
+        "span": [
+          425,
+          489
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_1_0",
+        "literal": 7,
+        "span": [
+          1447,
+          1508
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Ibirapuera Park in S\u00e3o Paulo's Gorilla"
+        ],
+        "expression": "(17 + p_0_0_1_0)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Gorilla's Pulmonary Arteries"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Chimpanzee's Pulmonary Arteries"
+        ],
+        "expression": "(11 + (p_0_0_0_0 + p_0_0_1_0))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Chimpanzee's Coronary Arteries"
+        ],
+        "expression": "(12 + p_0_0_1_0)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Chimpanzee's Organs"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Ibirapuera Park in S\u00e3o Paulo's Chimpanzee"
+        ],
+        "expression": "(p_0_0_1_0 - p_0_1_1_1)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_1_1_1_2",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Gorilla's Coronary Arteries"
+        ],
+        "expression": "(6 * (p_1_1_1_2 + p_0_0_0_1))",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Gorilla's Organs"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_1_1_0_2",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Pulmonary Arteries's Cerebral Cortex Neurons"
+        ],
+        "expression": "(p_1_1_0_2 + p_0_0_0_0)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_2_0_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Pulmonary Arteries's Motor Neurons"
+        ],
+        "expression": "(p_0_2_0_1 - p_0_1_1_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Pulmonary Arteries's Cells"
+        ],
+        "expression": "(p_0_2_0_0 + p_0_2_0_1)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Coronary Arteries's Cerebral Cortex Neurons"
+        ],
+        "expression": "(5 * p_0_0_0_1)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_0",
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Coronary Arteries's Cells"
+        ],
+        "expression": "(p_0_2_1_0 + p_0_2_1_1)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_0",
+          "p_1_2_0_3",
+          "p_0_1_0_1",
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Gorilla's Cells"
+        ],
+        "expression": "((p_0_1_0_0 * p_1_2_0_3) + (p_0_1_0_1 * p_1_2_1_3))",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Hampstead Heath in London's Chimpanzee"
+        ],
+        "expression": "p_1_1_0_3",
+        "value": 11
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_0_0_1_1"
+      ]
+    ]
+  }
+}

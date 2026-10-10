@@ -1,0 +1,19 @@
+{
+  "dataset": "/mnt/mydata/wja/reasoning-diff/inputs/pr9-fresh-20261008/igsm64",
+  "kind": "igsm",
+  "dataset_exposure": "fresh_official_generator_snapshot_seed_2026100800_no_prior_model_outputs_observed_exploratory_frozen_design",
+  "model": "qwen3-8b",
+  "model_root": "/mnt/mydata/wja/reasoning-diff/assets/models",
+  "gpus": [2, 3, 6],
+  "batch_size": 2,
+  "n_problems": 64,
+  "split_seed": 7319,
+  "reference_seeds": [0, 1, 2],
+  "noise_seeds": [3, 4, 5],
+  "edit_values": 2,
+  "max_new": 32768,
+  "sampling": {"temperature": 0.6, "top_k": 20, "top_p": 0.95},
+  "layers": [0, 12, 24, 35],
+  "time_budget_hours": null,
+  "exclude_groups": []
+}

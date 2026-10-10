@@ -1,0 +1,23 @@
+{
+  "pid": 1474860,
+  "command": [
+    "/mnt/mydata/zm/projects/RPent/.venv/bin/python",
+    "/home/wja/reasoning-diff-pr9-quantity-fast/scripts/run_formal.py",
+    "--mode",
+    "all",
+    "--config",
+    "/mnt/mydata/wja/reasoning-diff/configs/pr9-constrained-v2-20261009.json",
+    "--out-root",
+    "/mnt/mydata/wja/reasoning-diff/runs/pr9-quantity-constrained-v2-20261009"
+  ],
+  "source_commit": "cc9e82d1371e3d6392469426b4d883fc01e84772",
+  "started_at": "2026-10-09T19:26:49.752204+08:00",
+  "gpu": [
+    1
+  ],
+  "batch_size": 1,
+  "budget_hours": 12,
+  "budget_includes_prior_development_trials": true,
+  "condition": "registered_quantity_constrained_v2",
+  "reused_responses": 0
+}

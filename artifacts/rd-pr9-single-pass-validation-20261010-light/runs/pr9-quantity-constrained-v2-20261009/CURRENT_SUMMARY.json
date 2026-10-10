@@ -1,0 +1,62 @@
+{
+  "completed_response_count": 6,
+  "completed_by_role": {
+    "reference": 6
+  },
+  "correct_by_role": {
+    "reference": 6
+  },
+  "status_counts": {
+    "natural_complete": 6
+  },
+  "pipeline": {
+    "status": "stopped_for_decoder_diagnostic",
+    "reason": "termination_pool_still_suppresses_some_markup_prefixes; excessive_repetition_and_commit_caps",
+    "n_completed": 6,
+    "completed_ids": [
+      "trace-reference:6c1c437361f13bb7d3585a76",
+      "trace-reference:81e199ee2c92828c70bf4123",
+      "trace-reference:b4afa1c7f06cc0d24f298ce7",
+      "trace-reference:c0903dbde943b2020da0ec20",
+      "trace-reference:eea93471409ec23f31610217",
+      "trace-reference:fe6d2b49e837d37dfa6f43ed"
+    ],
+    "n_format_passed": 6,
+    "possibly_interrupted_request": {
+      "id": "trace-reference:43a4eebf84aa4318f56d2d87",
+      "role": "reference",
+      "seed": 0,
+      "task_id": "igsm-pr9-20261008-0015-op21"
+    },
+    "scientific_conclusion": null,
+    "at": "2026-10-09T19:30:00.202130+08:00"
+  },
+  "plan": {
+    "by_role": {
+      "edit": 450,
+      "noise": 36,
+      "reference": 36,
+      "source": 32
+    },
+    "decode_token_ceiling": 18153472,
+    "expected_opportunities": {
+      "edit_values": 1,
+      "noise_donors_per_reference": 1,
+      "reference_seeds": [
+        0
+      ]
+    },
+    "family_roles": {
+      "calibration": 1,
+      "dev": 2,
+      "direction_fit": 2,
+      "probe_train": 4,
+      "test": 3
+    },
+    "n_problems": 12,
+    "p3_decode_calls_per_selected_prefix": 14,
+    "requests": 554,
+    "scientific_conclusion": null,
+    "semantic_audit": "pending"
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "status": "awaiting_acceptance_criteria",
+  "started_at": "2026-10-10T00:25:19.469515+08:00",
+  "validation_roots": {
+    "natural": "/mnt/mydata/wja/reasoning-diff/runs/pr9-validation-natural-20261010",
+    "controlled": "/mnt/mydata/wja/reasoning-diff/runs/pr9-validation-controlled-20261010"
+  },
+  "formal_roots": {
+    "natural": "/mnt/mydata/wja/reasoning-diff/runs/pr9-formal-natural-20261010",
+    "controlled": "/mnt/mydata/wja/reasoning-diff/runs/pr9-formal-controlled-20261010"
+  },
+  "design_frozen": true,
+  "outcomes_used_for_selection": false,
+  "children": {
+    "validation_natural": {
+      "pid": 1164258,
+      "gpu": 6,
+      "root": "/mnt/mydata/wja/reasoning-diff/runs/pr9-validation-natural-20261010",
+      "started_at": "2026-10-10T00:25:19.470264+08:00",
+      "command": [
+        "/mnt/mydata/zm/projects/RPent/.venv/bin/python",
+        "/mnt/mydata/wja/reasoning-diff/operations/pr9-formal-gate-20261010/continue_unlimited.py",
+        "--attach-worker",
+        "4020820",
+        "--out-root",
+        "/mnt/mydata/wja/reasoning-diff/runs/pr9-validation-natural-20261010"
+      ],
+      "previous_parent_pid": 3954790,
+      "attached_worker_pid": 4020820
+    },
+    "validation_controlled": {
+      "pid": 3954791,
+      "gpu": 7,
+      "root": "/mnt/mydata/wja/reasoning-diff/runs/pr9-validation-controlled-20261010",
+      "started_at": "2026-10-10T00:25:19.470926+08:00",
+      "command": [
+        "/mnt/mydata/zm/projects/RPent/.venv/bin/python",
+        "/home/wja/reasoning-diff-pr9-quantity-v3/scripts/run_formal.py",
+        "--mode",
+        "all",
+        "--config",
+        "/mnt/mydata/wja/reasoning-diff/configs/pr9-validation-controlled-20261010.json",
+        "--out-root",
+        "/mnt/mydata/wja/reasoning-diff/runs/pr9-validation-controlled-20261010"
+      ]
+    }
+  },
+  "progress": {
+    "validation_natural": {
+      "pid": 1164258,
+      "gpu": 6,
+      "responses": 525,
+      "pipeline": "complete",
+      "process_alive": false,
+      "returncode": 0,
+      "updated_at": "2026-10-10T12:45:49.403558+08:00"
+    },
+    "validation_controlled": {
+      "pid": 3954791,
+      "gpu": 7,
+      "responses": 525,
+      "pipeline": "complete",
+      "process_alive": false,
+      "returncode": 0,
+      "updated_at": "2026-10-10T12:45:49.405264+08:00"
+    },
+    "formal_natural": {
+      "pid": null,
+      "gpu": 6,
+      "responses": 0,
+      "pipeline": "planned",
+      "process_alive": false,
+      "returncode": 0,
+      "updated_at": "2026-10-10T12:45:49.405333+08:00"
+    },
+    "formal_controlled": {
+      "pid": null,
+      "gpu": 7,
+      "responses": 0,
+      "pipeline": "planned",
+      "process_alive": false,
+      "returncode": 0,
+      "updated_at": "2026-10-10T12:45:49.405386+08:00"
+    }
+  },
+  "supervisor_pid": 1164262,
+  "supervisor_started_at": "2026-10-10T11:35:46.970075+08:00",
+  "updated_at": "2026-10-10T12:45:49.405395+08:00",
+  "validation_gate": {
+    "updated_at": "2026-10-10T12:45:19.401119+08:00",
+    "conditions": {
+      "validation_natural_matching": false,
+      "validation_controlled_matching": true,
+      "fresh_formal_test_cohort": false,
+      "independent_semantic_audit": false
+    },
+    "launch_formal": false,
+    "validation": {
+      "natural": {
+        "planned": 525,
+        "responses": 525,
+        "pipeline": "complete",
+        "measurement": true,
+        "coverage_checks": {
+          "base": false,
+          "related_noop": false,
+          "neutral_noop": false
+        },
+        "minimum_coverage": 0.95
+      },
+      "controlled": {
+        "planned": 525,
+        "responses": 525,
+        "pipeline": "complete",
+        "measurement": true,
+        "coverage_checks": {
+          "base": true,
+          "related_noop": true,
+          "neutral_noop": true
+        },
+        "minimum_coverage": 0.95
+      }
+    },
+    "minimum_coverage": 0.95,
+    "decision_note": "Generation completion and constrained format alone do not establish natural matching or semantic validity. Original placeholder count is a quality screen, not an independent semantic audit.",
+    "formal_candidate": {}
+  },
+  "budget_deadline": null,
+  "budget_disabled_by_user": true
+}

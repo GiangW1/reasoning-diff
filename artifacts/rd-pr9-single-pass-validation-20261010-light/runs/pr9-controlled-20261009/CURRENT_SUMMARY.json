@@ -1,0 +1,34 @@
+{
+  "completed_response_count": 0,
+  "completed_by_role": {},
+  "correct_by_role": {},
+  "status_counts": {},
+  "plan": {
+    "by_role": {
+      "edit": 450,
+      "noise": 36,
+      "reference": 36,
+      "source": 32
+    },
+    "decode_token_ceiling": 18153472,
+    "expected_opportunities": {
+      "edit_values": 1,
+      "noise_donors_per_reference": 1,
+      "reference_seeds": [
+        0
+      ]
+    },
+    "family_roles": {
+      "calibration": 1,
+      "dev": 2,
+      "direction_fit": 2,
+      "probe_train": 4,
+      "test": 3
+    },
+    "n_problems": 12,
+    "p3_decode_calls_per_selected_prefix": 14,
+    "requests": 554,
+    "scientific_conclusion": null,
+    "semantic_audit": "pending"
+  }
+}

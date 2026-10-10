@@ -1,0 +1,238 @@
+{
+  "native_id": "igsm-pr9-20261008-0054-op15",
+  "family_id": "igsm-pr9-20261008-0054-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100854,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "18",
+  "target": "p_0_0_0_1",
+  "question": "The number of each Chimpanzee's Hypothalamus equals 7. The number of each Chimpanzee's Frontal Lobe equals 18 times as much as each Kangaroo's Ganglia. The number of each Kangaroo's Hypothalamus equals 12 times as much as the sum of each Zebra's Hypothalamus, each Kangaroo's Frontal Lobe and each Chimpanzee's Ganglia. The number of each Kangaroo's Ganglia equals each Chimpanzee's Hypothalamus. The number of each Zebra's Hypothalamus equals each Kangaroo's Frontal Lobe. The number of each Zebra's Frontal Lobe equals 2 times as much as the sum of each Chimpanzee's Organs, each Chimpanzee's Ganglia and each Chimpanzee's Hypothalamus. The number of each Zebra's Ganglia equals 18 more than each Kangaroo's Hypothalamus. The number of each Chimpanzee's Ganglia equals 9 times as much as each Chimpanzee's Hypothalamus. The number of each Kangaroo's Frontal Lobe equals each Zebra's Frontal Lobe. How many Ganglia does Zebra have?",
+  "lookup": {
+    "p_0_0_2_2": 7,
+    "p_0_0_1_1": 7,
+    "p_0_0_2_1": 17,
+    "p_0_0_2_0": 11,
+    "p_1_0_2_1": 12,
+    "p_0_0_0_0": 3,
+    "p_0_0_1_0": 3,
+    "p_0_0_0_2": 3,
+    "p_0_0_1_2": 0,
+    "p_0_0_0_1": 18
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_2",
+        "literal": 7,
+        "span": [
+          0,
+          53
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Kangaroo's Ganglia"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Chimpanzee's Frontal Lobe"
+        ],
+        "expression": "(18 * p_0_0_1_1)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Chimpanzee's Ganglia"
+        ],
+        "expression": "(9 * p_0_0_2_2)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Chimpanzee's Organs"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Zebra's Frontal Lobe"
+        ],
+        "expression": "(2 * ((p_1_0_2_1 + p_0_0_2_1) + p_0_0_2_2))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Kangaroo's Frontal Lobe"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Zebra's Hypothalamus"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_0_2",
+          "p_0_0_1_0",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Kangaroo's Hypothalamus"
+        ],
+        "expression": "(12 * ((p_0_0_0_2 + p_0_0_1_0) + p_0_0_2_1))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Zebra's Ganglia"
+        ],
+        "expression": "(18 + p_0_0_1_2)",
+        "value": 18
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_0_1"
+      ]
+    ]
+  }
+}

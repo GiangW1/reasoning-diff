@@ -1,0 +1,45 @@
+answers-0
+{'n_references': 36, 'n_problems': 12, 'class_counts_by_condition_and_split': {'base/probe_train': {'0': 1, '1': 1}, 'base/dev': {'1': 3}, 'base/direction_fit': {'1': 2}, 'base/test': {}, 'related_noop/probe_train': {'1': 2}, 'related_noop/dev': {'0': 1, '1': 2}, 'related_noop/direction_fit': {'1': 2}, 'related_noop/test': {}, 'neutral_noop/probe_train': {'1': 2}, 'neutral_noop/dev': {'1': 3}, 'neutral_noop/direction_fit': {'1': 2}, 'neutral_noop/test': {}}, 'answered_class_counts': {'0': 5, '1': 31}, 'failure_counts': {}, 'status': 'two_outcomes_observed', 'parser_and_budget_failures_are_not_genuine_reasoning_errors': True, 'failure_as_incorrect': True, 'correctness_does_not_change_cohort': True, 'scientific_conclusion': None}
+generate-0
+{'base': {'n_traces': 12, 'n_problems': 12, 'eligible_cells': 709, 'support_cells': 709, 'noise_supported_cells': 709, 'matched_cell_coverage': 1.0, 'common_noise_coverage': 1.0, 'rho_coverage': 1.0, 'variable_coverage': 1.0, 'target_coverage': 1.0}, 'related_noop': {'n_traces': 12, 'n_problems': 12, 'eligible_cells': 804, 'support_cells': 804, 'noise_supported_cells': 804, 'matched_cell_coverage': 1.0, 'common_noise_coverage': 1.0, 'rho_coverage': 1.0, 'variable_coverage': 1.0, 'target_coverage': 1.0}, 'neutral_noop': {'n_traces': 12, 'n_problems': 12, 'eligible_cells': 804, 'support_cells': 804, 'noise_supported_cells': 804, 'matched_cell_coverage': 1.0, 'common_noise_coverage': 1.0, 'rho_coverage': 1.0, 'variable_coverage': 1.0, 'target_coverage': 1.0}}
+label
+collect-0
+fit-0
+collect-12
+fit-12
+collect-24
+fit-24
+collect-35
+fit-35
+fit-pre_value
+fit-pre_step
+fit-post_step
+fit-all
+calibrate
+p3-0
+c2-0
+Traceback (most recent call last):
+  File "/home/wja/reasoning-diff-pr9-quantity-v3/scripts/run_formal.py", line 611, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/wja/reasoning-diff-pr9-quantity-v3/scripts/run_formal.py", line 597, in main
+    if function(root) is False:
+       ^^^^^^^^^^^^^^
+  File "/home/wja/reasoning-diff-pr9-quantity-v3/scripts/run_formal.py", line 528, in intervene
+    report(root)
+  File "/home/wja/reasoning-diff-pr9-quantity-v3/scripts/run_formal.py", line 533, in report
+    p3 = [r for i in range(len(protocol['config']['gpus'])) for r in read_jsonl(root / f'p3-gpu{i}.jsonl')]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/wja/reasoning-diff-pr9-quantity-v3/scripts/run_formal.py", line 533, in <listcomp>
+    p3 = [r for i in range(len(protocol['config']['gpus'])) for r in read_jsonl(root / f'p3-gpu{i}.jsonl')]
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/wja/reasoning-diff-pr9-quantity-v3/src/reasoning_diff/io.py", line 94, in read_jsonl
+    for line_no, line in enumerate(Path(path).read_text(encoding="utf-8-sig").splitlines(), 1):
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zm/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zm/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/mydata/wja/reasoning-diff/runs/pr9-validation-controlled-20261010/p3-gpu0.jsonl'

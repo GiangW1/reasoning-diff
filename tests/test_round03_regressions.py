@@ -262,10 +262,10 @@ def test_analyze_uses_p1_table(tmp_path):
     write_jsonl(
         src / "p1_table.jsonl",
         [
-            {"length": 1, "op": 0, "rho": 0, "y": 0, "held_out": False},
-            {"length": 2, "op": 0, "rho": 1, "y": 1, "held_out": False},
-            {"length": 3, "op": 0, "rho": 0, "y": 0, "held_out": True},
-            {"length": 4, "op": 0, "rho": 1, "y": 1, "held_out": True},
+            {"analysis_unit": "trajectory", "problem_id": "a", "split": "probe_train", "length": 1, "op": 0, "rho": 0, "y": 0, "held_out": False},
+            {"analysis_unit": "trajectory", "problem_id": "b", "split": "probe_train", "length": 2, "op": 0, "rho": 1, "y": 1, "held_out": False},
+            {"analysis_unit": "trajectory", "problem_id": "c", "split": "test", "length": 3, "op": 0, "rho": 0, "y": 0, "held_out": True},
+            {"analysis_unit": "trajectory", "problem_id": "d", "split": "test", "length": 4, "op": 0, "rho": 1, "y": 1, "held_out": True},
         ],
     )
     out = tmp_path / "an"

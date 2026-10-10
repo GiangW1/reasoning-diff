@@ -1,0 +1,302 @@
+{
+  "native_id": "igsm-pr9-20261008-0058-op15",
+  "family_id": "igsm-pr9-20261008-0058-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100858,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "12",
+  "target": "p_0_1_2_2",
+  "question": "The number of each Duodenum's Diaphragm Muscle Cells equals each Daphnia's Duodenum. The number of each Daphnia's Rectum equals each Trichomonas's Salivary Glands. The number of each Rectum's Gastrointestinal Smooth Muscle Cells equals the sum of each Duodenum's Diaphragm Muscle Cells and each Radiolarian's Rectum. The number of each Rectum's Extraocular Muscle Cells equals the sum of each Radiolarian's Duodenum, each Salivary Glands's Diaphragm Muscle Cells and each Salivary Glands's Gastrointestinal Smooth Muscle Cells. The number of each Radiolarian's Duodenum equals each Daphnia's Salivary Glands. The number of each Salivary Glands's Diaphragm Muscle Cells equals 8 more than each Trichomonas's Duodenum. The number of each Duodenum's Gastrointestinal Smooth Muscle Cells equals the difference of each Rectum's Gastrointestinal Smooth Muscle Cells and each Salivary Glands's Gastrointestinal Smooth Muscle Cells. The number of each Duodenum's Extraocular Muscle Cells equals each Rectum's Extraocular Muscle Cells. The number of each Daphnia's Duodenum equals 5 more than the difference of each Duodenum's Extraocular Muscle Cells and each Radiolarian's Rectum. The number of each Trichomonas's Duodenum equals 11. The number of each Trichomonas's Salivary Glands equals 4. The number of each Radiolarian's Salivary Glands equals 0. The number of each Trichomonas's Rectum equals 0. The number of each Salivary Glands's Gastrointestinal Smooth Muscle Cells equals the sum of each Salivary Glands's Diaphragm Muscle Cells and each Trichomonas's Duodenum. The number of each Salivary Glands's Extraocular Muscle Cells equals each Duodenum's Gastrointestinal Smooth Muscle Cells. The number of each Radiolarian's Rectum equals each Salivary Glands's Gastrointestinal Smooth Muscle Cells. The number of each Rectum's Diaphragm Muscle Cells equals the sum of each Salivary Glands's Gastrointestinal Smooth Muscle Cells and each Duodenum's Gastrointestinal Smooth Muscle Cells. The number of each Daphnia's Salivary Glands equals the difference of each Radiolarian's Rectum and each Salivary Glands's Diaphragm Muscle Cells. How many Extraocular Muscle Cells does Salivary Glands have?",
+  "lookup": {
+    "p_0_0_1_2": 0,
+    "p_0_0_2_2": 4,
+    "p_0_0_2_0": 11,
+    "p_0_0_2_1": 0,
+    "p_0_1_2_1": 19,
+    "p_0_1_2_0": 7,
+    "p_0_0_0_1": 4,
+    "p_0_0_1_1": 7,
+    "p_0_0_0_2": 11,
+    "p_0_0_1_0": 11,
+    "p_0_1_1_2": 14,
+    "p_0_1_0_2": 14,
+    "p_0_0_0_0": 12,
+    "p_0_1_0_1": 12,
+    "p_0_1_1_0": 19,
+    "p_0_1_0_0": 12,
+    "p_0_1_1_1": 19,
+    "p_0_1_2_2": 12
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_0",
+        "literal": 11,
+        "span": [
+          1174,
+          1225
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Salivary Glands's Diaphragm Muscle Cells"
+        ],
+        "expression": "(8 + p_0_0_2_0)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_1_2_1",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Salivary Glands's Gastrointestinal Smooth Muscle Cells"
+        ],
+        "expression": "(p_0_1_2_1 + p_0_0_2_0)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Radiolarian's Rectum"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Daphnia's Salivary Glands"
+        ],
+        "expression": "(p_0_0_1_1 - p_0_1_2_1)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Radiolarian's Duodenum"
+        ],
+        "expression": "p_0_0_0_2",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_1_2_1",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Rectum's Extraocular Muscle Cells"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_1_2_1) + p_0_1_2_0)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Duodenum's Extraocular Muscle Cells"
+        ],
+        "expression": "p_0_1_1_2",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_0_2",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Daphnia's Duodenum"
+        ],
+        "expression": "(5 + (p_0_1_0_2 - p_0_0_1_1))",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Duodenum's Diaphragm Muscle Cells"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Rectum's Gastrointestinal Smooth Muscle Cells"
+        ],
+        "expression": "(p_0_1_0_1 + p_0_0_1_1)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Duodenum's Gastrointestinal Smooth Muscle Cells"
+        ],
+        "expression": "(p_0_1_1_0 - p_0_1_2_0)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Salivary Glands's Extraocular Muscle Cells"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 12
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_0",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_2_2"
+      ]
+    ]
+  }
+}

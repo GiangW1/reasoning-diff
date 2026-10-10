@@ -1,5 +1,9 @@
 # Reasoning Diff
 
+正式 C3 入口：[正式实验运行说明](docs/FORMAL_EXPERIMENT.zh-CN.md)，配置为 `experiments/formal_c3.json`。先冻结计划并查看完整扫描成本，再使用 `scripts/run_formal.py --mode all`；保留正误单类、缺失和不可估计状态。
+
+下一轮入口：[PR8 服务器运行说明](docs/PR8_RUNBOOK.md)。先跑长度/解析 pilot 与测量 smoke，通过后才开始正式 cohort；本 PR 不包含新模型实验结果。
+
 论文实验项目。本机代码验收：`CODE_PATHS_PARTIALLY_VERIFIED / SCIENTIFIC_VALIDITY_BLOCKED`。**真实模型/GPU、官方数据和独立任务图结果仍待服务器。**
 
 ## 从这里开始
@@ -22,7 +26,9 @@ python -m reasoning_diff transfer --in-dir transfer_pairs --out-dir stage_transf
 
 完整回归已在独立 Python 3.11 venv 中验证为 230 passed；当前 Windows 系统默认 Anaconda Python 的 torch `c10.dll` 初始化失败时，先修复该运行时或使用项目 venv。
 
-`intervene` 可用 `--features-dir`、`--probes-dir`、`--labels-dir` 分别接入 collect、fit 和 label 产物；scientific 模式缺少拟合方向、稳定标签或 dev layer curve 时会拒绝运行。
+`intervene` 可用 `--features-dir`、`--probes-dir`、`--labels-dir` 分别接入 collect、fit 和 label 产物；scientific 模式缺少拟合方向、稳定标签或 dev layer curve 时会写入带失败状态的行，供 ITT 与敏感性分析使用，不会把整批实验静默丢弃。
+
+如果要运行 scientific C-layer，先在 dev split 上完成预注册的逐层扫描，再把每层分数按层序传给 `fit --dev-layer-scores <score...>`；fit 会保存 `dev_layer_scores.json`，intervene 只消费状态为 `ready` 的工件。
 
 完整 stage、T2-noop 配对和服务器入口见 [`.planning/FINAL_ACCEPTANCE.md`](.planning/FINAL_ACCEPTANCE.md)。tiny 随机权重只是接口 smoke，不是 MODEL-01。scientific collect 拒绝 offline 前缀当 H；`noop` 的项目派生配对在缺少行为扫描时会保留 null P2 分母。
 

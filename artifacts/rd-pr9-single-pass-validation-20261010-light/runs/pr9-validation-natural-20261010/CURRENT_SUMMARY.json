@@ -1,0 +1,58 @@
+{
+  "completed_response_count": 525,
+  "completed_by_role": {
+    "edit": 429,
+    "noise": 36,
+    "reference": 36,
+    "source": 24
+  },
+  "correct_by_role": {
+    "edit": 428,
+    "noise": 36,
+    "reference": 36,
+    "source": 24
+  },
+  "status_counts": {
+    "natural_complete": 525
+  },
+  "pipeline": {
+    "mode": "measure",
+    "scientific_conclusion": null,
+    "status": "complete"
+  },
+  "plan": {
+    "by_role": {
+      "edit": 429,
+      "noise": 36,
+      "reference": 36,
+      "source": 24
+    },
+    "decode_token_ceiling": 17203200,
+    "expected_opportunities": {
+      "edit_values": 1,
+      "noise_donors_per_reference": 1,
+      "reference_seeds": [
+        0
+      ]
+    },
+    "family_roles": {
+      "calibration": 1,
+      "dev": 3,
+      "direction_fit": 2,
+      "probe_train": 2,
+      "transfer_pairs": 4
+    },
+    "n_problems": 12,
+    "p3_decode_calls_per_selected_prefix": 14,
+    "requests": 525,
+    "scientific_conclusion": null,
+    "semantic_audit": "pending"
+  },
+  "validation_analysis_status": {
+    "status": "measurement_complete",
+    "completed_at": "2026-10-10T11:56:28.574089+08:00",
+    "p3": "not_estimable_no_test_families",
+    "p1": "single_class",
+    "budget_deadline": null
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "native_id": "igsm-official-0060-op5",
+  "family_id": "igsm-official-0060-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260987,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "19",
+  "target": "p_1_2_0_3",
+  "question": "The number of each Fire Salamander's Epicentrals equals each Houston Zoo's Giraffe Enclosure. The number of each Fire Salamander's Pectoral Fin Rays equals 6 more than the difference of each Houston Zoo's Giraffe Enclosure and each Fire Salamander's Epicentrals. The number of each Bullfrog's Epicentrals equals 9. The number of each Tiger Territory's Bullfrog equals the sum of each Singapore Zoo's Tiger Territory, each Bullfrog's Epicentrals, each Singapore Zoo's Giraffe Enclosure and each Giraffe Enclosure's Fire Salamander. The number of each Singapore Zoo's Giraffe Enclosure equals 20. The number of each Singapore Zoo's Tiger Territory equals each Singapore Zoo's Giraffe Enclosure. The number of each Bullfrog's Pectoral Fin Rays equals 17. The number of each Giraffe Enclosure's Bullfrog equals the difference of each Singapore Zoo's Giraffe Enclosure and each Giraffe Enclosure's Fire Salamander. The number of each Houston Zoo's Giraffe Enclosure equals 13. The number of each Giraffe Enclosure's Fire Salamander equals 8 more than the sum of each Singapore Zoo's Giraffe Enclosure and each Singapore Zoo's Tiger Territory. How many Bone does Fire Salamander have?",
+  "lookup": {
+    "p_0_2_1_0": 17,
+    "p_0_2_1_1": 9,
+    "p_0_0_0_0": 20,
+    "p_0_0_0_1": 20,
+    "p_0_1_0_0": 2,
+    "p_0_1_1_1": 5,
+    "p_0_0_1_0": 13,
+    "p_0_1_0_1": 18,
+    "p_0_2_0_1": 13,
+    "p_0_2_0_0": 6,
+    "p_1_2_0_3": 19
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 13,
+        "span": [
+          910,
+          970
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Fire Salamander's Epicentrals"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Fire Salamander's Pectoral Fin Rays"
+        ],
+        "expression": "(6 + (p_0_0_1_0 - p_0_2_0_1))",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Fire Salamander's Bone"
+        ],
+        "expression": "(p_0_2_0_0 + p_0_2_0_1)",
+        "value": 19
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ]
+    ]
+  }
+}

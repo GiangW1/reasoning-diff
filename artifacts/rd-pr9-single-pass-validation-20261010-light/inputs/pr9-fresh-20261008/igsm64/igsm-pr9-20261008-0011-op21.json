@@ -1,0 +1,348 @@
+{
+  "native_id": "igsm-pr9-20261008-0011-op21",
+  "family_id": "igsm-pr9-20261008-0011-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100811,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "5",
+  "target": "p_0_0_1_0",
+  "question": "The number of each National Aviary's Komodo Dragon Den equals the sum of each Tiger Salamander's Accessory Carpal, each Birdland Park and Gardens's Turtle Pond and each Spotted Salamander's Accessory Carpal. The number of each Pittsburgh National Aviary's Komodo Dragon Den equals each National Aviary's Komodo Dragon Den. The number of each Pittsburgh National Aviary's Turtle Pond equals 18 more than each Birdland Park and Gardens's Komodo Dragon Den. The number of each Spotted Salamander's Metacarpal IV equals 4 more than the difference of each Tiger Salamander's Metacarpal IV and each Komodo Dragon Den's Spotted Salamander. The number of each Birdland Park and Gardens's Komodo Dragon Den equals 1. The number of each Komodo Dragon Den's Spotted Salamander equals the sum of each Komodo Dragon Den's Tiger Salamander and each Turtle Pond's Tiger Salamander. The number of each Tiger Salamander's Ulnar Carpal equals each Birdland Park and Gardens's Turtle Pond. The number of each Turtle Pond's Spotted Salamander equals 20. The number of each Birdland Park and Gardens's Turtle Pond equals each Komodo Dragon Den's Spotted Salamander. The number of each Turtle Pond's Tiger Salamander equals each Pittsburgh National Aviary's Turtle Pond. The number of each Spotted Salamander's Ulnar Carpal equals 16 times as much as each Turtle Pond's Spotted Salamander. The number of each Komodo Dragon Den's Tiger Salamander equals each Turtle Pond's Tiger Salamander. The number of each Tiger Salamander's Accessory Carpal equals 6 more than the sum of each Spotted Salamander's Bone, each Komodo Dragon Den's Tiger Salamander and each Pittsburgh National Aviary's Turtle Pond. The number of each Tiger Salamander's Metacarpal IV equals each Tiger Salamander's Ulnar Carpal. The number of each Spotted Salamander's Accessory Carpal equals 7 times as much as each Komodo Dragon Den's Tiger Salamander. How many Komodo Dragon Den does Pittsburgh National Aviary have?",
+  "lookup": {
+    "p_0_1_1_0": 20,
+    "p_0_0_2_0": 1,
+    "p_0_0_1_1": 19,
+    "p_0_2_0_1": 21,
+    "p_0_1_1_1": 19,
+    "p_0_1_0_1": 19,
+    "p_0_2_0_0": 18,
+    "p_0_1_0_0": 15,
+    "p_0_0_2_1": 15,
+    "p_0_2_1_1": 15,
+    "p_0_2_1_2": 15,
+    "p_0_2_0_2": 4,
+    "p_1_2_0_3": 20,
+    "p_0_2_1_0": 18,
+    "p_0_0_0_0": 5,
+    "p_0_0_1_0": 5
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_0",
+        "literal": 1,
+        "span": [
+          633,
+          706
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_0",
+        "literal": 20,
+        "span": [
+          971,
+          1032
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Pittsburgh National Aviary's Turtle Pond"
+        ],
+        "expression": "(18 + p_0_0_2_0)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Turtle Pond's Tiger Salamander"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Komodo Dragon Den's Tiger Salamander"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Spotted Salamander's Accessory Carpal"
+        ],
+        "expression": "(7 * p_0_1_0_1)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Spotted Salamander's Ulnar Carpal"
+        ],
+        "expression": "(16 * p_0_1_1_0)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Komodo Dragon Den's Spotted Salamander"
+        ],
+        "expression": "(p_0_1_0_1 + p_0_1_1_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Birdland Park and Gardens's Turtle Pond"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Tiger Salamander's Ulnar Carpal"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_2",
+        "parents": [
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_0_2_1_2",
+          "Tiger Salamander's Metacarpal IV"
+        ],
+        "expression": "p_0_2_1_1",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_2",
+        "parents": [
+          "p_0_2_1_2",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_2_0_2",
+          "Spotted Salamander's Metacarpal IV"
+        ],
+        "expression": "(4 + (p_0_2_1_2 - p_0_1_0_0))",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_2_0_1",
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Spotted Salamander's Bone"
+        ],
+        "expression": "((p_0_2_0_0 + p_0_2_0_1) + p_0_2_0_2)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_1_2_0_3",
+          "p_0_1_0_1",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Tiger Salamander's Accessory Carpal"
+        ],
+        "expression": "(6 + ((p_1_2_0_3 + p_0_1_0_1) + p_0_0_1_1))",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_2_1_0",
+          "p_0_0_2_1",
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "National Aviary's Komodo Dragon Den"
+        ],
+        "expression": "((p_0_2_1_0 + p_0_0_2_1) + p_0_2_0_0)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Pittsburgh National Aviary's Komodo Dragon Den"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 5
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_0_2_1_2"
+      ],
+      [
+        "p_0_2_1_2",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_0"
+      ]
+    ]
+  }
+}

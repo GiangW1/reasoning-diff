@@ -1,0 +1,43 @@
+{
+  "exported_at": "2026-10-05T06:05:11.289568+00:00",
+  "intervention": {
+    "available_pair_indices": [
+      1,
+      6,
+      23,
+      27
+    ],
+    "pairs_with_available_aligned_donor": 4,
+    "selected_pair_feature_events": 0,
+    "selected_pair_index": 0,
+    "source_value_pairs": 39,
+    "status": "donor_missing"
+  },
+  "repair": {
+    "learned_mask": {
+      "reason": "features_probes_or_identity_rows_missing",
+      "status": "learned_mask_unavailable"
+    },
+    "problems": 1,
+    "rows": 30,
+    "status_counts": {
+      "mask_unmatched": 4,
+      "ok": 26
+    }
+  },
+  "run_root": "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004",
+  "stop_reason_counts": {
+    "eos": 241,
+    "max_new": 2789,
+    "stop_condition": 21
+  },
+  "trace_status_counts": {
+    "natural_complete": 255,
+    "natural_truncated": 2679,
+    "parse_failed": 117
+  },
+  "validation": {
+    "scientific_conclusion": null,
+    "targeted_tests_passed": 16
+  }
+}

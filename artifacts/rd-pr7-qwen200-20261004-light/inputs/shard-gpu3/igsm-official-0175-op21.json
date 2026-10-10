@@ -1,0 +1,362 @@
+{
+  "native_id": "igsm-official-0175-op21",
+  "family_id": "igsm-official-0175-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261107,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "2",
+  "target": "p_1_0_3_2",
+  "question": "The number of each Postmates's Blue Cheese equals 3 times as much as each Monterey Jack Cheese's Apple. The number of each Monterey Jack Cheese's Banana equals 22 times as much as the difference of each Monterey Jack Cheese's Lime and each Postmates's Blue Cheese. The number of each Grofers's Blue Cheese equals 6. The number of each Monterey Jack Cheese's Lime equals 13 times as much as each Postmates's Blue Cheese. The number of each Amazon Fresh's Parmesan Cheese equals the difference of each Monterey Jack Cheese's Banana and each Postmates's Monterey Jack Cheese. The number of each Amazon Fresh's Cheese equals each Grofers's Product. The number of each Postmates's Monterey Jack Cheese equals 11 more than each Monterey Jack Cheese's Lime. The number of each Monterey Jack Cheese's Apple equals 5. The number of each Cheese's Avocado equals each Monterey Jack Cheese's Banana. The number of each Cheese's Banana equals each Postmates's Monterey Jack Cheese. The number of each Uber Eats's Blue Cheese equals each Monterey Jack Cheese's Banana. The number of each Blue Cheese's Apple equals the difference of each Amazon Fresh's Ingredient and each Amazon Fresh's Cheese. How many Ingredient does Uber Eats have?",
+  "lookup": {
+    "p_1_1_3_2": 0,
+    "p_0_1_0_2": 5,
+    "p_0_0_2_2": 15,
+    "p_0_0_0_2": 6,
+    "p_0_1_0_3": 11,
+    "p_1_0_0_1": 6,
+    "p_0_0_2_0": 22,
+    "p_0_0_1_1": 6,
+    "p_0_1_0_1": 4,
+    "p_0_1_1_1": 22,
+    "p_0_1_1_0": 4,
+    "p_0_0_1_3": 5,
+    "p_1_1_1_2": 3,
+    "p_0_0_3_2": 4,
+    "p_1_0_1_2": 18,
+    "p_0_1_2_2": 12,
+    "p_1_1_2_2": 12,
+    "p_1_0_3_2": 2
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_2",
+        "literal": 5,
+        "span": [
+          751,
+          807
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_2",
+        "literal": 6,
+        "span": [
+          265,
+          314
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Postmates's Blue Cheese"
+        ],
+        "expression": "(3 * p_0_1_0_2)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_3",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_0_3",
+          "Monterey Jack Cheese's Lime"
+        ],
+        "expression": "(13 * p_0_0_2_2)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_0_3",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Monterey Jack Cheese's Banana"
+        ],
+        "expression": "(22 * (p_0_1_0_3 - p_0_0_2_2))",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "Uber Eats's Blue Cheese"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Grofers's Product"
+        ],
+        "expression": "p_0_0_0_2",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Amazon Fresh's Cheese"
+        ],
+        "expression": "p_1_0_0_1",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Cheese's Avocado"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_1_0_3"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Postmates's Monterey Jack Cheese"
+        ],
+        "expression": "(11 + p_0_1_0_3)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Cheese's Banana"
+        ],
+        "expression": "p_0_0_2_0",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Cheese's Ingredient"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Amazon Fresh's Parmesan Cheese"
+        ],
+        "expression": "(p_0_1_0_1 - p_0_0_2_0)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_1",
+          "p_1_1_1_2",
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Amazon Fresh's Ingredient"
+        ],
+        "expression": "((p_0_0_1_1 * p_1_1_1_2) + (p_0_0_1_3 * 0))",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_1_0_1_2",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Blue Cheese's Apple"
+        ],
+        "expression": "(p_1_0_1_2 - p_0_0_1_1)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Blue Cheese's Ingredient"
+        ],
+        "expression": "p_0_1_2_2",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_2",
+        "parents": [
+          "p_0_0_3_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_3_2",
+          "Uber Eats's Ingredient"
+        ],
+        "expression": "(p_0_0_3_2 * p_1_1_2_2)",
+        "value": 2
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_0_1_2",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_3_2"
+      ]
+    ]
+  }
+}

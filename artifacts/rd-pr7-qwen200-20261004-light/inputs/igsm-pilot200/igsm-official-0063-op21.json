@@ -1,0 +1,363 @@
+{
+  "native_id": "igsm-official-0063-op21",
+  "family_id": "igsm-official-0063-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260990,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "10",
+  "target": "p_1_0_0_3",
+  "question": "The number of each Camera Backpack's Hole Puncher equals each Summit University's Materials Science Lab. The number of each Metropolitan University's Materials Science Lab equals 9. The number of each Mechanical Engineering Lab's Camera Backpack equals each Metropolitan University's Classroom. The number of each Materials Science Lab's Executive Backpack equals 20 more than the sum of each Metropolitan University's Classroom and each Metropolitan University's Mechanical Engineering Lab. The number of each Mechanical Engineering Lab's Executive Backpack equals each Mechanical Engineering Lab's Camera Backpack. The number of each Metropolitan University's Mechanical Engineering Lab equals 1. The number of each Executive Backpack's Hole Puncher equals 13 times as much as each Materials Science Lab's Executive Backpack. The number of each Camera Backpack's Scissors equals 11 more than each Materials Science Lab's Executive Backpack. The number of each Summit University's Materials Science Lab equals the sum of each Materials Science Lab's Backpack and each Metropolitan University's Materials Science Lab. How many Stationery does Metropolitan University have?",
+  "lookup": {
+    "p_0_0_0_1": 9,
+    "p_0_0_0_0": 1,
+    "p_1_0_0_1": 10,
+    "p_0_1_1_1": 8,
+    "p_0_1_0_0": 10,
+    "p_1_1_1_2": 8,
+    "p_0_1_0_1": 10,
+    "p_0_2_1_1": 12,
+    "p_1_2_1_3": 12,
+    "p_1_1_1_3": 4,
+    "p_0_2_0_0": 19,
+    "p_0_0_1_1": 17,
+    "p_0_2_0_1": 17,
+    "p_1_2_0_3": 13,
+    "p_1_1_0_3": 20,
+    "p_1_0_0_3": 10
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 1,
+        "span": [
+          617,
+          697
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 9,
+        "span": [
+          105,
+          180
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Metropolitan University's Classroom"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Mechanical Engineering Lab's Camera Backpack"
+        ],
+        "expression": "p_1_0_0_1",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Materials Science Lab's Executive Backpack"
+        ],
+        "expression": "(20 + (p_1_0_0_1 + p_0_0_0_0))",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Camera Backpack's Scissors"
+        ],
+        "expression": "(11 + p_0_1_1_1)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Materials Science Lab's Backpack"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_1_1_2",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Summit University's Materials Science Lab"
+        ],
+        "expression": "(p_1_1_1_2 + p_0_0_0_1)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Camera Backpack's Hole Puncher"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Camera Backpack's Stationery"
+        ],
+        "expression": "(p_0_2_0_0 + p_0_2_0_1)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Mechanical Engineering Lab's Executive Backpack"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Executive Backpack's Hole Puncher"
+        ],
+        "expression": "(13 * p_0_1_1_1)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Executive Backpack's Stationery"
+        ],
+        "expression": "p_0_2_1_1",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_0",
+          "p_1_2_0_3",
+          "p_0_1_0_1",
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Mechanical Engineering Lab's Stationery"
+        ],
+        "expression": "((p_0_1_0_0 * p_1_2_0_3) + (p_0_1_0_1 * p_1_2_1_3))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_1",
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "Materials Science Lab's Stationery"
+        ],
+        "expression": "(p_0_1_1_1 * p_1_2_1_3)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_3",
+        "parents": [
+          "p_0_0_0_0",
+          "p_1_1_0_3",
+          "p_0_0_0_1",
+          "p_1_1_1_3"
+        ],
+        "aliases": [
+          "p_1_0_0_3",
+          "Metropolitan University's Stationery"
+        ],
+        "expression": "((p_0_0_0_0 * p_1_1_0_3) + (p_0_0_0_1 * p_1_1_1_3))",
+        "value": 10
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_1_0_0_3"
+      ]
+    ]
+  }
+}

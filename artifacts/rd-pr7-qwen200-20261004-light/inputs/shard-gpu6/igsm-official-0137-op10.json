@@ -1,0 +1,215 @@
+{
+  "native_id": "igsm-official-0137-op10",
+  "family_id": "igsm-official-0137-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261067,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "2",
+  "target": "p_0_0_2_2",
+  "question": "The number of each Northridge High's Environmental Science Lab equals each Parkview Secondary's Computer Science Lab. The number of each Snowboard Backpack's Loose Leaf Paper equals 12. The number of each Parkview Secondary's Computer Science Lab equals 16 times as much as each Northridge High's Ecology Lab. The number of each Snowboard Backpack's Wrapping Paper equals the sum of each Parkview Secondary's Ecology Lab and each Yoga Mat Backpack's Wrapping Paper. The number of each Yoga Mat Backpack's Loose Leaf Paper equals 5. The number of each Environmental Science Lab's Snowboard Backpack equals the sum of each Yoga Mat Backpack's Photocopy Paper, each Parkview Secondary's Environmental Science Lab and each Ecology Lab's Ventilated Backpack. The number of each Ventilated Backpack's Loose Leaf Paper equals 18 times as much as the sum of each Parkview Secondary's Ecology Lab, each Ecology Lab's Ventilated Backpack and each Northridge High's Environmental Science Lab. The number of each Ecology Lab's Snowboard Backpack equals 9 times as much as each Environmental Science Lab's Yoga Mat Backpack. The number of each Environmental Science Lab's Ventilated Backpack equals 9. The number of each Computer Science Lab's Ventilated Backpack equals the difference of each Yoga Mat Backpack's Wrapping Paper and each Environmental Science Lab's Yoga Mat Backpack. The number of each Yoga Mat Backpack's Photocopy Paper equals 15. The number of each Environmental Science Lab's Yoga Mat Backpack equals the difference of each Northridge High's Environmental Science Lab and each Northridge High's Ecology Lab. The number of each Hillcrest High's Environmental Science Lab equals 5. The number of each Yoga Mat Backpack's Wrapping Paper equals the difference of each Environmental Science Lab's Yoga Mat Backpack and each Northridge High's Ecology Lab. The number of each Northridge High's Ecology Lab equals 22. The number of each Northridge High's Computer Science Lab equals each Ventilated Backpack's Loose Leaf Paper. The number of each Ecology Lab's Ventilated Backpack equals the sum of each Parkview Secondary's Environmental Science Lab and each Yoga Mat Backpack's Loose Leaf Paper. The number of each Ventilated Backpack's Wrapping Paper equals each Computer Science Lab's Ventilated Backpack. The number of each Parkview Secondary's Environmental Science Lab equals 2. The number of each Hillcrest High's Computer Science Lab equals the sum of each Ventilated Backpack's Wrapping Paper, each Environmental Science Lab's Yoga Mat Backpack, each Yoga Mat Backpack's Wrapping Paper and each Northridge High's Environmental Science Lab. The number of each Parkview Secondary's Ecology Lab equals each Northridge High's Ecology Lab. How many Computer Science Lab does Hillcrest High have?",
+  "lookup": {
+    "p_0_0_2_0": 5,
+    "p_0_2_2_2": 15,
+    "p_0_0_1_1": 22,
+    "p_0_0_0_2": 7,
+    "p_0_0_0_0": 2,
+    "p_0_2_2_0": 5,
+    "p_0_0_1_0": 7,
+    "p_0_1_1_0": 7,
+    "p_0_1_0_0": 9,
+    "p_0_0_0_1": 22,
+    "p_0_2_1_0": 12,
+    "p_0_1_0_1": 1,
+    "p_0_1_0_2": 8,
+    "p_0_2_2_1": 9,
+    "p_0_2_1_1": 8,
+    "p_0_2_0_0": 4,
+    "p_0_0_1_2": 4,
+    "p_0_1_1_1": 3,
+    "p_0_1_2_0": 1,
+    "p_0_2_0_1": 1,
+    "p_0_0_2_2": 2
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 22,
+        "span": [
+          1859,
+          1917
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Parkview Secondary's Computer Science Lab"
+        ],
+        "expression": "(16 * p_0_0_1_1)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Northridge High's Environmental Science Lab"
+        ],
+        "expression": "p_0_0_0_2",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Environmental Science Lab's Yoga Mat Backpack"
+        ],
+        "expression": "(p_0_0_1_0 - p_0_0_1_1)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_1",
+        "parents": [
+          "p_0_1_0_2",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_2_2_1",
+          "Yoga Mat Backpack's Wrapping Paper"
+        ],
+        "expression": "(p_0_1_0_2 - p_0_0_1_1)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_2_2_1",
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Computer Science Lab's Ventilated Backpack"
+        ],
+        "expression": "(p_0_2_2_1 - p_0_1_0_2)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Ventilated Backpack's Wrapping Paper"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_2_0_1",
+          "p_0_1_0_2",
+          "p_0_2_2_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Hillcrest High's Computer Science Lab"
+        ],
+        "expression": "(((p_0_2_0_1 + p_0_1_0_2) + p_0_2_2_1) + p_0_0_1_0)",
+        "value": 2
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_2_2_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_2_2_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_2"
+      ]
+    ]
+  }
+}

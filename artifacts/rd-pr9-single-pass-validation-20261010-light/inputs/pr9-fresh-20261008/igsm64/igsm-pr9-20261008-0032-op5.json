@@ -1,0 +1,119 @@
+{
+  "native_id": "igsm-pr9-20261008-0032-op5",
+  "family_id": "igsm-pr9-20261008-0032-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100832,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "22",
+  "target": "p_0_0_0_0",
+  "question": "The number of each Lumpini Park in Bangkok's Great White Shark equals 10 times as much as the difference of each Venules's Astrocytes and each Great White Shark's Venules. The number of each Sea Anemone's Arteries equals each Stingray's Arteries. The number of each Venules's Thalamic Neurons equals each Lumpini Park in Bangkok's Great White Shark. The number of each Hyde Park in London's Sea Anemone equals 19 more than the sum of each Hyde Park in London's Great White Shark, each Sea Anemone's Arteries and each Stingray's Arteries. The number of each Arteries's Astrocytes equals 12. The number of each Venules's Astrocytes equals 21 more than the sum of each Hyde Park in London's Great White Shark and each Stingray's Venules. The number of each Great White Shark's Arteries equals each Great White Shark's Venules. The number of each Lumpini Park in Bangkok's Sea Anemone equals 8 times as much as the sum of each Sea Anemone's Organs and each Stingray's Arteries. The number of each Great White Shark's Venules equals each Stingray's Venules. The number of each Lumpini Park in Bangkok's Stingray equals the sum of each Lumpini Park in Bangkok's Sea Anemone, each Sea Anemone's Arteries and each Sea Anemone's Organs. The number of each Arteries's Thalamic Neurons equals the sum of each Stingray's Arteries, each Lumphini Park in Bangkok's Sea Anemone and each Great White Shark's Venules. The number of each Stingray's Venules equals 15 times as much as each Hyde Park in London's Great White Shark. The number of each Hyde Park in London's Great White Shark equals 19. The number of each Venules's Hypothalamic Neurons equals the difference of each Lumpini Park in Bangkok's Sea Anemone and each Hyde Park in London's Great White Shark. The number of each Stingray's Arteries equals 10. The number of each Lumphini Park in Bangkok's Great White Shark equals 17 times as much as the sum of each Hyde Park in London's Great White Shark, each Lumphini Park in Bangkok's Sea Anemone and each Stingray's Venules. The number of each Lumphini Park in Bangkok's Sea Anemone equals 18. How many Sea Anemone does Lumpini Park in Bangkok have?",
+  "lookup": {
+    "p_0_2_0_0": 12,
+    "p_0_0_1_1": 19,
+    "p_0_0_2_0": 18,
+    "p_0_1_2_1": 9,
+    "p_0_1_1_1": 9,
+    "p_0_0_2_1": 0,
+    "p_0_2_1_0": 3,
+    "p_0_0_0_1": 9,
+    "p_0_1_1_0": 9,
+    "p_0_2_1_2": 9,
+    "p_0_1_2_0": 10,
+    "p_0_2_0_2": 14,
+    "p_0_1_0_0": 10,
+    "p_0_0_1_0": 12,
+    "p_1_1_0_2": 10,
+    "p_0_0_0_0": 22,
+    "p_0_0_0_2": 19,
+    "p_0_2_1_1": 3
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_0",
+        "literal": 10,
+        "span": [
+          1750,
+          1798
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Sea Anemone's Arteries"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Sea Anemone's Organs"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_1_0_2",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Lumpini Park in Bangkok's Sea Anemone"
+        ],
+        "expression": "(8 * (p_1_1_0_2 + p_0_1_2_0))",
+        "value": 22
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_0_0"
+      ]
+    ]
+  }
+}

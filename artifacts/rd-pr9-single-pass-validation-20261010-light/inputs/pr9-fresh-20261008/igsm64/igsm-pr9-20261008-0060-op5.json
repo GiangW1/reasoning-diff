@@ -1,0 +1,129 @@
+{
+  "native_id": "igsm-pr9-20261008-0060-op5",
+  "family_id": "igsm-pr9-20261008-0060-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100860,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "1",
+  "target": "p_0_1_1_2",
+  "question": "The number of each Pine Valley College's Aerobics Studio equals 10. The number of each Golden Gate College's Aerobics Studio equals 22 times as much as each Aerobics Studio's Picnic Backpack. The number of each Swimming Pool's Gaming Backpack equals each Riverdale Community College's Aerobics Studio. The number of each Aerobics Studio's Toy Backpack equals the sum of each Pine Valley College's Aerobics Studio and each Aerobics Studio's Gaming Backpack. The number of each Swimming Pool's Picnic Backpack equals 18 more than each Aerobics Studio's Toy Backpack. The number of each Westland College's Swimming Pool equals each Aerobics Studio's Picnic Backpack. The number of each Aerobics Studio's Picnic Backpack equals 8. The number of each Swimming Pool's Toy Backpack equals 10. The number of each Aerobics Studio's Gaming Backpack equals the sum of each Pine Valley College's Classroom, each Pine Valley College's Swimming Pool and each Pine Valley College's Aerobics Studio. The number of each Westland College's Aerobics Studio equals the sum of each Golden Gate College's Backpack, each Swimming Pool's Backpack and each Riverdale Community College's Aerobics Studio. The number of each Aerobics Studio's Lumbar Pack equals the sum of each Aerobics Studio's Gaming Backpack and each Pine Valley College's Classroom. The number of each Swimming Pool's Lumbar Pack equals 16 more than each Aerobics Studio's Picnic Backpack. The number of each Riverdale Community College's Aerobics Studio equals 2. The number of each Pine Valley College's Swimming Pool equals 14 times as much as each Pine Valley College's Aerobics Studio. How many Gaming Backpack does Aerobics Studio have?",
+  "lookup": {
+    "p_0_0_2_1": 2,
+    "p_0_1_1_3": 8,
+    "p_0_0_0_1": 10,
+    "p_0_1_0_1": 10,
+    "p_0_0_1_1": 15,
+    "p_0_0_0_0": 2,
+    "p_1_0_0_1": 12,
+    "p_0_1_1_2": 1,
+    "p_0_1_1_0": 13,
+    "p_0_1_1_1": 11,
+    "p_1_1_1_2": 10,
+    "p_0_1_0_0": 1,
+    "p_0_0_3_0": 8,
+    "p_1_0_1_2": 12,
+    "p_0_1_0_3": 6,
+    "p_0_1_0_2": 2,
+    "p_1_1_0_2": 19,
+    "p_0_0_3_1": 10
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 10,
+        "span": [
+          0,
+          66
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Pine Valley College's Swimming Pool"
+        ],
+        "expression": "(14 * p_0_0_0_1)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Pine Valley College's Classroom"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Aerobics Studio's Gaming Backpack"
+        ],
+        "expression": "((p_1_0_0_1 + p_0_0_0_0) + p_0_0_0_1)",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_1_2"
+      ]
+    ]
+  }
+}

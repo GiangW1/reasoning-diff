@@ -1,0 +1,395 @@
+{
+  "native_id": "igsm-official-0171-op21",
+  "family_id": "igsm-official-0171-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261103,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "0",
+  "target": "p_1_0_2_3",
+  "question": "The number of each Basketball Court's Shoe Compartment Backpack equals 6 times as much as each Yoga Mat Backpack's Stationery. The number of each Table Tennis Room's Yoga Mat Backpack equals the difference of each Basketball Court's Shoe Compartment Backpack and each Shoe Compartment Backpack's Card Holder. The number of each Parkview Secondary's Table Tennis Room equals 8. The number of each Liberty High's Table Tennis Room equals 17 times as much as each Lincoln High's Stationery. The number of each Shoe Compartment Backpack's Card Holder equals 22 more than each Yoga Mat Backpack's Folder. The number of each Weight Training Room's Swimming Backpack equals each Parkview Secondary's Stationery. The number of each Lincoln High's Weight Training Room equals each Table Tennis Room's Stationery. The number of each Shoe Compartment Backpack's Binder equals the difference of each Basketball Court's Shoe Compartment Backpack and each Yoga Mat Backpack's Folder. The number of each Parkview Secondary's Basketball Court equals 21 times as much as each Shoe Compartment Backpack's Stationery. The number of each Yoga Mat Backpack's Folder equals 14. How many Stationery does Liberty High have?",
+  "lookup": {
+    "p_0_0_1_0": 8,
+    "p_0_2_0_0": 14,
+    "p_1_2_1_3": 0,
+    "p_0_2_2_1": 13,
+    "p_1_2_0_3": 14,
+    "p_0_1_1_2": 15,
+    "p_0_1_0_0": 2,
+    "p_0_2_2_2": 1,
+    "p_1_2_2_3": 14,
+    "p_1_1_1_3": 3,
+    "p_1_1_0_3": 5,
+    "p_0_0_0_2": 5,
+    "p_0_0_1_1": 18,
+    "p_1_0_1_3": 2,
+    "p_0_1_2_1": 2,
+    "p_1_1_2_3": 0,
+    "p_1_0_0_3": 0,
+    "p_0_0_2_0": 0,
+    "p_1_0_2_3": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_0",
+        "literal": 14,
+        "span": [
+          1099,
+          1154
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 8,
+        "span": [
+          309,
+          375
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Yoga Mat Backpack's Stationery"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_1_2_0_3"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Basketball Court's Shoe Compartment Backpack"
+        ],
+        "expression": "(6 * p_1_2_0_3)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_1",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_2_2_1",
+          "Shoe Compartment Backpack's Card Holder"
+        ],
+        "expression": "(22 + p_0_2_0_0)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_1_2",
+          "p_0_2_2_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Table Tennis Room's Yoga Mat Backpack"
+        ],
+        "expression": "(p_0_1_1_2 - p_0_2_2_1)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_0",
+          "p_1_2_0_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Table Tennis Room's Stationery"
+        ],
+        "expression": "(p_0_1_0_0 * p_1_2_0_3)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Lincoln High's Weight Training Room"
+        ],
+        "expression": "p_1_1_0_3",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_2",
+        "parents": [
+          "p_0_1_1_2",
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_2_2_2",
+          "Shoe Compartment Backpack's Binder"
+        ],
+        "expression": "(p_0_1_1_2 - p_0_2_0_0)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_2_3",
+        "parents": [
+          "p_0_2_2_1",
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_1_2_2_3",
+          "Shoe Compartment Backpack's Stationery"
+        ],
+        "expression": "(p_0_2_2_1 + p_0_2_2_2)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_2_2_3"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Parkview Secondary's Basketball Court"
+        ],
+        "expression": "(21 * p_1_2_2_3)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_2",
+          "p_1_2_2_3"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "Basketball Court's Stationery"
+        ],
+        "expression": "(p_0_1_1_2 * p_1_2_2_3)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_3",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_3",
+          "p_0_0_1_1",
+          "p_1_1_1_3"
+        ],
+        "aliases": [
+          "p_1_0_1_3",
+          "Parkview Secondary's Stationery"
+        ],
+        "expression": "((p_0_0_1_0 * p_1_1_0_3) + (p_0_0_1_1 * p_1_1_1_3))",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_1_0_1_3"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Weight Training Room's Swimming Backpack"
+        ],
+        "expression": "p_1_0_1_3",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_3",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_1_1_2_3",
+          "Weight Training Room's Stationery"
+        ],
+        "expression": "(p_0_1_2_1 * 0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_3",
+        "parents": [
+          "p_0_0_0_2",
+          "p_1_1_2_3"
+        ],
+        "aliases": [
+          "p_1_0_0_3",
+          "Lincoln High's Stationery"
+        ],
+        "expression": "(p_0_0_0_2 * p_1_1_2_3)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_1_0_0_3"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Liberty High's Table Tennis Room"
+        ],
+        "expression": "(17 * p_1_0_0_3)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_3",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_1_0_2_3",
+          "Liberty High's Stationery"
+        ],
+        "expression": "(p_0_0_2_0 * p_1_1_0_3)",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_2_2_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_2_2_1",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_0_1_3",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_3"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_1_1_2_3",
+        "p_1_0_0_3"
+      ],
+      [
+        "p_1_0_0_3",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_1_0_2_3"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "native_id": "igsm-official-0082-op15",
+  "family_id": "igsm-official-0082-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261009,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "1",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Valli Produce's Parmesan Cheese equals 11. The number of each Valli Produce's Monterey Jack Cheese equals 7. The number of each Fiesta Mart's Parmesan Cheese equals 11 more than the sum of each Valli Produce's Monterey Jack Cheese and each Fiesta Mart's Brie Cheese. The number of each Superior Grocers's Monterey Jack Cheese equals each Valli Produce's Parmesan Cheese. The number of each Fiesta Mart's Brie Cheese equals 10 times as much as the sum of each Superior Grocers's Product, each Superior Grocers's Parmesan Cheese and each Valli Produce's Parmesan Cheese. The number of each Superior Grocers's Brie Cheese equals 12 more than the difference of each Valli Produce's Product and each Valli Produce's Monterey Jack Cheese. The number of each Superior Grocers's Parmesan Cheese equals each Valli Produce's Parmesan Cheese. How many Product does Fiesta Mart have?",
+  "lookup": {
+    "p_0_0_1_1": 7,
+    "p_0_0_1_2": 11,
+    "p_0_0_2_1": 11,
+    "p_1_0_1_1": 18,
+    "p_0_0_2_2": 11,
+    "p_0_0_2_0": 0,
+    "p_1_0_2_1": 22,
+    "p_0_0_0_0": 3,
+    "p_0_0_0_2": 21,
+    "p_1_0_0_1": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 7,
+        "span": [
+          62,
+          126
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_2",
+        "literal": 11,
+        "span": [
+          0,
+          60
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Valli Produce's Product"
+        ],
+        "expression": "(p_0_0_1_1 + p_0_0_1_2)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Superior Grocers's Brie Cheese"
+        ],
+        "expression": "(12 + (p_1_0_1_1 - p_0_0_1_1))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Superior Grocers's Monterey Jack Cheese"
+        ],
+        "expression": "p_0_0_1_2",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Superior Grocers's Parmesan Cheese"
+        ],
+        "expression": "p_0_0_1_2",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Superior Grocers's Product"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_2_2",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Fiesta Mart's Brie Cheese"
+        ],
+        "expression": "(10 * ((p_1_0_2_1 + p_0_0_2_2) + p_0_0_1_2))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Fiesta Mart's Parmesan Cheese"
+        ],
+        "expression": "(11 + (p_0_0_1_1 + p_0_0_0_0))",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Fiesta Mart's Product"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_2)",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

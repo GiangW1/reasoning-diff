@@ -1,0 +1,39 @@
+{
+  "updated_at": "2026-10-10T12:45:49.416128+08:00",
+  "conditions": {
+    "validation_natural_matching": false,
+    "validation_controlled_matching": true,
+    "fresh_formal_test_cohort": false,
+    "independent_semantic_audit": false
+  },
+  "launch_formal": false,
+  "validation": {
+    "natural": {
+      "planned": 525,
+      "responses": 525,
+      "pipeline": "complete",
+      "measurement": true,
+      "coverage_checks": {
+        "base": false,
+        "related_noop": false,
+        "neutral_noop": false
+      },
+      "minimum_coverage": 0.95
+    },
+    "controlled": {
+      "planned": 525,
+      "responses": 525,
+      "pipeline": "complete",
+      "measurement": true,
+      "coverage_checks": {
+        "base": true,
+        "related_noop": true,
+        "neutral_noop": true
+      },
+      "minimum_coverage": 0.95
+    }
+  },
+  "minimum_coverage": 0.95,
+  "decision_note": "Generation completion and constrained format alone do not establish natural matching or semantic validity. Original placeholder count is a quality screen, not an independent semantic audit.",
+  "formal_candidate": {}
+}

@@ -1,0 +1,242 @@
+{
+  "native_id": "igsm-official-0086-op15",
+  "family_id": "igsm-official-0086-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261013,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "15",
+  "target": "p_0_1_2_1",
+  "question": "The number of each WinCo Foods's Nuts equals each City Hall District's Supermarket. The number of each City Hall District's Lidl equals 21. The number of each City Hall District's WinCo Foods equals 20 times as much as each City Hall District's Lidl. The number of each Save Mart's Cookies equals 3 times as much as each Lidl's Hummus. The number of each Lidl's Nuts equals 0. The number of each Federal District's Save Mart equals the sum of each WinCo Foods's Nuts, each Lidl's Nuts, each City Hall District's Save Mart and each WinCo Foods's Cookies. The number of each Federal District's Lidl equals each City Hall District's Save Mart. The number of each City Hall District's Save Mart equals 11 more than the difference of each City Hall District's WinCo Foods and each City Hall District's Lidl. The number of each WinCo Foods's Cookies equals each City Hall District's WinCo Foods. The number of each Municipal District's Lidl equals the difference of each City Hall District's WinCo Foods and each City Hall District's Save Mart. The number of each Municipal District's Save Mart equals the sum of each Save Mart's Cookies, each Federal District's Product, each Save Mart's Hummus and each City Hall District's Lidl. The number of each Lidl's Cookies equals the difference of each WinCo Foods's Hummus and each WinCo Foods's Cookies. The number of each Municipal District's WinCo Foods equals 13. The number of each Save Mart's Hummus equals 7 times as much as the sum of each WinCo Foods's Product, each City Hall District's Supermarket and each City Hall District's Lidl. The number of each Lidl's Hummus equals 18. The number of each WinCo Foods's Hummus equals 14 times as much as the sum of each City Hall District's Lidl and each City Hall District's Save Mart. How many Hummus does Save Mart have?",
+  "lookup": {
+    "p_0_0_0_0": 13,
+    "p_0_0_2_1": 21,
+    "p_0_1_1_2": 0,
+    "p_0_1_1_1": 18,
+    "p_0_0_2_0": 6,
+    "p_0_1_2_0": 8,
+    "p_0_0_2_2": 19,
+    "p_0_0_1_1": 19,
+    "p_0_1_0_0": 6,
+    "p_0_1_0_1": 8,
+    "p_0_0_0_1": 10,
+    "p_0_1_1_0": 2,
+    "p_1_1_1_2": 20,
+    "p_1_0_2_1": 0,
+    "p_0_1_0_2": 0,
+    "p_1_1_0_2": 14,
+    "p_0_1_2_1": 15,
+    "p_1_1_2_2": 0,
+    "p_0_0_1_2": 2,
+    "p_1_0_1_2": 12,
+    "p_0_0_0_2": 10
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 21,
+        "span": [
+          84,
+          138
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "City Hall District's WinCo Foods"
+        ],
+        "expression": "(20 * p_0_0_2_1)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "WinCo Foods's Cookies"
+        ],
+        "expression": "p_0_0_2_0",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "City Hall District's Save Mart"
+        ],
+        "expression": "(11 + (p_0_0_2_0 - p_0_0_2_1))",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "WinCo Foods's Hummus"
+        ],
+        "expression": "(14 * (p_0_0_2_1 + p_0_0_2_2))",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "City Hall District's Supermarket"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_1_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "WinCo Foods's Nuts"
+        ],
+        "expression": "p_1_0_2_1",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1",
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "WinCo Foods's Product"
+        ],
+        "expression": "((p_0_1_0_0 + p_0_1_0_1) + p_0_1_0_2)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_1_1_0_2",
+          "p_1_0_2_1",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Save Mart's Hummus"
+        ],
+        "expression": "(7 * ((p_1_1_0_2 + p_1_0_2_1) + p_0_0_2_1))",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_2_1"
+      ]
+    ]
+  }
+}

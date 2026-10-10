@@ -1,0 +1,281 @@
+{
+  "native_id": "igsm-pr9-20261008-0006-op15",
+  "family_id": "igsm-pr9-20261008-0006-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100806,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "1",
+  "target": "p_1_0_2_1",
+  "question": "The number of each Publix's Salsa equals each Carrefour's Product. The number of each Carrefour's Dried Fruit equals the sum of each Carrefour's Salsa and each Giant Eagle's Dried Fruit. The number of each Publix's Dried Fruit equals the sum of each Carrefour's Dried Fruit and each Carrefour's Product. The number of each Publix's Beef Jerky equals 10. The number of each Giant Eagle's Dried Fruit equals each Giant Eagle's Beef Jerky. The number of each Carrefour's Salsa equals each Giant Eagle's Beef Jerky. The number of each Giant Eagle's Salsa equals 9. The number of each Giant Eagle's Beef Jerky equals 13 times as much as each Giant Eagle's Salsa. The number of each Carrefour's Beef Jerky equals the sum of each Giant Eagle's Product and each Giant Eagle's Salsa. How many Product does Publix have?",
+  "lookup": {
+    "p_0_0_2_1": 10,
+    "p_0_0_1_2": 9,
+    "p_0_0_1_1": 2,
+    "p_0_0_0_2": 2,
+    "p_0_0_1_0": 2,
+    "p_1_0_1_1": 13,
+    "p_0_0_0_1": 22,
+    "p_0_0_0_0": 4,
+    "p_1_0_0_1": 5,
+    "p_0_0_2_2": 5,
+    "p_0_0_2_0": 9,
+    "p_1_0_2_1": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_2",
+        "literal": 9,
+        "span": [
+          512,
+          559
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 10,
+        "span": [
+          304,
+          352
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Giant Eagle's Beef Jerky"
+        ],
+        "expression": "(13 * p_0_0_1_2)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Carrefour's Salsa"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Giant Eagle's Dried Fruit"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_2",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Carrefour's Dried Fruit"
+        ],
+        "expression": "(p_0_0_0_2 + p_0_0_1_0)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Giant Eagle's Product"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_0_1_1) + p_0_0_1_2)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Carrefour's Beef Jerky"
+        ],
+        "expression": "(p_1_0_1_1 + p_0_0_1_2)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Carrefour's Product"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_0_0",
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Publix's Dried Fruit"
+        ],
+        "expression": "(p_0_0_0_0 + p_1_0_0_1)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Publix's Salsa"
+        ],
+        "expression": "p_1_0_0_1",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Publix's Product"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ]
+    ]
+  }
+}

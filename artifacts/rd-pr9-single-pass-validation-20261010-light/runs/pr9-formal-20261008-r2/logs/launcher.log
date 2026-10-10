@@ -1,0 +1,7 @@
+answers-2
+answers-1
+answers-0
+{'n_references': 576, 'n_problems': 64, 'class_counts_by_condition_and_split': {'base/probe_train': {'1': 78}, 'base/dev': {'1': 39}, 'base/direction_fit': {'1': 18}, 'base/test': {'1': 12}, 'related_noop/probe_train': {'1': 77, '0': 1}, 'related_noop/dev': {'1': 39}, 'related_noop/direction_fit': {'1': 18}, 'related_noop/test': {'1': 12}, 'neutral_noop/probe_train': {'1': 78}, 'neutral_noop/dev': {'1': 39}, 'neutral_noop/direction_fit': {'1': 18}, 'neutral_noop/test': {'1': 12}}, 'answered_class_counts': {'1': 575, '0': 1}, 'failure_counts': {}, 'status': 'two_outcomes_observed', 'parser_and_budget_failures_are_not_genuine_reasoning_errors': True, 'failure_as_incorrect': True, 'correctness_does_not_change_cohort': True, 'scientific_conclusion': None}
+generate-1
+generate-2
+generate-0

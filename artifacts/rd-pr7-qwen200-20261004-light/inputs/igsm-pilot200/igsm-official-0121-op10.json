@@ -1,0 +1,216 @@
+{
+  "native_id": "igsm-official-0121-op10",
+  "family_id": "igsm-official-0121-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261050,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "1",
+  "target": "p_1_0_0_2",
+  "question": "The number of each Daphnia's Stomach equals 6 times as much as each Daphnia's Cecum. The number of each Veldt's Rotifer equals 22. The number of each Highland Grassland's Nematode equals 15 times as much as the sum of each Daphnia's Anus, each Nematode's Anus and each Trichomonas's Salivary Glands. The number of each Coastal Grassland's Daphnia equals each Daphnia's Anus. The number of each Rotifer's Stomach equals 1 times as much as each Daphnia's Stomach. The number of each Rotifer's Cecum equals each Daphnia's Cecum. The number of each Nematode's Stomach equals 2. The number of each Trichomonas's Salivary Glands equals each Rotifer's Anus. The number of each Rotifer's Anus equals each Daphnia's Cecum. The number of each Nematode's Anus equals 10 more than each Rotifer's Cecum. The number of each Veldt's Nematode equals 14. The number of each Daphnia's Anus equals 2. The number of each Highland Grassland's Daphnia equals the sum of each Daphnia's Cecum and each Daphnia's Organs. The number of each Savanna's Rotifer equals each Trichomonas's Salivary Glands. The number of each Veldt's Trichomonas equals 9 times as much as each Daphnia's Anus. The number of each Veldt's Daphnia equals 20 times as much as the difference of each Daphnia's Anus and each Veldt's Trichomonas. The number of each Daphnia's Cecum equals 16. How many Organs does Savanna have?",
+  "lookup": {
+    "p_0_1_0_3": 2,
+    "p_0_1_0_0": 16,
+    "p_0_1_1_3": 16,
+    "p_0_1_3_2": 2,
+    "p_0_0_2_2": 18,
+    "p_0_1_1_0": 16,
+    "p_0_1_2_1": 16,
+    "p_0_1_0_2": 4,
+    "p_1_1_0_2": 22,
+    "p_0_0_2_1": 22,
+    "p_0_0_2_0": 2,
+    "p_0_1_3_3": 3,
+    "p_0_1_1_2": 4,
+    "p_1_1_1_2": 13,
+    "p_0_0_2_3": 14,
+    "p_0_0_0_1": 16,
+    "p_0_0_3_0": 15,
+    "p_0_0_1_0": 2,
+    "p_1_0_0_2": 1,
+    "p_0_0_3_3": 16
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_0",
+        "literal": 16,
+        "span": [
+          1292,
+          1336
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_3",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_3",
+          "Rotifer's Anus"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_1_1_3"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Trichomonas's Salivary Glands"
+        ],
+        "expression": "p_0_1_1_3",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Savanna's Rotifer"
+        ],
+        "expression": "p_0_1_2_1",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Rotifer's Cecum"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Daphnia's Stomach"
+        ],
+        "expression": "(6 * p_0_1_0_0)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Rotifer's Stomach"
+        ],
+        "expression": "(1 * p_0_1_0_2)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_2",
+          "p_0_1_1_3"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Rotifer's Organs"
+        ],
+        "expression": "((p_0_1_1_0 + p_0_1_1_2) + p_0_1_1_3)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_2",
+        "parents": [
+          "p_0_0_0_1",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_1_0_0_2",
+          "Savanna's Organs"
+        ],
+        "expression": "(p_0_0_0_1 * p_1_1_1_2)",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_0",
+        "p_0_1_1_3"
+      ],
+      [
+        "p_0_1_1_3",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_3",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_0_2"
+      ]
+    ]
+  }
+}

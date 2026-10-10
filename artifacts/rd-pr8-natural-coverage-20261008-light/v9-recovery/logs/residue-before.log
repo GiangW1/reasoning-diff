@@ -1,0 +1,52 @@
+FFFFF........F                                                           [100%]
+=================================== FAILURES ===================================
+_ test_local_modular_work_marks_concluding_commit_without_dropping_raw_result[ Now, modulo 23: 48 divided by 23 is 2*23=46, so 48-46=2. So ] _
+tests/test_natural_residue_context.py:19: in test_local_modular_work_marks_concluding_commit_without_dropping_raw_result
+    assert parsed[-1].event_phase == 'residue_commit'
+E   AssertionError: assert 'commit' == 'residue_commit'
+E     
+E     - residue_commit
+E     + commit
+_ test_local_modular_work_marks_concluding_commit_without_dropping_raw_result[\n\nNow, compute 48 modulo 23. Let's divide 48 by 23: 23*2=46, so 48-46=2. Therefore, ] _
+tests/test_natural_residue_context.py:19: in test_local_modular_work_marks_concluding_commit_without_dropping_raw_result
+    assert parsed[-1].event_phase == 'residue_commit'
+E   AssertionError: assert 'commit' == 'residue_commit'
+E     
+E     - residue_commit
+E     + commit
+_ test_local_modular_work_marks_concluding_commit_without_dropping_raw_result[\n\nNow, applying modulo 23. Let me divide 48 by 23. 23*2=46, so 48-46=2. Therefore, 48 mod 23 is 2. So:\n\n] _
+tests/test_natural_residue_context.py:19: in test_local_modular_work_marks_concluding_commit_without_dropping_raw_result
+    assert parsed[-1].event_phase == 'residue_commit'
+E   AssertionError: assert 'commit' == 'residue_commit'
+E     
+E     - residue_commit
+E     + commit
+_ test_local_modular_work_marks_concluding_commit_without_dropping_raw_result[ But since we're working modulo 23, let's compute 48 mod 23. 23*2=46, so 48-46=2. Therefore, ] _
+tests/test_natural_residue_context.py:19: in test_local_modular_work_marks_concluding_commit_without_dropping_raw_result
+    assert parsed[-1].event_phase == 'residue_commit'
+E   AssertionError: assert 'commit' == 'residue_commit'
+E     
+E     - residue_commit
+E     + commit
+_ test_local_modular_work_marks_concluding_commit_without_dropping_raw_result[ 48 mod 23 = 2. So ] _
+tests/test_natural_residue_context.py:19: in test_local_modular_work_marks_concluding_commit_without_dropping_raw_result
+    assert parsed[-1].event_phase == 'residue_commit'
+E   AssertionError: assert 'commit' == 'residue_commit'
+E     
+E     - residue_commit
+E     + commit
+__________ test_modular_context_uses_words_not_arithmetic_correctness __________
+tests/test_natural_residue_context.py:44: in test_modular_context_uses_words_not_arithmetic_correctness
+    assert (parsed[-1].value, parsed[-1].event_phase) == ('800', 'residue_commit')
+E   AssertionError: assert ('800', 'commit') == ('800', 'residue_commit')
+E     
+E     At index 1 diff: 'commit' != 'residue_commit'
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/test_natural_residue_context.py::test_local_modular_work_marks_concluding_commit_without_dropping_raw_result[ Now, modulo 23: 48 divided by 23 is 2*23=46, so 48-46=2. So ]
+FAILED tests/test_natural_residue_context.py::test_local_modular_work_marks_concluding_commit_without_dropping_raw_result[\n\nNow, compute 48 modulo 23. Let's divide 48 by 23: 23*2=46, so 48-46=2. Therefore, ]
+FAILED tests/test_natural_residue_context.py::test_local_modular_work_marks_concluding_commit_without_dropping_raw_result[\n\nNow, applying modulo 23. Let me divide 48 by 23. 23*2=46, so 48-46=2. Therefore, 48 mod 23 is 2. So:\n\n]
+FAILED tests/test_natural_residue_context.py::test_local_modular_work_marks_concluding_commit_without_dropping_raw_result[ But since we're working modulo 23, let's compute 48 mod 23. 23*2=46, so 48-46=2. Therefore, ]
+FAILED tests/test_natural_residue_context.py::test_local_modular_work_marks_concluding_commit_without_dropping_raw_result[ 48 mod 23 = 2. So ]
+FAILED tests/test_natural_residue_context.py::test_modular_context_uses_words_not_arithmetic_correctness
+6 failed, 8 passed in 0.08s

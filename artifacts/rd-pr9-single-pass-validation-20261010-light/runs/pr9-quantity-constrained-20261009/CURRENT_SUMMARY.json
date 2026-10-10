@@ -1,0 +1,58 @@
+{
+  "completed_response_count": 1,
+  "completed_by_role": {
+    "reference": 1
+  },
+  "correct_by_role": {
+    "reference": 1
+  },
+  "status_counts": {
+    "natural_complete": 1
+  },
+  "pipeline": {
+    "status": "stopped_for_decoder_diagnostic",
+    "reason": "constraint_suppressed_model_step_closing_token_and_induced_repetition_until_each_512_token_cap",
+    "n_completed": 1,
+    "completed_ids": [
+      "trace-reference:b4afa1c7f06cc0d24f298ce7"
+    ],
+    "n_format_passed": 1,
+    "possibly_interrupted_request": {
+      "id": "trace-reference:6c1c437361f13bb7d3585a76",
+      "role": "reference",
+      "seed": 0,
+      "task_id": "igsm-pr9-20261008-0004-op5::noop:front:high"
+    },
+    "semantic_rule_changes_cannot_reuse_these_responses": true,
+    "scientific_conclusion": null,
+    "at": "2026-10-09T19:22:57.106824+08:00"
+  },
+  "plan": {
+    "by_role": {
+      "edit": 450,
+      "noise": 36,
+      "reference": 36,
+      "source": 32
+    },
+    "decode_token_ceiling": 18153472,
+    "expected_opportunities": {
+      "edit_values": 1,
+      "noise_donors_per_reference": 1,
+      "reference_seeds": [
+        0
+      ]
+    },
+    "family_roles": {
+      "calibration": 1,
+      "dev": 2,
+      "direction_fit": 2,
+      "probe_train": 4,
+      "test": 3
+    },
+    "n_problems": 12,
+    "p3_decode_calls_per_selected_prefix": 14,
+    "requests": 554,
+    "scientific_conclusion": null,
+    "semantic_audit": "pending"
+  }
+}

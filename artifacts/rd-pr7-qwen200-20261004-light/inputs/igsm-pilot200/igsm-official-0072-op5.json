@@ -1,0 +1,121 @@
+{
+  "native_id": "igsm-official-0072-op5",
+  "family_id": "igsm-official-0072-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260999,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "1",
+  "target": "p_0_2_0_0",
+  "question": "The number of each Lake Nakuru National Park's Insect House equals 15. The number of each Lake Nakuru National Park's Millipede Meadow equals the difference of each Pilanesberg National Park's Animal and each Anchovy's Radial Carpal. The number of each Anchovy's Radial Carpal equals 5. The number of each Carp's Radial Carpal equals each Anchovy's Metacarpal I. The number of each Anchovy's Metacarpal I equals 20 times as much as each Insect House's Anchovy. The number of each Insect House's Carp equals each Lake Nakuru National Park's Insect House. The number of each Insect House's Anchovy equals 0 more than each Insect House's Carp. How many Radial Carpal does Carp have?",
+  "lookup": {
+    "p_0_2_1_0": 5,
+    "p_0_0_1_1": 15,
+    "p_0_1_1_0": 15,
+    "p_1_0_0_2": 0,
+    "p_0_0_1_0": 18,
+    "p_0_1_1_1": 15,
+    "p_0_2_1_1": 1,
+    "p_0_2_0_0": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 15,
+        "span": [
+          0,
+          69
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Insect House's Carp"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Insect House's Anchovy"
+        ],
+        "expression": "(0 + p_0_1_1_0)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Anchovy's Metacarpal I"
+        ],
+        "expression": "(20 * p_0_1_1_1)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Carp's Radial Carpal"
+        ],
+        "expression": "p_0_2_1_1",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_0_2_0_0"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "native_id": "igsm-pr9-20261008-0034-op15",
+  "family_id": "igsm-pr9-20261008-0034-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100834,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "14",
+  "target": "p_0_2_0_2",
+  "question": "The number of each Crossfit Backpack's Ruler equals each Northridge High's Backpack. The number of each Parkview Secondary's Materials Science Lab equals each Snowboard Backpack's Push Pins. The number of each Parkview Secondary's Algebra Classroom equals 1. The number of each Mechanical Engineering Lab's Sports Ball Backpack equals each Algebra Classroom's Snowboard Backpack. The number of each Calculus Classroom's Hydration Backpack equals each Snowboard Backpack's Stationery. The number of each Mechanical Engineering Lab's Snowboard Backpack equals the sum of each Materials Science Lab's Stationery and each Northridge High's Algebra Classroom. The number of each Hydration Backpack's Ruler equals the sum of each Parkview Secondary's Materials Science Lab, each Westwood High's Mechanical Engineering Lab, each Snowboard Backpack's Push Pins and each Westwood High's Algebra Classroom. The number of each Algebra Classroom's Snowboard Backpack equals 1 times as much as each Algebra Classroom's Crossfit Backpack. The number of each Sports Ball Backpack's Hole Puncher equals 14. The number of each Westwood High's Algebra Classroom equals 16. The number of each Algebra Classroom's Crossfit Backpack equals 18. The number of each Westwood High's Mechanical Engineering Lab equals each Parkview Secondary's Algebra Classroom. The number of each Westwood High's Calculus Classroom equals the sum of each Parkview Secondary's Algebra Classroom and each Algebra Classroom's Stationery. The number of each Snowboard Backpack's Push Pins equals 13. The number of each Sports Ball Backpack's Ruler equals 22 more than each Algebra Classroom's Snowboard Backpack. The number of each Hydration Backpack's Sticky Tape equals 21. The number of each Northridge High's Algebra Classroom equals each Sports Ball Backpack's Ruler. The number of each Northridge High's Mechanical Engineering Lab equals each Metropolitan High's Stationery. How many Ruler does Crossfit Backpack have?",
+  "lookup": {
+    "p_1_1_2_3": 0,
+    "p_0_2_2_0": 13,
+    "p_0_0_2_2": 13,
+    "p_1_2_2_3": 13,
+    "p_0_0_2_0": 1,
+    "p_0_1_0_0": 18,
+    "p_0_0_0_0": 16,
+    "p_0_2_1_1": 14,
+    "p_1_0_1_3": 0,
+    "p_0_0_0_3": 1,
+    "p_0_2_3_2": 20,
+    "p_0_0_3_3": 0,
+    "p_0_2_3_3": 21,
+    "p_0_1_1_3": 13,
+    "p_0_1_0_2": 18,
+    "p_0_2_1_2": 17,
+    "p_1_1_0_2": 13,
+    "p_0_1_3_1": 18,
+    "p_0_0_3_0": 17,
+    "p_0_1_3_2": 17,
+    "p_1_1_3_2": 12,
+    "p_1_0_3_2": 14,
+    "p_0_2_0_2": 14,
+    "p_1_2_0_3": 14,
+    "p_1_1_0_3": 3,
+    "p_0_0_0_1": 4
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_0",
+        "literal": 18,
+        "span": [
+          1155,
+          1221
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_3_3",
+        "literal": 0,
+        "span": [
+          1828,
+          1934
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Algebra Classroom's Snowboard Backpack"
+        ],
+        "expression": "(1 * p_0_1_0_0)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_2",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_2_1_2",
+          "Sports Ball Backpack's Ruler"
+        ],
+        "expression": "(22 + p_0_1_0_2)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_0_2_1_2"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Northridge High's Algebra Classroom"
+        ],
+        "expression": "p_0_2_1_2",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Algebra Classroom's Backpack"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_2)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_1",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_1_3_1",
+          "Mechanical Engineering Lab's Sports Ball Backpack"
+        ],
+        "expression": "p_0_1_0_2",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_2",
+        "parents": [
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_1_3_2",
+          "Mechanical Engineering Lab's Snowboard Backpack"
+        ],
+        "expression": "(0 + p_0_0_3_0)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_3_2",
+        "parents": [
+          "p_0_1_3_1",
+          "p_0_1_3_2"
+        ],
+        "aliases": [
+          "p_1_1_3_2",
+          "Mechanical Engineering Lab's Backpack"
+        ],
+        "expression": "(p_0_1_3_1 + p_0_1_3_2)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_2",
+        "parents": [
+          "p_0_0_3_0",
+          "p_1_1_0_2",
+          "p_0_0_3_3",
+          "p_1_1_3_2"
+        ],
+        "aliases": [
+          "p_1_0_3_2",
+          "Northridge High's Backpack"
+        ],
+        "expression": "((p_0_0_3_0 * p_1_1_0_2) + (p_0_0_3_3 * p_1_1_3_2))",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_2",
+        "parents": [
+          "p_1_0_3_2"
+        ],
+        "aliases": [
+          "p_0_2_0_2",
+          "Crossfit Backpack's Ruler"
+        ],
+        "expression": "p_1_0_3_2",
+        "value": 14
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_2_1_2"
+      ],
+      [
+        "p_0_2_1_2",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_3_1"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_1_3_1",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_1_1_3_2",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_1_0_3_2",
+        "p_0_2_0_2"
+      ]
+    ]
+  }
+}

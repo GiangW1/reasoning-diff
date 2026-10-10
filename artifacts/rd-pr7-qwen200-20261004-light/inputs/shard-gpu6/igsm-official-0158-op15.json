@@ -1,0 +1,255 @@
+{
+  "native_id": "igsm-official-0158-op15",
+  "family_id": "igsm-official-0158-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261089,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "15",
+  "target": "p_1_1_3_2",
+  "question": "The number of each Tech Park's Harvest Market equals 0 more than the sum of each Fashion District's New Seasons Market, each Fashion District's MOM's Organic Market and each New Seasons Market's Trail Mix. The number of each Earth Fare's Trail Mix equals each MOM's Organic Market's Granola Bars. The number of each Fashion District's New Seasons Market equals 13. The number of each MOM's Organic Market's Trail Mix equals 15 more than each Earth Fare's Trail Mix. The number of each MOM's Organic Market's Granola Bars equals 7. The number of each Automotive District's MOM's Organic Market equals each Harvest Market's Tortilla Chips. The number of each Automotive District's Harvest Market equals 10. The number of each Fashion District's Harvest Market equals each MOM's Organic Market's Tortilla Chips. The number of each Harvest Market's Chocolate Covered Pretzels equals the difference of each Earth Fare's Trail Mix and each Fashion District's Earth Fare. The number of each Earth Fare's Tortilla Chips equals 7 times as much as the difference of each MOM's Organic Market's Product and each MOM's Organic Market's Chocolate Covered Pretzels. The number of each Earth Fare's Chocolate Covered Pretzels equals the difference of each MOM's Organic Market's Trail Mix and each Earth Fare's Tortilla Chips. The number of each New Seasons Market's Trail Mix equals 4 times as much as the difference of each Fashion District's MOM's Organic Market and each Harvest Market's Tortilla Chips. The number of each New Seasons Market's Tortilla Chips equals the sum of each Automotive District's Harvest Market, each Earth Fare's Tortilla Chips and each MOM's Organic Market's Chocolate Covered Pretzels. The number of each Earth Fare's Granola Bars equals 17 more than each Earth Fare's Tortilla Chips. The number of each MOM's Organic Market's Tortilla Chips equals 6. The number of each Automotive District's New Seasons Market equals each Fashion District's MOM's Organic Market. The number of each Automotive District's Earth Fare equals each Earth Fare's Tortilla Chips. The number of each MOM's Organic Market's Chocolate Covered Pretzels equals each Earth Fare's Trail Mix. The number of each Harvest Market's Tortilla Chips equals 17 more than each Fashion District's MOM's Organic Market. The number of each Fashion District's Earth Fare equals 22. The number of each Fashion District's MOM's Organic Market equals 9. The number of each New Seasons Market's Chocolate Covered Pretzels equals each Harvest Market's Product. How many Product does Earth Fare have?",
+  "lookup": {
+    "p_0_1_0_2": 7,
+    "p_0_0_0_1": 13,
+    "p_0_1_3_3": 7,
+    "p_0_1_0_1": 6,
+    "p_0_0_2_2": 10,
+    "p_0_0_0_3": 22,
+    "p_0_0_0_0": 9,
+    "p_0_1_2_0": 8,
+    "p_0_1_2_1": 3,
+    "p_0_0_2_0": 3,
+    "p_0_1_1_3": 1,
+    "p_0_0_2_1": 9,
+    "p_1_1_2_2": 11,
+    "p_0_0_0_2": 6,
+    "p_0_1_0_3": 22,
+    "p_0_0_1_2": 0,
+    "p_0_1_1_0": 11,
+    "p_0_1_0_0": 7,
+    "p_1_1_0_2": 19,
+    "p_0_1_3_1": 15,
+    "p_0_0_2_3": 15,
+    "p_0_1_3_2": 9,
+    "p_0_1_3_0": 7,
+    "p_0_1_1_1": 9,
+    "p_1_1_3_2": 15
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_2",
+        "literal": 7,
+        "span": [
+          466,
+          529
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_1",
+        "literal": 6,
+        "span": [
+          1801,
+          1866
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_3",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_1_3_3",
+          "Earth Fare's Trail Mix"
+        ],
+        "expression": "p_0_1_0_2",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_3",
+        "parents": [
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_0_1_0_3",
+          "MOM's Organic Market's Trail Mix"
+        ],
+        "expression": "(15 + p_0_1_3_3)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "MOM's Organic Market's Chocolate Covered Pretzels"
+        ],
+        "expression": "p_0_1_3_3",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1",
+          "p_0_1_0_2",
+          "p_0_1_0_3"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "MOM's Organic Market's Product"
+        ],
+        "expression": "(((p_0_1_0_0 + p_0_1_0_1) + p_0_1_0_2) + p_0_1_0_3)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_1",
+        "parents": [
+          "p_1_1_0_2",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_3_1",
+          "Earth Fare's Tortilla Chips"
+        ],
+        "expression": "(7 * (p_1_1_0_2 - p_0_1_0_0))",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_0",
+        "parents": [
+          "p_0_1_0_3",
+          "p_0_1_3_1"
+        ],
+        "aliases": [
+          "p_0_1_3_0",
+          "Earth Fare's Chocolate Covered Pretzels"
+        ],
+        "expression": "(p_0_1_0_3 - p_0_1_3_1)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_2",
+        "parents": [
+          "p_0_1_3_1"
+        ],
+        "aliases": [
+          "p_0_1_3_2",
+          "Earth Fare's Granola Bars"
+        ],
+        "expression": "(17 + p_0_1_3_1)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_3_2",
+        "parents": [
+          "p_0_1_3_0",
+          "p_0_1_3_1",
+          "p_0_1_3_2",
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_1_1_3_2",
+          "Earth Fare's Product"
+        ],
+        "expression": "(((p_0_1_3_0 + p_0_1_3_1) + p_0_1_3_2) + p_0_1_3_3)",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_2",
+        "p_0_1_3_3"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_1_3_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_3_1"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_0_1_3_0"
+      ],
+      [
+        "p_0_1_3_1",
+        "p_0_1_3_0"
+      ],
+      [
+        "p_0_1_3_1",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_1_3_0",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_1_3_1",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_1_1_3_2"
+      ]
+    ]
+  }
+}

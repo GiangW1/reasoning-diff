@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import inspect
 import numpy as np
 import torch
 
@@ -62,7 +63,8 @@ def _hidden_at_layer(model, token_ids: list[int], layer: int) -> np.ndarray:
         raise ValueError(f"trace length {len(token_ids)} exceeds model context {cap}")
     model.eval()
     with torch.inference_mode():
-        _fwd, hidden = _capture_forward_output(model, token_ids, layer=layer, use_cache=False)
+        options = {"logits_to_keep": 1} if "logits_to_keep" in inspect.signature(model.forward).parameters else {}
+        _fwd, hidden = _capture_forward_output(model, token_ids, layer=layer, use_cache=False, **options)
     return hidden[0].float().detach().cpu().numpy()
 
 
@@ -77,9 +79,12 @@ def collect_hidden_trace(
     weight_source: str = "random_init",
     hidden_layer: int | None = None,
     prompt_text: str | None = None,
+    rendered_prompt_text: str | None = None,
+    strict_prompt_spans: bool = False,
     trace_id: str = "",
     task_id: str = "",
     base_group_id: str = "",
+    include_nonthinking_events: bool = True,
 ) -> dict:
     if model is None:
         with torch.random.fork_rng(devices=[]):
@@ -94,6 +99,15 @@ def collect_hidden_trace(
     identity_keys = []
     event_records = []
     for event in events:
+        event_region = getattr(event, "event_region", "unknown")
+        # C1 concerns information available before a reasoning commit.  The
+        # raw trace retains answer-region events for audit; they do not enter
+        # the hidden-state matrix used by the scientific probe.
+        c1_eligible = include_nonthinking_events or event_region in {"thinking", "unknown"}
+        if not include_nonthinking_events and (getattr(event, "status", "ok") != "ok" or getattr(event, "event_kind", "commit") == "restatement"):
+            c1_eligible = False
+        if not c1_eligible:
+            continue
         start = event.start
         value_start = getattr(event, "value_start", start)
         end = event.end
@@ -127,6 +141,18 @@ def collect_hidden_trace(
                 "identity_key": identity_key,
                 "node_id": getattr(event, "node_id", None),
                 "timing": "pre_step",
+                "event_region": event_region,
+                "event_kind": getattr(event, "event_kind", "commit"),
+                "event_phase": getattr(event, "event_phase", "unknown"),
+                "expression_signature": getattr(event, "expression_signature", ""),
+                "event_scope": getattr(ident, "scope", "global"),
+                "event_status": getattr(event, "status", "ok"),
+                "analysis_eligibility": {
+                    "C1": True,
+                    "C2": bool(getattr(event, "status", "ok") == "ok"),
+                    "C3": bool(getattr(event, "status", "ok") == "ok"),
+                    "C4": False,
+                },
                 "token_index": pre_idx,
                 "token_position": pre_idx,
                 "boundary_start": start,
@@ -154,31 +180,55 @@ def collect_hidden_trace(
         pre_step = h_matrix
         pre_value = h_matrix
         post_step = h_matrix
-    def resolved_span(premise, cursor: int) -> tuple[int, int, int]:
-        """Resolve local sentence/paragraph spans in the rendered prompt."""
-        if prompt_text and getattr(premise, "kind", None) in {"sentence", "paragraph"}:
+    span_source = rendered_prompt_text or prompt_text
+
+    matched_spans: set[tuple[int, int]] = set()
+
+    def resolved_span(premise, cursor: int) -> tuple[int, int, int, str]:
+        """Resolve premise text in the exact rendered prompt coordinates."""
+        if span_source:
+            # The loader's ``start``/``end`` fields are coordinates in the
+            # logical question.  They are not valid after a chat template has
+            # added system/user markers, so every scientific span is located
+            # by an exact text round trip instead.
             prefix = f"{premise.document_id}: " if getattr(premise, "document_id", None) else ""
-            needle = prefix + premise.text
-            loc = prompt_text.find(needle, cursor)
-            if loc >= 0:
-                start = loc + len(prefix)
-                return start, start + len(premise.text), start + len(premise.text)
-            loc = prompt_text.find(premise.text, cursor)
-            if loc >= 0:
-                return loc, loc + len(premise.text), loc + len(premise.text)
-        return premise.start, premise.end, cursor
+            for needle, prefix_len in ((prefix + premise.text, len(prefix)), (premise.text, 0)):
+                # Premises are not guaranteed to be stored in prompt order.
+                # Prefer the old forward search, then scan from the beginning
+                # while avoiding a span already assigned to another premise.
+                locations = []
+                loc = span_source.find(needle, cursor)
+                if loc >= 0:
+                    locations.append(loc)
+                loc = span_source.find(needle)
+                while loc >= 0:
+                    if loc not in locations:
+                        locations.append(loc)
+                    loc = span_source.find(needle, loc + 1)
+                for loc in locations:
+                    start = loc + prefix_len
+                    span = (start, start + len(premise.text))
+                    if span in matched_spans:
+                        continue
+                    matched_spans.add(span)
+                    return start, span[1], span[1], "matched"
+            if strict_prompt_spans:
+                raise ValueError(f"premise span not found in rendered prompt for {premise.premise_id}")
+            return premise.start, premise.end, cursor, "fallback_logical_coordinates"
+        return premise.start, premise.end, cursor, "logical_coordinates"
 
     e_rows = []
     premise_spans = []
     premise_records = []
     search_cursor = 0
     for premise in premises:
-        span_start, span_end, next_cursor = resolved_span(premise, search_cursor)
+        span_start, span_end, next_cursor, span_status = resolved_span(premise, search_cursor)
         premise_spans.append([span_start, span_end])
         search_cursor = max(search_cursor, next_cursor)
-        span_text = (prompt_text or "")[span_start:span_end] if prompt_text else premise.text
-        span_status = "matched" if span_text == premise.text else "mismatch"
-        if prompt_text and span_status != "matched":
+        span_text = span_source[span_start:span_end] if span_source and span_status == "matched" else premise.text
+        if span_source and span_status == "matched" and span_text != premise.text:
+            span_status = "mismatch"
+        if strict_prompt_spans and span_status != "matched":
             raise ValueError(f"premise span round-trip failed for {premise.premise_id}")
         premise_records.append(
             {
@@ -199,6 +249,7 @@ def collect_hidden_trace(
                 "matched_text": span_text,
                 "status": span_status,
                 "kind": premise.kind,
+                "source": "rendered_prompt" if rendered_prompt_text else ("logical_prompt" if prompt_text else "premise_fields"),
             }
         )
         idxs = [i for i in span_token_indices(offsets, span_start, span_end) if i < hidden.shape[0]]
@@ -273,7 +324,7 @@ def intervene_tiny(kind: str, prompt_ids: list[int], layer: int = 1, donor: np.n
     basis = orthonormal_basis(base_vec.shape[-1], 1, rng)
 
     def transform(t):
-        vec = t.detach().cpu().numpy().reshape(-1)
+        vec = t.detach().float().cpu().numpy().reshape(-1)
         swapped = apply_swap(vec, donor_vec, basis)
         return torch.as_tensor(swapped, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -290,6 +341,48 @@ def intervene_tiny(kind: str, prompt_ids: list[int], layer: int = 1, donor: np.n
     }
 
 
+def quantized_norm_matched_add(tensor, delta, target):
+    """Scale one direction before casting; verify the actual residual change.
+
+    The norm is monotone in the positive scale, including quantization steps.
+    Some targets are unrepresentable: retain the 2% check rather than hiding
+    a zero or oversized intervention. No model forward or decode is repeated.
+    """
+    target = float(target)
+    step = np.asarray(delta, dtype=float).reshape(-1)
+    original = tensor.detach().cpu()
+    vector = original.float().numpy().reshape(-1).astype(float)
+    if not np.isfinite(target) or target < 0 or step.shape != vector.shape or not np.isfinite(step).all():
+        raise ValueError('invalid norm calibration target or direction')
+
+    def candidate(scale):
+        changed = torch.as_tensor(vector + scale * step, dtype=original.dtype).view_as(original)
+        actual = float((changed.float() - original.float()).norm())
+        return changed, {'scale': scale, 'actual_norm': actual, 'target_norm': target}
+
+    if target == 0:
+        return tensor.clone(), {'scale': 0.0, 'actual_norm': 0.0, 'target_norm': 0.0}
+    low, high = 0.0, 1.0
+    best = candidate(high)
+    for _ in range(16):
+        if best[1]['actual_norm'] >= target:
+            break
+        high *= 2
+        best = candidate(high)
+    for _ in range(40):
+        scale = (low + high) / 2
+        item = candidate(scale)
+        if abs(item[1]['actual_norm'] - target) < abs(best[1]['actual_norm'] - target):
+            best = item
+        if item[1]['actual_norm'] < target:
+            low = scale
+        else:
+            high = scale
+    if best[1]['actual_norm'] <= 0 or not np.isclose(best[1]['actual_norm'], target, rtol=.02, atol=1e-4):
+        raise ValueError('no representable norm-matched delta at the model dtype')
+    return best[0].to(tensor.device), best[1]
+
+
 def intervene_hidden_decode(
     kind: str,
     prompt_ids: list[int],
@@ -298,9 +391,10 @@ def intervene_hidden_decode(
     seed: int = 0,
     weight_seed: int = 0,
     max_new: int = 4,
-    temperature: float = 1.0,
-    top_k: int = 0,
-    top_p: float = 1.0,
+    temperature: float = 0.6,
+    top_k: int = 20,
+    top_p: float = 0.95,
+    eos_id: int | None = None,
     event_aligned: bool = False,
     basis_seed: int | None = None,
     basis: np.ndarray | None = None,
@@ -309,6 +403,8 @@ def intervene_hidden_decode(
     delta: np.ndarray | None = None,
     target_prefix_len: int | None = None,
     model=None,
+    target_delta_norm: float | None = None,
+    constraint=None,
 ) -> dict:
     if model is None:
         with torch.random.fork_rng(devices=[]):
@@ -317,6 +413,9 @@ def intervene_hidden_decode(
     donor_vec = np.asarray(donor, dtype=float) if donor is not None else None
     rng = np.random.default_rng(1 if basis_seed is None else int(basis_seed))
     fitted_basis = None if basis is None else np.asarray(basis, dtype=float)
+    norm_calibration = {}
+    if target_delta_norm is not None and mode != 'add_delta':
+        raise ValueError('norm calibration requires add_delta mode')
     if mode == "pi_z_swap":
         if donor_vec is None:
             raise ValueError("pi_z_swap requires donor")
@@ -329,7 +428,7 @@ def intervene_hidden_decode(
         basis = fitted_basis
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             swapped = apply_swap(vec, donor_vec, basis)
             return torch.as_tensor(swapped, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -337,7 +436,7 @@ def intervene_hidden_decode(
         proj = np.asarray(projector, dtype=float)
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             out = vec @ proj if proj.ndim == 2 and vec.shape[-1] == proj.shape[0] else vec
             return torch.as_tensor(out, dtype=t.dtype, device=t.device).view_as(t)
 
@@ -345,7 +444,11 @@ def intervene_hidden_decode(
         step = np.asarray(delta, dtype=float)
 
         def transform(t):
-            vec = t.detach().cpu().numpy().reshape(-1)
+            if target_delta_norm is not None:
+                changed, calibration = quantized_norm_matched_add(t, step, target_delta_norm)
+                norm_calibration.update(calibration)
+                return changed
+            vec = t.detach().float().cpu().numpy().reshape(-1)
             return torch.as_tensor(vec + step, dtype=t.dtype, device=t.device).view_as(t)
 
     elif mode == "replace":
@@ -359,20 +462,28 @@ def intervene_hidden_decode(
 
     g = torch.Generator(device=model_device(model)).manual_seed(seed)
     prompt = as_input_ids(prompt_ids, model)
+    context = int(getattr(model.config, "max_position_embeddings", 0) or 0)
+    if context:
+        max_new = min(max_new, context - int(prompt.shape[1]))
+        if max_new < 1:
+            raise ValueError("no intervention generation space remains in the model context")
     if event_aligned:
         if target_prefix_len is None:
             raise ValueError("event-aligned intervention requires target_prefix_len")
         if int(target_prefix_len) != int(prompt.shape[1]):
             raise ValueError("target_prefix_len must match the supplied prefix")
     with resid_post_hook(model, layer, transform, once=True) as record:
-        decoded = decode_loop(model, prompt, g, max_new=max_new, temperature=temperature, top_k=top_k, top_p=top_p)
+        options = {'constraint': constraint.fork()} if constraint is not None else {}
+        decoded = decode_loop(model, prompt, g, max_new=max_new, eos_id=eos_id, temperature=temperature, top_k=top_k, top_p=top_p, **options)
     if event_aligned and record.sequence_length != int(target_prefix_len):
         raise RuntimeError("event-aligned hook did not fire on the requested prefix length")
     g2 = torch.Generator(device=model_device(model)).manual_seed(seed)
-    baseline = decode_loop(model, prompt, g2, max_new=max_new, temperature=temperature, top_k=top_k, top_p=top_p)
+    options = {'constraint': constraint.fork()} if constraint is not None else {}
+    baseline = decode_loop(model, prompt, g2, max_new=max_new, eos_id=eos_id, temperature=temperature, top_k=top_k, top_p=top_p, **options)
     return {
         **decoded,
         "baseline_generated_ids": baseline["generated_ids"],
+        "baseline_stop_reason": baseline["stop_reason"],
         "followed_donor": decoded["generated_ids"] != baseline["generated_ids"],
         "hook": "resid_post",
         "transform": mode,
@@ -382,6 +493,7 @@ def intervene_hidden_decode(
         "hook_sequence_length": record.sequence_length,
         "hook_input_norm": record.input_norm,
         "hook_delta_norm": record.delta_norm,
+        "norm_calibration": norm_calibration or None,
         "basis_hash": None if basis is None else hashlib.sha256(np.ascontiguousarray(basis).tobytes()).hexdigest(),
         "basis_rank": None if basis is None else int(basis.shape[1]),
         "basis_norm": None if basis is None else float(np.linalg.norm(basis)),
@@ -401,9 +513,9 @@ def intervene_swap_decode(
     seed: int = 0,
     weight_seed: int = 0,
     max_new: int = 4,
-    temperature: float = 1.0,
-    top_k: int = 0,
-    top_p: float = 1.0,
+    temperature: float = 0.6,
+    top_k: int = 20,
+    top_p: float = 0.95,
     event_aligned: bool = False,
     basis_seed: int | None = None,
 ) -> dict:

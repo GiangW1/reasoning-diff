@@ -1,0 +1,289 @@
+{
+  "native_id": "igsm-official-0142-op15",
+  "family_id": "igsm-official-0142-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261072,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "20",
+  "target": "p_1_0_1_2",
+  "question": "The number of each Dolphin Lagoon's Cheetah equals 4 more than the sum of each Dolphin Lagoon's Wolf and each World of Birds's Crustacean Cove. The number of each Niagara Falls Aviary's Dolphin Lagoon equals 1. The number of each World of Birds's Crustacean Cove equals each Niagara Falls Aviary's Dolphin Lagoon. The number of each Crustacean Cove's Wolf equals 6 times as much as each Niagara Falls Aviary's Dolphin Lagoon. The number of each Crustacean Cove's Cheetah equals the difference of each World of Birds's Dolphin Lagoon and each Niagara Falls Aviary's Dolphin Lagoon. The number of each Niagara Falls Aviary's Crustacean Cove equals 1 times as much as each Crustacean Cove's Wolf. The number of each World of Birds's Dolphin Lagoon equals the difference of each Niagara Falls Aviary's Dolphin Lagoon and each Crustacean Cove's Wolf. The number of each Dolphin Lagoon's Wolf equals each World of Birds's Enclosure. How many Animal does Niagara Falls Aviary have?",
+  "lookup": {
+    "p_0_0_1_1": 1,
+    "p_0_0_0_0": 1,
+    "p_0_1_0_1": 6,
+    "p_0_0_0_1": 18,
+    "p_0_1_0_0": 17,
+    "p_1_1_0_2": 0,
+    "p_1_0_0_1": 19,
+    "p_0_0_1_0": 6,
+    "p_0_1_1_1": 19,
+    "p_0_1_1_0": 1,
+    "p_1_1_1_2": 20,
+    "p_1_0_1_2": 20
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 1,
+        "span": [
+          144,
+          209
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Crustacean Cove's Wolf"
+        ],
+        "expression": "(6 * p_0_0_1_1)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Niagara Falls Aviary's Crustacean Cove"
+        ],
+        "expression": "(1 * p_0_1_0_1)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "World of Birds's Dolphin Lagoon"
+        ],
+        "expression": "(p_0_0_1_1 - p_0_1_0_1)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Crustacean Cove's Cheetah"
+        ],
+        "expression": "(p_0_0_0_1 - p_0_0_1_1)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Crustacean Cove's Animal"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "World of Birds's Crustacean Cove"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "World of Birds's Enclosure"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Dolphin Lagoon's Wolf"
+        ],
+        "expression": "p_1_0_0_1",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_1_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Dolphin Lagoon's Cheetah"
+        ],
+        "expression": "(4 + (p_0_1_1_1 + p_0_0_0_0))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Dolphin Lagoon's Animal"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_2",
+          "p_0_0_1_1",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Niagara Falls Aviary's Animal"
+        ],
+        "expression": "((p_0_0_1_0 * p_1_1_0_2) + (p_0_0_1_1 * p_1_1_1_2))",
+        "value": 20
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_1_2"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+....FFFFFF                                                               [100%]
+=================================== FAILURES ===================================
+___ test_execution_migration_preserves_original_checkpoint_and_budget_origin ___
+tests/test_natural_pilot_extension.py:98: in test_execution_migration_preserves_original_checkpoint_and_budget_origin
+    extension.import_completed(parent, child, new, requests)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'extend_natural_pilot' has no attribute 'import_completed'
+__ test_execution_migration_rejects_scientific_changes_or_corruption[science] __
+tests/test_natural_pilot_extension.py:129: in test_execution_migration_rejects_scientific_changes_or_corruption
+    extension.import_completed(parent, child, new, requests)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'extend_natural_pilot' has no attribute 'import_completed'
+__ test_execution_migration_rejects_scientific_changes_or_corruption[decoder] __
+tests/test_natural_pilot_extension.py:129: in test_execution_migration_rejects_scientific_changes_or_corruption
+    extension.import_completed(parent, child, new, requests)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'extend_natural_pilot' has no attribute 'import_completed'
+_ test_execution_migration_rejects_scientific_changes_or_corruption[requests] __
+tests/test_natural_pilot_extension.py:129: in test_execution_migration_rejects_scientific_changes_or_corruption
+    extension.import_completed(parent, child, new, requests)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'extend_natural_pilot' has no attribute 'import_completed'
+_ test_execution_migration_rejects_scientific_changes_or_corruption[parent_plan] _
+tests/test_natural_pilot_extension.py:129: in test_execution_migration_rejects_scientific_changes_or_corruption
+    extension.import_completed(parent, child, new, requests)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'extend_natural_pilot' has no attribute 'import_completed'
+_ test_execution_migration_rejects_scientific_changes_or_corruption[checkpoint] _
+tests/test_natural_pilot_extension.py:129: in test_execution_migration_rejects_scientific_changes_or_corruption
+    extension.import_completed(parent, child, new, requests)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'extend_natural_pilot' has no attribute 'import_completed'
+=========================== short test summary info ============================
+FAILED tests/test_natural_pilot_extension.py::test_execution_migration_preserves_original_checkpoint_and_budget_origin
+FAILED tests/test_natural_pilot_extension.py::test_execution_migration_rejects_scientific_changes_or_corruption[science]
+FAILED tests/test_natural_pilot_extension.py::test_execution_migration_rejects_scientific_changes_or_corruption[decoder]
+FAILED tests/test_natural_pilot_extension.py::test_execution_migration_rejects_scientific_changes_or_corruption[requests]
+FAILED tests/test_natural_pilot_extension.py::test_execution_migration_rejects_scientific_changes_or_corruption[parent_plan]
+FAILED tests/test_natural_pilot_extension.py::test_execution_migration_rejects_scientific_changes_or_corruption[checkpoint]
+6 failed, 4 passed in 0.23s

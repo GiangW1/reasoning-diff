@@ -1,0 +1,302 @@
+{
+  "native_id": "igsm-official-0167-op21",
+  "family_id": "igsm-official-0167-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261098,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "1",
+  "target": "p_1_2_1_3",
+  "question": "The number of each Hippocampus's Monocytes equals the sum of each Plankton's Organs, each Karakum Desert's Daphnia and each Paramecium's Spinal Nerves. The number of each Daphnia's Ganglia equals 19 times as much as the sum of each Karakum Desert's Daphnia, each Atacama Desert's Staphylococcus and each Paramecium's Spinal Nerves. The number of each Plankton's Hippocampus equals the sum of each Daphnia's Ganglia, each Staphylococcus's Autonomic Nerves and each Great Basin Desert's Plankton. The number of each Daphnia's Autonomic Nerves equals 13. The number of each Staphylococcus's Ganglia equals 19. The number of each Paramecium's Hippocampus equals 22. The number of each Paramecium's Ganglia equals 11 more than the sum of each Hippocampus's Monocytes and each Ganglia's Natural Killer Cells. The number of each Paramecium's Spinal Nerves equals 17 times as much as the sum of each Staphylococcus's Autonomic Nerves and each Atacama Desert's Staphylococcus. The number of each Karakum Desert's Daphnia equals 18 times as much as the sum of each Paramecium's Spinal Nerves, each Atacama Desert's Staphylococcus and each Great Basin Desert's Plankton. The number of each Ganglia's Natural Killer Cells equals 7. The number of each Atacama Desert's Paramecium equals 8 more than each Autonomic Nerves's Myeloblasts. The number of each Autonomic Nerves's Myeloblasts equals 18. The number of each Great Basin Desert's Plankton equals 22. The number of each Autonomic Nerves's Erythroblasts equals the sum of each Autonomic Nerves's Myeloblasts and each Atacama Desert's Paramecium. The number of each Atacama Desert's Staphylococcus equals each Great Basin Desert's Plankton. The number of each Plankton's Autonomic Nerves equals 18 more than the sum of each Daphnia's Ganglia, each Atacama Desert's Staphylococcus and each Staphylococcus's Autonomic Nerves. The number of each Autonomic Nerves's Monocytes equals each Plankton's Hippocampus. The number of each Autonomic Nerves's Natural Killer Cells equals 12. The number of each Staphylococcus's Hippocampus equals each Ganglia's Natural Killer Cells. The number of each Staphylococcus's Autonomic Nerves equals 4 times as much as the sum of each Atacama Desert's Staphylococcus and each Great Basin Desert's Plankton. How many Cells does Hippocampus have?",
+  "lookup": {
+    "p_0_2_0_0": 18,
+    "p_0_1_2_1": 22,
+    "p_0_0_1_1": 22,
+    "p_0_2_0_1": 12,
+    "p_0_0_0_0": 22,
+    "p_0_2_2_1": 7,
+    "p_0_1_3_0": 13,
+    "p_0_1_0_2": 19,
+    "p_0_0_0_2": 3,
+    "p_0_1_0_0": 15,
+    "p_0_1_2_3": 8,
+    "p_0_2_0_3": 21,
+    "p_0_0_2_3": 16,
+    "p_0_1_3_2": 0,
+    "p_0_1_1_1": 14,
+    "p_0_1_1_0": 9,
+    "p_0_1_0_1": 7,
+    "p_0_2_0_2": 14,
+    "p_1_1_1_2": 0,
+    "p_0_2_1_2": 1,
+    "p_0_1_2_2": 19,
+    "p_1_2_1_3": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 22,
+        "span": [
+          1384,
+          1442
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Atacama Desert's Staphylococcus"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Staphylococcus's Autonomic Nerves"
+        ],
+        "expression": "(4 * (p_0_0_0_0 + p_0_0_1_1))",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_3",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_2_3",
+          "Paramecium's Spinal Nerves"
+        ],
+        "expression": "(17 * (p_0_1_0_0 + p_0_0_0_0))",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_1_2_3",
+          "p_0_0_0_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Karakum Desert's Daphnia"
+        ],
+        "expression": "(18 * ((p_0_1_2_3 + p_0_0_0_0) + p_0_0_1_1))",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_2",
+        "parents": [
+          "p_0_0_2_3",
+          "p_0_0_0_0",
+          "p_0_1_2_3"
+        ],
+        "aliases": [
+          "p_0_1_3_2",
+          "Daphnia's Ganglia"
+        ],
+        "expression": "(19 * ((p_0_0_2_3 + p_0_0_0_0) + p_0_1_2_3))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_3_2",
+          "p_0_0_0_0",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Plankton's Autonomic Nerves"
+        ],
+        "expression": "(18 + ((p_0_1_3_2 + p_0_0_0_0) + p_0_1_0_0))",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_3_2",
+          "p_0_1_0_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Plankton's Hippocampus"
+        ],
+        "expression": "((p_0_1_3_2 + p_0_1_0_0) + p_0_0_1_1)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Plankton's Organs"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_2",
+        "parents": [
+          "p_1_1_1_2",
+          "p_0_0_2_3",
+          "p_0_1_2_3"
+        ],
+        "aliases": [
+          "p_0_2_1_2",
+          "Hippocampus's Monocytes"
+        ],
+        "expression": "((p_1_1_1_2 + p_0_0_2_3) + p_0_1_2_3)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_2"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Hippocampus's Cells"
+        ],
+        "expression": "p_0_2_1_2",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_2_3"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_2_3"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_2_1_2"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_2_1_2"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_0_2_1_2"
+      ],
+      [
+        "p_0_2_1_2",
+        "p_1_2_1_3"
+      ]
+    ]
+  }
+}

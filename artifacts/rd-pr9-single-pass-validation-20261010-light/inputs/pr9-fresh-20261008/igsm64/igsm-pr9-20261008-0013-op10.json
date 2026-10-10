@@ -1,0 +1,166 @@
+{
+  "native_id": "igsm-pr9-20261008-0013-op10",
+  "family_id": "igsm-pr9-20261008-0013-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100813,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "3",
+  "target": "p_1_0_2_3",
+  "question": "The number of each Komodo Dragon's Primary Feathers equals each Frilled Lizard's Middle Phalanges. The number of each Frilled Lizard's Middle Phalanges equals 22. The number of each Frilled Lizard's Humerus equals 6 more than each Crocodile's Bone. The number of each Crocodile's Middle Phalanges equals 18. The number of each Falcon Aviary's Crocodile equals 7 more than the difference of each Detroit Insectarium's Bone and each Crocodile's Middle Phalanges. The number of each Toucan Terrace's Frilled Lizard equals the sum of each Pigeon Loft's Animal, each Falcon Aviary's Animal, each Insectarium of Chicago's Bone and each Crocodile's Bone. The number of each Insectarium of Chicago's Falcon Aviary equals 6 more than the sum of each Falcon Aviary's Crocodile, each Crocodile's Middle Phalanges and each Crocodile's Bone. The number of each Pigeon Loft's Komodo Dragon equals 21 more than the difference of each Insectarium of Philadelphia's Pigeon Loft and each Insectarium of Philadelphia's Toucan Terrace. The number of each Insectarium of Philadelphia's Pigeon Loft equals 12. The number of each Insectarium of Philadelphia's Toucan Terrace equals 13 more than each Insectarium of Philadelphia's Pigeon Loft. How many Bone does Insectarium of Chicago have?",
+  "lookup": {
+    "p_1_0_0_3": 0,
+    "p_0_2_2_1": 18,
+    "p_0_1_0_2": 12,
+    "p_0_0_1_2": 12,
+    "p_1_2_2_3": 18,
+    "p_1_1_0_2": 12,
+    "p_0_2_0_1": 22,
+    "p_0_0_1_1": 2,
+    "p_0_2_1_2": 22,
+    "p_1_1_0_3": 9,
+    "p_0_1_2_1": 8,
+    "p_0_0_2_0": 8,
+    "p_0_2_0_0": 1,
+    "p_1_0_2_3": 3,
+    "p_1_1_2_2": 8,
+    "p_0_1_1_0": 18
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_2_1",
+        "literal": 18,
+        "span": [
+          249,
+          306
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_2_2_1"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Falcon Aviary's Crocodile"
+        ],
+        "expression": "(7 + (0 - p_0_2_2_1))",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_2_3",
+        "parents": [
+          "p_0_2_2_1"
+        ],
+        "aliases": [
+          "p_1_2_2_3",
+          "Crocodile's Bone"
+        ],
+        "expression": "p_0_2_2_1",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_1_0_2",
+          "p_0_2_2_1",
+          "p_1_2_2_3"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Insectarium of Chicago's Falcon Aviary"
+        ],
+        "expression": "(6 + ((p_0_1_0_2 + p_0_2_2_1) + p_1_2_2_3))",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_2",
+          "p_1_2_2_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Falcon Aviary's Bone"
+        ],
+        "expression": "(p_0_1_0_2 * p_1_2_2_3)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_3",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_1_0_2_3",
+          "Insectarium of Chicago's Bone"
+        ],
+        "expression": "(p_0_0_2_0 * p_1_1_0_3)",
+        "value": 3
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_2_1",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_2_2_1",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_2_2_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_1_0_2_3"
+      ]
+    ]
+  }
+}

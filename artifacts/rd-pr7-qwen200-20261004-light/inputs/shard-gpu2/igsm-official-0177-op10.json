@@ -1,0 +1,225 @@
+{
+  "native_id": "igsm-official-0177-op10",
+  "family_id": "igsm-official-0177-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261109,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "9",
+  "target": "p_0_2_0_1",
+  "question": "The number of each Temperate Grassland's Stork equals each Crow's Appendix. The number of each Crow's Appendix equals 7. The number of each Pigeon's Pancreas equals 1. The number of each Gallbladder's Osteoblasts equals the difference of each Montane Grassland's Crow and each Temperate Grassland's Stork. The number of each Temperate Grassland's Pigeon equals each Appendix's Osteoclasts. The number of each Montane Grassland's Crow equals the difference of each Montane Grassland's Parrot and each Lowland Grassland's Crow. The number of each Montane Grassland's Parrot equals each Montane Grassland's Pigeon. The number of each Pancreas's Endothelial Cells of Blood Vessels equals 7 more than each Stork's Organs. The number of each Pancreas's Adipocytes equals the sum of each Crow's Stomach and each Appendix's Osteoclasts. The number of each Stork's Pancreas equals each Lowland Grassland's Crow. The number of each Parrot's Gallbladder equals 4. The number of each Crow's Stomach equals the sum of each Temperate Grassland's Pigeon and each Appendix's Osteoclasts. The number of each Appendix's Osteoclasts equals 16. The number of each Appendix's Endothelial Cells of Blood Vessels equals 13 times as much as each Crow's Appendix. The number of each Montane Grassland's Pigeon equals 9 more than each Pancreas's Endothelial Cells of Blood Vessels. The number of each Lowland Grassland's Crow equals each Temperate Grassland's Stork. How many Osteoblasts does Gallbladder have?",
+  "lookup": {
+    "p_0_1_0_1": 1,
+    "p_0_1_2_0": 4,
+    "p_0_1_3_2": 7,
+    "p_0_2_2_2": 16,
+    "p_0_2_2_0": 22,
+    "p_0_0_0_0": 16,
+    "p_0_1_3_3": 9,
+    "p_0_0_0_1": 7,
+    "p_0_0_1_3": 7,
+    "p_0_1_1_1": 7,
+    "p_1_1_1_2": 7,
+    "p_0_2_1_0": 14,
+    "p_0_0_2_0": 0,
+    "p_0_2_1_3": 2,
+    "p_0_0_2_2": 0,
+    "p_0_0_2_3": 16,
+    "p_0_2_0_1": 9
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_3_2",
+        "literal": 7,
+        "span": [
+          76,
+          119
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_1_3_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Temperate Grassland's Stork"
+        ],
+        "expression": "p_0_1_3_2",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Lowland Grassland's Crow"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Stork's Pancreas"
+        ],
+        "expression": "p_0_0_1_3",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Stork's Organs"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Pancreas's Endothelial Cells of Blood Vessels"
+        ],
+        "expression": "(7 + p_1_1_1_2)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_2_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Montane Grassland's Pigeon"
+        ],
+        "expression": "(9 + p_0_2_1_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Montane Grassland's Parrot"
+        ],
+        "expression": "p_0_0_2_0",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_0_2_2",
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Montane Grassland's Crow"
+        ],
+        "expression": "(p_0_0_2_2 - p_0_0_1_3)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_0_2_3",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Gallbladder's Osteoblasts"
+        ],
+        "expression": "(p_0_0_2_3 - p_0_0_0_1)",
+        "value": 9
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_3_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_2_0_1"
+      ]
+    ]
+  }
+}

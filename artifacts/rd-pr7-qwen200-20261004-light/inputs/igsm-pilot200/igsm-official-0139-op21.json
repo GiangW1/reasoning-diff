@@ -1,0 +1,296 @@
+{
+  "native_id": "igsm-official-0139-op21",
+  "family_id": "igsm-official-0139-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261069,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "9",
+  "target": "p_0_0_3_2",
+  "question": "The number of each Frontal Lobe's Mesenchymal Cells equals each Vampire's Organs. The number of each Cerebellum's Keratinocytes equals 9. The number of each Spruce-Fir Forest's Cerberus equals 14 more than each Tropical Rainforest's Vampire. The number of each Tropical Monsoon Forest's Unicorn equals 4 times as much as the difference of each Tropical Rainforest's Cerberus and each Vampire's Autonomic Nerves. The number of each Vampire's Cerebellum equals each Ganglia's Tendon Cells. The number of each Rainforest's Hydra equals 6. The number of each Unicorn's Frontal Lobe equals the sum of each Tropical Monsoon Forest's Unicorn, each Tropical Rainforest's Cerberus and each Autonomic Nerves's Cells. The number of each Spruce-Fir Forest's Vampire equals the sum of each Spruce-Fir Forest's Unicorn, each Autonomic Nerves's Cells and each Unicorn's Frontal Lobe. The number of each Cerebellum's Tendon Cells equals the sum of each Tropical Monsoon Forest's Vampire, each Hydra's Ganglia and each Cerebellum's Keratinocytes. The number of each Cerebellum's Mesenchymal Cells equals each Spruce-Fir Forest's Unicorn. The number of each Tropical Rainforest's Vampire equals 1 more than the sum of each Unicorn's Frontal Lobe, each Tropical Monsoon Forest's Unicorn and each Autonomic Nerves's Mesenchymal Cells. The number of each Hydra's Ganglia equals 21 times as much as the difference of each Cerebellum's Keratinocytes and each Tropical Monsoon Forest's Vampire. The number of each Ganglia's Tendon Cells equals 20 more than the sum of each Tropical Rainforest's Vampire and each Vampire's Autonomic Nerves. The number of each Autonomic Nerves's Mesenchymal Cells equals each Vampire's Autonomic Nerves. The number of each Tropical Monsoon Forest's Vampire equals 21 times as much as each Cerebellum's Keratinocytes. The number of each Tropical Rainforest's Cerberus equals 7 more than the sum of each Autonomic Nerves's Cells, each Vampire's Autonomic Nerves and each Rainforest's Hydra. The number of each Vampire's Autonomic Nerves equals each Rainforest's Hydra. The number of each Spruce-Fir Forest's Unicorn equals 4 more than the sum of each Ganglia's Tendon Cells, each Unicorn's Frontal Lobe and each Tropical Rainforest's Vampire. The number of each Frontal Lobe's Adipocytes equals 3. How many Vampire does Spruce-Fir Forest have?",
+  "lookup": {
+    "p_0_2_1_2": 9,
+    "p_0_0_1_0": 6,
+    "p_0_1_2_3": 6,
+    "p_0_2_2_3": 3,
+    "p_0_0_2_2": 5,
+    "p_0_1_0_0": 15,
+    "p_0_2_1_0": 6,
+    "p_0_2_3_1": 6,
+    "p_1_2_3_3": 6,
+    "p_0_0_0_3": 2,
+    "p_0_0_2_1": 7,
+    "p_0_1_1_2": 15,
+    "p_0_0_0_2": 6,
+    "p_0_2_0_0": 9,
+    "p_0_1_2_1": 9,
+    "p_1_1_2_2": 15,
+    "p_0_2_2_1": 15,
+    "p_0_0_3_1": 11,
+    "p_0_0_3_2": 9,
+    "p_0_2_1_1": 11,
+    "p_0_0_3_3": 20
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 6,
+        "span": [
+          488,
+          534
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_3",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_2_3",
+          "Vampire's Autonomic Nerves"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_3_1",
+        "parents": [
+          "p_0_1_2_3"
+        ],
+        "aliases": [
+          "p_0_2_3_1",
+          "Autonomic Nerves's Mesenchymal Cells"
+        ],
+        "expression": "p_0_1_2_3",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_3_3",
+        "parents": [
+          "p_0_2_3_1"
+        ],
+        "aliases": [
+          "p_1_2_3_3",
+          "Autonomic Nerves's Cells"
+        ],
+        "expression": "p_0_2_3_1",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_3",
+        "parents": [
+          "p_1_2_3_3",
+          "p_0_1_2_3",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_3",
+          "Tropical Rainforest's Cerberus"
+        ],
+        "expression": "(7 + ((p_1_2_3_3 + p_0_1_2_3) + p_0_0_1_0))",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_0_3",
+          "p_0_1_2_3"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Tropical Monsoon Forest's Unicorn"
+        ],
+        "expression": "(4 * (p_0_0_0_3 - p_0_1_2_3))",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_0_3",
+          "p_1_2_3_3"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Unicorn's Frontal Lobe"
+        ],
+        "expression": "((p_0_0_2_1 + p_0_0_0_3) + p_1_2_3_3)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_1_1_2",
+          "p_0_0_2_1",
+          "p_0_2_3_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Tropical Rainforest's Vampire"
+        ],
+        "expression": "(1 + ((p_0_1_1_2 + p_0_0_2_1) + p_0_2_3_1))",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_0_0_2",
+          "p_0_1_2_3"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Ganglia's Tendon Cells"
+        ],
+        "expression": "(20 + (p_0_0_0_2 + p_0_1_2_3))",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_1_1_2",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "Spruce-Fir Forest's Unicorn"
+        ],
+        "expression": "(4 + ((p_0_2_0_0 + p_0_1_1_2) + p_0_0_0_2))",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_0_0_3_1",
+          "p_1_2_3_3",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "Spruce-Fir Forest's Vampire"
+        ],
+        "expression": "((p_0_0_3_1 + p_1_2_3_3) + p_0_1_1_2)",
+        "value": 9
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_1_2_3"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_0_2_3_1"
+      ],
+      [
+        "p_0_2_3_1",
+        "p_1_2_3_3"
+      ],
+      [
+        "p_1_2_3_3",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_1_2_3_3",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_2_3_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_1_2_3_3",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_0_3_2"
+      ]
+    ]
+  }
+}

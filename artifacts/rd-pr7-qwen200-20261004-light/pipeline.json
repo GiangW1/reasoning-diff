@@ -1,0 +1,1 @@
+{"batch_size": 4, "gpus": [2, 3, 6], "model": "qwen3-8b", "report": "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/qwen3-8b/analysis/report.json", "status": "complete", "updated_at": "2026-10-04T21:01:12.281050+00:00"}

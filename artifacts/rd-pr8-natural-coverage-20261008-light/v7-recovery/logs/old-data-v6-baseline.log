@@ -1,0 +1,2 @@
+{'base_traces': 24, 'matched_cells': 186, 'eligible_cells': 1737, 'matched_cell_coverage': 0.1070811744386874, 'trajectories_with_rho': 3, 'thinking_calculation_events': 320}
+{'base_traces': 24, 'matched_cells': 4212, 'eligible_cells': 9064, 'matched_cell_coverage': 0.4646954986760812, 'trajectories_with_rho': 0, 'thinking_calculation_events': 1226}

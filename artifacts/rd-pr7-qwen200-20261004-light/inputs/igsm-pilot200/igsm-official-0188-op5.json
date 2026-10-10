@@ -1,0 +1,129 @@
+{
+  "native_id": "igsm-official-0188-op5",
+  "family_id": "igsm-official-0188-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261121,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "6",
+  "target": "p_1_0_1_2",
+  "question": "The number of each Frog Bog's Red Eyed Tree Frog equals 7. The number of each Chameleon Cage's Newt equals 9 more than each Anaconda Exhibit's Animal. The number of each Newt's Intermediate Carpal equals 18 more than each Anaconda Exhibit's Bone. The number of each Chameleon Cage's Tiger Salamander equals 0 more than the sum of each Newt's Intermediate Carpal, each Anaconda Exhibit's Red Eyed Tree Frog and each Anaconda Exhibit's Bone. The number of each Red Eyed Tree Frog's Metacarpal III equals each Anaconda Exhibit's Animal. The number of each Anaconda Exhibit's Red Eyed Tree Frog equals 11. The number of each Frog Bog's Tiger Salamander equals 15. The number of each Newt's Metacarpal IV equals 3. How many Bone does Anaconda Exhibit have?",
+  "lookup": {
+    "p_0_0_0_0": 7,
+    "p_0_0_0_1": 15,
+    "p_0_1_2_2": 3,
+    "p_0_0_1_0": 11,
+    "p_1_0_1_1": 11,
+    "p_0_1_0_0": 11,
+    "p_1_1_0_2": 11,
+    "p_0_0_2_2": 20,
+    "p_1_0_1_2": 6,
+    "p_0_1_2_1": 1,
+    "p_0_0_2_1": 18
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 11,
+        "span": [
+          534,
+          600
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Anaconda Exhibit's Animal"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Red Eyed Tree Frog's Metacarpal III"
+        ],
+        "expression": "p_1_0_1_1",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Red Eyed Tree Frog's Bone"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Anaconda Exhibit's Bone"
+        ],
+        "expression": "(p_0_0_1_0 * p_1_1_0_2)",
+        "value": 6
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_1_2"
+      ]
+    ]
+  }
+}

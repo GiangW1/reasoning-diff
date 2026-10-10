@@ -1,0 +1,3288 @@
+{
+  "before": "/mnt/mydata/wja/reasoning-diff/runs/pr8-natural-extension-3gpu-20261008",
+  "after": "/mnt/mydata/wja/reasoning-diff/runs/pr8-v9-recovery-20261008/extension-r1",
+  "all_saved_generation_fields_unchanged": true,
+  "prior_eligible_result_spans_removed": 0,
+  "prior_eligible_cells_removed": 0,
+  "before_overall": {
+    "common_noise_coverage": 0.5073947667804323,
+    "eligible_cells": 1758,
+    "matched_cell_coverage": 0.5193401592718999,
+    "n_problems": 8,
+    "n_traces": 24,
+    "noise_supported_cells": 892,
+    "rho_coverage": 0.5416666666666666,
+    "support_cells": 913,
+    "target_coverage": 1.0,
+    "variable_coverage": 0.9947916666666666
+  },
+  "after_overall": {
+    "common_noise_coverage": 0.5039817974971559,
+    "eligible_cells": 1758,
+    "matched_cell_coverage": 0.5159271899886234,
+    "n_problems": 8,
+    "n_traces": 24,
+    "noise_supported_cells": 886,
+    "rho_coverage": 0.5,
+    "support_cells": 907,
+    "target_coverage": 1.0,
+    "variable_coverage": 0.9947916666666666
+  },
+  "original_denominator_diagnostic": {
+    "eligible_cells": 1758,
+    "before_support": 913,
+    "after_support": 907,
+    "before_common_noise": 892,
+    "after_common_noise": 886,
+    "gained_support": 25,
+    "lost_support": 31,
+    "note": "Diagnostic only; full production denominator includes all recovered steps."
+  },
+  "new_cells": {
+    "eligible": 0,
+    "supported": 0,
+    "common_noise": 0
+  },
+  "new_events": [],
+  "new_or_reassigned_pairs": [
+    {
+      "reference": "pilot-gpu2:trace-base:1:seed1",
+      "comparison": "extension-36d0a1a6b4a51f5f40b5",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "between",
+          "by",
+          "compute",
+          "difference",
+          "divided",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "first",
+          "now",
+          "product",
+          "s"
+        ],
+        "base_group_id": "igsm-official-0003-op21",
+        "correct": true,
+        "end": 4309,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu2:trace-base:1:seed1:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:1:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4289,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_2_1",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "Starfish_Pleural = 2",
+        "value": "2",
+        "value_start": 4308
+      },
+      "right": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0003-op21",
+        "correct": true,
+        "end": 6897,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "extension-36d0a1a6b4a51f5f40b5:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "extension-36d0a1a6b4a51f5f40b5",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6877,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_2_1",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "Starfish_Pleural = 2",
+        "value": "2",
+        "value_start": 6896
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 13,
+        "left": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 8,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 22,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:1:seed1",
+      "comparison": "extension-36d0a1a6b4a51f5f40b5",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0003-op21",
+        "correct": true,
+        "end": 5823,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_0_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_0_2",
+        "record_id": "pilot-gpu2:trace-base:1:seed1:{\"entity_or_expression\": \"p_1_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:1:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5809,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_2",
+          "relation_p_0_0_2_1",
+          "relation_p_0_1_2_1",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_0_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_1_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "TEF_Organs = 8",
+        "value": "8",
+        "value_start": 5822
+      },
+      "right": {
+        "alignment_context": [
+          "compute"
+        ],
+        "base_group_id": "igsm-official-0003-op21",
+        "correct": true,
+        "end": 7459,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_0_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_0_2",
+        "record_id": "extension-36d0a1a6b4a51f5f40b5:{\"entity_or_expression\": \"p_1_0_0_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "extension-36d0a1a6b4a51f5f40b5",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7446,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_2",
+          "relation_p_0_0_2_1",
+          "relation_p_0_1_2_1",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_0_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_1_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "TE_Organs = 8",
+        "value": "8",
+        "value_start": 7458
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 13,
+        "left": "{\"entity_or_expression\": \"p_1_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 11,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 22,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_0_0_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:2:seed0",
+      "comparison": "pilot-gpu2:trace-pilot-edit:2:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "arithmetic",
+          "both",
+          "but",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb",
+          "equation",
+          "since"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4058,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "pilot-gpu2:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4045,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "D_Product = 9",
+        "value": "9",
+        "value_start": 4057
+      },
+      "right": {
+        "alignment_context": [
+          "by",
+          "divided",
+          "remainder",
+          "wait",
+          "yes"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4300,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "pilot-gpu2:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4276,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_1_1_2"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "Deliveroo's Product is 9",
+        "value": "9",
+        "value_start": 4299
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 13,
+        "left": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 6,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 31,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 3, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:2:seed1",
+      "comparison": "extension-2f808d1ef69b58f6b4f6",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "bottled",
+          "but",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb",
+          "kombucha",
+          "re",
+          "since",
+          "wait",
+          "water",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": false,
+        "end": 2900,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_1_1_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_1_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_1_1_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_1_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "pilot-gpu2:trace-base:2:seed1:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 2837,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_1_1_2"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "Deliveroo's Product = (Bottled Water + Kombucha) = 16 + 16 = 32",
+        "value": "32",
+        "value_start": 2898
+      },
+      "right": {
+        "alignment_context": [
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": false,
+        "end": 3926,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_1_1_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_1_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_1_1_0', ctx=Load()), op=Add(), right=Name(id='p_0_1_1_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "extension-2f808d1ef69b58f6b4f6:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "extension-2f808d1ef69b58f6b4f6",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3873,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_1_1_2"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "D_P = Deliveroo's Product = D_BW + D_K = 16 + 16 = 32",
+        "value": "32",
+        "value_start": 3924
+      },
+      "certificate": {
+        "context_agreement": 200,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 13,
+        "left": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 3,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 21,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:2:seed1",
+      "comparison": "extension-2f808d1ef69b58f6b4f6",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "which"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 3438,
+        "event_kind": "commit",
+        "event_phase": "copy",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=Name(id='p_0_1_1_1', ctx=Load()))",
+        "expression_views": [
+          "Expression(body=Name(id='p_0_1_1_1', ctx=Load()))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "pilot-gpu2:trace-base:2:seed1:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3371,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_1_1"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "Consulate District's Boxed equals Deliveroo's Kombucha, which is 16",
+        "value": "16",
+        "value_start": 3436
+      },
+      "right": {
+        "alignment_context": [
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4046,
+        "event_kind": "commit",
+        "event_phase": "copy",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=Name(id='p_0_1_1_1', ctx=Load()))",
+        "expression_views": [
+          "Expression(body=Name(id='p_0_1_1_1', ctx=Load()))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "extension-2f808d1ef69b58f6b4f6:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "extension-2f808d1ef69b58f6b4f6",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3999,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_0"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "C_Boxed = Consulate District's Boxed = D_K = 16",
+        "value": "16",
+        "value_start": 4044
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 13,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 4,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 21,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:2:seed1",
+      "comparison": "extension-2f808d1ef69b58f6b4f6",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "less",
+          "since",
+          "stays",
+          "than"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 3611,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "pilot-gpu2:trace-base:2:seed1:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3567,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_1"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_1"
+        ],
+        "text": "Consulate District's Deliveroo = 4 + 16 = 20",
+        "value": "20",
+        "value_start": 3609
+      },
+      "right": {
+        "alignment_context": [
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4117,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Name(id='p_0_1_1_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_1",
+        "record_id": "extension-2f808d1ef69b58f6b4f6:{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "extension-2f808d1ef69b58f6b4f6",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4048,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_1"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_1"
+        ],
+        "text": "C_Deliveroo = Consulate District's Deliveroo = 4 + D_BW = 4 + 16 = 20",
+        "value": "20",
+        "value_start": 4115
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 13,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 5,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 21,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:2:seed1",
+      "comparison": "extension-2f808d1ef69b58f6b4f6",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "now"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": false,
+        "end": 3822,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_0_1",
+        "record_id": "pilot-gpu2:trace-base:2:seed1:{\"entity_or_expression\": \"p_1_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3775,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_0_0_1"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_1_0_0_1"
+        ],
+        "text": "Consulate District's Supermarket = 16 + 20 = 36",
+        "value": "36",
+        "value_start": 3820
+      },
+      "right": {
+        "alignment_context": [
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": false,
+        "end": 4171,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Name(id='p_0_0_0_0', ctx=Load()), op=Add(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Name(id='p_0_0_0_0', ctx=Load()), op=Add(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Add(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_0_1",
+        "record_id": "extension-2f808d1ef69b58f6b4f6:{\"entity_or_expression\": \"p_1_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "extension-2f808d1ef69b58f6b4f6",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4119,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_1_1_1",
+          "relation_p_1_0_0_1"
+        ],
+        "text": "C_Supermarket = C_Boxed + C_Deliveroo = 16 + 20 = 36",
+        "value": "36",
+        "value_start": 4169
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "printed_view_intersection",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 13,
+        "left": "{\"entity_or_expression\": \"p_1_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 6,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 21,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_0_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:2:seed1",
+      "comparison": "extension-2f808d1ef69b58f6b4f6",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "entityinffddkckedkjcncpbeofnofkimbkchpjbgohciadijeooeglkdikndjgihgepgd",
+          "which"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 3941,
+        "event_kind": "commit",
+        "event_phase": "copy",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=Name(id='p_1_0_0_1', ctx=Load()))",
+        "expression_views": [
+          "Expression(body=Name(id='p_1_0_0_1', ctx=Load()))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_0_0",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_0_0",
+        "record_id": "pilot-gpu2:trace-base:2:seed1:{\"entity_or_expression\": \"p_0_1_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3867,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_1_0_0",
+          "relation_p_1_0_0_1"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_1_1",
+          "relation_p_1_0_0_1"
+        ],
+        "text": "Boxed's Bottled Water equals Consulate District's Supermarket, which is 13",
+        "value": "13",
+        "value_start": 3939
+      },
+      "right": {
+        "alignment_context": [
+          "entityinffddkckedkjcncpbeofnofkimbkchpjbgohciadijeooeglkdikndjgihgepgd"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": false,
+        "end": 4222,
+        "event_kind": "commit",
+        "event_phase": "copy",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=Name(id='p_1_0_0_1', ctx=Load()))",
+        "expression_views": [
+          "Expression(body=Name(id='p_1_0_0_1', ctx=Load()))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_0_0",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_0_0",
+        "record_id": "extension-2f808d1ef69b58f6b4f6:{\"entity_or_expression\": \"p_0_1_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "extension-2f808d1ef69b58f6b4f6",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4173,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_1_0_0"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_1_1",
+          "relation_p_1_0_0_1"
+        ],
+        "text": "B_BW = Boxed's Bottled Water = C_Supermarket = 36",
+        "value": "36",
+        "value_start": 4220
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 13,
+        "left": "{\"entity_or_expression\": \"p_0_1_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 7,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 21,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:2:seed1",
+      "comparison": "extension-2f808d1ef69b58f6b4f6",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "adding",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "gives",
+          "s"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4273,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_0_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_0_1",
+        "record_id": "pilot-gpu2:trace-base:2:seed1:{\"entity_or_expression\": \"p_0_1_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4251,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_1_0_1"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "Boxed's Kombucha is 19",
+        "value": "19",
+        "value_start": 4271
+      },
+      "right": {
+        "alignment_context": [
+          "because",
+          "but",
+          "equivalent",
+          "since",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4388,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_0_1",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_0_1",
+        "record_id": "extension-2f808d1ef69b58f6b4f6:{\"entity_or_expression\": \"p_0_1_0_1\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-2f808d1ef69b58f6b4f6",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4380,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_1"
+        ],
+        "text": "B_K = 19",
+        "value": "19",
+        "value_start": 4386
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 13,
+        "left": "{\"entity_or_expression\": \"p_0_1_0_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 8,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 21,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_0_1\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu2:trace-base:2:seed1",
+      "comparison": "extension-d0a6eae29c340809ef9b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "bottled",
+          "but",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb",
+          "kombucha",
+          "re",
+          "since",
+          "wait",
+          "water",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 3007,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "pilot-gpu2:trace-base:2:seed1:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu2:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 2983,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_1_1_2"
+        ],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "Deliveroo's Product is 9",
+        "value": "9",
+        "value_start": 3006
+      },
+      "right": {
+        "alignment_context": [
+          "again",
+          "by",
+          "check",
+          "divided",
+          "remainder",
+          "wait",
+          "yes"
+        ],
+        "base_group_id": "igsm-official-0006-op15",
+        "correct": true,
+        "end": 4343,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "extension-d0a6eae29c340809ef9b:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "extension-d0a6eae29c340809ef9b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4336,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_0",
+          "relation_p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "D_P = 9",
+        "value": "9",
+        "value_start": 4342
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 14,
+        "left": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 4,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 25,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 3, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:1:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:1:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "by",
+          "calculate",
+          "compute",
+          "denote",
+          "divided",
+          "each",
+          "entitycjjikblgpmmekmhhekmonkgajfahjjnghgmojoflonlcphnanjedaechaokgpndo",
+          "entitygmifamddgglgmajnljafnafdfobmndadeddccahnoagbclapiojpojdjfncchhmg",
+          "entityldmbbflbmhbfhkcfggipleoedaflmjjaambpkbabhcppdgkgmledlkdpkjgfahpg",
+          "entityoidmfiibdgfplkcciaopagfkgnahlbbppkmeclmeblbgnfmbdgpdpaipcffndlaa",
+          "now",
+          "numbers",
+          "plugging",
+          "product",
+          "s",
+          "see",
+          "sum",
+          "term"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 7318,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_0_3",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_0_3",
+        "record_id": "pilot-gpu3:trace-base:1:seed0:{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:1:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7311,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_0_2_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2",
+          "relation_p_1_1_0_3",
+          "relation_p_1_2_0_3",
+          "relation_p_1_2_1_3"
+        ],
+        "text": "AsI = 3",
+        "value": "3",
+        "value_start": 7317
+      },
+      "right": {
+        "alignment_context": [
+          "entityclkppghgdgfochofaooaaimhbindmnfgpnefiamcgdagpgjoifkhkmhoknfhgemf",
+          "equation"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": false,
+        "end": 7274,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_0_3",
+          "occurrence_version": 4,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_0_3",
+        "record_id": "pilot-gpu3:trace-pilot-edit:1:unused_a:{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:1:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7266,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_0_2_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2",
+          "relation_p_1_1_0_3",
+          "relation_p_1_2_0_3",
+          "relation_p_1_2_1_3"
+        ],
+        "text": "I_A is 1",
+        "value": "1",
+        "value_start": 7273
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 11,
+        "left": "{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 9,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 21,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 4, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:1:seed2",
+      "comparison": "extension-6dbf28efe061d7631fa8",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "between",
+          "compute",
+          "denote",
+          "difference",
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "now",
+          "s",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 4217,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_0_0",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_0_0",
+        "record_id": "pilot-gpu3:trace-base:1:seed2:{\"entity_or_expression\": \"p_0_1_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:1:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4210,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_1_0"
+        ],
+        "text": "V_A = 5",
+        "value": "5",
+        "value_start": 4216
+      },
+      "right": {
+        "alignment_context": [
+          "between",
+          "call",
+          "difference",
+          "entityhdgbmfbmedmjmnmpdkagnbfieglhdkneajccmgdoijamnklpdljpjengklicbbpb",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitylpbbjcippdjljglogbajfbnhcemmdfpgkbflnmdmclhcpdkfndippaidggkgdjhn",
+          "known",
+          "now",
+          "substituting",
+          "sum",
+          "values"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 4197,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_0_0",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_0_0",
+        "record_id": "extension-6dbf28efe061d7631fa8:{\"entity_or_expression\": \"p_0_1_0_0\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-6dbf28efe061d7631fa8",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4190,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_1_0"
+        ],
+        "text": "V_A = 5",
+        "value": "5",
+        "value_start": 4196
+      },
+      "certificate": {
+        "context_agreement": 428,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 16,
+        "left": "{\"entity_or_expression\": \"p_0_1_0_0\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 6,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 57,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_0_0\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:1:seed2",
+      "comparison": "extension-6dbf28efe061d7631fa8",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "denote",
+          "entityblfcfgchifoiaioknfmdcmjbkjmpcbgkbamlmokdbaicphokhjiihbepnhbjikoc",
+          "entitylnapahijaehnlnmakaelcemannipoodmpbhkhkfnhaicbfibocdgnpgjpkpicfkb",
+          "s",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 5278,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_2_0_3",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_2_0_3",
+        "record_id": "pilot-gpu3:trace-base:1:seed2:{\"entity_or_expression\": \"p_1_2_0_3\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:1:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5271,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_1_0_1",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_1_2_0_3"
+        ],
+        "text": "Ing = 9",
+        "value": "9",
+        "value_start": 5277
+      },
+      "right": {
+        "alignment_context": [
+          "call",
+          "entityblfcfgchifoiaioknfmdcmjbkjmpcbgkbamlmokdbaicphokhjiihbepnhbjikoc",
+          "entitylnapahijaehnlnmakaelcemannipoodmpbhkhkfnhaicbfibocdgnpgjpkpicfkb",
+          "entitylpbbjcippdjljglogbajfbnhcemmdfpgkbflnmdmclhcpdkfndippaidggkgdjhn",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 5143,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_2_0_3",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_2_0_3",
+        "record_id": "extension-6dbf28efe061d7631fa8:{\"entity_or_expression\": \"p_1_2_0_3\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-6dbf28efe061d7631fa8",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5136,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_1_0_1",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_1_2_0_3"
+        ],
+        "text": "Ing = 9",
+        "value": "9",
+        "value_start": 5142
+      },
+      "certificate": {
+        "context_agreement": 428,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 16,
+        "left": "{\"entity_or_expression\": \"p_1_2_0_3\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 8,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 57,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_2_0_3\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:1:seed2",
+      "comparison": "extension-6dbf28efe061d7631fa8",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "denote",
+          "entitycjjikblgpmmekmhhekmonkgajfahjjnghgmojoflonlcphnanjedaechaokgpndo",
+          "entityldmbbflbmhbfhkcfggipleoedaflmjjaambpkbabhcppdgkgmledlkdpkjgfahpg",
+          "s",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 5912,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_0_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_0_2",
+        "record_id": "pilot-gpu3:trace-base:1:seed2:{\"entity_or_expression\": \"p_1_1_0_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:1:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5907,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_1_1_0_2"
+        ],
+        "text": "P = 1",
+        "value": "1",
+        "value_start": 5911
+      },
+      "right": {
+        "alignment_context": [
+          "call",
+          "entitycjjikblgpmmekmhhekmonkgajfahjjnghgmojoflonlcphnanjedaechaokgpndo",
+          "entityldmbbflbmhbfhkcfggipleoedaflmjjaambpkbabhcppdgkgmledlkdpkjgfahpg",
+          "entitylpbbjcippdjljglogbajfbnhcemmdfpgkbflnmdmclhcpdkfndippaidggkgdjhn",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 5719,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_0_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_0_2",
+        "record_id": "extension-6dbf28efe061d7631fa8:{\"entity_or_expression\": \"p_1_1_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-6dbf28efe061d7631fa8",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5714,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_1_1_0_2"
+        ],
+        "text": "P = 1",
+        "value": "1",
+        "value_start": 5718
+      },
+      "certificate": {
+        "context_agreement": 428,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 16,
+        "left": "{\"entity_or_expression\": \"p_1_1_0_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 11,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 57,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:1:seed2",
+      "comparison": "extension-6dbf28efe061d7631fa8",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "adding",
+          "both",
+          "terms"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 7183,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_0_3",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_0_3",
+        "record_id": "pilot-gpu3:trace-base:1:seed2:{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:1:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7174,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_0_2_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2",
+          "relation_p_1_1_0_3",
+          "relation_p_1_2_0_3",
+          "relation_p_1_2_1_3"
+        ],
+        "text": "Ing_A = 3",
+        "value": "3",
+        "value_start": 7182
+      },
+      "right": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 6806,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_0_3",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_0_3",
+        "record_id": "extension-6dbf28efe061d7631fa8:{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-6dbf28efe061d7631fa8",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6797,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_0_2_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2",
+          "relation_p_1_1_0_3",
+          "relation_p_1_2_0_3",
+          "relation_p_1_2_1_3"
+        ],
+        "text": "Ing_A = 3",
+        "value": "3",
+        "value_start": 6805
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 16,
+        "left": "{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 17,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 57,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_0_3\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:1:seed2",
+      "comparison": "extension-6dbf28efe061d7631fa8",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "denote",
+          "entityifneflooigeipokhfmnhmdjmjbalimipanpgaggekjmeaflppochnohbodfanohg",
+          "product",
+          "s"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 7441,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_1_1",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_1_1",
+        "record_id": "pilot-gpu3:trace-base:1:seed2:{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:1:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7432,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_1_1",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_0_2_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2",
+          "relation_p_1_1_0_3",
+          "relation_p_1_2_0_3",
+          "relation_p_1_2_1_3"
+        ],
+        "text": "N_CT = 10",
+        "value": "10",
+        "value_start": 7439
+      },
+      "right": {
+        "alignment_context": [
+          "call",
+          "entityifneflooigeipokhfmnhmdjmjbalimipanpgaggekjmeaflppochnohbodfanohg",
+          "entitylpbbjcippdjljglogbajfbnhcemmdfpgkbflnmdmclhcpdkfndippaidggkgdjhn",
+          "product"
+        ],
+        "base_group_id": "igsm-official-0007-op21",
+        "correct": true,
+        "end": 7024,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_1_1",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_1_1",
+        "record_id": "extension-6dbf28efe061d7631fa8:{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-6dbf28efe061d7631fa8",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 7016,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_1_1",
+          "relation_p_0_1_0_0",
+          "relation_p_0_1_0_1",
+          "relation_p_0_1_1_0",
+          "relation_p_0_2_0_0",
+          "relation_p_0_2_0_1",
+          "relation_p_0_2_1_0",
+          "relation_p_0_2_1_1",
+          "relation_p_1_1_0_2",
+          "relation_p_1_1_0_3",
+          "relation_p_1_2_0_3",
+          "relation_p_1_2_1_3"
+        ],
+        "text": "N_C = 10",
+        "value": "10",
+        "value_start": 7022
+      },
+      "certificate": {
+        "context_agreement": 333,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 16,
+        "left": "{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 18,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 57,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_1_1\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "by",
+          "compute",
+          "divide",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "now"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3497,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3479,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FD_GummyCandy = 22",
+        "value": "22",
+        "value_start": 3495
+      },
+      "right": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3580,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_a:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_a",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3550,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FreshDirect's Gummy Candy = 22",
+        "value": "22",
+        "value_start": 3578
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 9,
+        "left": "{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 5,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 29,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "by",
+          "compute",
+          "divide",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "now"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3497,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3479,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FD_GummyCandy = 22",
+        "value": "22",
+        "value_start": 3495
+      },
+      "right": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 2612,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 2595,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_2_2"
+        ],
+        "text": "FDGummyCandy = 22",
+        "value": "22",
+        "value_start": 2610
+      },
+      "certificate": {
+        "context_agreement": 125,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 4,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 18,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 3601,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3557,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "GC_GarlicPowder = 4 * GC_Saffron = 4*14 = 56",
+        "value": "56",
+        "value_start": 3599
+      },
+      "right": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": false,
+        "end": 2797,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_1_2_0', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 2736,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "GCGarlicPowder = 4 * GCSaffron. GCSaffron is 14, so 4*14 = 56",
+        "value": "56",
+        "value_start": 2795
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "matched_rank": 5,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 18,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3656,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3636,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "GC_GarlicPowder = 10",
+        "value": "10",
+        "value_start": 3654
+      },
+      "right": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 2851,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 2832,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2"
+        ],
+        "text": "GCGarlicPowder = 10",
+        "value": "10",
+        "value_start": 2849
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 6,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 18,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed0",
+      "comparison": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3815,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed0:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3798,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "GC_Ingredient = 1",
+        "value": "1",
+        "value_start": 3814
+      },
+      "right": {
+        "alignment_context": [
+          "already",
+          "becomes",
+          "between",
+          "but",
+          "by",
+          "chips",
+          "compute",
+          "difference",
+          "divide",
+          "each",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "entityimnifloabacffemibnnadlgdjaecaocbpobghpjhelaaifplgnbkhmlnjoenchka",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "find",
+          "first",
+          "have",
+          "hmi",
+          "hmturmeric",
+          "need",
+          "note",
+          "now",
+          "oc",
+          "parse",
+          "part",
+          "potato",
+          "product",
+          "re",
+          "remainder",
+          "s",
+          "second",
+          "since",
+          "sum",
+          "within",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3107,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-pilot-edit:2:unused_b:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-pilot-edit:2:unused_b",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3091,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "GCIngredient = 1",
+        "value": "1",
+        "value_start": 3106
+      },
+      "certificate": {
+        "context_agreement": 50,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 7,
+        "left": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "matched_rank": 9,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 18,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed1",
+      "comparison": "extension-1a9fd11e3912e01b124d",
+      "premise": "p_0_1_2_0",
+      "left": {
+        "alignment_context": [
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "which"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4488,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed1:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4465,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_1_1_2"
+        ],
+        "task_parents": [
+          "p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "Hummus's Ingredient = 2",
+        "value": "2",
+        "value_start": 4487
+      },
+      "right": {
+        "alignment_context": [
+          "both",
+          "but",
+          "correct",
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entityfhcikhlehmaekpnjpckbdembippjallpoeilhdfmfeoocnghaglgnlnppgbfobng",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik",
+          "entitymhlonikgbjoplfmmipagfkiaednilpkjjmnmdkkfmadmpebbogmohbllkdcepljm",
+          "entitynaahgjmonopmmohbmddebikofnhpfpacmoaggblgpnkefghdjffnbakpopaoogkf",
+          "entitypicebbmogkiohjnpgbopccjegnpmibfhaffiaenajlnoikfabdocjihhgdkibmec",
+          "garlic",
+          "powder",
+          "problem",
+          "product",
+          "products",
+          "s",
+          "says",
+          "seem",
+          "since",
+          "starting",
+          "steps",
+          "sum",
+          "their",
+          "wait"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4523,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "extension-1a9fd11e3912e01b124d:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-1a9fd11e3912e01b124d",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4499,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_1_1_2"
+        ],
+        "task_parents": [
+          "p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "Hummus's Ingredient is 2",
+        "value": "2",
+        "value_start": 4522
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 9,
+        "left": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 9,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 17,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed2",
+      "comparison": "extension-8e62f0f725db37f313b0",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "entitybphpmnegekkjhaacpafbfbpghcmdoolkhiaonomnmkponmodgelbkgijchnfkfcn",
+          "entitymhkjpjbpodhahppicefgkpfkpejbinpjgmlfohdfocmbmgjcakilofeelkdomkga",
+          "sum"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4018,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed2:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4001,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "GC_Ingredient = 1",
+        "value": "1",
+        "value_start": 4017
+      },
+      "right": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4061,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_2_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_2_2",
+        "record_id": "extension-8e62f0f725db37f313b0:{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-8e62f0f725db37f313b0",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4033,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_1_2_2"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_1_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Gummy Candy's Ingredient = 1",
+        "value": "1",
+        "value_start": 4060
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 10,
+        "left": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "matched_rank": 7,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 20,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_2_2\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed2",
+      "comparison": "extension-f69934f20e77de38ff91",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "first",
+          "part",
+          "product",
+          "s",
+          "still"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4823,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 4,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "pilot-gpu3:trace-base:2:seed2:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4803,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "OC_PotatoChips is 22",
+        "value": "22",
+        "value_start": 4821
+      },
+      "right": {
+        "alignment_context": [
+          "entitykbohefipjhpeghojkdbiijdmgfckelhjpcfdekfajjfcjclhbajedhdlpjjnajik"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 3928,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_0",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_0",
+        "record_id": "extension-f69934f20e77de38ff91:{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-f69934f20e77de38ff91",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3903,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_0_0_0_0"
+        ],
+        "task_parents": [
+          "p_0_1_2_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado's Potato Chips = 22",
+        "value": "22",
+        "value_start": 3926
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 9,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "matched_rank": 13,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 21,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_0\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed2",
+      "comparison": "extension-f69934f20e77de38ff91",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "part",
+          "product",
+          "second"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4968,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed2:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4946,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "Hummus_Ingredient is 2",
+        "value": "2",
+        "value_start": 4967
+      },
+      "right": {
+        "alignment_context": [
+          "entityhanpamfoimhcaidomfclleddncmgafaadbjkojbjnkfbmpgaemmgdoephnieflfi",
+          "given",
+          "which"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4165,
+        "event_kind": "commit",
+        "event_phase": "commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_1_1_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_1_1_2",
+        "record_id": "extension-f69934f20e77de38ff91:{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "extension-f69934f20e77de38ff91",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4142,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_1_1_2"
+        ],
+        "task_parents": [
+          "p_0_1_1_1",
+          "relation_p_1_1_1_2"
+        ],
+        "text": "Hummus's Ingredient = 2",
+        "value": "2",
+        "value_start": 4164
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 9,
+        "left": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "matched_rank": 14,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 21,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_1_1_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:2:seed2",
+      "comparison": "extension-f69934f20e77de38ff91",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 5108,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_0_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_0_2",
+        "record_id": "pilot-gpu3:trace-base:2:seed2:{\"entity_or_expression\": \"p_1_0_0_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:2:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 5090,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_1_1_1",
+          "p_0_1_2_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_0_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_1_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "OC_Ingredient = 19",
+        "value": "19",
+        "value_start": 5106
+      },
+      "right": {
+        "alignment_context": [
+          "adding",
+          "both",
+          "parts",
+          "which"
+        ],
+        "base_group_id": "igsm-official-0026-op15",
+        "correct": true,
+        "end": 4582,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_1_0_0_2",
+          "occurrence_version": 1,
+          "scope": "global"
+        },
+        "node_id": "p_1_0_0_2",
+        "record_id": "extension-f69934f20e77de38ff91:{\"entity_or_expression\": \"p_1_0_0_2\", \"occurrence_version\": 1, \"scope\": \"global\"}",
+        "run_id": "extension-f69934f20e77de38ff91",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 4559,
+        "status": "ok",
+        "surface_mentions": [
+          "relation_p_1_0_0_2"
+        ],
+        "task_parents": [
+          "p_0_1_1_1",
+          "p_0_1_2_0",
+          "relation_p_0_0_0_0",
+          "relation_p_0_0_0_1",
+          "relation_p_0_0_2_2",
+          "relation_p_0_1_2_2",
+          "relation_p_1_0_0_2",
+          "relation_p_1_0_2_2",
+          "relation_p_1_1_1_2",
+          "relation_p_1_1_2_2"
+        ],
+        "text": "Ocado's Ingredient = 19",
+        "value": "19",
+        "value_start": 4580
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 9,
+        "left": "{\"entity_or_expression\": \"p_1_0_0_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "matched_rank": 15,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 21,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_1_0_0_2\", \"occurrence_version\": 1, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:3:seed1",
+      "comparison": "extension-64569a08825d8bedde4e",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "but",
+          "by",
+          "divided",
+          "since",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": true,
+        "end": 3671,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_2",
+        "record_id": "pilot-gpu3:trace-base:3:seed1:{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:3:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3657,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_2"
+        ],
+        "text": "A_Rucksack = 3",
+        "value": "3",
+        "value_start": 3670
+      },
+      "right": {
+        "alignment_context": [
+          "but",
+          "compute",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "re",
+          "since",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": true,
+        "end": 2554,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_2",
+        "record_id": "extension-64569a08825d8bedde4e:{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-64569a08825d8bedde4e",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 2540,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_2"
+        ],
+        "text": "A_Rucksack = 3",
+        "value": "3",
+        "value_start": 2553
+      },
+      "certificate": {
+        "context_agreement": 375,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 8,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 5,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 23,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:3:seed1",
+      "comparison": "extension-e5cf52ef95e9720b9af2",
+      "premise": "unused_b",
+      "left": {
+        "alignment_context": [
+          "but",
+          "by",
+          "divided",
+          "since",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": true,
+        "end": 3671,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_2",
+        "record_id": "pilot-gpu3:trace-base:3:seed1:{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:3:seed1",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3657,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_2"
+        ],
+        "text": "A_Rucksack = 3",
+        "value": "3",
+        "value_start": 3670
+      },
+      "right": {
+        "alignment_context": [
+          "but",
+          "compute",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg",
+          "re",
+          "since",
+          "working"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": true,
+        "end": 2555,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_2",
+        "record_id": "extension-e5cf52ef95e9720b9af2:{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-e5cf52ef95e9720b9af2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 2541,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_2"
+        ],
+        "text": "A_Rucksack = 3",
+        "value": "3",
+        "value_start": 2554
+      },
+      "certificate": {
+        "context_agreement": 375,
+        "context_distinguishes_repeat": true,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 8,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "matched_rank": 5,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 30,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:3:seed2",
+      "comparison": "extension-4b58a3e6589694dad2c8",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": false,
+        "end": 6592,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_2",
+        "record_id": "pilot-gpu3:trace-base:3:seed2:{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:3:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6570,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_2"
+        ],
+        "text": "R = 7 * A = 7 * 7 = 49",
+        "value": "49",
+        "value_start": 6590
+      },
+      "right": {
+        "alignment_context": [
+          "correct",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": false,
+        "end": 3571,
+        "event_kind": "calculation",
+        "event_phase": "calculation",
+        "event_region": "thinking",
+        "expression_signature": "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+        "expression_views": [
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Name(id='p_0_0_0_1', ctx=Load())))",
+          "Expression(body=BinOp(left=Constant(value='number'), op=Mult(), right=Constant(value='number')))"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_2",
+          "occurrence_version": 2,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_2",
+        "record_id": "extension-4b58a3e6589694dad2c8:{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}",
+        "run_id": "extension-4b58a3e6589694dad2c8",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3547,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_2"
+        ],
+        "text": "A_R = 7 * A_M = 7*7 = 49",
+        "value": "49",
+        "value_start": 3569
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 11,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "matched_rank": 7,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 40,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 2, \"scope\": \"global\"}"
+      }
+    },
+    {
+      "reference": "pilot-gpu3:trace-base:3:seed2",
+      "comparison": "extension-4b58a3e6589694dad2c8",
+      "premise": "unused_a",
+      "left": {
+        "alignment_context": [
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": true,
+        "end": 6629,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_2",
+          "occurrence_version": 4,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_2",
+        "record_id": "pilot-gpu3:trace-base:3:seed2:{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "run_id": "pilot-gpu3:trace-base:3:seed2",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 6626,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_2"
+        ],
+        "text": "R=3",
+        "value": "3",
+        "value_start": 6628
+      },
+      "right": {
+        "alignment_context": [
+          "correct",
+          "entityjnbinppdmenmoolfehimmdekecfekjgbghldcohgjgndchndbjgmgcnfknoomkfg"
+        ],
+        "base_group_id": "igsm-official-0045-op10",
+        "correct": true,
+        "end": 3610,
+        "event_kind": "commit",
+        "event_phase": "residue_commit",
+        "event_region": "thinking",
+        "expression_signature": "scalar",
+        "expression_views": [
+          "scalar"
+        ],
+        "graph_status": "complete",
+        "identity": {
+          "entity_or_expression": "p_0_0_0_2",
+          "occurrence_version": 3,
+          "scope": "global"
+        },
+        "node_id": "p_0_0_0_2",
+        "record_id": "extension-4b58a3e6589694dad2c8:{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 3, \"scope\": \"global\"}",
+        "run_id": "extension-4b58a3e6589694dad2c8",
+        "schema_version": 1,
+        "source": "parser",
+        "start": 3605,
+        "status": "ok",
+        "surface_mentions": [],
+        "task_parents": [
+          "p_0_0_0_1",
+          "relation_p_0_0_0_2"
+        ],
+        "text": "A_R=3",
+        "value": "3",
+        "value_start": 3609
+      },
+      "certificate": {
+        "context_agreement": 0,
+        "context_distinguishes_repeat": false,
+        "expression_evidence": "primary_canonical",
+        "feasible_edges_at_rank": 1,
+        "independent_context_entities": 11,
+        "left": "{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 4, \"scope\": \"global\"}",
+        "matched_rank": 8,
+        "objective": "max_compatible_steps_then_value_masked_discourse",
+        "optimal_length": 40,
+        "region": "thinking",
+        "right": "{\"entity_or_expression\": \"p_0_0_0_2\", \"occurrence_version\": 3, \"scope\": \"global\"}"
+      }
+    }
+  ],
+  "pair_audit_note": "Algorithmic certificates and raw evidence; not a human precision estimate."
+}

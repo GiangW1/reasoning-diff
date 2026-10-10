@@ -1,0 +1,130 @@
+{
+  "native_id": "igsm-official-0088-op5",
+  "family_id": "igsm-official-0088-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261015,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "5",
+  "target": "p_0_0_2_0",
+  "question": "The number of each Sling Backpack's Fineliner equals each Waterproof School Backpack's Fineliner. The number of each Canvas Backpack's Fineliner equals 12 more than each Sling Backpack's Ballpoint Pen. The number of each Laptop Backpack's Text Marker equals the sum of each Laptop Backpack's Brush Pen and each Canvas Backpack's Text Marker. The number of each Waterproof School Backpack's Text Marker equals the sum of each Laptop Backpack's Brush Pen, each Canvas Backpack's Brush Pen and each Canvas Backpack's Ballpoint Pen. The number of each Canvas Backpack's Text Marker equals each Laptop Backpack's Fineliner. The number of each Waterproof School Backpack's Brush Pen equals the sum of each Canvas Backpack's Text Marker, each Laptop Backpack's Text Marker, each Laptop Backpack's Fineliner and each Laptop Backpack's Brush Pen. The number of each Waterproof School Backpack's Fineliner equals each Canvas Backpack's Fineliner. The number of each Canvas Backpack's Brush Pen equals the sum of each Sling Backpack's Fineliner and each Sling Backpack's Ballpoint Pen. The number of each Sling Backpack's Text Marker equals 21. The number of each Laptop Backpack's Ballpoint Pen equals the difference of each Canvas Backpack's Stationery and each Canvas Backpack's Brush Pen. The number of each Sling Backpack's Ballpoint Pen equals 13 more than each Waterproof School Backpack's Ballpoint Pen. The number of each Laptop Backpack's Fineliner equals 5. The number of each Sling Backpack's Brush Pen equals 19. The number of each Canvas Backpack's Ballpoint Pen equals 4 times as much as each Waterproof School Backpack's Fineliner. The number of each Waterproof School Backpack's Ballpoint Pen equals 5. The number of each Laptop Backpack's Brush Pen equals 18. How many Ballpoint Pen does Canvas Backpack have?",
+  "lookup": {
+    "p_0_0_3_2": 18,
+    "p_0_0_1_0": 5,
+    "p_0_0_3_3": 5,
+    "p_0_0_0_2": 19,
+    "p_0_0_2_1": 5,
+    "p_0_0_0_1": 21,
+    "p_0_0_3_1": 0,
+    "p_0_0_0_0": 18,
+    "p_0_0_1_2": 5,
+    "p_0_0_2_3": 7,
+    "p_0_0_1_3": 7,
+    "p_0_0_2_0": 5,
+    "p_0_0_0_3": 7,
+    "p_0_0_2_2": 2,
+    "p_1_0_2_1": 19,
+    "p_0_0_1_1": 2,
+    "p_0_0_3_0": 17
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 5,
+        "span": [
+          1637,
+          1707
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Sling Backpack's Ballpoint Pen"
+        ],
+        "expression": "(13 + p_0_0_1_0)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Canvas Backpack's Fineliner"
+        ],
+        "expression": "(12 + p_0_0_0_0)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Waterproof School Backpack's Fineliner"
+        ],
+        "expression": "p_0_0_2_3",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Canvas Backpack's Ballpoint Pen"
+        ],
+        "expression": "(4 * p_0_0_1_3)",
+        "value": 5
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_2_0"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "previous_output_root": "/home/wja/reasoning-diff-pr7/runs/pr7-200-20261004",
+  "output_root": "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004",
+  "reason": "User requested experiment storage under /mnt/mydata/wja.",
+  "status_at_relocation": "waiting_for_model",
+  "generated_problems_at_relocation": 0,
+  "measurement_code_changed": false,
+  "orchestration_changes": ["output directory constraint", "quota check uses the output filesystem"],
+  "previous_protocol": "qwen3-8b/protocol.before-relocation.json",
+  "previous_code_snapshot": "qwen3-8b/code.before-relocation"
+}

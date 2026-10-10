@@ -1,0 +1,354 @@
+{
+  "native_id": "igsm-official-0079-op21",
+  "family_id": "igsm-official-0079-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261006,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "17",
+  "target": "p_0_0_1_1",
+  "question": "The number of each Giraffe's Nasal Cavity equals each Giraffe's Larynx. The number of each Tropical Grassland's Panda equals 14. The number of each Panda's Larynx equals the difference of each Nasal Cavity's Cells and each Giraffe's Larynx. The number of each Larynx's Red Blood Cells equals 15. The number of each Tropical Grassland's Giraffe equals 16 times as much as each Tropical Grassland's Panda. The number of each Savanna's Panda equals each Giraffe's Nasal Cavity. The number of each Tropical Grassland's Jaguar equals 0. The number of each Panda's Nasal Cavity equals 14 more than each Savanna's Panda. The number of each Nasal Cavity's Red Blood Cells equals each Tropical Grassland's Jaguar. The number of each Giraffe's Larynx equals 14. The number of each Jaguar's Nasal Cavity equals 0. The number of each Savanna's Jaguar equals the sum of each Jaguar's Cells and each Panda's Cells. The number of each Jaguar's Larynx equals 6 times as much as each Panda's Cells. The number of each Larynx's Platelets equals 3. The number of each Nasal Cavity's Platelets equals 22 more than each Savanna's Panda. How many Jaguar does Savanna have?",
+  "lookup": {
+    "p_0_2_1_0": 3,
+    "p_0_0_0_0": 14,
+    "p_0_0_0_2": 17,
+    "p_0_1_1_0": 0,
+    "p_0_2_1_1": 15,
+    "p_1_2_1_3": 18,
+    "p_0_0_0_1": 0,
+    "p_0_1_2_1": 14,
+    "p_0_1_2_0": 14,
+    "p_0_0_1_0": 14,
+    "p_0_2_0_1": 0,
+    "p_0_1_0_0": 5,
+    "p_0_2_0_0": 13,
+    "p_1_2_0_3": 13,
+    "p_0_1_0_1": 22,
+    "p_1_1_0_3": 1,
+    "p_0_1_1_1": 6,
+    "p_1_1_1_3": 16,
+    "p_0_0_1_1": 17
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_0",
+        "literal": 0,
+        "span": [
+          752,
+          801
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_1",
+        "literal": 14,
+        "span": [
+          705,
+          750
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 0,
+        "span": [
+          475,
+          530
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_1_0",
+        "literal": 3,
+        "span": [
+          982,
+          1028
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_1_1",
+        "literal": 15,
+        "span": [
+          241,
+          294
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Giraffe's Nasal Cavity"
+        ],
+        "expression": "p_0_1_2_1",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Savanna's Panda"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Nasal Cavity's Platelets"
+        ],
+        "expression": "(22 + p_0_0_1_0)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Nasal Cavity's Red Blood Cells"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Nasal Cavity's Cells"
+        ],
+        "expression": "(p_0_2_0_0 + p_0_2_0_1)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Panda's Nasal Cavity"
+        ],
+        "expression": "(14 + p_0_0_1_0)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_1_2_0_3",
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Panda's Larynx"
+        ],
+        "expression": "(p_1_2_0_3 - p_0_1_2_1)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_0",
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Larynx's Cells"
+        ],
+        "expression": "(p_0_2_1_0 + p_0_2_1_1)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_0",
+          "p_1_2_0_3",
+          "p_0_1_0_1",
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Panda's Cells"
+        ],
+        "expression": "((p_0_1_0_0 * p_1_2_0_3) + (p_0_1_0_1 * p_1_2_1_3))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Jaguar's Larynx"
+        ],
+        "expression": "(6 * p_1_1_0_3)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_0",
+          "p_1_2_0_3",
+          "p_0_1_1_1",
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "Jaguar's Cells"
+        ],
+        "expression": "((p_0_1_1_0 * p_1_2_0_3) + (p_0_1_1_1 * p_1_2_1_3))",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_1_1_3",
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Savanna's Jaguar"
+        ],
+        "expression": "(p_1_1_1_3 + p_1_1_0_3)",
+        "value": 17
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_0_0_1_1"
+      ]
+    ]
+  }
+}

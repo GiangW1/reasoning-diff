@@ -1,0 +1,20 @@
+{
+  "purpose": "Development regression: the same operand must resolve from a So: plus bulleted declaration on either side.",
+  "task_id": "igsm-official-0003-op21",
+  "cases": [
+    {
+      "trace_id": "shard0:trace-base",
+      "trace_text_sha256": "bac3780780fcbd257589ad9003a198937ccff69150103a546ec9768ae3aa67ee",
+      "excerpt_start": 4621,
+      "excerpt_end": 5143,
+      "text": "9. The number of Temperate Evergreen Forest's Organs equals (the product of the number of Temperate Evergreen Forest's Starfish and the number of Starfish's Organs). So:\n   - TEF_Organs = TEF_Starfish * Starfish_Organs = 18 * 3 = 54\n\n   Modulo 23: Let's divide 54 by 23. 23*2=46, so 54-46=8. Therefore, TEF_Organs = 8.\n\n10. The number of Riparian Forest's Seahorse equals (the sum of 4 and the number of Temperate Evergreen Forest's Organs). So:\n    - Riparian Forest Seahorse (RF_Seahorse) = 4 + TEF_Organs = 4 + 8 = 12\n\n"
+    },
+    {
+      "trace_id": "shard0:trace-scan-edit:igsm-official-0003-op21:unused_a:0",
+      "trace_text_sha256": "a5e126c55d32eb43994f6770071d1f58e84c87c7746aaf6dc531c32db6b49fd2",
+      "excerpt_start": 4646,
+      "excerpt_end": 5151,
+      "text": "9. The number of Temperate Evergreen Forest's Organs equals (the product of the number of Temperate Evergreen Forest's Starfish and the number of Starfish's Organs). So:\n   - TEF_Organs = TEF_Starfish * Starfish_Organs = 18 * 3 = 54. Modulo 23: 54 divided by 23 is 2*23=46, 54-46=8. So TEF_Organs = 8.\n\n10. The number of Riparian Forest's Seahorse equals (the sum of 4 and the number of Temperate Evergreen Forest's Organs). So:\n    - Riparian Forest Seahorse (RF_Seahorse) = 4 + TEF_Organs = 4 + 8 = 12\n\n"
+    }
+  ]
+}

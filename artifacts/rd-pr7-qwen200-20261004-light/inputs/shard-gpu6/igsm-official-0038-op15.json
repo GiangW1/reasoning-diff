@@ -1,0 +1,258 @@
+{
+  "native_id": "igsm-official-0038-op15",
+  "family_id": "igsm-official-0038-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260964,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "0",
+  "target": "p_1_0_3_1",
+  "question": "The number of each NetLearn Institute's Tennis Court equals 6 more than each NetLearn Institute's Track and Field. The number of each CyberScholars's Track and Field equals 0 more than the sum of each WorldWide Web University's Classroom, each NetLearn Institute's Tennis Court and each WorldWide Web University's Track and Field. The number of each WorldWide Web University's Tennis Court equals 13. The number of each WorldWide Web University's Track and Field equals each Virtual Scholars Academy's Classroom. The number of each NetLearn Institute's Track and Field equals 7. The number of each Virtual Scholars Academy's Tennis Court equals 21 more than the sum of each Virtual Scholars Academy's Track and Field, each NetLearn Institute's Track and Field and each NetLearn Institute's Classroom. The number of each Virtual Scholars Academy's Track and Field equals the sum of each NetLearn Institute's Classroom and each NetLearn Institute's Track and Field. How many Classroom does CyberScholars have?",
+  "lookup": {
+    "p_0_0_0_0": 7,
+    "p_0_0_0_1": 13,
+    "p_0_0_1_1": 13,
+    "p_1_0_0_1": 20,
+    "p_0_0_2_0": 4,
+    "p_0_0_2_1": 6,
+    "p_1_0_2_1": 10,
+    "p_0_0_1_0": 10,
+    "p_1_0_1_1": 0,
+    "p_0_0_3_0": 0,
+    "p_1_0_3_1": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 7,
+        "span": [
+          513,
+          577
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 13,
+        "span": [
+          331,
+          399
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "NetLearn Institute's Tennis Court"
+        ],
+        "expression": "(6 + p_0_0_0_0)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "NetLearn Institute's Classroom"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Virtual Scholars Academy's Track and Field"
+        ],
+        "expression": "(p_1_0_0_1 + p_0_0_0_0)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_0_0",
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Virtual Scholars Academy's Tennis Court"
+        ],
+        "expression": "(21 + ((p_0_0_2_0 + p_0_0_0_0) + p_1_0_0_1))",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Virtual Scholars Academy's Classroom"
+        ],
+        "expression": "(p_0_0_2_0 + p_0_0_2_1)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_1_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "WorldWide Web University's Track and Field"
+        ],
+        "expression": "p_1_0_2_1",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "WorldWide Web University's Classroom"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_0_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "CyberScholars's Track and Field"
+        ],
+        "expression": "(0 + ((p_1_0_1_1 + p_0_0_0_1) + p_0_0_1_0))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_1",
+        "parents": [
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_1_0_3_1",
+          "CyberScholars's Classroom"
+        ],
+        "expression": "p_0_0_3_0",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_1_0_3_1"
+      ]
+    ]
+  }
+}

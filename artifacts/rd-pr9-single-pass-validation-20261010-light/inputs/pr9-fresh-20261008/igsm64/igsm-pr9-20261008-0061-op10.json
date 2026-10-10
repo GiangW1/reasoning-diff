@@ -1,0 +1,189 @@
+{
+  "native_id": "igsm-pr9-20261008-0061-op10",
+  "family_id": "igsm-pr9-20261008-0061-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100861,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "20",
+  "target": "p_1_0_1_2",
+  "question": "The number of each Business Daypack's Whiteboard Marker equals 7. The number of each Lakeview Elementary's Dance Studio equals each Tech Backpack's Fineliner. The number of each Brightside Elementary's Literature Classroom equals each Business Daypack's Whiteboard Marker. The number of each Tech Backpack's Fineliner equals each Business Daypack's Whiteboard Marker. The number of each Dance Studio's Business Daypack equals 18 times as much as the difference of each Lakeview Elementary's Classroom and each Business Daypack's Whiteboard Marker. The number of each Dance Studio's Tech Backpack equals the difference of each Literature Classroom's Stationery and each Lakeview Elementary's Dance Studio. How many Backpack does Lakeview Elementary have?",
+  "lookup": {
+    "p_1_1_1_3": 0,
+    "p_0_2_0_1": 7,
+    "p_0_2_1_0": 7,
+    "p_0_0_1_0": 7,
+    "p_1_0_1_1": 7,
+    "p_0_1_0_1": 16,
+    "p_0_0_0_1": 7,
+    "p_0_1_0_0": 0,
+    "p_1_1_0_2": 16,
+    "p_1_0_1_2": 20
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_1",
+        "literal": 7,
+        "span": [
+          0,
+          64
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Tech Backpack's Fineliner"
+        ],
+        "expression": "p_0_2_0_1",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_2_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Lakeview Elementary's Dance Studio"
+        ],
+        "expression": "p_0_2_1_0",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Lakeview Elementary's Classroom"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Dance Studio's Business Daypack"
+        ],
+        "expression": "(18 * (p_1_0_1_1 - p_0_2_0_1))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Dance Studio's Tech Backpack"
+        ],
+        "expression": "(0 - p_0_0_1_0)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Dance Studio's Backpack"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Lakeview Elementary's Backpack"
+        ],
+        "expression": "(p_0_0_1_0 * p_1_1_0_2)",
+        "value": 20
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_0_1",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_1_2"
+      ]
+    ]
+  }
+}

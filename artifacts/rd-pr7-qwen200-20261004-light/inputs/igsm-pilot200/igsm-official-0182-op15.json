@@ -1,0 +1,235 @@
+{
+  "native_id": "igsm-official-0182-op15",
+  "family_id": "igsm-official-0182-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261115,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "4",
+  "target": "p_1_1_0_2",
+  "question": "The number of each Parrot Paradise's Haddock equals 8 more than the sum of each Edinburgh Zoo's Parrot Paradise, each Parrot Paradise's Bass and each Cincinnati Zoo's Parrot Paradise. The number of each Cincinnati Zoo's Flamingo Lagoon equals each Parrot Paradise's Bass. The number of each Flamingo Lagoon's Bass equals the sum of each Cincinnati Zoo's Flamingo Lagoon, each Flamingo Lagoon's Haddock and each Parrot Paradise's Bass. The number of each Flamingo Lagoon's Haddock equals the sum of each Edinburgh Zoo's Flamingo Lagoon, each Parrot Paradise's Bass and each Edinburgh Zoo's Parrot Paradise. The number of each Edinburgh Zoo's Flamingo Lagoon equals 1 times as much as the difference of each Parrot Paradise's Haddock and each Cincinnati Zoo's Parrot Paradise. The number of each Cincinnati Zoo's Parrot Paradise equals 5 more than the sum of each Cincinnati Zoo's Flamingo Lagoon and each Parrot Paradise's Bass. The number of each Edinburgh Zoo's Parrot Paradise equals each Cincinnati Zoo's Parrot Paradise. The number of each Parrot Paradise's Bass equals 1. How many Animal does Flamingo Lagoon have?",
+  "lookup": {
+    "p_0_1_1_1": 1,
+    "p_0_0_1_0": 1,
+    "p_0_0_1_1": 7,
+    "p_0_0_0_1": 7,
+    "p_0_1_1_0": 0,
+    "p_0_0_0_0": 16,
+    "p_0_1_0_0": 1,
+    "p_0_1_0_1": 3,
+    "p_1_1_0_2": 4
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_1",
+        "literal": 1,
+        "span": [
+          1025,
+          1075
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Cincinnati Zoo's Flamingo Lagoon"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Cincinnati Zoo's Parrot Paradise"
+        ],
+        "expression": "(5 + (p_0_0_1_0 + p_0_1_1_1))",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Edinburgh Zoo's Parrot Paradise"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_1_1_1",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Parrot Paradise's Haddock"
+        ],
+        "expression": "(8 + ((p_0_0_0_1 + p_0_1_1_1) + p_0_0_1_1))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Edinburgh Zoo's Flamingo Lagoon"
+        ],
+        "expression": "(1 * (p_0_1_1_0 - p_0_0_1_1))",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_1_1_1",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Flamingo Lagoon's Haddock"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_1_1_1) + p_0_0_0_1)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_1_0_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Flamingo Lagoon's Bass"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_1_0_0) + p_0_1_1_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Flamingo Lagoon's Animal"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 4
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ]
+    ]
+  }
+}

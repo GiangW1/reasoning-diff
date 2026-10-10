@@ -1,0 +1,273 @@
+{
+  "native_id": "igsm-official-0010-op15",
+  "family_id": "igsm-official-0010-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260936,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "3",
+  "target": "p_1_0_1_1",
+  "question": "The number of each Presidential District's Instacart equals 1 times as much as each Hummus's Chicken Wing. The number of each Judicial District's Instacart equals 3. The number of each Boxed's Hummus equals the sum of each Potato Chips's Lamb Chop, each Instacart's Product, each Hummus's Ground Beef and each Embassy District's Instacart. The number of each Boxed's Potato Chips equals each Rice Cakes's Lamb Chop. The number of each Judicial District's Shipt equals 11 times as much as the sum of each Embassy District's Instacart, each Shipt's Rice Cakes and each Instacart's Potato Chips. The number of each Shipt's Hummus equals 10. The number of each Rice Cakes's Chicken Wing equals the sum of each Judicial District's Shipt and each Shipt's Potato Chips. The number of each Presidential District's Shipt equals 0 more than the difference of each Potato Chips's Ingredient and each Hummus's Lamb Chop. The number of each Shipt's Rice Cakes equals 13 times as much as each Embassy District's Instacart. The number of each Instacart's Rice Cakes equals each Hummus's Chicken Wing. The number of each Instacart's Hummus equals each Instacart's Potato Chips. The number of each Potato Chips's Lamb Chop equals each Hummus's Lamb Chop. The number of each Shipt's Potato Chips equals each Instacart's Potato Chips. The number of each Hummus's Chicken Wing equals 3 more than each Shipt's Hummus. The number of each Hummus's Ground Beef equals 10 times as much as each Hummus's Chicken Wing. The number of each Embassy District's Boxed equals each Shipt's Rice Cakes. The number of each Instacart's Potato Chips equals 8 more than the sum of each Embassy District's Instacart and each Shipt's Rice Cakes. The number of each Rice Cakes's Ground Beef equals 7 more than the sum of each Shipt's Potato Chips and each Embassy District's Boxed. The number of each Embassy District's Shipt equals 14. The number of each Embassy District's Instacart equals 5. The number of each Boxed's Rice Cakes equals 3. The number of each Presidential District's Boxed equals 21 times as much as the sum of each Hummus's Ingredient and each Presidential District's Instacart. The number of each Rice Cakes's Lamb Chop equals 6. The number of each Hummus's Lamb Chop equals 1 times as much as each Shipt's Hummus. How many Supermarket does Presidential District have?",
+  "lookup": {
+    "p_0_1_2_1": 3,
+    "p_0_1_1_0": 10,
+    "p_0_0_2_0": 3,
+    "p_0_2_0_2": 10,
+    "p_0_2_2_2": 10,
+    "p_0_2_0_1": 13,
+    "p_0_0_0_0": 5,
+    "p_0_1_1_1": 19,
+    "p_0_1_0_1": 13,
+    "p_0_0_1_0": 13,
+    "p_0_2_0_0": 15,
+    "p_1_2_0_3": 15,
+    "p_0_0_0_1": 14,
+    "p_0_1_0_2": 9,
+    "p_0_0_0_2": 19,
+    "p_0_1_0_0": 9,
+    "p_1_1_0_2": 8,
+    "p_0_0_1_2": 13,
+    "p_0_1_2_0": 15,
+    "p_1_2_2_3": 10,
+    "p_0_2_1_2": 6,
+    "p_0_1_2_2": 6,
+    "p_0_0_1_1": 0,
+    "p_0_0_2_1": 18,
+    "p_1_0_1_1": 3,
+    "p_0_1_1_2": 9,
+    "p_0_2_1_0": 12,
+    "p_0_2_1_1": 4
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_0",
+        "literal": 10,
+        "span": [
+          593,
+          636
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Hummus's Chicken Wing"
+        ],
+        "expression": "(3 + p_0_1_1_0)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Presidential District's Instacart"
+        ],
+        "expression": "(1 * p_0_2_0_1)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_2",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_2_0_2",
+          "Hummus's Lamb Chop"
+        ],
+        "expression": "(1 * p_0_1_1_0)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_2",
+        "parents": [
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_0_2_2_2",
+          "Potato Chips's Lamb Chop"
+        ],
+        "expression": "p_0_2_0_2",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_2_3",
+        "parents": [
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_1_2_2_3",
+          "Potato Chips's Ingredient"
+        ],
+        "expression": "p_0_2_2_2",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_2_2_3",
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Presidential District's Shipt"
+        ],
+        "expression": "(0 + (p_1_2_2_3 - p_0_2_0_2))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Hummus's Ground Beef"
+        ],
+        "expression": "(10 * p_0_2_0_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_2_0_1",
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Hummus's Ingredient"
+        ],
+        "expression": "((p_0_2_0_0 + p_0_2_0_1) + p_0_2_0_2)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_1_2_0_3",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Presidential District's Boxed"
+        ],
+        "expression": "(21 * (p_1_2_0_3 + p_0_0_1_0))",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Presidential District's Supermarket"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_0_1_1) + p_0_0_1_2)",
+        "value": 3
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_0",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ]
+    ]
+  }
+}

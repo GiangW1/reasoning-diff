@@ -1,0 +1,1 @@
+{"batch_size": 2, "checked_at": "2026-10-08T13:02:54.685567+00:00", "code_and_dataset_and_design_verified": true, "correct_counts": {"True": 18}, "full_test_result": {"passed": 666, "seconds": 83.51}, "gpu_indices": [0, 3, 6], "planned_references": 576, "scientific_conclusion": null, "status_counts": {"natural_complete": 18}, "verified_saved_responses": 18}

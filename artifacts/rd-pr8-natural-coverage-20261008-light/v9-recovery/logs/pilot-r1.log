@@ -1,0 +1,1 @@
+{'n_traces': 8, 'n_problems': 8, 'eligible_cells': 561, 'support_cells': 297, 'noise_supported_cells': 240, 'matched_cell_coverage': 0.5294117647058824, 'common_noise_coverage': 0.42780748663101603, 'rho_coverage': 0.125, 'variable_coverage': 1.0, 'target_coverage': 1.0}

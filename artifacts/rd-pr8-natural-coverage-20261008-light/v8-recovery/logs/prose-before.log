@@ -1,0 +1,123 @@
+FFFFFFFFFFFF......FFFFF......                                            [100%]
+=================================== FAILURES ===================================
+_ test_printed_prose_formula_has_same_structure_as_symbolic_formula[sum of p1 and p2-p1 + p2] _
+tests/test_natural_prose_recovery.py:20: in test_printed_prose_formula_has_same_structure_as_symbolic_formula
+    assert len(prose) == 1
+E   assert 0 == 1
+E    +  where 0 = len([])
+_ test_printed_prose_formula_has_same_structure_as_symbolic_formula[the product of p1 and p2-p1 * p2] _
+tests/test_natural_prose_recovery.py:20: in test_printed_prose_formula_has_same_structure_as_symbolic_formula
+    assert len(prose) == 1
+E   assert 0 == 1
+E    +  where 0 = len([])
+_ test_printed_prose_formula_has_same_structure_as_symbolic_formula[difference between p1 and p2-p1 - p2] _
+tests/test_natural_prose_recovery.py:20: in test_printed_prose_formula_has_same_structure_as_symbolic_formula
+    assert len(prose) == 1
+E   assert 0 == 1
+E    +  where 0 = len([])
+_ test_printed_prose_formula_has_same_structure_as_symbolic_formula[product of 18 and (sum of 0 and p1)-18 * (0 + p1)] _
+tests/test_natural_prose_recovery.py:20: in test_printed_prose_formula_has_same_structure_as_symbolic_formula
+    assert len(prose) == 1
+E   assert 0 == 1
+E    +  where 0 = len([])
+_ test_printed_prose_formula_has_same_structure_as_symbolic_formula[(product of p1 and 0) + (product of p2 and 2)-(p1 * 0) + (p2 * 2)] _
+tests/test_natural_prose_recovery.py:20: in test_printed_prose_formula_has_same_structure_as_symbolic_formula
+    assert len(prose) == 1
+E   assert 0 == 1
+E    +  where 0 = len([])
+_ test_printed_prose_formula_has_same_structure_as_symbolic_formula[sum of (product of p1 and 0) and (product of p2 and 2)-(p1 * 0) + (p2 * 2)] _
+tests/test_natural_prose_recovery.py:20: in test_printed_prose_formula_has_same_structure_as_symbolic_formula
+    assert len(prose) == 1
+E   assert 0 == 1
+E    +  where 0 = len([])
+_ test_printed_prose_formula_has_same_structure_as_symbolic_formula[product of p1 (which is 22) and p2 (which is 1)-p1 * p2] _
+tests/test_natural_prose_recovery.py:20: in test_printed_prose_formula_has_same_structure_as_symbolic_formula
+    assert len(prose) == 1
+E   assert 0 == 1
+E    +  where 0 = len([])
+____ test_numeric_annotation_after_full_quantity_name_is_not_multiplication ____
+tests/test_natural_prose_recovery.py:29: in test_numeric_annotation_after_full_quantity_name_is_not_multiplication
+    parsed = parse_events(text, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+src/reasoning_diff/events.py:641: in parse_events
+    anc = ancestors(task).get(node.id, set())
+          ^^^^^^^^^^^^^^^
+src/reasoning_diff/graphs.py:9: in ancestors
+    task.validate()
+src/reasoning_diff/schema.py:152: in validate
+    raise ValueError(f"Premise span mismatch: {p.premise_id}")
+E   ValueError: Premise span mismatch: p1
+_ test_adjacent_numeric_work_can_use_an_explicit_simplified_formula[q = 4 * p1. That's 4*14 = 56.] _
+tests/test_natural_prose_recovery.py:44: in test_adjacent_numeric_work_can_use_an_explicit_simplified_formula
+    assert len(parsed) == 1 and parsed[0].event_phase == 'calculation'
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_adjacent_numeric_work_can_use_an_explicit_simplified_formula[q = product of p1 and p2. So 22 * 1 = 22.] _
+tests/test_natural_prose_recovery.py:44: in test_adjacent_numeric_work_can_use_an_explicit_simplified_formula
+    assert len(parsed) == 1 and parsed[0].event_phase == 'calculation'
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_adjacent_numeric_work_can_use_an_explicit_simplified_formula[q = 18 * (0 + p1) = 18 * 14. Let me compute that. 18*14 is 252.] _
+tests/test_natural_prose_recovery.py:44: in test_adjacent_numeric_work_can_use_an_explicit_simplified_formula
+    assert len(parsed) == 1 and parsed[0].event_phase == 'calculation'
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_adjacent_numeric_work_can_use_an_explicit_simplified_formula[q = sum of p1 and p2. That is 14 + 10 = 24.] _
+tests/test_natural_prose_recovery.py:44: in test_adjacent_numeric_work_can_use_an_explicit_simplified_formula
+    assert len(parsed) == 1 and parsed[0].event_phase == 'calculation'
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_explicit_remainder_continues_named_raw_calculation[Since 25 mod 23 is 2.] _
+tests/test_natural_prose_recovery.py:72: in test_explicit_remainder_continues_named_raw_calculation
+    assert [(e.value, e.event_phase) for e in parsed] == [('25', 'calculation'), ('2', 'reduction')]
+E   AssertionError: assert [('25', 'calculation')] == [('25', 'calc... 'reduction')]
+E     
+E     Right contains one more item: ('2', 'reduction')
+E     Use -v to get more diff
+_ test_explicit_remainder_continues_named_raw_calculation[So that's 25 mod 23 = 2.] _
+tests/test_natural_prose_recovery.py:72: in test_explicit_remainder_continues_named_raw_calculation
+    assert [(e.value, e.event_phase) for e in parsed] == [('25', 'calculation'), ('2', 'reduction')]
+E   AssertionError: assert [('25', 'calculation')] == [('25', 'calc... 'reduction')]
+E     
+E     Right contains one more item: ('2', 'reduction')
+E     Use -v to get more diff
+_ test_explicit_remainder_continues_named_raw_calculation[25 divided by 23 is 1 with remainder 2.] _
+tests/test_natural_prose_recovery.py:72: in test_explicit_remainder_continues_named_raw_calculation
+    assert [(e.value, e.event_phase) for e in parsed] == [('25', 'calculation'), ('2', 'reduction')]
+E   AssertionError: assert [('25', 'calculation')] == [('25', 'calc... 'reduction')]
+E     
+E     Right contains one more item: ('2', 'reduction')
+E     Use -v to get more diff
+_ test_explicit_remainder_continues_named_raw_calculation[25 divided by 23 is 1 with a remainder of 2.] _
+tests/test_natural_prose_recovery.py:72: in test_explicit_remainder_continues_named_raw_calculation
+    assert [(e.value, e.event_phase) for e in parsed] == [('25', 'calculation'), ('2', 'reduction')]
+E   AssertionError: assert [('25', 'calculation')] == [('25', 'calc... 'reduction')]
+E     
+E     Right contains one more item: ('2', 'reduction')
+E     Use -v to get more diff
+_ test_explicit_remainder_continues_named_raw_calculation[Modulo 23, 25 - 23 = 2.] _
+tests/test_natural_prose_recovery.py:72: in test_explicit_remainder_continues_named_raw_calculation
+    assert [(e.value, e.event_phase) for e in parsed] == [('25', 'calculation'), ('2', 'reduction')]
+E   AssertionError: assert [('25', 'calculation')] == [('25', 'calc... 'reduction')]
+E     
+E     Right contains one more item: ('2', 'reduction')
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/test_natural_prose_recovery.py::test_printed_prose_formula_has_same_structure_as_symbolic_formula[sum of p1 and p2-p1 + p2]
+FAILED tests/test_natural_prose_recovery.py::test_printed_prose_formula_has_same_structure_as_symbolic_formula[the product of p1 and p2-p1 * p2]
+FAILED tests/test_natural_prose_recovery.py::test_printed_prose_formula_has_same_structure_as_symbolic_formula[difference between p1 and p2-p1 - p2]
+FAILED tests/test_natural_prose_recovery.py::test_printed_prose_formula_has_same_structure_as_symbolic_formula[product of 18 and (sum of 0 and p1)-18 * (0 + p1)]
+FAILED tests/test_natural_prose_recovery.py::test_printed_prose_formula_has_same_structure_as_symbolic_formula[(product of p1 and 0) + (product of p2 and 2)-(p1 * 0) + (p2 * 2)]
+FAILED tests/test_natural_prose_recovery.py::test_printed_prose_formula_has_same_structure_as_symbolic_formula[sum of (product of p1 and 0) and (product of p2 and 2)-(p1 * 0) + (p2 * 2)]
+FAILED tests/test_natural_prose_recovery.py::test_printed_prose_formula_has_same_structure_as_symbolic_formula[product of p1 (which is 22) and p2 (which is 1)-p1 * p2]
+FAILED tests/test_natural_prose_recovery.py::test_numeric_annotation_after_full_quantity_name_is_not_multiplication
+FAILED tests/test_natural_prose_recovery.py::test_adjacent_numeric_work_can_use_an_explicit_simplified_formula[q = 4 * p1. That's 4*14 = 56.]
+FAILED tests/test_natural_prose_recovery.py::test_adjacent_numeric_work_can_use_an_explicit_simplified_formula[q = product of p1 and p2. So 22 * 1 = 22.]
+FAILED tests/test_natural_prose_recovery.py::test_adjacent_numeric_work_can_use_an_explicit_simplified_formula[q = 18 * (0 + p1) = 18 * 14. Let me compute that. 18*14 is 252.]
+FAILED tests/test_natural_prose_recovery.py::test_adjacent_numeric_work_can_use_an_explicit_simplified_formula[q = sum of p1 and p2. That is 14 + 10 = 24.]
+FAILED tests/test_natural_prose_recovery.py::test_explicit_remainder_continues_named_raw_calculation[Since 25 mod 23 is 2.]
+FAILED tests/test_natural_prose_recovery.py::test_explicit_remainder_continues_named_raw_calculation[So that's 25 mod 23 = 2.]
+FAILED tests/test_natural_prose_recovery.py::test_explicit_remainder_continues_named_raw_calculation[25 divided by 23 is 1 with remainder 2.]
+FAILED tests/test_natural_prose_recovery.py::test_explicit_remainder_continues_named_raw_calculation[25 divided by 23 is 1 with a remainder of 2.]
+FAILED tests/test_natural_prose_recovery.py::test_explicit_remainder_continues_named_raw_calculation[Modulo 23, 25 - 23 = 2.]
+17 failed, 12 passed in 0.13s

@@ -1,0 +1,112 @@
+{
+  "native_id": "igsm-official-0104-op5",
+  "family_id": "igsm-official-0104-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261032,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "22",
+  "target": "p_0_0_2_3",
+  "question": "The number of each Rhinoceros's Knee Joint equals each Hippopotamus's Knee Joint. The number of each Hippopotamus's Elbow Joint equals 10 more than the difference of each Rhinoceros's Knee Joint and each Hippopotamus's Knee Joint. The number of each Armadillo's Rotator Cuff equals 12. The number of each Hippopotamus's Knee Joint equals 12. The number of each Armadillo's Quadriceps equals 5. The number of each Hippopotamus's Quadriceps equals the sum of each Hippopotamus's Elbow Joint and each Hippopotamus's Knee Joint. How many Quadriceps does Hippopotamus have?",
+  "lookup": {
+    "p_0_0_2_1": 12,
+    "p_0_0_0_3": 5,
+    "p_0_0_0_0": 12,
+    "p_0_0_1_1": 12,
+    "p_0_0_2_2": 10,
+    "p_0_0_2_3": 22
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 12,
+        "span": [
+          286,
+          340
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Rhinoceros's Knee Joint"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Hippopotamus's Elbow Joint"
+        ],
+        "expression": "(10 + (p_0_0_1_1 - p_0_0_2_1))",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_0_2_2",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Hippopotamus's Quadriceps"
+        ],
+        "expression": "(p_0_0_2_2 + p_0_0_2_1)",
+        "value": 22
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_3"
+      ]
+    ]
+  }
+}

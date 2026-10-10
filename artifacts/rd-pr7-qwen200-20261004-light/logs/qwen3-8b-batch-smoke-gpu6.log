@@ -1,0 +1,508 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 185.89it/s]
+resume igsm-official-0002-op15 trace-base:seed2
+resume igsm-official-0002-op15 trace-base
+resume igsm-official-0002-op15 trace-t0p
+resume igsm-official-0002-op15 trace-edit
+resume igsm-official-0002-op15 trace-edit:seed1
+resume igsm-official-0002-op15 trace-edit:seed2
+resume igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:0
+resume igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:2
+resume igsm-official-0002-op15 trace-edit:igsm-official-0002-op15:p_0_2_0_1:1
+resume igsm-official-0002-op15 trace-sham:0:2resume igsm-official-0002-op15 trace-sham
+resume igsm-official-0002-op15 trace-sham:0:1
+
+resume igsm-official-0002-op15 trace-sham:1:0
+resume igsm-official-0002-op15 trace-sham:1:2resume igsm-official-0002-op15 trace-sham:1:1
+
+resume igsm-official-0002-op15 trace-sham:2:0
+resume igsm-official-0005-op10 trace-edit:1
+resume igsm-official-0005-op10 trace-base:1
+resume igsm-official-0002-op15 trace-sham:2:2resume igsm-official-0002-op15 trace-sham:2:1
+
+completed 28/66 problems
+resume igsm-official-0005-op10 trace-base:1:seed2resume igsm-official-0005-op10 trace-edit:1:seed1resume igsm-official-0005-op10 trace-base:1:seed1
+
+
+resume igsm-official-0005-op10 trace-edit:1:seed2
+resume igsm-official-0005-op10 trace-sham:1:0:0
+resume igsm-official-0005-op10 trace-sham:1:1:0resume igsm-official-0005-op10 trace-sham:1:0:1
+
+resume igsm-official-0005-op10 trace-sham:1:0:2
+resume igsm-official-0005-op10 trace-sham:1:1:2resume igsm-official-0005-op10 trace-sham:1:2:0
+resume igsm-official-0005-op10 trace-sham:1:2:1
+
+resume igsm-official-0005-op10 trace-sham:1:1:1
+resume igsm-official-0008-op5 trace-edit:2resume igsm-official-0008-op5 trace-base:2
+resume igsm-official-0008-op5 trace-base:2:seed1
+resume igsm-official-0005-op10 trace-sham:1:2:2
+
+completed 28/66 problems
+resume igsm-official-0008-op5 trace-base:2:seed2
+resume igsm-official-0008-op5 trace-edit:2:seed2resume igsm-official-0008-op5 trace-edit:2:seed1
+
+resume igsm-official-0008-op5 trace-sham:2:0:0
+resume igsm-official-0008-op5 trace-sham:2:1:0resume igsm-official-0008-op5 trace-sham:2:0:1
+resume igsm-official-0008-op5 trace-sham:2:1:1
+
+resume igsm-official-0008-op5 trace-sham:2:0:2
+resume igsm-official-0008-op5 trace-sham:2:2:1resume igsm-official-0008-op5 trace-sham:2:2:0
+
+resume igsm-official-0008-op5 trace-sham:2:2:2resume igsm-official-0008-op5 trace-sham:2:1:2
+
+completed 28/66 problems
+resume igsm-official-0011-op21 trace-base:3
+resume igsm-official-0011-op21 trace-edit:3
+resume igsm-official-0011-op21 trace-base:3:seed1
+resume igsm-official-0011-op21 trace-edit:3:seed1
+resume igsm-official-0011-op21 trace-edit:3:seed2
+resume igsm-official-0011-op21 trace-base:3:seed2
+resume igsm-official-0011-op21 trace-sham:3:0:0
+resume igsm-official-0011-op21 trace-sham:3:0:1
+resume igsm-official-0011-op21 trace-sham:3:0:2
+resume igsm-official-0011-op21 trace-sham:3:1:0
+resume igsm-official-0011-op21 trace-sham:3:1:2resume igsm-official-0011-op21 trace-sham:3:1:1
+
+resume igsm-official-0011-op21 trace-sham:3:2:0
+resume igsm-official-0011-op21 trace-sham:3:2:2
+resume igsm-official-0011-op21 trace-sham:3:2:1
+resume igsm-official-0014-op15 trace-base:4
+completed 28/66 problems
+resume igsm-official-0014-op15 trace-edit:4resume igsm-official-0014-op15 trace-base:4:seed1
+
+resume igsm-official-0014-op15 trace-base:4:seed2
+resume igsm-official-0014-op15 trace-edit:4:seed1
+resume igsm-official-0014-op15 trace-edit:4:seed2resume igsm-official-0014-op15 trace-sham:4:0:1
+
+resume igsm-official-0014-op15 trace-sham:4:0:0resume igsm-official-0014-op15 trace-sham:4:0:2
+
+resume igsm-official-0014-op15 trace-sham:4:1:0
+resume igsm-official-0014-op15 trace-sham:4:1:2
+resume igsm-official-0014-op15 trace-sham:4:1:1
+resume igsm-official-0014-op15 trace-sham:4:2:0
+resume igsm-official-0014-op15 trace-sham:4:2:1resume igsm-official-0017-op10 trace-base:5
+
+resume igsm-official-0014-op15 trace-sham:4:2:2resume igsm-official-0017-op10 trace-edit:5
+
+completed 28/66 problems
+resume igsm-official-0017-op10 trace-edit:5:seed1resume igsm-official-0017-op10 trace-edit:5:seed2
+
+resume igsm-official-0017-op10 trace-base:5:seed1resume igsm-official-0017-op10 trace-base:5:seed2
+
+resume igsm-official-0017-op10 trace-sham:5:0:1
+resume igsm-official-0017-op10 trace-sham:5:0:0resume igsm-official-0017-op10 trace-sham:5:0:2
+
+resume igsm-official-0017-op10 trace-sham:5:1:0
+resume igsm-official-0017-op10 trace-sham:5:1:1
+resume igsm-official-0017-op10 trace-sham:5:2:1resume igsm-official-0017-op10 trace-sham:5:2:0
+
+resume igsm-official-0017-op10 trace-sham:5:1:2
+resume igsm-official-0020-op5 trace-edit:6
+resume igsm-official-0017-op10 trace-sham:5:2:2resume igsm-official-0020-op5 trace-base:6resume igsm-official-0020-op5 trace-base:6:seed1
+
+
+completed 28/66 problems
+resume igsm-official-0020-op5 trace-edit:6:seed2resume igsm-official-0020-op5 trace-base:6:seed2
+
+resume igsm-official-0020-op5 trace-edit:6:seed1resume igsm-official-0020-op5 trace-sham:6:0:0
+
+resume igsm-official-0020-op5 trace-sham:6:0:2
+resume igsm-official-0020-op5 trace-sham:6:1:0
+resume igsm-official-0020-op5 trace-sham:6:1:1resume igsm-official-0020-op5 trace-sham:6:0:1
+
+resume igsm-official-0020-op5 trace-sham:6:2:1resume igsm-official-0020-op5 trace-sham:6:2:2
+
+resume igsm-official-0020-op5 trace-sham:6:2:0resume igsm-official-0020-op5 trace-sham:6:1:2
+
+resume igsm-official-0023-op21 trace-base:7
+resume igsm-official-0020-op5 trace-source:6resume igsm-official-0023-op21 trace-edit:7
+
+resume igsm-official-0023-op21 trace-base:7:seed1
+completed 28/66 problems
+resume igsm-official-0023-op21 trace-edit:7:seed1resume igsm-official-0023-op21 trace-base:7:seed2
+
+resume igsm-official-0023-op21 trace-edit:7:seed2
+resume igsm-official-0023-op21 trace-sham:7:0:0
+resume igsm-official-0023-op21 trace-sham:7:0:1
+resume igsm-official-0023-op21 trace-sham:7:1:0
+resume igsm-official-0023-op21 trace-sham:7:0:2
+resume igsm-official-0023-op21 trace-sham:7:1:1
+resume igsm-official-0023-op21 trace-sham:7:1:2resume igsm-official-0023-op21 trace-sham:7:2:0
+
+resume igsm-official-0023-op21 trace-sham:7:2:2resume igsm-official-0023-op21 trace-sham:7:2:1
+
+completed 28/66 problems
+resume igsm-official-0026-op15 trace-edit:8resume igsm-official-0026-op15 trace-base:8:seed1resume igsm-official-0026-op15 trace-base:8
+
+resume igsm-official-0026-op15 trace-edit:8:seed1
+
+resume igsm-official-0026-op15 trace-edit:8:seed2
+resume igsm-official-0026-op15 trace-sham:8:0:0
+resume igsm-official-0026-op15 trace-base:8:seed2resume igsm-official-0026-op15 trace-sham:8:0:1
+
+resume igsm-official-0026-op15 trace-sham:8:0:2
+resume igsm-official-0026-op15 trace-sham:8:1:0resume igsm-official-0026-op15 trace-sham:8:1:2
+resume igsm-official-0026-op15 trace-sham:8:1:1
+
+resume igsm-official-0026-op15 trace-sham:8:2:1
+resume igsm-official-0026-op15 trace-sham:8:2:0resume igsm-official-0026-op15 trace-sham:8:2:2
+
+resume igsm-official-0029-op10 trace-base:9
+completed 28/66 problems
+resume igsm-official-0029-op10 trace-edit:9:seed1
+resume igsm-official-0029-op10 trace-edit:9resume igsm-official-0029-op10 trace-base:9:seed1
+
+resume igsm-official-0029-op10 trace-base:9:seed2
+resume igsm-official-0029-op10 trace-sham:9:0:0
+resume igsm-official-0029-op10 trace-sham:9:0:2
+resume igsm-official-0029-op10 trace-sham:9:0:1
+resume igsm-official-0029-op10 trace-edit:9:seed2
+resume igsm-official-0029-op10 trace-sham:9:1:0
+resume igsm-official-0029-op10 trace-sham:9:1:1
+resume igsm-official-0029-op10 trace-sham:9:2:0resume igsm-official-0029-op10 trace-sham:9:1:2
+
+resume igsm-official-0029-op10 trace-sham:9:2:2
+resume igsm-official-0032-op5 trace-base:10resume igsm-official-0029-op10 trace-sham:9:2:1
+resume igsm-official-0032-op5 trace-edit:10
+
+completed 28/66 problems
+resume igsm-official-0032-op5 trace-edit:10:seed1
+resume igsm-official-0032-op5 trace-base:10:seed2
+resume igsm-official-0032-op5 trace-base:10:seed1
+resume igsm-official-0032-op5 trace-edit:10:seed2
+resume igsm-official-0032-op5 trace-sham:10:0:1resume igsm-official-0032-op5 trace-sham:10:0:0
+
+resume igsm-official-0032-op5 trace-sham:10:0:2
+resume igsm-official-0032-op5 trace-sham:10:1:0
+resume igsm-official-0032-op5 trace-sham:10:2:0
+resume igsm-official-0032-op5 trace-sham:10:1:2
+resume igsm-official-0032-op5 trace-sham:10:1:1
+resume igsm-official-0032-op5 trace-sham:10:2:1
+resume igsm-official-0032-op5 trace-sham:10:2:2
+resume igsm-official-0035-op21 trace-edit:11
+resume igsm-official-0035-op21 trace-base:11
+resume igsm-official-0035-op21 trace-base:11:seed1
+completed 28/66 problems
+resume igsm-official-0035-op21 trace-edit:11:seed1
+resume igsm-official-0035-op21 trace-edit:11:seed2
+resume igsm-official-0035-op21 trace-base:11:seed2
+resume igsm-official-0035-op21 trace-sham:11:0:0
+resume igsm-official-0035-op21 trace-sham:11:0:1
+resume igsm-official-0035-op21 trace-sham:11:0:2
+resume igsm-official-0035-op21 trace-sham:11:1:0
+resume igsm-official-0035-op21 trace-sham:11:1:1
+resume igsm-official-0035-op21 trace-sham:11:2:0
+resume igsm-official-0035-op21 trace-sham:11:1:2
+resume igsm-official-0035-op21 trace-sham:11:2:1resume igsm-official-0035-op21 trace-sham:11:2:2
+
+completed 28/66 problems
+resume igsm-official-0038-op15 trace-base:12:seed1
+resume igsm-official-0038-op15 trace-edit:12:seed1resume igsm-official-0038-op15 trace-base:12resume igsm-official-0038-op15 trace-edit:12
+
+
+resume igsm-official-0038-op15 trace-base:12:seed2
+resume igsm-official-0038-op15 trace-sham:12:0:0
+resume igsm-official-0038-op15 trace-edit:12:seed2
+resume igsm-official-0038-op15 trace-sham:12:0:1
+resume igsm-official-0038-op15 trace-sham:12:1:1resume igsm-official-0038-op15 trace-sham:12:0:2
+
+resume igsm-official-0038-op15 trace-sham:12:1:0
+resume igsm-official-0038-op15 trace-sham:12:1:2
+resume igsm-official-0038-op15 trace-sham:12:2:0
+resume igsm-official-0038-op15 trace-sham:12:2:1resume igsm-official-0038-op15 trace-sham:12:2:2
+
+resume igsm-official-0041-op10 trace-base:13
+completed 28/66 problems
+resume igsm-official-0041-op10 trace-edit:13resume igsm-official-0041-op10 trace-edit:13:seed1
+
+resume igsm-official-0041-op10 trace-base:13:seed1
+resume igsm-official-0041-op10 trace-base:13:seed2
+resume igsm-official-0041-op10 trace-edit:13:seed2
+resume igsm-official-0041-op10 trace-sham:13:0:1
+resume igsm-official-0041-op10 trace-sham:13:0:0
+resume igsm-official-0041-op10 trace-sham:13:0:2
+resume igsm-official-0041-op10 trace-sham:13:1:1
+resume igsm-official-0041-op10 trace-sham:13:1:2
+resume igsm-official-0041-op10 trace-sham:13:1:0
+resume igsm-official-0041-op10 trace-sham:13:2:0
+resume igsm-official-0041-op10 trace-sham:13:2:1resume igsm-official-0044-op5 trace-edit:14
+resume igsm-official-0041-op10 trace-sham:13:2:2
+
+resume igsm-official-0044-op5 trace-base:14
+completed 28/66 problems
+resume igsm-official-0044-op5 trace-base:14:seed1
+resume igsm-official-0044-op5 trace-base:14:seed2resume igsm-official-0044-op5 trace-edit:14:seed2
+
+resume igsm-official-0044-op5 trace-edit:14:seed1
+resume igsm-official-0044-op5 trace-sham:14:0:0
+resume igsm-official-0044-op5 trace-sham:14:0:2
+resume igsm-official-0044-op5 trace-sham:14:1:0resume igsm-official-0044-op5 trace-sham:14:0:1
+
+resume igsm-official-0044-op5 trace-sham:14:1:1
+resume igsm-official-0044-op5 trace-sham:14:2:1
+resume igsm-official-0044-op5 trace-sham:14:1:2
+resume igsm-official-0044-op5 trace-sham:14:2:0
+resume igsm-official-0044-op5 trace-sham:14:2:2
+resume igsm-official-0047-op21 trace-base:15
+resume igsm-official-0047-op21 trace-edit:15
+resume igsm-official-0047-op21 trace-base:15:seed1
+completed 28/66 problems
+resume igsm-official-0047-op21 trace-edit:15:seed1
+resume igsm-official-0047-op21 trace-base:15:seed2resume igsm-official-0047-op21 trace-edit:15:seed2
+
+resume igsm-official-0047-op21 trace-sham:15:0:0
+resume igsm-official-0047-op21 trace-sham:15:0:1
+resume igsm-official-0047-op21 trace-sham:15:0:2resume igsm-official-0047-op21 trace-sham:15:1:1
+
+resume igsm-official-0047-op21 trace-sham:15:1:0
+resume igsm-official-0047-op21 trace-sham:15:1:2
+resume igsm-official-0047-op21 trace-sham:15:2:0resume igsm-official-0047-op21 trace-sham:15:2:1
+
+resume igsm-official-0047-op21 trace-sham:15:2:2
+completed 28/66 problems
+resume igsm-official-0050-op15 trace-base:16
+resume igsm-official-0050-op15 trace-base:16:seed1resume igsm-official-0050-op15 trace-edit:16:seed1
+
+resume igsm-official-0050-op15 trace-edit:16
+resume igsm-official-0050-op15 trace-base:16:seed2
+resume igsm-official-0050-op15 trace-sham:16:0:0
+resume igsm-official-0050-op15 trace-edit:16:seed2
+resume igsm-official-0050-op15 trace-sham:16:0:1
+resume igsm-official-0050-op15 trace-sham:16:1:1resume igsm-official-0050-op15 trace-sham:16:1:2
+
+resume igsm-official-0050-op15 trace-sham:16:1:0
+resume igsm-official-0050-op15 trace-sham:16:0:2
+resume igsm-official-0050-op15 trace-sham:16:2:0
+resume igsm-official-0050-op15 trace-sham:16:2:2
+resume igsm-official-0050-op15 trace-sham:16:2:1
+resume igsm-official-0053-op10 trace-base:17
+completed 28/66 problems
+resume igsm-official-0053-op10 trace-edit:17
+resume igsm-official-0053-op10 trace-base:17:seed2
+resume igsm-official-0053-op10 trace-base:17:seed1
+resume igsm-official-0053-op10 trace-edit:17:seed1
+resume igsm-official-0053-op10 trace-sham:17:0:1resume igsm-official-0053-op10 trace-edit:17:seed2
+
+resume igsm-official-0053-op10 trace-sham:17:0:0resume igsm-official-0053-op10 trace-sham:17:0:2
+
+resume igsm-official-0053-op10 trace-sham:17:1:2
+resume igsm-official-0053-op10 trace-sham:17:2:0resume igsm-official-0053-op10 trace-sham:17:1:0
+resume igsm-official-0053-op10 trace-sham:17:1:1
+
+resume igsm-official-0053-op10 trace-sham:17:2:1
+resume igsm-official-0056-op5 trace-edit:18
+resume igsm-official-0053-op10 trace-sham:17:2:2
+resume igsm-official-0056-op5 trace-base:18
+completed 28/66 problems
+resume igsm-official-0056-op5 trace-base:18:seed1resume igsm-official-0056-op5 trace-base:18:seed2resume igsm-official-0056-op5 trace-edit:18:seed1
+
+
+resume igsm-official-0056-op5 trace-edit:18:seed2
+resume igsm-official-0056-op5 trace-sham:18:0:1resume igsm-official-0056-op5 trace-sham:18:0:0resume igsm-official-0056-op5 trace-sham:18:0:2
+
+
+resume igsm-official-0056-op5 trace-sham:18:1:0
+resume igsm-official-0056-op5 trace-sham:18:1:2
+resume igsm-official-0056-op5 trace-sham:18:1:1resume igsm-official-0056-op5 trace-sham:18:2:0
+
+resume igsm-official-0056-op5 trace-sham:18:2:1
+resume igsm-official-0059-op21 trace-edit:19
+resume igsm-official-0056-op5 trace-sham:18:2:2
+resume igsm-official-0059-op21 trace-base:19
+resume igsm-official-0059-op21 trace-base:19:seed1
+completed 28/66 problems
+resume igsm-official-0059-op21 trace-base:19:seed2
+resume igsm-official-0059-op21 trace-edit:19:seed1resume igsm-official-0059-op21 trace-edit:19:seed2
+
+resume igsm-official-0059-op21 trace-sham:19:0:0
+resume igsm-official-0059-op21 trace-sham:19:0:1
+resume igsm-official-0059-op21 trace-sham:19:0:2
+resume igsm-official-0059-op21 trace-sham:19:1:0
+resume igsm-official-0059-op21 trace-sham:19:1:1
+resume igsm-official-0059-op21 trace-sham:19:1:2
+resume igsm-official-0059-op21 trace-sham:19:2:0
+resume igsm-official-0059-op21 trace-sham:19:2:1
+resume igsm-official-0059-op21 trace-sham:19:2:2
+completed 28/66 problems
+resume igsm-official-0062-op15 trace-edit:20resume igsm-official-0062-op15 trace-base:20
+
+resume igsm-official-0062-op15 trace-base:20:seed1resume igsm-official-0062-op15 trace-edit:20:seed1
+
+resume igsm-official-0062-op15 trace-base:20:seed2resume igsm-official-0062-op15 trace-edit:20:seed2
+
+resume igsm-official-0062-op15 trace-sham:20:0:0
+resume igsm-official-0062-op15 trace-sham:20:0:1
+resume igsm-official-0062-op15 trace-sham:20:0:2
+resume igsm-official-0062-op15 trace-sham:20:1:0
+resume igsm-official-0062-op15 trace-sham:20:1:2
+resume igsm-official-0062-op15 trace-sham:20:1:1
+resume igsm-official-0062-op15 trace-sham:20:2:0
+resume igsm-official-0062-op15 trace-sham:20:2:2
+resume igsm-official-0062-op15 trace-sham:20:2:1resume igsm-official-0065-op10 trace-base:21
+
+completed 28/66 problems
+resume igsm-official-0065-op10 trace-edit:21:seed1
+resume igsm-official-0065-op10 trace-base:21:seed2resume igsm-official-0065-op10 trace-edit:21
+
+resume igsm-official-0065-op10 trace-base:21:seed1
+resume igsm-official-0065-op10 trace-sham:21:0:0
+resume igsm-official-0065-op10 trace-sham:21:0:1resume igsm-official-0065-op10 trace-edit:21:seed2
+
+resume igsm-official-0065-op10 trace-sham:21:0:2
+resume igsm-official-0065-op10 trace-sham:21:1:2
+resume igsm-official-0065-op10 trace-sham:21:1:0
+resume igsm-official-0065-op10 trace-sham:21:2:0
+resume igsm-official-0065-op10 trace-sham:21:1:1
+resume igsm-official-0065-op10 trace-sham:21:2:1resume igsm-official-0068-op5 trace-base:22resume igsm-official-0068-op5 trace-edit:22
+
+
+resume igsm-official-0065-op10 trace-sham:21:2:2
+completed 28/66 problems
+resume igsm-official-0068-op5 trace-edit:22:seed1
+resume igsm-official-0068-op5 trace-base:22:seed2
+resume igsm-official-0068-op5 trace-edit:22:seed2
+resume igsm-official-0068-op5 trace-base:22:seed1
+resume igsm-official-0068-op5 trace-sham:22:0:2
+resume igsm-official-0068-op5 trace-sham:22:0:1
+resume igsm-official-0068-op5 trace-sham:22:0:0resume igsm-official-0068-op5 trace-sham:22:1:0
+
+resume igsm-official-0068-op5 trace-sham:22:1:1
+resume igsm-official-0068-op5 trace-sham:22:2:0
+resume igsm-official-0068-op5 trace-sham:22:1:2
+resume igsm-official-0068-op5 trace-sham:22:2:1
+resume igsm-official-0068-op5 trace-sham:22:2:2
+resume igsm-official-0071-op21 trace-base:23resume igsm-official-0068-op5 trace-source:22
+
+resume igsm-official-0071-op21 trace-edit:23
+completed 28/66 problems
+resume igsm-official-0071-op21 trace-base:23:seed1
+resume igsm-official-0071-op21 trace-base:23:seed2resume igsm-official-0071-op21 trace-edit:23:seed1
+
+resume igsm-official-0071-op21 trace-edit:23:seed2
+resume igsm-official-0071-op21 trace-sham:23:0:0
+resume igsm-official-0071-op21 trace-sham:23:0:1
+resume igsm-official-0071-op21 trace-sham:23:1:0resume igsm-official-0071-op21 trace-sham:23:0:2
+
+resume igsm-official-0071-op21 trace-sham:23:1:1
+resume igsm-official-0071-op21 trace-sham:23:2:0
+resume igsm-official-0071-op21 trace-sham:23:2:1
+resume igsm-official-0071-op21 trace-sham:23:1:2
+resume igsm-official-0071-op21 trace-sham:23:2:2
+resume igsm-official-0074-op15 trace-edit:24
+resume igsm-official-0074-op15 trace-base:24resume igsm-official-0074-op15 trace-base:24:seed1
+
+completed 28/66 problems
+resume igsm-official-0074-op15 trace-edit:24:seed1
+resume igsm-official-0074-op15 trace-edit:24:seed2
+resume igsm-official-0074-op15 trace-base:24:seed2resume igsm-official-0074-op15 trace-sham:24:0:0
+
+resume igsm-official-0074-op15 trace-sham:24:0:1
+resume igsm-official-0074-op15 trace-sham:24:1:0resume igsm-official-0074-op15 trace-sham:24:1:1
+
+resume igsm-official-0074-op15 trace-sham:24:0:2
+resume igsm-official-0074-op15 trace-sham:24:1:2
+resume igsm-official-0074-op15 trace-sham:24:2:0resume igsm-official-0074-op15 trace-sham:24:2:1
+
+resume igsm-official-0074-op15 trace-sham:24:2:2
+completed 28/66 problems
+resume igsm-official-0077-op10 trace-base:25
+resume igsm-official-0077-op10 trace-base:25:seed1resume igsm-official-0077-op10 trace-edit:25:seed1resume igsm-official-0077-op10 trace-edit:25
+
+
+resume igsm-official-0077-op10 trace-base:25:seed2
+resume igsm-official-0077-op10 trace-edit:25:seed2resume igsm-official-0077-op10 trace-sham:25:0:0
+
+resume igsm-official-0077-op10 trace-sham:25:0:1
+resume igsm-official-0077-op10 trace-sham:25:0:2
+resume igsm-official-0077-op10 trace-sham:25:1:2resume igsm-official-0077-op10 trace-sham:25:1:0
+
+resume igsm-official-0077-op10 trace-sham:25:1:1
+resume igsm-official-0077-op10 trace-sham:25:2:0
+resume igsm-official-0077-op10 trace-sham:25:2:1
+resume igsm-official-0080-op5 trace-base:26
+resume igsm-official-0077-op10 trace-sham:25:2:2
+completed 28/66 problems
+resume igsm-official-0080-op5 trace-edit:26
+resume igsm-official-0080-op5 trace-base:26:seed1resume igsm-official-0080-op5 trace-base:26:seed2
+
+resume igsm-official-0080-op5 trace-edit:26:seed1
+resume igsm-official-0080-op5 trace-edit:26:seed2
+resume igsm-official-0080-op5 trace-sham:26:0:1resume igsm-official-0080-op5 trace-sham:26:0:0
+
+resume igsm-official-0080-op5 trace-sham:26:0:2
+resume igsm-official-0080-op5 trace-sham:26:1:0
+resume igsm-official-0080-op5 trace-sham:26:1:2
+resume igsm-official-0080-op5 trace-sham:26:2:0
+resume igsm-official-0080-op5 trace-sham:26:1:1
+resume igsm-official-0080-op5 trace-sham:26:2:1
+resume igsm-official-0080-op5 trace-sham:26:2:2resume igsm-official-0083-op21 trace-base:27
+
+resume igsm-official-0083-op21 trace-edit:27
+completed 28/66 problems
+resume igsm-official-0083-op21 trace-base:27:seed1
+resume igsm-official-0083-op21 trace-edit:27:seed1
+resume igsm-official-0083-op21 trace-base:27:seed2
+resume igsm-official-0083-op21 trace-edit:27:seed2
+resume igsm-official-0083-op21 trace-sham:27:0:0
+resume igsm-official-0083-op21 trace-sham:27:0:1
+resume igsm-official-0083-op21 trace-sham:27:0:2
+resume igsm-official-0083-op21 trace-sham:27:1:0
+resume igsm-official-0083-op21 trace-sham:27:1:1
+resume igsm-official-0083-op21 trace-sham:27:1:2resume igsm-official-0083-op21 trace-sham:27:2:1
+
+resume igsm-official-0083-op21 trace-sham:27:2:0
+resume igsm-official-0083-op21 trace-sham:27:2:2
+resume igsm-official-0086-op15 trace-edit:28
+resume igsm-official-0086-op15 trace-base:28resume igsm-official-0086-op15 trace-base:28:seed1
+
+completed 28/66 problems
+resume igsm-official-0086-op15 trace-edit:28:seed1
+resume igsm-official-0086-op15 trace-edit:28:seed2resume igsm-official-0086-op15 trace-sham:28:0:0
+
+resume igsm-official-0086-op15 trace-base:28:seed2
+resume igsm-official-0086-op15 trace-sham:28:0:1
+resume igsm-official-0086-op15 trace-sham:28:1:0resume igsm-official-0086-op15 trace-sham:28:0:2resume igsm-official-0086-op15 trace-sham:28:1:1
+
+
+resume igsm-official-0086-op15 trace-sham:28:1:2
+resume igsm-official-0086-op15 trace-sham:28:2:1resume igsm-official-0086-op15 trace-sham:28:2:0
+
+resume igsm-official-0086-op15 trace-sham:28:2:2
+generate igsm-official-0086-op15 trace-source:28
+generate igsm-official-0089-op10 trace-base:29
+generate igsm-official-0089-op10 trace-edit:29
+generate igsm-official-0089-op10 trace-base:29:seed1
+saved igsm-official-0086-op15 trace-source:28 status=natural_truncated
+saved igsm-official-0089-op10 trace-base:29:seed1 status=natural_truncated
+saved igsm-official-0089-op10 trace-base:29 status=natural_truncated
+saved igsm-official-0089-op10 trace-edit:29 status=natural_truncated
+completed 29/66 problems
+generate igsm-official-0089-op10 trace-edit:29:seed1
+generate igsm-official-0089-op10 trace-edit:29:seed2
+generate igsm-official-0089-op10 trace-base:29:seed2
+generate igsm-official-0089-op10 trace-sham:29:0:0
+saved igsm-official-0089-op10 trace-edit:29:seed1 status=natural_truncated
+saved igsm-official-0089-op10 trace-base:29:seed2 status=natural_truncated
+saved igsm-official-0089-op10 trace-sham:29:0:0 status=natural_truncated
+saved igsm-official-0089-op10 trace-edit:29:seed2 status=natural_truncated
+Traceback (most recent call last):
+  File "/home/wja/reasoning-diff-pr7/scripts/prepare_batched.py", line 145, in <module>
+    raise SystemExit(main(sys.argv[1:]))
+                     ^^^^^^^^^^^^^^^^^^
+  File "/home/wja/reasoning-diff-pr7/scripts/prepare_batched.py", line 135, in main
+    return cli.main(stage_args)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/qwen3-8b/code/src/reasoning_diff/cli.py", line 3768, in main
+    return args.func(args)
+           ^^^^^^^^^^^^^^^
+  File "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/qwen3-8b/code/src/reasoning_diff/cli.py", line 840, in cmd_prepare
+    extra_edits[generation_seed] = generate(extra_edit.task, seed=generation_seed, run_id=edit_id, **gen_kw)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/wja/reasoning-diff-pr7/scripts/prepare_batched.py", line 80, in __call__
+    result = self.pending.pop(key).result()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zm/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/concurrent/futures/_base.py", line 451, in result
+    self._condition.wait(timeout)
+  File "/home/zm/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/threading.py", line 327, in wait
+    waiter.acquire()
+KeyboardInterrupt

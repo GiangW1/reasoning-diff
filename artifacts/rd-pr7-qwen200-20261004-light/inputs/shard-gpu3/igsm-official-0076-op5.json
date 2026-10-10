@@ -1,0 +1,118 @@
+{
+  "native_id": "igsm-official-0076-op5",
+  "family_id": "igsm-official-0076-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261003,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "19",
+  "target": "p_0_2_2_3",
+  "question": "The number of each WinCo Foods's Pretzels equals 8. The number of each Pretzels's Coconut equals 1. The number of each WinCo Foods's Nuts equals 16. The number of each International School District's Lidl equals each Cheese Puffs's Ingredient. The number of each Liberal Arts College District's WinCo Foods equals each WinCo Foods's Hummus. The number of each Asda's Nuts equals 13 times as much as each WinCo Foods's Nuts. The number of each Pretzels's Pear equals the sum of each Lidl's Product, each Research District's Product, each Science Park's Asda and each Hummus's Pear. The number of each WinCo Foods's Hummus equals 19 more than each Meijer's Ingredient. The number of each Asda's Cheese Puffs equals 14 more than the sum of each Meijer's Product, each Liberal Arts College District's Supermarket and each Lidl's Product. The number of each Nuts's Pineapple equals each WinCo Foods's Nuts. The number of each Hummus's Pear equals each Liberal Arts College District's Supermarket. The number of each Cheese Puffs's Pineapple equals 21. The number of each Science Park's Asda equals 13 more than each Meijer's Ingredient. The number of each Science Park's Meijer equals each WinCo Foods's Nuts. The number of each Hummus's Banana equals the sum of each Science Park's Meijer, each WinCo Foods's Nuts and each Nuts's Pineapple. The number of each International School District's Meijer equals 5. How many Pear does Hummus have?",
+  "lookup": {
+    "p_1_1_1_2": 0,
+    "p_1_0_1_2": 0,
+    "p_1_1_3_2": 0,
+    "p_0_1_2_3": 8,
+    "p_0_2_3_1": 1,
+    "p_0_2_0_0": 21,
+    "p_0_1_2_1": 16,
+    "p_0_1_0_1": 1,
+    "p_0_2_1_0": 16,
+    "p_1_2_0_3": 21,
+    "p_1_1_1_3": 0,
+    "p_0_0_2_0": 13,
+    "p_0_0_0_1": 5,
+    "p_0_0_0_3": 21,
+    "p_0_1_2_2": 19,
+    "p_0_0_3_2": 19,
+    "p_1_0_3_1": 19,
+    "p_0_2_2_3": 19,
+    "p_0_2_3_3": 9,
+    "p_0_0_2_1": 16,
+    "p_0_2_2_2": 2,
+    "p_0_1_0_0": 10
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_2",
+        "literal": 19,
+        "span": [
+          581,
+          665
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "Liberal Arts College District's WinCo Foods"
+        ],
+        "expression": "p_0_1_2_2",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_1",
+        "parents": [
+          "p_0_0_3_2"
+        ],
+        "aliases": [
+          "p_1_0_3_1",
+          "Liberal Arts College District's Supermarket"
+        ],
+        "expression": "p_0_0_3_2",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_3",
+        "parents": [
+          "p_1_0_3_1"
+        ],
+        "aliases": [
+          "p_0_2_2_3",
+          "Hummus's Pear"
+        ],
+        "expression": "p_1_0_3_1",
+        "value": 19
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_2",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_2_2_3"
+      ]
+    ]
+  }
+}

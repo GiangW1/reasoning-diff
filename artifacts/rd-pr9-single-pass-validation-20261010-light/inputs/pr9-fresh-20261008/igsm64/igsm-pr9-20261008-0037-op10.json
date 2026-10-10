@@ -1,0 +1,175 @@
+{
+  "native_id": "igsm-pr9-20261008-0037-op10",
+  "family_id": "igsm-pr9-20261008-0037-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100837,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "1",
+  "target": "p_0_1_0_0",
+  "question": "The number of each Ceramics Studio's Tool Backpack equals 18 more than the sum of each Tool Backpack's Craft Knife and each Film Studio's Tool Backpack. The number of each Presentation Backpack's Craft Knife equals each Tool Backpack's Craft Knife. The number of each Forest Ridge University's Ceramics Studio equals 8. The number of each Ceramics Studio's Presentation Backpack equals 19 more than each Presentation Backpack's Craft Knife. The number of each Presentation Backpack's Modelling Tools equals 9 times as much as each Forest Ridge University's Ceramics Studio. The number of each Summit University's Drama Studio equals 14. The number of each Drama Studio's Presentation Backpack equals each Presentation Backpack's Craft Knife. The number of each Forest Ridge University's Film Studio equals the sum of each Film Studio's Stationery, each Tool Backpack's Acrylic Paint, each Ceramics Studio's Stationery and each Drama Studio's Presentation Backpack. The number of each Summit University's Ceramics Studio equals each Presentation Backpack's Acrylic Paint. The number of each Tool Backpack's Acrylic Paint equals 2 times as much as each Presentation Backpack's Craft Knife. The number of each Presentation Backpack's Acrylic Paint equals 20 more than the sum of each Film Studio's Presentation Backpack and each Forest Ridge University's Ceramics Studio. The number of each Film Studio's Tool Backpack equals 8 more than the sum of each Tool Backpack's Stationery, each Tool Backpack's Modelling Tools and each Tool Backpack's Acrylic Paint. The number of each Film Studio's Presentation Backpack equals 3 more than the sum of each Forest Ridge University's Ceramics Studio and each Presentation Backpack's Modelling Tools. The number of each Tool Backpack's Craft Knife equals 9. The number of each Drama Studio's Tool Backpack equals 17 more than the sum of each Tool Backpack's Acrylic Paint and each Presentation Backpack's Modelling Tools. The number of each Tool Backpack's Modelling Tools equals 15 times as much as the difference of each Tool Backpack's Acrylic Paint and each Presentation Backpack's Craft Knife. How many Tool Backpack does Film Studio have?",
+  "lookup": {
+    "p_0_2_0_0": 9,
+    "p_0_0_1_1": 14,
+    "p_0_0_0_2": 8,
+    "p_0_2_1_1": 3,
+    "p_0_1_0_1": 14,
+    "p_0_2_1_0": 9,
+    "p_0_1_1_1": 9,
+    "p_0_1_2_1": 5,
+    "p_0_2_1_2": 19,
+    "p_1_2_1_3": 8,
+    "p_0_0_1_2": 19,
+    "p_0_2_0_2": 18,
+    "p_0_1_1_0": 15,
+    "p_0_2_0_1": 20,
+    "p_1_2_0_3": 1,
+    "p_0_1_0_0": 1,
+    "p_1_1_0_3": 21,
+    "p_0_1_2_0": 5,
+    "p_1_1_2_3": 22,
+    "p_0_0_0_0": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_0",
+        "literal": 9,
+        "span": [
+          1738,
+          1793
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Presentation Backpack's Craft Knife"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_2",
+        "parents": [
+          "p_0_2_1_0"
+        ],
+        "aliases": [
+          "p_0_2_0_2",
+          "Tool Backpack's Acrylic Paint"
+        ],
+        "expression": "(2 * p_0_2_1_0)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_2_0_2",
+          "p_0_2_1_0"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Tool Backpack's Modelling Tools"
+        ],
+        "expression": "(15 * (p_0_2_0_2 - p_0_2_1_0))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_2_0_1",
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Tool Backpack's Stationery"
+        ],
+        "expression": "((p_0_2_0_0 + p_0_2_0_1) + p_0_2_0_2)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_1_2_0_3",
+          "p_0_2_0_1",
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Film Studio's Tool Backpack"
+        ],
+        "expression": "(8 + ((p_1_2_0_3 + p_0_2_0_1) + p_0_2_0_2))",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_0_0",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_0_1_0_0"
+      ]
+    ]
+  }
+}

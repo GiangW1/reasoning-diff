@@ -1,0 +1,183 @@
+{
+  "native_id": "igsm-official-0065-op10",
+  "family_id": "igsm-official-0065-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260992,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "14",
+  "target": "p_1_1_2_2",
+  "question": "The number of each Engineering Campus's WinCo Foods equals 14. The number of each BJ's Wholesale Club's Tortilla Chips equals 2 more than each High School District's BJ's Wholesale Club. The number of each High School District's BJ's Wholesale Club equals 13. The number of each WinCo Foods's Candy Bars equals each High School District's BJ's Wholesale Club. The number of each High School District's Aldi equals 2. The number of each High School District's WinCo Foods equals each Engineering Campus's WinCo Foods. The number of each BJ's Wholesale Club's Candy Bars equals 20 more than the difference of each WinCo Foods's Candy Bars and each High School District's BJ's Wholesale Club. The number of each Engineering Campus's BJ's Wholesale Club equals 5 times as much as each High School District's WinCo Foods. The number of each Aldi's Candy Bars equals the sum of each BJ's Wholesale Club's Product, each BJ's Wholesale Club's Tortilla Chips, each BJ's Wholesale Club's Candy Bars and each High School District's BJ's Wholesale Club. How many Product does Aldi have?",
+  "lookup": {
+    "p_0_0_0_0": 14,
+    "p_0_0_1_2": 2,
+    "p_0_0_1_0": 14,
+    "p_0_0_1_1": 13,
+    "p_0_0_0_1": 1,
+    "p_0_1_0_1": 13,
+    "p_0_1_1_0": 15,
+    "p_0_1_1_1": 20,
+    "p_1_1_1_2": 12,
+    "p_0_1_2_1": 14,
+    "p_1_1_2_2": 14
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 13,
+        "span": [
+          187,
+          258
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "BJ's Wholesale Club's Tortilla Chips"
+        ],
+        "expression": "(2 + p_0_0_1_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "WinCo Foods's Candy Bars"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "BJ's Wholesale Club's Candy Bars"
+        ],
+        "expression": "(20 + (p_0_1_0_1 - p_0_0_1_1))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "BJ's Wholesale Club's Product"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_1_1_1_2",
+          "p_0_1_1_0",
+          "p_0_1_1_1",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Aldi's Candy Bars"
+        ],
+        "expression": "(((p_1_1_1_2 + p_0_1_1_0) + p_0_1_1_1) + p_0_0_1_1)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Aldi's Product"
+        ],
+        "expression": "p_0_1_2_1",
+        "value": 14
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ]
+    ]
+  }
+}

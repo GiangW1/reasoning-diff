@@ -1,0 +1,105 @@
+{
+  "native_id": "igsm-official-0172-op5",
+  "family_id": "igsm-official-0172-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261104,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "4",
+  "target": "p_1_0_2_1",
+  "question": "The number of each Sigmoid Colon's Hemocytoblasts equals 20. The number of each Sigmoid Colon's Monocytes equals 11 more than each Sigmoid Colon's Hemocytoblasts. The number of each Salivary Glands's Lymphocytes equals 15 times as much as the difference of each Sigmoid Colon's Monocytes and each Sigmoid Colon's Hemocytoblasts. How many Cells does Salivary Glands have?",
+  "lookup": {
+    "p_0_0_0_2": 20,
+    "p_0_0_0_0": 8,
+    "p_0_0_2_1": 4,
+    "p_1_0_2_1": 4
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_2",
+        "literal": 20,
+        "span": [
+          0,
+          59
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Sigmoid Colon's Monocytes"
+        ],
+        "expression": "(11 + p_0_0_0_2)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Salivary Glands's Lymphocytes"
+        ],
+        "expression": "(15 * (p_0_0_0_0 - p_0_0_0_2))",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Salivary Glands's Cells"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 4
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:03,  1.32it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.11it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.04it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:03<00:00,  1.03it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.31it/s]
+trace-reference:3a47645f0879d30cafb7fce0 reference natural_complete
+trace-reference:749f90358729208f7358a34f trace-reference:9e1646e249bea033fb235567reference  referencenatural_complete 
+natural_complete
+trace-reference:61ba7a54ce51e04f2371da7d reference natural_complete
+trace-reference:9a1194e41f4c386109a774fd reference natural_complete
+trace-reference:97add6f4175c044ad477e7abtrace-reference:ac24e3fbf18a9970b2efae71  referencereference  natural_completenatural_complete
+
+trace-reference:b7ffb5b460fbfdbff2b9bdb0 reference natural_complete

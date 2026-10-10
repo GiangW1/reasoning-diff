@@ -1,0 +1,135 @@
+{
+  "native_id": "igsm-official-0008-op5",
+  "family_id": "igsm-official-0008-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260934,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "0",
+  "target": "p_0_2_2_2",
+  "question": "The number of each Crow's Pons equals 10. The number of each Mixed Forest's Swan equals 1. The number of each Temperate Deciduous Forest's Peacock equals 4. The number of each Subtropical Rainforest's Swan equals 4 more than each Mixed Forest's Peacock. The number of each Peacock's Pons equals 21 more than each Swan's Pons. The number of each Peacock's Frontal Lobe equals 10 more than each Peacock's Pons. The number of each Frontal Lobe's Monocytes equals 22 times as much as each Peacock's Pons. The number of each Subtropical Rainforest's Peacock equals 3 times as much as the sum of each Temperate Deciduous Forest's Swan and each Parietal Lobe's Neutrophils. The number of each Pons's Monocytes equals 12. The number of each Parietal Lobe's T Cells equals each Frontal Lobe's Monocytes. The number of each Mixed Forest's Peacock equals each Crow's Pons. The number of each Crow's Parietal Lobe equals 1. The number of each Crow's Frontal Lobe equals each Frontal Lobe's Cells. The number of each Parietal Lobe's Neutrophils equals 16. The number of each Temperate Deciduous Forest's Swan equals the sum of each Swan's Frontal Lobe and each Parietal Lobe's Neutrophils. The number of each Swan's Parietal Lobe equals the sum of each Parietal Lobe's Neutrophils and each Mixed Forest's Crow. The number of each Temperate Deciduous Forest's Crow equals each Pons's T Cells. The number of each Swan's Frontal Lobe equals each Mixed Forest's Crow. The number of each Pons's T Cells equals 1 times as much as the difference of each Parietal Lobe's T Cells and each Temperate Deciduous Forest's Peacock. The number of each Mixed Forest's Crow equals each Parietal Lobe's Neutrophils. The number of each Swan's Pons equals 15 more than each Crow's Pons. How many T Cells does Parietal Lobe have?",
+  "lookup": {
+    "p_0_0_2_2": 4,
+    "p_0_2_1_0": 12,
+    "p_0_0_0_1": 1,
+    "p_0_1_0_1": 10,
+    "p_0_2_2_1": 16,
+    "p_0_1_0_2": 1,
+    "p_0_0_0_0": 16,
+    "p_0_0_0_2": 10,
+    "p_0_1_1_0": 16,
+    "p_0_0_1_1": 14,
+    "p_0_1_1_2": 9,
+    "p_0_0_2_1": 9,
+    "p_0_0_1_2": 6,
+    "p_0_1_1_1": 2,
+    "p_0_1_2_1": 0,
+    "p_0_2_0_0": 0,
+    "p_0_1_2_0": 10,
+    "p_0_2_2_2": 0,
+    "p_1_2_0_3": 0,
+    "p_0_1_0_0": 0,
+    "p_0_2_1_2": 19,
+    "p_0_0_2_0": 19
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_1",
+        "literal": 10,
+        "span": [
+          0,
+          40
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Swan's Pons"
+        ],
+        "expression": "(15 + p_0_1_0_1)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Peacock's Pons"
+        ],
+        "expression": "(21 + p_0_1_1_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Frontal Lobe's Monocytes"
+        ],
+        "expression": "(22 * p_0_1_2_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_2",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_2_2_2",
+          "Parietal Lobe's T Cells"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_2_2"
+      ]
+    ]
+  }
+}

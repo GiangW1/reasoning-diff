@@ -1,0 +1,250 @@
+{
+  "native_id": "igsm-official-0194-op15",
+  "family_id": "igsm-official-0194-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261128,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "1",
+  "target": "p_1_0_3_2",
+  "question": "The number of each Frilled Lizard's Caudal Vertebrae 8 equals each Zebra Paddock's Animal. The number of each Rattlesnake's Caudal Vertebrae 1 equals the sum of each Tiger Territory's Animal and each Amboseli National Park's Tiger Territory. The number of each Tarangire National Park's Bat Cave equals 5 more than each Skink's Caudal Vertebrae 6. The number of each Gecko's Caudal Vertebrae 8 equals 9 times as much as the sum of each Frilled Lizard's Caudal Vertebrae 4 and each Amboseli National Park's Bear Den. The number of each Bat Cave's Rattlesnake equals 0 more than the sum of each Tarangire National Park's Enclosure, each Bear Den's Gecko and each Tarangire National Park's Bat Cave. The number of each Bear Den's Gecko equals 4. The number of each Bear Den's Frilled Lizard equals the sum of each Rattlesnake's Caudal Vertebrae 6 and each Gecko's Caudal Vertebrae 8. The number of each Skink's Caudal Vertebrae 6 equals each Bear Den's Gecko. The number of each Amboseli National Park's Tiger Territory equals 4 times as much as the sum of each Bat Cave's Rattlesnake, each Bat Cave's Frilled Lizard and each Ngorongoro Conservation Area's Bat Cave. The number of each Amboseli National Park's Bear Den equals each Frilled Lizard's Caudal Vertebrae 4. The number of each Frilled Lizard's Caudal Vertebrae 1 equals 6 more than the sum of each Zebra Paddock's Bone, each Bear Den's Animal and each Bear Den's Gecko. The number of each Tiger Territory's Frilled Lizard equals 1. The number of each Bear Den's Skink equals 2 times as much as each Amboseli National Park's Tiger Territory. The number of each Ruaha National Park's Zebra Paddock equals the sum of each Gecko's Caudal Vertebrae 8, each Rattlesnake's Caudal Vertebrae 6, each Frilled Lizard's Caudal Vertebrae 4 and each Amboseli National Park's Bear Den. The number of each Amboseli National Park's Zebra Paddock equals each Zebra Paddock's Skink. The number of each Bat Cave's Frilled Lizard equals 8 more than the sum of each Tarangire National Park's Enclosure, each Tarangire National Park's Bat Cave and each Bat Cave's Rattlesnake. The number of each Ngorongoro Conservation Area's Bat Cave equals 12 more than the sum of each Tarangire National Park's Enclosure, each Bat Cave's Rattlesnake and each Bear Den's Gecko. The number of each Zebra Paddock's Skink equals the sum of each Tarangire National Park's Enclosure and each Skink's Caudal Vertebrae 6. The number of each Rattlesnake's Caudal Vertebrae 6 equals 14 more than the sum of each Frilled Lizard's Caudal Vertebrae 4, each Amboseli National Park's Bear Den and each Gecko's Caudal Vertebrae 8. The number of each Frilled Lizard's Caudal Vertebrae 4 equals 3. The number of each Ruaha National Park's Bat Cave equals each Zebra Paddock's Skink. How many Animal does Ngorongoro Conservation Area have?",
+  "lookup": {
+    "p_0_1_0_1": 4,
+    "p_0_2_3_1": 4,
+    "p_0_0_1_2": 9,
+    "p_0_2_2_2": 3,
+    "p_1_0_1_1": 9,
+    "p_1_2_3_3": 4,
+    "p_0_1_3_3": 13,
+    "p_0_0_0_2": 13,
+    "p_0_1_1_2": 1,
+    "p_0_1_2_0": 22,
+    "p_0_0_2_3": 13,
+    "p_0_0_2_0": 3,
+    "p_0_1_2_2": 2,
+    "p_1_1_3_3": 6,
+    "p_0_0_3_2": 1,
+    "p_0_2_1_0": 8,
+    "p_1_1_3_2": 13,
+    "p_1_1_2_2": 1,
+    "p_0_2_0_1": 5,
+    "p_0_0_2_1": 8,
+    "p_1_0_3_2": 1,
+    "p_0_1_0_3": 16,
+    "p_0_0_0_3": 19,
+    "p_0_2_2_0": 13,
+    "p_1_1_1_2": 1,
+    "p_0_2_0_3": 9,
+    "p_0_1_0_2": 13,
+    "p_1_1_0_2": 10,
+    "p_0_2_2_3": 3
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_1",
+        "literal": 4,
+        "span": [
+          697,
+          741
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_3_1",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_2_3_1",
+          "Skink's Caudal Vertebrae 6"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_2_3_1"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Tarangire National Park's Bat Cave"
+        ],
+        "expression": "(5 + p_0_2_3_1)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Tarangire National Park's Enclosure"
+        ],
+        "expression": "p_0_0_1_2",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_1_0_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Bat Cave's Rattlesnake"
+        ],
+        "expression": "(0 + ((p_1_0_1_1 + p_0_1_0_1) + p_0_0_1_2))",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_1_2_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "Ngorongoro Conservation Area's Bat Cave"
+        ],
+        "expression": "(12 + ((p_1_0_1_1 + p_0_1_2_0) + p_0_1_0_1))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_1_2",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Bat Cave's Frilled Lizard"
+        ],
+        "expression": "(8 + ((p_1_0_1_1 + p_0_0_1_2) + p_0_1_2_0))",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Bat Cave's Animal"
+        ],
+        "expression": "(p_0_1_2_0 + p_0_1_2_2)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_2",
+        "parents": [
+          "p_0_0_3_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_3_2",
+          "Ngorongoro Conservation Area's Animal"
+        ],
+        "expression": "(p_0_0_3_2 * p_1_1_2_2)",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_1",
+        "p_0_2_3_1"
+      ],
+      [
+        "p_0_2_3_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_3_2"
+      ]
+    ]
+  }
+}

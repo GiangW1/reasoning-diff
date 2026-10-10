@@ -1,0 +1,403 @@
+{
+  "native_id": "igsm-official-0191-op21",
+  "family_id": "igsm-official-0191-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261124,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "7",
+  "target": "p_1_1_1_2",
+  "question": "The number of each Bear Den's Monkey equals 2 more than each Anteater Area's Tiger. The number of each Kgalagadi Transfrontier Park's Hippopotamus Tank equals each Lake Nakuru National Park's Animal. The number of each Lemur Island's Cheetah equals 22 more than each Amboseli National Park's Anteater Area. The number of each Lake Nakuru National Park's Lemur Island equals each Hippopotamus Tank's Leopard. The number of each Hippopotamus Tank's Tiger equals 6 more than each Kgalagadi Transfrontier Park's Anteater Area. The number of each Lake Nakuru National Park's Anteater Area equals the difference of each Hippopotamus Tank's Cheetah and each Amboseli National Park's Anteater Area. The number of each Kgalagadi Transfrontier Park's Bear Den equals 22 more than the sum of each Kgalagadi Transfrontier Park's Anteater Area, each Hippopotamus Tank's Tiger and each Addo Elephant National Park's Hippopotamus Tank. The number of each Bear Den's Tiger equals each Kgalagadi Transfrontier Park's Hippopotamus Tank. The number of each Amboseli National Park's Hippopotamus Tank equals each Lemur Island's Cheetah. The number of each Kgalagadi Transfrontier Park's Anteater Area equals 9. The number of each Lemur Island's Monkey equals each Lake Nakuru National Park's Anteater Area. The number of each Hippopotamus Tank's Monkey equals 8. The number of each Bear Den's Leopard equals the sum of each Lemur Island's Monkey and each Lake Nakuru National Park's Lemur Island. The number of each Addo Elephant National Park's Hippopotamus Tank equals 2 times as much as the difference of each Kgalagadi Transfrontier Park's Anteater Area and each Hippopotamus Tank's Tiger. The number of each Amboseli National Park's Lemur Island equals 16 times as much as each Kgalagadi Transfrontier Park's Bear Den. The number of each Hippopotamus Tank's Leopard equals 19 times as much as each Hippopotamus Tank's Monkey. The number of each Anteater Area's Leopard equals 15 times as much as each Amboseli National Park's Anteater Area. The number of each Hippopotamus Tank's Cheetah equals 9 times as much as each Amboseli National Park's Anteater Area. The number of each Amboseli National Park's Anteater Area equals each Hippopotamus Tank's Leopard. The number of each Anteater Area's Tiger equals 19 times as much as each Anteater Area's Leopard. How many Animal does Bear Den have?",
+  "lookup": {
+    "p_0_1_2_1": 8,
+    "p_0_0_0_3": 9,
+    "p_0_1_2_3": 15,
+    "p_0_0_1_2": 11,
+    "p_0_1_2_0": 14,
+    "p_0_0_2_0": 14,
+    "p_0_0_3_3": 14,
+    "p_0_1_0_2": 13,
+    "p_0_1_3_0": 3,
+    "p_0_1_2_2": 11,
+    "p_0_1_3_3": 11,
+    "p_0_0_3_2": 13,
+    "p_1_1_3_2": 14,
+    "p_0_0_2_3": 20,
+    "p_0_1_0_1": 20,
+    "p_0_1_1_1": 13,
+    "p_1_1_0_2": 10,
+    "p_1_0_2_2": 6,
+    "p_0_0_0_1": 11,
+    "p_0_0_0_2": 6,
+    "p_0_0_3_0": 15,
+    "p_0_1_1_3": 6,
+    "p_0_1_1_0": 11,
+    "p_1_1_1_2": 7
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_1",
+        "literal": 8,
+        "span": [
+          1287,
+          1341
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Hippopotamus Tank's Leopard"
+        ],
+        "expression": "(19 * p_0_1_2_1)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_3",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_3_3",
+          "Amboseli National Park's Anteater Area"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Hippopotamus Tank's Cheetah"
+        ],
+        "expression": "(9 * p_0_0_3_3)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_1_2_2",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Lake Nakuru National Park's Anteater Area"
+        ],
+        "expression": "(p_0_1_2_2 - p_0_0_3_3)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Lemur Island's Monkey"
+        ],
+        "expression": "p_0_0_2_3",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Lake Nakuru National Park's Lemur Island"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Bear Den's Leopard"
+        ],
+        "expression": "(p_0_1_0_1 + p_0_0_2_0)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_0",
+        "parents": [
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_1_3_0",
+          "Anteater Area's Leopard"
+        ],
+        "expression": "(15 * p_0_0_3_3)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_3",
+        "parents": [
+          "p_0_1_3_0"
+        ],
+        "aliases": [
+          "p_0_1_3_3",
+          "Anteater Area's Tiger"
+        ],
+        "expression": "(19 * p_0_1_3_0)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Bear Den's Monkey"
+        ],
+        "expression": "(2 + p_0_1_3_3)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Lemur Island's Cheetah"
+        ],
+        "expression": "(22 + p_0_0_3_3)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_1",
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Lemur Island's Animal"
+        ],
+        "expression": "(p_0_1_0_1 + p_0_1_0_2)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_3_2",
+        "parents": [
+          "p_0_1_3_0",
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_1_1_3_2",
+          "Anteater Area's Animal"
+        ],
+        "expression": "(p_0_1_3_0 + p_0_1_3_3)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_0",
+          "p_1_1_0_2",
+          "p_0_0_2_3",
+          "p_1_1_3_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "Lake Nakuru National Park's Animal"
+        ],
+        "expression": "((p_0_0_2_0 * p_1_1_0_2) + (p_0_0_2_3 * p_1_1_3_2))",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_1_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Kgalagadi Transfrontier Park's Hippopotamus Tank"
+        ],
+        "expression": "p_1_0_2_2",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_3",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_1_1_3",
+          "Bear Den's Tiger"
+        ],
+        "expression": "p_0_0_0_2",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1",
+          "p_0_1_1_3"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Bear Den's Animal"
+        ],
+        "expression": "((p_0_1_1_0 + p_0_1_1_1) + p_0_1_1_3)",
+        "value": 7
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_3_3"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_1_3_0"
+      ],
+      [
+        "p_0_1_3_0",
+        "p_0_1_3_3"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_3_0",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_3_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_0_2_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_1_1_3"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_3",
+        "p_1_1_1_2"
+      ]
+    ]
+  }
+}

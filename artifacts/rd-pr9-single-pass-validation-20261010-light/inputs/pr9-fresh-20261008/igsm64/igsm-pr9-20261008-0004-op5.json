@@ -1,0 +1,133 @@
+{
+  "native_id": "igsm-pr9-20261008-0004-op5",
+  "family_id": "igsm-pr9-20261008-0004-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100804,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "6",
+  "target": "p_1_1_1_3",
+  "question": "The number of each Hampstead Heath in London's Sloth equals 7 times as much as each Leopard's Pons. The number of each Sloth's Cranial Nerves equals 11. The number of each Cranial Nerves's Astrocytes equals 13. The number of each Leopard's Pons equals each Pons's Bipolar Cells. The number of each Stanley Park in Vancouver's Leopard equals the sum of each Hampstead Heath in London's Cells, each Leopard's Organs, each Hampstead Heath in London's Organs and each Hampstead Heath in London's Creatures. The number of each Pons's Bipolar Cells equals each Sloth's Cranial Nerves. How many Cells does Leopard have?",
+  "lookup": {
+    "p_0_1_0_1": 11,
+    "p_0_2_0_0": 11,
+    "p_0_1_1_0": 11,
+    "p_1_1_1_2": 11,
+    "p_1_2_0_3": 11,
+    "p_1_1_0_2": 11,
+    "p_1_1_1_3": 6,
+    "p_0_2_1_1": 13,
+    "p_1_2_1_3": 13,
+    "p_0_0_1_0": 8,
+    "p_1_0_1_2": 19,
+    "p_1_0_1_1": 8,
+    "p_1_1_0_3": 5,
+    "p_1_0_1_3": 17,
+    "p_0_0_0_1": 9
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_1",
+        "literal": 11,
+        "span": [
+          100,
+          151
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Pons's Bipolar Cells"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Leopard's Pons"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Pons's Cells"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_0",
+          "p_1_2_0_3"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "Leopard's Cells"
+        ],
+        "expression": "(p_0_1_1_0 * p_1_2_0_3)",
+        "value": 6
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_1_3"
+      ]
+    ]
+  }
+}

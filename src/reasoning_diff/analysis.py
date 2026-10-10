@@ -19,9 +19,13 @@ def _auc(scores: np.ndarray, labels: np.ndarray) -> float | None:
     neg = scores[labels == 0]
     if len(pos) == 0 or len(neg) == 0:
         return None
-    greater = np.mean(pos[:, None] > neg[None, :])
-    equal = np.mean(pos[:, None] == neg[None, :])
-    return float(greater + 0.5 * equal)
+    # Count wins by score bucket. Avoid an O(n_positive*n_negative) matrix
+    # when recovered thinking events expand the next-round probe table.
+    _, bucket = np.unique(np.r_[pos, neg], return_inverse=True)
+    p_count = np.bincount(bucket[:len(pos)], minlength=int(bucket.max()) + 1)
+    n_count = np.bincount(bucket[len(pos):], minlength=len(p_count))
+    n_lower = np.cumsum(n_count) - n_count
+    return float(np.sum(p_count * (n_lower + 0.5 * n_count)) / (len(pos) * len(neg)))
 
 
 def classification_metrics(scores: np.ndarray, labels: np.ndarray, *, split: str, groups: list[str] | None = None) -> dict:
@@ -39,12 +43,15 @@ def classification_metrics(scores: np.ndarray, labels: np.ndarray, *, split: str
     precision = tp / (tp + fp) if tp + fp else 0.0
     recall = tp / (tp + fn) if tp + fn else 0.0
     f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
-    order = np.argsort(-scores[known])
+    order = np.argsort(-scores[known], kind="stable")
     ranked = truth[order]
     positives = max(int((truth == 1).sum()), 1)
     cumulative = np.cumsum(ranked == 1)
-    precision_at_k = cumulative / np.arange(1, len(ranked) + 1)
-    pr_auc = float(np.sum(precision_at_k[ranked == 1]) / positives) if (truth == 1).any() else None
+    # A score threshold includes the entire tie bucket. Ranking ties by row
+    # order otherwise turns a constant baseline into an arbitrary AP value.
+    ends = np.r_[np.flatnonzero(np.diff(scores[known][order]) != 0), len(ranked) - 1]
+    bucket_positives = np.diff(np.r_[0, cumulative[ends]])
+    pr_auc = float(np.sum(cumulative[ends] / (ends + 1) * bucket_positives) / positives) if (truth == 1).any() else None
     known_groups = None
     if groups is not None:
         if len(groups) != len(scores):
@@ -67,7 +74,10 @@ def classification_metrics(scores: np.ndarray, labels: np.ndarray, *, split: str
 
 
 def _fit_scores(x: np.ndarray, y: np.ndarray, train: np.ndarray) -> np.ndarray:
-    design = np.c_[np.ones(len(y)), np.asarray(x, dtype=float)]
+    x = np.asarray(x, dtype=float)
+    mean, scale = x[train].mean(axis=0), x[train].std(axis=0)
+    scale = np.where(scale > 1e-12, scale, 1.0)
+    design = np.c_[np.ones(len(y)), (x - mean) / scale]
     xt = design[train]
     yt = np.asarray(y[train], dtype=float)
     w = np.zeros(design.shape[1])
@@ -76,7 +86,9 @@ def _fit_scores(x: np.ndarray, y: np.ndarray, train: np.ndarray) -> np.ndarray:
         p = 1.0 / (1.0 + np.exp(-np.clip(z, -20, 20)))
         weight = np.clip(p * (1.0 - p), 1e-5, None)
         target = z + (yt - p) / weight
-        w, *_ = np.linalg.lstsq(xt * np.sqrt(weight)[:, None], target * np.sqrt(weight), rcond=None)
+        ridge = np.eye(design.shape[1]) * 1e-3
+        ridge[0, 0] = 0
+        w = np.linalg.solve(xt.T @ (xt * weight[:, None]) + ridge, xt.T @ (weight * target))
     return 1.0 / (1.0 + np.exp(-np.clip(design @ w, -20, 20)))
 
 
@@ -104,6 +116,9 @@ def p1_incremental(
         if held_out.all() or not held_out.any():
             return {"auc_base": None, "auc_full": None, "delta_auc": None, "status": "held_out_empty", "held_out": True}
         train = ~held_out
+        if len(np.unique(y[train])) < 2:
+            return {"auc_base": None, "auc_full": None, "delta_auc": None,
+                    "status": "single_class_train", "held_out": True}
         if groups is not None:
             if len(groups) != len(held_out):
                 raise ValueError("p1 groups must cover every row")

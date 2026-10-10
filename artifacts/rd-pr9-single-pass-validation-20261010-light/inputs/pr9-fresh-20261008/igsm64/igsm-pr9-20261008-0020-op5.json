@@ -1,0 +1,131 @@
+{
+  "native_id": "igsm-pr9-20261008-0020-op5",
+  "family_id": "igsm-pr9-20261008-0020-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100820,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "19",
+  "target": "p_0_1_1_1",
+  "question": "The number of each Beetle Bungalow's Hippopotamus equals 7 more than each Aquarium of the Pacific's Beetle Bungalow. The number of each Hippopotamus's Postzygapophyses equals 13. The number of each Squirrel's Hypurals equals each Millipede Meadow's Squirrel. The number of each Hippopotamus's Hypurals equals 6 more than each Squirrel's Hypurals. The number of each Georgia Aquarium's Beetle Bungalow equals 18. The number of each Aquarium of the Pacific's Millipede Meadow equals 20 more than each Georgia Aquarium's Beetle Bungalow. The number of each Squirrel's Postzygapophyses equals each Millipede Meadow's Squirrel. The number of each Millipede Meadow's Squirrel equals each Aquarium of the Pacific's Enclosure. The number of each Beetle Bungalow's Squirrel equals the sum of each Hippopotamus's Hypurals and each Aquarium of the Pacific's Millipede Meadow. The number of each Millipede Meadow's Hippopotamus equals each Hippopotamus's Postzygapophyses. The number of each Aquarium of the Pacific's Beetle Bungalow equals 13 times as much as each Georgia Aquarium's Beetle Bungalow. The number of each Georgia Aquarium's Millipede Meadow equals 7 times as much as each Hippopotamus's Postzygapophyses. How many Squirrel does Millipede Meadow have?",
+  "lookup": {
+    "p_0_0_1_0": 18,
+    "p_0_0_0_1": 15,
+    "p_0_2_0_1": 13,
+    "p_0_0_1_1": 22,
+    "p_0_0_0_0": 4,
+    "p_1_0_0_1": 19,
+    "p_0_1_0_0": 11,
+    "p_0_1_1_1": 19,
+    "p_0_2_1_1": 19,
+    "p_0_1_1_0": 13,
+    "p_0_2_1_0": 19,
+    "p_0_2_0_0": 2,
+    "p_0_1_0_1": 17
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 18,
+        "span": [
+          347,
+          410
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Aquarium of the Pacific's Beetle Bungalow"
+        ],
+        "expression": "(13 * p_0_0_1_0)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Aquarium of the Pacific's Millipede Meadow"
+        ],
+        "expression": "(20 + p_0_0_1_0)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Aquarium of the Pacific's Enclosure"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Millipede Meadow's Squirrel"
+        ],
+        "expression": "p_1_0_0_1",
+        "value": 19
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_1_1_1"
+      ]
+    ]
+  }
+}

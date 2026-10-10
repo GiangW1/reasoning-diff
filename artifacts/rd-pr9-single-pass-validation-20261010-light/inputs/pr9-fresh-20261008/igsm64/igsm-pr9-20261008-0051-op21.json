@@ -1,0 +1,355 @@
+{
+  "native_id": "igsm-pr9-20261008-0051-op21",
+  "family_id": "igsm-pr9-20261008-0051-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100851,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "10",
+  "target": "p_1_0_1_2",
+  "question": "The number of each Insectarium of Boston's Aviary equals the sum of each San Diego Insectarium's Animal, each Vulture Valley's Spotted Salamander and each Cleveland Insectarium's Parrot Paradise. The number of each Vulture Valley's Spotted Salamander equals 17. The number of each San Diego Insectarium's Vulture Valley equals each Cleveland Insectarium's Enclosure. The number of each Parrot Paradise's Poison Dart Frog equals each Insectarium of Boston's Animal. The number of each Aviary's Caecilian equals 0 more than the difference of each Vulture Valley's Bullfrog and each Cleveland Insectarium's Enclosure. The number of each Cleveland Insectarium's Parrot Paradise equals 11. The number of each Vulture Valley's Bullfrog equals 3 times as much as the difference of each Cleveland Insectarium's Parrot Paradise and each Cleveland Insectarium's Aviary. The number of each Cleveland Insectarium's Aviary equals 10 times as much as each Insectarium de Montr\u00e9al's Toucan Terrace. The number of each Insectarium de Montr\u00e9al's Toucan Terrace equals 21. How many Animal does Cleveland Insectarium have?",
+  "lookup": {
+    "p_0_1_1_3": 17,
+    "p_0_0_2_3": 21,
+    "p_0_0_1_0": 11,
+    "p_0_0_1_2": 3,
+    "p_0_1_1_2": 1,
+    "p_1_1_1_2": 18,
+    "p_1_0_1_1": 14,
+    "p_0_0_0_1": 14,
+    "p_1_0_0_2": 22,
+    "p_0_1_2_1": 10,
+    "p_1_1_2_2": 10,
+    "p_0_0_3_2": 4,
+    "p_1_0_3_2": 17,
+    "p_0_1_0_0": 17,
+    "p_1_1_0_2": 17,
+    "p_1_0_1_2": 10
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 11,
+        "span": [
+          615,
+          683
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_3",
+        "literal": 21,
+        "span": [
+          984,
+          1053
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_3",
+        "literal": 17,
+        "span": [
+          196,
+          260
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Cleveland Insectarium's Aviary"
+        ],
+        "expression": "(10 * p_0_0_2_3)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Cleveland Insectarium's Enclosure"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_2)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "San Diego Insectarium's Vulture Valley"
+        ],
+        "expression": "p_1_0_1_1",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Vulture Valley's Bullfrog"
+        ],
+        "expression": "(3 * (p_0_0_1_0 - p_0_0_1_2))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_2",
+          "p_0_1_1_3"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Vulture Valley's Animal"
+        ],
+        "expression": "(p_0_1_1_2 + p_0_1_1_3)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_2",
+        "parents": [
+          "p_0_0_0_1",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_1_0_0_2",
+          "San Diego Insectarium's Animal"
+        ],
+        "expression": "(p_0_0_0_1 * p_1_1_1_2)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_1_0_0_2",
+          "p_0_1_1_3",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "Insectarium of Boston's Aviary"
+        ],
+        "expression": "((p_1_0_0_2 + p_0_1_1_3) + p_0_0_1_0)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_1_1_2",
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Aviary's Caecilian"
+        ],
+        "expression": "(0 + (p_0_1_1_2 - p_1_0_1_1))",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Aviary's Animal"
+        ],
+        "expression": "p_0_1_2_1",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_2",
+        "parents": [
+          "p_0_0_3_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_3_2",
+          "Insectarium of Boston's Animal"
+        ],
+        "expression": "(p_0_0_3_2 * p_1_1_2_2)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_1_0_3_2"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Parrot Paradise's Poison Dart Frog"
+        ],
+        "expression": "p_1_0_3_2",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Parrot Paradise's Animal"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_2",
+          "p_0_0_1_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Cleveland Insectarium's Animal"
+        ],
+        "expression": "((p_0_0_1_0 * p_1_1_0_2) + (p_0_0_1_2 * p_1_1_2_2))",
+        "value": 10
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_3",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_3",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_0_0_2",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_1_1_3",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_1_0_3_2",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_1_2"
+      ]
+    ]
+  }
+}

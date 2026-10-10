@@ -1,0 +1,209 @@
+{
+  "native_id": "igsm-pr9-20261008-0045-op10",
+  "family_id": "igsm-pr9-20261008-0045-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100845,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "22",
+  "target": "p_0_0_0_2",
+  "question": "The number of each Philadelphia Zoo's Butterfly Garden equals each Boa Constrictor's Radius. The number of each Butterfly Garden's Boa Constrictor equals the difference of each Tortoise's Humerus and each Tarantula Terrarium's Tortoise. The number of each Tarantula Terrarium's Boa Constrictor equals 4. The number of each Tarantula Terrarium's Python equals each Beetle Bungalow's Python. The number of each Beetle Bungalow's Python equals the difference of each Tortoise's Humerus and each Boa Constrictor's Bone. The number of each Python's Humerus equals 7. The number of each Tortoise's Humerus equals 10. The number of each Butterfly Garden's Python equals 21 more than the sum of each Beetle Bungalow's Tortoise and each Zoo Miami's Beetle Bungalow. The number of each Python's Middle Phalanges equals the sum of each Butterfly Garden's Python and each Zoo Miami's Beetle Bungalow. The number of each Boa Constrictor's Humerus equals each Tortoise's Middle Phalanges. The number of each Philadelphia Zoo's Beetle Bungalow equals the sum of each Beetle Bungalow's Python and each Beetle Bungalow's Animal. The number of each Boa Constrictor's Radius equals 2 more than the sum of each Tortoise's Humerus and each Tarantula Terrarium's Tortoise. The number of each Tortoise's Middle Phalanges equals 18 times as much as the sum of each Tarantula Terrarium's Tortoise and each Tortoise's Humerus. The number of each Beetle Bungalow's Boa Constrictor equals 7 more than each Beetle Bungalow's Tortoise. The number of each Butterfly Garden's Tortoise equals 14 times as much as each Beetle Bungalow's Boa Constrictor. The number of each Beetle Bungalow's Tortoise equals 8. The number of each San Diego Zoo's Tarantula Terrarium equals 12. The number of each San Diego Zoo's Beetle Bungalow equals the difference of each Boa Constrictor's Bone and each Tortoise's Middle Phalanges. The number of each Zoo Miami's Butterfly Garden equals the sum of each Butterfly Garden's Python, each Zoo Miami's Beetle Bungalow, each San Diego Zoo's Tarantula Terrarium and each Beetle Bungalow's Boa Constrictor. The number of each Zoo Miami's Beetle Bungalow equals 7 more than the difference of each Beetle Bungalow's Tortoise and each Beetle Bungalow's Boa Constrictor. The number of each Philadelphia Zoo's Tarantula Terrarium equals each San Diego Zoo's Beetle Bungalow. The number of each Zoo Miami's Tarantula Terrarium equals each Zoo Miami's Beetle Bungalow. The number of each Tarantula Terrarium's Tortoise equals each Tortoise's Humerus. How many Tarantula Terrarium does Philadelphia Zoo have?",
+  "lookup": {
+    "p_0_2_1_1": 7,
+    "p_0_2_0_1": 10,
+    "p_0_1_2_2": 4,
+    "p_0_1_0_0": 8,
+    "p_0_0_1_2": 12,
+    "p_0_1_2_0": 10,
+    "p_0_1_0_2": 15,
+    "p_0_0_2_0": 0,
+    "p_0_2_0_0": 15,
+    "p_0_2_2_2": 22,
+    "p_0_1_1_0": 3,
+    "p_0_1_1_1": 6,
+    "p_0_2_2_1": 15,
+    "p_0_1_1_2": 0,
+    "p_0_0_2_2": 0,
+    "p_0_0_0_1": 22,
+    "p_0_2_1_0": 6,
+    "p_0_0_2_1": 10,
+    "p_1_2_2_3": 14,
+    "p_0_0_1_0": 22,
+    "p_0_0_0_2": 22,
+    "p_0_1_0_1": 19,
+    "p_1_1_0_2": 19,
+    "p_0_1_2_1": 19,
+    "p_0_0_0_0": 15
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_1",
+        "literal": 10,
+        "span": [
+          562,
+          609
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Tarantula Terrarium's Tortoise"
+        ],
+        "expression": "p_0_2_0_1",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Tortoise's Middle Phalanges"
+        ],
+        "expression": "(18 * (p_0_1_2_0 + p_0_2_0_1))",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_1",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_2_2_1",
+          "Boa Constrictor's Humerus"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_2",
+        "parents": [
+          "p_0_2_0_1",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_2_2_2",
+          "Boa Constrictor's Radius"
+        ],
+        "expression": "(2 + (p_0_2_0_1 + p_0_1_2_0))",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_2_3",
+        "parents": [
+          "p_0_2_2_1",
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_1_2_2_3",
+          "Boa Constrictor's Bone"
+        ],
+        "expression": "(p_0_2_2_1 + p_0_2_2_2)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_1_2_2_3",
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "San Diego Zoo's Beetle Bungalow"
+        ],
+        "expression": "(p_1_2_2_3 - p_0_2_0_0)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Philadelphia Zoo's Tarantula Terrarium"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 22
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_0_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_2_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_2_2_2"
+      ],
+      [
+        "p_0_2_2_1",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_2"
+      ]
+    ]
+  }
+}

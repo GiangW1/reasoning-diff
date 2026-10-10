@@ -1,0 +1,312 @@
+{
+  "native_id": "igsm-official-0195-op21",
+  "family_id": "igsm-official-0195-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261129,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "18",
+  "target": "p_1_0_1_1",
+  "question": "The number of each Seadragon Deep's Owl equals 21 more than the difference of each Beijing Zoo's Tropical Fish Tanks and each Tropical Fish Tanks's Albatross. The number of each Beijing Zoo's Tropical Fish Tanks equals each Tropical Fish Tanks's Albatross. The number of each Ray Pool's Flamingo equals 3 more than the sum of each Ray Pool's Albatross, each Seadragon Deep's Animal and each Tropical Fish Tanks's Seagull. The number of each Ray Pool's Albatross equals 2 more than each Tropical Fish Tanks's Seagull. The number of each Singapore Zoo's Ray Pool equals 16 more than each Tropical Fish Tanks's Albatross. The number of each Tropical Fish Tanks's Albatross equals each Tropical Fish Tanks's Seagull. The number of each Singapore Zoo's Seadragon Deep equals 14 more than the difference of each Seadragon Deep's Animal and each Singapore Zoo's Ray Pool. The number of each Tropical Fish Tanks's Seagull equals 2. The number of each Zoo Z\u00fcrich's Saltwater Fish Exhibit equals 16 times as much as the sum of each Singapore Zoo's Animal, each Singapore Zoo's Seadragon Deep and each Ray Pool's Flamingo. How many Enclosure does Zoo Z\u00fcrich have?",
+  "lookup": {
+    "p_0_1_3_2": 2,
+    "p_0_1_0_3": 4,
+    "p_0_1_3_3": 2,
+    "p_0_0_0_3": 2,
+    "p_0_1_2_1": 21,
+    "p_0_0_3_0": 18,
+    "p_1_1_2_2": 21,
+    "p_0_1_0_0": 7,
+    "p_0_0_3_2": 17,
+    "p_1_1_0_2": 11,
+    "p_1_0_3_2": 3,
+    "p_0_0_1_1": 18,
+    "p_1_0_1_1": 18
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_3_2",
+        "literal": 2,
+        "span": [
+          865,
+          922
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_3",
+        "parents": [
+          "p_0_1_3_2"
+        ],
+        "aliases": [
+          "p_0_1_3_3",
+          "Tropical Fish Tanks's Albatross"
+        ],
+        "expression": "p_0_1_3_2",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Singapore Zoo's Ray Pool"
+        ],
+        "expression": "(16 + p_0_1_3_3)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_3",
+        "parents": [
+          "p_0_1_3_2"
+        ],
+        "aliases": [
+          "p_0_1_0_3",
+          "Ray Pool's Albatross"
+        ],
+        "expression": "(2 + p_0_1_3_2)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_3",
+        "parents": [
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_0_0_0_3",
+          "Beijing Zoo's Tropical Fish Tanks"
+        ],
+        "expression": "p_0_1_3_3",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_0_0_3",
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Seadragon Deep's Owl"
+        ],
+        "expression": "(21 + (p_0_0_0_3 - p_0_1_3_3))",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Seadragon Deep's Animal"
+        ],
+        "expression": "p_0_1_2_1",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_0_3",
+          "p_1_1_2_2",
+          "p_0_1_3_2"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Ray Pool's Flamingo"
+        ],
+        "expression": "(3 + ((p_0_1_0_3 + p_1_1_2_2) + p_0_1_3_2))",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_3"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Ray Pool's Animal"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_3)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_1_1_2_2",
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "Singapore Zoo's Seadragon Deep"
+        ],
+        "expression": "(14 + (p_1_1_2_2 - p_0_0_3_0))",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_2",
+        "parents": [
+          "p_0_0_3_0",
+          "p_1_1_0_2",
+          "p_0_0_3_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_3_2",
+          "Singapore Zoo's Animal"
+        ],
+        "expression": "((p_0_0_3_0 * p_1_1_0_2) + (p_0_0_3_2 * p_1_1_2_2))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_1_0_3_2",
+          "p_0_0_3_2",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Zoo Z\u00fcrich's Saltwater Fish Exhibit"
+        ],
+        "expression": "(16 * ((p_1_0_3_2 + p_0_0_3_2) + p_0_1_0_0))",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Zoo Z\u00fcrich's Enclosure"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 18
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_3_2",
+        "p_0_1_3_3"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_0_1_0_3"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_3",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_3_2"
+      ],
+      [
+        "p_1_0_3_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ]
+    ]
+  }
+}

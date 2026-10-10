@@ -1,0 +1,142 @@
+{
+  "native_id": "igsm-official-0080-op5",
+  "family_id": "igsm-official-0080-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261007,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "15",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Concealed Carry Backpack's Business Card Holder equals the sum of each Psychology Lab's Concealed Carry Backpack and each First Aid Backpack's Binder. The number of each Psychology Lab's First Aid Backpack equals 13 times as much as the sum of each Geography Lab's First Aid Backpack and each Picnic Backpack's Binder. The number of each First Aid Backpack's Folder equals 1. The number of each EduWeb Academy's Psychology Lab equals the sum of each First Aid Backpack's Stationery and each First Aid Backpack's Binder. The number of each Geography Lab's First Aid Backpack equals 17. The number of each First Aid Backpack's Binder equals 6 more than each First Aid Backpack's Folder. The number of each Geography Lab's Picnic Backpack equals 15 more than the sum of each Picnic Backpack's Binder, each First Aid Backpack's Stationery and each NetEdge College's Classroom. The number of each Picnic Backpack's Folder equals 16. The number of each Psychology Lab's Concealed Carry Backpack equals 1 times as much as the sum of each Psychology Lab's Picnic Backpack and each NetEdge College's Psychology Lab. The number of each Psychology Lab's Picnic Backpack equals 8. The number of each Digital Scholars's Geography Lab equals the sum of each Psychology Lab's Picnic Backpack, each First Aid Backpack's Stationery and each EduWeb Academy's Psychology Lab. The number of each NetEdge College's Psychology Lab equals 6 more than each Psychology Lab's Picnic Backpack. The number of each Geography Lab's Concealed Carry Backpack equals 21 more than the difference of each NetEdge College's Psychology Lab and each Psychology Lab's Picnic Backpack. The number of each Concealed Carry Backpack's Binder equals each Concealed Carry Backpack's Business Card Holder. The number of each Picnic Backpack's Binder equals 13 times as much as the sum of each Geography Lab's Concealed Carry Backpack and each Psychology Lab's Concealed Carry Backpack. The number of each NetEdge College's Geography Lab equals 0. How many Classroom does EduWeb Academy have?",
+  "lookup": {
+    "p_0_0_1_1": 0,
+    "p_0_2_2_2": 1,
+    "p_0_2_1_2": 16,
+    "p_0_2_2_0": 7,
+    "p_0_1_0_1": 8,
+    "p_0_0_1_0": 14,
+    "p_0_1_0_0": 22,
+    "p_1_2_2_3": 8,
+    "p_0_0_0_0": 15,
+    "p_0_1_1_0": 4,
+    "p_0_2_1_0": 16,
+    "p_0_1_1_2": 17,
+    "p_0_2_0_1": 6,
+    "p_0_0_2_1": 8,
+    "p_0_1_0_2": 15,
+    "p_0_2_0_0": 6,
+    "p_1_0_1_1": 14,
+    "p_1_0_0_1": 15,
+    "p_0_1_1_1": 7
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_2_2",
+        "literal": 1,
+        "span": [
+          338,
+          393
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_0",
+        "parents": [
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_0_2_2_0",
+          "First Aid Backpack's Binder"
+        ],
+        "expression": "(6 + p_0_2_2_2)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_2_3",
+        "parents": [
+          "p_0_2_2_0",
+          "p_0_2_2_2"
+        ],
+        "aliases": [
+          "p_1_2_2_3",
+          "First Aid Backpack's Stationery"
+        ],
+        "expression": "(p_0_2_2_0 + p_0_2_2_2)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_2_2_3",
+          "p_0_2_2_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "EduWeb Academy's Psychology Lab"
+        ],
+        "expression": "(p_1_2_2_3 + p_0_2_2_0)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "EduWeb Academy's Classroom"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_2_2",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_2_2_2",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

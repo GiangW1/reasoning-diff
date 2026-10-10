@@ -1,0 +1,110 @@
+{
+  "native_id": "igsm-pr9-20261008-0052-op5",
+  "family_id": "igsm-pr9-20261008-0052-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100852,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "0",
+  "target": "p_0_0_2_0",
+  "question": "The number of each Bear's Alula equals 12. The number of each Tiger's Alula equals 13 times as much as the sum of each Monkey's Ulna and each Bear's Ulna. The number of each Monkey's Metacarpals equals the difference of each Bear's Alula and each Bear's Ulna. The number of each Monkey's Alula equals each Bear's Alula. The number of each Tiger's Ulna equals 19 times as much as each Tiger's Alula. The number of each Monkey's Ulna equals 22 times as much as each Bear's Ulna. The number of each Bear's Metacarpals equals 6. The number of each Tiger's Metacarpals equals the difference of each Bear's Ulna and each Tiger's Ulna. The number of each Bear's Ulna equals 6. How many Ulna does Tiger have?",
+  "lookup": {
+    "p_0_0_1_0": 6,
+    "p_0_0_1_2": 12,
+    "p_0_0_0_2": 12,
+    "p_0_0_0_1": 6,
+    "p_0_0_0_0": 17,
+    "p_0_0_2_2": 0,
+    "p_0_0_1_1": 6,
+    "p_0_0_2_0": 0,
+    "p_0_0_2_1": 6
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 6,
+        "span": [
+          629,
+          668
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Monkey's Ulna"
+        ],
+        "expression": "(22 * p_0_0_1_0)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Tiger's Alula"
+        ],
+        "expression": "(13 * (p_0_0_0_0 + p_0_0_1_0))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Tiger's Ulna"
+        ],
+        "expression": "(19 * p_0_0_2_2)",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_0"
+      ]
+    ]
+  }
+}

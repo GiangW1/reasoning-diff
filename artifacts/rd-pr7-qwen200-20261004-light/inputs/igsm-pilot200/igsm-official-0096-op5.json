@@ -1,0 +1,119 @@
+{
+  "native_id": "igsm-official-0096-op5",
+  "family_id": "igsm-official-0096-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261023,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "22",
+  "target": "p_0_1_1_0",
+  "question": "The number of each Prairie's Coral equals 19 more than the difference of each Northern Grassland's Manatee and each Prairie's Manta Ray. The number of each Manatee's Pleural Cavity equals 2. The number of each Epiglottis's Spinal Cord Neurons equals the sum of each Manatee's Epiglottis and each Manatee's Pleural Cavity. The number of each Epiglottis's Cerebral Cortex Neurons equals each Northern Grassland's Creatures. The number of each Manatee's Epiglottis equals 16 times as much as each Manatee's Pleural Cavity. The number of each Northern Grassland's Manta Ray equals 16 more than each Coral's Pleural Cavity. The number of each Pleural Cavity's Spinal Cord Neurons equals 17 times as much as each Prairie's Manta Ray. The number of each Prairie's Manatee equals 20. The number of each Northern Grassland's Manatee equals each Prairie's Manatee. The number of each Northern Grassland's Coral equals each Manatee's Organs. The number of each Coral's Pleural Cavity equals each Manta Ray's Epiglottis. The number of each Prairie's Manta Ray equals each Epiglottis's Spinal Cord Neurons. The number of each Pleural Cavity's Cerebral Cortex Neurons equals each Manatee's Pleural Cavity. The number of each Coral's Epiglottis equals each Manatee's Pleural Cavity. The number of each Manta Ray's Pleural Cavity equals 20 more than the sum of each Northern Grassland's Manta Ray and each Coral's Pleural Cavity. The number of each Manta Ray's Epiglottis equals 16. How many Pleural Cavity does Manta Ray have?",
+  "lookup": {
+    "p_0_1_1_1": 16,
+    "p_0_1_0_0": 16,
+    "p_0_0_0_2": 20,
+    "p_0_0_1_2": 20,
+    "p_0_0_1_1": 9,
+    "p_0_1_2_0": 2,
+    "p_0_1_2_1": 9,
+    "p_0_2_1_0": 11,
+    "p_0_1_0_1": 2,
+    "p_0_1_1_0": 22,
+    "p_0_2_0_1": 2,
+    "p_1_1_2_2": 11,
+    "p_0_0_1_0": 11,
+    "p_1_0_1_1": 17,
+    "p_0_2_1_1": 17,
+    "p_0_0_0_1": 11,
+    "p_0_0_0_0": 5,
+    "p_0_2_0_0": 3
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_1",
+        "literal": 16,
+        "span": [
+          1414,
+          1465
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Coral's Pleural Cavity"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Northern Grassland's Manta Ray"
+        ],
+        "expression": "(16 + p_0_1_0_0)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Manta Ray's Pleural Cavity"
+        ],
+        "expression": "(20 + (p_0_0_1_1 + p_0_1_0_0))",
+        "value": 22
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_1_0"
+      ]
+    ]
+  }
+}

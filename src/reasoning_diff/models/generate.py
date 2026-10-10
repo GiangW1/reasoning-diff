@@ -1,6 +1,7 @@
 """Explicit decode loop with isolated torch.Generator. HF generate(generator=) is unused."""
 from __future__ import annotations
 
+import re
 import time
 
 import torch
@@ -38,6 +39,8 @@ def decode_loop(
     temperature: float = 1.0,
     top_k: int = 0,
     top_p: float = 1.0,
+    stop_condition=None,
+    constraint=None,
 ) -> dict:
     model.eval()
     tokens = as_input_ids(prompt_ids, model)
@@ -45,6 +48,7 @@ def decode_loop(
     past = None
     produced = []
     transfer_seconds = 0.0
+    stop_reason = "max_new"
     sampling = {"temperature": temperature, "top_k": top_k, "top_p": top_p}
     with torch.inference_mode():
         for _ in range(max_new):
@@ -60,20 +64,29 @@ def decode_loop(
                 transfer_started = time.perf_counter()
                 logits = logits.to(gen_device)
                 transfer_seconds += time.perf_counter() - transfer_started
+            if constraint is not None:
+                logits = constraint.mask(logits)
             nxt = sample_next(logits, generator, temperature=temperature, top_k=top_k, top_p=top_p)
             nxt = nxt.to(tokens.device)
             produced.append(int(nxt.item()))
+            if constraint is not None:
+                constraint.accept(produced[-1])
             tokens = torch.cat([tokens, nxt], dim=-1)
             if eos_id is not None and int(nxt.item()) == eos_id:
+                stop_reason = "eos"
+                break
+            if stop_condition is not None and stop_condition(produced):
+                stop_reason = "stop_condition"
                 break
     return {
         "prompt_ids": tokens[0, :prompt_len].detach().cpu().tolist(),
         "generated_ids": produced,
         "token_ids": tokens[0].detach().cpu().tolist(),
-        "stop_reason": "eos" if eos_id is not None and produced and produced[-1] == eos_id else "max_new",
+        "stop_reason": stop_reason,
         "sampling": sampling,
         "device": str(model_device(model)),
         "device_transfer_seconds": transfer_seconds,
+        "quantity_constraint": constraint.report() if constraint is not None else None,
     }
 
 
@@ -127,13 +140,25 @@ def task_prompt(task) -> str:
     if getattr(task, "source_kind", None) == "official" and mod:
         prompt += (
             f"\n\nUse these iGSM rules: compute every arithmetic operation modulo {mod}; "
-            "a requested aggregate category is the sum of its listed named subcategories; "
+            "a requested aggregate category is the sum of the exact quantities named for the "
+            "queried entity in the question; this benchmark meaning is fixed, so do not debate "
+            "or reinterpret it. "
             "use only the givens needed for the query and ignore irrelevant equations. "
-            "Give a concise derivation without restarting. Write every quantity used as an "
-            "assignment with its exact full name from the question, then end with exactly "
-            "one final answer in the form \\boxed{number}."
+            "Reason naturally until reaching a conclusion, without restarting or repeating an "
+            "earlier step. After </think>, give a concise answer and end with exactly one final "
+            "answer in the form \\boxed{number}."
         )
-    return prompt
+    from ..quantity_steps import is_controlled, prompt_instructions
+    if (not is_controlled(task)
+            and (getattr(task, "metadata", None) or {}).get("natural_prompt_policy") == "single_pass_named_results_v1"):
+        prompt += (
+            "\n\nWork through the problem in a single forward derivation. Use the quantity names "
+            "from the question when stating computed results. Apply the stated arithmetic rules "
+            "at each operation. Do not restart, recap, or repeatedly verify the derivation. "
+            "Once the requested quantity is computed, finish thinking naturally and give a concise "
+            "final answer in the form \\boxed{number}."
+        )
+    return prompt + prompt_instructions(task)
 
 
 def generate_frozen_trace(
@@ -147,12 +172,12 @@ def generate_frozen_trace(
     packed: dict | None = None,
     model=None,
     tokenizer=None,
-    temperature: float = 1.0,
-    top_k: int = 0,
-    top_p: float = 1.0,
+    temperature: float = 0.6,
+    top_k: int = 20,
+    top_p: float = 0.95,
     device: str | None = None,
 ):
-    from ..events import extract_answer, parse_events
+    from ..events import assign_event_regions, extract_answer_with_status, parse_events
     from ..protocol import answer_score
     from ..schema import Cost, Trace
     from .adapters import card, load_frozen
@@ -187,29 +212,63 @@ def generate_frozen_trace(
         raise ValueError(f"frozen prompt {len(prompt_ids)} exceeds context {limit}")
     g = torch.Generator(device=model_device(model)).manual_seed(seed)
     started = time.perf_counter()
+
+    def boxed_answer_complete(generated: list[int]) -> bool:
+        if getattr(task, "source_kind", None) != "official":
+            return False
+        # A boxed intermediate value inside the reasoning section must not
+        # terminate the trace.  Only stop after a thinking boundary.
+        # A bounded suffix keeps the stop check from repeatedly decoding the
+        # full growing trace.  If the boundary is older than this suffix we
+        # simply continue to the registered budget, which is conservative.
+        generated_text = tokenizer.decode(generated[-256:], skip_special_tokens=False)
+        close = generated_text.rfind("</think>")
+        if close < 0:
+            return False
+        answer_text = generated_text[close + len("</think>") :]
+        return re.search(r"\\boxed\{[^{}\n]+\}", answer_text) is not None
+
+    thinking_budget = max_new
+    if limit:
+        thinking_budget = min(max_new, int(limit) - len(prompt_ids))
+        if thinking_budget < 1:
+            raise ValueError("no generation space remains in the model context")
+    from .quantity_constraint import for_task
+    constraint = for_task(task, tokenizer)
     decoded = decode_loop(
         model,
         prompt_tensor,
         g,
-        max_new=max_new,
+        max_new=thinking_budget,
         eos_id=getattr(tokenizer, "eos_token_id", None),
         temperature=temperature,
         top_k=top_k,
         top_p=top_p,
+        stop_condition=boxed_answer_complete,
+        **({'constraint': constraint} if constraint is not None else {}),
     )
+    forced_think_close = False
+    finalizer_used = False
+    finalizer_control_tokens = 0
+    extra_prefill_tokens = 0
+    model_generated_tokens = len(decoded["generated_ids"])
     elapsed = time.perf_counter() - started
     full_ids = decoded["token_ids"]
     generated_ids = decoded["generated_ids"]
     text = tokenizer.decode(full_ids, skip_special_tokens=False)
+    rendered_prompt_text = tokenizer.decode(prompt_ids, skip_special_tokens=False)
+    if not text.startswith(rendered_prompt_text):
+        raise ValueError("decoded full trace does not preserve the rendered prompt prefix")
     gen_text = tokenizer.decode(generated_ids, skip_special_tokens=False)
     offset_failures = []
     try:
         offsets, offset_failures = offsets_from_tokenizer(tokenizer, full_ids, text, return_failures=True)
     except Exception as exc:
         offset_failures = [{"error": type(exc).__name__, "message": str(exc)}]
-        offsets = [[i, i + 1] for i in range(len(full_ids))]
+        offsets = [[0, 0] for _ in full_ids]
     rid = run_id or f"trace:{task.task_id}:{seed}"
     events = parse_events(gen_text, task)
+    assign_event_regions(events, gen_text, initial_thinking=enable_thinking)
     identity_keys = [event.identity.key() for event in events]
     target = getattr(task, "target", None) or (task.nodes[-1].id if task.nodes else None)
     target_present = target is None or any(event.node_id == target for event in events)
@@ -231,7 +290,7 @@ def generate_frozen_trace(
     )
     prompt_n = len(prompt_ids)
     if prompt_n < len(offsets):
-        gen_char_start = offsets[prompt_n][0]
+        gen_char_start = len(rendered_prompt_text)
     elif offsets:
         gen_char_start = offsets[-1][1]
     else:
@@ -243,9 +302,27 @@ def generate_frozen_trace(
         event.run_id = rid
         event.base_group_id = task.base_group_id
         event.record_id = f"{rid}:{event.identity.key()}"
-    pred = extract_answer(gen_text, task.answer_spec.kind)
+    pred, answer_status = extract_answer_with_status(gen_text, task.answer_spec.kind)
+    # The chat template places the opening <think> in the rendered prompt,
+    # so it is absent from ``gen_text``.  A missing close marker therefore
+    # has to be checked explicitly here; otherwise an unfinished reasoning
+    # line can be mistaken for a numeric fallback answer.
+    if enable_thinking and "</think>" not in gen_text:
+        pred, answer_status = None, "missing_think_close"
     gold = task.answer_spec.value
     score = answer_score(pred, gold, task.answer_spec.kind, task.answer_spec.aliases)
+    trace_status = (
+        "parse_failed"
+        if not events
+        else "natural_truncated"
+        if decoded.get("stop_reason") == "max_new"
+        else "answer_missing"
+        if pred is None
+        else "natural_complete"
+    )
+    from ..quantity_steps import PROTOCOL, ESTIMAND, is_controlled, format_report
+    controlled = is_controlled(task)
+    step_format = format_report(gen_text, task) if controlled else None
     return Trace(
         id=rid,
         task_id=task.task_id,
@@ -258,9 +335,11 @@ def generate_frozen_trace(
         events=events,
         answer=pred,
         correct=score["correct"],
+        status=trace_status,
         cost=Cost(
             prefill_tokens=len(prompt_ids),
-            decode_tokens=len(generated_ids),
+            decode_tokens=model_generated_tokens,
+            extra_prefill_tokens=extra_prefill_tokens,
             elapsed_seconds=elapsed,
             device_transfer_seconds=float(decoded.get("device_transfer_seconds") or 0.0),
             timing_status="measured",
@@ -275,10 +354,20 @@ def generate_frozen_trace(
             "revision": info.get("revision"),
             "prompt_len": len(prompt_ids),
             "generated_tokens": len(generated_ids),
+            "model_generated_tokens": model_generated_tokens,
+            "thinking_budget_tokens": thinking_budget,
+            "thinking_forced_close": forced_think_close,
+            "constrained_thinking_tokens": int(forced_think_close),
+            "finalizer_used": finalizer_used,
+            "finalizer_control_tokens": finalizer_control_tokens,
+            "finalizer_max_new": 1024 if finalizer_used else 0,
             "stop_reason": decoded.get("stop_reason"),
             "sampling": decoded.get("sampling"),
             "enable_thinking": enable_thinking,
             "prompt_text": prompt,
+            "rendered_prompt_text": rendered_prompt_text,
+            "rendered_prompt_char_len": len(rendered_prompt_text),
+            "rendered_prompt_prefix_status": "exact",
             "parse_status": "boundary_failed" if offset_failures else ("ok" if events else "parse_failed"),
             "target_event_present": target_present,
             "duplicate_event_identities": duplicate_events,
@@ -290,7 +379,22 @@ def generate_frozen_trace(
             "special_token_count": sum(int(token) in special_ids for token in full_ids),
             "boundary_status": "ok" if not offset_failures else "fallback_cursor",
             "forced_target": False,
-            "evidence_status": "model_generated",
+            "evidence_status": "model_generated_registered_quantity_steps" if controlled else "model_generated_natural",
+            "protocol_version": PROTOCOL if controlled else "natural_no_finalizer_v1",
+            "trajectory_protocol": PROTOCOL if controlled else "natural",
+            "natural_prompt_policy": None if controlled else task.metadata.get("natural_prompt_policy", "legacy"),
+            "measurement_estimand": ESTIMAND if controlled else "natural_parsed_steps",
+            "quantity_step_format": step_format,
+            "quantity_constraint": decoded.get('quantity_constraint'),
+            "quantity_decoding_protocol": task.metadata.get('quantity_decoding_protocol'),
+            "trace_status": trace_status,
+            "answer_status": answer_status,
+            "analysis_eligibility": {
+                "C1": bool(any(event.event_region == "thinking" for event in events)),
+                "C2": bool(events),
+                "C3": bool(events),
+                "C4": bool(pred is not None),
+            },
             **score,
             "device": runtime.get("device") or decoded.get("device"),
             "dtype": runtime.get("dtype"),
@@ -309,9 +413,9 @@ def generate_task_trace(
     weight_seed: int = 0,
     run_id: str = "",
     model=None,
-    temperature: float = 1.0,
-    top_k: int = 0,
-    top_p: float = 1.0,
+    temperature: float = 0.6,
+    top_k: int = 20,
+    top_p: float = 0.95,
     backend: str = "tiny",
     model_name: str | None = None,
     packed: dict | None = None,
@@ -336,7 +440,7 @@ def generate_task_trace(
             device=device,
             enable_thinking=enable_thinking,
         )
-    from ..events import extract_answer, parse_events
+    from ..events import assign_event_regions, extract_answer_with_status, parse_events
     from ..protocol import answer_score
     from ..schema import Cost, Trace
     from .tiny import build_tiny
@@ -374,6 +478,7 @@ def generate_task_trace(
     rid = run_id or f"trace:{task.task_id}:{seed}"
     generated = gen_text + assigned
     raw = parse_events(generated, task)
+    assign_event_regions(raw, generated)
     events = []
     for event in raw:
         event.start += len(prompt)
@@ -397,9 +502,20 @@ def generate_task_trace(
         event.run_id = rid
         event.base_group_id = task.base_group_id
         event.record_id = f"{rid}:{event.identity.key()}"
-    pred = extract_answer(full_text, task.answer_spec.kind)
+    pred, answer_status = extract_answer_with_status(full_text, task.answer_spec.kind)
     gold = task.answer_spec.value
     score = answer_score(pred, gold, task.answer_spec.kind, task.answer_spec.aliases)
+    trace_status = (
+        "fixture_forced_target"
+        if assigned
+        else "parse_failed"
+        if not events
+        else "natural_truncated"
+        if decoded.get("stop_reason") == "max_new"
+        else "answer_missing"
+        if pred is None
+        else "natural_complete"
+    )
     return Trace(
         id=rid,
         task_id=task.task_id,
@@ -412,6 +528,7 @@ def generate_task_trace(
         events=events,
         answer=pred,
         correct=score["correct"],
+        status=trace_status,
         cost=Cost(
             prefill_tokens=len(prompt_ids),
             decode_tokens=decoded_token_count + assignment_token_count,
@@ -434,16 +551,28 @@ def generate_task_trace(
             "stop_reason": "constrained_target" if assigned else decoded.get("stop_reason"),
             "allow_forced_target": allow_forced_target,
             "prompt_text": prompt,
+            "rendered_prompt_text": prompt,
+            "rendered_prompt_char_len": len(prompt),
             "parse_status": parse_status,
             "target_event_present": target_present,
             "duplicate_event_identities": duplicate_events,
             "structure_status": "duplicate" if duplicate_events else ("target_missing" if not target_present else "ok"),
             "offset_reconstruction_failure_count": 0,
             "boundary_crossing_token_count": crossing_tokens,
+            "boundary_status": "unverified_character_offsets",
             "special_token_count": 0,
             "target_assignment": assigned,
             "forced_target": bool(assigned),
-            "evidence_status": "synthetic_target_assignment" if assigned else "model_generated",
+            "evidence_status": "synthetic_target_assignment" if assigned else "model_generated_natural",
+            "protocol_version": "natural_no_finalizer_v1" if not assigned else "fixture_forced_target_v1",
+            "trace_status": trace_status,
+            "answer_status": answer_status,
+            "analysis_eligibility": {
+                "C1": bool(any(event.event_region == "thinking" for event in events)),
+                "C2": bool(events),
+                "C3": bool(events),
+                "C4": bool(pred is not None),
+            },
             **score,
             "parse_region": "generated",
         },

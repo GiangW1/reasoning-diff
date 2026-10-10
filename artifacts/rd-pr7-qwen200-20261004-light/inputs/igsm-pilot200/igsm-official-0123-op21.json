@@ -1,0 +1,344 @@
+{
+  "native_id": "igsm-official-0123-op21",
+  "family_id": "igsm-official-0123-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261052,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "5",
+  "target": "p_0_0_1_1",
+  "question": "The number of each Mouth's Transitional Epithelial Cells equals 21 more than the sum of each Cardia's Hepatocytes, each Anus's Transitional Epithelial Cells and each Anus's Basal Cells. The number of each Mouth's Mucous Cells equals 7 times as much as each Anus's Transitional Epithelial Cells. The number of each Cecum's Hepatocytes equals 11. The number of each Cardia's Hepatocytes equals each Anus's Transitional Epithelial Cells. The number of each Mouth's Hepatocytes equals 17 more than each Cardia's Cells. The number of each Cecum's Basal Cells equals each Mouth's Transitional Epithelial Cells. The number of each Cardia's Mucous Cells equals the difference of each Mouth's Transitional Epithelial Cells and each Anus's Mucous Cells. The number of each Anus's Transitional Epithelial Cells equals 8 more than each Anus's Mucous Cells. The number of each Anus's Mucous Cells equals 7. The number of each Mouth's Basal Cells equals 2 times as much as each Cardia's Cells. The number of each Anus's Hepatocytes equals 8 more than each Anus's Mucous Cells. The number of each Anus's Basal Cells equals each Mouth's Mucous Cells. The number of each Cardia's Basal Cells equals 15 more than each Cardia's Mucous Cells. The number of each Cecum's Mucous Cells equals the sum of each Mouth's Basal Cells, each Anus's Hepatocytes and each Cardia's Basal Cells. The number of each Cardia's Transitional Epithelial Cells equals the sum of each Anus's Cells and each Mouth's Transitional Epithelial Cells. The number of each Cecum's Transitional Epithelial Cells equals 14 times as much as each Cecum's Hepatocytes. How many Mucous Cells does Cecum have?",
+  "lookup": {
+    "p_0_0_2_1": 7,
+    "p_0_0_1_3": 11,
+    "p_0_0_2_2": 15,
+    "p_0_0_1_2": 16,
+    "p_0_0_3_1": 13,
+    "p_0_0_2_0": 13,
+    "p_0_0_2_3": 15,
+    "p_0_0_0_3": 15,
+    "p_0_0_3_2": 18,
+    "p_0_0_1_0": 18,
+    "p_0_0_0_1": 11,
+    "p_0_0_0_0": 3,
+    "p_1_0_2_1": 4,
+    "p_0_0_0_2": 22,
+    "p_1_0_0_1": 5,
+    "p_0_0_3_3": 22,
+    "p_0_0_3_0": 10,
+    "p_0_0_1_1": 5
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 7,
+        "span": [
+          845,
+          892
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Anus's Transitional Epithelial Cells"
+        ],
+        "expression": "(8 + p_0_0_2_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_3",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_0_3",
+          "Cardia's Hepatocytes"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "Mouth's Mucous Cells"
+        ],
+        "expression": "(7 * p_0_0_2_2)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Anus's Basal Cells"
+        ],
+        "expression": "p_0_0_3_1",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_0_0_0_3",
+          "p_0_0_2_2",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "Mouth's Transitional Epithelial Cells"
+        ],
+        "expression": "(21 + ((p_0_0_0_3 + p_0_0_2_2) + p_0_0_2_0))",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_3_2",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Cardia's Mucous Cells"
+        ],
+        "expression": "(p_0_0_3_2 - p_0_0_2_1)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Cardia's Basal Cells"
+        ],
+        "expression": "(15 + p_0_0_0_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Anus's Hepatocytes"
+        ],
+        "expression": "(8 + p_0_0_2_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2",
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Anus's Cells"
+        ],
+        "expression": "(((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2) + p_0_0_2_3)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_3_2"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Cardia's Transitional Epithelial Cells"
+        ],
+        "expression": "(p_1_0_2_1 + p_0_0_3_2)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2",
+          "p_0_0_0_3"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Cardia's Cells"
+        ],
+        "expression": "(((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2) + p_0_0_0_3)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Mouth's Basal Cells"
+        ],
+        "expression": "(2 * p_1_0_0_1)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_3_0",
+          "p_0_0_2_3",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Cecum's Mucous Cells"
+        ],
+        "expression": "((p_0_0_3_0 + p_0_0_2_3) + p_0_0_0_0)",
+        "value": 5
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_3"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_3",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_1"
+      ]
+    ]
+  }
+}

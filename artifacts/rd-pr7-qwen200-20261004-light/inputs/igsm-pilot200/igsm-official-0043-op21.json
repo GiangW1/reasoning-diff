@@ -1,0 +1,366 @@
+{
+  "native_id": "igsm-official-0043-op21",
+  "family_id": "igsm-official-0043-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260969,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "19",
+  "target": "p_1_0_1_2",
+  "question": "The number of each Stick Insect Forest's Squirrel equals 14 more than each Sylvan Heights Bird Park's Honeybee Hive. The number of each Stick Insect Forest's Raccoon equals each Stick Insect Forest's Squirrel. The number of each Honeybee Hive's Raccoon equals 19 times as much as each Millipede Meadow's Squirrel. The number of each Sylvan Heights Bird Park's Stick Insect Forest equals 10 times as much as each Lotherton Hall Bird Garden's Honeybee Hive. The number of each Lotherton Hall Bird Garden's Honeybee Hive equals 18. The number of each Kuala Lumpur Bird Park's Millipede Meadow equals the difference of each Stick Insect Forest's Squirrel and each Millipede Meadow's Raccoon. The number of each Sylvan Heights Bird Park's Honeybee Hive equals each Lotherton Hall Bird Garden's Millipede Meadow. The number of each Lotherton Hall Bird Garden's Stick Insect Forest equals 22 more than each Lotherton Hall Bird Garden's Honeybee Hive. The number of each Kuala Lumpur Bird Park's Honeybee Hive equals 15 more than each Stick Insect Forest's Raccoon. The number of each Kuala Lumpur Bird Park's Stick Insect Forest equals the sum of each Stick Insect Forest's Squirrel, each Millipede Meadow's Squirrel and each Stick Insect Forest's Raccoon. The number of each Millipede Meadow's Raccoon equals 20 times as much as each Stick Insect Forest's Squirrel. The number of each Honeybee Hive's Squirrel equals 22 more than the difference of each Stick Insect Forest's Raccoon and each Millipede Meadow's Squirrel. The number of each Millipede Meadow's Squirrel equals the difference of each Sylvan Heights Bird Park's Honeybee Hive and each Lotherton Hall Bird Garden's Millipede Meadow. The number of each Lotherton Hall Bird Garden's Millipede Meadow equals 21. How many Animal does Kuala Lumpur Bird Park have?",
+  "lookup": {
+    "p_0_0_0_0": 18,
+    "p_0_0_0_2": 17,
+    "p_0_0_2_2": 19,
+    "p_0_0_0_1": 21,
+    "p_0_0_2_0": 21,
+    "p_0_1_2_1": 12,
+    "p_0_1_1_1": 0,
+    "p_0_1_0_0": 0,
+    "p_0_1_1_0": 10,
+    "p_0_1_2_0": 12,
+    "p_0_0_1_0": 4,
+    "p_0_0_1_1": 2,
+    "p_1_1_2_2": 1,
+    "p_1_1_1_2": 10,
+    "p_0_0_1_2": 1,
+    "p_0_1_0_1": 11,
+    "p_1_1_0_2": 11,
+    "p_1_0_1_2": 19
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 21,
+        "span": [
+          1689,
+          1763
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Sylvan Heights Bird Park's Honeybee Hive"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Stick Insect Forest's Squirrel"
+        ],
+        "expression": "(14 + p_0_0_2_0)",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Stick Insect Forest's Raccoon"
+        ],
+        "expression": "p_0_1_2_1",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Kuala Lumpur Bird Park's Honeybee Hive"
+        ],
+        "expression": "(15 + p_0_1_2_0)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Millipede Meadow's Squirrel"
+        ],
+        "expression": "(p_0_0_2_0 - p_0_0_0_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Honeybee Hive's Raccoon"
+        ],
+        "expression": "(19 * p_0_1_1_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Honeybee Hive's Squirrel"
+        ],
+        "expression": "(22 + (p_0_1_2_0 - p_0_1_1_1))",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Honeybee Hive's Animal"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Millipede Meadow's Raccoon"
+        ],
+        "expression": "(20 * p_0_1_2_1)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_2_1",
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Kuala Lumpur Bird Park's Millipede Meadow"
+        ],
+        "expression": "(p_0_1_2_1 - p_0_1_1_0)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Millipede Meadow's Animal"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_1_2_1",
+          "p_0_1_1_1",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Kuala Lumpur Bird Park's Stick Insect Forest"
+        ],
+        "expression": "((p_0_1_2_1 + p_0_1_1_1) + p_0_1_2_0)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Stick Insect Forest's Animal"
+        ],
+        "expression": "(p_0_1_2_0 + p_0_1_2_1)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_2",
+          "p_0_0_1_1",
+          "p_1_1_1_2",
+          "p_0_0_1_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Kuala Lumpur Bird Park's Animal"
+        ],
+        "expression": "(((p_0_0_1_0 * p_1_1_0_2) + (p_0_0_1_1 * p_1_1_1_2)) + (p_0_0_1_2 * p_1_1_2_2))",
+        "value": 19
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_1_2"
+      ]
+    ]
+  }
+}

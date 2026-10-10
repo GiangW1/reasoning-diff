@@ -1,0 +1,324 @@
+{
+  "native_id": "igsm-pr9-20261008-0047-op21",
+  "family_id": "igsm-pr9-20261008-0047-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100847,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "18",
+  "target": "p_1_0_1_1",
+  "question": "The number of each Crestwood Secondary's Sociology Lab equals the sum of each Crestwood Secondary's Communication Studies Room and each Parkview Secondary's Human Development Classroom. The number of each Northridge High's Sociology Lab equals each Parkview Secondary's Human Development Classroom. The number of each Northridge High's Communication Studies Room equals each Parkview Secondary's Archeology Lab. The number of each Crestwood Secondary's Human Development Classroom equals 22 more than each Northridge High's Communication Studies Room. The number of each Parkview Secondary's Communication Studies Room equals 2. The number of each Parkview Secondary's Archeology Lab equals 16 more than the difference of each Northridge High's Sociology Lab and each Northridge High's Human Development Classroom. The number of each Crestwood Secondary's Archeology Lab equals each Rosewood High's Classroom. The number of each Parkview Secondary's Human Development Classroom equals 10. The number of each Rosewood High's Sociology Lab equals 17 more than the sum of each Parkview Secondary's Communication Studies Room and each Parkview Secondary's Archeology Lab. The number of each Northridge High's Human Development Classroom equals 5. The number of each Rosewood High's Communication Studies Room equals 12 more than the difference of each Northridge High's Classroom and each Parkview Secondary's Human Development Classroom. The number of each Crestwood Secondary's Communication Studies Room equals 1. How many Classroom does Crestwood Secondary have?",
+  "lookup": {
+    "p_0_0_3_1": 2,
+    "p_0_0_3_3": 10,
+    "p_0_0_1_1": 1,
+    "p_0_0_2_2": 10,
+    "p_0_0_1_2": 11,
+    "p_0_0_2_3": 5,
+    "p_0_0_3_0": 21,
+    "p_0_0_2_1": 21,
+    "p_1_0_2_1": 13,
+    "p_0_0_1_3": 20,
+    "p_0_0_0_1": 15,
+    "p_0_0_0_2": 17,
+    "p_1_0_0_1": 9,
+    "p_0_0_1_0": 9,
+    "p_1_0_1_1": 18
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_3_3",
+        "literal": 10,
+        "span": [
+          910,
+          987
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_3",
+        "literal": 5,
+        "span": [
+          1168,
+          1241
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_3_1",
+        "literal": 2,
+        "span": [
+          552,
+          627
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 1,
+        "span": [
+          1435,
+          1511
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Northridge High's Sociology Lab"
+        ],
+        "expression": "p_0_0_3_3",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_0_0_2_2",
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Parkview Secondary's Archeology Lab"
+        ],
+        "expression": "(16 + (p_0_0_2_2 - p_0_0_2_3))",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Northridge High's Communication Studies Room"
+        ],
+        "expression": "p_0_0_3_0",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_2_2",
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Northridge High's Classroom"
+        ],
+        "expression": "((p_0_0_2_1 + p_0_0_2_2) + p_0_0_2_3)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Rosewood High's Communication Studies Room"
+        ],
+        "expression": "(12 + (p_1_0_2_1 - p_0_0_3_3))",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_3_1",
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Rosewood High's Sociology Lab"
+        ],
+        "expression": "(17 + (p_0_0_3_1 + p_0_0_3_0))",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Rosewood High's Classroom"
+        ],
+        "expression": "(p_0_0_0_1 + p_0_0_0_2)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Crestwood Secondary's Archeology Lab"
+        ],
+        "expression": "p_1_0_0_1",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Crestwood Secondary's Sociology Lab"
+        ],
+        "expression": "(p_0_0_1_1 + p_0_0_3_3)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Crestwood Secondary's Human Development Classroom"
+        ],
+        "expression": "(22 + p_0_0_2_1)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1",
+          "p_0_0_1_2",
+          "p_0_0_1_3"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Crestwood Secondary's Classroom"
+        ],
+        "expression": "(((p_0_0_1_0 + p_0_0_1_1) + p_0_0_1_2) + p_0_0_1_3)",
+        "value": 18
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_3_3",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_1_0_1_1"
+      ]
+    ]
+  }
+}

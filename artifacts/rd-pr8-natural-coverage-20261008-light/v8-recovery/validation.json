@@ -1,0 +1,51 @@
+{
+  "code_commit": "8c900c201072a34fb5164b084756c6bbe524e038",
+  "parser_sha256": "8df89dc341454149ecee062a461c54c5afabb805516078debfddb562546733e2",
+  "tests": "605 passed in 81.12s",
+  "fixed_cohort_formal_launch_ready": false,
+  "extension_directory": "/mnt/mydata/wja/reasoning-diff/runs/pr8-natural-extension-20261008",
+  "pilot-r1": {
+    "common_noise_coverage": 0.44385026737967914,
+    "eligible_cells": 561,
+    "matched_cell_coverage": 0.5383244206773619,
+    "n_problems": 8,
+    "n_traces": 8,
+    "noise_supported_cells": 249,
+    "rho_coverage": 0.25,
+    "support_cells": 302,
+    "target_coverage": 1.0,
+    "variable_coverage": 1.0
+  },
+  "old-data-r1": {
+    "common_noise_coverage": 0.39712872247550685,
+    "eligible_cells": 10309,
+    "matched_cell_coverage": 0.48501309535357456,
+    "n_problems": 8,
+    "n_traces": 24,
+    "noise_supported_cells": 4094,
+    "rho_coverage": 0.0,
+    "support_cells": 5000,
+    "target_coverage": 1.0,
+    "variable_coverage": 1.0
+  },
+  "pilot-audit.json": {
+    "eligible_cells": 545,
+    "before_support": 279,
+    "after_support": 299,
+    "before_common_noise": 232,
+    "after_common_noise": 247,
+    "gained_support": 23,
+    "lost_support": 3,
+    "note": "Diagnostic only; full production denominator includes all recovered steps."
+  },
+  "old-data-audit.json": {
+    "eligible_cells": 10246,
+    "before_support": 4956,
+    "after_support": 4974,
+    "before_common_noise": 4050,
+    "after_common_noise": 4071,
+    "gained_support": 80,
+    "lost_support": 62,
+    "note": "Diagnostic only; full production denominator includes all recovered steps."
+  }
+}

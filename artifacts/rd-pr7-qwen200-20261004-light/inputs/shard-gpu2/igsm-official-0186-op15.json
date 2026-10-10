@@ -1,0 +1,304 @@
+{
+  "native_id": "igsm-official-0186-op15",
+  "family_id": "igsm-official-0186-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261119,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "18",
+  "target": "p_1_1_1_2",
+  "question": "The number of each Zebra Paddock's Komodo Dragon equals 6 times as much as the difference of each World of Birds's Bear Den and each World of Birds's Elephant Habitat. The number of each Bear Den's Chameleon equals 12 more than each Lotherton Hall Bird Garden's Zebra Paddock. The number of each Zebra Paddock's Chameleon equals the difference of each Living Desert Zoo and Gardens's Zebra Paddock and each Living Desert Zoo and Gardens's Bear Den. The number of each Lotherton Hall Bird Garden's Elephant Habitat equals each Lotherton Hall Bird Garden's Bear Den. The number of each Elephant Habitat's Turtle equals 21. The number of each Living Desert Zoo and Gardens's Zebra Paddock equals 16. The number of each Bear Den's Bearded Dragon equals the difference of each Lotherton Hall Bird Garden's Zebra Paddock and each World of Birds's Enclosure. The number of each Bear Den's Komodo Dragon equals the difference of each World of Birds's Elephant Habitat and each World of Birds's Enclosure. The number of each Kuala Lumpur Bird Park's Bear Den equals 15 times as much as each Elephant Habitat's Chameleon. The number of each Kuala Lumpur Bird Park's Zebra Paddock equals the sum of each Elephant Habitat's Bearded Dragon, each Living Desert Zoo and Gardens's Enclosure, each Bear Den's Komodo Dragon and each World of Birds's Elephant Habitat. The number of each Kuala Lumpur Bird Park's Elephant Habitat equals each Living Desert Zoo and Gardens's Zebra Paddock. The number of each Elephant Habitat's Komodo Dragon equals each Bear Den's Turtle. The number of each Living Desert Zoo and Gardens's Bear Den equals 16 times as much as each Living Desert Zoo and Gardens's Zebra Paddock. The number of each World of Birds's Zebra Paddock equals the difference of each World of Birds's Elephant Habitat and each World of Birds's Bear Den. The number of each Elephant Habitat's Chameleon equals 16 more than the sum of each Kuala Lumpur Bird Park's Elephant Habitat, each Living Desert Zoo and Gardens's Zebra Paddock and each Zebra Paddock's Chameleon. The number of each Zebra Paddock's Turtle equals each Living Desert Zoo and Gardens's Enclosure. The number of each Lotherton Hall Bird Garden's Zebra Paddock equals each World of Birds's Enclosure. The number of each World of Birds's Elephant Habitat equals 10 times as much as each Lotherton Hall Bird Garden's Elephant Habitat. The number of each Bear Den's Turtle equals 20 times as much as each World of Birds's Zebra Paddock. The number of each Zebra Paddock's Bearded Dragon equals 14 more than each Lotherton Hall Bird Garden's Elephant Habitat. The number of each Lotherton Hall Bird Garden's Bear Den equals 2. The number of each World of Birds's Bear Den equals the difference of each Lotherton Hall Bird Garden's Bear Den and each Lotherton Hall Bird Garden's Elephant Habitat. The number of each Elephant Habitat's Bearded Dragon equals the sum of each Bear Den's Animal, each Lotherton Hall Bird Garden's Enclosure and each Lotherton Hall Bird Garden's Zebra Paddock. How many Animal does Bear Den have?",
+  "lookup": {
+    "p_0_1_0_3": 21,
+    "p_0_0_2_1": 2,
+    "p_0_0_2_0": 2,
+    "p_0_0_3_0": 20,
+    "p_0_1_2_1": 16,
+    "p_0_0_1_2": 16,
+    "p_0_0_1_1": 3,
+    "p_0_0_0_0": 16,
+    "p_1_0_1_1": 19,
+    "p_0_1_2_3": 19,
+    "p_0_0_3_1": 0,
+    "p_0_0_3_2": 20,
+    "p_1_0_3_1": 17,
+    "p_0_0_2_2": 17,
+    "p_0_1_2_2": 18,
+    "p_0_1_1_0": 6,
+    "p_0_1_2_0": 13,
+    "p_1_0_2_1": 21,
+    "p_0_1_1_3": 9,
+    "p_0_1_1_1": 0,
+    "p_0_1_0_0": 15,
+    "p_0_1_0_2": 9,
+    "p_0_1_1_2": 3,
+    "p_0_0_0_1": 18,
+    "p_1_1_1_2": 18,
+    "p_0_1_0_1": 10,
+    "p_0_0_0_2": 6
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 2,
+        "span": [
+          2610,
+          2675
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Lotherton Hall Bird Garden's Elephant Habitat"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "World of Birds's Elephant Habitat"
+        ],
+        "expression": "(10 * p_0_0_2_0)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "World of Birds's Bear Den"
+        ],
+        "expression": "(p_0_0_2_1 - p_0_0_2_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_0_0_3_0",
+          "p_0_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "World of Birds's Zebra Paddock"
+        ],
+        "expression": "(p_0_0_3_0 - p_0_0_3_1)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_1",
+        "parents": [
+          "p_0_0_3_0",
+          "p_0_0_3_1",
+          "p_0_0_3_2"
+        ],
+        "aliases": [
+          "p_1_0_3_1",
+          "World of Birds's Enclosure"
+        ],
+        "expression": "((p_0_0_3_0 + p_0_0_3_1) + p_0_0_3_2)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_1_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Lotherton Hall Bird Garden's Zebra Paddock"
+        ],
+        "expression": "p_1_0_3_1",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Bear Den's Chameleon"
+        ],
+        "expression": "(12 + p_0_0_2_2)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_2_2",
+          "p_1_0_3_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Bear Den's Bearded Dragon"
+        ],
+        "expression": "(p_0_0_2_2 - p_1_0_3_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_0_3_0",
+          "p_1_0_3_1"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Bear Den's Komodo Dragon"
+        ],
+        "expression": "(p_0_0_3_0 - p_1_0_3_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_3",
+        "parents": [
+          "p_0_0_3_2"
+        ],
+        "aliases": [
+          "p_0_1_1_3",
+          "Bear Den's Turtle"
+        ],
+        "expression": "(20 * p_0_0_3_2)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1",
+          "p_0_1_1_2",
+          "p_0_1_1_3"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Bear Den's Animal"
+        ],
+        "expression": "(((p_0_1_1_0 + p_0_1_1_1) + p_0_1_1_2) + p_0_1_1_3)",
+        "value": 18
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_1_1_3"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_3",
+        "p_1_1_1_2"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "native_id": "igsm-official-0026-op15",
+  "family_id": "igsm-official-0026-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260952,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "19",
+  "target": "p_1_0_0_2",
+  "question": "The number of each Hummus's Turmeric equals 2. The number of each Gummy Candy's Garlic Powder equals 4 times as much as each Gummy Candy's Saffron. The number of each FreshDirect's Gummy Candy equals 18 times as much as the sum of each DoorDash's Ingredient and each Gummy Candy's Saffron. The number of each Gummy Candy's Saffron equals 14. The number of each Ocado's Potato Chips equals the sum of each FreshDirect's Ingredient and each DoorDash's Ingredient. The number of each Ocado's Hummus equals the difference of each FreshDirect's Gummy Candy and each Gummy Candy's Ingredient. How many Ingredient does Ocado have?",
+  "lookup": {
+    "p_1_0_1_2": 0,
+    "p_1_1_0_2": 0,
+    "p_0_1_1_1": 2,
+    "p_0_1_2_0": 14,
+    "p_1_1_1_2": 2,
+    "p_0_1_2_2": 10,
+    "p_0_0_2_2": 22,
+    "p_1_1_2_2": 1,
+    "p_0_0_0_1": 21,
+    "p_1_0_2_2": 22,
+    "p_0_0_0_0": 22,
+    "p_1_0_0_2": 19
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_0",
+        "literal": 14,
+        "span": [
+          290,
+          340
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_1",
+        "literal": 2,
+        "span": [
+          0,
+          45
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "FreshDirect's Gummy Candy"
+        ],
+        "expression": "(18 * (0 + p_0_1_2_0))",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Gummy Candy's Garlic Powder"
+        ],
+        "expression": "(4 * p_0_1_2_0)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Gummy Candy's Ingredient"
+        ],
+        "expression": "(p_0_1_2_0 + p_0_1_2_2)",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "FreshDirect's Ingredient"
+        ],
+        "expression": "(p_0_0_2_2 * p_1_1_2_2)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Ocado's Potato Chips"
+        ],
+        "expression": "(p_1_0_2_2 + 0)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_2_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Ocado's Hummus"
+        ],
+        "expression": "(p_0_0_2_2 - p_1_1_2_2)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Hummus's Ingredient"
+        ],
+        "expression": "p_0_1_1_1",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_2",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_1_0_0_2",
+          "Ocado's Ingredient"
+        ],
+        "expression": "((p_0_0_0_0 * 0) + (p_0_0_0_1 * p_1_1_1_2))",
+        "value": 19
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_0_2_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_0_2"
+      ]
+    ]
+  }
+}

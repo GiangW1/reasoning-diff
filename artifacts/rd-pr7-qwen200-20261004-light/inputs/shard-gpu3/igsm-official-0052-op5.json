@@ -1,0 +1,141 @@
+{
+  "native_id": "igsm-official-0052-op5",
+  "family_id": "igsm-official-0052-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260979,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "13",
+  "target": "p_0_1_1_3",
+  "question": "The number of each Canned Corn's Amaranth equals 2 times as much as each Buford Highway Farmers Market's Canned Corn. The number of each Superior Grocers's Canned Broth equals 10. The number of each Canned Broth's Amaranth equals 6 more than each Canned Sauces's Amaranth. The number of each Marukai Corporation's Canned Sauces equals the sum of each Superior Grocers's Canned Broth, each Canned Sauces's Rolled Oats and each Canned Broth's Amaranth. The number of each Canned Sauces's Rolled Oats equals 20 more than each Canned Broth's Amaranth. The number of each Canned Tomatoes's Brown Rice equals 8 more than the sum of each Canned Broth's Rice, each Canned Sauces's Rice and each Buford Highway Farmers Market's Canned Corn. The number of each Superior Grocers's Canned Corn equals 2. The number of each Buford Highway Farmers Market's Canned Sauces equals the sum of each Canned Sauces's Rice and each Canned Sauces's Ingredient. The number of each Canned Broth's Rice equals 21. The number of each Canned Corn's Brown Rice equals 9 more than each Canned Sauces's Brown Rice. The number of each Buford Highway Farmers Market's Canned Tomatoes equals the sum of each Superior Grocers's Canned Tomatoes, each Canned Sauces's Rolled Oats, each Superior Grocers's Canned Broth and each Canned Sauces's Amaranth. The number of each Buford Highway Farmers Market's Canned Corn equals each Canned Broth's Rice. The number of each Canned Tomatoes's Rice equals 2. The number of each Canned Sauces's Brown Rice equals 0 more than each Canned Sauces's Amaranth. The number of each Canned Sauces's Rice equals 1. The number of each Canned Corn's Rice equals the sum of each Canned Sauces's Amaranth, each Canned Sauces's Ingredient and each Superior Grocers's Canned Tomatoes. The number of each Canned Tomatoes's Rolled Oats equals 15. The number of each Superior Grocers's Canned Tomatoes equals each Superior Grocers's Canned Broth. The number of each Canned Corn's Rolled Oats equals 17 times as much as the sum of each Superior Grocers's Product, each Canned Broth's Rice and each Canned Sauces's Amaranth. The number of each Canned Sauces's Amaranth equals each Superior Grocers's Canned Tomatoes. The number of each Marukai Corporation's Canned Broth equals 21. The number of each Buford Highway Farmers Market's Canned Broth equals the sum of each Canned Sauces's Ingredient, each Superior Grocers's Canned Corn and each Canned Broth's Ingredient. The number of each Marukai Corporation's Canned Corn equals 18. The number of each Canned Broth's Rolled Oats equals 20. The number of each Canned Tomatoes's Amaranth equals the difference of each Canned Sauces's Rice and each Canned Broth's Rolled Oats. How many Rolled Oats does Canned Sauces have?",
+  "lookup": {
+    "p_0_1_0_3": 20,
+    "p_0_0_2_0": 21,
+    "p_0_1_1_2": 1,
+    "p_0_1_0_2": 21,
+    "p_0_0_0_3": 21,
+    "p_0_1_2_1": 5,
+    "p_0_0_2_3": 18,
+    "p_0_0_1_3": 2,
+    "p_0_0_1_0": 10,
+    "p_0_1_2_0": 4,
+    "p_0_1_2_2": 2,
+    "p_0_0_1_2": 10,
+    "p_0_1_1_0": 10,
+    "p_0_1_2_3": 15,
+    "p_1_0_1_1": 22,
+    "p_0_1_0_0": 16,
+    "p_0_1_1_1": 10,
+    "p_0_1_1_3": 13,
+    "p_0_0_2_1": 16,
+    "p_0_0_0_2": 20,
+    "p_0_1_3_1": 19,
+    "p_1_1_1_2": 11,
+    "p_1_1_0_2": 11,
+    "p_0_0_0_1": 12,
+    "p_0_1_3_3": 4,
+    "p_0_0_0_0": 1,
+    "p_0_1_3_0": 19,
+    "p_0_1_3_2": 8
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 10,
+        "span": [
+          118,
+          178
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Superior Grocers's Canned Tomatoes"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Canned Sauces's Amaranth"
+        ],
+        "expression": "p_0_0_1_2",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_1_1_0"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Canned Broth's Amaranth"
+        ],
+        "expression": "(6 + p_0_1_1_0)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_3",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_3",
+          "Canned Sauces's Rolled Oats"
+        ],
+        "expression": "(20 + p_0_1_0_0)",
+        "value": 13
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_1_3"
+      ]
+    ]
+  }
+}

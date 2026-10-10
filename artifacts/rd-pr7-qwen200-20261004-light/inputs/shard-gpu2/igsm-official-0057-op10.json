@@ -1,0 +1,178 @@
+{
+  "native_id": "igsm-official-0057-op10",
+  "family_id": "igsm-official-0057-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260984,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "21",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Messenger Backpack's Ribbon equals 13. The number of each Virtual Scholars Academy's Political Science Room equals 21 more than the sum of each Psychology Lab's Messenger Backpack, each Messenger Backpack's Ribbon and each Psychology Lab's Padded Backpack. The number of each Messenger Backpack's Embossing Powder equals 17 more than each Padded Backpack's Ribbon. The number of each Virtual Scholars Academy's Psychology Lab equals 22 more than the sum of each Messenger Backpack's Ribbon, each Virtual Scholars Academy's Political Science Room and each Psychology Lab's Messenger Backpack. The number of each Sociology Lab's Padded Backpack equals 19. The number of each NetLearn Institute's Psychology Lab equals the sum of each Padded Backpack's Ribbon and each WebMasters Academy's Political Science Room. The number of each Messenger Backpack's Stamp equals 12. The number of each Canvas Backpack's Ribbon equals 4 more than the sum of each Canvas Backpack's Stamp and each Padded Backpack's Stamp. The number of each Psychology Lab's Padded Backpack equals each Messenger Backpack's Ribbon. The number of each Psychology Lab's Canvas Backpack equals 12 more than each Padded Backpack's Stamp. The number of each Political Science Room's Canvas Backpack equals the sum of each Sociology Lab's Padded Backpack and each Psychology Lab's Backpack. The number of each WebMasters Academy's Political Science Room equals 3 times as much as the sum of each Canvas Backpack's Stamp, each Padded Backpack's Stamp and each Canvas Backpack's Ribbon. The number of each Canvas Backpack's Embossing Powder equals the sum of each Virtual Scholars Academy's Political Science Room, each Messenger Backpack's Ribbon and each Canvas Backpack's Stamp. The number of each Padded Backpack's Stamp equals 2 times as much as each Canvas Backpack's Stamp. The number of each NetLearn Institute's Sociology Lab equals each Political Science Room's Padded Backpack. The number of each Sociology Lab's Messenger Backpack equals 4. The number of each Canvas Backpack's Stamp equals 21. The number of each Psychology Lab's Messenger Backpack equals 22 times as much as each Psychology Lab's Padded Backpack. The number of each Padded Backpack's Ribbon equals the difference of each Canvas Backpack's Ribbon and each Padded Backpack's Stamp. The number of each Political Science Room's Messenger Backpack equals each Virtual Scholars Academy's Political Science Room. The number of each Political Science Room's Padded Backpack equals each WebMasters Academy's Political Science Room. How many Classroom does Virtual Scholars Academy have?",
+  "lookup": {
+    "p_0_2_1_0": 21,
+    "p_0_2_2_0": 19,
+    "p_0_2_0_2": 13,
+    "p_0_1_1_2": 19,
+    "p_0_1_1_0": 4,
+    "p_0_1_2_1": 8,
+    "p_0_2_1_2": 21,
+    "p_0_2_2_2": 2,
+    "p_0_1_2_2": 13,
+    "p_0_2_0_0": 12,
+    "p_0_2_0_1": 19,
+    "p_0_0_2_0": 22,
+    "p_0_1_0_2": 22,
+    "p_0_1_2_0": 10,
+    "p_0_0_1_1": 22,
+    "p_0_0_0_0": 11,
+    "p_0_2_1_1": 22,
+    "p_0_0_1_2": 1,
+    "p_1_1_2_2": 8,
+    "p_0_1_0_0": 11,
+    "p_0_0_0_2": 10,
+    "p_1_0_0_1": 21,
+    "p_0_1_0_1": 4
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_2",
+        "literal": 13,
+        "span": [
+          0,
+          56
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Psychology Lab's Padded Backpack"
+        ],
+        "expression": "p_0_2_0_2",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Psychology Lab's Messenger Backpack"
+        ],
+        "expression": "(22 * p_0_1_2_2)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_2_0_2",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Virtual Scholars Academy's Political Science Room"
+        ],
+        "expression": "(21 + ((p_0_1_2_0 + p_0_2_0_2) + p_0_1_2_2))",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_2_0_2",
+          "p_0_0_0_0",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Virtual Scholars Academy's Psychology Lab"
+        ],
+        "expression": "(22 + ((p_0_2_0_2 + p_0_0_0_0) + p_0_1_2_0))",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Virtual Scholars Academy's Classroom"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_2)",
+        "value": 21
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_0_2",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

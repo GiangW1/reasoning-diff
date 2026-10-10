@@ -1,0 +1,113 @@
+{
+  "native_id": "igsm-official-0044-op5",
+  "family_id": "igsm-official-0044-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260971,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "5",
+  "target": "p_0_1_2_2",
+  "question": "The number of each Moth Metropolis's Goldfish equals 4. The number of each Insect House's Marlin equals 3 times as much as each Moth Metropolis's Goldfish. The number of each Haddock's Proximal Radials equals the sum of each Marlin's Epicentrals and each Haddock's Prezygapophyses. The number of each Spider Web Exhibit's Marlin equals 20 times as much as each Moth Metropolis's Goldfish. The number of each Marlin's Epicentrals equals 16. The number of each Marlin's Prezygapophyses equals each Insect House's Haddock. The number of each Haddock's Prezygapophyses equals 13. The number of each Goldfish's Proximal Radials equals each Marlin's Epicentrals. The number of each Insect House's Haddock equals 13 more than the sum of each Spider Web Exhibit's Marlin and each Moth Metropolis's Goldfish. The number of each Goldfish's Prezygapophyses equals 7. The number of each Moth Metropolis's Haddock equals 19. The number of each Spider Web Exhibit's Haddock equals the difference of each Moth Metropolis's Haddock and each Goldfish's Prezygapophyses. How many Prezygapophyses does Marlin have?",
+  "lookup": {
+    "p_0_1_2_1": 16,
+    "p_0_0_0_0": 4,
+    "p_0_1_0_0": 16,
+    "p_0_1_1_2": 13,
+    "p_0_0_2_2": 11,
+    "p_0_0_0_1": 19,
+    "p_0_0_1_1": 5,
+    "p_0_0_1_2": 12,
+    "p_0_1_1_0": 6,
+    "p_0_1_0_2": 7,
+    "p_0_0_2_1": 12,
+    "p_0_1_2_2": 5
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 4,
+        "span": [
+          0,
+          54
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Spider Web Exhibit's Marlin"
+        ],
+        "expression": "(20 * p_0_0_0_0)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_2_2",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Insect House's Haddock"
+        ],
+        "expression": "(13 + (p_0_0_2_2 + p_0_0_0_0))",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Marlin's Prezygapophyses"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 5
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_1_2_2"
+      ]
+    ]
+  }
+}

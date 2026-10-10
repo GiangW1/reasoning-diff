@@ -1,0 +1,3 @@
+# PR9 server operation snapshots
+
+These are the executed 2026-10-10 operational scripts, including coverage gating and the explicitly requested timeout override. They retain absolute server paths to preserve the actual deployment. `audit_current.py` is a placeholder-quality screen despite the historical output filename; it does not establish semantic validity. `prepare.py` records historical exposed-cohort selection and does not create a fresh confirmatory test cohort. Frozen experiment source remains unchanged. Read the results bundle for final outcomes and limitations before reusing the scripts.

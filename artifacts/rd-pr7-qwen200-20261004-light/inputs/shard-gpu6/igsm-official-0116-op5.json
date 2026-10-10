@@ -1,0 +1,122 @@
+{
+  "native_id": "igsm-official-0116-op5",
+  "family_id": "igsm-official-0116-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261044,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "5",
+  "target": "p_0_0_0_0",
+  "question": "The number of each Laptop Backpack's Ring Binder equals each Waterproof School Backpack's Divider Tabs. The number of each Two-Strap Backpack's Divider Tabs equals 11 more than the sum of each Two-Strap Backpack's Planner, each Waterproof School Backpack's Ring Binder and each Laptop Backpack's Planner. The number of each Waterproof School Backpack's Ring Binder equals 18. The number of each Waterproof School Backpack's Divider Tabs equals each Laptop Backpack's Planner. The number of each Waterproof School Backpack's Planner equals 19. The number of each Laptop Backpack's Planner equals 17 times as much as each Padded Backpack's Ring Binder. The number of each Padded Backpack's Ring Binder equals 3. The number of each Padded Backpack's Divider Tabs equals each Laptop Backpack's Ring Binder. The number of each Two-Strap Backpack's Planner equals 0. How many Divider Tabs does Padded Backpack have?",
+  "lookup": {
+    "p_0_0_0_2": 3,
+    "p_0_0_3_1": 0,
+    "p_0_0_1_1": 19,
+    "p_0_0_1_2": 18,
+    "p_0_0_2_1": 5,
+    "p_0_0_1_0": 5,
+    "p_0_0_2_2": 5,
+    "p_0_0_3_0": 11,
+    "p_0_0_0_0": 5
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_2",
+        "literal": 3,
+        "span": [
+          651,
+          708
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Laptop Backpack's Planner"
+        ],
+        "expression": "(17 * p_0_0_0_2)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Waterproof School Backpack's Divider Tabs"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Laptop Backpack's Ring Binder"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Padded Backpack's Divider Tabs"
+        ],
+        "expression": "p_0_0_2_2",
+        "value": 5
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_0"
+      ]
+    ]
+  }
+}

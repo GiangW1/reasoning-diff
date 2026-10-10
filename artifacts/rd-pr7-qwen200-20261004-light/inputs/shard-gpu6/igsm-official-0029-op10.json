@@ -1,0 +1,247 @@
+{
+  "native_id": "igsm-official-0029-op10",
+  "family_id": "igsm-official-0029-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260955,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "15",
+  "target": "p_1_0_2_2",
+  "question": "The number of each High School District's Lakewinds Food Co-op equals the difference of each International School District's Supermarket and each Cakes's Cayenne Pepper. The number of each Pastries's Cayenne Pepper equals 7. The number of each Cakes's Cumin equals 22. The number of each Sprouts Farmers Market's Pastries equals each High School District's Lakewinds Food Co-op. The number of each Whole Foods Market's Pastries equals 8. The number of each Preparatory School District's Sprouts Farmers Market equals each International School District's Lakewinds Food Co-op. The number of each Buns's Cayenne Pepper equals each International School District's Supermarket. The number of each Whole Foods Market's White Bread equals 7. The number of each Natural Grocers's Cakes equals the difference of each Preparatory School District's Supermarket and each Cakes's Ingredient. The number of each White Bread's Cinnamon equals 7 more than the sum of each Lakewinds Food Co-op's Pastries and each High School District's Whole Foods Market. The number of each Natural Grocers's Buns equals each Buns's Cayenne Pepper. The number of each Cakes's Cayenne Pepper equals 7 more than each Cakes's Cumin. The number of each School District's Whole Foods Market equals 9 more than the sum of each Preparatory School District's Sprouts Farmers Market and each White Bread's Ingredient. The number of each Buns's Paprika equals 0. The number of each High School District's Sprouts Farmers Market equals each Whole Foods Market's Pastries. The number of each Lakewinds Food Co-op's White Bread equals 16 times as much as the sum of each Whole Foods Market's Pastries and each Sprouts Farmers Market's Product. The number of each White Bread's Cayenne Pepper equals 7 more than each Buns's Ingredient. The number of each Natural Grocers's White Bread equals each White Bread's Cayenne Pepper. The number of each Lakewinds Food Co-op's Pastries equals the sum of each Whole Foods Market's Pastries, each High School District's Whole Foods Market and each High School District's Sprouts Farmers Market. The number of each High School District's Whole Foods Market equals 8. The number of each School District's Natural Grocers equals 16. The number of each International School District's Lakewinds Food Co-op equals the sum of each Cakes's Ingredient and each Cakes's Cumin. How many Product does Preparatory School District have?",
+  "lookup": {
+    "p_0_0_1_2": 16,
+    "p_0_2_2_3": 22,
+    "p_0_1_0_0": 7,
+    "p_0_1_0_3": 8,
+    "p_0_2_1_1": 0,
+    "p_0_2_3_0": 7,
+    "p_0_2_2_0": 6,
+    "p_0_0_3_3": 8,
+    "p_0_0_3_0": 8,
+    "p_1_2_2_3": 5,
+    "p_0_0_0_1": 4,
+    "p_0_1_1_3": 1,
+    "p_0_0_2_3": 4,
+    "p_1_0_2_1": 4,
+    "p_0_1_2_2": 22,
+    "p_0_2_0_2": 16,
+    "p_1_0_0_1": 4,
+    "p_0_2_1_0": 4,
+    "p_0_0_3_1": 21,
+    "p_1_2_1_3": 4,
+    "p_0_1_2_1": 4,
+    "p_0_2_0_0": 11,
+    "p_0_1_3_3": 21,
+    "p_1_2_0_3": 4,
+    "p_0_1_2_0": 11,
+    "p_0_0_1_0": 17,
+    "p_1_1_3_2": 21,
+    "p_0_1_1_0": 4,
+    "p_1_0_2_2": 15
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_2_3",
+        "literal": 22,
+        "span": [
+          225,
+          267
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_0",
+        "parents": [
+          "p_0_2_2_3"
+        ],
+        "aliases": [
+          "p_0_2_2_0",
+          "Cakes's Cayenne Pepper"
+        ],
+        "expression": "(7 + p_0_2_2_3)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_2_3",
+        "parents": [
+          "p_0_2_2_0",
+          "p_0_2_2_3"
+        ],
+        "aliases": [
+          "p_1_2_2_3",
+          "Cakes's Ingredient"
+        ],
+        "expression": "(p_0_2_2_0 + p_0_2_2_3)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_1_2_2_3",
+          "p_0_2_2_3"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "International School District's Lakewinds Food Co-op"
+        ],
+        "expression": "(p_1_2_2_3 + p_0_2_2_3)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Preparatory School District's Sprouts Farmers Market"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "International School District's Supermarket"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_2_2_0"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "High School District's Lakewinds Food Co-op"
+        ],
+        "expression": "(p_1_0_0_1 - p_0_2_2_0)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_3",
+        "parents": [
+          "p_0_0_3_1"
+        ],
+        "aliases": [
+          "p_0_1_3_3",
+          "Sprouts Farmers Market's Pastries"
+        ],
+        "expression": "p_0_0_3_1",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_3_2",
+        "parents": [
+          "p_0_1_3_3"
+        ],
+        "aliases": [
+          "p_1_1_3_2",
+          "Sprouts Farmers Market's Product"
+        ],
+        "expression": "p_0_1_3_3",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_3",
+          "p_1_1_3_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "Preparatory School District's Product"
+        ],
+        "expression": "(p_0_0_2_3 * p_1_1_3_2)",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_2_3",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_2_2_3",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_2_2_3",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_0_1_3_3"
+      ],
+      [
+        "p_0_1_3_3",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_3_2",
+        "p_1_0_2_2"
+      ]
+    ]
+  }
+}

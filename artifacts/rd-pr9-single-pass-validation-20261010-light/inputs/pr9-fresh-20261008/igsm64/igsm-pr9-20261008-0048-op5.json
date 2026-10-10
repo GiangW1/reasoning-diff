@@ -1,0 +1,137 @@
+{
+  "native_id": "igsm-pr9-20261008-0048-op5",
+  "family_id": "igsm-pr9-20261008-0048-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100848,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "0",
+  "target": "p_1_0_1_1",
+  "question": "The number of each Suburb's Save-A-Lot equals each Townhouse Development's Supermarket. The number of each Townhouse Development's Smart & Final equals the sum of each Save-A-Lot's Kombucha and each Apartment Complex's Market Basket. The number of each Kombucha's Cherry equals 4. The number of each Smart & Final's Hot Chocolate equals each Market Basket's Hot Chocolate. The number of each Kombucha's Apple equals each Kombucha's Cherry. The number of each Hot Chocolate's Raspberry equals each Townhouse Development's Supermarket. The number of each Kombucha's Raspberry equals the difference of each Townhouse Development's Supermarket and each Apartment Complex's Save-A-Lot. The number of each Market Basket's Hot Chocolate equals 16 more than the sum of each Market Basket's Kombucha and each Kombucha's Cherry. The number of each Save-A-Lot's Kombucha equals 14. The number of each Apartment Complex's Save-A-Lot equals 6 more than each Townhouse Development's Smart & Final. The number of each Apartment Complex's Market Basket equals 19 times as much as each Save-A-Lot's Kombucha. The number of each Market Basket's Kombucha equals 3 times as much as each Kombucha's Cherry. How many Supermarket does Apartment Complex have?",
+  "lookup": {
+    "p_0_2_0_2": 4,
+    "p_0_1_1_0": 12,
+    "p_0_1_1_1": 9,
+    "p_0_1_0_0": 14,
+    "p_0_1_2_1": 9,
+    "p_0_0_1_1": 13,
+    "p_0_0_2_2": 4,
+    "p_1_0_2_1": 4,
+    "p_0_0_1_0": 10,
+    "p_0_2_0_0": 17,
+    "p_1_0_1_1": 0,
+    "p_0_2_1_0": 4,
+    "p_0_2_0_1": 4,
+    "p_0_0_0_0": 4
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_0",
+        "literal": 14,
+        "span": [
+          819,
+          869
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Apartment Complex's Market Basket"
+        ],
+        "expression": "(19 * p_0_1_0_0)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Townhouse Development's Smart & Final"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_0_1_1)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Apartment Complex's Save-A-Lot"
+        ],
+        "expression": "(6 + p_0_0_2_2)",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Apartment Complex's Supermarket"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_1)",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ]
+    ]
+  }
+}

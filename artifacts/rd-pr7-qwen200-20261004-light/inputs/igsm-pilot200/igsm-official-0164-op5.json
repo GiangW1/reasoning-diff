@@ -1,0 +1,111 @@
+{
+  "native_id": "igsm-official-0164-op5",
+  "family_id": "igsm-official-0164-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261095,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "8",
+  "target": "p_0_0_0_2",
+  "question": "The number of each Training Daypack's Envelope equals 19. The number of each Hydration Backpack's Stapler equals 15. The number of each Hydration Backpack's Sticky Tape equals 20 more than the sum of each Training Daypack's Stationery and each Training Daypack's Sticky Tape. The number of each Training Daypack's Sticky Tape equals each Training Daypack's Envelope. How many Sticky Tape does Hydration Backpack have?",
+  "lookup": {
+    "p_0_0_1_0": 19,
+    "p_0_0_0_1": 15,
+    "p_0_0_1_2": 19,
+    "p_1_0_1_1": 15,
+    "p_0_0_0_2": 8
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_0",
+        "literal": 19,
+        "span": [
+          0,
+          56
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Training Daypack's Sticky Tape"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Training Daypack's Stationery"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_2)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Hydration Backpack's Sticky Tape"
+        ],
+        "expression": "(20 + (p_1_0_1_1 + p_0_0_1_2))",
+        "value": 8
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_0_2"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "native_id": "igsm-official-0073-op10",
+  "family_id": "igsm-official-0073-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261000,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "10",
+  "target": "p_0_1_2_1",
+  "question": "The number of each Nuts's Turkey equals 22. The number of each Shoppers Value Foods's Nuts equals the sum of each Food 4 Less's Nuts, each Research Park's No Frills, each Nuts's Lamb and each Research Park's Shoppers Value Foods. The number of each Business District's Shoppers Value Foods equals 9 more than the difference of each Warehouse District's No Frills and each No Frills's Nuts. The number of each Food 4 Less's Tortilla Chips equals 22. The number of each Shoppers Value Foods's Tortilla Chips equals 17 times as much as the sum of each Business District's Supermarket, each Business District's Shoppers Value Foods and each Warehouse District's No Frills. The number of each Research Park's Food 4 Less equals the sum of each Warehouse District's Shoppers Value Foods, each Food 4 Less's Nuts and each Research Park's No Frills. The number of each Research Park's Shoppers Value Foods equals each Nuts's Lamb. The number of each Shoppers Value Foods's Pretzels equals the sum of each Nuts's Turkey and each Research Park's No Frills. The number of each Research Park's No Frills equals 12. The number of each Warehouse District's Shoppers Value Foods equals 5. The number of each Warehouse District's No Frills equals 4 more than the difference of each No Frills's Nuts and each Business District's Food 4 Less. The number of each Tortilla Chips's Ground Beef equals 5 times as much as each Business District's Food 4 Less. The number of each Business District's Food 4 Less equals each No Frills's Nuts. The number of each No Frills's Nuts equals 1. The number of each Pretzels's Turkey equals 6 times as much as each Tortilla Chips's Ground Beef. The number of each Nuts's Lamb equals 7 times as much as each Research Park's No Frills. The number of each Food 4 Less's Nuts equals each Research Park's Shoppers Value Foods. How many Tortilla Chips does Shoppers Value Foods have?",
+  "lookup": {
+    "p_0_1_0_0": 1,
+    "p_0_1_1_1": 22,
+    "p_0_0_1_0": 12,
+    "p_0_0_2_1": 1,
+    "p_0_2_1_2": 5,
+    "p_0_0_0_2": 5,
+    "p_0_2_2_0": 7,
+    "p_0_2_0_0": 22,
+    "p_0_1_2_2": 11,
+    "p_0_0_0_0": 4,
+    "p_0_0_2_2": 12,
+    "p_0_2_0_1": 15,
+    "p_1_0_2_1": 13,
+    "p_0_0_1_2": 15,
+    "p_0_1_1_0": 15,
+    "p_0_1_2_0": 11,
+    "p_0_0_1_1": 9,
+    "p_0_1_2_1": 10
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_0",
+        "literal": 1,
+        "span": [
+          1518,
+          1562
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Business District's Food 4 Less"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Warehouse District's No Frills"
+        ],
+        "expression": "(4 + (p_0_1_0_0 - p_0_0_2_1))",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Business District's Shoppers Value Foods"
+        ],
+        "expression": "(9 + (p_0_0_0_0 - p_0_1_0_0))",
+        "value": 12
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Business District's Supermarket"
+        ],
+        "expression": "(p_0_0_2_1 + p_0_0_2_2)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_2_2",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Shoppers Value Foods's Tortilla Chips"
+        ],
+        "expression": "(17 * ((p_1_0_2_1 + p_0_0_2_2) + p_0_0_0_0))",
+        "value": 10
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_2_1"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+{"error": "Command '['/mnt/mydata/zm/projects/RPent/.venv/bin/python', PosixPath('/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py'), '--mode', 'p3-worker', '--out-root', PosixPath('/mnt/mydata/wja/reasoning-diff/runs/pr9-pilot-20261009'), '--worker-index', 1]' returned non-zero exit status 1.", "mode": "all", "scientific_conclusion": null, "status": "failed"}

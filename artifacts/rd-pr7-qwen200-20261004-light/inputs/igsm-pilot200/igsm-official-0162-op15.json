@@ -1,0 +1,278 @@
+{
+  "native_id": "igsm-official-0162-op15",
+  "family_id": "igsm-official-0162-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261093,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "20",
+  "target": "p_0_1_1_1",
+  "question": "The number of each Tropical Monsoon Forest's Paramecium equals 21. The number of each Tropical Monsoon Forest's Daphnia equals 6 times as much as the difference of each Tropical Rainforest's Organs and each Tropical Rainforest's Creatures. The number of each Tropical Rainforest's Daphnia equals each Pulmonary Veins's Satellite Cells. The number of each Aorta's Papillary Muscle Cells equals 19 times as much as the sum of each Tropical Monsoon Forest's Daphnia, each Pulmonary Veins's Satellite Cells and each Tropical Rainforest's Creatures. The number of each Paramecium's Aorta equals the difference of each Tropical Monsoon Forest's Creatures and each Tropical Rainforest's Creatures. The number of each Pulmonary Veins's Satellite Cells equals 3. The number of each Pulmonary Veins's Muscle Spindle Cells equals each Aorta's Cells. The number of each Daphnia's Aorta equals 5 times as much as each Tropical Rainforest's Creatures. The number of each Paramecium's Pulmonary Veins equals each Tropical Rainforest's Cells. How many Pulmonary Veins does Paramecium have?",
+  "lookup": {
+    "p_0_0_0_1": 21,
+    "p_0_2_1_2": 3,
+    "p_0_0_1_0": 3,
+    "p_1_0_1_1": 3,
+    "p_0_1_0_0": 15,
+    "p_1_1_0_2": 15,
+    "p_1_0_1_2": 22,
+    "p_0_0_0_0": 22,
+    "p_0_2_0_0": 3,
+    "p_1_2_0_3": 3,
+    "p_1_0_0_1": 20,
+    "p_1_1_0_3": 22,
+    "p_0_2_1_1": 3,
+    "p_0_1_1_0": 17,
+    "p_1_0_1_3": 20,
+    "p_0_1_1_1": 20
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_1_2",
+        "literal": 3,
+        "span": [
+          691,
+          752
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_2_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Tropical Rainforest's Daphnia"
+        ],
+        "expression": "p_0_2_1_2",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Tropical Rainforest's Creatures"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Daphnia's Aorta"
+        ],
+        "expression": "(5 * p_1_0_1_1)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Daphnia's Organs"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Tropical Rainforest's Organs"
+        ],
+        "expression": "(p_0_0_1_0 * p_1_1_0_2)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_0_1_2",
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Tropical Monsoon Forest's Daphnia"
+        ],
+        "expression": "(6 * (p_1_0_1_2 - p_1_0_1_1))",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_2_1_2",
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Aorta's Papillary Muscle Cells"
+        ],
+        "expression": "(19 * ((p_0_0_0_0 + p_0_2_1_2) + p_1_0_1_1))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Aorta's Cells"
+        ],
+        "expression": "p_0_2_0_0",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_0",
+          "p_1_2_0_3"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Daphnia's Cells"
+        ],
+        "expression": "(p_0_1_0_0 * p_1_2_0_3)",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_3",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_3"
+        ],
+        "aliases": [
+          "p_1_0_1_3",
+          "Tropical Rainforest's Cells"
+        ],
+        "expression": "(p_0_0_1_0 * p_1_1_0_3)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_1_0_1_3"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Paramecium's Pulmonary Veins"
+        ],
+        "expression": "p_1_0_1_3",
+        "value": 20
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_1_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_0_1_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_1_2",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_0_1_3",
+        "p_0_1_1_1"
+      ]
+    ]
+  }
+}

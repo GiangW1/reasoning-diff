@@ -1,0 +1,348 @@
+{
+  "native_id": "igsm-official-0111-op21",
+  "family_id": "igsm-official-0111-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20261039,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "16",
+  "target": "p_1_0_1_2",
+  "question": "The number of each Butterfly's Liver equals 4. The number of each Butterfly's Gallbladder equals each Owl's Liver. The number of each Swan's Gallbladder equals 19 times as much as each Gallbladder's Endothelial Cells of Blood Vessels. The number of each Swan's Sigmoid Colon equals 5. The number of each Sigmoid Colon's Endothelial Cells of Blood Vessels equals each Gallbladder's Endothelial Cells of Blood Vessels. The number of each Gallbladder's Endothelial Cells of Blood Vessels equals 6 more than each Butterfly's Gallbladder. The number of each Gallbladder's Mesenchymal Cells equals 1 times as much as each Gallbladder's Endothelial Cells of Blood Vessels. The number of each Sigmoid Colon's Adipocytes equals each Gallbladder's Mesenchymal Cells. The number of each Liver's Endothelial Cells of Blood Vessels equals each Butterfly's Gallbladder. The number of each Owl's Liver equals 13. The number of each Gallbladder's Adipocytes equals 8. The number of each Butterfly's Sigmoid Colon equals 18. The number of each Liver's Mesenchymal Cells equals each Gallbladder's Endothelial Cells of Blood Vessels. The number of each Swan's Liver equals each Gallbladder's Mesenchymal Cells. The number of each Owl's Gallbladder equals the sum of each Swan's Gallbladder and each Gallbladder's Mesenchymal Cells. How many Cells does Swan have?",
+  "lookup": {
+    "p_0_0_0_2": 18,
+    "p_0_1_0_0": 8,
+    "p_0_0_2_1": 13,
+    "p_0_0_1_2": 5,
+    "p_0_0_0_0": 13,
+    "p_0_1_1_2": 13,
+    "p_0_1_0_2": 19,
+    "p_0_1_1_1": 19,
+    "p_0_1_2_2": 19,
+    "p_0_0_1_0": 16,
+    "p_1_1_1_2": 9,
+    "p_0_1_0_1": 19,
+    "p_0_0_1_1": 19,
+    "p_0_0_0_1": 4,
+    "p_0_1_2_0": 19,
+    "p_0_0_2_0": 12,
+    "p_1_1_0_2": 0,
+    "p_1_1_2_2": 15,
+    "p_1_0_1_2": 16
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_1",
+        "literal": 13,
+        "span": [
+          856,
+          896
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_0",
+        "literal": 8,
+        "span": [
+          898,
+          950
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_2",
+        "literal": 5,
+        "span": [
+          235,
+          283
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Butterfly's Gallbladder"
+        ],
+        "expression": "p_0_0_2_1",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Gallbladder's Endothelial Cells of Blood Vessels"
+        ],
+        "expression": "(6 + p_0_0_0_0)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Swan's Gallbladder"
+        ],
+        "expression": "(19 * p_0_1_0_2)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Gallbladder's Mesenchymal Cells"
+        ],
+        "expression": "(1 * p_0_1_0_2)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1",
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Gallbladder's Cells"
+        ],
+        "expression": "((p_0_1_0_0 + p_0_1_0_1) + p_0_1_0_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Swan's Liver"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Liver's Mesenchymal Cells"
+        ],
+        "expression": "p_0_1_0_2",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Liver's Endothelial Cells of Blood Vessels"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_1",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Liver's Cells"
+        ],
+        "expression": "(p_0_1_1_1 + p_0_1_1_2)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Sigmoid Colon's Adipocytes"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Sigmoid Colon's Endothelial Cells of Blood Vessels"
+        ],
+        "expression": "p_0_1_0_2",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Sigmoid Colon's Cells"
+        ],
+        "expression": "(p_0_1_2_0 + p_0_1_2_2)",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_2",
+          "p_0_0_1_1",
+          "p_1_1_1_2",
+          "p_0_0_1_2",
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Swan's Cells"
+        ],
+        "expression": "(((p_0_0_1_0 * p_1_1_0_2) + (p_0_0_1_1 * p_1_1_1_2)) + (p_0_0_1_2 * p_1_1_2_2))",
+        "value": 16
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_1_0_1_2"
+      ]
+    ]
+  }
+}

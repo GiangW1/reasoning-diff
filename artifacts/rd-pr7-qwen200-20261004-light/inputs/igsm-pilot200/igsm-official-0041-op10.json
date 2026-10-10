@@ -1,0 +1,237 @@
+{
+  "native_id": "igsm-official-0041-op10",
+  "family_id": "igsm-official-0041-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260967,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "12",
+  "target": "p_1_1_3_2",
+  "question": "The number of each Salamander's Caudal Vertebrae 5 equals the difference of each Tennessee Aquarium's Snake Den and each Lizard Lounge's Newt. The number of each Two Oceans Aquarium's Lizard Lounge equals 11. The number of each Lizard Lounge's Siren equals each Lizard Lounge's Newt. The number of each Newt's Caudal Vertebrae 5 equals the sum of each National Aquarium's Lizard Lounge, each Crocodile Swamp's Siren and each SeaWorld Orlando's Crocodile Swamp. The number of each Siren's Caudal Vertebrae 2 equals the sum of each National Aquarium's Enclosure and each National Aquarium's Lizard Lounge. The number of each National Aquarium's Lizard Lounge equals 15 more than each Red Eyed Tree Frog's Caudal Vertebrae 2. The number of each Salamander's Caudal Vertebrae 7 equals 6 times as much as the sum of each Salamander's Caudal Vertebrae 9, each Lizard Lounge's Newt and each Lizard Lounge's Red Eyed Tree Frog. The number of each Two Oceans Aquarium's Reptile House equals the difference of each Salamander's Caudal Vertebrae 9 and each Salamander's Caudal Vertebrae 7. The number of each Crocodile Swamp's Siren equals 1 times as much as each National Aquarium's Enclosure. The number of each Lizard Lounge's Newt equals 16. The number of each Red Eyed Tree Frog's Caudal Vertebrae 2 equals 5. The number of each SeaWorld Orlando's Crocodile Swamp equals 18 times as much as the difference of each Red Eyed Tree Frog's Caudal Vertebrae 2 and each Siren's Caudal Vertebrae 2. The number of each Salamander's Caudal Vertebrae 9 equals 11 more than each Two Oceans Aquarium's Lizard Lounge. The number of each Lizard Lounge's Red Eyed Tree Frog equals each Lizard Lounge's Newt. The number of each Snake Den's Salamander equals each Crocodile Swamp's Bone. The number of each Tennessee Aquarium's Snake Den equals each Lizard Lounge's Red Eyed Tree Frog. The number of each Red Eyed Tree Frog's Caudal Vertebrae 9 equals 7 more than the difference of each National Aquarium's Enclosure and each Crocodile Swamp's Animal. The number of each Snake Den's Newt equals each Siren's Bone. The number of each Reptile House's Salamander equals 0 more than the difference of each Two Oceans Aquarium's Lizard Lounge and each Tennessee Aquarium's Snake Den. How many Animal does Snake Den have?",
+  "lookup": {
+    "p_0_1_1_2": 16,
+    "p_0_1_1_3": 16,
+    "p_0_1_1_0": 16,
+    "p_0_0_0_3": 16,
+    "p_0_2_1_3": 0,
+    "p_0_0_3_1": 11,
+    "p_0_1_0_1": 18,
+    "p_0_2_0_2": 5,
+    "p_0_0_1_1": 20,
+    "p_1_0_1_1": 20,
+    "p_0_1_2_3": 20,
+    "p_0_2_3_2": 17,
+    "p_1_2_3_3": 17,
+    "p_0_2_1_1": 22,
+    "p_0_0_2_2": 14,
+    "p_0_2_2_3": 8,
+    "p_1_1_2_3": 18,
+    "p_0_1_3_1": 18,
+    "p_0_2_1_0": 2,
+    "p_0_1_3_2": 17,
+    "p_0_0_3_0": 20,
+    "p_1_1_2_2": 20,
+    "p_0_2_0_1": 7,
+    "p_1_1_3_2": 12
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_2",
+        "literal": 5,
+        "span": [
+          1235,
+          1302
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "National Aquarium's Lizard Lounge"
+        ],
+        "expression": "(15 + p_0_2_0_2)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "National Aquarium's Enclosure"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_3",
+        "parents": [
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_2_3",
+          "Crocodile Swamp's Siren"
+        ],
+        "expression": "(1 * p_1_0_1_1)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_3_2",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_2_3_2",
+          "Siren's Caudal Vertebrae 2"
+        ],
+        "expression": "(p_1_0_1_1 + p_0_0_1_1)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_3_3",
+        "parents": [
+          "p_0_2_3_2"
+        ],
+        "aliases": [
+          "p_1_2_3_3",
+          "Siren's Bone"
+        ],
+        "expression": "p_0_2_3_2",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_3",
+        "parents": [
+          "p_0_1_2_3",
+          "p_1_2_3_3"
+        ],
+        "aliases": [
+          "p_1_1_2_3",
+          "Crocodile Swamp's Bone"
+        ],
+        "expression": "(p_0_1_2_3 * p_1_2_3_3)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_1",
+        "parents": [
+          "p_1_1_2_3"
+        ],
+        "aliases": [
+          "p_0_1_3_1",
+          "Snake Den's Salamander"
+        ],
+        "expression": "p_1_1_2_3",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_3_2",
+        "parents": [
+          "p_1_2_3_3"
+        ],
+        "aliases": [
+          "p_0_1_3_2",
+          "Snake Den's Newt"
+        ],
+        "expression": "p_1_2_3_3",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_3_2",
+        "parents": [
+          "p_0_1_3_1",
+          "p_0_1_3_2"
+        ],
+        "aliases": [
+          "p_1_1_3_2",
+          "Snake Den's Animal"
+        ],
+        "expression": "(p_0_1_3_1 + p_0_1_3_2)",
+        "value": 12
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_0_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_1_2_3"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_2_3_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_2_3_2"
+      ],
+      [
+        "p_0_2_3_2",
+        "p_1_2_3_3"
+      ],
+      [
+        "p_0_1_2_3",
+        "p_1_1_2_3"
+      ],
+      [
+        "p_1_2_3_3",
+        "p_1_1_2_3"
+      ],
+      [
+        "p_1_1_2_3",
+        "p_0_1_3_1"
+      ],
+      [
+        "p_1_2_3_3",
+        "p_0_1_3_2"
+      ],
+      [
+        "p_0_1_3_1",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_0_1_3_2",
+        "p_1_1_3_2"
+      ]
+    ]
+  }
+}

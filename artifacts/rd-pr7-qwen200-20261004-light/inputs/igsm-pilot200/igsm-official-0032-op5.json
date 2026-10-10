@@ -1,0 +1,144 @@
+{
+  "native_id": "igsm-official-0032-op5",
+  "family_id": "igsm-official-0032-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 20260958,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "4",
+  "target": "p_0_2_2_1",
+  "question": "The number of each Jet's Granola Bars equals 4. The number of each Google Express's Granola Bars equals 4 times as much as each Beef Jerky's Turkey Breast. The number of each Crackers's Duck equals 7 times as much as each Colonial District's Supermarket. The number of each Crackers's Pork Chop equals each Crackers's Turkey Breast. The number of each Jet's Beef Jerky equals each Jet's Granola Bars. The number of each Postmates's Crackers equals each Jet's Product. The number of each Crackers's Turkey Breast equals the difference of each Jet's Product and each Jet's Granola Bars. The number of each Historic Plantation's Google Express equals 13. The number of each Beef Jerky's Turkey Breast equals 9. The number of each Granola Bars's Pork Chop equals each Historic Plantation's Google Express. The number of each Granola Bars's Turkey Breast equals each Google Express's Granola Bars. The number of each Google Express's Crackers equals 19 times as much as the difference of each Beef Jerky's Turkey Breast and each Google Express's Granola Bars. The number of each Beef Jerky's Pork Chop equals 21. The number of each Colonial District's Google Express equals the difference of each Ancient City's Product and each Crackers's Pork Chop. The number of each Ancient City's Postmates equals 7. The number of each Historic Plantation's Jet equals 17 times as much as each Google Express's Granola Bars. The number of each Colonial District's Postmates equals 5. How many Pork Chop does Crackers have?",
+  "lookup": {
+    "p_0_0_1_2": 7,
+    "p_0_2_1_0": 9,
+    "p_0_2_1_1": 21,
+    "p_0_0_0_1": 13,
+    "p_0_0_2_2": 5,
+    "p_0_2_0_1": 13,
+    "p_0_1_0_0": 4,
+    "p_0_1_1_0": 13,
+    "p_0_1_0_1": 4,
+    "p_0_0_0_0": 14,
+    "p_0_1_1_2": 16,
+    "p_0_2_0_0": 13,
+    "p_1_1_0_2": 8,
+    "p_0_2_2_0": 4,
+    "p_0_2_2_1": 4,
+    "p_0_1_2_2": 8,
+    "p_1_1_2_2": 8,
+    "p_1_0_1_2": 10,
+    "p_0_0_2_1": 6,
+    "p_1_0_2_1": 11,
+    "p_0_2_2_2": 8
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_0",
+        "literal": 4,
+        "span": [
+          0,
+          46
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Jet's Beef Jerky"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Jet's Product"
+        ],
+        "expression": "(p_0_1_0_0 + p_0_1_0_1)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_0",
+        "parents": [
+          "p_1_1_0_2",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_2_2_0",
+          "Crackers's Turkey Breast"
+        ],
+        "expression": "(p_1_1_0_2 - p_0_1_0_0)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_2_1",
+        "parents": [
+          "p_0_2_2_0"
+        ],
+        "aliases": [
+          "p_0_2_2_1",
+          "Crackers's Pork Chop"
+        ],
+        "expression": "p_0_2_2_0",
+        "value": 4
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_2_2_0"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_0_2_2_1"
+      ]
+    ]
+  }
+}

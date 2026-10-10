@@ -1,0 +1,45 @@
+{
+  "verified_at": "2026-10-10T17:54:51.858063+08:00",
+  "passed": true,
+  "pr10_commit": "4c7cff043e652993e60503e8b94c6768c5cbd5e1",
+  "source_worktree_clean": true,
+  "original_pr10_snapshot_files_unchanged_and_equal_git": 14,
+  "original_snapshot_fulltexts_verified": 72,
+  "original_snapshot_excerpt_intervals_verified": 62,
+  "missing_manifest_records_verified_directly": 96,
+  "missing_manifest_roles": {
+    "noise": 72,
+    "reference": 24
+  },
+  "original_pr9_files_and_fulltexts_verified": 144,
+  "protocol_verification": "saved digest field equality; not independent digest algorithm recomputation",
+  "pr8_original_members_verified": 24,
+  "pr8_archive_equal_to_pr10_git_bytes": true,
+  "pr8_colliding_run_trace_id_groups": 12,
+  "unique_run_task_seed_role_keys": 168,
+  "unique_fulltext_sha256": 168,
+  "reviewed_candidates": 24,
+  "new_complete_paragraph_intervals_verified": 298,
+  "arithmetic": {
+    "n_base_tasks": 24,
+    "target_with_children": 0,
+    "non_target_nodes_checked": 174,
+    "nodes_with_target_path": 174,
+    "tasks_with_constant_final_node": 6,
+    "nodes_with_target_path_but_constant_final": 15
+  },
+  "no_new_model_generation_or_gpu_job_started_by_this_review": true,
+  "no_gate_or_original_experiment_file_written_by_this_review": true,
+  "model_and_gate_fields_basis": "scope and commands executed in this review, not an assertion about unrelated users or historic processes",
+  "not_an_exhaustive_semantic_audit": true,
+  "not_a_second_human_annotation": true,
+  "new_report_storage_root": "/mnt/mydata/wja/reasoning-diff/reports/pr10-server-recurrence-review-20261010",
+  "external_source_data_link_not_copied_into_checksum_manifest": "/mnt/mydata/wja/reasoning-diff/reports/pr10-server-recurrence-review-20261010/source_data/artifacts/rd-pr9-single-pass-validation-20261010-light",
+  "operation_script_sha256": {
+    "assemble_review.py": "30b0bcb7872293d2978b6a90e27a99616e8be61bfca5278f11b9e3da6596bd1e",
+    "check_arithmetic.py": "fea4773153549395f30e5c3fd703cd7bd87229b010dd311d2464cbc6f11e6459",
+    "recover_inventory.py": "eeac90114ffa8c939819495a65198b29594af8b7bebe6bc5bfca262a8c5c9e27",
+    "verify_delivery.py": "6d7097a34a426eed0fbf2b96640992a8ce61ced270cf5dbc1452809a68c2dde1",
+    "view_candidates.py": "b6db7d61eac726ea30d7dd530067544b53beab5f5c94480216b36b27d08579c9"
+  }
+}

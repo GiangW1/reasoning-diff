@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "reviewed_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+  "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+  "package_files_added": 155,
+  "package_mechanical_verifier_passed": true,
+  "source_texts_verified": 48,
+  "source_event_anchors_verified": 989,
+  "links_verified": 268,
+  "saved_graphs_verified": 48,
+  "base_tasks": 24,
+  "targets_with_consumers": 0,
+  "new_context_records": 14,
+  "new_complete_paragraph_slices_verified": 141,
+  "not_full48_semantic_reannotation": true,
+  "not_blind": true,
+  "no_new_model_experiments": true,
+  "original_annotation_snapshot_unchanged": true,
+  "source_worktree_clean": true
+}

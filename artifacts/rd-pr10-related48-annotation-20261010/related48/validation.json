@@ -1,0 +1,488 @@
+{
+  "records": 48,
+  "base_tasks": 24,
+  "all_checks_pass": true,
+  "check_scope": "Mechanical checks only: source hashes, evidence spans, canonical task arithmetic, final answers and graph structure. Not semantic-label validation or full generated-step arithmetic verification.",
+  "checks": [
+    {
+      "code": "P05",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 205,
+      "evidence_anchors": 47
+    },
+    {
+      "code": "P14",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 91,
+      "evidence_anchors": 9
+    },
+    {
+      "code": "P15",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 86,
+      "evidence_anchors": 16
+    },
+    {
+      "code": "P17",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 86,
+      "evidence_anchors": 10
+    },
+    {
+      "code": "P18",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 65,
+      "evidence_anchors": 10
+    },
+    {
+      "code": "P19",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 98,
+      "evidence_anchors": 17
+    },
+    {
+      "code": "P21",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 64,
+      "evidence_anchors": 5
+    },
+    {
+      "code": "P22",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 132,
+      "evidence_anchors": 26
+    },
+    {
+      "code": "P24",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 61,
+      "evidence_anchors": 25
+    },
+    {
+      "code": "P26",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 78,
+      "evidence_anchors": 11
+    },
+    {
+      "code": "P27",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 135,
+      "evidence_anchors": 16
+    },
+    {
+      "code": "P31",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 153,
+      "evidence_anchors": 40
+    },
+    {
+      "code": "P32",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 62,
+      "evidence_anchors": 21
+    },
+    {
+      "code": "P37",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 70,
+      "evidence_anchors": 15
+    },
+    {
+      "code": "P39",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 59,
+      "evidence_anchors": 7
+    },
+    {
+      "code": "P40",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 96,
+      "evidence_anchors": 8
+    },
+    {
+      "code": "P47",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 153,
+      "evidence_anchors": 56
+    },
+    {
+      "code": "P48",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 183,
+      "evidence_anchors": 45
+    },
+    {
+      "code": "P50",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 59,
+      "evidence_anchors": 18
+    },
+    {
+      "code": "P59",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 68,
+      "evidence_anchors": 9
+    },
+    {
+      "code": "P60",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 62,
+      "evidence_anchors": 17
+    },
+    {
+      "code": "P64",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 55,
+      "evidence_anchors": 13
+    },
+    {
+      "code": "P66",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 73,
+      "evidence_anchors": 21
+    },
+    {
+      "code": "P69",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 184,
+      "evidence_anchors": 56
+    },
+    {
+      "code": "V03",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 52,
+      "evidence_anchors": 9
+    },
+    {
+      "code": "V04",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 69,
+      "evidence_anchors": 13
+    },
+    {
+      "code": "V08",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 47,
+      "evidence_anchors": 8
+    },
+    {
+      "code": "V13",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 92,
+      "evidence_anchors": 43
+    },
+    {
+      "code": "V18",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 110,
+      "evidence_anchors": 14
+    },
+    {
+      "code": "V20",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 77,
+      "evidence_anchors": 14
+    },
+    {
+      "code": "V21",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 105,
+      "evidence_anchors": 26
+    },
+    {
+      "code": "V24",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 71,
+      "evidence_anchors": 20
+    },
+    {
+      "code": "V28",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 44,
+      "evidence_anchors": 9
+    },
+    {
+      "code": "V29",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 94,
+      "evidence_anchors": 16
+    },
+    {
+      "code": "V36",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 37,
+      "evidence_anchors": 9
+    },
+    {
+      "code": "V41",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 68,
+      "evidence_anchors": 12
+    },
+    {
+      "code": "V43",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 54,
+      "evidence_anchors": 8
+    },
+    {
+      "code": "V45",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 120,
+      "evidence_anchors": 22
+    },
+    {
+      "code": "V48",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 89,
+      "evidence_anchors": 18
+    },
+    {
+      "code": "V50",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 113,
+      "evidence_anchors": 41
+    },
+    {
+      "code": "V51",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 44,
+      "evidence_anchors": 7
+    },
+    {
+      "code": "V56",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 128,
+      "evidence_anchors": 19
+    },
+    {
+      "code": "V58",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 205,
+      "evidence_anchors": 85
+    },
+    {
+      "code": "V59",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 105,
+      "evidence_anchors": 24
+    },
+    {
+      "code": "V62",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 53,
+      "evidence_anchors": 20
+    },
+    {
+      "code": "V69",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 110,
+      "evidence_anchors": 16
+    },
+    {
+      "code": "V70",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 118,
+      "evidence_anchors": 11
+    },
+    {
+      "code": "V71",
+      "raw_hash_verified": true,
+      "all_evidence_spans_verified": true,
+      "canonical_task_arithmetic_verified": true,
+      "final_box_matches_gold": true,
+      "target_is_sink": true,
+      "paragraphs": 40,
+      "evidence_anchors": 7
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Reasoning Diff
 
+正式 C3 入口：[正式实验运行说明](docs/FORMAL_EXPERIMENT.zh-CN.md)，配置为 `experiments/formal_c3.json`。先冻结计划并查看完整扫描成本，再使用 `scripts/run_formal.py --mode all`；保留正误单类、缺失和不可估计状态。
+
 下一轮入口：[PR8 服务器运行说明](docs/PR8_RUNBOOK.md)。先跑长度/解析 pilot 与测量 smoke，通过后才开始正式 cohort；本 PR 不包含新模型实验结果。
 
 论文实验项目。本机代码验收：`CODE_PATHS_PARTIALLY_VERIFIED / SCIENTIFIC_VALIDITY_BLOCKED`。**真实模型/GPU、官方数据和独立任务图结果仍待服务器。**

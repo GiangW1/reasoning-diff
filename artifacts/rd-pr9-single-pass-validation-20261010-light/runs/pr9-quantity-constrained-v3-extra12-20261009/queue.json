@@ -1,0 +1,14 @@
+{
+  "pid": 313116,
+  "queued_at": "2026-10-09T19:45:50.855505+08:00",
+  "gpu": 1,
+  "wait_for_pid": 2467597,
+  "deadline": "2026-10-10T07:01:59.487345+08:00",
+  "status": "cancelled_by_user",
+  "budget_includes_previous_run": true,
+  "updated_at": "2026-10-09T20:54:14.577297+08:00",
+  "previous_run_alive": true,
+  "gpu_free_mib": 15155,
+  "cancelled_at": "2026-10-09T20:54:26.461986+08:00",
+  "reason": "User requested not to run the additional 12 problems; existing batch continues."
+}

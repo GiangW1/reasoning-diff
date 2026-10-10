@@ -1,0 +1,206 @@
+{
+  "native_id": "igsm-pr9-20261008-0049-op10",
+  "family_id": "igsm-pr9-20261008-0049-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100849,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "2",
+  "target": "p_1_1_2_2",
+  "question": "The number of each Expandable Backpack's Sticky Tape equals each Tech Backpack's Sticky Tape. The number of each Tech Backpack's Push Pins equals 6. The number of each Organizer Work Backpack's Ink Refill equals the sum of each Trigonometry Room's Expandable Backpack and each Trigonometry Room's Organizer Work Backpack. The number of each Organizer Work Backpack's Push Pins equals each Trigonometry Room's Backpack. The number of each Expandable Backpack's Push Pins equals 22. The number of each Trigonometry Room's Tech Backpack equals 22 times as much as each Trigonometry Room's Organizer Work Backpack. The number of each Expandable Backpack's Ink Refill equals 14 times as much as each Tech Backpack's Ink Refill. The number of each Tech Backpack's Sticky Tape equals 13. The number of each Linear Algebra Room's Organizer Work Backpack equals the sum of each Organizer Work Backpack's Sticky Tape, each Organizer Work Backpack's Stationery, each Organizer Work Backpack's Push Pins and each Tech Backpack's Sticky Tape. The number of each Trigonometry Room's Expandable Backpack equals 16 more than each Trigonometry Room's Tech Backpack. The number of each Engineering Workshop's Expandable Backpack equals 2 times as much as the sum of each Tech Backpack's Sticky Tape and each Expandable Backpack's Push Pins. The number of each Linear Algebra Room's Expandable Backpack equals each Expandable Backpack's Push Pins. The number of each Tech Backpack's Ink Refill equals 1 times as much as each Expandable Backpack's Sticky Tape. The number of each Trigonometry Room's Organizer Work Backpack equals 0. The number of each Organizer Work Backpack's Sticky Tape equals each Trigonometry Room's Backpack. How many Stationery does Organizer Work Backpack have?",
+  "lookup": {
+    "p_0_1_1_2": 22,
+    "p_0_1_0_2": 6,
+    "p_0_0_2_2": 0,
+    "p_0_0_1_1": 22,
+    "p_0_1_0_1": 13,
+    "p_0_0_2_0": 0,
+    "p_0_0_2_1": 16,
+    "p_0_1_1_1": 13,
+    "p_0_1_0_0": 13,
+    "p_1_0_2_1": 16,
+    "p_0_1_2_0": 16,
+    "p_0_1_2_2": 16,
+    "p_0_1_1_0": 21,
+    "p_0_0_0_1": 1,
+    "p_0_1_2_1": 16,
+    "p_1_1_2_2": 2,
+    "p_0_0_1_2": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_2",
+        "literal": 0,
+        "span": [
+          1541,
+          1612
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Trigonometry Room's Tech Backpack"
+        ],
+        "expression": "(22 * p_0_0_2_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Trigonometry Room's Expandable Backpack"
+        ],
+        "expression": "(16 + p_0_0_2_0)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Organizer Work Backpack's Ink Refill"
+        ],
+        "expression": "(p_0_0_2_1 + p_0_0_2_2)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Trigonometry Room's Backpack"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_1_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Organizer Work Backpack's Sticky Tape"
+        ],
+        "expression": "p_1_0_2_1",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_1_0_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Organizer Work Backpack's Push Pins"
+        ],
+        "expression": "p_1_0_2_1",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_1",
+          "p_0_1_2_2"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Organizer Work Backpack's Stationery"
+        ],
+        "expression": "((p_0_1_2_0 + p_0_1_2_1) + p_0_1_2_2)",
+        "value": 2
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_2",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_1_2_2"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_2",
+        "p_1_1_2_2"
+      ]
+    ]
+  }
+}

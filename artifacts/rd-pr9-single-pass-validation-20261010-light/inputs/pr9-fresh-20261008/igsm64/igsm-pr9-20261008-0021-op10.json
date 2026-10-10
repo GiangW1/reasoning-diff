@@ -1,0 +1,220 @@
+{
+  "native_id": "igsm-pr9-20261008-0021-op10",
+  "family_id": "igsm-pr9-20261008-0021-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100821,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "18",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Photography Studio's Concealed Carry Backpack equals the difference of each E-Study University's Photography Studio and each Hunting Backpack's Correction Tape. The number of each E-Study University's Photography Studio equals each Hunting Backpack's Correction Tape. The number of each Hunting Backpack's Paper Clip equals 6. The number of each Photography Studio's Hunting Backpack equals each Photography Studio's Concealed Carry Backpack. The number of each CyberScholars's History Classroom equals 10 times as much as each History Classroom's Stationery. The number of each E-Study University's History Classroom equals 22. The number of each Concealed Carry Backpack's Correction Tape equals 5. The number of each Hunting Backpack's Correction Tape equals 21 times as much as each Concealed Carry Backpack's Correction Tape. The number of each History Classroom's Concealed Carry Backpack equals 16 more than each Photography Studio's Hunting Backpack. How many Classroom does CyberScholars have?",
+  "lookup": {
+    "p_0_2_1_0": 6,
+    "p_0_0_1_1": 22,
+    "p_0_2_0_1": 5,
+    "p_0_2_1_1": 13,
+    "p_1_2_0_3": 5,
+    "p_0_0_1_0": 13,
+    "p_0_1_0_0": 0,
+    "p_0_1_0_1": 0,
+    "p_0_1_1_0": 16,
+    "p_1_1_1_3": 11,
+    "p_0_0_0_1": 18,
+    "p_1_0_0_1": 18
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_1",
+        "literal": 5,
+        "span": [
+          648,
+          718
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Hunting Backpack's Correction Tape"
+        ],
+        "expression": "(21 * p_0_2_0_1)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "E-Study University's Photography Studio"
+        ],
+        "expression": "p_0_2_1_1",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Photography Studio's Concealed Carry Backpack"
+        ],
+        "expression": "(p_0_0_1_0 - p_0_2_1_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Photography Studio's Hunting Backpack"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "History Classroom's Concealed Carry Backpack"
+        ],
+        "expression": "(16 + p_0_1_0_1)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Concealed Carry Backpack's Stationery"
+        ],
+        "expression": "p_0_2_0_1",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_0",
+          "p_1_2_0_3"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "History Classroom's Stationery"
+        ],
+        "expression": "(p_0_1_1_0 * p_1_2_0_3)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_1_1_1_3"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "CyberScholars's History Classroom"
+        ],
+        "expression": "(10 * p_1_1_1_3)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "CyberScholars's Classroom"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 18
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_0_1",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

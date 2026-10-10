@@ -73,7 +73,7 @@ def resid_post_hook(model, layer: int, transform, once: bool = False):
             patched = tensor.clone()
             transformed = transform(tensor[:, -1:])
             record.input_norm = float(tensor[:, -1:].detach().float().norm().cpu())
-            record.delta_norm = float((transformed - tensor[:, -1:]).detach().float().norm().cpu())
+            record.delta_norm = float((transformed.detach().float() - tensor[:, -1:].detach().float()).norm().cpu())
             patched[:, -1:] = transformed
         else:
             patched = transform(tensor)

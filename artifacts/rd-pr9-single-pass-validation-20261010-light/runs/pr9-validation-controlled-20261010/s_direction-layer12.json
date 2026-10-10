@@ -1,0 +1,1 @@
+{"decision_threshold": 0.5, "direction": null, "fit_groups": ["igsm-pr9-20261008-0014-op15", "igsm-pr9-20261008-0017-op10"], "fit_role": "direction_fit", "label": "observed_extra_dependency_presence", "n_events": 42, "negative_requires_full_nonancestor_scan": true, "rank": 1, "ridge": 1.0, "status": "insufficient_direction_classes"}

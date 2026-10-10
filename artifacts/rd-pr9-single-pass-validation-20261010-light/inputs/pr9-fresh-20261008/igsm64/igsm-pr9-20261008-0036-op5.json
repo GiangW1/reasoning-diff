@@ -1,0 +1,122 @@
+{
+  "native_id": "igsm-pr9-20261008-0036-op5",
+  "family_id": "igsm-pr9-20261008-0036-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100836,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "4",
+  "target": "p_1_0_1_1",
+  "question": "The number of each Crow's Caudal Vertebrae 3 equals 15 times as much as each Snail Shellter's Crow. The number of each Eagle's Caudal Vertebrae 2 equals each Snail Shellter's Crow. The number of each Snail Shellter's Eagle equals 10 more than the difference of each Eagle's Caudal Vertebrae 2 and each Snail Shellter's Crow. The number of each Cockroach Corner's Eagle equals 2 times as much as the difference of each Ladybug Loft's Crow and each Flamingo's Caudal Vertebrae 2. The number of each Flamingo's Caudal Vertebrae 3 equals each Crow's Caudal Vertebrae 2. The number of each Ladybug Loft's Crow equals 9. The number of each Snail Shellter's Crow equals 17. The number of each Crow's Caudal Vertebrae 2 equals each Ladybug Loft's Crow. The number of each Eagle's Caudal Vertebrae 8 equals 16. The number of each Eagle's Caudal Vertebrae 3 equals each Cockroach Corner's Crow. The number of each Crow's Caudal Vertebrae 8 equals 10 times as much as the sum of each Cockroach Corner's Animal, each Cockroach Corner's Flamingo and each Snail Shellter's Animal. The number of each Cockroach Corner's Flamingo equals the sum of each Ladybug Loft's Crow and each Cockroach Corner's Eagle. The number of each Cockroach Corner's Crow equals 10. The number of each Flamingo's Caudal Vertebrae 2 equals 15 more than each Ladybug Loft's Crow. How many Animal does Snail Shellter have?",
+  "lookup": {
+    "p_0_0_1_1": 17,
+    "p_0_0_0_1": 9,
+    "p_0_1_2_0": 1,
+    "p_0_1_0_0": 17,
+    "p_0_1_1_1": 2,
+    "p_0_0_2_1": 10,
+    "p_0_0_1_0": 10,
+    "p_0_1_0_1": 10,
+    "p_0_1_1_0": 9,
+    "p_0_1_0_2": 16,
+    "p_0_1_2_1": 9,
+    "p_0_0_2_0": 16,
+    "p_0_0_2_2": 2,
+    "p_1_0_1_1": 4,
+    "p_1_0_2_1": 5,
+    "p_0_1_1_2": 18
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 17,
+        "span": [
+          615,
+          665
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Eagle's Caudal Vertebrae 2"
+        ],
+        "expression": "p_0_0_1_1",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Snail Shellter's Eagle"
+        ],
+        "expression": "(10 + (p_0_1_0_0 - p_0_0_1_1))",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Snail Shellter's Animal"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_0_1_1)",
+        "value": 4
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ]
+    ]
+  }
+}

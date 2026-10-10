@@ -1,0 +1,179 @@
+{
+  "native_id": "igsm-pr9-20261008-0025-op10",
+  "family_id": "igsm-pr9-20261008-0025-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100825,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "18",
+  "target": "p_1_0_3_1",
+  "question": "The number of each Lion Exhibit's Mahi Mahi equals 7. The number of each Primate House's Anchovy equals each Primate House's Mahi Mahi. The number of each Primate House's Bass equals 15 more than the difference of each Lion Exhibit's Mahi Mahi and each Primate House's Anchovy. The number of each Primate House's Mahi Mahi equals 10 times as much as the sum of each Lion Exhibit's Animal and each Lion Exhibit's Mahi Mahi. The number of each Lion Exhibit's Marlin equals 17 times as much as each Lion Exhibit's Mahi Mahi. How many Animal does Primate House have?",
+  "lookup": {
+    "p_0_0_0_0": 7,
+    "p_0_0_0_2": 4,
+    "p_1_0_0_1": 11,
+    "p_0_0_3_0": 19,
+    "p_0_0_3_3": 19,
+    "p_0_0_3_1": 3,
+    "p_1_0_3_1": 18
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 7,
+        "span": [
+          0,
+          52
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Lion Exhibit's Marlin"
+        ],
+        "expression": "(17 * p_0_0_0_0)",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Lion Exhibit's Animal"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_2)",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Primate House's Mahi Mahi"
+        ],
+        "expression": "(10 * (p_1_0_0_1 + p_0_0_0_0))",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_3",
+        "parents": [
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_0_3_3",
+          "Primate House's Anchovy"
+        ],
+        "expression": "p_0_0_3_0",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "Primate House's Bass"
+        ],
+        "expression": "(15 + (p_0_0_0_0 - p_0_0_3_3))",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_1",
+        "parents": [
+          "p_0_0_3_0",
+          "p_0_0_3_1",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_1_0_3_1",
+          "Primate House's Animal"
+        ],
+        "expression": "((p_0_0_3_0 + p_0_0_3_1) + p_0_0_3_3)",
+        "value": 18
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_0_3_3"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_1_0_3_1"
+      ]
+    ]
+  }
+}

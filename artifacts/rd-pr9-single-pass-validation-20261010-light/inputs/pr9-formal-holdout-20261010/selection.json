@@ -1,0 +1,62 @@
+{
+  "selected_groups": [
+    "igsm-pr9-20261008-0001-op10",
+    "igsm-pr9-20261008-0002-op15",
+    "igsm-pr9-20261008-0006-op15",
+    "igsm-pr9-20261008-0007-op21",
+    "igsm-pr9-20261008-0008-op5",
+    "igsm-pr9-20261008-0011-op21",
+    "igsm-pr9-20261008-0020-op5",
+    "igsm-pr9-20261008-0023-op21",
+    "igsm-pr9-20261008-0024-op5",
+    "igsm-pr9-20261008-0027-op21",
+    "igsm-pr9-20261008-0028-op5",
+    "igsm-pr9-20261008-0030-op15",
+    "igsm-pr9-20261008-0031-op21",
+    "igsm-pr9-20261008-0036-op5",
+    "igsm-pr9-20261008-0037-op10",
+    "igsm-pr9-20261008-0038-op15",
+    "igsm-pr9-20261008-0046-op15",
+    "igsm-pr9-20261008-0047-op21",
+    "igsm-pr9-20261008-0049-op10",
+    "igsm-pr9-20261008-0053-op10",
+    "igsm-pr9-20261008-0056-op5",
+    "igsm-pr9-20261008-0057-op10",
+    "igsm-pr9-20261008-0058-op15",
+    "igsm-pr9-20261008-0061-op10"
+  ],
+  "excluded_current_groups": [
+    "igsm-pr9-20261008-0004-op5",
+    "igsm-pr9-20261008-0012-op5",
+    "igsm-pr9-20261008-0015-op21",
+    "igsm-pr9-20261008-0021-op10",
+    "igsm-pr9-20261008-0025-op10",
+    "igsm-pr9-20261008-0026-op15",
+    "igsm-pr9-20261008-0039-op21",
+    "igsm-pr9-20261008-0041-op10",
+    "igsm-pr9-20261008-0052-op5",
+    "igsm-pr9-20261008-0054-op15",
+    "igsm-pr9-20261008-0059-op21",
+    "igsm-pr9-20261008-0062-op15"
+  ],
+  "outcomes_used_for_selection": false,
+  "seed": 7319,
+  "difficulty_counts": {
+    "10": 6,
+    "15": 6,
+    "21": 6,
+    "5": 6
+  },
+  "family_roles": {
+    "transfer_pairs": 5,
+    "probe_train": 11,
+    "dev": 4,
+    "direction_fit": 1,
+    "test": 1,
+    "calibration": 2
+  },
+  "source_design_sha256": "525ae517485a68d71250d008866df561c723d4533227d0a51a7490d8277de937",
+  "dataset_sha256": "e6fa897c85cce1a4ba58df930cc763d1c83efae09c99b89ec8001592423cc035",
+  "dataset_exposure": "official_snapshot_identity_holdout; design_frozen_before_validation_outcomes; model_exposure_unknown; formal_engineering_group",
+  "selection": "formal first; forced remaining test family into formal; operation balanced; deterministic hash order; roles preserved"
+}

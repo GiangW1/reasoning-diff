@@ -1,0 +1,55 @@
+answers-0
+answers-1
+answers-2
+{'n_references': 36, 'n_problems': 12, 'class_counts_by_condition_and_split': {'base/probe_train': {'1': 4}, 'base/dev': {'1': 2}, 'base/direction_fit': {'1': 2}, 'base/test': {'1': 3}, 'related_noop/probe_train': {'1': 4}, 'related_noop/dev': {'1': 2}, 'related_noop/direction_fit': {'1': 2}, 'related_noop/test': {'1': 3}, 'neutral_noop/probe_train': {'1': 4}, 'neutral_noop/dev': {'1': 2}, 'neutral_noop/direction_fit': {'1': 2}, 'neutral_noop/test': {'1': 3}}, 'answered_class_counts': {'1': 36}, 'failure_counts': {}, 'status': 'single_class', 'parser_and_budget_failures_are_not_genuine_reasoning_errors': True, 'failure_as_incorrect': True, 'correctness_does_not_change_cohort': True, 'scientific_conclusion': None}
+generate-2
+generate-0
+generate-1
+{'base': {'n_traces': 12, 'n_problems': 12, 'eligible_cells': 2280, 'support_cells': 1063, 'noise_supported_cells': 584, 'matched_cell_coverage': 0.4662280701754386, 'common_noise_coverage': 0.256140350877193, 'rho_coverage': 0.08333333333333333, 'variable_coverage': 0.9211538461538461, 'target_coverage': 1.0}, 'related_noop': {'n_traces': 12, 'n_problems': 12, 'eligible_cells': 4925, 'support_cells': 2036, 'noise_supported_cells': 1209, 'matched_cell_coverage': 0.41340101522842637, 'common_noise_coverage': 0.24548223350253806, 'rho_coverage': 0.0, 'variable_coverage': 0.9444444444444443, 'target_coverage': 1.0}, 'neutral_noop': {'n_traces': 12, 'n_problems': 12, 'eligible_cells': 3340, 'support_cells': 1652, 'noise_supported_cells': 751, 'matched_cell_coverage': 0.4946107784431138, 'common_noise_coverage': 0.2248502994011976, 'rho_coverage': 0.08333333333333333, 'variable_coverage': 0.9069444444444444, 'target_coverage': 1.0}}
+label
+collect-24
+collect-12
+collect-0
+fit-12
+fit-24
+fit-0
+collect-35
+fit-35
+fit-pre_value
+fit-pre_step
+fit-post_step
+fit-all
+calibrate
+p3-1
+p3-2
+p3-0
+Traceback (most recent call last):
+  File "/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py", line 563, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py", line 550, in main
+    if function(root) is False:
+       ^^^^^^^^^^^^^^
+  File "/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py", line 489, in intervene
+    parallel_jobs([lambda i=i, g=g: lane(i, g) for i, g in enumerate(config['gpus'])], len(config['gpus']))
+  File "/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py", line 277, in parallel_jobs
+    future.result()
+  File "/home/zm/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/zm/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/zm/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py", line 269, in run
+    return job()
+           ^^^^^
+  File "/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py", line 489, in <lambda>
+    parallel_jobs([lambda i=i, g=g: lane(i, g) for i, g in enumerate(config['gpus'])], len(config['gpus']))
+                                    ^^^^^^^^^^
+  File "/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py", line 479, in lane
+    execute(root, f'p3-{index}', [sys.executable, Path(__file__), '--mode', 'p3-worker', '--out-root', root, '--worker-index', index], gpu)
+  File "/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py", line 330, in execute
+    raise subprocess.CalledProcessError(rc, command)
+subprocess.CalledProcessError: Command '['/mnt/mydata/zm/projects/RPent/.venv/bin/python', PosixPath('/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py'), '--mode', 'p3-worker', '--out-root', PosixPath('/mnt/mydata/wja/reasoning-diff/runs/pr9-pilot-20261009'), '--worker-index', 1]' returned non-zero exit status 1.

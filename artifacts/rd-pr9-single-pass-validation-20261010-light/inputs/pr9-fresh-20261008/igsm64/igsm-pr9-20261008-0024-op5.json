@@ -1,0 +1,131 @@
+{
+  "native_id": "igsm-pr9-20261008-0024-op5",
+  "family_id": "igsm-pr9-20261008-0024-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100824,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "16",
+  "target": "p_1_0_3_1",
+  "question": "The number of each Preparatory School District's DoorDash equals 15. The number of each High School District's Uber Eats equals 16. The number of each Engineering Campus's Shipt equals 13. The number of each College Town's Bigbasket equals the difference of each High School District's Supermarket and each High School District's Uber Eats. The number of each College Town's Uber Eats equals each High School District's Supermarket. The number of each Engineering Campus's DoorDash equals the sum of each High School District's Uber Eats and each College Town's Bigbasket. How many Supermarket does College Town have?",
+  "lookup": {
+    "p_0_0_2_3": 13,
+    "p_0_0_1_1": 15,
+    "p_0_0_0_0": 16,
+    "p_1_0_0_1": 16,
+    "p_0_0_3_0": 16,
+    "p_0_0_3_2": 0,
+    "p_1_0_3_1": 16,
+    "p_0_0_2_1": 16
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 16,
+        "span": [
+          69,
+          130
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "High School District's Supermarket"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_1_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "College Town's Uber Eats"
+        ],
+        "expression": "p_1_0_0_1",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_1_0_0_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "College Town's Bigbasket"
+        ],
+        "expression": "(p_1_0_0_1 - p_0_0_0_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_1",
+        "parents": [
+          "p_0_0_3_0",
+          "p_0_0_3_2"
+        ],
+        "aliases": [
+          "p_1_0_3_1",
+          "College Town's Supermarket"
+        ],
+        "expression": "(p_0_0_3_0 + p_0_0_3_2)",
+        "value": 16
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_1_0_0_1",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_1"
+      ]
+    ]
+  }
+}

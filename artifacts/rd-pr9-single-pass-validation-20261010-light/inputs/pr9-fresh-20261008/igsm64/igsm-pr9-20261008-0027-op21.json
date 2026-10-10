@@ -1,0 +1,291 @@
+{
+  "native_id": "igsm-pr9-20261008-0027-op21",
+  "family_id": "igsm-pr9-20261008-0027-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100827,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "6",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Trekking Backpack's Name Badge equals 6 more than the sum of each Carry-On Backpack's Name Badge, each Carry-On Backpack's Magazine Holder and each Carry-On Backpack's Stationery. The number of each Trekking Backpack's Magazine Holder equals 7 times as much as the sum of each Carry-On Backpack's Magazine Holder, each Trekking Backpack's File Organizer and each Carry-On Backpack's Stationery. The number of each Carry-On Backpack's File Organizer equals 19. The number of each Trekking Backpack's File Organizer equals 5 times as much as the difference of each Carry-On Backpack's Stationery and each Carry-On Backpack's File Organizer. The number of each Mountaineering Backpack's Magazine Holder equals each Trekking Backpack's Stationery. The number of each Carry-On Backpack's Name Badge equals 7 more than each Carry-On Backpack's File Organizer. The number of each Mountaineering Backpack's File Organizer equals 6 more than the sum of each Trekking Backpack's Name Badge, each Trekking Backpack's Magazine Holder and each Carry-On Backpack's Stationery. The number of each Carry-On Backpack's Magazine Holder equals 9 times as much as the difference of each Carry-On Backpack's File Organizer and each Carry-On Backpack's Name Badge. How many Stationery does Mountaineering Backpack have?",
+  "lookup": {
+    "p_0_0_1_1": 19,
+    "p_0_0_1_2": 3,
+    "p_0_0_1_0": 6,
+    "p_1_0_1_1": 5,
+    "p_0_0_2_1": 22,
+    "p_0_0_2_2": 20,
+    "p_0_0_2_0": 1,
+    "p_0_0_0_1": 9,
+    "p_1_0_2_1": 20,
+    "p_0_0_0_0": 20,
+    "p_1_0_0_1": 6
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 19,
+        "span": [
+          414,
+          477
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Carry-On Backpack's Name Badge"
+        ],
+        "expression": "(7 + p_0_0_1_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Carry-On Backpack's Magazine Holder"
+        ],
+        "expression": "(9 * (p_0_0_1_1 - p_0_0_1_2))",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Carry-On Backpack's Stationery"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_0_1_1) + p_0_0_1_2)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Trekking Backpack's File Organizer"
+        ],
+        "expression": "(5 * (p_1_0_1_1 - p_0_0_1_1))",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_2_1",
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Trekking Backpack's Magazine Holder"
+        ],
+        "expression": "(7 * ((p_0_0_1_0 + p_0_0_2_1) + p_1_0_1_1))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_1_2",
+          "p_0_0_1_0",
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Trekking Backpack's Name Badge"
+        ],
+        "expression": "(6 + ((p_0_0_1_2 + p_0_0_1_0) + p_1_0_1_1))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Trekking Backpack's Stationery"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_1_0_2_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Mountaineering Backpack's Magazine Holder"
+        ],
+        "expression": "p_1_0_2_1",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_2_2",
+          "p_0_0_2_0",
+          "p_1_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Mountaineering Backpack's File Organizer"
+        ],
+        "expression": "(6 + ((p_0_0_2_2 + p_0_0_2_0) + p_1_0_1_1))",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Mountaineering Backpack's Stationery"
+        ],
+        "expression": "(p_0_0_0_0 + p_0_0_0_1)",
+        "value": 6
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

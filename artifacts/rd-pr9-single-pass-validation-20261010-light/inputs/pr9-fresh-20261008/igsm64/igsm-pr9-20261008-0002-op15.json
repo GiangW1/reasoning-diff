@@ -1,0 +1,268 @@
+{
+  "native_id": "igsm-pr9-20261008-0002-op15",
+  "family_id": "igsm-pr9-20261008-0002-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100802,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "8",
+  "target": "p_1_0_1_2",
+  "question": "The number of each Sea Turtle's Veins equals 13. The number of each Sea Anemone's Arterioles equals each Rainforest's Organs. The number of each Taiga Forest's Sea Anemone equals 13 more than each Sea Turtle's Veins. The number of each Tropical Monsoon Forest's Dolphin equals 21. The number of each Sea Anemone's Pulmonary Valve equals 6 times as much as each Temperate Broadleaf Forest's Organs. The number of each Temperate Broadleaf Forest's Sea Turtle equals each Sea Turtle's Organs. The number of each Taiga Forest's Starfish equals 20 times as much as each Temperate Broadleaf Forest's Sea Turtle. The number of each Starfish's Coronary Arteries equals the sum of each Taiga Forest's Starfish and each Sea Turtle's Veins. How many Organs does Taiga Forest have?",
+  "lookup": {
+    "p_1_0_0_2": 0,
+    "p_0_0_3_2": 21,
+    "p_0_1_3_1": 13,
+    "p_0_0_1_1": 3,
+    "p_1_1_3_2": 13,
+    "p_0_1_1_2": 0,
+    "p_0_0_2_3": 13,
+    "p_0_0_1_0": 7,
+    "p_1_0_2_2": 8,
+    "p_0_1_0_0": 20,
+    "p_0_1_1_3": 2,
+    "p_1_1_1_2": 2,
+    "p_1_1_0_2": 20,
+    "p_1_0_1_2": 8
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_3_1",
+        "literal": 13,
+        "span": [
+          0,
+          47
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_2",
+        "literal": 0,
+        "span": [
+          49,
+          124
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_3_2",
+        "parents": [
+          "p_0_1_3_1"
+        ],
+        "aliases": [
+          "p_1_1_3_2",
+          "Sea Turtle's Organs"
+        ],
+        "expression": "p_0_1_3_1",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_1_1_3_2"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Temperate Broadleaf Forest's Sea Turtle"
+        ],
+        "expression": "p_1_1_3_2",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_2_3"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Taiga Forest's Starfish"
+        ],
+        "expression": "(20 * p_0_0_2_3)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_0",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_1_3_1"
+        ],
+        "aliases": [
+          "p_0_1_0_0",
+          "Starfish's Coronary Arteries"
+        ],
+        "expression": "(p_0_0_1_0 + p_0_1_3_1)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Starfish's Organs"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_3_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Taiga Forest's Sea Anemone"
+        ],
+        "expression": "(13 + p_0_1_3_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_2",
+        "parents": [
+          "p_0_0_2_3",
+          "p_1_1_3_2"
+        ],
+        "aliases": [
+          "p_1_0_2_2",
+          "Temperate Broadleaf Forest's Organs"
+        ],
+        "expression": "(p_0_0_2_3 * p_1_1_3_2)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_3",
+        "parents": [
+          "p_1_0_2_2"
+        ],
+        "aliases": [
+          "p_0_1_1_3",
+          "Sea Anemone's Pulmonary Valve"
+        ],
+        "expression": "(6 * p_1_0_2_2)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_2",
+          "p_0_1_1_3"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Sea Anemone's Organs"
+        ],
+        "expression": "(p_0_1_1_2 + p_0_1_1_3)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_2",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_2",
+          "p_0_0_1_1",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_2",
+          "Taiga Forest's Organs"
+        ],
+        "expression": "((p_0_0_1_0 * p_1_1_0_2) + (p_0_0_1_1 * p_1_1_1_2))",
+        "value": 8
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_3_1",
+        "p_1_1_3_2"
+      ],
+      [
+        "p_1_1_3_2",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_3_1",
+        "p_0_1_0_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_0_1_3_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_1_3_2",
+        "p_1_0_2_2"
+      ],
+      [
+        "p_1_0_2_2",
+        "p_0_1_1_3"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_3",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_1_0_1_2"
+      ]
+    ]
+  }
+}

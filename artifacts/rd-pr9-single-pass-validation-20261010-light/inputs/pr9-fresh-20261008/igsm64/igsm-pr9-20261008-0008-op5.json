@@ -1,0 +1,116 @@
+{
+  "native_id": "igsm-pr9-20261008-0008-op5",
+  "family_id": "igsm-pr9-20261008-0008-op5",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100808,
+  "mod": 23,
+  "op": 5,
+  "n_op": 5,
+  "answer": "19",
+  "target": "p_1_0_0_1",
+  "question": "The number of each Rucksack's Envelope Folder equals 15. The number of each Yoga Studio's Rucksack equals each Packable Travel Backpack's Document Wallet. The number of each Carry-On Backpack's Envelope Folder equals each Rucksack's Document Wallet. The number of each Carry-On Backpack's Document Wallet equals 1 more than each Track and Field's Backpack. The number of each Squash Court's Carry-On Backpack equals 7. The number of each Packable Travel Backpack's Envelope Folder equals each Carry-On Backpack's Document Wallet. The number of each Carry-On Backpack's File Organizer equals each Squash Court's Carry-On Backpack. The number of each Track and Field's Rucksack equals 9. The number of each Rucksack's File Organizer equals 20 times as much as the sum of each Packable Travel Backpack's Document Wallet, each Yoga Studio's Carry-On Backpack and each Carry-On Backpack's File Organizer. The number of each Rucksack's Document Wallet equals 0. The number of each Track and Field's Carry-On Backpack equals 17. The number of each Yoga Studio's Packable Travel Backpack equals 6 more than the sum of each Track and Field's Backpack, each Squash Court's Carry-On Backpack and each Track and Field's Rucksack. The number of each Yoga Studio's Carry-On Backpack equals the sum of each Packable Travel Backpack's File Organizer, each Packable Travel Backpack's Document Wallet and each Squash Court's Carry-On Backpack. The number of each Packable Travel Backpack's Document Wallet equals 18. The number of each Packable Travel Backpack's File Organizer equals each Squash Court's Packable Travel Backpack. The number of each Track and Field's Packable Travel Backpack equals 7 more than each Track and Field's Rucksack. The number of each Squash Court's Packable Travel Backpack equals 1 more than each Carry-On Backpack's File Organizer. How many Backpack does Track and Field have?",
+  "lookup": {
+    "p_0_0_1_1": 7,
+    "p_0_1_0_2": 18,
+    "p_0_1_2_1": 15,
+    "p_0_0_0_1": 17,
+    "p_0_0_2_2": 18,
+    "p_0_1_2_2": 0,
+    "p_0_1_1_1": 0,
+    "p_0_1_1_0": 7,
+    "p_0_0_1_0": 8,
+    "p_0_0_0_2": 9,
+    "p_0_1_0_0": 8,
+    "p_0_0_2_1": 10,
+    "p_0_0_0_0": 16,
+    "p_0_1_2_0": 10,
+    "p_1_0_0_1": 19,
+    "p_0_0_2_0": 18,
+    "p_0_1_1_2": 20,
+    "p_0_1_0_1": 20
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_2",
+        "literal": 9,
+        "span": [
+          630,
+          684
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_1",
+        "literal": 17,
+        "span": [
+          956,
+          1020
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Track and Field's Packable Travel Backpack"
+        ],
+        "expression": "(7 + p_0_0_0_2)",
+        "value": 16
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_0_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_0_1",
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_1_0_0_1",
+          "Track and Field's Backpack"
+        ],
+        "expression": "((p_0_0_0_0 + p_0_0_0_1) + p_0_0_0_2)",
+        "value": 19
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_1_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_1_0_0_1"
+      ]
+    ]
+  }
+}

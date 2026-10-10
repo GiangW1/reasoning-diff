@@ -1,0 +1,38 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.23s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:02<00:03,  1.17s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:03<00:01,  1.12it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:04<00:01,  1.03s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:04<00:00,  1.12it/s]
+trace-reference:0d18c10907744a483e7f256b reference natural_complete
+trace-reference:d6113e97ad3993eb6feefb56 reference natural_complete
+trace-reference:4fc0ba295ac68a6fe171bbaf reference natural_complete
+trace-reference:2ddceec47e0e1b9e5f4af396 reference natural_complete
+trace-reference:e3b58ffed41312a0670bd6c6 reference natural_complete
+trace-reference:4843f10095f110225bffb1a8 reference natural_complete
+trace-reference:b17d2abf34ebe023ae88f124 reference natural_complete
+trace-reference:2cbaf8024bf13f4f99765e3e reference natural_complete
+trace-reference:aca02e4e2aee8512f33e636d reference natural_complete
+trace-reference:9dcee584643fba33cfb800fb reference natural_complete
+trace-reference:cb97c8eb2fe1785c8af8419a reference natural_complete
+trace-reference:4ae940892963c250c2f45047 reference natural_complete
+trace-reference:96985dd1742e36db1cfab461 reference natural_complete
+trace-reference:e59cdf16f509c116c4c36018 reference natural_complete
+trace-reference:e759742aa0df3385eda5afea reference natural_complete
+trace-reference:bb1efb63ce07a7c90c0f2b12 reference natural_complete
+trace-reference:5b65a988fda4523668e5f914 reference natural_complete
+trace-reference:4dc200102aa0f35bd220ec20 reference natural_complete
+trace-reference:b3057ac8336d532203c2f651 reference natural_complete
+trace-reference:d503680b82452b415a3457aa reference natural_complete
+trace-reference:fb9723830245ca74fdbb8e25 reference natural_complete
+trace-reference:3744d5099b046befc09e8af0 reference natural_complete
+trace-reference:a06f96f38d27ec0e18768a16 reference natural_complete
+trace-reference:1fe777643a37104e76a7c68f reference natural_complete
+trace-reference:b5ed3d44aa1cc671c51f44cc reference natural_complete
+trace-reference:f2bbe51c96d10faceeb31743 reference natural_complete
+trace-reference:a0723c19b73723be09a6f7a6 reference natural_complete
+trace-reference:4d73e8a70311681ae50d9b94 reference natural_complete
+trace-reference:fd2be7098ddb158bb82a6aa0 reference natural_complete
+trace-reference:a881bee7c60c73b06149d80a reference natural_complete
+trace-reference:379636b7135012289d82e11e reference natural_complete
+trace-reference:7dae0d9e7bd2e2ad210b2261 reference natural_complete
+trace-reference:2c0fd7f4e9bc4d57a95ba702 reference natural_complete
+trace-reference:deccc654f12e1f768e0c4b36 reference natural_complete
+trace-reference:def3af26a23608d0a43e6809 reference natural_complete
+trace-reference:4c62cdaffaf44f40c1e00348 reference natural_complete

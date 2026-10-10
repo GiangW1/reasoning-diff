@@ -1,0 +1,50 @@
+{
+  "selected_groups": [
+    "igsm-pr9-20261008-0000-op5",
+    "igsm-pr9-20261008-0005-op10",
+    "igsm-pr9-20261008-0023-op21",
+    "igsm-pr9-20261008-0034-op15",
+    "igsm-pr9-20261008-0036-op5",
+    "igsm-pr9-20261008-0040-op5",
+    "igsm-pr9-20261008-0045-op10",
+    "igsm-pr9-20261008-0046-op15",
+    "igsm-pr9-20261008-0047-op21",
+    "igsm-pr9-20261008-0057-op10",
+    "igsm-pr9-20261008-0058-op15",
+    "igsm-pr9-20261008-0063-op21"
+  ],
+  "excluded_previous_groups": [
+    "igsm-pr9-20261008-0004-op5",
+    "igsm-pr9-20261008-0012-op5",
+    "igsm-pr9-20261008-0015-op21",
+    "igsm-pr9-20261008-0021-op10",
+    "igsm-pr9-20261008-0025-op10",
+    "igsm-pr9-20261008-0026-op15",
+    "igsm-pr9-20261008-0039-op21",
+    "igsm-pr9-20261008-0041-op10",
+    "igsm-pr9-20261008-0052-op5",
+    "igsm-pr9-20261008-0054-op15",
+    "igsm-pr9-20261008-0059-op21",
+    "igsm-pr9-20261008-0062-op15"
+  ],
+  "outcomes_used_for_selection": false,
+  "selection": "first_feasible_hash_order_subset_using_identity_op_and_existing_split_only",
+  "seed": 7319,
+  "difficulty_counts": {
+    "5": 3,
+    "10": 3,
+    "21": 3,
+    "15": 3
+  },
+  "family_roles": {
+    "dev": 3,
+    "probe_train": 4,
+    "direction_fit": 2,
+    "calibration": 2,
+    "test": 1
+  },
+  "role_selection_note": "Only one test family remains in the source cohort; preserve roles, do not relabel. Additional batch uses 4 train, 3 dev, 2 calibration, 2 direction_fit, 1 test.",
+  "dataset_exposure": "previous_formal_cohort_development_exposed; disjoint_from_current_12; not_confirmatory",
+  "source_design_sha256": "525ae517485a68d71250d008866df561c723d4533227d0a51a7490d8277de937",
+  "dataset_sha256": "9d5d4993707c99391604068e49138af47c428434bbbb917d7a377381662ccf04"
+}

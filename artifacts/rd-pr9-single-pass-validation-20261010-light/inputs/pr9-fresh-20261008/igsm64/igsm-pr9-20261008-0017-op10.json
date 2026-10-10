@@ -1,0 +1,181 @@
+{
+  "native_id": "igsm-pr9-20261008-0017-op10",
+  "family_id": "igsm-pr9-20261008-0017-op10",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100817,
+  "mod": 23,
+  "op": 10,
+  "n_op": 10,
+  "answer": "15",
+  "target": "p_0_0_1_0",
+  "question": "The number of each Pheasant Pen's Finch equals the sum of each Finch's Primary Feathers, each Pigeon's Primary Feathers and each Kiwi House's Ostrich. The number of each Finch's Coracoid equals each Ostrich's Primary Feathers. The number of each Pheasant Pen's Pigeon equals 14. The number of each Ostrich's Primary Feathers equals 13. The number of each Ostrich's Coracoid equals each Pheasant Pen's Finch. The number of each Kiwi House's Ostrich equals 2 times as much as the difference of each Kiwi House's Finch and each Pigeon's Coracoid. The number of each Pheasant Pen's Ostrich equals each Kiwi House's Ostrich. The number of each Pigeon's Ulna equals 5 times as much as the sum of each Ostrich's Primary Feathers and each Pheasant Pen's Pigeon. The number of each Finch's Primary Feathers equals 1 more than the difference of each Kiwi House's Pigeon and each Pigeon's Primary Feathers. The number of each Kiwi House's Pigeon equals each Pigeon's Coracoid. The number of each Pigeon's Primary Feathers equals 18. The number of each Kiwi House's Finch equals the sum of each Finch's Primary Feathers, each Kiwi House's Pigeon and each Pigeon's Coracoid. The number of each Finch's Ulna equals the sum of each Pheasant Pen's Pigeon, each Pigeon's Ulna, each Ostrich's Primary Feathers and each Finch's Coracoid. The number of each Pigeon's Coracoid equals each Pigeon's Primary Feathers. How many Ostrich does Pheasant Pen have?",
+  "lookup": {
+    "p_0_0_1_2": 14,
+    "p_0_1_0_1": 13,
+    "p_0_1_2_2": 20,
+    "p_0_1_1_0": 13,
+    "p_0_1_2_1": 18,
+    "p_0_1_1_2": 14,
+    "p_0_1_2_0": 18,
+    "p_0_0_0_2": 18,
+    "p_0_1_1_1": 1,
+    "p_0_0_0_1": 14,
+    "p_0_0_0_0": 15,
+    "p_0_0_1_1": 11,
+    "p_0_0_1_0": 15,
+    "p_0_1_0_0": 11
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_2_1",
+        "literal": 18,
+        "span": [
+          966,
+          1020
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Pigeon's Coracoid"
+        ],
+        "expression": "p_0_1_2_1",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Kiwi House's Pigeon"
+        ],
+        "expression": "p_0_1_2_0",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_0_0_2",
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Finch's Primary Feathers"
+        ],
+        "expression": "(1 + (p_0_0_0_2 - p_0_1_2_1))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_1_1_1",
+          "p_0_0_0_2",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Kiwi House's Finch"
+        ],
+        "expression": "((p_0_1_1_1 + p_0_0_0_2) + p_0_1_2_0)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_1",
+          "p_0_1_2_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Kiwi House's Ostrich"
+        ],
+        "expression": "(2 * (p_0_0_0_1 - p_0_1_2_0))",
+        "value": 15
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Pheasant Pen's Ostrich"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 15
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_2_1",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_0"
+      ]
+    ]
+  }
+}

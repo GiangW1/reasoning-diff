@@ -1,0 +1,71 @@
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_controlled_formal_measurement_retains_complete_single_pass_denominator __
+
+formal_runner = <module 'formal_runner_test' from '/home/wja/reasoning-diff-pr9-matching/scripts/run_formal.py'>
+planned_formal = (PosixPath('/mnt/mydata/wja/reasoning-diff/tmp/controlled-valid/test_controlled_formal_measure0/run'), PosixPath('/mnt/mydata/wja/reasoning-diff/tmp/controlled-valid/test_controlled_formal_measure0/config.json'))
+tmp_path = PosixPath('/mnt/mydata/wja/reasoning-diff/tmp/controlled-valid/test_controlled_formal_measure0')
+
+    def test_controlled_formal_measurement_retains_complete_single_pass_denominator(
+            formal_runner, planned_formal, tmp_path):
+        from reasoning_diff import cli
+        _, config_path = planned_formal
+        config = read_json(config_path)
+        config.update(trajectory_protocol='quantity_steps', reference_seeds=[0], noise_seeds=[3])
+        write_json(config_path, config)
+        root = tmp_path / 'controlled-valid'
+        formal_runner.main(['--config', str(config_path), '--out-root', str(root)])
+        protocol, design = formal_runner.verified_plan(root)
+        owners = {t['task_id']: Task.from_dict(t) for t in design['tasks']}
+        roles = {r['task_id']: r['role'] for r in design['splits']}
+        for request in design['requests']:
+            task = owners[request['task_id']]
+            text = '\n'.join(f'<step node="{n.id}">calculation <commit>{n.value}</commit></step>' for n in task.nodes)
+            text += '\n</think>\n' + str(task.answer_spec.value)
+            trace = cli._synthetic_trace(task, text, request['id'], request['seed'])
+            trace.metadata.update(revision=protocol['revision'], formal_condition=task.metadata['formal_condition'],
+                formal_role=request['role'], formal_split=roles[task.task_id], rendered_prompt_text='', stop_reason='eos')
+            row = trace.to_dict()
+            write_json(root / 'responses' / (request['id'].replace(':', '_') + '.json'),
+                {'protocol_digest': digest(protocol), 'request_digest': digest(request), 'trace_digest': digest(row), 'trace': row})
+        assert formal_runner.registered_format_screen(root)
+>       assert formal_runner.measure(root)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_formal_experiment.py:159: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/run_formal.py:247: in measure
+    write_json(root / 'p1.json', {'primary_base': p1_report(table),
+                                                  ^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+table = [{'analysis_unit': 'trajectory', 'density_protocol': 'registered_quantity_step_response_rate_excess_v1', 'trajectory_p...uantity_step_response_rate_excess_v1', 'trajectory_protocol': 'quantity_steps_v1', 'natural_prompt_policy': None, ...}]
+n_boot = 500, conditions = ('base',), answered_only = False
+
+    def p1_report(table, n_boot=500, conditions=('base',), answered_only=False):
+        """Fit on probe_train only; evaluate test. Missing rho has its own audit."""
+        table = [r for r in table if r.get('condition') in conditions]
+        if answered_only:
+            table = [{**r, 'y': int(r['answer_correct'])} for r in table if r.get('answer_completed')]
+        counts = dict(Counter(str(r['y']) for r in table))
+        result = {'n_trajectories': len(table), 'class_counts': counts, 'conditions': list(conditions),
+                  'outcome': 'answered_task_correctness' if answered_only else 'ITT_failures_as_incorrect',
+                  'missing_by_outcome': dict(Counter(str(r['y']) for r in table if r['rho'] is None)),
+                  'missing_by_split': dict(Counter(r['split'] for r in table if r['rho'] is None)),
+                  'estimand': 'matched_cell_response_rate_excess_v1', 'future_information': 'full_trajectory_diagnostic',
+                  'missing_policy': 'no_imputation_complete_case_attribution_with_ITT_accounting'}
+        rows = [r for r in table if r['split'] in {'probe_train', 'test'} and r['rho'] is not None]
+        train = np.array([r['split'] == 'probe_train' for r in rows])
+        labels = np.array([1 - r['y'] for r in rows], dtype=int)
+>       for mask, name in ((train, 'train'), (~train, 'test')):
+                                              ^^^^^^
+E       TypeError: ufunc 'invert' not supported for the input types, and the inputs could not be safely coerced to any supported types according to the casting rule ''safe''
+
+src/reasoning_diff/formal.py:255: TypeError
+---------------------------- Captured stdout setup -----------------------------
+{'by_role': {'edit': 102, 'noise': 18, 'reference': 18}, 'decode_token_ceiling': 4521984, 'expected_opportunities': {'edit_values': 1, 'noise_donors_per_reference': 3, 'reference_seeds': [0, 1, 2]}, 'family_roles': {'calibration': 1, 'probe_train': 1}, 'n_problems': 2, 'p3_decode_calls_per_selected_prefix': 14, 'requests': 138, 'scientific_conclusion': None, 'semantic_audit': 'pending'}
+----------------------------- Captured stdout call -----------------------------
+{'by_role': {'edit': 34, 'noise': 6, 'reference': 6}, 'decode_token_ceiling': 1507328, 'expected_opportunities': {'edit_values': 1, 'noise_donors_per_reference': 1, 'reference_seeds': [0]}, 'family_roles': {'calibration': 1, 'probe_train': 1}, 'n_problems': 2, 'p3_decode_calls_per_selected_prefix': 14, 'requests': 46, 'scientific_conclusion': None, 'semantic_audit': 'pending'}
+=========================== short test summary info ============================
+FAILED tests/test_formal_experiment.py::test_controlled_formal_measurement_retains_complete_single_pass_denominator
+1 failed, 2 passed, 33 deselected in 2.06s

@@ -1,0 +1,52 @@
+{
+  "completed_response_count": 554,
+  "completed_by_role": {
+    "edit": 450,
+    "noise": 36,
+    "reference": 36,
+    "source": 32
+  },
+  "correct_by_role": {
+    "edit": 448,
+    "noise": 36,
+    "reference": 36,
+    "source": 32
+  },
+  "status_counts": {
+    "natural_complete": 554
+  },
+  "pipeline": {
+    "error": "Command '['/mnt/mydata/zm/projects/RPent/.venv/bin/python', PosixPath('/home/wja/reasoning-diff-pr9-pilot/scripts/run_formal.py'), '--mode', 'p3-worker', '--out-root', PosixPath('/mnt/mydata/wja/reasoning-diff/runs/pr9-pilot-20261009'), '--worker-index', 1]' returned non-zero exit status 1.",
+    "mode": "all",
+    "scientific_conclusion": null,
+    "status": "failed"
+  },
+  "plan": {
+    "by_role": {
+      "edit": 450,
+      "noise": 36,
+      "reference": 36,
+      "source": 32
+    },
+    "decode_token_ceiling": 18153472,
+    "expected_opportunities": {
+      "edit_values": 1,
+      "noise_donors_per_reference": 1,
+      "reference_seeds": [
+        0
+      ]
+    },
+    "family_roles": {
+      "calibration": 1,
+      "dev": 2,
+      "direction_fit": 2,
+      "probe_train": 4,
+      "test": 3
+    },
+    "n_problems": 12,
+    "p3_decode_calls_per_selected_prefix": 14,
+    "requests": 554,
+    "scientific_conclusion": null,
+    "semantic_audit": "pending"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "selected_groups": [
+    "igsm-pr9-20261008-0060-op5",
+    "igsm-pr9-20261008-0032-op5",
+    "igsm-pr9-20261008-0048-op5",
+    "igsm-pr9-20261008-0013-op10",
+    "igsm-pr9-20261008-0045-op10",
+    "igsm-pr9-20261008-0017-op10",
+    "igsm-pr9-20261008-0014-op15",
+    "igsm-pr9-20261008-0050-op15",
+    "igsm-pr9-20261008-0018-op15",
+    "igsm-pr9-20261008-0035-op21",
+    "igsm-pr9-20261008-0055-op21",
+    "igsm-pr9-20261008-0043-op21"
+  ],
+  "excluded_current_groups": [
+    "igsm-pr9-20261008-0004-op5",
+    "igsm-pr9-20261008-0012-op5",
+    "igsm-pr9-20261008-0015-op21",
+    "igsm-pr9-20261008-0021-op10",
+    "igsm-pr9-20261008-0025-op10",
+    "igsm-pr9-20261008-0026-op15",
+    "igsm-pr9-20261008-0039-op21",
+    "igsm-pr9-20261008-0041-op10",
+    "igsm-pr9-20261008-0052-op5",
+    "igsm-pr9-20261008-0054-op15",
+    "igsm-pr9-20261008-0059-op21",
+    "igsm-pr9-20261008-0062-op15"
+  ],
+  "outcomes_used_for_selection": false,
+  "seed": 7319,
+  "difficulty_counts": {
+    "5": 3,
+    "10": 3,
+    "15": 3,
+    "21": 3
+  },
+  "family_roles": {
+    "transfer_pairs": 4,
+    "probe_train": 2,
+    "dev": 3,
+    "calibration": 1,
+    "direction_fit": 2
+  },
+  "source_design_sha256": "525ae517485a68d71250d008866df561c723d4533227d0a51a7490d8277de937",
+  "dataset_sha256": "ef006e170651484ded3e42445142463f907c2d2e17a394be9fe66cc5554299e1",
+  "dataset_exposure": "development_exposed_identity_holdout; validation_only; not_confirmatory",
+  "selection": "formal first; forced remaining test family into formal; operation balanced; deterministic hash order; roles preserved"
+}

@@ -1,0 +1,355 @@
+{
+  "native_id": "igsm-pr9-20261008-0023-op21",
+  "family_id": "igsm-pr9-20261008-0023-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100823,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "0",
+  "target": "p_0_1_2_2",
+  "question": "The number of each Shedd Aquarium's Meerkat Manor equals each Okinawa Churaumi Aquarium's Meerkat Manor. The number of each Ripley's Aquarium of Canada's Bat Cave equals each Bat Cave's Bass. The number of each Bat Cave's Mackerel equals 13. The number of each Shedd Aquarium's Anteater Area equals 22. The number of each Haddock's Metacarpals equals the difference of each Okinawa Churaumi Aquarium's Meerkat Manor and each Mackerel's Tertials. The number of each Bat Cave's Haddock equals the difference of each Haddock's Metacarpals and each Mackerel's Tertials. The number of each Mackerel's Primary Feathers equals the sum of each Bass's Bone and each Mackerel's Tertials. The number of each Mackerel's Tertials equals each Meerkat Manor's Bass. The number of each Haddock's Furcula equals 10 times as much as each Shedd Aquarium's Meerkat Manor. The number of each Okinawa Churaumi Aquarium's Meerkat Manor equals each Meerkat Manor's Bass. The number of each Meerkat Manor's Bass equals 9 more than each Bass's Bone. The number of each Anteater Area's Bass equals 21 times as much as each Ripley's Aquarium of Canada's Bone. The number of each Bat Cave's Bass equals each Haddock's Metacarpals. How many Bass does Anteater Area have?",
+  "lookup": {
+    "p_1_2_2_3": 0,
+    "p_0_0_2_2": 22,
+    "p_0_1_0_2": 9,
+    "p_0_2_0_0": 9,
+    "p_0_1_1_0": 13,
+    "p_0_2_0_2": 9,
+    "p_1_2_0_3": 18,
+    "p_0_0_0_0": 9,
+    "p_0_2_1_1": 0,
+    "p_0_0_2_0": 9,
+    "p_0_1_1_1": 14,
+    "p_0_2_1_3": 21,
+    "p_0_1_1_2": 0,
+    "p_1_2_1_3": 21,
+    "p_0_0_1_1": 0,
+    "p_1_1_1_3": 22,
+    "p_1_0_1_3": 0,
+    "p_0_1_2_2": 0
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_2",
+        "literal": 9,
+        "span": [
+          947,
+          1022
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_1_0",
+        "literal": 13,
+        "span": [
+          192,
+          240
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Okinawa Churaumi Aquarium's Meerkat Manor"
+        ],
+        "expression": "p_0_1_0_2",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Mackerel's Tertials"
+        ],
+        "expression": "p_0_1_0_2",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Haddock's Metacarpals"
+        ],
+        "expression": "(p_0_0_0_0 - p_0_2_0_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Bat Cave's Bass"
+        ],
+        "expression": "p_0_2_1_1",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Ripley's Aquarium of Canada's Bat Cave"
+        ],
+        "expression": "p_0_1_1_2",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_2",
+        "parents": [
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_2_0_2",
+          "Mackerel's Primary Feathers"
+        ],
+        "expression": "(0 + p_0_2_0_0)",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_2_0_2"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Mackerel's Bone"
+        ],
+        "expression": "(p_0_2_0_0 + p_0_2_0_2)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_2_1_1",
+          "p_0_2_0_0"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Bat Cave's Haddock"
+        ],
+        "expression": "(p_0_2_1_1 - p_0_2_0_0)",
+        "value": 14
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Shedd Aquarium's Meerkat Manor"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_3",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_2_1_3",
+          "Haddock's Furcula"
+        ],
+        "expression": "(10 * p_0_0_2_0)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_1",
+          "p_0_2_1_3"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Haddock's Bone"
+        ],
+        "expression": "(p_0_2_1_1 + p_0_2_1_3)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_0",
+          "p_1_2_0_3",
+          "p_0_1_1_1",
+          "p_1_2_1_3",
+          "p_0_1_1_2"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "Bat Cave's Bone"
+        ],
+        "expression": "(((p_0_1_1_0 * p_1_2_0_3) + (p_0_1_1_1 * p_1_2_1_3)) + (p_0_1_1_2 * 0))",
+        "value": 22
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_3",
+        "parents": [
+          "p_0_0_1_1",
+          "p_1_1_1_3"
+        ],
+        "aliases": [
+          "p_1_0_1_3",
+          "Ripley's Aquarium of Canada's Bone"
+        ],
+        "expression": "(p_0_0_1_1 * p_1_1_1_3)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_2",
+        "parents": [
+          "p_1_0_1_3"
+        ],
+        "aliases": [
+          "p_0_1_2_2",
+          "Anteater Area's Bass"
+        ],
+        "expression": "(21 * p_1_0_1_3)",
+        "value": 0
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_2",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_2_1_3"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_2_1_3",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_0_1_3",
+        "p_0_1_2_2"
+      ]
+    ]
+  }
+}

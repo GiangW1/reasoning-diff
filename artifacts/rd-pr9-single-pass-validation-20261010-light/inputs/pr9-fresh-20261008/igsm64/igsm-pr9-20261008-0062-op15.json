@@ -1,0 +1,267 @@
+{
+  "native_id": "igsm-pr9-20261008-0062-op15",
+  "family_id": "igsm-pr9-20261008-0062-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100862,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "14",
+  "target": "p_0_0_0_0",
+  "question": "The number of each Crestwood Secondary's Volleyball Court equals the sum of each Harborview High's Table Tennis Room and each Valley View High's Table Tennis Room. The number of each Crestwood Secondary's Table Tennis Room equals 3. The number of each Valley View High's Volleyball Court equals each Valley View High's Table Tennis Room. The number of each Hillcrest High's Table Tennis Room equals the sum of each Crestwood Secondary's Swimming Pool and each Valley View High's Classroom. The number of each Hillcrest High's Swimming Pool equals 7. The number of each Valley View High's Swimming Pool equals each Harborview High's Squash Court. The number of each Valley View High's Squash Court equals 5 more than each Valley View High's Swimming Pool. The number of each Harborview High's Swimming Pool equals each Crestwood Secondary's Volleyball Court. The number of each Hillcrest High's Volleyball Court equals 20. The number of each Hillcrest High's Squash Court equals 3. The number of each Harborview High's Volleyball Court equals each Hillcrest High's Squash Court. The number of each Crestwood Secondary's Squash Court equals 19 more than the sum of each Hillcrest High's Table Tennis Room and each Valley View High's Classroom. The number of each Crestwood Secondary's Swimming Pool equals each Crestwood Secondary's Volleyball Court. The number of each Harborview High's Table Tennis Room equals 10 more than the difference of each Valley View High's Classroom and each Valley View High's Volleyball Court. The number of each Valley View High's Table Tennis Room equals 21 times as much as each Valley View High's Squash Court. The number of each Harborview High's Squash Court equals 18. How many Squash Court does Crestwood Secondary have?",
+  "lookup": {
+    "p_0_0_1_1": 20,
+    "p_0_0_2_0": 18,
+    "p_0_0_3_2": 18,
+    "p_0_0_3_0": 0,
+    "p_0_0_1_2": 7,
+    "p_0_0_3_3": 0,
+    "p_0_0_0_3": 3,
+    "p_0_0_1_0": 3,
+    "p_0_0_3_1": 0,
+    "p_0_0_2_1": 3,
+    "p_1_0_3_1": 18,
+    "p_0_0_2_3": 5,
+    "p_0_0_0_1": 5,
+    "p_0_0_0_2": 5,
+    "p_0_0_1_3": 0,
+    "p_0_0_2_2": 5,
+    "p_0_0_0_0": 14
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_2_0",
+        "literal": 18,
+        "span": [
+          1643,
+          1702
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_2",
+        "parents": [
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_3_2",
+          "Valley View High's Swimming Pool"
+        ],
+        "expression": "p_0_0_2_0",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_0",
+        "parents": [
+          "p_0_0_3_2"
+        ],
+        "aliases": [
+          "p_0_0_3_0",
+          "Valley View High's Squash Court"
+        ],
+        "expression": "(5 + p_0_0_3_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_3",
+        "parents": [
+          "p_0_0_3_0"
+        ],
+        "aliases": [
+          "p_0_0_3_3",
+          "Valley View High's Table Tennis Room"
+        ],
+        "expression": "(21 * p_0_0_3_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_3_1",
+        "parents": [
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_3_1",
+          "Valley View High's Volleyball Court"
+        ],
+        "expression": "p_0_0_3_3",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_3_1",
+        "parents": [
+          "p_0_0_3_0",
+          "p_0_0_3_1",
+          "p_0_0_3_2",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_1_0_3_1",
+          "Valley View High's Classroom"
+        ],
+        "expression": "(((p_0_0_3_0 + p_0_0_3_1) + p_0_0_3_2) + p_0_0_3_3)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_3",
+        "parents": [
+          "p_1_0_3_1",
+          "p_0_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_2_3",
+          "Harborview High's Table Tennis Room"
+        ],
+        "expression": "(10 + (p_1_0_3_1 - p_0_0_3_1))",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_2_3",
+          "p_0_0_3_3"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Crestwood Secondary's Volleyball Court"
+        ],
+        "expression": "(p_0_0_2_3 + p_0_0_3_3)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Crestwood Secondary's Swimming Pool"
+        ],
+        "expression": "p_0_0_0_1",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_3",
+        "parents": [
+          "p_0_0_0_2",
+          "p_1_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_1_3",
+          "Hillcrest High's Table Tennis Room"
+        ],
+        "expression": "(p_0_0_0_2 + p_1_0_3_1)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_3",
+          "p_1_0_3_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Crestwood Secondary's Squash Court"
+        ],
+        "expression": "(19 + (p_0_0_1_3 + p_1_0_3_1))",
+        "value": 14
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_2_0",
+        "p_0_0_3_2"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_0_0_3_0"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_0_0_3_3"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_3_1"
+      ],
+      [
+        "p_0_0_3_0",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_2",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_1_0_3_1"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_3_1",
+        "p_0_0_2_3"
+      ],
+      [
+        "p_0_0_2_3",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_3_3",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_0_1_3"
+      ],
+      [
+        "p_0_0_1_3",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_1_0_3_1",
+        "p_0_0_0_0"
+      ]
+    ]
+  }
+}

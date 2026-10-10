@@ -101,7 +101,7 @@ def test_remeasure_preserves_raw_manifest_and_rebuilds_missing_noise(runner, tmp
     report = read_json(output / "measurement_report.json")
     assert report["before"]["trajectories_with_rho"] == 0
     assert report["after"]["trajectories_with_rho"] == 1
-    assert report["matching_policy"] == "printed_expression_views_forced_sequence_v9"
+    assert report["matching_policy"] == "printed_expression_views_entity_anchored_v10"
     assert not report["formal_launch_ready"]
     lightweight = tmp_path / "report-only"
     runner.remeasure(source, lightweight, report_only=True)

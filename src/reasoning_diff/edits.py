@@ -10,6 +10,8 @@ from .events import NUMBER
 from .schema import Edit, Premise, Task, canonical_value
 from .graphs import ancestors
 
+C2_PAIR_KINDS = ('same_value_diff_source', 'same_source_diff_value', 'fixed_values_diff_source')
+
 _BINOPS = {
     ast.Add: operator.add,
     ast.Sub: operator.sub,

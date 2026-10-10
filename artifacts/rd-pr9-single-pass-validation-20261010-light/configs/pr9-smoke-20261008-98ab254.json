@@ -1,0 +1,23 @@
+{
+  "dataset": "/mnt/mydata/wja/reasoning-diff/runs/pr7-200-20261004/inputs/igsm-pilot200",
+  "kind": "igsm",
+  "dataset_exposure": "previously_used_development_pool_engineering_smoke_only",
+  "model": "qwen3-8b",
+  "model_root": "/mnt/mydata/wja/reasoning-diff/assets/models",
+  "gpus": [2, 3, 6],
+  "batch_size": 4,
+  "n_problems": 8,
+  "split_seed": 2,
+  "reference_seeds": [0],
+  "noise_seeds": [3],
+  "edit_values": 1,
+  "max_new": 8192,
+  "sampling": {"temperature": 0.6, "top_k": 20, "top_p": 0.95},
+  "layers": [0, 12, 24, 35],
+  "time_budget_hours": 2,
+  "exclude_groups": [
+    "igsm-official-0001-op10", "igsm-official-0003-op21", "igsm-official-0004-op5",
+    "igsm-official-0006-op15", "igsm-official-0007-op21", "igsm-official-0008-op5",
+    "igsm-official-0026-op15", "igsm-official-0045-op10"
+  ]
+}

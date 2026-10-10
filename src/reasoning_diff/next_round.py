@@ -160,8 +160,10 @@ def trace_labels(observations, tasks):
 def base_trajectories(traces, tasks):
     owners = {t["task_id"]: t for t in tasks}
     return [trace for trace in traces if trace.get("task_id") in owners
-            and not owners[trace["task_id"]].get("edit_ref") and "::" not in trace["task_id"]
-            and not any(kind in trace["id"] for kind in ("sham", "source"))]
+            and ((trace.get("metadata") or {}).get("formal_role") == "reference"
+                 or ((trace.get("metadata") or {}).get("formal_role") is None
+                     and not owners[trace["task_id"]].get("edit_ref") and "::" not in trace["task_id"]
+                     and not any(kind in trace["id"] for kind in ("sham", "source"))))]
 
 
 def parser_coverage(traces, tasks):
@@ -342,6 +344,13 @@ def measurement_report(traces, tasks, observations, splits, scanned_premises=Non
                if trace.get("task_id") in owners and is_controlled(owners[trace["task_id"]])}
     if controlled:
         checks["registered_step_format"] = bool(formats) and all(row["passed"] for row in formats.values())
+        decoders = {owners[trace['task_id']].metadata.get('quantity_decoding_protocol') for trace in traces
+                    if trace.get('task_id') in owners}
+        checks['quantity_decoder_homogeneous'] = len(decoders) <= 1
+        checks['quantity_decoder_matches_task'] = all(
+            (trace.get('metadata') or {}).get('quantity_decoding_protocol')
+            == owners[trace['task_id']].metadata.get('quantity_decoding_protocol')
+            for trace in traces if trace.get('task_id') in owners)
     failures = [key for key, value in checks.items() if not value]
     classes = {str(value): sum(r["y"] == value for r in table) for value in (0, 1)}
     return {"passed": not failures, "checks": checks, "failures": failures,
@@ -525,7 +534,7 @@ def matched_baselines(h, y_task, y_beh, event_keys, feature_rows, tasks, traces,
         for i, j in zip(ii, jj):
             tid, identity, node, _record, owner = event_keys[i]
             task = tasks[owner]
-            pid = str(premise_keys[j]).split("::", 1)[-1]
+            pid = str(premise_keys[j]).removeprefix(owner + "::")
             premise = next(p for p in task.premises if p.premise_id == pid)
             row = feature_rows[i]
             boundary = boundaries[i]
@@ -543,7 +552,7 @@ def matched_baselines(h, y_task, y_beh, event_keys, feature_rows, tasks, traces,
         }
         if variable_model is not None:
             predictions["next_variable_to_dag"] = np.array([
-                float(str(premise_keys[j]).split("::", 1)[-1] in ancestors(tasks[event_keys[i][-1]]).get(winners.get(i, (0, ""))[1], set()))
+                float(str(premise_keys[j]).removeprefix(event_keys[i][-1] + "::") in ancestors(tasks[event_keys[i][-1]]).get(winners.get(i, (0, ""))[1], set()))
                 for i, j in zip(ii, jj)])
         for name, scores in predictions.items():
             metrics = {}

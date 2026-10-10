@@ -1,0 +1,296 @@
+{
+  "native_id": "igsm-pr9-20261008-0003-op21",
+  "family_id": "igsm-pr9-20261008-0003-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100803,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "21",
+  "target": "p_1_0_1_3",
+  "question": "The number of each Peapod's Tea equals each Tea's Bell Pepper. The number of each Google Express's Hot Chocolate equals the sum of each Tea's Bell Pepper and each Hot Chocolate's Ingredient. The number of each Manufacturing District's Peapod equals 10 more than each Wall Street's Ingredient. The number of each Tea's Bell Pepper equals 7 more than the difference of each Hot Chocolate's Ingredient and each Manufacturing District's Peapod. The number of each Sparkling Water's Kale equals each Hot Chocolate's Ingredient. The number of each Manufacturing District's Google Express equals the difference of each Sparkling Water's Ingredient and each Google Express's Hot Chocolate. The number of each Peapod's Sparkling Water equals 9 more than the sum of each Google Express's Product and each Sparkling Water's Kale. How many Ingredient does Manufacturing District have?",
+  "lookup": {
+    "p_1_0_0_3": 0,
+    "p_1_2_1_3": 0,
+    "p_0_0_1_1": 10,
+    "p_0_2_2_0": 0,
+    "p_0_2_0_1": 20,
+    "p_0_1_1_0": 20,
+    "p_1_2_2_3": 0,
+    "p_1_2_0_3": 20,
+    "p_0_1_0_1": 20,
+    "p_0_0_1_0": 3,
+    "p_1_1_0_3": 0,
+    "p_1_1_0_2": 20,
+    "p_0_1_1_2": 6,
+    "p_1_1_1_3": 9,
+    "p_1_0_1_3": 21
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_2_0",
+        "literal": 0,
+        "span": [
+          441,
+          521
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_1",
+        "literal": 10,
+        "span": [
+          191,
+          291
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_2_3",
+        "parents": [
+          "p_0_2_2_0"
+        ],
+        "aliases": [
+          "p_1_2_2_3",
+          "Sparkling Water's Ingredient"
+        ],
+        "expression": "p_0_2_2_0",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Tea's Bell Pepper"
+        ],
+        "expression": "(7 + (0 - p_0_0_1_1))",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Google Express's Hot Chocolate"
+        ],
+        "expression": "(p_0_2_0_1 + 0)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_1_2_2_3",
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Manufacturing District's Google Express"
+        ],
+        "expression": "(p_1_2_2_3 - p_0_1_0_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_3",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_3",
+          "Google Express's Ingredient"
+        ],
+        "expression": "(p_0_1_0_1 * 0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Peapod's Tea"
+        ],
+        "expression": "p_0_2_0_1",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_0_3",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_1_2_0_3",
+          "Tea's Ingredient"
+        ],
+        "expression": "p_0_2_0_1",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_0_2",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_1_1_0_2",
+          "Google Express's Product"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_2",
+        "parents": [
+          "p_1_1_0_2",
+          "p_0_2_2_0"
+        ],
+        "aliases": [
+          "p_0_1_1_2",
+          "Peapod's Sparkling Water"
+        ],
+        "expression": "(9 + (p_1_1_0_2 + p_0_2_2_0))",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_3",
+        "parents": [
+          "p_0_1_1_0",
+          "p_1_2_0_3",
+          "p_0_1_1_2",
+          "p_1_2_2_3"
+        ],
+        "aliases": [
+          "p_1_1_1_3",
+          "Peapod's Ingredient"
+        ],
+        "expression": "((p_0_1_1_0 * p_1_2_0_3) + (p_0_1_1_2 * p_1_2_2_3))",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_3",
+        "parents": [
+          "p_0_0_1_0",
+          "p_1_1_0_3",
+          "p_0_0_1_1",
+          "p_1_1_1_3"
+        ],
+        "aliases": [
+          "p_1_0_1_3",
+          "Manufacturing District's Ingredient"
+        ],
+        "expression": "((p_0_0_1_0 * p_1_1_0_3) + (p_0_0_1_1 * p_1_1_1_3))",
+        "value": 21
+      }
+    ],
+    "edges": [
+      [
+        "p_0_2_2_0",
+        "p_1_2_2_3"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_3"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_1_2_0_3"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_1_1_0_2"
+      ],
+      [
+        "p_1_1_0_2",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_2_2_0",
+        "p_0_1_1_2"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_0_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_0_1_1_2",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_1_2_2_3",
+        "p_1_1_1_3"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_1_0_3",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_3"
+      ],
+      [
+        "p_1_1_1_3",
+        "p_1_0_1_3"
+      ]
+    ]
+  }
+}

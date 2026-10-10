@@ -1,0 +1,248 @@
+{
+  "native_id": "igsm-pr9-20261008-0026-op15",
+  "family_id": "igsm-pr9-20261008-0026-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100826,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "1",
+  "target": "p_0_0_0_1",
+  "question": "The number of each Sealion Show Pool's Sardine equals 10 times as much as the sum of each Sealion Show Pool's Herring and each Tropical Fish Tanks's Sardine. The number of each Sealion Show Pool's Trout equals the sum of each Rockpool Exhibit's Herring, each Rockpool Exhibit's Sardine and each Tropical Fish Tanks's Sardine. The number of each Rockpool Exhibit's Trout equals the sum of each Tropical Fish Tanks's Trout, each Tropical Fish Tanks's Sardine and each Rockpool Exhibit's Herring. The number of each Rockpool Exhibit's Herring equals each Rockpool Exhibit's Sardine. The number of each Tropical Fish Tanks's Trout equals 15 times as much as the difference of each Sealion Show Pool's Animal and each Rockpool Exhibit's Sardine. The number of each Sealion Show Pool's Herring equals each Rockpool Exhibit's Sardine. The number of each Rockpool Exhibit's Sardine equals each Tropical Fish Tanks's Sardine. The number of each Tropical Fish Tanks's Sardine equals 21. The number of each Tropical Fish Tanks's Herring equals 5 more than each Rockpool Exhibit's Trout. How many Herring does Tropical Fish Tanks have?",
+  "lookup": {
+    "p_0_0_0_0": 21,
+    "p_0_0_1_0": 21,
+    "p_0_0_2_1": 21,
+    "p_0_0_2_0": 6,
+    "p_0_0_1_1": 21,
+    "p_0_0_2_2": 17,
+    "p_1_0_2_1": 21,
+    "p_0_0_0_2": 0,
+    "p_0_0_1_2": 19,
+    "p_0_0_0_1": 1
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_0_0",
+        "literal": 21,
+        "span": [
+          917,
+          975
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Rockpool Exhibit's Sardine"
+        ],
+        "expression": "p_0_0_0_0",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Sealion Show Pool's Herring"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_2_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Sealion Show Pool's Sardine"
+        ],
+        "expression": "(10 * (p_0_0_2_1 + p_0_0_0_0))",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Rockpool Exhibit's Herring"
+        ],
+        "expression": "p_0_0_1_0",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_1_0",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Sealion Show Pool's Trout"
+        ],
+        "expression": "((p_0_0_1_1 + p_0_0_1_0) + p_0_0_0_0)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Sealion Show Pool's Animal"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Tropical Fish Tanks's Trout"
+        ],
+        "expression": "(15 * (p_1_0_2_1 - p_0_0_1_0))",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_0_0_2",
+          "p_0_0_0_0",
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Rockpool Exhibit's Trout"
+        ],
+        "expression": "((p_0_0_0_2 + p_0_0_0_0) + p_0_0_1_1)",
+        "value": 19
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Tropical Fish Tanks's Herring"
+        ],
+        "expression": "(5 + p_0_0_1_2)",
+        "value": 1
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_0_1"
+      ]
+    ]
+  }
+}

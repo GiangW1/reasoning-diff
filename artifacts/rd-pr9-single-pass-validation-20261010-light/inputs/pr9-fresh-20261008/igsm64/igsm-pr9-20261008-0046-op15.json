@@ -1,0 +1,313 @@
+{
+  "native_id": "igsm-pr9-20261008-0046-op15",
+  "family_id": "igsm-pr9-20261008-0046-op15",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100846,
+  "mod": 23,
+  "op": 15,
+  "n_op": 15,
+  "answer": "20",
+  "target": "p_1_0_2_1",
+  "question": "The number of each Metropolitan University's Public Administration Classroom equals 18 times as much as each Counseling Room's Padded Backpack. The number of each Archeology Lab's Sling Backpack equals each Counseling Room's Padded Backpack. The number of each Padded Backpack's Paper Clip equals 4. The number of each Meadowland University's Counseling Room equals the difference of each Archeology Lab's Bookbag and each Metropolitan University's Counseling Room. The number of each Metropolitan University's Counseling Room equals 21 times as much as each Archeology Lab's Backpack. The number of each Counseling Room's Padded Backpack equals each Counseling Room's Bookbag. The number of each Public Administration Classroom's Sling Backpack equals each Counseling Room's Padded Backpack. The number of each Padded Backpack's Glue Stick equals 21 times as much as the sum of each Metropolitan University's Backpack and each Counseling Room's Padded Backpack. The number of each Archeology Lab's Bookbag equals the difference of each Bookbag's Glue Stick and each Archeology Lab's Sling Backpack. The number of each Skyview University's Archeology Lab equals 16. The number of each Counseling Room's Sling Backpack equals 8 more than each Skyview University's Archeology Lab. The number of each Public Administration Classroom's Bookbag equals 10 times as much as the sum of each Metropolitan University's Archeology Lab and each Metropolitan University's Counseling Room. The number of each Skyview University's Counseling Room equals the difference of each Padded Backpack's Paper Clip and each Meadowland University's Public Administration Classroom. The number of each Sling Backpack's Paper Clip equals 11 more than each Sling Backpack's Glue Stick. The number of each Meadowland University's Public Administration Classroom equals the difference of each Metropolitan University's Classroom and each Metropolitan University's Public Administration Classroom. The number of each Public Administration Classroom's Padded Backpack equals 9 more than each Skyview University's Archeology Lab. The number of each Bookbag's Paper Clip equals 12. The number of each Bookbag's Glue Stick equals 5. The number of each Counseling Room's Bookbag equals 2. The number of each Metropolitan University's Archeology Lab equals the sum of each Counseling Room's Padded Backpack, each Metropolitan University's Public Administration Classroom and each Archeology Lab's Sling Backpack. The number of each Sling Backpack's Glue Stick equals 4. How many Classroom does Meadowland University have?",
+  "lookup": {
+    "p_0_2_0_1": 12,
+    "p_0_2_1_0": 4,
+    "p_0_0_0_1": 16,
+    "p_0_1_0_1": 1,
+    "p_0_2_1_1": 15,
+    "p_0_2_2_1": 4,
+    "p_0_2_0_0": 5,
+    "p_0_1_2_2": 2,
+    "p_0_1_0_0": 2,
+    "p_0_1_0_2": 2,
+    "p_1_1_0_2": 5,
+    "p_0_1_1_1": 2,
+    "p_0_0_1_2": 13,
+    "p_0_0_1_1": 17,
+    "p_0_1_2_1": 2,
+    "p_0_1_1_0": 3,
+    "p_1_1_1_2": 5,
+    "p_0_0_1_0": 13,
+    "p_0_0_2_0": 13,
+    "p_1_0_1_1": 20,
+    "p_0_1_2_0": 1,
+    "p_1_1_2_2": 5,
+    "p_1_0_1_2": 8,
+    "p_0_0_2_2": 7,
+    "p_0_2_2_0": 3,
+    "p_1_0_2_1": 20,
+    "p_0_0_0_0": 20
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_2_0_0",
+        "literal": 5,
+        "span": [
+          2148,
+          2196
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_0",
+        "literal": 2,
+        "span": [
+          2198,
+          2251
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_2",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_0_2",
+          "Counseling Room's Padded Backpack"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Archeology Lab's Sling Backpack"
+        ],
+        "expression": "p_0_1_0_2",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_2_0_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Archeology Lab's Bookbag"
+        ],
+        "expression": "(p_0_2_0_0 - p_0_1_1_1)",
+        "value": 3
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Archeology Lab's Backpack"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Metropolitan University's Counseling Room"
+        ],
+        "expression": "(21 * p_1_1_1_2)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Meadowland University's Counseling Room"
+        ],
+        "expression": "(p_0_1_1_0 - p_0_0_1_0)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_2",
+        "parents": [
+          "p_0_1_0_2"
+        ],
+        "aliases": [
+          "p_0_0_1_2",
+          "Metropolitan University's Public Administration Classroom"
+        ],
+        "expression": "(18 * p_0_1_0_2)",
+        "value": 13
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_0_2",
+          "p_0_0_1_2",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Metropolitan University's Archeology Lab"
+        ],
+        "expression": "((p_0_1_0_2 + p_0_0_1_2) + p_0_1_1_1)",
+        "value": 17
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_1_0_1_1",
+          "Metropolitan University's Classroom"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_0_1_1) + p_0_0_1_2)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_1_0_1_1",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Meadowland University's Public Administration Classroom"
+        ],
+        "expression": "(p_1_0_1_1 - p_0_0_1_2)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Meadowland University's Classroom"
+        ],
+        "expression": "(p_0_0_2_0 + p_0_0_2_2)",
+        "value": 20
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_0",
+        "p_0_1_0_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_2_0_0",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_0_1_2"
+      ],
+      [
+        "p_0_1_0_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_1_0_1_1"
+      ],
+      [
+        "p_1_0_1_1",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ]
+    ]
+  }
+}

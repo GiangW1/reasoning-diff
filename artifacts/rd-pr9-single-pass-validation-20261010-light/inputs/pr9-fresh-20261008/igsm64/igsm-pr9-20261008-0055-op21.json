@@ -1,0 +1,415 @@
+{
+  "native_id": "igsm-pr9-20261008-0055-op21",
+  "family_id": "igsm-pr9-20261008-0055-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100855,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "10",
+  "target": "p_0_2_0_0",
+  "question": "The number of each Amygdala's Platelets equals 10 more than the difference of each Unicorn's Amygdala and each Temperate Evergreen Forest's Vampire. The number of each Amygdala's Myeloblasts equals each Pegasus's Organs. The number of each Rainforest's Vampire equals each Unicorn's Medulla Oblongata. The number of each Medulla Oblongata's Dendritic Cells equals the sum of each Amygdala's Myeloblasts and each Unicorn's Amygdala. The number of each Vampire's Medulla Oblongata equals each Amygdala's Platelets. The number of each Temperate Evergreen Forest's Pegasus equals each Vampire's Organs. The number of each Pegasus's Amygdala equals each Temperate Evergreen Forest's Pegasus. The number of each Pegasus's Medulla Oblongata equals the difference of each Temperate Evergreen Forest's Unicorn and each Unicorn's Amygdala. The number of each Unicorn's Medulla Oblongata equals each Medulla Oblongata's Cells. The number of each Temperate Evergreen Forest's Vampire equals each Unicorn's Amygdala. The number of each Rainforest's Unicorn equals 19 times as much as each Rainforest's Vampire. The number of each Temperate Evergreen Forest's Unicorn equals 9 times as much as each Temperate Evergreen Forest's Vampire. The number of each Medulla Oblongata's Platelets equals the difference of each Medulla Oblongata's Dendritic Cells and each Temperate Evergreen Forest's Unicorn. The number of each Vampire's Amygdala equals 10 more than each Temperate Evergreen Forest's Vampire. The number of each Unicorn's Amygdala equals 21. The number of each Amygdala's Dendritic Cells equals the sum of each Rainforest's Unicorn, each Rainforest's Vampire and each Vampire's Organs. How many Dendritic Cells does Amygdala have?",
+  "lookup": {
+    "p_0_1_0_0": 21,
+    "p_0_0_0_1": 21,
+    "p_0_2_0_1": 10,
+    "p_0_0_0_0": 5,
+    "p_0_1_1_0": 8,
+    "p_0_1_2_1": 7,
+    "p_0_1_1_1": 10,
+    "p_1_1_1_2": 18,
+    "p_0_0_0_2": 18,
+    "p_0_1_2_0": 18,
+    "p_1_1_2_2": 2,
+    "p_0_2_0_2": 2,
+    "p_0_2_1_0": 0,
+    "p_0_2_1_1": 18,
+    "p_1_2_1_3": 18,
+    "p_0_1_0_1": 18,
+    "p_0_0_1_1": 18,
+    "p_0_0_1_0": 20,
+    "p_0_2_0_0": 10
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_1_0_0",
+        "literal": 21,
+        "span": [
+          1486,
+          1533
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Temperate Evergreen Forest's Vampire"
+        ],
+        "expression": "p_0_1_0_0",
+        "value": 21
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_0",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_0",
+          "Vampire's Amygdala"
+        ],
+        "expression": "(10 + p_0_0_0_1)",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_1",
+        "parents": [
+          "p_0_1_0_0",
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_2_0_1",
+          "Amygdala's Platelets"
+        ],
+        "expression": "(10 + (p_0_1_0_0 - p_0_0_0_1))",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_1_1",
+        "parents": [
+          "p_0_2_0_1"
+        ],
+        "aliases": [
+          "p_0_1_1_1",
+          "Vampire's Medulla Oblongata"
+        ],
+        "expression": "p_0_2_0_1",
+        "value": 10
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_1_2",
+        "parents": [
+          "p_0_1_1_0",
+          "p_0_1_1_1"
+        ],
+        "aliases": [
+          "p_1_1_1_2",
+          "Vampire's Organs"
+        ],
+        "expression": "(p_0_1_1_0 + p_0_1_1_1)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Temperate Evergreen Forest's Pegasus"
+        ],
+        "expression": "p_1_1_1_2",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_0",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_1_2_0",
+          "Pegasus's Amygdala"
+        ],
+        "expression": "p_0_0_0_2",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_0_1"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Temperate Evergreen Forest's Unicorn"
+        ],
+        "expression": "(9 * p_0_0_0_1)",
+        "value": 5
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_2_1",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_1_2_1",
+          "Pegasus's Medulla Oblongata"
+        ],
+        "expression": "(p_0_0_0_0 - p_0_1_0_0)",
+        "value": 7
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_1_2_2",
+        "parents": [
+          "p_0_1_2_0",
+          "p_0_1_2_1"
+        ],
+        "aliases": [
+          "p_1_1_2_2",
+          "Pegasus's Organs"
+        ],
+        "expression": "(p_0_1_2_0 + p_0_1_2_1)",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_2",
+        "parents": [
+          "p_1_1_2_2"
+        ],
+        "aliases": [
+          "p_0_2_0_2",
+          "Amygdala's Myeloblasts"
+        ],
+        "expression": "p_1_1_2_2",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_0",
+        "parents": [
+          "p_0_2_0_2",
+          "p_0_1_0_0"
+        ],
+        "aliases": [
+          "p_0_2_1_0",
+          "Medulla Oblongata's Dendritic Cells"
+        ],
+        "expression": "(p_0_2_0_2 + p_0_1_0_0)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_1_1",
+        "parents": [
+          "p_0_2_1_0",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_2_1_1",
+          "Medulla Oblongata's Platelets"
+        ],
+        "expression": "(p_0_2_1_0 - p_0_0_0_0)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_2_1_3",
+        "parents": [
+          "p_0_2_1_0",
+          "p_0_2_1_1"
+        ],
+        "aliases": [
+          "p_1_2_1_3",
+          "Medulla Oblongata's Cells"
+        ],
+        "expression": "(p_0_2_1_0 + p_0_2_1_1)",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_1_0_1",
+        "parents": [
+          "p_1_2_1_3"
+        ],
+        "aliases": [
+          "p_0_1_0_1",
+          "Unicorn's Medulla Oblongata"
+        ],
+        "expression": "p_1_2_1_3",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_1_0_1"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Rainforest's Vampire"
+        ],
+        "expression": "p_0_1_0_1",
+        "value": 18
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_1_1"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Rainforest's Unicorn"
+        ],
+        "expression": "(19 * p_0_0_1_1)",
+        "value": 20
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_2_0_0",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_1",
+          "p_1_1_1_2"
+        ],
+        "aliases": [
+          "p_0_2_0_0",
+          "Amygdala's Dendritic Cells"
+        ],
+        "expression": "((p_0_0_1_0 + p_0_0_1_1) + p_1_1_1_2)",
+        "value": 10
+      }
+    ],
+    "edges": [
+      [
+        "p_0_1_0_0",
+        "p_0_0_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_1_1_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_2_0_1"
+      ],
+      [
+        "p_0_2_0_1",
+        "p_0_1_1_1"
+      ],
+      [
+        "p_0_1_1_0",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_0_1_1_1",
+        "p_1_1_1_2"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_1_2_0"
+      ],
+      [
+        "p_0_0_0_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_1_2_1"
+      ],
+      [
+        "p_0_1_2_0",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_0_1_2_1",
+        "p_1_1_2_2"
+      ],
+      [
+        "p_1_1_2_2",
+        "p_0_2_0_2"
+      ],
+      [
+        "p_0_2_0_2",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_1_0_0",
+        "p_0_2_1_0"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_2_1_1"
+      ],
+      [
+        "p_0_2_1_0",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_0_2_1_1",
+        "p_1_2_1_3"
+      ],
+      [
+        "p_1_2_1_3",
+        "p_0_1_0_1"
+      ],
+      [
+        "p_0_1_0_1",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_2_0_0"
+      ],
+      [
+        "p_1_1_1_2",
+        "p_0_2_0_0"
+      ]
+    ]
+  }
+}

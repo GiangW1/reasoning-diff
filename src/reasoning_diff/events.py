@@ -12,7 +12,7 @@ from .graphs import ancestors
 from .schema import Event, EventIdentity, Task, canonical_value
 
 NUMBER = r"[+-]?(?:(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:\s*/\s*[+-]?\d+)?|\.\d+)"
-ALIGNMENT_POLICY = "printed_expression_views_forced_sequence_v9"
+ALIGNMENT_POLICY = "printed_expression_views_entity_anchored_v10"
 
 
 def context_entity_token(node_id):
@@ -148,6 +148,11 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     scope, offset, declared, priorities = None, 0, {}, {}
     def register(alias, entity, position, priority=2):
         key = alias.casefold()
+        # A known destination in "q = Full source name = 3" is a copy
+        # assignment, not a declaration that renames q to its source.
+        existing = names.get(_entity_name(alias), {})
+        if existing and entity[1] not in existing:
+            return
         prior = declared.get(key)
         if key not in declared or priority > priorities[key]:
             if prior is not None and prior[0][1] == entity[1]:
@@ -203,7 +208,7 @@ def _declared_aliases(text: str, entities: list[tuple]) -> dict[str, tuple]:
     # notation on the next line. Its named subject must be in the same
     # paragraph as the introducer; do not inherit topics across narration.
     topics = re.compile(r"(?P<name>" + human_names + r")\s*(?:equals?\b|=|is\b)", re.IGNORECASE) if human_names else None
-    introduction = re.compile(r"\b(?:let(?:'s| me| us)?\s+(?:denote|write|note)\s+(?:that|this)\s+as"
+    introduction = re.compile(r"\b(?:let(?:'s| me| us)?\s+(?:denote|write|note)\s+(?:that|this)(?:\s+as|(?=\s*:))"
                               r"|so|then|therefore)\s*[:,]?\s*(?:[-*+•][ \t]+)?(?P<symbol>" + symbol + r")\s*=", re.IGNORECASE)
     topic_matches = list(topics.finditer(text)) if topics else []
     for notation in introduction.finditer(text):
@@ -321,6 +326,13 @@ def _expression_tree(expression: str, entities: list[tuple]):
         if isinstance(node, ast.Constant):
             node.value = "number"
         elif isinstance(node, ast.Name):
+            if node.id not in symbols and ('_' in node.id or any(c.isupper() for c in node.id)):
+                # Conventional, unique names can occur only on an RHS;
+                # they do not require a later assignment/declaration.
+                candidates = {entity[1] for entity in entities
+                              if entity[0] != entity[1] and _abbreviates(node.id, entity[0])}
+                if len(candidates) == 1:
+                    symbols[node.id] = next(iter(candidates))
             node.id = symbols.get(node.id, "unresolved:" + node.id.casefold())
     def canonical(node):
         if isinstance(node, ast.BinOp):
@@ -588,6 +600,11 @@ def _parse_assignments(text: str, task: Task, entities: list[tuple]) -> list[Eve
             clause_start = max(line_start, text.rfind(";", 0, start) + 1)
             preceding = text[clause_start:start]
             sentence_prefix = re.split(r"[.!?](?!\d)", preceding)[-1]
+            # In "substituting the value for Swan: 21 + 2 = 23", Swan
+            # is an operand. The printed result belongs to the prior head.
+            if (re.search(r"\b(?:substitut\w*|replac\w*)\b", sentence_prefix, re.I)
+                    and re.search(r"\b(?:for|of)\s*(?:(?:the\s+)?number of\s*)?$", sentence_prefix, re.I)):
+                continue
             if (re.search(r"\bif\s+(?:(?:the\s+)?number of\s*)?$", sentence_prefix, re.I)
                     or re.search(r"\bif\b.*(?:=|\bis\b|\bequals?\b)", sentence_prefix, re.I)):
                 # An if-clause and its same-sentence consequent describe a
@@ -895,7 +912,7 @@ def _compatible_events(a, b):
     return bool(av & bv)
 
 
-def align_events(base: list[Event], changed: list[Event]) -> dict:
+def _align_ordered_events(base: list[Event], changed: list[Event]) -> dict:
     """Retain only correspondences forced by all optimal ordered alignments.
 
     A correspondence assumes stage order is preserved in this region. The
@@ -997,6 +1014,67 @@ def align_events(base: list[Event], changed: list[Event]) -> dict:
                            "ambiguous": [{"left": removed, "right": added, "reason": "non_forced_or_incompatible_step"}] if removed or added else [],
                            "detector": ALIGNMENT_POLICY,
                            "strategy_detector": "status_field_only", "scanned": False}}
+
+
+def align_events(base: list[Event], changed: list[Event]) -> dict:
+    """Preserve ordered anchors and recover explicit operations per entity.
+
+    Different quantities need not be narrated in the same global order.
+    Recovery still requires a forced phase/operation correspondence inside
+    the same entity, scope and generation region, bounded by existing anchors.
+    Bare scalar confirmations and ambiguous duplicates cannot be recovered
+    merely because an entity occurs the same number of times.
+    """
+    result = _align_ordered_events(base, changed)
+    if result['structural']['detector'] != ALIGNMENT_POLICY:
+        return result  # Registered quantity slots and legacy identities have their own contracts.
+    group = lambda e: (e.identity.entity_or_expression, e.node_id, e.identity.scope, e.event_region)
+    left, right = defaultdict(list), defaultdict(list)
+    for events, grouped in ((base, left), (changed, right)):
+        for event in events:
+            if event.status == 'ok':
+                grouped[group(event)].append(event)
+    existing = list(result['pairs'])
+    recovered, certificates = [], []
+    for key in sorted(set(left) & set(right)):
+        aa, bb = sorted(left[key], key=lambda e: e.start), sorted(right[key], key=lambda e: e.start)
+        anchors = sorted([(a, b) for a, b in existing if group(a) == key], key=lambda pair: pair[0].start)
+        boundaries = [(None, None), *anchors, (None, None)]
+        for (before_a, before_b), (after_a, after_b) in zip(boundaries, boundaries[1:]):
+            segment_a = [e for e in aa if (before_a is None or e.start > before_a.start)
+                         and (after_a is None or e.start < after_a.start)]
+            segment_b = [e for e in bb if (before_b is None or e.start > before_b.start)
+                         and (after_b is None or e.start < after_b.start)]
+            if not segment_a or not segment_b:
+                continue
+            local = _align_ordered_events(segment_a, segment_b)
+            proof = {c['left']: c for c in local.get('pair_certificates', [])}
+            for a, b in local['pairs']:
+                if a.event_phase not in {'calculation', 'copy', 'reduction', 'residue_copy'}:
+                    continue
+                if any(e.expression_signature in {'', 'scalar', 'text'} or 'unresolved:' in e.expression_signature
+                       for e in (a, b)):
+                    continue
+                certificate = proof.get(a.identity.key())
+                if certificate is None:
+                    continue
+                recovered.append((a, b))
+                certificates.append({**certificate, 'recovery': 'entity_local_explicit_operation',
+                    'order_scope': 'same_entity_scope_and_region',
+                    'preceding_anchor': None if before_a is None else [before_a.identity.key(), before_b.identity.key()],
+                    'following_anchor': None if after_a is None else [after_a.identity.key(), after_b.identity.key()]})
+    result['pairs'].extend(recovered)
+    result['pair_certificates'].extend(certificates)
+    matched_a = {a.identity.key() for a, _ in result['pairs']}
+    matched_b = {b.identity.key() for _, b in result['pairs']}
+    result['removed'] = [e.identity.key() for e in base if e.identity.key() not in matched_a]
+    result['added'] = [e.identity.key() for e in changed if e.identity.key() not in matched_b]
+    result['unaligned'] = result['removed'] + result['added']
+    result['unmatched_left'] = [row for row in result['unmatched_left'] if row['left'] not in matched_a]
+    result['structural']['disappeared'] = result['removed']
+    result['structural']['ambiguous'] = ([{'left': result['removed'], 'right': result['added'],
+                                         'reason': 'non_forced_or_incompatible_step'}] if result['unaligned'] else [])
+    return result
 
 
 def align_events_monotonic(base: list[Event], changed: list[Event]) -> dict:

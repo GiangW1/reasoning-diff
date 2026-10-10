@@ -1,0 +1,18 @@
+{
+  "status": "stopped_for_decoder_diagnostic",
+  "reason": "constraint_suppressed_model_step_closing_token_and_induced_repetition_until_each_512_token_cap",
+  "n_completed": 1,
+  "completed_ids": [
+    "trace-reference:b4afa1c7f06cc0d24f298ce7"
+  ],
+  "n_format_passed": 1,
+  "possibly_interrupted_request": {
+    "id": "trace-reference:6c1c437361f13bb7d3585a76",
+    "role": "reference",
+    "seed": 0,
+    "task_id": "igsm-pr9-20261008-0004-op5::noop:front:high"
+  },
+  "semantic_rule_changes_cannot_reuse_these_responses": true,
+  "scientific_conclusion": null,
+  "at": "2026-10-09T19:22:57.106824+08:00"
+}

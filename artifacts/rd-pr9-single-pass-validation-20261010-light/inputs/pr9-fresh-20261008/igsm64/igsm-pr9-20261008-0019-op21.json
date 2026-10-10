@@ -1,0 +1,268 @@
+{
+  "native_id": "igsm-pr9-20261008-0019-op21",
+  "family_id": "igsm-pr9-20261008-0019-op21",
+  "variant_id": "base",
+  "revision": "a1ed1d04600add811beb08b58d9912ed30999642",
+  "seed": 2026100819,
+  "mod": 23,
+  "op": 21,
+  "n_op": 21,
+  "answer": "2",
+  "target": "p_0_0_0_1",
+  "question": "The number of each Chameleon Cage's Poison Dart Frog equals 1 more than the sum of each Toad Abode's Giant Salamander, each Frog Bog's Poison Dart Frog and each Toad Abode's Poison Dart Frog. The number of each Toad Abode's Giant Salamander equals 1 times as much as the difference of each Toad Abode's Poison Dart Frog and each Toad Abode's Axolotl. The number of each Toad Abode's Poison Dart Frog equals 9 more than each Toad Abode's Axolotl. The number of each Chameleon Cage's Axolotl equals 13 more than the sum of each Frog Bog's Animal, each Frog Bog's Giant Salamander and each Chameleon Cage's Poison Dart Frog. The number of each Frog Bog's Poison Dart Frog equals 18 times as much as the difference of each Toad Abode's Giant Salamander and each Toad Abode's Poison Dart Frog. The number of each Toad Abode's Axolotl equals 20. The number of each Frog Bog's Axolotl equals 16 times as much as the sum of each Chameleon Cage's Poison Dart Frog, each Toad Abode's Axolotl and each Frog Bog's Poison Dart Frog. The number of each Chameleon Cage's Giant Salamander equals each Chameleon Cage's Axolotl. The number of each Frog Bog's Giant Salamander equals 0 more than the sum of each Toad Abode's Poison Dart Frog, each Frog Bog's Poison Dart Frog and each Toad Abode's Axolotl. How many Giant Salamander does Chameleon Cage have?",
+  "lookup": {
+    "p_0_0_1_2": 20,
+    "p_0_0_1_0": 6,
+    "p_0_0_1_1": 9,
+    "p_0_0_2_0": 8,
+    "p_0_0_0_0": 1,
+    "p_0_0_2_1": 11,
+    "p_0_0_2_2": 4,
+    "p_1_0_2_1": 0,
+    "p_0_0_0_2": 2,
+    "p_0_0_0_1": 2
+  },
+  "G": {
+    "nodes": [
+      "structure_only"
+    ],
+    "edges": []
+  },
+  "template": {
+    "nodes": [
+      {
+        "kind": "shared_rng",
+        "id": [
+          -1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "premise",
+        "param": "p_0_0_1_2",
+        "literal": 20,
+        "span": [
+          789,
+          838
+        ]
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_0",
+        "parents": [
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_0",
+          "Toad Abode's Poison Dart Frog"
+        ],
+        "expression": "(9 + p_0_0_1_2)",
+        "value": 6
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_1_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_1_1",
+          "Toad Abode's Giant Salamander"
+        ],
+        "expression": "(1 * (p_0_0_1_0 - p_0_0_1_2))",
+        "value": 9
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_0",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_2_0",
+          "Frog Bog's Poison Dart Frog"
+        ],
+        "expression": "(18 * (p_0_0_1_1 - p_0_0_1_0))",
+        "value": 8
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_1",
+        "parents": [
+          "p_0_0_1_0",
+          "p_0_0_2_0",
+          "p_0_0_1_2"
+        ],
+        "aliases": [
+          "p_0_0_2_1",
+          "Frog Bog's Giant Salamander"
+        ],
+        "expression": "(0 + ((p_0_0_1_0 + p_0_0_2_0) + p_0_0_1_2))",
+        "value": 11
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_0",
+        "parents": [
+          "p_0_0_1_1",
+          "p_0_0_2_0",
+          "p_0_0_1_0"
+        ],
+        "aliases": [
+          "p_0_0_0_0",
+          "Chameleon Cage's Poison Dart Frog"
+        ],
+        "expression": "(1 + ((p_0_0_1_1 + p_0_0_2_0) + p_0_0_1_0))",
+        "value": 1
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_2_2",
+        "parents": [
+          "p_0_0_0_0",
+          "p_0_0_1_2",
+          "p_0_0_2_0"
+        ],
+        "aliases": [
+          "p_0_0_2_2",
+          "Frog Bog's Axolotl"
+        ],
+        "expression": "(16 * ((p_0_0_0_0 + p_0_0_1_2) + p_0_0_2_0))",
+        "value": 4
+      },
+      {
+        "kind": "compute",
+        "param": "p_1_0_2_1",
+        "parents": [
+          "p_0_0_2_0",
+          "p_0_0_2_1",
+          "p_0_0_2_2"
+        ],
+        "aliases": [
+          "p_1_0_2_1",
+          "Frog Bog's Animal"
+        ],
+        "expression": "((p_0_0_2_0 + p_0_0_2_1) + p_0_0_2_2)",
+        "value": 0
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_2",
+        "parents": [
+          "p_1_0_2_1",
+          "p_0_0_2_1",
+          "p_0_0_0_0"
+        ],
+        "aliases": [
+          "p_0_0_0_2",
+          "Chameleon Cage's Axolotl"
+        ],
+        "expression": "(13 + ((p_1_0_2_1 + p_0_0_2_1) + p_0_0_0_0))",
+        "value": 2
+      },
+      {
+        "kind": "compute",
+        "param": "p_0_0_0_1",
+        "parents": [
+          "p_0_0_0_2"
+        ],
+        "aliases": [
+          "p_0_0_0_1",
+          "Chameleon Cage's Giant Salamander"
+        ],
+        "expression": "p_0_0_0_2",
+        "value": 2
+      }
+    ],
+    "edges": [
+      [
+        "p_0_0_1_2",
+        "p_0_0_1_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_1_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_2_1"
+      ],
+      [
+        "p_0_0_1_1",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_1_0",
+        "p_0_0_0_0"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_1_2",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_0_0_2_2"
+      ],
+      [
+        "p_0_0_2_0",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_0_0_2_2",
+        "p_1_0_2_1"
+      ],
+      [
+        "p_1_0_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_2_1",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_0",
+        "p_0_0_0_2"
+      ],
+      [
+        "p_0_0_0_2",
+        "p_0_0_0_1"
+      ]
+    ]
+  }
+}

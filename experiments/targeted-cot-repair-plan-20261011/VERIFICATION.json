@@ -1,0 +1,573 @@
+{
+  "artifact_type": "review_only_research_proposal",
+  "revision": 2,
+  "date": "2026-10-11",
+  "repository": "GiangW1/reasoning-diff",
+  "pull_request": 10,
+  "reviewed_remote_parent": "f2a374c039c807a974b0cc1becfcfd2f68bde51d",
+  "previous_plan_commit": "9442880f25353c927d1cef4b131c0f29d5c59e94",
+  "prior_server_review": "experiments/targeted-cot-repair-plan-review-20261011/REPORT.zh-CN.md",
+  "model_experiments_run": false,
+  "experiment_code_changed": false,
+  "execution_authorized": false,
+  "current_round_server_review_completed": false,
+  "files": [
+    {
+      "path": "PLAN.zh-CN.md",
+      "sha256": "52e5e8055b10f4f8ffb9ca89de083e0cf75504bdbd9664305e5cac38fe5c562c"
+    },
+    {
+      "path": "REVIEW_REQUEST.zh-CN.md",
+      "sha256": "a2b47321bb43b3074767c1c09bb1d896653f8d6c0e2aa726939c19f6c2013737"
+    }
+  ],
+  "verification_scope": "本地纸面反例与确定性算术核对；不是模型实验、实验实现或自然语言解析测试，也不是独立复核、统计功效或机制证明。",
+  "fixture_scope": "H/P/Y、候选编号和合法性均为构造输入，不通过模型或自动语义解析获得。记录实际构造输入与计算输出，不把规则示例冒充数据证据。",
+  "joint_definition": "J = sum(H_i * P_i * 1[S_policy_i=1 and N_i=0]) - sum(1[S_policy_i=0 and N_i=1]); K=ceil(m/4); all losses retained.",
+  "planned_request_upper_bounds": {
+    "interface": 32,
+    "original_trajectories": 48,
+    "localizers": 96,
+    "error_repairs": 168,
+    "clean_repairs": 144,
+    "total": 488
+  },
+  "annotation_budget_note": "488不包含另行模型标注或语义裁决；如采用模型复核必须先修订预算与独立性声明。",
+  "planned_decode_caps": {
+    "S_T": {
+      "localize": 256,
+      "repair": 128,
+      "continuation": 512,
+      "total": 896
+    },
+    "G": {
+      "review_and_patch": 384,
+      "continuation": 512,
+      "total": 896
+    },
+    "F": {
+      "total": 896
+    }
+  },
+  "static_checks_summary": {
+    "case_count": 22,
+    "passed": 22,
+    "joint_invariant_assignments": 16
+  },
+  "static_checks": [
+    {
+      "name": "disjoint_localization_and_recovery_fails_joint_gate",
+      "input": [
+        {
+          "H": 1,
+          "P": 1,
+          "S": 0,
+          "N": 0
+        },
+        {
+          "H": 1,
+          "P": 1,
+          "S": 0,
+          "N": 0
+        },
+        {
+          "H": 1,
+          "P": 1,
+          "S": 0,
+          "N": 0
+        },
+        {
+          "H": 1,
+          "P": 1,
+          "S": 0,
+          "N": 0
+        },
+        {
+          "H": 1,
+          "P": 1,
+          "S": 0,
+          "N": 0
+        },
+        {
+          "H": 1,
+          "P": 1,
+          "S": 0,
+          "N": 0
+        },
+        {
+          "H": 0,
+          "P": 0,
+          "S": 1,
+          "N": 0
+        },
+        {
+          "H": 0,
+          "P": 0,
+          "S": 1,
+          "N": 0
+        }
+      ],
+      "actual": {
+        "hits": 6,
+        "delta": 2,
+        "J": 0,
+        "K": 2,
+        "passJoint": false
+      },
+      "expected": {
+        "hits": 6,
+        "delta": 2,
+        "J": 0,
+        "K": 2,
+        "passJoint": false
+      },
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "same_task_root_patch_recovery_can_pass",
+      "input": [
+        {
+          "H": 1,
+          "P": 1,
+          "S": 1,
+          "N": 0
+        },
+        {
+          "H": 1,
+          "P": 1,
+          "S": 1,
+          "N": 0
+        },
+        {
+          "H": 1,
+          "P": 0,
+          "S": 0,
+          "N": 0
+        },
+        {
+          "H": 1,
+          "P": 0,
+          "S": 0,
+          "N": 0
+        },
+        {
+          "H": 1,
+          "P": 0,
+          "S": 0,
+          "N": 0
+        },
+        {
+          "H": 1,
+          "P": 0,
+          "S": 0,
+          "N": 0
+        },
+        {
+          "H": 0,
+          "P": 0,
+          "S": 0,
+          "N": 0
+        },
+        {
+          "H": 0,
+          "P": 0,
+          "S": 0,
+          "N": 0
+        }
+      ],
+      "actual": {
+        "delta": 2,
+        "J": 2,
+        "passJoint": true
+      },
+      "expected": {
+        "delta": 2,
+        "J": 2,
+        "passJoint": true
+      },
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "loss_on_mislocalized_task_is_not_exempt",
+      "input": [
+        {
+          "H": 1,
+          "P": 1,
+          "S": 1,
+          "N": 0
+        },
+        {
+          "H": 0,
+          "P": 0,
+          "S": 0,
+          "N": 1
+        }
+      ],
+      "actual": 0,
+      "expected": 0,
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "invalid_or_noop_patch_gets_no_joint_win",
+      "input": {
+        "H": 1,
+        "P": 0,
+        "S": 1,
+        "N": 0
+      },
+      "actual": 0,
+      "expected": 0,
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "recovery_does_not_relabel_wrong_location",
+      "input": {
+        "H": 0,
+        "P": 1,
+        "S": 1,
+        "N": 0
+      },
+      "actual": 0,
+      "expected": 0,
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "nontriggered_policy_cannot_borrow_forced_patch",
+      "input": {
+        "forceP": 1,
+        "policyP": 0,
+        "N": 1,
+        "policyS": 1
+      },
+      "actual": 0,
+      "expected": 0,
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "joint_never_exceeds_total_net_gain",
+      "input": {
+        "assignments": 16
+      },
+      "actual": true,
+      "expected": true,
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "every_loss_is_counted",
+      "input": {
+        "lossAssignments": 4
+      },
+      "actual": true,
+      "expected": true,
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "localization_ceiling_not_bad_ability",
+      "input": {
+        "m": 8,
+        "Lt": 7,
+        "Ls": 8,
+        "requiredAdvantage": 2
+      },
+      "actual": {
+        "headroom": 1,
+        "canTestTwoHitAdvantage": false,
+        "absoluteHitGate": true
+      },
+      "expected": {
+        "headroom": 1,
+        "canTestTwoHitAdvantage": false,
+        "absoluteHitGate": true
+      },
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "poor_localization_not_relabelled_ceiling",
+      "input": {
+        "m": 8,
+        "Lt": 4,
+        "Ls": 3
+      },
+      "actual": {
+        "headroom": 4,
+        "canTest": true,
+        "absoluteHitGate": false
+      },
+      "expected": {
+        "headroom": 4,
+        "canTest": true,
+        "absoluteHitGate": false
+      },
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "oracle_headroom_uses_frozen_comparable_subset",
+      "input": [
+        {
+          "eligible": true,
+          "C": 1
+        },
+        {
+          "eligible": true,
+          "C": 1
+        },
+        {
+          "eligible": true,
+          "C": 1
+        },
+        {
+          "eligible": true,
+          "C": 1
+        },
+        {
+          "eligible": true,
+          "C": 1
+        },
+        {
+          "eligible": true,
+          "C": 1
+        },
+        {
+          "eligible": true,
+          "C": 1
+        },
+        {
+          "eligible": true,
+          "C": 1
+        },
+        {
+          "eligible": false,
+          "C": 0
+        },
+        {
+          "eligible": false,
+          "C": 0
+        }
+      ],
+      "actual": {
+        "Q": 8,
+        "failures": 0
+      },
+      "expected": {
+        "Q": 8,
+        "failures": 0
+      },
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "missing_correct_control_not_automatic_loss",
+      "input": {
+        "C_position_available": false
+      },
+      "actual": "comparison_unavailable",
+      "expected": "comparison_unavailable",
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "random_opportunity_uses_unique_in_scope_candidates",
+      "input": {
+        "C": [
+          "r1",
+          "r2",
+          "r3",
+          "r4"
+        ],
+        "R": [
+          "r1",
+          "r1",
+          "outside"
+        ]
+      },
+      "actual": 0.25,
+      "expected": 0.25,
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "outside_root_excluded_from_oracle_not_error_coverage",
+      "input": {
+        "C": [
+          "r1",
+          "r2",
+          "r3",
+          "r4"
+        ],
+        "R": [
+          "r1",
+          "r1",
+          "outside"
+        ]
+      },
+      "actual": {
+        "fullyCovered": false,
+        "retainInErrorCoverage": true
+      },
+      "expected": {
+        "fullyCovered": false,
+        "retainInErrorCoverage": true
+      },
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "budget_limit_is_unchanged",
+      "input": {
+        "interface": 32,
+        "original": 48,
+        "localizers": 96,
+        "error": 168,
+        "clean": 144
+      },
+      "actual": 488,
+      "expected": 488,
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "decode_caps_are_matched_not_total_compute",
+      "input": {
+        "S": [
+          256,
+          128,
+          512
+        ],
+        "G": [
+          384,
+          512
+        ],
+        "F": [
+          896
+        ]
+      },
+      "actual": [
+        896,
+        896,
+        896
+      ],
+      "expected": [
+        896,
+        896,
+        896
+      ],
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "N_can_succeed_without_rewriting_history",
+      "input": {
+        "values": {
+          "v": 99,
+          "w": 79,
+          "z": 161,
+          "h": 106
+        },
+        "oldWrongRecordRetained": true
+      },
+      "actual": 1,
+      "expected": 1,
+      "pass": true,
+      "scope": "仅使用已声明的实际结果，不检验文本解析"
+    },
+    {
+      "name": "missing_consumer_is_not_success",
+      "input": {
+        "values": {
+          "v": 99,
+          "w": 79,
+          "z": 161
+        }
+      },
+      "actual": 0,
+      "expected": 0,
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "unresolved_results_are_not_success",
+      "input": {
+        "values": {
+          "v": 99,
+          "w": 79,
+          "z": 161,
+          "h": 106
+        },
+        "unresolved": true
+      },
+      "actual": 0,
+      "expected": 0,
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "known_protocol_failure_is_fixed_failure",
+      "input": {
+        "values": {
+          "v": 99,
+          "w": 79,
+          "z": 161,
+          "h": 106
+        },
+        "valid": false
+      },
+      "actual": 0,
+      "expected": 0,
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "unknown_pair_bounds_are_directional",
+      "input": {
+        "S": "unknown",
+        "N": "unknown"
+      },
+      "actual": {
+        "min": -1,
+        "max": 1
+      },
+      "expected": {
+        "min": -1,
+        "max": 1
+      },
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    },
+    {
+      "name": "unknown_patch_does_not_hide_loss",
+      "input": {
+        "H": 1,
+        "P": "unknown",
+        "S": 0,
+        "N": 1
+      },
+      "actual": [
+        -1,
+        -1
+      ],
+      "expected": [
+        -1,
+        -1
+      ],
+      "pass": true,
+      "scope": "纸面规则与确定性逻辑"
+    }
+  ],
+  "remaining_review_risks": [
+    "根因区间映射、首次实际提交、假设作用域与补丁P的语义判断仍需独立审查和后续实现验证。",
+    "未来执行前需要冻结具体任务、提示包装、随机表并落实两位复核者；本次不实施或运行模型检查。",
+    "模型是否能在256/128/512生成额度内可靠完成接口未实测。",
+    "候选接口覆盖有限与条件化队列可能限制主张范围，不能靠排除困难样本获得广泛结论。",
+    "小样本阈值和同题联合收益不证明隐藏来源机制或统计显著性。"
+  ]
+}

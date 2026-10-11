@@ -1,0 +1,16 @@
+run,role,seed,condition,expected,found,verified,file_hash_match,file_hash_not_applicable,text_hash_match,archive_hash_match,content_mismatch,missing
+pr8-natural-pilot-20261007-d02a40c,unedited_original,0,base,8,8,8,0,8,8,8,0,0
+pr8-natural-pilot-20261007-d02a40c,unedited_original,1,base,8,8,8,0,8,8,8,0,0
+pr8-natural-pilot-20261007-d02a40c,unedited_original,2,base,8,8,8,0,8,8,8,0,0
+pr9-pilot-20261009,noise,3,base,12,12,12,12,0,12,0,0,0
+pr9-pilot-20261009,noise,3,neutral_noop,12,12,12,12,0,12,0,0,0
+pr9-pilot-20261009,noise,3,related_noop,12,12,12,12,0,12,0,0,0
+pr9-pilot-20261009,reference,0,base,12,12,12,12,0,12,0,0,0
+pr9-pilot-20261009,reference,0,neutral_noop,12,12,12,12,0,12,0,0,0
+pr9-pilot-20261009,reference,0,related_noop,12,12,12,12,0,12,0,0,0
+pr9-validation-natural-20261010,noise,3,base,12,12,12,12,0,12,0,0,0
+pr9-validation-natural-20261010,noise,3,neutral_noop,12,12,12,12,0,12,0,0,0
+pr9-validation-natural-20261010,noise,3,related_noop,12,12,12,12,0,12,0,0,0
+pr9-validation-natural-20261010,reference,0,base,12,12,12,12,0,12,0,0,0
+pr9-validation-natural-20261010,reference,0,neutral_noop,12,12,12,12,0,12,0,0,0
+pr9-validation-natural-20261010,reference,0,related_noop,12,12,12,12,0,12,0,0,0

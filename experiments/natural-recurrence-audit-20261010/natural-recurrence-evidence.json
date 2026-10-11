@@ -1,0 +1,1632 @@
+{
+  "repository_commit": "2d5a76e0065d33c15d72712901a44813216d6290",
+  "no_new_model_runs": true,
+  "labels_are_independently_validated": false,
+  "selection": "PR9 exports: sorted reference trace IDs by digest, first 24 per run; PR8 original unedited traces only.",
+  "trace_counts": {
+    "P": {
+      "base": 10,
+      "related_noop": 9,
+      "neutral_noop": 5
+    },
+    "V": {
+      "base": 8,
+      "related_noop": 8,
+      "neutral_noop": 8
+    },
+    "E": {
+      "base": 24
+    }
+  },
+  "inspected_fulltext_records": 72,
+  "source_focused_records": 17,
+  "warning": "72 is retrieval coverage, not 72 independently or exhaustively annotated chains. No prevalence estimate.",
+  "confirmed_strict_post_correction_same_source_computational_recurrence": 0,
+  "v17_math_check": {
+    "override_node": "p_0_1_0_0",
+    "all_residues": [
+      {
+        "override": 0,
+        "final": 7
+      },
+      {
+        "override": 1,
+        "final": 7
+      },
+      {
+        "override": 2,
+        "final": 7
+      },
+      {
+        "override": 3,
+        "final": 7
+      },
+      {
+        "override": 4,
+        "final": 7
+      },
+      {
+        "override": 5,
+        "final": 7
+      },
+      {
+        "override": 6,
+        "final": 7
+      },
+      {
+        "override": 7,
+        "final": 7
+      },
+      {
+        "override": 8,
+        "final": 7
+      },
+      {
+        "override": 9,
+        "final": 7
+      },
+      {
+        "override": 10,
+        "final": 7
+      },
+      {
+        "override": 11,
+        "final": 7
+      },
+      {
+        "override": 12,
+        "final": 7
+      },
+      {
+        "override": 13,
+        "final": 7
+      },
+      {
+        "override": 14,
+        "final": 7
+      },
+      {
+        "override": 15,
+        "final": 7
+      },
+      {
+        "override": 16,
+        "final": 7
+      },
+      {
+        "override": 17,
+        "final": 7
+      },
+      {
+        "override": 18,
+        "final": 7
+      },
+      {
+        "override": 19,
+        "final": 7
+      },
+      {
+        "override": 20,
+        "final": 7
+      },
+      {
+        "override": 21,
+        "final": 7
+      },
+      {
+        "override": 22,
+        "final": 7
+      }
+    ],
+    "comparison": [
+      {
+        "node": "p_0_1_0_0",
+        "name": "Aquarium's Frilled Lizard",
+        "erroneous_path": 19,
+        "corrected_path": 13
+      },
+      {
+        "node": "p_0_1_1_0",
+        "name": "Tropical Fish Tanks's Frilled Lizard",
+        "erroneous_path": 19,
+        "corrected_path": 13
+      },
+      {
+        "node": "p_0_1_1_1",
+        "name": "Tropical Fish Tanks's Crocodile",
+        "erroneous_path": 21,
+        "corrected_path": 18
+      },
+      {
+        "node": "p_0_1_2_1",
+        "name": "Freshwater Fish Exhibit's Crocodile",
+        "erroneous_path": 21,
+        "corrected_path": 18
+      },
+      {
+        "node": "p_0_0_0_2",
+        "name": "The Deep's Freshwater Fish Exhibit",
+        "erroneous_path": 15,
+        "corrected_path": 12
+      },
+      {
+        "node": "p_0_1_0_1",
+        "name": "Aquarium's Crocodile",
+        "erroneous_path": 18,
+        "corrected_path": 19
+      },
+      {
+        "node": "p_0_0_2_0",
+        "name": "Adventure Aquarium's Aquarium",
+        "erroneous_path": 17,
+        "corrected_path": 9
+      },
+      {
+        "node": "p_0_0_2_1",
+        "name": "Adventure Aquarium's Tropical Fish Tanks",
+        "erroneous_path": 15,
+        "corrected_path": 3
+      },
+      {
+        "node": "p_0_0_2_2",
+        "name": "Adventure Aquarium's Freshwater Fish Exhibit",
+        "erroneous_path": 21,
+        "corrected_path": 18
+      },
+      {
+        "node": "p_1_0_2_1",
+        "name": "Adventure Aquarium's Enclosure",
+        "erroneous_path": 7,
+        "corrected_path": 7
+      }
+    ],
+    "formula": "225*(12*x-6)+2*x+12*x = 2714*x-1350 = 7 (mod 23)",
+    "interpretation": "Exact task-graph cancellation; not a measured LLM counterfactual."
+  },
+  "target_children": [
+    {
+      "task_id": "igsm-pr9-20261008-0004-op5",
+      "target": "p_1_1_1_3",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0012-op5",
+      "target": "p_1_2_0_3",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0015-op21",
+      "target": "p_0_0_3_0",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0021-op10",
+      "target": "p_1_0_0_1",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0025-op10",
+      "target": "p_1_0_3_1",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0026-op15",
+      "target": "p_0_0_0_1",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0039-op21",
+      "target": "p_1_0_2_2",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0041-op10",
+      "target": "p_1_0_0_2",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0052-op5",
+      "target": "p_0_0_2_0",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0054-op15",
+      "target": "p_0_0_0_1",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0059-op21",
+      "target": "p_1_0_3_2",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0062-op15",
+      "target": "p_0_0_0_0",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0060-op5",
+      "target": "p_0_1_1_2",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0032-op5",
+      "target": "p_0_0_0_0",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0048-op5",
+      "target": "p_1_0_1_1",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0013-op10",
+      "target": "p_1_0_2_3",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0045-op10",
+      "target": "p_0_0_0_2",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0017-op10",
+      "target": "p_0_0_1_0",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0014-op15",
+      "target": "p_0_0_1_1",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0050-op15",
+      "target": "p_0_1_1_1",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0018-op15",
+      "target": "p_0_0_2_1",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0035-op21",
+      "target": "p_1_0_2_1",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0055-op21",
+      "target": "p_0_2_0_0",
+      "children": []
+    },
+    {
+      "task_id": "igsm-pr9-20261008-0043-op21",
+      "target": "p_1_0_3_1",
+      "children": []
+    }
+  ],
+  "inventory": [
+    {
+      "code": "P01",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 1,
+      "task_id": "igsm-pr9-20261008-0021-op10",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "37720732064378e9f5ddef6fb73bed39e6c0ef32a39b019785d25006e12eae00",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P02",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 2,
+      "task_id": "igsm-pr9-20261008-0054-op15",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "aa21e6c1ecfd21253572343797c080875590fe7c9851436bf93cd69d54ea20fb",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P03",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 3,
+      "task_id": "igsm-pr9-20261008-0039-op21",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "7d2b47fdba05dbd9b69082feb33fcd2499a15fbe2efe1b30a313d2575f7b8795",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P04",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 4,
+      "task_id": "igsm-pr9-20261008-0041-op10",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "608704b3f59aeecf6d51a94a7cc13b0373c3337056833b874fee62251c8a0acf",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P05",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 5,
+      "task_id": "igsm-pr9-20261008-0039-op21::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "148dd8dbebbaa68ea97f0729fd3fd342c1fa198293ed574581a803fa5e3bd6d5",
+      "review_depth": "selected_candidate_context_review",
+      "judgment": "数值结果正确，但错误题面绑定持续到最终解释；未确认来源已纠正，更未确认纠正后的错误计算复发。",
+      "archive_member": null,
+      "excerpts": [
+        {
+          "paragraph": 4,
+          "start": 3339,
+          "end": 5265,
+          "text": "1. Monument Zone's Product display has 17 labels. Let me denote this as MZ_P = 17.\n2. Ice Cream's Spinach equals 19. Let's call this IC_S = 19.\n3. Fresh Thyme Market's Cottage Cheese is 14. FTM_C = 14.\n4. Cottage Cheese's Kale equals 4 times Ice Cream's Spinach. CC_K = 4 * IC_S. Since IC_S is 19, CC_K = 4*19 = 76. Then modulo 23, 76 divided by 23 is 3*23=69, so 76-69=7. So CC_K = 7 mod 23.\n5. Monument Zone's Lazy Acres Natural Market equals Cottage Cheese's Kale. MZ_LA = CC_K = 7.\n6. Monument Zone's New Seasons Market equals 15 times Ice Cream's Spinach. MZ_NS = 15 * IC_S. IC_S is 19, so 15*19 = 285. 285 divided by 23: 23*12=276, 285-276=9. So MZ_NS = 9 mod 23.\n7. Lazy Acres Natural Market's Ice Cream equals MZ_NS. LA_IC = MZ_NS = 9.\n8. Lazy Acres Natural Market's Cottage Cheese equals difference between MZ_LA and CC_K. LA_CC = MZ_LA - CC_K. MZ_LA is 7, CC_K is 7. So 7 - 7 = 0. LA_CC = 0 mod 23.\n9. Lazy Acres Natural Market's Product equals sum of LA_IC and LA_CC. LA_P = LA_IC + LA_CC = 9 + 0 = 9 mod 23.\n10. New Seasons Market's Cottage Cheese equals 15*(LA_CC + MZ_NS). Let's compute LA_CC + MZ_NS: 0 + 9 = 9. Then 15*9 = 135. 135 divided by 23: 23*5=115, 135-115=20. So NS_C = 20 mod 23.\n11. New Seasons Market's Product equals NS_C. NS_P = NS_C = 20.\n12. Fresh Thyme Market's Milk equals 11 + LA_P. LA_P is 9, so 11 + 9 = 20. FTM_M = 20 mod 23.\n13. Monument Zone's Fresh Thyme Market equals FTM_M + MZ_LA. FTM_M is 20, MZ_LA is 7. 20 + 7 = 27. 27 mod 23 is 4. So MZ_FTM = 4.\n14. Fresh Thyme Market's Ice Cream equals 8 + MZ_LA. MZ_LA is 7, so 8 + 7 = 15. FTM_IC = 15 mod 23.\n15. Fresh Thyme Market's Product equals sum of (FTM_IC + FTM_M) + FTM_C. Let's compute FTM_IC + FTM_M: 15 + 20 = 35. Then add FTM_C which is 14. 35 + 14 = 49. 49 mod 23: 23*2=46, 49-46=3. So FTM_P = 3 mod 23.\n16. Monument Zone's Product equals sum of [ (MZ_LA * LA_P) + (MZ_NS * NS_P) + (MZ_FTM * FTM_P) ]. Let me compute each term:"
+        },
+        {
+          "paragraph": 5,
+          "start": 5267,
+          "end": 5356,
+          "text": "First term: MZ_LA * LA_P = 7 * 9 = 63. 63 mod 23: 23*2=46, 63-46=17. So first term is 17."
+        },
+        {
+          "paragraph": 8,
+          "start": 5521,
+          "end": 5621,
+          "text": "Now sum these three terms: 17 + 19 + 12 = 48. 48 mod 23: 23*2=46, 48-46=2. So the total is 2 mod 23."
+        },
+        {
+          "paragraph": 9,
+          "start": 5623,
+          "end": 6123,
+          "text": "Wait, but the problem says \"the number of Monument Zone's Product equals the sum of...\" So according to this, MZ_P = 2 mod 23. However, the initial information said that Monument Zone's Product display equals 17. Wait, but that's conflicting. Wait, no, the first statement says \"The number of souvenir labels at the Monument Zone's Product display equals 17.\" So that's MZ_P = 17. But according to the final calculation, the Monument Zone's Product is 2. That's a contradiction. Did I make a mistake?"
+        },
+        {
+          "paragraph": 12,
+          "start": 6208,
+          "end": 6230,
+          "text": "1. MZ_P = 17. Correct."
+        },
+        {
+          "paragraph": 166,
+          "start": 29484,
+          "end": 29899,
+          "text": "Given that, and since the problem asks to compute the number of Monument Zone's Product using the equations, and the initial value is given, but the equations give a different value, I have to assume that the initial value is part of the equations and there is a mistake. However, since the problem says to work through it, I'll proceed with the final calculation, which is 2, and that might be the intended answer."
+        },
+        {
+          "paragraph": 178,
+          "start": 31365,
+          "end": 31437,
+          "text": "- $ MZ_P = 17 $ (given)\n- $ IC_S = 19 $ (given)\n- $ FTM_C = 14 $ (given)"
+        },
+        {
+          "paragraph": 204,
+          "start": 32679,
+          "end": 32781,
+          "text": "Despite the initial value of $ MZ_P = 17 $ being given, the final derived value from the equations is:"
+        },
+        {
+          "paragraph": 205,
+          "start": 32783,
+          "end": 32808,
+          "text": "$$\n\\boxed{2}\n$$<|im_end|>"
+        }
+      ]
+    },
+    {
+      "code": "P06",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 6,
+      "task_id": "igsm-pr9-20261008-0059-op21",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "cd5942303b362e12e58922f16217966afa008ff24667d8654667625d1ac04fee",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P07",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 7,
+      "task_id": "igsm-pr9-20261008-0012-op5",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "34dc8ac8c45432368fb3df6e647dacc682a370b7ea26078b78fd457adc4c3c3a",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P08",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 8,
+      "task_id": "igsm-pr9-20261008-0052-op5::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "bcb254d15290518bbc96b91b96ae3b08efb483934631bc8bbda44968a1e7e359",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P09",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 9,
+      "task_id": "igsm-pr9-20261008-0052-op5",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "ac85737570557db64516d20721db0c1201c573209bd59f0292bda1512581ce96",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P10",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 10,
+      "task_id": "igsm-pr9-20261008-0004-op5",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "824d2eb12a907e3dfd94f2dd47f3b29854b1130af3c8c52060a8d6b3ff2f9864",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P11",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 11,
+      "task_id": "igsm-pr9-20261008-0025-op10::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "d5220f2fb1fd8ea702e33b9c627fd9afd5ded197826051b2d76540d4537e73dc",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P12",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 12,
+      "task_id": "igsm-pr9-20261008-0025-op10",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "cdef80dc4fc1baf7171a3849999c07adb3e8932becf6732f0e5b9c8e89fab717",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P13",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 13,
+      "task_id": "igsm-pr9-20261008-0041-op10::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "2fe09b496592254b317bf6671746adf0d589bfb5b3271b8f44138f5b663a457e",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P14",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 14,
+      "task_id": "igsm-pr9-20261008-0025-op10::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "e5271beca5b72f2a14b7df7c03e0c9a7c05ba481884b9143899ddf4030ae445b",
+      "review_depth": "focused_source_passages",
+      "judgment": "区分标签与目标，后续疑问属于语义复核；算式中的系数17有合法来源。",
+      "archive_member": null
+    },
+    {
+      "code": "P15",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 15,
+      "task_id": "igsm-pr9-20261008-0021-op10::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "69504e408acedfbde1b282d228e6446d197b5bd350cdd7c3f99c085ef59676aa",
+      "review_depth": "focused_source_passages",
+      "judgment": "初期目标/标签混淆，随后区分标签变量与目标；未确认再次实际错误计算。",
+      "archive_member": null
+    },
+    {
+      "code": "P16",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 16,
+      "task_id": "igsm-pr9-20261008-0054-op15::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "617e587a299bfded3367647639adae917528cbe97333cfa1951dd0942a787ac9",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P17",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 17,
+      "task_id": "igsm-pr9-20261008-0062-op15::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "13459b7c9496a668db430978385eec064ac616460ae16795473878645e1c1dcd",
+      "review_depth": "focused_source_passages",
+      "judgment": "开始对17的绑定提出疑问，计算前将标签另命名；未确认计算复发。",
+      "archive_member": null
+    },
+    {
+      "code": "P18",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 18,
+      "task_id": "igsm-pr9-20261008-0012-op5::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "bb0ca81c52170aa1054854d85ba8ccfe350ebde2bbae1f32051af13f5e0cd4b7",
+      "review_depth": "focused_source_passages",
+      "judgment": "标签与目标分开；中间算式中的17是10+7的合法结果，不能归因于干扰源。",
+      "archive_member": null
+    },
+    {
+      "code": "P19",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 19,
+      "task_id": "igsm-pr9-20261008-0015-op21::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "36050fe339836c4587aaa9c79345947e2c18bd397ffa77c3a4f62aedd022da83",
+      "review_depth": "focused_source_passages",
+      "judgment": "初期错误重述，正确结果出现后存在条件式语义复核；未确认错误值再次进入实际下游计算。",
+      "archive_member": null
+    },
+    {
+      "code": "P20",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 20,
+      "task_id": "igsm-pr9-20261008-0026-op15::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "e1d5753bdb98d6f6a4719e9fc4b5064f398b8dd60b026fc367af1e62e37291e5",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P21",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 21,
+      "task_id": "igsm-pr9-20261008-0059-op21::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "03bc13c422043e2acc784b54b528e13f80aee966fd545f9fef7b0aa4e8a8d8e5",
+      "review_depth": "focused_source_passages",
+      "judgment": "初期错误重述，随后区分；后续合法中间量也等于17，不能凭数值认定来源。",
+      "archive_member": null
+    },
+    {
+      "code": "P22",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 22,
+      "task_id": "igsm-pr9-20261008-0026-op15::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "73707a941dc46b16cf92c34782b99564284f7e1a18bfc12b13270e669d617e90",
+      "review_depth": "selected_candidate_context_review",
+      "judgment": "初期从错误绑定推导R_T=12；后期重现12明确置于If分支并用矛盾否定，不认定为复发。",
+      "archive_member": null,
+      "excerpts": [
+        {
+          "paragraph": 4,
+          "start": 2596,
+          "end": 3335,
+          "text": "1. **Tropical Fish Tanks's Herring (let's call this T_H)** = 17\n2. **Tropical Fish Tanks's Sardine (T_S)** = 21\n3. **Rockpool Exhibit's Sardine (R_S)** = T_S = 21\n4. **Sealion Show Pool's Herring (S_H)** = R_S = 21\n5. **Sealion Show Pool's Sardine (S_S)** = 10 * (S_H + T_S)\n6. **Rockpool Exhibit's Herring (R_H)** = R_S = 21\n7. **Sealion Show Pool's Trout (S_T)** = (R_H + R_S) + T_S\n8. **Sealion Show Pool's Animal (S_A)** = (S_S + S_H) + S_T\n9. **Tropical Fish Tanks's Trout (T_T)** = 15 * (S_A - R_S)\n10. **Rockpool Exhibit's Trout (R_T)** = (T_T + T_S) + R_H\n11. **Tropical Fish Tanks's Herring (T_H)** = 5 + R_T\n12. **Unrelated blue lanterns** = 17 (but maybe not relevant)\n13. **Unrelated green ribbons** = 9 (probably not relevant)"
+        },
+        {
+          "paragraph": 9,
+          "start": 4242,
+          "end": 4520,
+          "text": "\"The number of Tropical Fish Tanks's Herring equals (the sum of 5 and the number of Rockpool Exhibit's Trout).\" So that would be T_H = 5 + R_T. Therefore, combining these two, 17 = 5 + R_T => R_T = 12. But maybe I need to verify all equations step by step to ensure consistency."
+        },
+        {
+          "paragraph": 17,
+          "start": 5772,
+          "end": 6048,
+          "text": "But the problem says \"the number of Tropical Fish Tanks's Herring equals...\" which is T_H, and that's given as 17. But equation 11 says T_H = 5 + R_T. Therefore, combining these two, 17 = 5 + R_T => R_T = 12. So R_T must be 12. But let's check if all equations hold with that."
+        },
+        {
+          "paragraph": 22,
+          "start": 7161,
+          "end": 8149,
+          "text": "So that's a different quantity. Maybe the question is asking for T_H, which is the number of Tropical Fish Tanks's Herring, which is defined in equation 11 as 5 + R_T. However, the first sentence gives a separate quantity, which is the number of souvenir labels at the Herring display, which is 17. But the problem doesn't say that this is equal to T_H. Therefore, perhaps the first sentence is just additional info, but the actual value of T_H is determined by equation 11. Wait, but the problem says \"the number of Tropical Fish Tanks's Herring equals...\" in equation 11. So maybe the first sentence is redundant or maybe it's a different quantity. However, the problem is asking for the number of Tropical Fish Tanks's Herring, which is T_H, and that is given by equation 11 as 5 + R_T. So maybe the first sentence is not directly T_H but something else. But maybe the problem is in Chinese or another language, and the translation is causing confusion? Or maybe I need to check again."
+        },
+        {
+          "paragraph": 74,
+          "start": 14631,
+          "end": 14905,
+          "text": "But let me check once more if there's another way to interpret the problem. For example, maybe the first sentence is actually defining T_H as 17, and then equation 11 is another equation for T_H. But in that case, there would be inconsistency. Let me check that possibility."
+        },
+        {
+          "paragraph": 75,
+          "start": 14907,
+          "end": 15290,
+          "text": "If we assume that the first sentence defines T_H = 17, and then equation 11 says T_H = 5 + R_T. Then 17 = 5 + R_T => R_T = 12. But then we need to check if with R_T = 12, the rest of the equations hold. However, in our previous calculation, R_T was 19. So this suggests inconsistency. Therefore, perhaps the first sentence is not T_H but another quantity. Therefore, the answer is 1."
+        }
+      ]
+    },
+    {
+      "code": "P23",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 23,
+      "task_id": "igsm-pr9-20261008-0026-op15",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "06d95a36ace0fa31618b313e279f476627249855956ccb3e2a03b8404409262a",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "P24",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-pilot-20261009/parser_recall_audit.jsonl",
+      "source_line": 24,
+      "task_id": "igsm-pr9-20261008-0041-op10::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "5db10c042757ace9020dad443a1577651cdb4f4e9bf757f7a19dd172d38f8b3c",
+      "review_depth": "selected_candidate_context_review",
+      "judgment": "初期混淆，随后区分；正确21之后的17分支为假设和矛盾检验。",
+      "archive_member": null,
+      "excerpts": [
+        {
+          "paragraph": 26,
+          "start": 11293,
+          "end": 11800,
+          "text": "1. Souvenir_labels_Ngorongoro_Animal_Display = 17 (but not sure if needed)\n2. S_S = 15\n3. S_A = S_S => S_A = 15\n4. M_I = 12 + S_A => M_I = 12 + 15 = 27. Then mod 23: 27 - 23 = 4. So M_I = 4\n5. I_B = S_A = 15\n6. I_C = S_S = 15\n7. I_A = I_B + I_C = 15 + 15 = 30. Mod 23: 30 - 23 = 7. So I_A = 7\n8. M_A = M_I * I_A = 4 * 7 = 28. Mod 23: 28 - 23 = 5. So M_A = 5\n9. N_I = 2 * (M_A - I_C) = 2 * (5 - 15) = 2 * (-10) = -20. Mod 23: -20 + 23 = 3. So N_I = 3\n10. N_A = N_I * I_A = 3 * 7 = 21. Mod 23: 21. So N_A = 21"
+        },
+        {
+          "paragraph": 36,
+          "start": 12941,
+          "end": 13477,
+          "text": "Wait, maybe the first line is actually referring to N_A? If that's the case, then N_A is 17. But then why is there an equation for N_A? Let me check the last line: \"The number of Ngorongoro Conservation Area's Animal equals (the product of the number of Ngorongoro Conservation Area's Insect House and the number of Insect House's Animal).\" So that equation is N_A = N_I * I_A. But if the first line says that the number of souvenir labels... equals 17, which is a different quantity. Therefore, unless there's a misinterpretation here."
+        },
+        {
+          "paragraph": 44,
+          "start": 15205,
+          "end": 15850,
+          "text": "But let me check once again if the first line is actually referring to N_A. If the first line is \"The number of souvenir labels at the Ngorongoro Conservation Area's Animal display equals 17\" and the question is asking for \"the number of Ngorongoro Conservation Area's Animal\", maybe there's a connection. Suppose that the \"Animal display\" is part of the \"Animal\" count. Maybe the number of Animal display labels is part of the total Animal count? But the problem doesn't state that. Without explicit information, we can't assume that. Therefore, I think the first line is a separate quantity and not related to N_A. Therefore, the answer is 21."
+        },
+        {
+          "paragraph": 45,
+          "start": 15852,
+          "end": 16364,
+          "text": "But let me check if there's any other possible interpretation. For example, maybe the \"Animal display\" is the same as the \"Animal\" in Ngorongoro Conservation Area. If that's the case, then the first line says that N_A = 17. But then the last equation says N_A = N_I * I_A. Therefore, if N_A is 17, then N_I * I_A = 17. But according to our previous calculation, N_I * I_A was 3 * 7 = 21. So that would be conflicting. Therefore, that suggests that the first line is a different quantity. Hence, the answer is 21."
+        },
+        {
+          "paragraph": 47,
+          "start": 16675,
+          "end": 16989,
+          "text": "Suppose that the first line is N_A = 17. Then, the last equation says N_A = N_I * I_A. So 17 = N_I * I_A. But according to our previous calculation, N_I * I_A was 3*7=21. Which is different. Therefore, this would imply inconsistency. Hence, the first line must be a different quantity. Therefore, the answer is 21."
+        }
+      ]
+    },
+    {
+      "code": "V01",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 1,
+      "task_id": "igsm-pr9-20261008-0048-op5",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "dcf4ba153e97e493761fdd668a629fd920d2302d117cefe2869ed6b160c6a774",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V02",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 2,
+      "task_id": "igsm-pr9-20261008-0055-op21",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "bcd8f1d44d116a43ed6c1404f80bd8617bec37ee0f55f53bd895746c721e1205",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V03",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 3,
+      "task_id": "igsm-pr9-20261008-0055-op21::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "b9092d7c0a0aba2ac7388edd8bf2adf6373b4bd9f7bd4729c3758ab5ce6b6e7c",
+      "review_depth": "focused_source_passages",
+      "judgment": "初期命名含混，计算前区分标签与目标；未确认复发。",
+      "archive_member": null
+    },
+    {
+      "code": "V04",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 4,
+      "task_id": "igsm-pr9-20261008-0060-op5::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "f565f45fb960ed812a89c3c7481cd4cbf51a371d8c9dd70c9e276e62c8310439",
+      "review_depth": "focused_source_passages",
+      "judgment": "计算前将标签与Gaming Backpack区分；未确认复发。",
+      "archive_member": null
+    },
+    {
+      "code": "V05",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 5,
+      "task_id": "igsm-pr9-20261008-0045-op10::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "2a03ee120b236ced1201c1ffd92be8c299f8493ae07134b2f2a643b935077a0a",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V06",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 6,
+      "task_id": "igsm-pr9-20261008-0060-op5",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "4f15d33c751ecd829feb545990e5fa07681337820190f5e08c0849ccef01fda0",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V07",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 7,
+      "task_id": "igsm-pr9-20261008-0045-op10",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "52da0988ba929ebb61211fcd7966701e566de4438f186c46216a19b3bce2c848",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V08",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 8,
+      "task_id": "igsm-pr9-20261008-0013-op10::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "6c21047ad13231447c6b26d7c5dac1bfce05dd1483b9eeb86543f9c1891bbe3f",
+      "review_depth": "focused_source_passages",
+      "judgment": "标签单列；未确认实际错误来源计算。",
+      "archive_member": null
+    },
+    {
+      "code": "V09",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 9,
+      "task_id": "igsm-pr9-20261008-0017-op10::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "622c530d1d93d20342199223dbf3ed9211b50396e5a86321bd4e8277cbdfc248",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V10",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 10,
+      "task_id": "igsm-pr9-20261008-0014-op15",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "0db996b4f6420f04d2cd236f09b54f10f0286f1caca7124fa2d723e333b34f5b",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V11",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 11,
+      "task_id": "igsm-pr9-20261008-0048-op5::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "8def33a5516c61237c270eb0b0234e51008a244693ad9aa63d705b3f4131df99",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V12",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 12,
+      "task_id": "igsm-pr9-20261008-0035-op21::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "2d48e13546677de0ac0aeb7a456f187d8e4499b0f2a014731771f76818f32177",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V13",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 13,
+      "task_id": "igsm-pr9-20261008-0043-op21::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "9e5df1cc8770e06916df02e27594eb81420f9e592613bc478895b9ff8692dfc3",
+      "review_depth": "selected_candidate_context_review",
+      "judgment": "错误目标重述反复出现；一处公式缩写混淆立即修正，未见17进入该计算；后期错误分支被否定。",
+      "archive_member": null,
+      "excerpts": [
+        {
+          "paragraph": 4,
+          "start": 3181,
+          "end": 3801,
+          "text": "1. **Surfing Backpack's Stationery (SBS)** = 17\n2. **Sweat-Resistant Backpack's Ruler (SBR)** = 13\n3. **Sweat-Resistant Backpack's Rubber Band (SBRB)** = SBR = 13\n4. **Sweat-Resistant Backpack's Stationery (SBST)** = SBR + SBRB = 13 + 13 = 26. But since we are working modulo 23, 26 mod 23 is 3. So SBST = 3.\n5. **Swimming Backpack's Ruler (SBR)** = 17 + (SBS + SBR + SBRB). Wait, let me check the exact wording: \"the sum of 17 and (the sum of (the sum of the number of Sweat-Resistant Backpack's Stationery and the number of Sweat-Resistant Backpack's Ruler) and the number of Sweat-Resistant Backpack's Rubber Band)\". "
+        },
+        {
+          "paragraph": 5,
+          "start": 3803,
+          "end": 4057,
+          "text": "So Swimming Backpack's Ruler (SBR_swim) = 17 + [(SBST + SBR) + SBRB]. Let me compute that. SBST is 3, SBR is 13, SBRB is 13. So adding them: 3 + 13 + 13 = 29. Then add 17: 17 + 29 = 46. Now mod 23: 46 / 23 = 2, so 46 mod 23 is 0. Therefore, SBR_swim = 0."
+        },
+        {
+          "paragraph": 59,
+          "start": 20226,
+          "end": 20450,
+          "text": "Alternatively, maybe the first statement is part of the equations, and I need to use it in the calculation. But how? Let me think. If the first statement is SBS = 17, and the formula says SBS = SBCF_s + SBRB_s, then we have:"
+        },
+        {
+          "paragraph": 60,
+          "start": 20452,
+          "end": 20479,
+          "text": "17 ≡ SBCF_s + SBRB_s mod 23"
+        },
+        {
+          "paragraph": 61,
+          "start": 20481,
+          "end": 20720,
+          "text": "But from previous calculations, SBCF_s + SBRB_s = 21 + 13 = 34 ≡ 11 mod 23. So 11 ≡ 17 mod 23? No, that's not true. Therefore, there is a contradiction. This suggests that either there is a mistake in the problem, or I have made a mistake."
+        }
+      ]
+    },
+    {
+      "code": "V14",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 14,
+      "task_id": "igsm-pr9-20261008-0050-op15",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "95ef5427fb41251c226f9e2f674c3c0febeb3c1e1306b33b95a38d20ed645937",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V15",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 15,
+      "task_id": "igsm-pr9-20261008-0018-op15::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "844c9ec135abf43511e04ac95d6a622b2089738e0d418a5cc0b01870d7c09e58",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V16",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 16,
+      "task_id": "igsm-pr9-20261008-0055-op21::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "131fd1027241fd8e34b27fb61392db945dce9c071c1fce483d75087ca097571a",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V17",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 17,
+      "task_id": "igsm-pr9-20261008-0035-op21",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "15f03bfebc2e1f0cf5866e64e248bfdebcc7350cb02a405a38d9b21be93becd0",
+      "review_depth": "selected_candidate_context_review",
+      "judgment": "真实算术错误及八个下游非目标量的错误传播，随后修正且未见复发；最终答案对该中间量完全不敏感。",
+      "archive_member": null,
+      "excerpts": [
+        {
+          "paragraph": 13,
+          "start": 5154,
+          "end": 5599,
+          "text": "9. The number of Aquarium's Frilled Lizard equals (the sum of (the sum of the number of The Living Seas's Enclosure and the number of The Deep's Aquarium) and the number of The Living Seas's Aquarium). Let me denote Aquarium's Frilled Lizard as A_Frilled. So A_Frilled = (L_Enclosure + D_Aquarium) + L_Aquarium. Substituting the known values: (18 + 12) + 6 = 36 + 6 = 42. Now, modulo 23: 42 divided by 23 is 1*23=23, 42-23=19. So A_Frilled = 19."
+        },
+        {
+          "paragraph": 14,
+          "start": 5601,
+          "end": 5874,
+          "text": "10. The number of Tropical Fish Tanks's Frilled Lizard equals (the sum of the number of Aquarium's Frilled Lizard and the number of The Living Seas's Tropical Fish Tanks). Let me call this T_Frilled. So T_Frilled = A_Frilled + L_Tropical = 19 + 0 = 19. Modulo 23, still 19."
+        },
+        {
+          "paragraph": 15,
+          "start": 5876,
+          "end": 6170,
+          "text": "11. The number of Tropical Fish Tanks's Crocodile equals (the product of 12 and the number of Tropical Fish Tanks's Frilled Lizard). Let T_Crocodile = 12 * T_Frilled. So 12 * 19. Let me compute that: 12*19 = 228. Now modulo 23. Let's divide 228 by 23. 23*9=207, 228-207=21. So T_Crocodile = 21."
+        },
+        {
+          "paragraph": 16,
+          "start": 6172,
+          "end": 6358,
+          "text": "12. The number of Freshwater Fish Exhibit's Crocodile equals (the sum of 0 and the number of Tropical Fish Tanks's Crocodile). So F_Crocodile = 0 + T_Crocodile = 21. Modulo 23, still 21."
+        },
+        {
+          "paragraph": 17,
+          "start": 6360,
+          "end": 6615,
+          "text": "13. The number of The Deep's Freshwater Fish Exhibit equals (the difference between the number of Freshwater Fish Exhibit's Crocodile and the number of The Living Seas's Aquarium). So D_Fresh = F_Crocodile - L_Aquarium = 21 - 6 = 15. Modulo 23, that's 15."
+        },
+        {
+          "paragraph": 18,
+          "start": 6617,
+          "end": 6888,
+          "text": "14. The number of Aquarium's Crocodile equals (the product of 15 and the number of The Deep's Freshwater Fish Exhibit). So A_Crocodile = 15 * D_Fresh = 15 * 15. Let me compute that: 15*15=225. Modulo 23. Let me divide 225 by 23. 23*9=207, 225-207=18. So A_Crocodile = 18."
+        },
+        {
+          "paragraph": 19,
+          "start": 6890,
+          "end": 7146,
+          "text": "15. The number of Adventure Aquarium's Aquarium equals (the product of 15 and the number of Aquarium's Crocodile). Let me denote this as Ad_Aquarium = 15 * A_Crocodile = 15 * 18. Calculating 15*18=270. Modulo 23: 23*11=253, 270-253=17. So Ad_Aquarium = 17."
+        },
+        {
+          "paragraph": 20,
+          "start": 7148,
+          "end": 7420,
+          "text": "16. The number of Adventure Aquarium's Tropical Fish Tanks equals (the sum of the number of Aquarium's Frilled Lizard and the number of Tropical Fish Tanks's Frilled Lizard). Ad_Tropical = A_Frilled + T_Frilled = 19 + 19 = 38. Modulo 23: 38 - 23 = 15. So Ad_Tropical = 15."
+        },
+        {
+          "paragraph": 21,
+          "start": 7422,
+          "end": 7571,
+          "text": "17. The number of Adventure Aquarium's Freshwater Fish Exhibit equals the number of Freshwater Fish Exhibit's Crocodile. Ad_Fresh = F_Crocodile = 21."
+        },
+        {
+          "paragraph": 22,
+          "start": 7573,
+          "end": 8038,
+          "text": "18. The number of Adventure Aquarium's Enclosure equals (the sum of (the sum of the number of Adventure Aquarium's Aquarium and the number of Adventure Aquarium's Tropical Fish Tanks) and the number of Adventure Aquarium's Freshwater Fish Exhibit). Let me parse this: Ad_Enclosure = (Ad_Aquarium + Ad_Tropical) + Ad_Fresh. Substituting the values: (17 + 15) + 21 = 32 + 21 = 53. Now modulo 23. Let me compute 53 divided by 23: 2*23=46, 53-46=7. So Ad_Enclosure = 7."
+        },
+        {
+          "paragraph": 33,
+          "start": 8495,
+          "end": 8606,
+          "text": "A_Frilled = (L_Enclosure + D_Aquarium) + L_Aquarium = (18 + 12) + 6 = 36 + 6 = 42 mod23: 42 - 23 = 19. Correct."
+        },
+        {
+          "paragraph": 71,
+          "start": 14048,
+          "end": 14451,
+          "text": "A_Frilled = (L_Enclosure + D_Aquarium) + L_Aquarium. L_Enclosure is 18, D_Aquarium is 12, L_Aquarium is 6. 18 + 12 = 30, +6 = 36. 36 mod23 is 13? Wait, wait! Wait, here's a possible mistake. Wait, earlier I said A_Frilled = (L_Enclosure + D_Aquarium) + L_Aquarium. Which is (18 + 12) + 6 = 30 + 6 = 36. Then 36 mod23 is 36 - 23 = 13. Wait, earlier I said 42? Wait, no, wait. Wait, earlier I had written:"
+        },
+        {
+          "paragraph": 73,
+          "start": 14569,
+          "end": 14717,
+          "text": "Wait, that's wrong! Wait, (18 + 12) is 30, then adding 6 gives 36, not 42. So I made a mistake here. Oh no! This changes everything. Let me retrace."
+        },
+        {
+          "paragraph": 75,
+          "start": 14944,
+          "end": 15189,
+          "text": "So that is A_Frilled = (L_Enclosure + D_Aquarium) + L_Aquarium. Which is (18 + 12) + 6 = 30 + 6 = 36. Then mod23: 36 - 23 = 13. So A_Frilled = 13, not 19 as I previously thought. Oh no! That was a critical error. Let me redo the steps from here."
+        },
+        {
+          "paragraph": 78,
+          "start": 15325,
+          "end": 15362,
+          "text": "So step 9: A_Frilled = 36 mod23 = 13."
+        },
+        {
+          "paragraph": 79,
+          "start": 15364,
+          "end": 15427,
+          "text": "Then step 10: T_Frilled = A_Frilled + L_Tropical = 13 + 0 = 13."
+        },
+        {
+          "paragraph": 80,
+          "start": 15429,
+          "end": 15555,
+          "text": "Step 11: T_Crocodile = 12 * T_Frilled = 12 * 13 = 156. Now mod23. Let's compute 23*6=138. 156 - 138 = 18. So T_Crocodile = 18."
+        },
+        {
+          "paragraph": 81,
+          "start": 15557,
+          "end": 15601,
+          "text": "Step 12: F_Crocodile = 0 + T_Crocodile = 18."
+        },
+        {
+          "paragraph": 82,
+          "start": 15603,
+          "end": 15661,
+          "text": "Step 13: D_Fresh = F_Crocodile - L_Aquarium = 18 - 6 = 12."
+        },
+        {
+          "paragraph": 83,
+          "start": 15663,
+          "end": 15789,
+          "text": "Step 14: A_Crocodile = 15 * D_Fresh = 15 * 12 = 180. Mod23. Let's divide 180 by 23. 23*7=161, 180-161=19. So A_Crocodile = 19."
+        },
+        {
+          "paragraph": 84,
+          "start": 15791,
+          "end": 15914,
+          "text": "Step 15: Ad_Aquarium = 15 * A_Crocodile = 15 * 19 = 285. Mod23. Let's compute 23*12=276, 285 - 276 = 9. So Ad_Aquarium = 9."
+        },
+        {
+          "paragraph": 85,
+          "start": 15916,
+          "end": 16016,
+          "text": "Step 16: Ad_Tropical = A_Frilled + T_Frilled = 13 + 13 = 26. Mod23: 26 - 23 = 3. So Ad_Tropical = 3."
+        },
+        {
+          "paragraph": 86,
+          "start": 16018,
+          "end": 16055,
+          "text": "Step 17: Ad_Fresh = F_Crocodile = 18."
+        },
+        {
+          "paragraph": 87,
+          "start": 16057,
+          "end": 16191,
+          "text": "Step 18: Ad_Enclosure = (Ad_Aquarium + Ad_Tropical) + Ad_Fresh = (9 + 3) + 18 = 12 + 18 = 30. Mod23: 30 - 23 = 7. So Ad_Enclosure = 7."
+        },
+        {
+          "paragraph": 100,
+          "start": 16587,
+          "end": 16648,
+          "text": "A_Frilled = (18 + 12) + 6 = 30 + 6 = 36 mod23 = 36 - 23 = 13."
+        },
+        {
+          "paragraph": 109,
+          "start": 17002,
+          "end": 17055,
+          "text": "Ad_Enclosure = (9 + 3) + 18 = 12 + 18 = 30 mod23 = 7."
+        },
+        {
+          "paragraph": 110,
+          "start": 17057,
+          "end": 17315,
+          "text": "So even after correcting the mistake in step 9, the final answer is still 7. So that's a relief. So my initial answer of 7 was correct despite the miscalculation in step 9 because the error propagated but ended up not affecting the final result. Interesting."
+        }
+      ]
+    },
+    {
+      "code": "V18",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 18,
+      "task_id": "igsm-pr9-20261008-0035-op21::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "cbafcab4708374f79ced926ace48f73ae1617714fd2c0d6b871cafd8ba1498ad",
+      "review_depth": "focused_source_passages",
+      "judgment": "先讨论标签歧义，随后正确计算7；未确认复发。",
+      "archive_member": null
+    },
+    {
+      "code": "V19",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 19,
+      "task_id": "igsm-pr9-20261008-0032-op5::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "fc47c98d6ed9f5e36d4e2fffc2466ccc0a9282a7e71c5b643e0ccc4d4f852ac7",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V20",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 20,
+      "task_id": "igsm-pr9-20261008-0045-op10::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "02f6a21542b95455ffa36d92b3ea95606f3737ca06b8f307089223bb7994ea89",
+      "review_depth": "focused_source_passages",
+      "judgment": "计算前重新命名标签以避免混淆；随后为假设性复核。",
+      "archive_member": null
+    },
+    {
+      "code": "V21",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 21,
+      "task_id": "igsm-pr9-20261008-0048-op5::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "6b9b3c20a7de15ac18309e7023506d40e1995301f2d89da514b18e35bfcf714c",
+      "review_depth": "focused_source_passages",
+      "judgment": "正确0之后反复讨论17的解释，但未确认采用17执行错误后续计算。",
+      "archive_member": null
+    },
+    {
+      "code": "V22",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 22,
+      "task_id": "igsm-pr9-20261008-0060-op5::noop:front:low",
+      "seed": 0,
+      "condition": "neutral_noop",
+      "correct": true,
+      "text_sha256": "5261bb350f65b8995088aa8707289b4ef926acde87ea250458ff697832cd528a",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V23",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 23,
+      "task_id": "igsm-pr9-20261008-0017-op10",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "00c46dcaea21b060b98b6a29306b3db04c18066c7f9bd2b76a7c621d5b130e37",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": null
+    },
+    {
+      "code": "V24",
+      "source": "artifacts/rd-pr9-single-pass-validation-20261010-light/runs/pr9-validation-natural-20261010/parser_recall_audit.jsonl",
+      "source_line": 24,
+      "task_id": "igsm-pr9-20261008-0050-op15::noop:front:high",
+      "seed": 0,
+      "condition": "related_noop",
+      "correct": true,
+      "text_sha256": "cabee7c051603c3ae73ab322e485e51ee9d632f81b5f9b903208a4dd970f5d9e",
+      "review_depth": "selected_candidate_context_review",
+      "judgment": "错误重述在正确4之后再次出现，但后续计算仍使用正确链；17的反推属假设性复核。",
+      "archive_member": null,
+      "excerpts": [
+        {
+          "paragraph": 4,
+          "start": 2477,
+          "end": 3081,
+          "text": "1. Spider Web Exhibit's Haddock = 17\n2. Beetle Bungalow's Haddock = 16\n3. Haddock's Ulnar Carpal = 14\n4. Shark's Ulnar Carpal = 5\n5. Haddock's Accessory Carpal = 18\n6. The Deep's Beetle Bungalow = Beetle Bungalow's Haddock = 16 (since it's stated as equal)\n7. Beetle Bungalow's Shark = (7 + Beetle Bungalow's Haddock) = 7 + 16 = 23. But since we're working modulo 23, 23 mod 23 is 0. Wait, is that right? Let me check. The problem says \"the sum of 7 and the number of Beetle Bungalow's Haddock\". So 7 + 16 = 23. Then 23 mod 23 is 0. So Beetle Bungalow's Shark = 0? Hmm, maybe. Let me note that down as 0."
+        },
+        {
+          "paragraph": 11,
+          "start": 3957,
+          "end": 4140,
+          "text": "12. The Deep's Bone = (The Deep's Beetle Bungalow) * (Beetle Bungalow's Bone) = 16 * 6. Let me compute 16*6 = 96. 96 mod 23. 23*4 = 92, so 96 - 92 = 4. Therefore, The Deep's Bone = 4."
+        },
+        {
+          "paragraph": 12,
+          "start": 4142,
+          "end": 4210,
+          "text": "13. The Florida Aquarium's Spider Web Exhibit = The Deep's Bone = 4."
+        },
+        {
+          "paragraph": 13,
+          "start": 4212,
+          "end": 4699,
+          "text": "14. Spider Web Exhibit's Haddock = The Florida Aquarium's Spider Web Exhibit = 4. Wait, but the original statement says \"The number of Spider Web Exhibit's Haddock equals the number of The Florida Aquarium's Spider Web Exhibit.\" So if The Florida Aquarium's Spider Web Exhibit is 4, then Spider Web Exhibit's Haddock is also 4? But wait, initially, the problem says \"The number of souvenir labels at the Spider Web Exhibit's Haddock display equals 17.\" Wait, hold on. Let me check again."
+        },
+        {
+          "paragraph": 20,
+          "start": 5544,
+          "end": 6300,
+          "text": "\"The number of souvenir labels at the Spider Web Exhibit's Haddock display equals 17.\" So that's a quantity called \"Spider Web Exhibit's Haddock\" equals 17? Or is that a different quantity? Wait, the problem says \"the number of Spider Web Exhibit's Haddock\" in the question. So maybe the first statement is that \"Spider Web Exhibit's Haddock\" is 17. Then later, there's a statement that \"The number of Spider Web Exhibit's Haddock equals the number of The Florida Aquarium's Spider Web Exhibit.\" So that would mean that The Florida Aquarium's Spider Web Exhibit is also 17? But then later, we have The Florida Aquarium's Spider Web Exhibit equals The Deep's Bone, which we calculated as 4. That would create a contradiction unless there's a miscalculation."
+        },
+        {
+          "paragraph": 23,
+          "start": 6392,
+          "end": 7454,
+          "text": "1. Spider Web Exhibit's Haddock = 17 (from the first sentence)\n2. Beetle Bungalow's Haddock = 16\n3. Haddock's Ulnar Carpal = 14\n4. Shark's Ulnar Carpal = 5\n5. Haddock's Accessory Carpal = 18\n6. The Deep's Beetle Bungalow = Beetle Bungalow's Haddock = 16\n7. Beetle Bungalow's Shark = 7 + Beetle Bungalow's Haddock = 7 + 16 = 23 → 0 mod 23\n8. Shark's Accessory Carpal = 12 + Haddock's Ulnar Carpal = 12 + 14 = 26 → 3 mod 23\n9. Shark's Bone = Shark's Accessory Carpal + Shark's Ulnar Carpal = 3 + 5 = 8 mod 23\n10. Haddock's Bone = Haddock's Accessory Carpal + Haddock's Ulnar Carpal = 18 + 14 = 32 → 9 mod 23\n11. Beetle Bungalow's Bone = (Beetle Bungalow's Shark * Shark's Bone) + (Beetle Bungalow's Haddock * Haddock's Bone) = (0 * 8) + (16 * 9) = 0 + 144 → 144 mod 23. 23*6=138, 144-138=6 → 6\n12. The Deep's Bone = The Deep's Beetle Bungalow * Beetle Bungalow's Bone = 16 * 6 = 96 → 96 mod 23. 23*4=92, 96-92=4 → 4\n13. The Florida Aquarium's Spider Web Exhibit = The Deep's Bone = 4\n14. Spider Web Exhibit's Haddock = The Florida Aquarium's Spider Web Exhibit = 4"
+        },
+        {
+          "paragraph": 24,
+          "start": 7456,
+          "end": 7986,
+          "text": "But wait, initially, the problem says \"The number of souvenir labels at the Spider Web Exhibit's Haddock display equals 17.\" So that would be Spider Web Exhibit's Haddock = 17. However, later, there's a statement that \"The number of Spider Web Exhibit's Haddock equals the number of The Florida Aquarium's Spider Web Exhibit.\" So if the Florida Aquarium's Spider Web Exhibit is 4, then Spider Web Exhibit's Haddock would be 4, conflicting with the initial 17. That can't be right. Therefore, there must be a misunderstanding here."
+        },
+        {
+          "paragraph": 32,
+          "start": 11143,
+          "end": 11734,
+          "text": "So that's \"souvenir labels at Spider Web Exhibit's Haddock display\" equals 17. Then later, the problem says \"The number of Spider Web Exhibit's Haddock equals the number of The Florida Aquarium's Spider Web Exhibit.\" So \"Spider Web Exhibit's Haddock\" is a different quantity from \"souvenir labels at Spider Web Exhibit's Haddock display\". Therefore, the initial 17 is not the value of Spider Web Exhibit's Haddock, but of another quantity. Therefore, the first given is not directly the value we need. Instead, we need to compute Spider Web Exhibit's Haddock through the other relationships."
+        },
+        {
+          "paragraph": 37,
+          "start": 12298,
+          "end": 13309,
+          "text": "- S_Haddock: Spider Web Exhibit's Haddock (this is what we need to find)\n- B_Haddock: Beetle Bungalow's Haddock = 16\n- H_Ulnar: Haddock's Ulnar Carpal = 14\n- S_Ulnar: Shark's Ulnar Carpal = 5\n- H_Accessory: Haddock's Accessory Carpal = 18\n- D_Beetle: The Deep's Beetle Bungalow = B_Haddock = 16\n- B_Shark: Beetle Bungalow's Shark = 7 + B_Haddock = 7 + 16 = 23 → 0 mod 23\n- S_Accessory: Shark's Accessory Carpal = 12 + H_Ulnar = 12 + 14 = 26 → 3 mod 23\n- S_Bone: Shark's Bone = S_Accessory + S_Ulnar = 3 + 5 = 8 mod 23\n- H_Bone: Haddock's Bone = H_Accessory + H_Ulnar = 18 + 14 = 32 → 9 mod 23\n- B_Bone: Beetle Bungalow's Bone = (B_Shark * S_Bone) + (B_Haddock * H_Bone) = (0 * 8) + (16 * 9) = 0 + 144 → 144 mod 23 = 6\n- D_Bone: The Deep's Bone = D_Beetle * B_Bone = 16 * 6 = 96 → 4 mod 23\n- F_Spider: The Florida Aquarium's Spider Web Exhibit = D_Bone = 4\n- S_Haddock = F_Spider = 4 (from the statement \"The number of Spider Web Exhibit's Haddock equals the number of The Florida Aquarium's Spider Web Exhibit\")"
+        }
+      ]
+    },
+    {
+      "code": "E01",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 1,
+      "task_id": "igsm-official-0001-op10",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "1793b6b88762984974b2ad02e1520e86d1c6c8adced7cbe55c5245af0f127237",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E02",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 2,
+      "task_id": "igsm-official-0001-op10",
+      "seed": 1,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "1c24e1fb9a981b65a4349453f42c44ddd9b3ae97a92549c1e2a57265615b9b05",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E03",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 3,
+      "task_id": "igsm-official-0001-op10",
+      "seed": 2,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "44d567b99f4401533e5f7dc30772f1b759ee6a1c192653f5b217704adad99526",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E04",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 4,
+      "task_id": "igsm-official-0003-op21",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "bb31ed158bfecdc6ee16d87c4c2726ea84f48e81dbb3248789eef51ff5e662bd",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E05",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 5,
+      "task_id": "igsm-official-0003-op21",
+      "seed": 1,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "fde0b53af0a7cd0412f57d71e58ad96081effb2346d4805bdf01a664a60d4c99",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E06",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 6,
+      "task_id": "igsm-official-0003-op21",
+      "seed": 2,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "6574fc9c8038a7e8e9eedbf9f119385018c162143f919545b34e52aef34b9de0",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E07",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 7,
+      "task_id": "igsm-official-0006-op15",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "667e36f8c772a6215cdc25819c4a19c8672207f1d350798c73ca80ad779b593f",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E08",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 8,
+      "task_id": "igsm-official-0006-op15",
+      "seed": 1,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "941393079e83b947a04b4323331a00c36f0a3ee09e9dbd2430430a017c17872f",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E09",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 9,
+      "task_id": "igsm-official-0006-op15",
+      "seed": 2,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "a0fcc0fb890015442c355be5abf7361be29d20447df4f6044f2deffe39af68aa",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E10",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 10,
+      "task_id": "igsm-official-0008-op5",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "520f1fe0d131d743430267f147dd98ed87c104bfd02be6bb390725e48da3a8bf",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E11",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 11,
+      "task_id": "igsm-official-0008-op5",
+      "seed": 1,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "4c4200f6e74a58f3a4706becf978b08aa7d9b1c5aeef793c515f0465c26a074a",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E12",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 12,
+      "task_id": "igsm-official-0008-op5",
+      "seed": 2,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "0bb4950e49805367a9adcf70a69c4c3379cc65d06391588ad26746c755c8348e",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu2/traces.jsonl"
+    },
+    {
+      "code": "E13",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 1,
+      "task_id": "igsm-official-0004-op5",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "39b501bbdf77e20021f1a3ebac0661feac27e5d01d929f756512cc20f0b2742e",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl"
+    },
+    {
+      "code": "E14",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 2,
+      "task_id": "igsm-official-0004-op5",
+      "seed": 1,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "fafe897296e9ec5dcce632015d61ac0b7e8b95f95555bea1bde2782a2bb598ec",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl"
+    },
+    {
+      "code": "E15",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 3,
+      "task_id": "igsm-official-0004-op5",
+      "seed": 2,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "a16fde6abe1ebf9e22ca692867f98b50a07c3bfc226368ea25d7f22dcaefeb31",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl"
+    },
+    {
+      "code": "E16",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 4,
+      "task_id": "igsm-official-0007-op21",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "c4d89bdfb3e242108107f6bad578df9a36373ec44acbf344598343c43dcd5758",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl"
+    },
+    {
+      "code": "E17",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 5,
+      "task_id": "igsm-official-0007-op21",
+      "seed": 1,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "a068be485989bd3172df8154e9720b6619361e0d2e7d545ec5cc781446136447",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl"
+    },
+    {
+      "code": "E18",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 6,
+      "task_id": "igsm-official-0007-op21",
+      "seed": 2,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "e3322ee18fda516e525cb4ceaa2c8d56b5045202293f52f170dab4c80125dd19",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl"
+    },
+    {
+      "code": "E19",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 7,
+      "task_id": "igsm-official-0026-op15",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "e95556ef195c6f1051603e5ea4bb79dd382718d2fca70dc6990b68cf88a464de",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl"
+    },
+    {
+      "code": "E20",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 8,
+      "task_id": "igsm-official-0026-op15",
+      "seed": 1,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "26faef22c5e42cbad5b00d413eaebff90f8b2709c735164be4401a86844ff62b",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl"
+    },
+    {
+      "code": "E21",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 9,
+      "task_id": "igsm-official-0026-op15",
+      "seed": 2,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "12b76939785420e595eaf9371c3704ab98a1c15fcfa0a65cd3796a110bce4a1a",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl"
+    },
+    {
+      "code": "E22",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 10,
+      "task_id": "igsm-official-0045-op10",
+      "seed": 0,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "44a9ef084be1ada14e54e21e64462beedc33a6d2bee3b4aaf875e11f2d042b4f",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl"
+    },
+    {
+      "code": "E23",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 11,
+      "task_id": "igsm-official-0045-op10",
+      "seed": 1,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "9637482c1609ebb3daa145ac05822b6a7d4dce160455720c88d6d0ffb9be0593",
+      "review_depth": "retrieval_screen",
+      "judgment": null,
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl"
+    },
+    {
+      "code": "E24",
+      "source": "artifacts/rd-pr8-natural-pilot-20261007-light/raw-and-reparsed-pilot.tar.gz",
+      "source_line": 12,
+      "task_id": "igsm-official-0045-op10",
+      "seed": 2,
+      "condition": "base",
+      "correct": true,
+      "text_sha256": "6a386219320e7c35aac16d97445e99dea2c2d07a4ad1d1d4a25afb921786a5be",
+      "review_depth": "selected_candidate_context_review",
+      "judgment": "13-20得到16的错误候选是明确反事实分支，随后拒绝；实际答案维持7。",
+      "archive_member": "pr8-natural-pilot-20261007-d02a40c/pilot-gpu3/traces.jsonl",
+      "excerpts": [
+        {
+          "paragraph": 96,
+          "start": 13446,
+          "end": 13729,
+          "text": "If it was Ba - Sr, that would be 13 - 20 = -7 mod 23. Which is equivalent to 16 (since -7 + 23 = 16). But the problem says \"difference between the number of Swimming Pool's Rucksack and the number of Aerobics Studio's Backpack\", which is Sr - Ba. So it's 20 - 13 = 7. So answer is 7."
+        }
+      ]
+    }
+  ]
+}

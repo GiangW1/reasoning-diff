@@ -1,0 +1,1390 @@
+{
+  "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+  "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+  "blinded": false,
+  "not_a_second_human_gold": true,
+  "first_pass_file": "first-pass.json",
+  "semantic_reannotation_of_all_48": false,
+  "no_confirmed_strict_recurrence_in_reviewed_evidence": true,
+  "records": [
+    {
+      "code": "P31",
+      "verdict": "support_wrong_reattribution_reappears; revise_commitment_swing_wording",
+      "paragraphs": [
+        57,
+        59,
+        60,
+        84,
+        115,
+        116,
+        117,
+        120,
+        126
+      ],
+      "judgment": "S84明确区分标签和目标；117首句重新错误归引题面17，但同段紧接If并再次倾向不同数量和14。支持错误归引再现，不足以确认重新承诺目标工作值17。",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "comparison_to_current_annotation": "support_base_category_and_adoption_boundary; revise_overstrong_commitment_wording",
+      "first_pass_saved_separately": true,
+      "task_id": "igsm-pr9-20261008-0062-op15",
+      "seed": 3,
+      "role": "noise",
+      "text_sha256": "83c37a1d41cdfdf9a990a379efc326d81b97993368aa483f12650dabe599145b",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "wrong_restatement_recurs",
+      "proposed_category": "wrong_restatement_recurs",
+      "category_changed": false,
+      "original_adoption": "none_observed",
+      "proposed_adoption": "none_observed",
+      "hypothesis_scope_notes": "117 has false attribution before If and ends again with separate source /14; no working-value17 consumer.",
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/P31.md",
+      "events": [
+        {
+          "paragraph": 57,
+          "start": 11300,
+          "end": 12123,
+          "quote": "\"The number of Crestwood Secondary's Squash Court equals (the sum of 19 and ...)\" which would be a different definition. So this suggests that there are two different quantities: one is the number of souvenir labels (17), and another is the number of Crestwood Secondary's Squash Court (which is defined later). But the question is asking for the latter, not the former. Therefore, the initial value of 17 is for the souvenir labels, and the actual Crestwood Secondary's Squash Court is computed via the later equations. So maybe the initial statement is just giving a value for a different quantity, and the question is about the computed value. So perhaps I need to ignore the first statement about the souvenir labels? Or is the \"number of Crestwood Secondary's Squash Court\" the same as the \"number of souvenir labels\"?"
+        },
+        {
+          "paragraph": 59,
+          "start": 12193,
+          "end": 13385,
+          "quote": "The first sentence says: \"The number of souvenir labels at the Crestwood Secondary's Squash Court display equals 17.\" So this is a specific quantity, which is the number of souvenir labels. Then later, the question asks for \"the number of Crestwood Secondary's Squash Court\". Unless the \"souvenir labels\" are part of the Squash Court, but the problem might be using \"Crestwood Secondary's Squash Court\" to refer to the display, which includes the souvenir labels. However, the problem then later defines another equation for \"the number of Crestwood Secondary's Squash Court\", which would be conflicting. Therefore, this suggests that perhaps the initial value of 17 is for the souvenir labels, and the actual number of Crestwood Secondary's Squash Court is computed via the equations, which is what the question is asking for. Therefore, the first statement is just providing a value for a different quantity (souvenir labels), and the question is about the computed value of Crestwood Secondary's Squash Court. Therefore, the initial value of 17 is not the answer, but rather part of the problem's setup. Therefore, my earlier calculation of C_Sq = 14 is the answer? But let me check again."
+        },
+        {
+          "paragraph": 60,
+          "start": 13387,
+          "end": 13955,
+          "quote": "Wait, but the problem says \"the number of Crestwood Secondary's Squash Court equals 17\" in the first sentence. But then later, there's an equation that defines it again. So maybe the first sentence is actually the value of Crestwood Secondary's Squash Court, and the later equation is another way to compute it? But that would mean that 17 = 19 + ... which would be a contradiction unless the later equation is also equal to 17 mod23. But in my calculation, the later equation gives 14, which would mean inconsistency. Therefore, there must be a misunderstanding here."
+        },
+        {
+          "paragraph": 84,
+          "start": 21152,
+          "end": 21707,
+          "quote": "First sentence: \"The number of souvenir labels at the Crestwood Secondary's Squash Court display equals 17.\" So this is the number of souvenir labels, not the number of the Squash Court itself. Therefore, the number of Crestwood Secondary's Squash Court is not given directly, but is computed via the equations. Hence, the answer is 14. However, the problem says \"What is the number of Crestwood Secondary's Squash Court?\" which is computed as 14. Therefore, the answer is 14. But let me check if there is any other step where I might have made a mistake."
+        },
+        {
+          "paragraph": 115,
+          "start": 23885,
+          "end": 23936,
+          "quote": "C_Sq = 19 + (H_TT2 + V_C) = 19 + (0 + 18) = 37 ≡ 14"
+        },
+        {
+          "paragraph": 116,
+          "start": 23938,
+          "end": 24164,
+          "quote": "Yes, all steps are correct. Therefore, the answer should be 14. But the problem initially mentions that the number of souvenir labels is 17, which might be a red herring. So unless there's a misunderstanding, the answer is 14."
+        },
+        {
+          "paragraph": 117,
+          "start": 24166,
+          "end": 24657,
+          "quote": "Wait, but the problem says \"the number of Crestwood Secondary's Squash Court equals 17\" in the first sentence. If that is indeed referring to the same quantity as the one computed via the equations, then there is a contradiction. But given that the equations are all built upon other quantities, and the first sentence is about a different quantity (souvenir labels), it's more likely that the first sentence is separate. Hence, the answer is 14. Therefore, I think the correct answer is 14."
+        },
+        {
+          "paragraph": 120,
+          "start": 24941,
+          "end": 24982,
+          "quote": "C_Sq is 19 + (0 + 18) = 37 ≡ 14. Correct."
+        },
+        {
+          "paragraph": 126,
+          "start": 25335,
+          "end": 25574,
+          "quote": "- $ C_S = 17 $ (number of souvenir labels at the display, **not** the final answer)\n- $ H_S = 18 $ (Harborview High's Squash Court)\n- $ V_S = H_S = 18 $ (Valley View High's Swimming Pool)\n- $ V_Sq = 5 + V_S = 5 + 18 = 23 \\equiv 0 \\mod 23 $"
+        }
+      ]
+    },
+    {
+      "code": "P69",
+      "verdict": "support_wrong_reattribution; ambiguous_commitment; reject_forward_propagation_claim",
+      "paragraphs": [
+        32,
+        62,
+        94,
+        115,
+        116,
+        117,
+        118,
+        120,
+        122,
+        123,
+        124,
+        125,
+        126,
+        133,
+        145,
+        159,
+        184
+      ],
+      "judgment": "S62明确不同数量；116错误归引目标17但仍possible/confusing；118开启另解释，120/122/123受假设支配，124用正常0查出矛盾。145更深反推也是假设。支持错误归引再现，尚未确认解释承诺回摆或实际采用Alula13。",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "comparison_to_current_annotation": "support_base_category_and_adoption_boundary; revise_overstrong_commitment_wording",
+      "first_pass_saved_separately": true,
+      "task_id": "igsm-pr9-20261008-0052-op5",
+      "seed": 0,
+      "role": "reference",
+      "text_sha256": "4aa5709a447a4c4c5c83f57b6e063369ce53d7598137bf3a967e8d8a844dbc97",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "wrong_restatement_recurs",
+      "proposed_category": "wrong_restatement_recurs",
+      "category_changed": false,
+      "original_adoption": "hypothetical_only",
+      "proposed_adoption": "hypothetical_only",
+      "hypothesis_scope_notes": "94-115 alternative interpretation and rejection; 118-125 alternative-interpretation branch; 145 is another hypothetical inverse check. 116 is erroneous attribution with uncertain commitment.",
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/P69.md",
+      "events": [
+        {
+          "paragraph": 32,
+          "start": 7680,
+          "end": 8280,
+          "quote": "Then the question is: What is the number of Tiger's Ulna? So, the quantity T_Ulna is defined in equation 5. However, the first sentence mentions a different quantity, S_Tiger_Ulna_Display = 17. So perhaps the problem is using \"Tiger's Ulna\" in two different contexts? Or maybe the first sentence is actually referring to T_Ulna? Maybe there's a translation issue or wording confusion. Alternatively, perhaps the problem is structured so that the first sentence is a given value for T_Ulna, and then equation 5 is another definition? But that would be conflicting unless they are consistent modulo 23."
+        },
+        {
+          "paragraph": 62,
+          "start": 11875,
+          "end": 12880,
+          "quote": "So the first sentence is about \"souvenir labels at the Tiger's Ulna display\" equals 17. Then, the rest are about Bear's Ulna, Monkey's Ulna, Tiger's Alula, and Tiger's Ulna. So the first sentence is about a different quantity, not the same as Tiger's Ulna. Therefore, the problem is giving multiple quantities, some of which are related, and the question is about Tiger's Ulna, which is defined by equation 5. Therefore, the first sentence is not directly related to the calculation of Tiger's Ulna, unless there's a connection I'm missing. But the problem says \"the number of Tiger's Ulna\" in the question, which is defined in equation 5. Therefore, the first sentence is about a different quantity (souvenir labels), which may or may not be relevant. However, the problem also mentions unrelated blue lanterns and green ribbons, which are also separate. Therefore, perhaps the first sentence is just extra information, and the actual calculation is based on the equations given from Bear's Ulna onwards."
+        },
+        {
+          "paragraph": 94,
+          "start": 16674,
+          "end": 16940,
+          "quote": "Alternatively, maybe the problem meant that the number of Tiger's Ulna is defined as 17, and we have to check if that's consistent with the other equations? But then we have T_Ulna = 17 and T_Ulna = 19 * T_Alula, so 17 = 19 * T_Alula mod 23. Let's solve for T_Alula."
+        },
+        {
+          "paragraph": 115,
+          "start": 17699,
+          "end": 18040,
+          "quote": "But earlier, from equations, we had T_Alula = 0. So this suggests inconsistency. Therefore, if we take T_Ulna = 17 as given, then T_Alula = 13, but from the other equations, T_Alula = 0. Therefore, there's a contradiction. Hence, this suggests that either the first sentence is not part of the equations, or there's a mistake in the problem."
+        },
+        {
+          "paragraph": 116,
+          "start": 18042,
+          "end": 18717,
+          "quote": "But since the problem says \"the number of Tiger's Ulna equals 17\" in the first sentence, and then later defines it as 19*T_Alula, it's possible that the first sentence is actually the correct value, and the later equation is an additional constraint. However, since they are conflicting, it's confusing. However, the problem says \"Work through the problem in a single forward derivation. Use the quantity names from the question when stating computed results. Apply the stated arithmetic rules at each operation. Do not restart, recap, or repeatedly verify the derivation. Once the requested quantity is computed, finish thinking naturally and give a concise final answer...\""
+        },
+        {
+          "paragraph": 117,
+          "start": 18719,
+          "end": 19168,
+          "quote": "Therefore, perhaps the correct approach is to ignore the first sentence and compute T_Ulna via the equations, leading to 0. Alternatively, if the first sentence is part of the given data, and the question is to find T_Ulna, which is given as 17, but that would be trivial. However, the problem says \"What is the number of Tiger's Ulna?\" which is defined by the equations, not given. Hence, the first sentence might be a distractor or a misdirection."
+        },
+        {
+          "paragraph": 118,
+          "start": 19170,
+          "end": 19598,
+          "quote": "Alternatively, maybe the first sentence is referring to the number of Tiger's Ulna, and the rest of the equations are additional definitions. But that leads to a contradiction. However, since the problem says \"All arithmetic is modulo 23,\" maybe we need to consider that the first sentence is giving a value for T_Ulna, and the equation T_Ulna = 19 * T_Alula is another way to compute it. Therefore, we can set up the equations:"
+        },
+        {
+          "paragraph": 120,
+          "start": 19608,
+          "end": 19619,
+          "quote": "T_Ulna = 17"
+        },
+        {
+          "paragraph": 122,
+          "start": 19644,
+          "end": 19794,
+          "quote": "Therefore, 17 = 19 * T_Alula mod 23 ⇒ T_Alula = 17 * 19^{-1} mod 23. As we found earlier, inverse of 19 is 17, so T_Alula = 17 * 17 = 289 ≡ 13 mod 23."
+        },
+        {
+          "paragraph": 123,
+          "start": 19796,
+          "end": 19896,
+          "quote": "Then, T_Alula = 13, which should also be equal to 13 * (M_Ulna + B_Ulna). Let's check if this holds."
+        },
+        {
+          "paragraph": 124,
+          "start": 19898,
+          "end": 20147,
+          "quote": "From earlier, we had M_Ulna = 22 * B_Ulna = 22 * 6 = 132 ≡ 17 mod 23. B_Ulna = 6. So M_Ulna + B_Ulna = 17 + 6 = 23 ≡ 0 mod 23. Therefore, T_Alula = 13 * 0 = 0 mod 23. But according to the other calculation, T_Alula should be 13. Contradiction again."
+        },
+        {
+          "paragraph": 125,
+          "start": 20149,
+          "end": 20320,
+          "quote": "This suggests that there's an inconsistency in the problem's given data. However, since the problem is presented as solvable, perhaps I have misinterpreted the quantities."
+        },
+        {
+          "paragraph": 126,
+          "start": 20322,
+          "end": 20530,
+          "quote": "Let me try to think differently. Perhaps the first sentence is not about T_Ulna but about something else, and the equations are all about T_Ulna. Let me try to re-express all variables with their definitions."
+        },
+        {
+          "paragraph": 133,
+          "start": 20777,
+          "end": 20933,
+          "quote": "So the first sentence about \"souvenir labels at the Tiger's Ulna display equals 17\" is unrelated, and we can ignore it. Then, proceeding with the equations:"
+        },
+        {
+          "paragraph": 145,
+          "start": 21870,
+          "end": 22592,
+          "quote": "Alternatively, perhaps the problem meant that all the given numbers are to be considered in the context of the equations, and the first sentence is actually part of the equations. Let me try to think: maybe \"the number of souvenir labels at the Tiger's Ulna display equals 17\" is referring to the number of Tiger's Ulna, which is then used in the equations? But that would mean T_Ulna = 17, and then T_Ulna = 19 * T_Alula, leading to T_Alula = 17 * 19^{-1} mod 23 = 17 * 17 = 289 ≡ 13 mod 23. Then, T_Alula = 13, which should also equal 13 * (M_Ulna + B_Ulna). So 13 = 13 * (M_Ulna + B_Ulna) ⇒ (M_Ulna + B_Ulna) = 1 mod 23. But earlier, we had M_Ulna + B_Ulna = 23 ≡ 0 mod 23. Therefore, 0 ≡ 1 mod 23? Contradiction again."
+        },
+        {
+          "paragraph": 159,
+          "start": 25214,
+          "end": 25390,
+          "quote": "Given the problem's instructions to work through it in a single forward derivation, using the given quantities, I think the correct answer is 0. Therefore, I will go with that."
+        },
+        {
+          "paragraph": 184,
+          "start": 26575,
+          "end": 26600,
+          "quote": "$$\n\\boxed{0}\n$$<|im_end|>"
+        }
+      ]
+    },
+    {
+      "code": "P22",
+      "verdict": "support_local_wrong_premise_inverse; no_confirmed_working_value_adoption",
+      "paragraphs": [
+        4,
+        6,
+        9,
+        17,
+        19,
+        22,
+        26,
+        43,
+        44,
+        74,
+        75
+      ],
+      "judgment": "9/17以目标17推出R_T12，17的must语气是局部错误断言。之后真正前向算19和1，未见12作为正常链后续操作数；75是If假设并拒绝。S19可作前缀分离锚点，但同段仍怀疑，严格边界可用26，均晚于逆推。",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "comparison_to_current_annotation": "support_or_retain_uncertainty",
+      "first_pass_saved_separately": true,
+      "task_id": "igsm-pr9-20261008-0026-op15",
+      "seed": 0,
+      "role": "reference",
+      "text_sha256": "73707a941dc46b16cf92c34782b99564284f7e1a18bfc12b13270e669d617e90",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "questions_or_hypotheses_continue",
+      "proposed_category": "questions_or_hypotheses_continue",
+      "category_changed": false,
+      "original_adoption": "assertive_inverse_only",
+      "proposed_adoption": "assertive_inverse_only",
+      "hypothesis_scope_notes": "9/17 assert a local inverse constraint; 74 opens alternative interpretation and 75 is explicitly If then rejected.",
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/P22.md",
+      "events": [
+        {
+          "paragraph": 4,
+          "start": 2596,
+          "end": 3335,
+          "quote": "1. **Tropical Fish Tanks's Herring (let's call this T_H)** = 17\n2. **Tropical Fish Tanks's Sardine (T_S)** = 21\n3. **Rockpool Exhibit's Sardine (R_S)** = T_S = 21\n4. **Sealion Show Pool's Herring (S_H)** = R_S = 21\n5. **Sealion Show Pool's Sardine (S_S)** = 10 * (S_H + T_S)\n6. **Rockpool Exhibit's Herring (R_H)** = R_S = 21\n7. **Sealion Show Pool's Trout (S_T)** = (R_H + R_S) + T_S\n8. **Sealion Show Pool's Animal (S_A)** = (S_S + S_H) + S_T\n9. **Tropical Fish Tanks's Trout (T_T)** = 15 * (S_A - R_S)\n10. **Rockpool Exhibit's Trout (R_T)** = (T_T + T_S) + R_H\n11. **Tropical Fish Tanks's Herring (T_H)** = 5 + R_T\n12. **Unrelated blue lanterns** = 17 (but maybe not relevant)\n13. **Unrelated green ribbons** = 9 (probably not relevant)"
+        },
+        {
+          "paragraph": 6,
+          "start": 3619,
+          "end": 4096,
+          "quote": "Wait, the first statement says: \"The number of souvenir labels at the Tropical Fish Tanks's Herring display equals 17.\" So that's T_H = 17. But later, there's another equation: \"The number of Tropical Fish Tanks's Herring equals (the sum of 5 and the number of Rockpool Exhibit's Trout).\" So T_H = 5 + R_T. Therefore, if T_H is given as 17, then R_T must be 17 - 5 = 12. But maybe the initial statement is not T_H but something else? Wait, let me check the exact wording again."
+        },
+        {
+          "paragraph": 9,
+          "start": 4242,
+          "end": 4520,
+          "quote": "\"The number of Tropical Fish Tanks's Herring equals (the sum of 5 and the number of Rockpool Exhibit's Trout).\" So that would be T_H = 5 + R_T. Therefore, combining these two, 17 = 5 + R_T => R_T = 12. But maybe I need to verify all equations step by step to ensure consistency."
+        },
+        {
+          "paragraph": 17,
+          "start": 5772,
+          "end": 6048,
+          "quote": "But the problem says \"the number of Tropical Fish Tanks's Herring equals...\" which is T_H, and that's given as 17. But equation 11 says T_H = 5 + R_T. Therefore, combining these two, 17 = 5 + R_T => R_T = 12. So R_T must be 12. But let's check if all equations hold with that."
+        },
+        {
+          "paragraph": 19,
+          "start": 6566,
+          "end": 7045,
+          "quote": "Wait, the problem says: \"The number of souvenir labels at the Tropical Fish Tanks's Herring display equals 17.\" So that's a separate quantity, maybe called something else, but the question is about \"the number of Tropical Fish Tanks's Herring\", which is different. Wait, but the problem says \"the number of Tropical Fish Tanks's Herring equals...\" in equation 11. So perhaps the first sentence is not T_H but another variable? Wait, maybe I need to check the exact wording again."
+        },
+        {
+          "paragraph": 22,
+          "start": 7161,
+          "end": 8149,
+          "quote": "So that's a different quantity. Maybe the question is asking for T_H, which is the number of Tropical Fish Tanks's Herring, which is defined in equation 11 as 5 + R_T. However, the first sentence gives a separate quantity, which is the number of souvenir labels at the Herring display, which is 17. But the problem doesn't say that this is equal to T_H. Therefore, perhaps the first sentence is just additional info, but the actual value of T_H is determined by equation 11. Wait, but the problem says \"the number of Tropical Fish Tanks's Herring equals...\" in equation 11. So maybe the first sentence is redundant or maybe it's a different quantity. However, the problem is asking for the number of Tropical Fish Tanks's Herring, which is T_H, and that is given by equation 11 as 5 + R_T. So maybe the first sentence is not directly T_H but something else. But maybe the problem is in Chinese or another language, and the translation is causing confusion? Or maybe I need to check again."
+        },
+        {
+          "paragraph": 26,
+          "start": 9971,
+          "end": 10547,
+          "quote": "So the first sentence is about \"souvenir labels at the Tropical Fish Tanks's Herring display\" equals 17. Then the rest of the sentences define other quantities. The question is asking for \"the number of Tropical Fish Tanks's Herring\", which is different from the first sentence. Therefore, the first sentence is a separate quantity, which is not directly T_H. Therefore, T_H is determined by the last equation: T_H = 5 + R_T. Therefore, we need to compute R_T, which requires computing T_T, which requires S_A, which requires S_S, S_H, S_T, etc. So let's proceed step by step."
+        },
+        {
+          "paragraph": 43,
+          "start": 11214,
+          "end": 11305,
+          "quote": "Then R_T = (T_T + T_S) + R_H = (0 + 21) + 21 = 42. 42 mod23 is 19 (as before). So R_T = 19."
+        },
+        {
+          "paragraph": 44,
+          "start": 11307,
+          "end": 11375,
+          "quote": "Then T_H = 5 + R_T = 5 + 19 = 24. 24 mod23 is 1. Therefore, T_H = 1."
+        },
+        {
+          "paragraph": 74,
+          "start": 14631,
+          "end": 14905,
+          "quote": "But let me check once more if there's another way to interpret the problem. For example, maybe the first sentence is actually defining T_H as 17, and then equation 11 is another equation for T_H. But in that case, there would be inconsistency. Let me check that possibility."
+        },
+        {
+          "paragraph": 75,
+          "start": 14907,
+          "end": 15290,
+          "quote": "If we assume that the first sentence defines T_H = 17, and then equation 11 says T_H = 5 + R_T. Then 17 = 5 + R_T => R_T = 12. But then we need to check if with R_T = 12, the rest of the equations hold. However, in our previous calculation, R_T was 19. So this suggests inconsistency. Therefore, perhaps the first sentence is not T_H but another quantity. Therefore, the answer is 1."
+        }
+      ]
+    },
+    {
+      "code": "P47",
+      "verdict": "support_local_inverse_constraint; forward_adoption_not_confirmed",
+      "paragraphs": [
+        16,
+        29,
+        30,
+        31,
+        37,
+        49,
+        50,
+        51,
+        96,
+        97,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        146,
+        149,
+        152
+      ],
+      "judgment": "30/31/37写出错前提导致KH22，并保留与前向0的矛盾。49、96、106均显式假设；后续ZH2/CO0/CFL22是该分支连续反推，114拒绝。没有明确来源纠正，也未确认工作状态被KH22替换。",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "comparison_to_current_annotation": "support_or_retain_uncertainty",
+      "first_pass_saved_separately": true,
+      "task_id": "igsm-pr9-20261008-0054-op15",
+      "seed": 3,
+      "role": "noise",
+      "text_sha256": "bfef39668295a700aad2a64cb8a293ebff101ac0afc8644f962e2783f7421d1d",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "unresolved_source_conflict",
+      "proposed_category": "unresolved_source_conflict",
+      "category_changed": false,
+      "original_adoption": "assertive_inverse_only",
+      "proposed_adoption": "assertive_inverse_only",
+      "hypothesis_scope_notes": "49-51 and 96-97 hypothetical KH22 checks; 106-114 assumption governs ZH2, CO0, CFL22 until contradiction. 30/31/37 local constraints are not confirmed working-value replacement.",
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/P47.md",
+      "events": [
+        {
+          "paragraph": 16,
+          "start": 6504,
+          "end": 6751,
+          "quote": "Then ZG = 18 + KH = 18 + 0 = 18 mod 23. But wait, the initial value of ZG was given as 17. But according to this calculation, ZG is 18. This is a contradiction. Therefore, there must be an error in my calculations. Let me check again step by step."
+        },
+        {
+          "paragraph": 29,
+          "start": 7748,
+          "end": 7926,
+          "quote": "KH=12 * [(ZH + KFL) + CG]. Let's compute inside: ZH + KFL = 3 + 3 = 6. Then add CG: 6 + 17 = 23. Then multiply by 12: 12*23. But 23 mod 23 is 0, so 12*0=0. Therefore KH=0 mod 23."
+        },
+        {
+          "paragraph": 30,
+          "start": 7928,
+          "end": 8686,
+          "quote": "Then ZG = 18 + KH = 18 + 0 = 18 mod 23. However, the problem states that ZG is 17. So there is a contradiction here. Therefore, either there's a miscalculation, or perhaps the initial value of ZG is not to be used directly, but the equation ZG = 18 + KH is the correct one? Wait, the problem says \"the number of souvenir labels at the Zebra's Ganglia display equals 17.\" So that's a given. However, the problem also says \"the number of Zebra's Ganglia equals (the sum of 18 and the number of Kangaroo's Hypothalamus).\" So that would mean that ZG is both 17 and 18 + KH. Therefore, 17 ≡ 18 + KH mod 23. Therefore, KH ≡ 17 - 18 ≡ -1 ≡ 22 mod 23. But according to our previous calculation, KH was 0. Therefore, there's an inconsistency. So where is the mistake?"
+        },
+        {
+          "paragraph": 31,
+          "start": 8688,
+          "end": 9130,
+          "quote": "Let me check KH calculation again. KH = 12 * [(ZH + KFL) + CG]. ZH = KFL = 3. So ZH + KFL = 3 + 3 = 6. Then add CG = 17. 6 + 17 = 23. Then multiply by 12: 12 * 23. But 23 mod 23 is 0, so 12 * 0 = 0. Therefore KH=0. But according to the equation ZG = 18 + KH, and ZG is given as 17, so 17 ≡ 18 + KH => KH ≡ -1 ≡ 22 mod 23. Therefore, there's a contradiction. Which means that either my calculation is wrong, or perhaps I misread the equations."
+        },
+        {
+          "paragraph": 37,
+          "start": 11825,
+          "end": 12212,
+          "quote": "So the first statement is ZG = 17, and then later ZG = 18 + KH. Therefore, according to the problem, both equations must hold. Therefore, 17 ≡ 18 + KH mod 23 => KH ≡ 17 - 18 = -1 ≡ 22 mod 23. However, according to our calculations, KH is 0. Therefore, there is an inconsistency. This suggests that either the problem has a mistake, or perhaps I made a miscalculation. Let me check again."
+        },
+        {
+          "paragraph": 49,
+          "start": 15241,
+          "end": 15479,
+          "quote": "Wait, let me try to recompute KH with KH ≡ 22 mod 23. If KH is 22, then what would that imply about the previous steps? Let's suppose that KH = 22. Then, going back, we have KH = 12 * [(ZH + KFL) + CG] = 22. Let me see if that's possible."
+        },
+        {
+          "paragraph": 50,
+          "start": 15481,
+          "end": 15790,
+          "quote": "So [(ZH + KFL) + CG] = 22 / 12 mod 23. But 12^{-1} mod 23. Let me compute the inverse of 12 modulo 23. Find x such that 12x ≡ 1 mod 23. Let's try x=2: 24 ≡ 1 mod 23. Yes! 12*2=24≡1 mod23. So inverse of 12 is 2. Therefore, [(ZH + KFL) + CG] = 22 * 2 = 44 mod 23. 44 - 23 = 21. So [(ZH + KFL) + CG] ≡ 21 mod 23."
+        },
+        {
+          "paragraph": 51,
+          "start": 15792,
+          "end": 16012,
+          "quote": "But earlier, we had [(ZH + KFL) + CG] = 3 + 3 + 17 = 23 ≡ 0 mod23. Which is not 21. So this suggests that if KH is 22, then [(ZH + KFL) + CG] must be 21, but our calculation says it's 0. Therefore, there's inconsistency."
+        },
+        {
+          "paragraph": 96,
+          "start": 21727,
+          "end": 21958,
+          "quote": "ZG=18 + 0=18. But given ZG=17. So if I take the equation ZG=18 + KH, and the given ZG=17, then KH=17 - 18 = -1 ≡ 22 mod23. So let's assume that KH=22, and see if that leads to consistency in other equations. Let's try to backtrack."
+        },
+        {
+          "paragraph": 97,
+          "start": 21960,
+          "end": 22354,
+          "quote": "If KH=22, then from KH = 12 * [(ZH + KFL) + CG] = 22. Let me solve for [(ZH + KFL) + CG] = 22 * 12^{-1} mod23. As before, 12^{-1} is 2, so 22*2=44 ≡ 44-2*23=44-46=-2≡21 mod23. So [(ZH + KFL) + CG] ≡ 21 mod23. But [(ZH + KFL) + CG] = ZH + KFL + CG = ZH + KFL + CG. We know CG=17, and ZH=KFL=3. So 3 + 3 + 17 = 23 ≡ 0 mod23. But we need it to be 21. So 0 ≡ 21 mod23? No. Therefore, inconsistency."
+        },
+        {
+          "paragraph": 105,
+          "start": 23442,
+          "end": 23776,
+          "quote": "Alternatively, maybe the initial value of ZG is 17, and the equation ZG = 18 + KH is another equation, and we need to solve for KH, which would give KH = 17 - 18 = -1 ≡ 22 mod23. Then, even though our calculation gives KH=0, perhaps there's a miscalculation in the steps leading to KH. Let me try to see if there's a way to get KH=22."
+        },
+        {
+          "paragraph": 106,
+          "start": 23778,
+          "end": 23869,
+          "quote": "Let me assume KH=22, and work backwards to see what would be needed for the previous steps."
+        },
+        {
+          "paragraph": 107,
+          "start": 23871,
+          "end": 23977,
+          "quote": "From KH = 12 * [(ZH + KFL) + CG] = 22. So [(ZH + KFL) + CG] = 22 * 12^{-1} mod23 = 22 * 2 = 44 ≡ 21 mod23."
+        },
+        {
+          "paragraph": 108,
+          "start": 23979,
+          "end": 24118,
+          "quote": "So [(ZH + KFL) + CG] = 21. But CG=17, so ZH + KFL = 21 - 17 = 4. Since ZH = KFL, this implies 2 * ZH = 4 => ZH = 2. Therefore, ZH=2, KFL=2."
+        },
+        {
+          "paragraph": 109,
+          "start": 24120,
+          "end": 24204,
+          "quote": "But ZH = KFL = ZFL. So ZFL=2. Let's see what that would mean for the previous steps."
+        },
+        {
+          "paragraph": 110,
+          "start": 24206,
+          "end": 24258,
+          "quote": "If ZFL=2, then let's backtrack to ZFL's calculation."
+        },
+        {
+          "paragraph": 111,
+          "start": 24260,
+          "end": 24440,
+          "quote": "ZFL = 2 * [(CO + CG) + CH] = 2. Let's solve for [(CO + CG) + CH] = 2 * 2^{-1} mod23. Since 2^{-1} mod23 is 12, because 2*12=24≡1 mod23. So [(CO + CG) + CH] = 2 * 12 = 24 ≡ 1 mod23."
+        },
+        {
+          "paragraph": 112,
+          "start": 24442,
+          "end": 24618,
+          "quote": "So [(CO + CG) + CH] = 1. But CO + CG + CH = CO + CG + CH. We know CG=17, CH=7, so CO + 17 + 7 = CO + 24. So CO + 24 ≡ 1 mod23 => CO ≡ 1 - 24 ≡ 1 - 1 = 0 mod23. Therefore, CO=0."
+        },
+        {
+          "paragraph": 113,
+          "start": 24620,
+          "end": 24757,
+          "quote": "CO = (CFL + CG) + CH = 0. So (CFL + CG) + CH = 0. We know CG=17, CH=7, so CFL + 17 + 7 = CFL + 24 ≡ 0 mod23 => CFL ≡ -24 ≡ -1 ≡ 22 mod23."
+        },
+        {
+          "paragraph": 114,
+          "start": 24759,
+          "end": 24894,
+          "quote": "But CFL = 18 * KG = 18 * 7 = 126 ≡ 11 mod23. But we now have CFL ≡ 22. Contradiction. Therefore, this path also leads to inconsistency."
+        },
+        {
+          "paragraph": 146,
+          "start": 28898,
+          "end": 29019,
+          "quote": "- **KH** = 12 × [(ZH + KFL) + CG]  \n  - = 12 × [(3 + 3) + 17] = 12 × 23 = 276  \n  - 276 mod 23 = 0  \n  - So, **KH** = 0  "
+        },
+        {
+          "paragraph": 149,
+          "start": 29072,
+          "end": 29153,
+          "quote": "- **ZG** = 18 + **KH** = 18 + 0 = 18  \n  - 18 mod 23 = 18  \n  - So, **ZG** = 18  "
+        },
+        {
+          "paragraph": 152,
+          "start": 29180,
+          "end": 29620,
+          "quote": "Although the problem initially states that \"The number of souvenir labels at the Zebra's Ganglia display equals 17\", this is a given value. However, the **equation** for **Zebra's Ganglia** is defined as **ZG = 18 + KH**, and through the derivation, we find that **KH = 0**, leading to **ZG = 18**. This implies that the given value of 17 may be either an inconsistency or a red herring, and the correct value derived from the equations is:"
+        }
+      ]
+    },
+    {
+      "code": "V58",
+      "verdict": "retain_uncertainty_about_reasserted_constraint; no_source_correction",
+      "paragraphs": [
+        45,
+        63,
+        127,
+        146,
+        148,
+        150,
+        159,
+        160,
+        168,
+        169,
+        170,
+        173,
+        174,
+        175,
+        178,
+        179,
+        190,
+        195,
+        196,
+        199,
+        201,
+        205
+      ],
+      "judgment": "169答0只选数值，不等于分离来源；170明确复核先前逆元，173重述差值13最自然仍属旧约束复核，174又想调整，执行承诺仍不明确。后续检查用22、目标0；未见WL12写入或消费。",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "comparison_to_current_annotation": "support_or_retain_uncertainty",
+      "first_pass_saved_separately": true,
+      "task_id": "igsm-pr9-20261008-0014-op15",
+      "seed": 3,
+      "role": "noise",
+      "text_sha256": "5875e2fe3fd8522b82c07eed17428680045da52508ddf9ce26ea32902de6c0d9",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "unresolved_source_conflict",
+      "proposed_category": "unresolved_source_conflict",
+      "category_changed": false,
+      "original_adoption": "ambiguous_inverse_recheck",
+      "proposed_adoption": "ambiguous_inverse_recheck",
+      "hypothesis_scope_notes": "159-168 hypothetical constraint and rejection; 170-174 rechecks the inverse and old13 constraint, adoption remains ambiguous; 175-179 hypothetical adjustment checks.",
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/V58.md",
+      "events": [
+        {
+          "paragraph": 45,
+          "start": 12362,
+          "end": 12537,
+          "quote": "10. WJ = 19 × (WL - BWG) = 19 × (22 - 22) = 19 × 0 = 0. So WJ = 0 mod 23. But this contradicts the initial value of WJ = 17. Therefore, there must be an error in my reasoning."
+        },
+        {
+          "paragraph": 63,
+          "start": 16211,
+          "end": 16874,
+          "quote": "Ah! Wait, the first line is \"The number of souvenir labels at the Walrus's Jejunum display equals 17.\" So that's a given value for WJ. Then later, there's another equation for WJ: \"The number of Walrus's Jejunum equals (the product of 19 and (the difference between the number of Walrus's Liver and the number of Blue Whale's Gallbladder)).\" So this suggests that the value of WJ is both 17 and 19*(WL - BWG). Therefore, we have two expressions for WJ. Hence, we can set them equal: 17 ≡ 19*(WL - BWG) mod 23. But according to our previous calculations, WL = BWG = 22, so 19*(0) = 0 ≡ 17 mod 23? Which is not true. Hence, there must be an error in my calculation."
+        },
+        {
+          "paragraph": 127,
+          "start": 25211,
+          "end": 25375,
+          "quote": "Alternatively, perhaps the initial value of WJ is 17, and the equation for WJ is also 19*(WL - BWG), so we have 17 = 19*(WL - BWG) mod 23. Let's solve for WL - BWG."
+        },
+        {
+          "paragraph": 146,
+          "start": 25870,
+          "end": 25950,
+          "quote": "17*17 = 289. 289 mod 23: 23*12 = 276, 289 - 276 = 13. So (WL - BWG) ≡ 13 mod 23."
+        },
+        {
+          "paragraph": 148,
+          "start": 25978,
+          "end": 26091,
+          "quote": "But from earlier calculations, WL = BWG = 22, so WL - BWG = 0. But we need it to be 13. So there's inconsistency."
+        },
+        {
+          "paragraph": 150,
+          "start": 26283,
+          "end": 26647,
+          "quote": "Wait, but how? Let's see. From earlier steps, BWG = 22 + (LF - BWD). But LF = LM = 1*(JMC + DG). JMC = 18*(DG + DM + BWD) = 18*(17 + 21 + 21) = 18*59 ≡ 4 mod 23. Then LM = 4 + 17 = 21. LF = 21. Then BWG = 22 + (21 - 21) = 22. So BWG = 22. WL = BWG = 22. So WL - BWG = 0. But we need it to be 13. This suggests that there's no solution unless we change some values."
+        },
+        {
+          "paragraph": 159,
+          "start": 28702,
+          "end": 29037,
+          "quote": "But let me check once more. Suppose that the initial value of WJ = 17 is part of the equations, and we need to find a consistent value. Let me assume that WJ = 17 and also WJ = 19*(WL - BWG). So 17 = 19*(WL - BWG). We can solve for WL - BWG = 17 * 19^{-1} mod 23. As before, 19^{-1} is 17, so 17*17 = 289 ≡ 13 mod 23. So WL - BWG = 13."
+        },
+        {
+          "paragraph": 160,
+          "start": 29039,
+          "end": 29155,
+          "quote": "But from previous calculations, WL = BWG = 22, so WL - BWG = 0. To make this 13, we need to adjust some values. How?"
+        },
+        {
+          "paragraph": 168,
+          "start": 30401,
+          "end": 30596,
+          "quote": "This suggests that there is no way to make WL - BWG = 13 with the given values. Hence, the only possible conclusion is that the problem has an error, or the initial value of WJ = 17 is incorrect."
+        },
+        {
+          "paragraph": 169,
+          "start": 30598,
+          "end": 30827,
+          "quote": "However, since the problem asks for the number of Walrus's Jejunum, and the equations lead to WJ = 0, I will go with that, assuming that the initial value of 17 is either a mistake or irrelevant. Therefore, the final answer is 0."
+        },
+        {
+          "paragraph": 170,
+          "start": 30829,
+          "end": 30954,
+          "quote": "But wait, let me check if there's another way. Maybe I made a mistake in calculating the inverse of 19 mod 23? Let me verify."
+        },
+        {
+          "paragraph": 173,
+          "start": 31103,
+          "end": 31196,
+          "quote": "So 17*17 = 289. 289 divided by 23: 23*12 = 276, 289 - 276 = 13. So yes, 13. So WL - BWG = 13."
+        },
+        {
+          "paragraph": 174,
+          "start": 31198,
+          "end": 31332,
+          "quote": "But from previous calculations, WL = BWG = 22, so 0. To make it 13, we need WL - BWG = 13. Let me see if there's a way to adjust this."
+        },
+        {
+          "paragraph": 175,
+          "start": 31334,
+          "end": 31446,
+          "quote": "Suppose that there is an error in the calculation of BWG. Let's say that LF is different. How could that happen?"
+        },
+        {
+          "paragraph": 178,
+          "start": 31615,
+          "end": 31741,
+          "quote": "DG + DM + BWD = 17 + 21 + 21 = 59. 59 mod 23 = 13. 18 × 13 = 234. 234 mod 23: 23*10 = 230, 234 - 230 = 4. Correct. So JMC = 4."
+        },
+        {
+          "paragraph": 179,
+          "start": 31743,
+          "end": 31904,
+          "quote": "If I made a mistake here, let me try calculating 18 × 59 directly mod 23. 18 × 59 = 1062. 1062 divided by 23: 23*46 = 1058, 1062 - 1058 = 4. Correct. So JMC = 4."
+        },
+        {
+          "paragraph": 190,
+          "start": 33036,
+          "end": 33176,
+          "quote": "1. **WJ** = 17 (initial value)\n2. **DM** = 21\n3. **BWD** = DM = 21\n4. **DG** = 17 + (BWD - DM)  \n   → 17 + (21 - 21) = 17  \n   → **DG = 17**"
+        },
+        {
+          "paragraph": 195,
+          "start": 33590,
+          "end": 33629,
+          "quote": "9. **WL** = BWG = 22  \n   → **WL = 22**"
+        },
+        {
+          "paragraph": 196,
+          "start": 33631,
+          "end": 33728,
+          "quote": "10. **WJ** = 19 × (WL - BWG)  \n    → WL - BWG = 22 - 22 = 0  \n    → 19 × 0 = 0  \n    → **WJ = 0**"
+        },
+        {
+          "paragraph": 199,
+          "start": 33768,
+          "end": 33878,
+          "quote": "There is a conflict in the initial statement: **WJ = 17** is given, but the final derived value is **WJ = 0**."
+        },
+        {
+          "paragraph": 201,
+          "start": 33944,
+          "end": 34168,
+          "quote": "- **Irrelevant** (perhaps a distractor or part of a different context),\n- **Incorrect**, or\n- **Part of a system where WJ is determined through the equations**, and the initial value is not consistent with the derived value."
+        },
+        {
+          "paragraph": 205,
+          "start": 34378,
+          "end": 34403,
+          "quote": "$$\n\\boxed{0}\n$$<|im_end|>"
+        }
+      ]
+    },
+    {
+      "code": "V50",
+      "verdict": "support_explicit_separation_control; no_renaming_causality",
+      "paragraphs": [
+        25,
+        26,
+        30,
+        40,
+        47,
+        49,
+        50,
+        51,
+        55,
+        68,
+        69,
+        78,
+        85,
+        88
+      ],
+      "judgment": "4在25/26等早于来源分离；49/50给独立变量，51明确承认误绑定，随后标签和目标保持分开。支持文本分离对照，不能由重命名与稳定共现推断改名修复数值。",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "comparison_to_current_annotation": "support_or_retain_uncertainty",
+      "first_pass_saved_separately": true,
+      "task_id": "igsm-pr9-20261008-0050-op15",
+      "seed": 3,
+      "role": "noise",
+      "text_sha256": "2ab285a269a587a81575fbfd819647f2965b8ddf6967148c4cdd697acc35a85f",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "no_source_reopening_observed",
+      "proposed_category": "no_source_reopening_observed",
+      "category_changed": false,
+      "original_adoption": "none_observed",
+      "proposed_adoption": "none_observed",
+      "hypothesis_scope_notes": "47 contains If, while49-51 provide explicit separate variables and correction; subsequent number4 existed before separation.",
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/V50.md",
+      "events": [
+        {
+          "paragraph": 25,
+          "start": 10820,
+          "end": 10920,
+          "quote": "Then D_Bone = D_B × B_B = 16 × 6. 16×6=96. 96 divided by 23: 23*4=92, 96-92=4. So D_Bone = 4 mod 23."
+        },
+        {
+          "paragraph": 26,
+          "start": 10922,
+          "end": 11043,
+          "quote": "Therefore, F_S = D_Bone = 4. Then S = F_S = 4. But initially, S was given as 17. Wait, this is a contradiction? How come?"
+        },
+        {
+          "paragraph": 30,
+          "start": 11945,
+          "end": 12955,
+          "quote": "1. Spider Web Exhibit's Haddock (S) = 17\n2. Beetle Bungalow's Haddock (B_H) = 16\n3. Haddock's Ulnar Carpal (H_UC) = 14\n4. Shark's Ulnar Carpal (S_UC) = 5\n5. Haddock's Accessory Carpal (H_AC) = 18\n6. The Deep's Beetle Bungalow (D_B) = B_H = 16\n7. Beetle Bungalow's Shark (B_S) = 7 + B_H = 7 + 16 = 23. 23 mod 23 = 0. So B_S = 0.\n8. Shark's Accessory Carpal (S_AC) = 12 + H_UC = 12 + 14 = 26. 26 mod 23 = 3. So S_AC = 3.\n9. Shark's Bone (S_B) = S_AC + S_UC = 3 + 5 = 8. 8 mod 23 = 8. So S_B = 8.\n10. Haddock's Bone (H_B) = H_AC + H_UC = 18 + 14 = 32. 32 mod 23 = 9. So H_B = 9.\n11. Beetle Bungalow's Bone (B_B) = (B_S × S_B) + (B_H × H_B) = (0 × 8) + (16 × 9). Compute each term:\n   - 0 × 8 = 0\n   - 16 × 9 = 144. 144 mod 23: 23*6=138, 144-138=6. So 16×9 mod23=6. Therefore, B_B = 0 + 6 = 6 mod23.\n12. The Deep's Bone (D_Bone) = D_B × B_B = 16 × 6. 16×6=96. 96 mod23: 23*4=92, 96-92=4. So D_Bone=4.\n13. The Florida Aquarium's Spider Web Exhibit (F_S) = D_Bone = 4.\n14. Spider Web Exhibit's Haddock (S) = F_S = 4."
+        },
+        {
+          "paragraph": 40,
+          "start": 14468,
+          "end": 14509,
+          "quote": "F_S = D_Bone = 4. Therefore, S = F_S = 4."
+        },
+        {
+          "paragraph": 47,
+          "start": 17652,
+          "end": 18290,
+          "quote": "Ah! This is probably the key. The initial statement says \"The number of souvenir labels at the Spider Web Exhibit's Haddock display equals 17.\" So that's the number of souvenir labels, which is 17. But the question asks for \"the number of Spider Web Exhibit's Haddock\". So maybe \"Spider Web Exhibit's Haddock\" refers to the count of Haddock in the Spider Web Exhibit, not the souvenir labels? If that's the case, then the initial value of 17 is the number of souvenir labels, not the number of Haddock. Then the later equations would be about the number of Haddock, which is what we need to find. So perhaps I misread the first statement."
+        },
+        {
+          "paragraph": 49,
+          "start": 18309,
+          "end": 18500,
+          "quote": "- \"The number of souvenir labels at the Spider Web Exhibit's Haddock display equals 17.\" → This is a separate quantity, unrelated to the number of Haddock. Let's denote this as S_labels = 17."
+        },
+        {
+          "paragraph": 50,
+          "start": 18502,
+          "end": 18711,
+          "quote": "- \"The number of Spider Web Exhibit's Haddock equals the number of The Florida Aquarium's Spider Web Exhibit.\" → This is about the number of Haddock in the Spider Web Exhibit, which is S_Haddock = F_SpiderWeb."
+        },
+        {
+          "paragraph": 51,
+          "start": 18713,
+          "end": 19158,
+          "quote": "So the initial value of 17 is not the value of S_Haddock, but rather the number of souvenir labels. Therefore, the value of S_Haddock is to be determined through the equations. Therefore, my earlier mistake was assuming that the first statement was the value of S_Haddock, but actually, it's a different quantity. Therefore, the initial value of 17 is unrelated to the final answer, which is S_Haddock. Let me start over with this understanding."
+        },
+        {
+          "paragraph": 55,
+          "start": 19294,
+          "end": 20135,
+          "quote": "- S_labels = 17 (number of souvenir labels at Spider Web Exhibit's Haddock display)\n- B_Haddock = 16 (Beetle Bungalow's Haddock)\n- H_UCarpal = 14 (Haddock's Ulnar Carpal)\n- S_UCarpal = 5 (Shark's Ulnar Carpal)\n- H_ACarpal = 18 (Haddock's Accessory Carpal)\n- D_BeetleBungalow = B_Haddock = 16 (The Deep's Beetle Bungalow)\n- B_Shark = 7 + B_Haddock = 7 + 16 = 23 (Beetle Bungalow's Shark)\n- S_ACarpal = 12 + H_UCarpal = 12 + 14 = 26 (Shark's Accessory Carpal)\n- S_Bone = S_ACarpal + S_UCarpal = 26 + 5 = 31 (Shark's Bone)\n- H_Bone = H_ACarpal + H_UCarpal = 18 + 14 = 32 (Haddock's Bone)\n- B_Bone = (B_Shark × S_Bone) + (B_Haddock × H_Bone) (Beetle Bungalow's Bone)\n- D_Bone = D_BeetleBungalow × B_Bone (The Deep's Bone)\n- F_SpiderWeb = D_Bone (The Florida Aquarium's Spider Web Exhibit)\n- S_Haddock = F_SpiderWeb (Spider Web Exhibit's Haddock)"
+        },
+        {
+          "paragraph": 68,
+          "start": 21135,
+          "end": 21207,
+          "quote": "Therefore, F_SpiderWeb = D_Bone = 4. Hence, S_Haddock = F_SpiderWeb = 4."
+        },
+        {
+          "paragraph": 69,
+          "start": 21209,
+          "end": 21333,
+          "quote": "But wait, the initial statement about the souvenir labels is 17, which is unrelated. So the answer is 4? Let me check again."
+        },
+        {
+          "paragraph": 78,
+          "start": 21798,
+          "end": 21999,
+          "quote": "So the answer is 4? But the initial value of the souvenir labels was 17, which is unrelated. Therefore, the number of Spider Web Exhibit's Haddock is 4. Let me check if there's any other step I missed."
+        },
+        {
+          "paragraph": 85,
+          "start": 22825,
+          "end": 23003,
+          "quote": "But wait, the initial value of the souvenir labels was 17, which is different. So that's okay, since the question asks for the number of Spider Web Exhibit's Haddock, which is 4."
+        },
+        {
+          "paragraph": 88,
+          "start": 23189,
+          "end": 23224,
+          "quote": "**Final Answer**\n\\boxed{4}\n</think>"
+        }
+      ]
+    },
+    {
+      "code": "P17",
+      "verdict": "support_pair_context_with_alias_boundary_uncertainty",
+      "paragraphs": [
+        4,
+        7,
+        33,
+        68,
+        70
+      ],
+      "judgment": "P33的独立命名与后续疑问可保留；P7的C_Sq已在P4命名为目标，却在标签语境中赋17并立即质疑。N/W边界不宜当无错误归引的强反例；不据此改全队列类别。",
+      "first_pass_saved_separately": false,
+      "comparison_to_current_annotation": "support_pair_context_with_alias_boundary_uncertainty",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "task_id": "igsm-pr9-20261008-0062-op15",
+      "seed": 0,
+      "role": "reference",
+      "text_sha256": "13459b7c9496a668db430978385eec064ac616460ae16795473878645e1c1dcd",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "questions_or_hypotheses_continue",
+      "proposed_category": "questions_or_hypotheses_continue",
+      "category_changed": false,
+      "original_adoption": "none_observed",
+      "proposed_adoption": "none_observed",
+      "hypothesis_scope_notes": null,
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/P17.md",
+      "events": [
+        {
+          "paragraph": 4,
+          "start": 2746,
+          "end": 3316,
+          "quote": "- Crestwood Secondary's Squash Court (let's call this C_Sq)\n- Harborview High's Squash Court (H_Sq)\n- Valley View High's Swimming Pool (V_Sw)\n- Valley View High's Squash Court (V_Sq)\n- Valley View High's Table Tennis Room (V_Tt)\n- Valley View High's Volleyball Court (V_Vb)\n- Valley View High's Classroom (V_C)\n- Harborview High's Table Tennis Room (H_Tt)\n- Crestwood Secondary's Volleyball Court (C_Vb)\n- Crestwood Secondary's Swimming Pool (C_Sw)\n- Hillcrest High's Table Tennis Room (Hl_Tt)\n- Crestwood Secondary's Squash Court (C_Sq) – which is what we need to find."
+        },
+        {
+          "paragraph": 7,
+          "start": 3611,
+          "end": 4177,
+          "quote": "1. The number of souvenir labels at Crestwood Secondary's Squash Court equals 17. So, C_Sq = 17 mod 23. Wait, but the problem says \"the number of souvenir labels at the Crestwood Secondary's Squash Court display equals 17.\" Wait, maybe that's C_Sq? Wait, the problem says \"the number of souvenir labels at the Crestwood Secondary's Squash Court display equals 17.\" So maybe that's C_Sq? But then later, the problem says \"The number of Crestwood Secondary's Squash Court equals (the sum of 19 and ...)\" Wait, so maybe there's confusion here. Wait, let me check again."
+        },
+        {
+          "paragraph": 33,
+          "start": 6777,
+          "end": 9865,
+          "quote": "1. \"The number of souvenir labels at the Crestwood Secondary's Squash Court display equals 17.\" So this is a separate quantity, let's call it S_Cs = 17. But the problem later says \"the number of Crestwood Secondary's Squash Court equals...\" So perhaps the \"number of Crestwood Secondary's Squash Court\" refers to C_Sq, which is different from the souvenir labels. Wait, but maybe the problem is using \"number of [X] equals [Y]\" where [X] refers to the quantity we need to find. Wait, but the first sentence is about \"souvenir labels at the Crestwood Secondary's Squash Court display equals 17\", which is a separate quantity. However, later, when they talk about \"Crestwood Secondary's Squash Court\", that might be referring to C_Sq. So maybe the first sentence is not directly related to C_Sq, but is a separate value. However, the problem says \"the number of Crestwood Secondary's Squash Court equals (the sum of 19 and ...)\" later on. So perhaps the first sentence is a separate quantity, but maybe not. Wait, maybe the problem is using \"number of [X] equals [Y]\" where [X] is the quantity we need to find. Wait, but the first sentence says \"the number of souvenir labels at the Crestwood Secondary's Squash Court display equals 17\". So that's a different quantity. But then, the problem later says \"the number of Crestwood Secondary's Squash Court equals...\", which is C_Sq. Therefore, maybe the first sentence is not directly related to C_Sq, but is a separate value. However, maybe the problem is using \"number of [X]\" as the quantity we need to find. Wait, but the problem says \"the number of souvenir labels at the Crestwood Secondary's Squash Court display equals 17.\" So that's a specific number, 17. So that's a given value. Then, the problem later says \"the number of Crestwood Secondary's Squash Court equals...\", which is a different quantity. Therefore, the first sentence is a separate value, S_Cs = 17, and the problem is asking for C_Sq. So maybe the first sentence is not directly related to C_Sq. Therefore, perhaps we can ignore it? Wait, but maybe not. Wait, let me check again. The problem says \"the number of Crestwood Secondary's Squash Court equals (the sum of 19 and ...)\" later. So that's C_Sq. Therefore, the first sentence is about a different quantity (souvenir labels), which is 17. So that's given. Therefore, maybe we don't need to use that value unless it's connected to something else. But since the problem says \"the number of unrelated blue lanterns equals 17\" and \"the number of unrelated green ribbons equals 9\", maybe those are separate. Therefore, maybe the first sentence is just S_Cs = 17, which is unrelated to the rest. Therefore, perhaps we can proceed with the rest of the equations. Let me check if any of the equations refer to S_Cs. Looking through the problem, I don't see any other mention of souvenir labels or blue lanterns or green ribbons except the first sentence and the last two. So maybe those are just given numbers and not connected to the rest. Therefore, maybe we can proceed with the equations starting from H_Sq = 18, etc."
+        },
+        {
+          "paragraph": 68,
+          "start": 12364,
+          "end": 12449,
+          "quote": "11. C_Sq = 19 + (Hl_Tt + V_C) = 19 + (0 + 18) = 19 + 18 = 37 → 37 - 23 = 14. Correct."
+        },
+        {
+          "paragraph": 70,
+          "start": 12604,
+          "end": 13296,
+          "quote": "Wait, but the first sentence says \"the number of souvenir labels at the Crestwood Secondary's Squash Court display equals 17.\" But in the problem, when they refer to \"Crestwood Secondary's Squash Court\" in other parts, like in the last equation, it's C_Sq. So maybe that first sentence is unrelated? Or maybe there's a connection? Let me check if the problem mentions anything else. The problem says \"the number of unrelated blue lanterns equals 17\" and \"the number of unrelated green ribbons equals 9\". So maybe the first sentence is about souvenir labels, which is a different quantity, and the unrelated ones are separate. Therefore, no connection to the rest. Therefore, the answer is 14."
+        }
+      ]
+    },
+    {
+      "code": "P32",
+      "verdict": "support",
+      "paragraphs": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        28,
+        50
+      ],
+      "judgment": "早期分离，后续同一性问题或If解释；MonkeyUlna17是22×6的合法结果。",
+      "first_pass_saved_separately": false,
+      "comparison_to_current_annotation": "support",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "task_id": "igsm-pr9-20261008-0052-op5",
+      "seed": 3,
+      "role": "noise",
+      "text_sha256": "5360b00633e780e5f7c365e44ddbfee993c68b806cba3fbe69ab0c3bdcc71800",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "questions_or_hypotheses_continue",
+      "proposed_category": "questions_or_hypotheses_continue",
+      "category_changed": false,
+      "original_adoption": "none_observed",
+      "proposed_adoption": "none_observed",
+      "hypothesis_scope_notes": "50 alternative identity is rejected by explicit source separation.",
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/P32.md",
+      "events": [
+        {
+          "paragraph": 3,
+          "start": 1179,
+          "end": 1601,
+          "quote": "First, the number of souvenir labels at the Tiger's Ulna display is 17. Let me note that as Tiger_Ulna = 17. Wait, no, actually, the problem says \"The number of souvenir labels at the Tiger's Ulna display equals 17.\" Hmm, but then later it says \"The number of Tiger's Ulna equals...\" So maybe the Tiger's Ulna is a different quantity? Wait, maybe I need to clarify the variables here. Let me parse each sentence carefully."
+        },
+        {
+          "paragraph": 4,
+          "start": 1603,
+          "end": 2061,
+          "quote": "\"The number of souvenir labels at the Tiger's Ulna display equals 17.\" So that's a separate quantity. Let me call that Tiger_Ulna_Labels = 17. But then the next sentence says \"The number of Bear's Ulna equals 6.\" So Bear_Ulna = 6. Then \"The number of Monkey's Ulna equals (the product of 22 and the number of Bear's Ulna).\" So Monkey_Ulna = 22 * Bear_Ulna. Since Bear_Ulna is 6, that would be 22*6. But all arithmetic is modulo 23. Let me compute that first."
+        },
+        {
+          "paragraph": 5,
+          "start": 2063,
+          "end": 2204,
+          "quote": "22 * 6 = 132. Now, 132 divided by 23. Let me see, 23*5 is 115, 23*5=115, 132-115=17. So 132 mod 23 is 17. Therefore, Monkey_Ulna = 17 mod 23."
+        },
+        {
+          "paragraph": 6,
+          "start": 2206,
+          "end": 2616,
+          "quote": "Next, \"The number of Tiger's Alula equals (the product of 13 and (the sum of the number of Monkey's Ulna and the number of Bear's Ulna)).\" So Tiger_Alula = 13 * (Monkey_Ulna + Bear_Ulna). Let me compute Monkey_Ulna + Bear_Ulna first. Monkey_Ulna is 17, Bear_Ulna is 6. 17 + 6 = 23. Then 23 mod 23 is 0. So the sum is 0. Therefore, Tiger_Alula = 13 * 0 = 0 mod 23. Wait, that's interesting. So Tiger_Alula is 0?"
+        },
+        {
+          "paragraph": 7,
+          "start": 2618,
+          "end": 2980,
+          "quote": "Then, \"The number of Tiger's Ulna equals (the product of 19 and the number of Tiger's Alula).\" So Tiger_Ulna = 19 * Tiger_Alula. Since Tiger_Alula is 0, this would be 19 * 0 = 0 mod 23. Wait, but earlier, there was a mention of \"The number of souvenir labels at the Tiger's Ulna display equals 17.\" Is that the same as Tiger_Ulna? Or is that a separate quantity?"
+        },
+        {
+          "paragraph": 9,
+          "start": 3047,
+          "end": 3807,
+          "quote": "\"The number of souvenir labels at the Tiger's Ulna display equals 17.\" So that's a separate quantity. Let me call that Tiger_Ulna_Labels = 17. Then the next sentence says \"The number of Bear's Ulna equals 6.\" So Bear_Ulna = 6. Then \"The number of Monkey's Ulna equals (the product of 22 and the number of Bear's Ulna).\" So Monkey_Ulna = 22 * Bear_Ulna = 22*6 = 132 ≡ 17 mod 23. Then \"The number of Tiger's Alula equals (the product of 13 and (the sum of the number of Monkey's Ulna and the number of Bear's Ulna)).\" So Tiger_Alula = 13*(Monkey_Ulna + Bear_Ulna) = 13*(17 + 6) = 13*23. 23 mod 23 is 0, so 13*0 = 0. Then \"The number of Tiger's Ulna equals (the product of 19 and the number of Tiger's Alula).\" So Tiger_Ulna = 19 * Tiger_Alula = 19*0 = 0 mod 23. "
+        },
+        {
+          "paragraph": 28,
+          "start": 6705,
+          "end": 7047,
+          "quote": "Alternatively, maybe the problem is using \"the number of Tiger's Ulna\" as referring to the souvenir labels? But that seems unlikely. The problem says \"the number of souvenir labels at the Tiger's Ulna display equals 17\", which is separate from \"the number of Tiger's Ulna\". So perhaps the answer is 0. But 0 seems strange. Let me check again."
+        },
+        {
+          "paragraph": 50,
+          "start": 10674,
+          "end": 11053,
+          "quote": "Alternatively, maybe the problem meant something else? For example, if the \"number of Tiger's Ulna\" is referring to the souvenir labels, which is 17? But the problem says \"the number of souvenir labels at the Tiger's Ulna display equals 17.\" So that's a separate quantity. The question is asking for \"the number of Tiger's Ulna\", which is defined as 19*Tiger_Alula. So that's 0. "
+        }
+      ]
+    },
+    {
+      "code": "P26",
+      "verdict": "support",
+      "paragraphs": [
+        5,
+        6,
+        7,
+        25,
+        31,
+        32,
+        56
+      ],
+      "judgment": "明确分离后保持RPT19和目标1；合法SST17不继承标签来源。",
+      "first_pass_saved_separately": false,
+      "comparison_to_current_annotation": "support",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "task_id": "igsm-pr9-20261008-0026-op15",
+      "seed": 3,
+      "role": "noise",
+      "text_sha256": "e8b8f7860dc05709c7c0f02f9449a4c59f822d2758f57ccbdd22e2ac9e4c87aa",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "no_source_reopening_observed",
+      "proposed_category": "no_source_reopening_observed",
+      "category_changed": false,
+      "original_adoption": "none_observed",
+      "proposed_adoption": "none_observed",
+      "hypothesis_scope_notes": null,
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/P26.md",
+      "events": [
+        {
+          "paragraph": 5,
+          "start": 3262,
+          "end": 3572,
+          "quote": "Wait, but the problem says \"the number of Tropical Fish Tanks's Herring equals 17\" but then later says \"the number of Tropical Fish Tanks's Herring equals (the sum of 5 and the number of Rockpool Exhibit's Trout)\" which is equation 11. So there's a conflict here? Wait, no, maybe I misread. Let me check again."
+        },
+        {
+          "paragraph": 6,
+          "start": 3574,
+          "end": 3910,
+          "quote": "Wait, the first statement says: \"The number of souvenir labels at the Tropical Fish Tanks's Herring display equals 17.\" So that's the number of labels, but the question is about the number of Tropical Fish Tanks's Herring. Wait, maybe the problem uses \"number of X\" to refer to the count of fish, not the labels? Wait, the problem says:"
+        },
+        {
+          "paragraph": 7,
+          "start": 3912,
+          "end": 4293,
+          "quote": "\"The number of souvenir labels at the Tropical Fish Tanks's Herring display equals 17.\" So maybe that's a separate quantity? But the question is about \"the number of Tropical Fish Tanks's Herring\", which might be different from the number of labels. Wait, but the problem says \"the number of Tropical Fish Tanks's Herring equals 17\" in the first line? Wait, no. Let me check again."
+        },
+        {
+          "paragraph": 25,
+          "start": 11252,
+          "end": 11653,
+          "quote": "So, the first line is about souvenir labels, which is separate. Then the rest of the lines define relationships between different quantities. The question is asking for the number of Tropical Fish Tanks's Herring, which is defined in the last line as TFH = 5 + RPT. Therefore, we need to compute RPT first, then add 5 to get TFH. But we need to compute all the variables step by step, using modulo 23."
+        },
+        {
+          "paragraph": 31,
+          "start": 12068,
+          "end": 12826,
+          "quote": "1. TFS = 21\n2. RS = TFS = 21\n3. SSPH = RS = 21\n4. RPH = RS = 21\n5. SST = (RPH + RS) + TFS = (21 + 21) + 21 = 63. Now, compute 63 mod 23. 23*2=46, 63-46=17, so 63 ≡ 17 mod23. So SST = 17\n6. SSPS = 10*(SSPH + TFS) = 10*(21 + 21) = 10*42. Compute 42 mod23: 23*1=23, 42-23=19, so 42 ≡ 19 mod23. Then 10*19 = 190. Now compute 190 mod23. Let's divide 190 by 23: 23*8=184, 190-184=6, so 190 ≡ 6 mod23. So SSPS = 6\n7. SSA = (SSPS + SSPH) + SST = (6 + 21) + 17. Compute step by step: 6+21=27; 27+17=44. 44 mod23: 23*1=23, 44-23=21, so 44 ≡ 21 mod23. So SSA = 21\n8. TFT = 15*(SSA - RS) = 15*(21 - 21) = 15*0 = 0. So TFT = 0\n9. RPT = (TFT + TFS) + RPH = (0 + 21) + 21 = 42. 42 mod23 is 19 as before. So RPT = 19\n10. TFH = 5 + RPT = 5 + 19 = 24. 24 mod23 = 1. So TFH = 1"
+        },
+        {
+          "paragraph": 32,
+          "start": 12828,
+          "end": 12979,
+          "quote": "Wait, so according to this, the number of Tropical Fish Tanks's Herring is 1? But let me check again step by step to make sure I didn't make a mistake."
+        },
+        {
+          "paragraph": 56,
+          "start": 14885,
+          "end": 15369,
+          "quote": "So yes, all steps seem correct. Therefore, the number of Tropical Fish Tanks's Herring is 1 mod23. But let me check if there's any other relations that I might have missed. For example, the first line about souvenir labels equals 17, but since the question is about the number of fish, not labels, maybe that's just extra info. Also, the unrelated blue lanterns and green ribbons are mentioned but not used in the equations. So probably they are just there to test if we get confused."
+        }
+      ]
+    },
+    {
+      "code": "P66",
+      "verdict": "support_with_stricter_S_boundary",
+      "paragraphs": [
+        4,
+        6,
+        15,
+        16,
+        17,
+        32,
+        62
+      ],
+      "judgment": "KH22由If身份相同引出，17退出改按方程；S6的分离语气含混，严格终点可用62；没有确认错误工作值替换。",
+      "first_pass_saved_separately": false,
+      "comparison_to_current_annotation": "support_with_stricter_S_boundary",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "task_id": "igsm-pr9-20261008-0054-op15",
+      "seed": 0,
+      "role": "reference",
+      "text_sha256": "a1d0483434e6f00f1083c89eeeafc2385d714a32387a5e0e77309d2d4d2e680e",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "questions_or_hypotheses_continue",
+      "proposed_category": "questions_or_hypotheses_continue",
+      "category_changed": false,
+      "original_adoption": "hypothetical_only",
+      "proposed_adoption": "hypothetical_only",
+      "hypothesis_scope_notes": "15/16 If branches derive KH22;17 switches to solving saved equations.",
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/P66.md",
+      "events": [
+        {
+          "paragraph": 4,
+          "start": 2142,
+          "end": 2672,
+          "quote": "1. The number of souvenir labels at the Zebra's Ganglia display equals 17. So, Zebra's Ganglia (let's denote this as ZG) is 17. Wait, but later it says \"The number of Zebra's Ganglia equals (the sum of 18 and the number of Kangaroo's Hypothalamus).\" Wait, hold on. Wait, the first sentence says \"The number of souvenir labels at the Zebra's Ganglia display equals 17.\" So maybe that's a separate quantity? Wait, but the problem says \"the number of Zebra's Ganglia\" in later parts. Maybe there's confusion here. Let me check again."
+        },
+        {
+          "paragraph": 6,
+          "start": 3024,
+          "end": 3768,
+          "quote": "Wait, perhaps the problem is using \"Zebra's Ganglia\" as a quantity, and the first sentence is about the number of souvenir labels at that display. But maybe the \"number of Zebra's Ganglia\" is another quantity? Wait, the problem says \"the number of Zebra's Ganglia equals (the sum of 18 and the number of Kangaroo's Hypothalamus).\" So maybe \"Zebra's Ganglia\" is a variable, and the first sentence is about a different quantity? Wait, but the problem says \"the number of souvenir labels at the Zebra's Ganglia display equals 17.\" So that's a separate value. Wait, but maybe the problem is using \"Zebra's Ganglia\" as the quantity, and the souvenir labels are part of that? Maybe not. This is confusing. Let me try to parse each sentence carefully."
+        },
+        {
+          "paragraph": 15,
+          "start": 8192,
+          "end": 10313,
+          "quote": "Wait, the problem is structured as a series of statements. The first statement is \"The number of souvenir labels at the Zebra's Ganglia display equals 17.\" So that's a separate quantity. Let me think: maybe the problem is using \"Zebra's Ganglia\" as a quantity, and the first sentence is about a different quantity (the number of souvenir labels at that display). However, later, there's an equation that defines \"the number of Zebra's Ganglia\" as something else. Therefore, the first sentence is a separate value, but maybe not needed for solving? Or perhaps it is part of the equations. Wait, but the problem says \"the number of Zebra's Ganglia\" in the equations, so maybe the first sentence is not directly part of the equations. Wait, but the problem says \"the number of Zebra's Ganglia display equals 17\" but then later defines \"the number of Zebra's Ganglia\" as something else. Maybe there's a typo or confusion here? Alternatively, maybe the \"number of souvenir labels at the Zebra's Ganglia display\" is the same as \"the number of Zebra's Ganglia\". But that would be confusing. Alternatively, maybe the first sentence is just a given value, but not directly part of the equations. However, since the problem says \"All arithmetic is modulo 23,\" and the answer is the number of Zebra's Ganglia, which is defined in the equations, perhaps the first sentence is a red herring or maybe part of the equations? Wait, but the problem says \"the number of Zebra's Ganglia equals (the sum of 18 and the number of Kangaroo's Hypothalamus)\" later, so that would be the value we need to compute. Therefore, the first sentence about the souvenir labels might be irrelevant? But why is it given? Wait, maybe the \"number of souvenir labels at the Zebra's Ganglia display\" is the same as the \"number of Zebra's Ganglia\"? If that's the case, then ZG = 17. But then later, there's an equation that says ZG = 18 + KH. So if ZG is both 17 and 18 + KH, then KH would be 17 - 18 = -1, which modulo 23 is 22. But maybe that's not the case. But why is the first sentence given? Maybe it's a separate quantity? Let me check the problem again."
+        },
+        {
+          "paragraph": 16,
+          "start": 10315,
+          "end": 11970,
+          "quote": "Wait, the problem says: \"The number of unrelated blue lanterns equals 17. The number of unrelated green ribbons equals 9.\" So those are separate quantities. Therefore, the first sentence about the souvenir labels is also a separate quantity. But the problem is asking for the number of Zebra's Ganglia, which is defined in the equations. Therefore, the first sentence is probably not needed for solving the problem. Wait, but maybe the problem is in Chinese or another language, and the translation is causing confusion. Alternatively, maybe \"the number of souvenir labels at the Zebra's Ganglia display\" is the same as \"the number of Zebra's Ganglia\". If that's the case, then ZG = 17. But then later, the problem says \"The number of Zebra's Ganglia equals (the sum of 18 and the number of Kangaroo's Hypothalamus).\" So that would mean 17 = 18 + KH, so KH = -1 mod 23 = 22. But then we can proceed. However, the problem says \"the number of Zebra's Ganglia\" equals 17, but also equals 18 + KH. Therefore, if we take that into account, maybe we need to compute KH? However, the problem says \"the number of Zebra's Ganglia\" is the quantity we need to find, but if it's given as 17, then that would be the answer. But that seems too straightforward. However, the problem says \"Work through the problem in a single forward derivation\" and gives all the equations, so maybe the first sentence is part of the equations? Or maybe the first sentence is a red herring? Wait, maybe the problem is in Chinese, and \"Zebra's Ganglia display\" is a specific thing, and the number of souvenir labels is part of the equations? But without more context, it's hard to tell. "
+        },
+        {
+          "paragraph": 17,
+          "start": 11972,
+          "end": 12632,
+          "quote": "Alternatively, perhaps the first sentence is part of the equations, meaning that the number of Zebra's Ganglia is 17, and then later equations define other quantities. But that would conflict with the later equation where ZG is defined as 18 + KH. Therefore, if we take that into account, the answer would be 17. But that seems too easy, and the rest of the equations would be redundant. Therefore, perhaps the first sentence is not part of the equations, and the problem is asking for the value of Zebra's Ganglia as defined by the equations. Let me proceed under that assumption. Let me try to define all variables step by step, using the equations provided."
+        },
+        {
+          "paragraph": 32,
+          "start": 15163,
+          "end": 15412,
+          "quote": "Equation 9: KH = 12 * ((ZH + KF) + CG). Let's compute ZH + KF: 3 + 3 = 6. Then add CG (17): 6 + 17 = 23. Now, multiply by 12: 12 * 23. Let's compute that. 12*23 = 276. Now, 276 mod 23: since 23*12 = 276, so 276 mod 23 is 0. Therefore, KH = 0 mod 23."
+        },
+        {
+          "paragraph": 62,
+          "start": 17975,
+          "end": 18208,
+          "quote": "Therefore, the answer is 18. However, the first sentence said \"The number of souvenir labels at the Zebra's Ganglia display equals 17.\" But since that's unrelated, and the problem is asking for ZG which is 18, then that's the answer."
+        }
+      ]
+    },
+    {
+      "code": "V70",
+      "verdict": "support",
+      "paragraphs": [
+        5,
+        6,
+        9,
+        12,
+        22,
+        23,
+        55
+      ],
+      "judgment": "初始标签命名与疑问不确认为实际采用，S9明确区别；目标0，标签17独立。",
+      "first_pass_saved_separately": false,
+      "comparison_to_current_annotation": "support",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "task_id": "igsm-pr9-20261008-0014-op15",
+      "seed": 0,
+      "role": "reference",
+      "text_sha256": "897a09afc450447a40f101e7daccc0d3d3b527442fdf17bcffcb663442a0804d",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "questions_or_hypotheses_continue",
+      "proposed_category": "questions_or_hypotheses_continue",
+      "category_changed": false,
+      "original_adoption": "none_observed",
+      "proposed_adoption": "none_observed",
+      "hypothesis_scope_notes": null,
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/V70.md",
+      "events": [
+        {
+          "paragraph": 5,
+          "start": 2183,
+          "end": 2676,
+          "quote": "1. The number of souvenir labels at the Walrus's Jejunum display equals 17. So, let's note that as WJ = 17. Wait, but later there's another statement about Walrus's Jejunum, so maybe I need to check if that's the same or different? Wait, the problem says \"the number of Walrus's Jejunum equals (the product of 19 and (the difference between the number of Walrus's Liver and the number of Blue Whale's Gallbladder))\". So maybe the initial 17 is for something else? Wait, no, let me check again."
+        },
+        {
+          "paragraph": 6,
+          "start": 2678,
+          "end": 2986,
+          "quote": "Wait, the first line says: \"The number of souvenir labels at the Walrus's Jejunum display equals 17.\" So that's a separate quantity. But later, there's another statement about \"the number of Walrus's Jejunum\" which is different. Wait, maybe there's a confusion here. Let me parse the problem again carefully."
+        },
+        {
+          "paragraph": 9,
+          "start": 4385,
+          "end": 5071,
+          "quote": "So, the first line is about \"souvenir labels at the Walrus's Jejunum display\" which is 17. Then later, there's \"the number of Walrus's Jejunum\" which is computed via the product of 19 and the difference between Walrus's Liver and Blue Whale's Gallbladder. So they are different quantities. The first one is about souvenir labels, the second is about the number of something else (maybe cells or something else). But since the problem asks for \"the number of Walrus's Jejunum\", which is the later one, so the first 17 is probably not directly relevant unless it's used in another calculation. Wait, but maybe not. Let me check if any other part uses that 17. Let me go through each step."
+        },
+        {
+          "paragraph": 12,
+          "start": 5164,
+          "end": 5550,
+          "quote": "- Let WJ_souvenir = 17 (from the first statement)\n- D_Melanocytes = 21\n- B_Duodenum = D_Melanocytes = 21 (since Blue Whale's Duodenum equals Duodenum's Melanocytes)\n- D_Gallbladder = 17 + (B_Duodenum - D_Melanocytes) = 17 + (21 - 21) = 17 + 0 = 17. Wait, but modulo 23? Wait, the problem says all arithmetic is modulo 23. So each operation should be done modulo 23. So let me note that."
+        },
+        {
+          "paragraph": 22,
+          "start": 6566,
+          "end": 6609,
+          "quote": "Walrus_Liver = Blue_Whale_Gallbladder = 22."
+        },
+        {
+          "paragraph": 23,
+          "start": 6611,
+          "end": 6728,
+          "quote": "Walrus_Jejunum = 19 * (Walrus_Liver - Blue_Whale_Gallbladder) = 19*(22 - 22) = 19*0 = 0. So Walrus_Jejunum = 0 mod23."
+        },
+        {
+          "paragraph": 55,
+          "start": 9902,
+          "end": 10345,
+          "quote": "So according to this, the answer is 0. However, the problem mentions \"the number of souvenir labels at the Walrus's Jejunum display equals 17\". But that seems unrelated to the Walrus's Jejunum value we calculated (which is 0). Unless there's a connection I'm missing. Wait, but the problem says \"the number of Walrus's Jejunum\" which is the quantity we are to find, which is different from the souvenir labels. So maybe that's just extra info."
+        }
+      ]
+    },
+    {
+      "code": "V24",
+      "verdict": "support_with_stricter_S_boundary",
+      "paragraphs": [
+        4,
+        13,
+        20,
+        23,
+        27,
+        32,
+        38,
+        41
+      ],
+      "judgment": "S27含身份疑问，S32更清楚；17重述此前存在，但S32后选4，未找到实际错误工作值。",
+      "first_pass_saved_separately": false,
+      "comparison_to_current_annotation": "support_with_stricter_S_boundary",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "task_id": "igsm-pr9-20261008-0050-op15",
+      "seed": 0,
+      "role": "reference",
+      "text_sha256": "cabee7c051603c3ae73ab322e485e51ee9d632f81b5f9b903208a4dd970f5d9e",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "questions_or_hypotheses_continue",
+      "proposed_category": "questions_or_hypotheses_continue",
+      "category_changed": false,
+      "original_adoption": "none_observed",
+      "proposed_adoption": "none_observed",
+      "hypothesis_scope_notes": null,
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/V24.md",
+      "events": [
+        {
+          "paragraph": 4,
+          "start": 2477,
+          "end": 3081,
+          "quote": "1. Spider Web Exhibit's Haddock = 17\n2. Beetle Bungalow's Haddock = 16\n3. Haddock's Ulnar Carpal = 14\n4. Shark's Ulnar Carpal = 5\n5. Haddock's Accessory Carpal = 18\n6. The Deep's Beetle Bungalow = Beetle Bungalow's Haddock = 16 (since it's stated as equal)\n7. Beetle Bungalow's Shark = (7 + Beetle Bungalow's Haddock) = 7 + 16 = 23. But since we're working modulo 23, 23 mod 23 is 0. Wait, is that right? Let me check. The problem says \"the sum of 7 and the number of Beetle Bungalow's Haddock\". So 7 + 16 = 23. Then 23 mod 23 is 0. So Beetle Bungalow's Shark = 0? Hmm, maybe. Let me note that down as 0."
+        },
+        {
+          "paragraph": 13,
+          "start": 4212,
+          "end": 4699,
+          "quote": "14. Spider Web Exhibit's Haddock = The Florida Aquarium's Spider Web Exhibit = 4. Wait, but the original statement says \"The number of Spider Web Exhibit's Haddock equals the number of The Florida Aquarium's Spider Web Exhibit.\" So if The Florida Aquarium's Spider Web Exhibit is 4, then Spider Web Exhibit's Haddock is also 4? But wait, initially, the problem says \"The number of souvenir labels at the Spider Web Exhibit's Haddock display equals 17.\" Wait, hold on. Let me check again."
+        },
+        {
+          "paragraph": 20,
+          "start": 5544,
+          "end": 6300,
+          "quote": "\"The number of souvenir labels at the Spider Web Exhibit's Haddock display equals 17.\" So that's a quantity called \"Spider Web Exhibit's Haddock\" equals 17? Or is that a different quantity? Wait, the problem says \"the number of Spider Web Exhibit's Haddock\" in the question. So maybe the first statement is that \"Spider Web Exhibit's Haddock\" is 17. Then later, there's a statement that \"The number of Spider Web Exhibit's Haddock equals the number of The Florida Aquarium's Spider Web Exhibit.\" So that would mean that The Florida Aquarium's Spider Web Exhibit is also 17? But then later, we have The Florida Aquarium's Spider Web Exhibit equals The Deep's Bone, which we calculated as 4. That would create a contradiction unless there's a miscalculation."
+        },
+        {
+          "paragraph": 23,
+          "start": 6392,
+          "end": 7454,
+          "quote": "1. Spider Web Exhibit's Haddock = 17 (from the first sentence)\n2. Beetle Bungalow's Haddock = 16\n3. Haddock's Ulnar Carpal = 14\n4. Shark's Ulnar Carpal = 5\n5. Haddock's Accessory Carpal = 18\n6. The Deep's Beetle Bungalow = Beetle Bungalow's Haddock = 16\n7. Beetle Bungalow's Shark = 7 + Beetle Bungalow's Haddock = 7 + 16 = 23 → 0 mod 23\n8. Shark's Accessory Carpal = 12 + Haddock's Ulnar Carpal = 12 + 14 = 26 → 3 mod 23\n9. Shark's Bone = Shark's Accessory Carpal + Shark's Ulnar Carpal = 3 + 5 = 8 mod 23\n10. Haddock's Bone = Haddock's Accessory Carpal + Haddock's Ulnar Carpal = 18 + 14 = 32 → 9 mod 23\n11. Beetle Bungalow's Bone = (Beetle Bungalow's Shark * Shark's Bone) + (Beetle Bungalow's Haddock * Haddock's Bone) = (0 * 8) + (16 * 9) = 0 + 144 → 144 mod 23. 23*6=138, 144-138=6 → 6\n12. The Deep's Bone = The Deep's Beetle Bungalow * Beetle Bungalow's Bone = 16 * 6 = 96 → 96 mod 23. 23*4=92, 96-92=4 → 4\n13. The Florida Aquarium's Spider Web Exhibit = The Deep's Bone = 4\n14. Spider Web Exhibit's Haddock = The Florida Aquarium's Spider Web Exhibit = 4"
+        },
+        {
+          "paragraph": 27,
+          "start": 9684,
+          "end": 10534,
+          "quote": "So the first sentence is \"The number of souvenir labels at the Spider Web Exhibit's Haddock display equals 17.\" So that is a separate quantity, which is \"souvenir labels at Spider Web Exhibit's Haddock display\" equals 17. However, the question asks for \"the number of Spider Web Exhibit's Haddock\", which might be different. Wait, but the problem later says \"The number of Spider Web Exhibit's Haddock equals the number of The Florida Aquarium's Spider Web Exhibit.\" So perhaps there's a confusion between \"Spider Web Exhibit's Haddock\" and \"souvenir labels at Spider Web Exhibit's Haddock display\". But the problem says \"the number of Spider Web Exhibit's Haddock\" is what we need to find, and the first given is about the souvenir labels. However, maybe in the problem's context, they are considered the same? Or maybe not. This is a bit confusing."
+        },
+        {
+          "paragraph": 32,
+          "start": 11143,
+          "end": 11734,
+          "quote": "So that's \"souvenir labels at Spider Web Exhibit's Haddock display\" equals 17. Then later, the problem says \"The number of Spider Web Exhibit's Haddock equals the number of The Florida Aquarium's Spider Web Exhibit.\" So \"Spider Web Exhibit's Haddock\" is a different quantity from \"souvenir labels at Spider Web Exhibit's Haddock display\". Therefore, the initial 17 is not the value of Spider Web Exhibit's Haddock, but of another quantity. Therefore, the first given is not directly the value we need. Instead, we need to compute Spider Web Exhibit's Haddock through the other relationships."
+        },
+        {
+          "paragraph": 38,
+          "start": 13311,
+          "end": 14198,
+          "quote": "But then the first statement says \"The number of souvenir labels at the Spider Web Exhibit's Haddock display equals 17.\" So that's a different quantity, maybe unrelated to the others? But the problem doesn't mention it in the final question, so maybe it's just extra information. The question asks for Spider Web Exhibit's Haddock, which through the relationships is 4. But the initial statement says there are 17 souvenir labels at the Spider Web Exhibit's Haddock display. However, since the problem says \"All arithmetic is modulo 23,\" maybe the 17 is just a red herring, or maybe it's part of another calculation? Wait, but the problem also mentions \"the number of unrelated blue lanterns equals 17\" and \"the number of unrelated green ribbons equals 9.\" These might be separate and not involved in the calculations for Spider Web Exhibit's Haddock. Therefore, perhaps the answer is 4."
+        },
+        {
+          "paragraph": 41,
+          "start": 14885,
+          "end": 15342,
+          "quote": "Therefore, according to this, the number of Spider Web Exhibit's Haddock is 4. However, the problem initially mentions that there are 17 souvenir labels at the Spider Web Exhibit's Haddock display. But since the problem says \"All arithmetic is modulo 23,\" maybe that 17 is just a separate quantity and not affecting the answer. Also, the problem mentions unrelated blue lanterns and green ribbons, which are also separate. Therefore, the answer should be 4."
+        }
+      ]
+    },
+    {
+      "code": "V03",
+      "verdict": "support_same_paragraph_order",
+      "paragraphs": [
+        6,
+        7
+      ],
+      "judgment": "同段先疑问后完成明确分离，不能把S前Q自动计为S后事件；只审这处边界。",
+      "first_pass_saved_separately": false,
+      "comparison_to_current_annotation": "support_same_paragraph_order",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "task_id": "igsm-pr9-20261008-0055-op21",
+      "seed": 0,
+      "role": "reference",
+      "text_sha256": "b9092d7c0a0aba2ac7388edd8bf2adf6373b4bd9f7bd4729c3758ab5ce6b6e7c",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "no_source_reopening_observed",
+      "proposed_category": "no_source_reopening_observed",
+      "category_changed": false,
+      "original_adoption": "none_observed",
+      "proposed_adoption": "none_observed",
+      "hypothesis_scope_notes": null,
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/V03.md",
+      "events": [
+        {
+          "paragraph": 6,
+          "start": 5900,
+          "end": 7221,
+          "quote": "Wait, the problem says: \"The number of souvenir labels at the Amygdala's Dendritic Cells display equals 17.\" So that's the number of labels, which is 17. But the question is about \"the number of Amygdala's Dendritic Cells\", which is a different quantity? Or is the number of labels equal to the number of Amygdala's Dendritic Cells? The wording is a bit ambiguous. But since the problem later defines \"the number of Amygdala's Dendritic Cells\" as something else, I think that the initial 17 is a separate quantity. Wait, but the problem says \"the number of Amygdala's Dendritic Cells equals (the sum of ...)\" later. So perhaps the initial 17 is a different quantity. Wait, maybe the problem is that the first line is about souvenir labels, which is a different count. But the question is about \"the number of Amygdala's Dendritic Cells\", which is defined later. Therefore, maybe the initial 17 is not the answer, but a separate value. Wait, but the problem says \"the number of souvenir labels at the Amygdala's Dendritic Cells display equals 17.\" So that's the number of labels, which is separate from the actual count of Amygdala's Dendritic Cells. Therefore, the initial value of 17 is not the answer. Therefore, I need to compute the final value of Amygdala's Dendritic Cells using the equations given. Let me confirm."
+        },
+        {
+          "paragraph": 7,
+          "start": 7223,
+          "end": 7560,
+          "quote": "Yes, the problem says \"the number of Amygdala's Dendritic Cells equals (the sum of ...)\" later. Therefore, the initial 17 is the number of souvenir labels, which is different from the number of Amygdala's Dendritic Cells. Therefore, I need to compute the value of A_D (Amygdala's Dendritic Cells) using the equations. So, let me proceed."
+        }
+      ]
+    },
+    {
+      "code": "V36",
+      "verdict": "support_same_paragraph_order",
+      "paragraphs": [
+        20
+      ],
+      "judgment": "先问身份，后区分S_labels与L并排除无陈述的关系；只审该段边界。",
+      "first_pass_saved_separately": false,
+      "comparison_to_current_annotation": "support_same_paragraph_order",
+      "adopted_wrong_working_value": null,
+      "nonhypothetical_consumers": [],
+      "task_id": "igsm-pr9-20261008-0032-op5",
+      "seed": 3,
+      "role": "noise",
+      "text_sha256": "0bed994564c8a46ba67b9177ede357096105be43a0cb470f345b7aa90caf64cb",
+      "source_commit": "c20e0461c7158ec66b1f69abfd8d132cd6b275c8",
+      "annotation_commit": "fc5a144581f19be090ef90b074fe1845daac4d4c",
+      "actual_review_scope": "selected contextual paragraphs and relevant hypothesis openings/exits; not whole-trace semantic reannotation",
+      "original_category": "no_source_reopening_observed",
+      "proposed_category": "no_source_reopening_observed",
+      "category_changed": false,
+      "original_adoption": "none_observed",
+      "proposed_adoption": "none_observed",
+      "hypothesis_scope_notes": null,
+      "strict_recurrence_confirmed": null,
+      "evidence_file": "evidence/V36.md",
+      "events": [
+        {
+          "paragraph": 20,
+          "start": 4783,
+          "end": 5750,
+          "quote": "But let me check if there's any other steps or if I missed something. For example, the first statement says the number of souvenir labels is 17. But the question is about the number of Lumpini Park in Bangkok's Sea Anemone, which is L. The first statement might be a red herring, or maybe there's a connection. Wait, the first statement says \"The number of souvenir labels at the Lumpini Park in Bangkok's Sea Anemone display equals 17.\" But the fifth statement refers to \"the number of Lumpini Park in Bangkok's Sea Anemone\" which is L. Are these two different quantities? The first is about souvenir labels, the fifth is about the park's Sea Anemone? Maybe they are different. So the first statement is S_labels = 17, but the fifth is L = 8*(...). So unless there's a relation between S_labels and L, which is not stated, we don't need to consider it. Similarly, the unrelated blue lanterns and green ribbons are mentioned, but they don't seem to be connected to L."
+        }
+      ]
+    }
+  ]
+}

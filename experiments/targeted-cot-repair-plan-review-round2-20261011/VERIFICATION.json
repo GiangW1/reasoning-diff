@@ -1,0 +1,35 @@
+{
+  "artifact_type": "server_plan_review_round2",
+  "reviewed_commit": "9af62dcfb7ca9f2dfc17228a0faab7c768a9f631",
+  "parent_commit": "f2a374c039c807a974b0cc1becfcfd2f68bde51d",
+  "prior_review": "f2a374c039c807a974b0cc1becfcfd2f68bde51d",
+  "model_experiments_run": false,
+  "experiment_code_changed": false,
+  "execution_authorized": false,
+  "recommendation": "enter_execution_preparation_only",
+  "resolved": [
+    "candidate_root_mapping",
+    "annotation_and_future_output_isolation",
+    "boundary_specification",
+    "static_task_distinguishability_rules"
+  ],
+  "partially_resolved": [
+    "Ls_Lt_prompt_asymmetry",
+    "boundary_and_scorer_implementation"
+  ],
+  "joint_metric": "J=sum(H*P*W)-sum(L), K=ceil(m/4), J<=Delta",
+  "static_examples_independently_checked": {
+    "case_1": {
+      "J": 0,
+      "delta": 2,
+      "K": 2
+    },
+    "case_2": {
+      "J": 2,
+      "delta": 2,
+      "K": 2
+    }
+  },
+  "static_verification_scope": "纸面构造案例与确定性规则核对；不是解析器、任务生成器、修复接口、模型容量或统计功效测试。",
+  "remaining_scope_limit": "主比较仅适用于候选接口覆盖范围；须报告候选外和映射未知覆盖率。"
+}

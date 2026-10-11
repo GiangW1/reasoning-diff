@@ -1,0 +1,25 @@
+{
+  "artifact_type": "server_plan_review",
+  "reviewed_commit": "9442880f25353c927d1cef4b131c0f29d5c59e94",
+  "parent_commit": "71ea3b103c471d61f2b5aaa3021dbd7fd78efa67",
+  "model_experiments_run": false,
+  "experiment_code_changed": false,
+  "recommendation": "revise_before_execution_preparation",
+  "blocking_findings": [
+    "B1_candidate_root_cause_scope_is_not_closed"
+  ],
+  "important_findings": [
+    "I1_annotation_blinding_and_saved_graph_scope",
+    "I2_boundary_and_free_text_parser_unvalidated",
+    "I3_source_prompt_asymmetry",
+    "I4_single_seed_small_pilot",
+    "I5_task_generator_distinguishability_checks"
+  ],
+  "paper_checks_passed": [
+    "latest_head_verified",
+    "git_diff_check_passed",
+    "request_budget_488",
+    "decode_caps_896"
+  ],
+  "scope": "静态方案审查；不是实现测试、模型实验、统计功效证明或执行授权。"
+}

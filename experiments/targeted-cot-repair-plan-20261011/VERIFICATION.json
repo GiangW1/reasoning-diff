@@ -1,0 +1,135 @@
+{
+  "artifact_type": "review_only_research_proposal",
+  "date": "2026-10-11",
+  "repository": "GiangW1/reasoning-diff",
+  "pull_request": 10,
+  "reviewed_remote_parent": "71ea3b103c471d61f2b5aaa3021dbd7fd78efa67",
+  "model_experiments_run": false,
+  "experiment_code_changed": false,
+  "execution_authorized": false,
+  "server_review_completed": false,
+  "files": [
+    {
+      "path": "PLAN.zh-CN.md",
+      "sha256": "b4d9c8d6d6e5bb552e750830315b84e41fef29afa5327fe34971f0148ed4d1a2"
+    },
+    {
+      "path": "REVIEW_REQUEST.zh-CN.md",
+      "sha256": "0cfa45d66d0a7bb3f415455ad4312bcd9f71a443f6f4f8972854f2abcaef6b73"
+    }
+  ],
+  "verification_scope": "本地纸面评分反例、确定性算式与请求预算核对；不是模型实验、实验实现测试、文本解析器验证、独立复核或统计功效证明。",
+  "scorer_scope": "只接收事先声明的实际结果、协议有效性和冲突标记；不从自然语言推断是否实际采用，不验证标注规则可以稳定实施。",
+  "example": {
+    "correct": {
+      "x": 15,
+      "u": 47,
+      "v": 99,
+      "w": 79,
+      "z": 161,
+      "y": 16,
+      "k": 35,
+      "h": 106
+    },
+    "wrong_source": {
+      "x": 9,
+      "u": 29,
+      "v": 63,
+      "w": 49,
+      "z": 101
+    },
+    "common_consumers": [
+      "v",
+      "w",
+      "z",
+      "h"
+    ]
+  },
+  "planned_request_upper_bounds": {
+    "interface": 32,
+    "original_trajectories": 48,
+    "localizers": 96,
+    "error_repairs": 168,
+    "clean_repairs": 144,
+    "total": 488
+  },
+  "planned_decode_caps": {
+    "S_T": {
+      "localize": 256,
+      "repair": 128,
+      "continuation": 512,
+      "total": 896
+    },
+    "G": {
+      "review_and_patch": 384,
+      "continuation": 512,
+      "total": 896
+    },
+    "F": {
+      "total": 896
+    }
+  },
+  "static_checks": [
+    {
+      "name": "N_can_recover_without_rewriting_history",
+      "pass": true,
+      "details": "旧前缀错误不属于共同Y的必要修改项。"
+    },
+    {
+      "name": "correct_patch_but_wrong_consumer_fails",
+      "pass": true,
+      "details": "历史补丁正确不替代后续消费者恢复。"
+    },
+    {
+      "name": "rejected_hypothesis_not_actual_result",
+      "pass": true,
+      "details": "假设分支旧数未进入accepted结果；只检查声明的评分口径，不验证文本解析器。"
+    },
+    {
+      "name": "unresolved_conflicting_results_fail",
+      "pass": true,
+      "details": "未消解的实际结果冲突不能凭最后数字计成功。"
+    },
+    {
+      "name": "missing_consumer_fails",
+      "pass": true,
+      "details": "缺少独立消费者也不能成功。"
+    },
+    {
+      "name": "protocol_failure_not_filtered_out",
+      "pass": true,
+      "details": "保留主分母并计失败。"
+    },
+    {
+      "name": "net_gain_counts_losses",
+      "pass": true,
+      "details": "一胜一负为零净增。"
+    },
+    {
+      "name": "oracle_uses_forced_correct_control",
+      "pass": true,
+      "details": "强制C=1但门控C=0时，O/C位置比较只能用前者。"
+    },
+    {
+      "name": "ceiling_is_not_failure_of_repair",
+      "pass": true,
+      "details": "8个N全部恢复时，净增2题门槛无提升空间，应判天花板。"
+    },
+    {
+      "name": "request_budget",
+      "pass": true,
+      "details": "32接口+48原始+96定位+168错误修复+144干净修复。"
+    },
+    {
+      "name": "end_to_end_decode_caps",
+      "pass": true,
+      "details": "S/T、G、F均896解码上限；不声称总算力相同。"
+    }
+  ],
+  "remaining_review_risks": [
+    "现有模型是否支持无未来答案泄漏的固定边界及短调用预算，尚未通过模型试验验证。",
+    "根因与实际采用的语义裁决、假设作用域和结构捷径需要服务器独立审查。",
+    "同解码上限不等于同总算力；自然错误供给与后续恢复的天花板可能使方案不可检验。",
+    "小样本继续门槛仅是资源决策，不是机制成立、显著性或论文新意证明。"
+  ]
+}
